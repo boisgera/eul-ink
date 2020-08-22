@@ -1,0 +1,733 @@
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, Mines ParisTech">
+  <meta name="dcterms.date" content="2019-09-30">
+  <title>Analytic Functions</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: content-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+html {
+  line-height: var(--base-line-height);
+  --base-font-size: 24px;
+  --base-line-height: 36px;
+  --scale-ratio: 1.4142135623730951;
+  --small: 17px;
+  --medium: 24px;
+  --large: 34px;
+  --x-large: 48px;
+  font-size: 24px;
+  font-family: 'Alegreya', serif;
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html em {
+  font-style: italic;
+}
+html strong {
+  font-weight: bold;
+}
+html p, html .p {
+  margin-bottom: var(--base-line-height);
+  text-align: justify;
+  hyphens: auto;
+  -moz-hyphens: auto;
+}
+html section {
+  margin-bottom: var(--base-line-height_px);
+}
+html main {
+  box-sizing: content-box;
+  max-width: 32em;
+  margin: auto;
+  padding: var(--base-line-height);
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, q:before {
+  content: none;
+}
+blockquote:after, q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: medium solid black;
+  border-bottom: medium solid black;
+}
+main > header, main > .header, main > #header {
+  margin-top: calc(2 * var(--base-line-height));
+  margin-bottom: calc(2 * var(--base-line-height));
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: calc(1.5 * var(--base-line-height));
+  margin-top: 0;
+  margin-bottom: var(--base-line-height);
+  font-weight: bold;
+}
+main > header .author, main > .header .author, main > #header .author {
+  font-size: 24px;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  font-weight: normal;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: 'Alegreya SC', serif;
+  line-height: calc(1 * var(--base-line-height));
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  font-weight: bold;
+  line-height: calc(1.25 * var(--base-line-height));
+  margin-top: calc(2.00 * var(--base-line-height));
+  margin-bottom: calc(0.75 * var(--base-line-height));
+}
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+}
+h3, h4, h5, h6 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 1em;
+  display: inline;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
+}
+a:hover {
+  text-decoration: none;
+}
+a:link {
+  color: var(--color);
+}
+a:visited {
+  color: var(--color);
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li {
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  margin-left: var(--base-line-height);
+  padding-left: 0.5em;
+}
+ul li {
+  list-style: disc;
+}
+ol li {
+  list-style: decimal;
+}
+blockquote {
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+  padding: var(--base-line-height);
+  margin-bottom: var(--base-line-height);
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-size: 24px;
+  font-family: Inconsolata;
+}
+pre {
+  overflow-x: auto;
+  background-color: #ebebeb;
+  margin-bottom: var(--base-line-height);
+  padding-left: var(--base-line-height);
+  padding-right: var(--base-line-height);
+  padding-top: var(--base-line-height);
+  padding-bottom: var(--base-line-height);
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: auto;
+}
+figure {
+  margin-bottom: var(--base-line-height);
+  text-align: center;
+}
+figcaption {
+  display: inline-block;
+  font-style: italic;
+  text-align: justify;
+}
+.table {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  margin-bottom: var(--base-line-height);
+}
+thead {
+  border-bottom: medium solid black;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+.MJXc-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+nav#TOC > ul {
+  position: relative;
+  font-weight: bold;
+}
+nav#TOC > ul > * {
+  margin-bottom: var(--base-line-height);
+}
+nav#TOC > ul li {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+nav#TOC > ul ul li {
+  margin-left: var(--base-line-height);
+  font-weight: normal;
+}
+nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+  padding-bottom: var(--base-line-height);
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+.badge {
+  position: relative;
+  bottom: 0.13em;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  font-weight: 300;
+  font-size: var(--small);
+  display: inline-block;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  vertical-align: baseline;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+  margin-right: 1em;
+}
+.section-flag {
+  line-height: var(--base-line-height);
+  font-size: var(--small);
+  font-weight: 300;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  margin-bottom: 0;
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya: 400,700,900,400italic,700italic,900italic|Alegreya+SC:400,700,900,400italic,700italic,900italic|Alegreya+Sans:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+Sans+SC:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var box, hide_proof, main, show_proof;
+
+  hide_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("expanded");
+    sectionWrapper.addClass("minimized");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "visible"
+    });
+    w$(".header-wrapper").css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().css({
+      visibility: "hidden",
+      height: "0px"
+    });
+    w$(".header-wrapper").attr({
+      id: w$("section").first().attr("id")
+    });
+    return w$("section").first().attr({
+      id: ""
+    });
+  };
+
+  show_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("minimized");
+    sectionWrapper.addClass("expanded");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "hidden"
+    });
+    w$(".header-wrapper").css({
+      visibility: "hidden",
+      height: "0"
+    });
+    w$("section").first().css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().attr({
+      id: w$(".header-wrapper").attr("id")
+    });
+    return w$(".header-wrapper").attr({
+      id: ""
+    });
+  };
+
+  box = function(section) {
+    var clone, expand, header, headerWrapper, tombstone, wrapper;
+    clone = section.clone(true);
+    clone.css({
+      marginBottom: "0"
+    });
+    clone.children().last().css({
+      marginBottom: "0"
+    });
+    tombstone = clone.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer",
+      position: "absolute",
+      bottom: "0.75rem",
+      right: "0.75rem"
+    });
+    wrapper = $("<div class='proof-wrapper expanded'></div>");
+    wrapper.css({
+      position: "relative",
+      margin: "-0.75rem -0.75rem 0.75rem -0.75rem",
+      padding: "0.75rem",
+      backgroundColor: "#f9f9f9"
+    });
+    header = clone.find("h3, h4, h5, h6").first().clone();
+    headerWrapper = $("<div class='p header-wrapper' style='margin-bottom:0; visibility:hidden; overflow:hidden; height:0;'> </div>");
+    headerWrapper.append(header);
+    expand = $("<i class='fa fa-caret-down expand' style='visibility:hidden; cursor:pointer; position:absolute; top:0.75rem; right:0.75rem;'> </i>");
+    wrapper.append(headerWrapper);
+    wrapper.append(expand);
+    wrapper.append(clone);
+    expand.on("click", function() {
+      return show_proof(wrapper);
+    });
+    tombstone.on("click", function() {
+      return hide_proof(wrapper);
+    });
+    section.replaceWith(wrapper);
+    return wrapper;
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, section, sections, text, wrapper;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      wrapper = box(section);
+      hide_proof(wrapper);
+    }
+    return $(document).keydown(function(event) {
+      var k, l, len2, len3, ref1, ref2, results, sectionWrapper;
+      console.log("***", event.keyCode);
+      if (event.keyCode === 88) {
+        ref1 = $(".proof-wrapper.minimized");
+        for (k = 0, len2 = ref1.length; k < len2; k++) {
+          sectionWrapper = ref1[k];
+          show_proof($(sectionWrapper));
+        }
+      }
+      if (event.keyCode === 77) {
+        ref2 = $(".proof-wrapper.expanded");
+        results = [];
+        for (l = 0, len3 = ref2.length; l < len3; l++) {
+          sectionWrapper = ref2[l];
+          results.push(hide_proof($(sectionWrapper)));
+        }
+        return results;
+      }
+    });
+  };
+
+  $(main);
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var make_preview, mathjaxDebug;
+
+  make_preview = function(elt) {
+    var card, hidden_css, hide_preview, id, ref, show_preview, url, visible_css;
+    ref = elt.attr("href").split("#"), url = ref[0], id = ref[1];
+    card = $("<div class='card'>\n  <div class='holder'>\n    <p>Placeholder</p>\n  </div>\n</div>");
+    card.css({
+      width: "35vw",
+      padding: "1.5rem",
+      position: "fixed",
+      top: "1.5rem",
+      right: "1.5rem",
+      boxSizing: "border-box",
+      maxHeight: "calc(100vh - 3rem)",
+      overflow: "hidden",
+      boxShadow: "0 0 1rem #e6e6e6",
+      backgroundColor: "white"
+    });
+    visible_css = {
+      visibility: "visible",
+      opacity: 1,
+      transform: "translateX(0em)",
+      transition: "all 0.3s linear"
+    };
+    hidden_css = {
+      visibility: "hidden",
+      opacity: 0,
+      transform: "translateX(1em)",
+      transition: "all 0.3s linear 0.5s"
+    };
+    card.css(hidden_css);
+    elt.css({
+      textDecoration: "underline solid #0a0a0a",
+      textDecorationSkip: "ink",
+      transition: "background-color 0.3s linear"
+    });
+    show_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d3"
+      });
+      return card.css(visible_css);
+    };
+    hide_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d300"
+      });
+      return card.css(hidden_css);
+    };
+    return card.find(".holder").load(url + (" [id='" + id + "']"), function(response, status, jxXHR) {
+      console.log("XHR status:", status, url, id);
+      if (status === "success" || status === "notmodified") {
+        console.log("success!");
+        console.log("elt:", $(elt));
+        $("body").append(card);
+        card.find("p, .p").css({
+          textAlign: "left"
+        });
+        card.find("section").css({
+          marginBottom: "0"
+        });
+        card.find("section").children().last().css({
+          marginBottom: "0"
+        });
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, card[0]]);
+        elt.on("mouseenter", show_preview);
+        return elt.on("mouseleave", hide_preview);
+      }
+    });
+  };
+
+  mathjaxDebug = function() {
+    MathJax.Hub.signal.Interest(function(message) {
+      return console.log("*", message);
+    });
+    return MathJax.Hub.Register.StartupHook("End Process", function() {
+      var i, jax, len, ref, results;
+      console.log("list of jaxes:");
+      ref = MathJax.Hub.getAllJax();
+      results = [];
+      for (i = 0, len = ref.length; i < len; i++) {
+        jax = ref[i];
+        results.push(console.log("jax:", jax));
+      }
+      return results;
+    });
+  };
+
+  $(function() {
+    var elt, i, len, ref, results;
+    ref = $("a.preview");
+    results = [];
+    for (i = 0, len = ref.length; i < len; i++) {
+      elt = ref[i];
+      results.push(make_preview($(elt)));
+    }
+    return results;
+  });
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">Analytic Functions</a></h1>
+
+<h2 class="author">
+By <a href="mailto:%20Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, Mines ParisTech, under <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+</h2> 
+
+<h3 class="date" style="margin-right: 0px;">September 30, 2019</h3>
+</header>
+<section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
+<ul>
+<li class="top-li"><p class="section-flag">section 1</p><a href="#exercises">Exercises</a><ul>
+<li><a href="#taylor-series-of-a-rational-function">Taylor Series of a Rational Function</a><ul>
+<li><span class="badge">que<span></span></span><a href="#questions">Questions</a></li>
+<li><span class="badge">ans<span></span></span><a href="#answers">Answers</a></li>
+</ul></li>
+<li><a href="#analytic-functions-of-a-real-variable">Analytic Functions of a Real Variable</a><ul>
+<li><span class="badge">que<span></span></span><a href="#questions-1">Questions</a></li>
+<li><span class="badge">ans<span></span></span><a href="#answers-1">Answers</a></li>
+</ul></li>
+<li><a href="#periodic-analytic-functions">Periodic Analytic Functions</a><ul>
+<li><a href="#notations.">Notations.</a></li>
+<li><span class="badge">que<span></span></span><a href="#questions-2">Questions</a></li>
+<li><span class="badge">ans<span></span></span><a href="#answers-2">Answers</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav></section>
+<section id="exercises" class="level1">
+<h1><a href="#exercises">Exercises</a></h1>
+<section id="taylor-series-of-a-rational-function" class="level2">
+<h2><a href="#taylor-series-of-a-rational-function">Taylor Series of a Rational Function</a></h2>
+<section id="questions" class="level3">
+<h3><a href="#questions">Questions</a></h3><br>
+<ol type="1">
+<li><p>Show that the function <span class="math display">\[
+  f: x \in \mathbb{R} \mapsto \frac{1}{1+x^2}
+  \]</span> is analytic.</p></li>
+<li><p>Determine for any <span class="math inline">\(x_0 \in \mathbb{R}\)</span> the open interval of convergence of its Taylor series expansion at <span class="math inline">\(x_0\)</span>.</p></li>
+</ol>
+</section>
+<section id="answers" class="level3">
+<h3><a href="#answers">Answers</a></h3><br>
+<ol type="1">
+<li><p>The function <span class="math inline">\(f\)</span> is the restriction of the holomorphic function <span class="math display">\[
+  f^*: z \in \mathbb{C} \setminus \{i, -i\} \mapsto \frac{1}{1+z^2}.
+  \]</span></p></li>
+<li><p>For any <span class="math inline">\(x_0 \in \mathbb{R}\)</span>, the disk <span class="math display">\[
+  D(x_0) = D(x_0, \sqrt{1+x_0^2})
+  \]</span> is included in <span class="math inline">\(\mathbb{C} \setminus \{i, -i\}\)</span>. The radius of the disk of convergence of the Taylor expansion of <span class="math inline">\(f^*\)</span> at <span class="math inline">\(x_0\)</span> is therefore at least <span class="math inline">\(\sqrt{1+x_0^2}\)</span>; it cannot exceed this threshold: otherwise, the sum <span class="math inline">\(g(z)\)</span> of its Taylor series would be defined and holomorphic in an open set that contains <span class="math inline">\(\overline{D}_0\)</span> and therefore bounded on <span class="math inline">\(D_0\)</span>; but <span class="math inline">\(g\)</span> and <span class="math inline">\(f^*\)</span> are identical on <span class="math inline">\(D_0\)</span> where <span class="math inline">\(f^*\)</span> is unbounded. Finally, as the Taylor expansion of <span class="math inline">\(f\)</span> at <span class="math inline">\(x_0\)</span> has the same coefficient as the Taylor expansion of <span class="math inline">\(f^*\)</span> at <span class="math inline">\(x_0\)</span>, the open interval of convergence of <span class="math inline">\(f^*\)</span> at <span class="math inline">\(x_0\)</span> is <span class="math display">\[
+  \left]x_0 - \sqrt{1+ x_0^2}, x_0 + \sqrt{1+x_0^2} \right[.
+  \]</span></p></li>
+</ol>
+</section>
+</section>
+<section id="analytic-functions-of-a-real-variable" class="level2">
+<h2><a href="#analytic-functions-of-a-real-variable">Analytic Functions of a Real Variable</a></h2>
+<section id="questions-1" class="level3">
+<h3><a href="#questions-1">Questions</a></h3><br>
+<ol type="1">
+<li><p>Show that the function <span class="math inline">\(f: \mathbb{R} \to \mathbb{C}\)</span> defined by <span class="math display">\[
+  f(x) = \left| 
+  \begin{array}{rl}
+  e^{-1/x} &amp; \mbox{if } \, x &gt; 0 \\
+  0        &amp; \mbox{otherwise.}
+  \end{array}
+  \right.
+  \]</span> is smooth but is not analytic.</p>
+<figure>
+<img src="images/smooth.svg" alt="The graph of a function which is smooth, but not analytic."><figcaption>The graph of a function which is smooth, but not analytic.</figcaption>
+</figure></li>
+<li><p>Let <span class="math inline">\(K\)</span> be an compact interval of <span class="math inline">\(\mathbb{R}\)</span> and <span class="math inline">\(f: K \to \mathbb{C}\)</span> be a smooth function. Show that <span class="math inline">\(f\)</span> is analytic if and only if there are positive constants <span class="math inline">\(\alpha &gt; 0\)</span> and <span class="math inline">\(r&gt;0\)</span> such that <span class="math display">\[
+  \forall \, x \in K, \forall \, n \in \mathbb{N}, \; 
+  |f^{(n)}(x)| \leq \alpha \, r^n n!
+  \]</span></p></li>
+</ol>
+</section>
+<section id="answers-1" class="level3">
+<h3><a href="#answers-1">Answers</a></h3><br>
+<ol type="1">
+<li><p>By induction, for any <span class="math inline">\(x&gt;0\)</span>, <span class="math inline">\(f^{(n)}(x) = g_n(x) e^{-1/x}\)</span> where <span class="math inline">\(g_n\)</span> is a rational function, defined for <span class="math inline">\(x&gt;0\)</span> by <span class="math display">\[
+   g_0(x) = 1 
+   \; \wedge \; 
+   \forall \, n \in \mathbb{N}, 
+   \; g_{n+1}(x) = g'_n(x) + \frac{g_n(x)}{x^2}.
+   \]</span> On the other hand, for <span class="math inline">\(x \leq 0\)</span>, the <span class="math inline">\(n\)</span>-th order derivative (left-derivative at <span class="math inline">\(x=0\)</span>) of <span class="math inline">\(f\)</span> at <span class="math inline">\(x\)</span> is defined and equal to <span class="math inline">\(0\)</span>. To prove that <span class="math inline">\(f\)</span> is smooth, we now have to prove that the right, <span class="math inline">\(n\)</span>-th order derivative of <span class="math inline">\(f\)</span> at <span class="math inline">\(0\)</span> exists and is equal to its left derivative, that is zero. We may proceed by induction: suppose that <span class="math inline">\(f^{(n)}(0)\)</span> exists and is zero; then <span class="math display">\[
+   \frac{f^{(n)}(h)-f^{(n)}(0)}{h}
+   = \frac{1}{h}\int_0^h f^{(n+1)}(x) dx.
+   \]</span> But for any <span class="math inline">\(n\)</span>, we have <span class="math display">\[
+   \lim_{x \to 0^+} f^{(n+1)}(x) = \lim_{x \to 0^+} g_{n+1}(x) e^{-1/x} = 0,
+   \]</span> hence the right-hand side of the equation tends to zero when <span class="math inline">\(h\to 0^+\)</span>: the <span class="math inline">\(n+1\)</span>-th order right derivative of <span class="math inline">\(f\)</span> exists at <span class="math inline">\(x=0\)</span> and is equal to zero.</p>
+<p>Now, the function <span class="math inline">\(f\)</span> cannot be analytic: given that its derivatives at <span class="math inline">\(x=0\)</span> are zero at all order, its Taylor series expansion at the origin is zero. The function <span class="math inline">\(f\)</span> would be zero in a neighbourhood of the origin, and this property does not hold.</p></li>
+<li><p>If the function <span class="math inline">\(f\)</span> is smooth, for any real numbers <span class="math inline">\(c\)</span> and <span class="math inline">\(y\)</span> in <span class="math inline">\(K\)</span>, the Taylor formula with integral remainder is applicable at any order <span class="math inline">\(n\)</span>: <span class="math display">\[
+   f(y) 
+   = 
+   \sum_{p=0}^n \frac{f^{(p)}(c)}{p!} (y-c)^p + 
+   \int_c^y \frac{f^{(n+1)}(x)}{n!}(x-c)^n dx.
+   \]</span> If there exist <span class="math inline">\(\alpha&gt;0\)</span> and <span class="math inline">\(r&gt;0\)</span> such that the inequality <span class="math display">\[
+  \forall \, x \in K, \; |f^{(n)}(x)| \leq \alpha \, r^n n!
+  \]</span> holds, the remainder satisfies <span class="math display">\[
+   \begin{split}
+   \left|\int_c^y \frac{f^{(n+1)}(x)}{n!}(x-c)^n dx \right|
+   &amp; \leq
+   \alpha \, r^{n+1} \frac{(n+1)!}{n!} \left| \int_c^y (x - c)^n \, dx \right| \\
+   &amp; =  \alpha \, (r |y-c|)^{n+1}
+   \end{split}.
+   \]</span> Thus, if <span class="math inline">\(|y-c| &lt; 1/r\)</span>, the Taylor expansion of <span class="math inline">\(f\)</span> at <span class="math inline">\(y\)</span> centered on <span class="math inline">\(c\)</span> is convergent. As <span class="math inline">\(c\)</span> is an arbitrary point of <span class="math inline">\(I\)</span>, the function <span class="math inline">\(f\)</span> is analytic.</p>
+<p>Conversely, if <span class="math inline">\(f\)</span> is analytic, it has a holomorphic extension – that we may still denote <span class="math inline">\(f\)</span> – to some open neighbourhood <span class="math inline">\(U\)</span> of <span class="math inline">\(K\)</span>. The distance <span class="math inline">\(d\)</span> between <span class="math inline">\(K\)</span> and <span class="math inline">\(\mathbb{C} \setminus U\)</span> is positive: for any <span class="math inline">\(c \in K\)</span>, the disk <span class="math inline">\(D(c,d)\)</span> is included in <span class="math inline">\(U\)</span>. Let <span class="math inline">\(r\)</span> be a positive radius smaller than <span class="math inline">\(d\)</span> and <span class="math inline">\(\alpha\)</span> be an upper bound of <span class="math inline">\(|f|\)</span> on <span class="math inline">\(K + \overline{D}(0,r)\)</span>; for any natural number <span class="math inline">\(n\)</span>, we have <span class="math display">\[
+    \left|\frac{f^{(n)}(c)}{n!}\right| 
+    = 
+    \left|\frac{1}{i2\pi}\int_{r[\circlearrowleft]+c} \frac{f(z)}{(z-c)^{n+1}} dz \right| 
+    \leq 
+    \alpha
+    \left(r^{-1}\right)^n
+    \]</span> which concludes the proof.</p></li>
+</ol>
+</section>
+</section>
+<section id="periodic-analytic-functions" class="level2">
+<h2><a href="#periodic-analytic-functions">Periodic Analytic Functions</a></h2>
+<section id="notations." class="level3">
+
+<div class="p"><h3><a href="#notations.">Notations.</a></h3>‌ In this exercise, <span class="math inline">\(\mathbb{U}\)</span> is the unit circle centered at the origin: <span class="math display">\[
+  \mathbb{U} = \{z \in \mathbb{C} \; | \; |z| = 1\}.
+  \]</span> For any radius <span class="math inline">\(0 \leq r &lt; 1\)</span>, we define the annulus <span class="math display">\[
+  A_r = A(0,r, 1/r) = \{z \in \mathbb{C} \; | \; r &lt; |z| &lt;1/r \}
+  \]</span> (with the convention that <span class="math inline">\(A_0 = \mathbb{C}^*\)</span>). For any <span class="math inline">\(0 &lt; \epsilon \leq +\infty\)</span>, the notation <span class="math inline">\(\Omega_{\epsilon}\)</span> refers to the horizontal strip <span class="math display">\[
+  \Omega_{\epsilon} = \{z \in \mathbb{C} \; | \; |\mathrm{Im} \,\, z| &lt; \epsilon\}.
+  \]</span></div>
+</section>
+<section id="questions-2" class="level3">
+
+<div class="p"><h3><a href="#questions-2">Questions</a></h3>Let <span class="math inline">\(f:\mathbb{U} \to \mathbb{C}\)</span> be a function with an analytic extension in some open neighbourhood <span class="math inline">\(U\)</span> of <span class="math inline">\(\mathbb{U}\)</span>.</div>
+<ol type="1">
+<li><p>Prove that there is an annulus <span class="math inline">\(A_r\)</span> such that <span class="math inline">\({A}_r \subset U\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(g: t \in \mathbb{R} \mapsto f(e^{it})\)</span>; show that <span class="math inline">\(g\)</span> is a <span class="math inline">\(2\pi\)</span>-periodic analytic function.</p></li>
+</ol>
+<p>Conversely, let <span class="math inline">\(g: t \in \mathbb{R} \to \mathbb{C}\)</span> be a <span class="math inline">\(2\pi\)</span>-periodic analytic function.</p>
+<ol start="3" type="1">
+<li><p>Show there is an analytic extension <span class="math inline">\(g^*\)</span> of <span class="math inline">\(g\)</span> on some strip <span class="math inline">\(\Omega_{\epsilon}\)</span>, such that <span class="math display">\[
+  \forall \, z \in \Omega_{\epsilon}, \; g^*(z+2\pi) = g^*(z).
+  \]</span></p></li>
+<li><p>Show that there exist a function <span class="math inline">\(f:\mathbb{U} \to \mathbb{C}\)</span> with an analytic extension in some open neighbourhood of <span class="math inline">\(\mathbb{U}\)</span> such that <span class="math display">\[
+  \forall \, t \in \mathbb{R}, \; 
+  g(t)= f(e^{it}).
+  \]</span></p></li>
+</ol>
+</section>
+<section id="answers-2" class="level3">
+<h3><a href="#answers-2">Answers</a></h3><br>
+<ol type="1">
+<li><p>The set <span class="math inline">\(\mathbb{U}\)</span> is compact and the set <span class="math inline">\(\mathbb{C} \setminus U\)</span> is closed; their intersection is empty, thus the distance <span class="math inline">\(d = d(\mathbb{U}, \mathbb{C} \setminus U)\)</span> is positive (it may be <span class="math inline">\(+\infty\)</span> if <span class="math inline">\(U = \mathbb{C}\)</span>). On the other hand, for any <span class="math inline">\(r&lt;1\)</span>, <span class="math display">\[
+   d(\mathbb{U}, \mathbb{C} \setminus A_r) = \min(1- r, 1/r - 1) = 1 - r.
+   \]</span> Thus, for any <span class="math inline">\(r\)</span> such that <span class="math inline">\(1 - r &lt; d\)</span>, the annulus <span class="math inline">\({A}_r\)</span> is a subset of <span class="math inline">\(U\)</span>.</p></li>
+<li><p>The <span class="math inline">\(2\pi\)</span>-periodicity of <span class="math inline">\(g\)</span> is clear: for any <span class="math inline">\(t\in \mathbb{R}\)</span>, <span class="math display">\[
+   g(t + 2\pi) = f(e^{i(t+2\pi)}) = f(e^{it} e^{i2\pi}) = f(e^{it}) = g(t).
+   \]</span></p>
+<p>The assumption on <span class="math inline">\(f\)</span> and the result of the previous question provide a holomorphic extension <span class="math inline">\(f^*:A_r \to \mathbb{C}\)</span> to <span class="math inline">\(f:\mathbb{U} \to \mathbb{C}\)</span> for some <span class="math inline">\(r&lt;1\)</span>. Now, <span class="math display">\[|e^{iz}| = e^{\mathrm{Re} \,\, iz} = e^{-\mathrm{Im} \,\, z},\]</span> thus if <span class="math inline">\(|\mathrm{Im} \,\, z| &lt; \ln 1/r\)</span>, then <span class="math inline">\(\ln r &lt; -\mathrm{Im} \,\, z &lt; \ln 1/r\)</span> which yields <span class="math inline">\(r &lt;|e^{iz}|&lt;1/r\)</span>. Therefore, if we set <span class="math inline">\(\epsilon = \ln 1/r &gt; 0\)</span>, we have <span class="math display">\[
+   \forall \, z \in \mathbb{C}, \; (z \in \Omega_{\epsilon} \, \Rightarrow \, e^{iz} \in A_r).
+   \]</span></p>
+<p>Consequently, setting <span class="math inline">\(g^*(z) = f^*(e^{iz})\)</span> defines a function <span class="math inline">\(g^*\)</span> on <span class="math inline">\(\Omega_{\epsilon}\)</span>; it is an extension of <span class="math inline">\(g:\mathbb{R} \to \mathbb{C}\)</span> and it is holomorphic as the composition of holomorphic functions. Therefore, the function <span class="math inline">\(g:\mathbb{R} \to \mathbb{C}\)</span> is analytic.</p>
+<p><strong>Alternate proof.</strong> Consider the Laurent series expansion of <span class="math inline">\(f^*\)</span> in <span class="math inline">\(A_r\)</span>: <span class="math display">\[
+   f^*(z) = \sum_{n = -\infty}^{+\infty} a_n z^n.
+   \]</span> For any real numbers <span class="math inline">\(t_0\)</span> and <span class="math inline">\(t\)</span>, we have <span class="math display">\[
+   (e^{it})^n 
+     = e^{int}
+     = e^{int_0} e^{in(t-t_0)} 
+     = e^{int_0} \sum_{m =0}^{+\infty} \frac{1}{m!} i^m n^m (t-t_0)^m,
+   \]</span> therefore <span class="math display">\[
+   g(t) = f(e^{it}) = \sum_{n = -\infty}^{+\infty} a_n e^{int_0} 
+     \left[ \sum_{m =0}^{+\infty} \frac{1}{m!} i^m n^m (t-t_0)^m \right].
+   \]</span> We can change the order of the summation in this double series if <span class="math display">\[
+   \sum_{(m,n) \in \mathbb{N} \times \mathbb{Z}}
+   \left|  a_n e^{int_0} 
+     \frac{1}{m!} i^m n^m (t-t_0)^m
+   \right| &lt; +\infty
+   \]</span> The general term of this double series satisfies <span class="math display">\[
+   \left|a_n e^{int_0} 
+     \frac{1}{m!} i^m n^m (t-t_0)^m \right|
+   \leq |a_n| \frac{1}{m!}|n|^m |t-t_0|^m 
+   \]</span> hence the sum is bounded by <span class="math display">\[
+   \sum_{n=-\infty}^{+\infty} |a_n| (e^{|t-t_0|})^{|n|}
+   \leq 
+   \sum_{n=-\infty}^{+\infty} |a_n| (e^{t-t_0})^{n}
+   +
+   \sum_{n=-\infty}^{+\infty} |a_n| (e^{-(t-t_0)})^{n}.
+   \]</span> The Laurent series expansion of <span class="math inline">\(f^*\)</span> is absolutely convergent in <span class="math inline">\(A_r\)</span>, hence the sums in the right-hand side of this inequality are finite if <span class="math display">\[
+   r &lt; e^{t-t_0} &lt; 1/r \; \mbox{ and } \; r &lt; e^{-(t-t_0)} &lt; 1/r
+   \]</span> that is if <span class="math inline">\(|t-t_0| &lt; \epsilon = \ln 1/r\)</span>. After the change in the order of the summation, we end up with: <span class="math display">\[
+   \forall \, t \in \mathbb{R}, \;
+   |t - t_0| &lt; \epsilon \; \Rightarrow \; g(t) = \sum_{m = 0}^{+\infty} 
+     b_m
+     (t-t_0)^m
+   \]</span> where <span class="math display">\[
+   b_m = \left[ \sum_{n =-\infty}^{+\infty} a_n e^{int_0}  \frac{1}{m!} i^m n^m \right],
+   \]</span> hence the function <span class="math inline">\(g\)</span> is analytic.</p></li>
+<li><p>The function <span class="math inline">\(g\)</span> is analytic; let <span class="math inline">\(g^{0}\)</span> be an analytic extension of <span class="math inline">\(g\)</span> in some open neighbourhood <span class="math inline">\(\Omega\)</span> of <span class="math inline">\(\mathbb{R}\)</span>. However, if the distance between <span class="math inline">\(\mathbb{R}\)</span> and <span class="math inline">\(\mathbb{C} \setminus \Omega\)</span> is equal to zero – it may happen as both sets but neither of them is compact – then <span class="math inline">\(\Omega\)</span> contains no strip <span class="math inline">\(\Omega_{\epsilon}\)</span>.</p>
+<p>Let’s build a new analytic extension <span class="math inline">\(g^*\)</span> on such a strip from <span class="math inline">\(g^0\)</span>. First, the set <span class="math inline">\(\Omega\)</span> contains some open tubular neighbourhood <span class="math inline">\(V_{\epsilon}\)</span> of <span class="math inline">\([0,2\pi]\)</span> for any <span class="math inline">\(\epsilon &gt; 0\)</span> small enough: <span class="math display">\[
+   V_{\epsilon} = \{z \in \mathbb{C} \; | \; d(z, [0,2\pi]) &lt; \epsilon\} \subset \Omega.
+   \]</span> Indeed, <span class="math inline">\([0,2\pi]\)</span> is compact, <span class="math inline">\(\mathbb{C} \setminus \Omega\)</span> is closed and their intersection is empty, hence <span class="math inline">\(d(\mathbb{C} \setminus \Omega, [0,2\pi]) &gt; 0\)</span>; any <span class="math inline">\(\epsilon\)</span> smaller than (or equal to) this distance is admissible.</p>
+<p>Consider the function <span class="math inline">\(g^*\)</span> defined on <span class="math inline">\(\Omega_{\epsilon}\)</span> by <span class="math display">\[
+  g^*(z) = 
+  g^0(z+2\pi k) \; \mbox{ if } \; k \in \mathbb{Z} \; \mbox{ and } \; z + 2\pi k \in V_{\epsilon}.
+  \]</span> It is plain that <span class="math inline">\(g^*\)</span> is analytic and extends <span class="math inline">\(g\)</span> to <span class="math inline">\(\Omega_{\epsilon}\)</span>; by construction it also satisfies the property <span class="math display">\[
+  \forall \, z \in \Omega_{\epsilon}, \; g^*(z+2\pi) = g^*(z).
+  \]</span> The only point to check is that this definition is unambiguous, as we may have for some <span class="math inline">\(z\)</span> several integers <span class="math inline">\(k\)</span> and <span class="math inline">\(\ell\)</span> such that <span class="math inline">\(z_k = z + 2\pi k \in V_{\epsilon}\)</span> and <span class="math inline">\(z_{\ell} = z + 2\pi \ell \in V_{\epsilon}\)</span>. Assume for example that <span class="math inline">\(k &lt; \ell\)</span>; in this case <span class="math inline">\(z_k \in D(0,\epsilon)\)</span> and <span class="math inline">\(\ell = k + 1\)</span>, <em>i.e.</em> <span class="math inline">\(z_{\ell} = z_k + 2\pi\)</span>. The functions <span class="math display">\[
+  w \in D(0,\epsilon) \mapsto g^{0}(w) \; \mbox{ and } \; w \in D(0,\epsilon)
+  \mapsto g^{0}(w+2\pi)
+  \]</span> are holomorphic and identical on <span class="math inline">\(\left]-\epsilon,\epsilon\right[\)</span>; by the isolated zeros theorem, they are identical on <span class="math inline">\(D(0,\epsilon)\)</span> (which is connected) and in particular <span class="math inline">\(g(z_k) = g(z_{\ell})\)</span>. The definition of <span class="math inline">\(g^*\)</span> is actually unambiguous.</p></li>
+<li><p>To answer the question, we exhibit an analytic function <span class="math inline">\(f^*: A_r \to \mathbb{C}\)</span> with <span class="math inline">\(\epsilon = \ln 1/r\)</span> (or equivalently <span class="math inline">\(r = e^{-\epsilon}\)</span>) such that <span class="math display">\[
+  \forall \, z \in A_r, \; f^*(e^{iz}) = g^*(z).
+  \]</span> For any <span class="math inline">\(w \in \mathbb{C}^*\)</span>, there is a solution <span class="math inline">\(z_0\)</span> to the equation <span class="math display">\[
+  e^{iz} = w, \; z \in \mathbb{C}
+  \]</span> and the other solutionss are <span class="math inline">\(z_0 + 2\pi k\)</span>, for <span class="math inline">\(k \in \mathbb{Z}\)</span>. Additionally, if <span class="math inline">\(w \in A_r\)</span>, then <span class="math inline">\(z \in \Omega_{\epsilon}\)</span> with <span class="math inline">\(\epsilon = \ln 1/r\)</span>. We may define <span class="math inline">\(f^*: A_r \to \mathbb{C}\)</span> by <span class="math display">\[
+  f^*(w) = g^{*}(z), \; e^{iz} = w.
+  \]</span> This definition is unambiguous: two <span class="math inline">\(z\)</span> that correspond to the same <span class="math inline">\(w\)</span> differ from a multiple of <span class="math inline">\(2\pi\)</span>, but <span class="math inline">\(g^*\)</span> is <span class="math inline">\(2\pi\)</span>-periodic hence the right-hand sides of this definition are equal.</p>
+<p>Let’s prove that <span class="math inline">\(f^*\)</span> is analytic. Let <span class="math inline">\(w_0\)</span> in <span class="math inline">\(A_r\)</span> and <span class="math inline">\(z_0\)</span> such that <span class="math inline">\(e^{iz_0} = w_0\)</span>, the expression <span class="math display">\[
+  \phi(w) = -i \log \frac{w}{w_0} + z_0
+  \]</span> defines an analytic function <span class="math inline">\(\phi\)</span> in an neighbourhood of <span class="math inline">\(w_0\)</span>. It satisfies <span class="math inline">\(e^{i(\phi(w)-z_0)} = w/w_0\)</span>, thus <span class="math display">\[
+  e^{i\phi(w)} = w.
+  \]</span> Consequently, in a neighbourhood of <span class="math inline">\(w_0\)</span>, <span class="math display">\[
+  f^*(w) = g^*(\phi(w))
+  \]</span> and <span class="math inline">\(f^*\)</span> is holomorphic – locally everywhere – as a composition of holomorphic functions.</p></li>
+</ol>
+</section>
+</section>
+</section>
+</main>
+
+
+</body></html>

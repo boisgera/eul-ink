@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!-- Google Fonts -->
+    <link 
+      href='http://fonts.googleapis.com/css?family=Inconsolata:400,700&subset=latin,latin-ext'
+      rel='stylesheet' type='text/css'>
+    <link 
+      href='http://fonts.googleapis.com/css?family=PT+Serif:700' 
+      rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Alegreya:400,400italic,700,700italic,900,900italic|Alegreya+SC:400,400italic,700,700italic,900,900italic&subset=latin,latin-ext' 
+      rel='stylesheet' type='text/css'>
+    <!-- Mathjax -->
+    <script 
+      type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+      MathJax.Hub.Config({
+        "HTML-CSS": {scale: 90},
+        "TeX": {equationNumbers: {autoNumber: "AMS"}}
+      });
+    </script>
+    <title>Vox</title>
+  </head>
+  <body>
+
+    <section>
+<!----------------------------------------------------------------------------->
+
+<div class="header">
+<h1 class="title">Digital Audio Coding<br /> Lab Session 4 &mdash; Vox</h1>
+<h2 class="author"><a href="mailto:sebastien.boisgerault@mines-paristech.fr">Sébastien Boisgérault, Mines ParisTech</a></h2>
+<h3 class="date">Mar. 5, 2015</h3>
+</div>
+
+<p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/3.0">Creative Commons Attribution 3.0 Unported License (CC BY 3.0)</a>. You are free to <strong>share</strong> -- to copy, distribute and transmit the work -- and to <strong>remix</strong> -- to adapt the work -- under the condition that the work is properly attributed to its author.</p>
+<h1 id="preamble">Preamble</h1>
+<p>This lab session is dedicated to the compression of speech by linear prediction.</p>
+<p>These algorithms tend to behave differently on different kind of phones (the elementary phonetic units). In particular, the distinction of voiced phones -- for which the vocal cords vibrate -- and unvoiced phones -- for which they do not -- matters. We will therefore use audio speech samples from the TIMIT database, whose phonetic content has been already analyzed and indexed.</p>
+<p>TIMIT uses its own alphabet of phonetic symbols, made of ASCII letters (refer to the appendix for details).</p>
+<p><img src="images/she.svg" alt="silence" /><br />
+ You may also find convenient to use records on your own voice. In that case, export it as single-channel, 16-bit / 16 kHz Linear PCM data to conform to the format used by TIMIT audio data.</p>
+<h1 id="short-term-prediction">Short-Term Prediction</h1>
+<p>In the context of audio compression, prediction is used to transform an audio signal into a <em>prediction error</em>, the difference between the signal and the output of a reference model. If the model is accurate, the prediction error is smaller and less structured than the original signal and may be quantized with a reduced number of bits.</p>
+<p>We will only study the signal to error transformation (or <em>analysis filter</em>) and the inverse transformation (or <em>synthesis filter</em>) in this section and will not explicitely introduce the extra quantization (even though we still refer to the short-term predictor as a quantizer).</p>
+<p>In the sequel, we assume that the following objects have been imported:</p>
+<pre><code>from numpy import *
+from audio.filters import FIR, AR
+from audio.lp import lp
+from audio.quantizers import Quantizer</code></pre>
+<p>A skeleton for our short-term predictor quantizer class is:</p>
+<pre><code>class STP(Quantizer):
+    &quot;Short-Term Predictor&quot;
+    def __init__(self, order=16):
+        self.fir = FIR(a=r_[1.0, zeros(order)]) 
+        self.ar  = AR(a=zeros(order))
+        self.order = order
+    def encode(self, data):
+        ...
+    def decode(self, data):
+        ...</code></pre>
+<!--
+It uses the `FIR` and `AR` classes from the `audio.filters` module and the
+`Quantizer` base class from the `audio.quantizers` module.-->
+<p>The constructor is the only <code>STP</code> method implemented so far: when a call such as <code>stp = STP()</code> is performed, an instance of short-term predictor is created and bound to <code>stp</code>, then the constructor initializes instances of <code>FIR</code> and <code>AR</code> filters and stores them in <code>stp</code>.</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Analysis.</strong> The <code>encode</code> shall implement the analysis stage: given a new frame of numerical data, it shall compute the &quot;best&quot; approximation of the data as a linear combination of its past values (with the <code>lp</code> function of the <code>audio.lp</code> module). Then, it shall configure the analysis filter accordingly, feed him the input data, read the corresponding error output and return a pair of prediction coefficients and error.</p>
+<pre><code>    def encode(self, data):
+        order = min(self.order, len(data) - 1)
+        a = lp(data, order=order)
+        self.fir.a[:] = ?
+        error = self.fir(data)
+        return (a, error) </code></pre>
+<p>How should we configure the coefficients of the <code>FIR</code> filter to make it output the prediction error ? Replace the question mark accordingly in the above code.</p></li>
+<li><p><strong>Prediction Error.</strong> Select the audio data of an utterance of the TIMIT database. Split this data into frames of 20 ms and compute the error after a prediction of order 16. Plot the original data and the error on the same graph. Does the error look like a white noise for every phone in the utterance ?</p></li>
+<li><p><strong>Synthesis</strong>. The predictor <code>decode</code> method implements the synthesis stage; it is called with a pair of arguments: a list of filter coefficients and an array of error data, produced during the analysis stage. It configures the <code>AR</code> filter with the new filter coefficients, inputs the error data into the filter and returns the filter output.</p>
+<pre><code>    def decode(self, data):
+        a, error = data
+        self.ar.a[:] = ?
+        return self.ar(error)</code></pre>
+<p>How should the synthesis filter be configured so that its transfer function it the inverse of the transfer function of the analysis filter ? Replace the question mark accordingly.</p></li>
+<li><p><strong>Reconstruction Error.</strong> What should be the order of magnitude of the error between the input and the output of the short-term predictor ?</p>
+<p>Measure this error when the input run through the TIMIT database. What do you notice ? Can you provide an explanation for this discrepancy ? Check the relevance of this explanation. Implement a modification of the analysis stage that solves this issue.</p></li>
+<li><p><strong>Linear Predictive Coding (LPC).</strong> Select the audio data of an utterance of the TIMIT database and perform a (pure) linear predictive coding: synthesize the output with the prediction error frames replaced by frames of noise of the same energy. Can we still understand the original sentence despite the noisiness ?</p>
+<p>Repeat the experiment with a sentence uttered by several speakers (such as &quot;she had your dark suit in greasy wash water all year&quot;). Is there a distinct characteristic of the speaker voices that has not been preserved by the coding ?</p></li>
+</ol>
+<h1 id="long-term-prediction">Long-Term Prediction</h1>
+<p>A long-term prediction can address some of the limitations of the short-term analysis demonstrated previously. We will therefore develop a long-term predictor quantizer class whose skeleton is given by:</p>
+<pre><code>class LTP(Quantizer):
+    def __init__(self, order):
+        self.fir = FIR(a=r_[1.0, zeros(order)])
+        self.history = zeros(order)
+        self.ar = AR(a=zeros(order))
+        self.order = order
+    def encode(self, frame):
+        ...
+    def decode(self, data):
+        ...</code></pre>
+<ol style="list-style-type: decimal">
+<li><p><strong>Analysis.</strong> The long-term prediction attempts to match a new frame of signal values by scaled version of frames of the same size in the recent history of the signal. The temporal shift, counted in samples, is the <em>offset</em>, and the scale factor is the <em>gain</em>.</p>
+<p>If only a fixed-size array <code>history</code> of past values of the signal is known, what range of offsets can we try to match the new <code>frame</code> against ? If we intend to detect patterns whose period may be as low as <span class="math inline">\(50\)</span> Hz, what should therefore be the minimal length <code>order</code> of the <code>history</code> array ?</p>
+<p>Show that if an offset is selected, the best gain -- for a quadratic error criterion -- can be determined analytically. Use this result to implement the function <code>ltp_parameters</code> that computes the optimal offset and gain, with a loop over all possible offsets.</p>
+<pre><code>def ltp_parameters(history, frame):
+    ...
+    return offset, gain</code></pre>
+<p>Complete the implementation the <code>encode</code> method of <code>LTP</code> that computes for each new frame the ltp parameters and the prediction error using a FIR prediction error filter:</p>
+<pre><code>def encode(self, frame):
+    offset, gain = ltp_parameters(self.history, frame)
+    ...
+    self.fir.a[:] = ?
+    error = self.fir(frame)
+    self.history = r_[self.history[len(frame):], frame]
+    return (offset, gain), error</code></pre></li>
+<li><p><strong>Prediction Error.</strong> Go back the the prediction error subsection of the short-term prediction section. Apply a long-term prediction analysis to the short-term prediction error with (sub-)frames of 5 ms and an <code>order</code> consistent with the prediction of <span class="math inline">\(50\)</span> Hz patterns. Plot the original audio data, the short-term prediction error and the combined short-term and long-term prediction error on the same graph. Did the last stage improve the prediction ?</p></li>
+<li><p><strong>Synthesis.</strong> Implement the long-term prediction synthesis within the following code template:</p>
+<pre><code>def decode(self, data):
+    (offset, gain), error = data
+    ...
+    self.ar.a[:] = ?
+    return self.ar(error)        </code></pre></li>
+<li><p><strong>Reconstruction Error.</strong> Can the synthesis filter be unstable ? For what values of the offset and the gain ? Adapt the analysis stage to ensure that the synthesis stability is ensured.</p></li>
+<li><p><strong>Linear Predictive Coding (LPC).</strong> Go back to the short-term prediction LPC subsection and chain a short-term prediction on frames of <span class="math inline">\(20\)</span> ms and a long-term prediction on suframes of <span class="math inline">\(5\)</span> ms. Then, replace those subframes by random noises of equivalent energy and perform the synthesis. Listen to the synthesized signals and compare with the original signals and the signals previously synthsizes. Did the long-term prediction improve the quality ?</p></li>
+</ol>
+<h1 id="appendix---timit-phone-alphabet-timitbet">Appendix - TIMIT Phone Alphabet: TIMITBET</h1>
+<p><strong>Phone symbols:</strong> <code>aa ae ah ao aw ax ax-h axr ay b bcl ch d dcl dh dx  eh el em en eng epi er ey f g gcl h# hh hv ih ix iy jh k kcl l m n ng nx ow oy p  pau pcl q r s sh t tcl th uh uw ux v w y z zh</code></p>
+<p>Use the <code>audio.index</code> module to display these symbols in context:</p>
+<pre><code>&gt;&gt;&gt; import audio.index
+&gt;&gt;&gt; audio.index.search(&quot;ay&quot;)
+   0. ay (like [l-ay-kcl]).
+   1. ay (night [n-ay-q]).
+   2. ay (rise [r-ay-z]).
+   3. ay (like [l-ay-kcl-k]).
+   4. ay (betide [bcl-b-iy-tcl-t-ay-dcl]).
+   5. ay (wine [w-ay-ng]).
+   ...</code></pre>
+<div class="references">
+
+</div>
+
+
+<!----------------------------------------------------------------------------->
+    </section>
+  </body>
+</html>

@@ -1,0 +1,142 @@
+* {
+  margin: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+*, table {
+  padding: 0;
+}
+*, html body {
+  box-sizing: content-box;
+}
+html, body > header .author, body > header .date, body > .header .author, body > .header .date, body > #header .author, body > #header .date, h2 {
+  line-height: 36px;
+}
+html, body > header .author, body > header .date, body > .header .author, body > .header .date, body > #header .author, body > #header .date, h2, h3, h4, h5, h6, code {
+  font-size: 24px;
+}
+html {
+  font-style: normal;
+  font-family: Alegreya, serif;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html, body > header .author, body > header .date, body > .header .author, body > .header .date, body > #header .author, body > #header .date {
+  font-weight: normal;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote {
+  quotes: none;
+  border: thick solid #ebebeb;
+}
+blockquote, html body {
+  padding: 36px;
+}
+blockquote, html p, body > header h1, body > .header h1, body > #header h1, pre, figure, .table {
+  margin-bottom: 36px;
+}
+blockquote:before, blockquote:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: medium solid black;
+}
+table, thead {
+  border-bottom: medium solid black;
+}
+html em, figcaption {
+  font-style: italic;
+}
+html strong, body > header h1, body > .header h1, body > #header h1, h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+}
+html p {
+  text-align: justify;
+  hyphens: auto;
+  -moz-hyphens: auto;
+}
+html body {
+  max-width: 32em;
+  margin: auto;
+}
+body > header, body > .header, body > #header, h1 {
+  margin-top: 72px;
+}
+body > header, body > .header, body > #header {
+  margin-bottom: 72px;
+}
+body > header h1, body > .header h1, body > #header h1 {
+  font-size: 48px;
+  line-height: 54px;
+  margin-top: 0px;
+}
+body > header .author, body > header .date, body > .header .author, body > .header .date, body > #header .author, body > #header .date, h2 {
+  margin-bottom: 18px;
+}
+body > header .date, body > .header .date, body > #header .date {
+  font-family: "Alegreya SC", serif;
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  line-height: 45px;
+  margin-bottom: 27px;
+}
+h3, h4, h5, h6 {
+  float: left;
+  margin-right: 1em;
+}
+a {
+  cursor: pointer;
+  outline: 0;
+}
+a, a:hover {
+  text-decoration: none;
+}
+a:link, a:visited {
+  color: black;
+}
+li {
+  list-style: disc outside none;
+  margin-left: 36px;
+  padding-left: 0.5em;
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-family: Inconsolata;
+}
+pre, .table, .math-display {
+  overflow-x: auto;
+}
+pre {
+  background-color: #ebebeb;
+  padding-left: 36px;
+  padding-right: 36px;
+  padding-top: 36px;
+  padding-bottom: 36;
+}
+img, .table, .math-display {
+  width: 100%;
+}
+img {
+  height: auto;
+}
+figcaption {
+  text-align: center;
+}
+.table, .math-display {
+  overflow-y: hidden;
+}
+td, th {
+  padding: 6px 0.5em;
+}

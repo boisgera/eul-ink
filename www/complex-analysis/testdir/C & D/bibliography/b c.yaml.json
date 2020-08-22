@@ -1,0 +1,24 @@
+[
+  {
+    "ISBN": "0-07-054234-1",
+    "author": [
+      {
+        "family": "Rudin",
+        "given": "Walter"
+      }
+    ],
+    "edition": "3rd ed.",
+    "id": "ref",
+    "issued": {
+      "date-parts": [
+        [
+          1987.0
+        ]
+      ]
+    },
+    "page": "xiv + 416",
+    "publisher": "McGraw-Hill",
+    "title": "REF",
+    "type": "book"
+  }
+]

@@ -1,0 +1,44 @@
+#!/bin/bash
+set -euo pipefail
+
+DOCKER_IMAGE=boisgera/doc
+
+#-------------------------------------------------------------------------------
+
+pushd . > /dev/null
+
+# cd into the project directory
+cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd ..
+
+if [ "${1:-}" = "--force" ]; then
+  id=0
+  name=root
+  shift
+else
+  id=$(id -u)
+  name=$(id -un)
+fi
+
+# Manage the user account (the --user docker option is not good enough).
+if [ $id != 0 ]; then
+  set +e; gname=$(id -gn 2> /dev/null); set -e
+  gid=$(id -g)
+  if [ -n gname ]; then
+    make_group="groupadd --force -g $gid $gname"
+  else
+    make_group="true"
+  fi
+  make_user="useradd -u $id -g $gid $name"
+  no_passwd="passwd -d $name >> /dev/null"
+  cmd="$make_group && $make_user && $no_passwd"
+  docker run $DOCKER_IMAGE /bin/bash -c "$cmd" 
+  DOCKER_IMAGE=$(docker commit $(docker ps -ql))
+fi
+
+mount="-v=$(pwd):/media/doc"
+cmd="cd /media/doc && sudo -u $name ./build $@"
+docker run --rm "$mount" "$DOCKER_IMAGE" /bin/bash -c "$cmd"
+
+popd > /dev/null
+

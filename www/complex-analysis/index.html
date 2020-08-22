@@ -1,0 +1,1146 @@
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, MINES ParisTech">
+  <meta name="dcterms.date" content="2019-05-11">
+  <title>Complex Analysis</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: content-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+html {
+  line-height: var(--base-line-height);
+  --base-font-size: 24px;
+  --base-line-height: 36px;
+  --scale-ratio: 1.4142135623730951;
+  --small: 17px;
+  --medium: 24px;
+  --large: 34px;
+  --x-large: 48px;
+  font-size: 24px;
+  font-family: 'Alegreya', serif;
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html em {
+  font-style: italic;
+}
+html strong {
+  font-weight: bold;
+}
+html p, html .p {
+  margin-bottom: var(--base-line-height);
+  text-align: justify;
+  hyphens: auto;
+  -moz-hyphens: auto;
+}
+html section {
+  margin-bottom: var(--base-line-height_px);
+}
+html main {
+  box-sizing: content-box;
+  max-width: 32em;
+  margin: auto;
+  padding: var(--base-line-height);
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, q:before {
+  content: none;
+}
+blockquote:after, q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: medium solid black;
+  border-bottom: medium solid black;
+}
+main > header, main > .header, main > #header {
+  margin-top: calc(2 * var(--base-line-height));
+  margin-bottom: calc(2 * var(--base-line-height));
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: calc(1.5 * var(--base-line-height));
+  margin-top: 0;
+  margin-bottom: var(--base-line-height);
+  font-weight: bold;
+}
+main > header .author, main > .header .author, main > #header .author {
+  font-size: 24px;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  font-weight: normal;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: 'Alegreya SC', serif;
+  line-height: calc(1 * var(--base-line-height));
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  font-weight: bold;
+  line-height: calc(1.25 * var(--base-line-height));
+  margin-top: calc(2.00 * var(--base-line-height));
+  margin-bottom: calc(0.75 * var(--base-line-height));
+}
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+}
+h3, h4, h5, h6 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 1em;
+  display: inline;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
+}
+a:hover {
+  text-decoration: none;
+}
+a:link {
+  color: var(--color);
+}
+a:visited {
+  color: var(--color);
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li {
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  margin-left: var(--base-line-height);
+  padding-left: 0.5em;
+}
+ul li {
+  list-style: disc;
+}
+ol li {
+  list-style: decimal;
+}
+blockquote {
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+  padding: var(--base-line-height);
+  margin-bottom: var(--base-line-height);
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-size: 24px;
+  font-family: Inconsolata;
+}
+pre {
+  overflow-x: auto;
+  background-color: #ebebeb;
+  margin-bottom: var(--base-line-height);
+  padding-left: var(--base-line-height);
+  padding-right: var(--base-line-height);
+  padding-top: var(--base-line-height);
+  padding-bottom: var(--base-line-height);
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: auto;
+}
+figure {
+  margin-bottom: var(--base-line-height);
+  text-align: center;
+}
+figcaption {
+  display: inline-block;
+  font-style: italic;
+  text-align: justify;
+}
+.table {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  margin-bottom: var(--base-line-height);
+}
+thead {
+  border-bottom: medium solid black;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+.MJXc-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+nav#TOC > ul {
+  position: relative;
+  font-weight: bold;
+}
+nav#TOC > ul > * {
+  margin-bottom: var(--base-line-height);
+}
+nav#TOC > ul li {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+nav#TOC > ul ul li {
+  margin-left: var(--base-line-height);
+  font-weight: normal;
+}
+nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+  padding-bottom: var(--base-line-height);
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+.badge {
+  position: relative;
+  bottom: 0.13em;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  font-weight: 300;
+  font-size: var(--small);
+  display: inline-block;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  vertical-align: baseline;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+  margin-right: 1em;
+}
+.section-flag {
+  line-height: var(--base-line-height);
+  font-size: var(--small);
+  font-weight: 300;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  margin-bottom: 0;
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya: 400,700,900,400italic,700italic,900italic|Alegreya+SC:400,700,900,400italic,700italic,900italic|Alegreya+Sans:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+Sans+SC:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var box, hide_proof, main, show_proof;
+
+  hide_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("expanded");
+    sectionWrapper.addClass("minimized");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "visible"
+    });
+    w$(".header-wrapper").css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().css({
+      visibility: "hidden",
+      height: "0px"
+    });
+    w$(".header-wrapper").attr({
+      id: w$("section").first().attr("id")
+    });
+    return w$("section").first().attr({
+      id: ""
+    });
+  };
+
+  show_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("minimized");
+    sectionWrapper.addClass("expanded");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "hidden"
+    });
+    w$(".header-wrapper").css({
+      visibility: "hidden",
+      height: "0"
+    });
+    w$("section").first().css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().attr({
+      id: w$(".header-wrapper").attr("id")
+    });
+    return w$(".header-wrapper").attr({
+      id: ""
+    });
+  };
+
+  box = function(section) {
+    var clone, expand, header, headerWrapper, tombstone, wrapper;
+    clone = section.clone(true);
+    clone.css({
+      marginBottom: "0"
+    });
+    clone.children().last().css({
+      marginBottom: "0"
+    });
+    tombstone = clone.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer",
+      position: "absolute",
+      bottom: "0.75rem",
+      right: "0.75rem"
+    });
+    wrapper = $("<div class='proof-wrapper expanded'></div>");
+    wrapper.css({
+      position: "relative",
+      margin: "-0.75rem -0.75rem 0.75rem -0.75rem",
+      padding: "0.75rem",
+      backgroundColor: "#f9f9f9"
+    });
+    header = clone.find("h3, h4, h5, h6").first().clone();
+    headerWrapper = $("<div class='p header-wrapper' style='margin-bottom:0; visibility:hidden; overflow:hidden; height:0;'> </div>");
+    headerWrapper.append(header);
+    expand = $("<i class='fa fa-caret-down expand' style='visibility:hidden; cursor:pointer; position:absolute; top:0.75rem; right:0.75rem;'> </i>");
+    wrapper.append(headerWrapper);
+    wrapper.append(expand);
+    wrapper.append(clone);
+    expand.on("click", function() {
+      return show_proof(wrapper);
+    });
+    tombstone.on("click", function() {
+      return hide_proof(wrapper);
+    });
+    section.replaceWith(wrapper);
+    return wrapper;
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, section, sections, text, wrapper;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      wrapper = box(section);
+      hide_proof(wrapper);
+    }
+    return $(document).keydown(function(event) {
+      var k, l, len2, len3, ref1, ref2, results, sectionWrapper;
+      console.log("***", event.keyCode);
+      if (event.keyCode === 88) {
+        ref1 = $(".proof-wrapper.minimized");
+        for (k = 0, len2 = ref1.length; k < len2; k++) {
+          sectionWrapper = ref1[k];
+          show_proof($(sectionWrapper));
+        }
+      }
+      if (event.keyCode === 77) {
+        ref2 = $(".proof-wrapper.expanded");
+        results = [];
+        for (l = 0, len3 = ref2.length; l < len3; l++) {
+          sectionWrapper = ref2[l];
+          results.push(hide_proof($(sectionWrapper)));
+        }
+        return results;
+      }
+    });
+  };
+
+  $(main);
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var make_preview, mathjaxDebug;
+
+  make_preview = function(elt) {
+    var card, hidden_css, hide_preview, id, ref, show_preview, url, visible_css;
+    ref = elt.attr("href").split("#"), url = ref[0], id = ref[1];
+    card = $("<div class='card'>\n  <div class='holder'>\n    <p>Placeholder</p>\n  </div>\n</div>");
+    card.css({
+      width: "35vw",
+      padding: "1.5rem",
+      position: "fixed",
+      top: "1.5rem",
+      right: "1.5rem",
+      boxSizing: "border-box",
+      maxHeight: "calc(100vh - 3rem)",
+      overflow: "hidden",
+      boxShadow: "0 0 1rem #e6e6e6",
+      backgroundColor: "white"
+    });
+    visible_css = {
+      visibility: "visible",
+      opacity: 1,
+      transform: "translateX(0em)",
+      transition: "all 0.3s linear"
+    };
+    hidden_css = {
+      visibility: "hidden",
+      opacity: 0,
+      transform: "translateX(1em)",
+      transition: "all 0.3s linear 0.5s"
+    };
+    card.css(hidden_css);
+    elt.css({
+      textDecoration: "underline solid #0a0a0a",
+      textDecorationSkip: "ink",
+      transition: "background-color 0.3s linear"
+    });
+    show_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d3"
+      });
+      return card.css(visible_css);
+    };
+    hide_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d300"
+      });
+      return card.css(hidden_css);
+    };
+    return card.find(".holder").load(url + (" [id='" + id + "']"), function(response, status, jxXHR) {
+      console.log("XHR status:", status, url, id);
+      if (status === "success" || status === "notmodified") {
+        console.log("success!");
+        console.log("elt:", $(elt));
+        $("body").append(card);
+        card.find("p, .p").css({
+          textAlign: "left"
+        });
+        card.find("section").css({
+          marginBottom: "0"
+        });
+        card.find("section").children().last().css({
+          marginBottom: "0"
+        });
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, card[0]]);
+        elt.on("mouseenter", show_preview);
+        return elt.on("mouseleave", hide_preview);
+      }
+    });
+  };
+
+  mathjaxDebug = function() {
+    MathJax.Hub.signal.Interest(function(message) {
+      return console.log("*", message);
+    });
+    return MathJax.Hub.Register.StartupHook("End Process", function() {
+      var i, jax, len, ref, results;
+      console.log("list of jaxes:");
+      ref = MathJax.Hub.getAllJax();
+      results = [];
+      for (i = 0, len = ref.length; i < len; i++) {
+        jax = ref[i];
+        results.push(console.log("jax:", jax));
+      }
+      return results;
+    });
+  };
+
+  $(function() {
+    var elt, i, len, ref, results;
+    ref = $("a.preview");
+    results = [];
+    for (i = 0, len = ref.length; i < len; i++) {
+      elt = ref[i];
+      results.push(make_preview($(elt)));
+    }
+    return results;
+  });
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">Complex Analysis</a></h1>
+
+<h2 class="author">
+By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, MINES ParisTech
+</h2> 
+
+<h3 class="date" style="margin-right: 0px;">May 11, 2019</h3>
+</header>
+<style> 
+  .grid { 
+    margin-bottom: 1.5em;
+  }
+  .grid > * { /* row */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .grid p, .grid .p {
+    line-heigth: 1em;
+    margin-bottom: 0px;
+  }
+</style>
+<section id="mines-paristech-current-session-2019" class="level1">
+<h1><a href="#mines-paristech-current-session-2019">MINES ParisTech – Current Session: 2019</a></h1>
+<p>Course <a href="https://sgs.MINES-paristech.fr/prod/sgs/ensmp/catalog/course/detail.php?code=C1223&amp;lang=EN&amp;year=2A">C1223</a>: 3rd semester, 2 ECTS credits, 20 contact hours.<br>
+DOI: <a href="https://doi.org/10.23646/oer.000001">10.23646/oer.000001</a>.</p>
+<div class="grid">
+<div>
+<div>
+
+<div class="p"><h3 id="course-overview"><a href="description">Course Overview</a></h3>‌</div>
+</div>
+<div>
+<p><a href="description"><i class="fa fa-html5"></i></a> / <a href="description/description.pdf"><i class="fa fa-file-pdf-o"></i></a></p>
+</div>
+</div>
+<div>
+<div>
+
+<div class="p"><h3 id="practical-information-french"><a href="Information">Practical Information (French)</a></h3>‌</div>
+</div>
+<div>
+<p><a href="Information"><i class="fa fa-html5"></i></a> / <a href="Information/Information.pdf"><i class="fa fa-file-pdf-o"></i></a></p>
+</div>
+</div>
+<div>
+<div>
+
+<div class="p"><h3 id="reminders-and-reviews-j.-e.-deschaud-french">Reminders and Reviews (<a href="mailto:jean-emmanuel.deschaud@mines-paristech.fr">J.-E. Deschaud</a>, French)</h3>‌</div>
+</div>
+<div>
+<p><a href="documents/Rappels%20&amp;%20Révisions.zip"><i class="fa fa-file-zip-o" style="display:inline-block"></i></a></p>
+</div>
+</div>
+</div>
+<section id="schedule" class="level3">
+
+<div class="p"><h3><a href="#schedule">Schedule</a></h3>‌<br>
+6–12 January 2019: course at <a href="http://www.ucpa-vacances.com/centre/france/les-arcs/">UCPA les Arcs</a> (Bourg Saint-Maurice)<br>
+7–11 January 2019: course at MINES ParisTech (Paris)<br>
+28 January 2019, 8h30–11h15: written exam, MINES ParisTech</div>
+</section>
+<section id="location" class="level3">
+<h3><a href="#location">Location</a></h3>
+‌
+<div style="float:right">
+<a href="http://www.ucpa-vacances.com/centre/france/les-arcs/"><i style="font-size:0.8em;margin-right:0.25em;" class="fa fa-external-link-square"></i> UCPA Les Arcs</a>
+</div>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d697.9051676789932!2d6.798715902404001!3d45.598169783737546!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a8e75158059291%3A0x145a2f87b4a09b88!2sUCPA+Les+Arcs!5e0!3m2!1sfr!2sfr!4v1473339026077" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen="">
+</iframe>
+</section>
+</section>
+<section id="search-lectures-workshops" class="level1">
+<h1><a href="#search-lectures-workshops">Search (Lectures &amp; Workshops)</a></h1>
+<!-- Vue App and (large) index loaded at the bottom of the page -->
+<div id="app">
+<p><search></search></p>
+</div>
+</section>
+<section id="book-pdfs" class="level1">
+<h1><a href="#book-pdfs">Book PDFs</a></h1>
+<div class="grid">
+<div>
+<div>
+<p>A4 paper:</p>
+</div>
+<div>
+<p><a href="Complex%20Analysis%20and%20Applications%20(a4).pdf"><i class="fa fa-file-pdf-o"></i></a></p>
+</div>
+</div>
+<div>
+<div>
+<p>US letter:</p>
+</div>
+<div>
+<p><a href="Complex%20Analysis%20and%20Applications%20(letter).pdf"><i class="fa fa-file-pdf-o"></i></a></p>
+</div>
+</div>
+<div>
+<div>
+<p>A4 paper / Two-sided:</p>
+</div>
+<div>
+<p><a href="Complex%20Analysis%20and%20Applications%20(a4,%20twoside).pdf"><i class="fa fa-file-pdf-o"></i></a></p>
+</div>
+</div>
+<div>
+<div>
+<p>US letter / Two-sided:</p>
+</div>
+<div>
+<p><a href="Complex%20Analysis%20and%20Applications%20(letter,%20twoside).pdf"><i class="fa fa-file-pdf-o"></i></a></p>
+</div>
+</div>
+</div>
+<!--
+**Alternate Version (exercises answers as an independent chapter):**
+
+<div class="grid">
+<div>
+<div>
+A4 paper:
+</div><div>
+[<i class="fa fa-file-pdf-o"></i>](Complex Analysis and Applications (alt, a4).pdf)
+</div>
+</div>
+<div>
+<div>
+US letter:
+</div><div>
+[<i class="fa fa-file-pdf-o"></i>](Complex Analysis and Applications (alt, letter).pdf)
+</div>
+</div>
+<div>
+<div>
+A4 paper / Two-sided:
+</div><div>
+[<i class="fa fa-file-pdf-o"></i>](Complex Analysis and Applications (alt, a4, twoside).pdf)
+</div>
+</div>
+<div>
+<div>
+US letter / Two-sided:
+</div><div>
+[<i class="fa fa-file-pdf-o"></i>](Complex Analysis and Applications (alt, letter, twoside).pdf)
+</div>
+</div>
+</div>
+
+-->
+</section>
+<section id="lectures-tutorials" class="level1">
+<h1><a href="#lectures-tutorials">Lectures &amp; Tutorials</a></h1>
+<!-- Complex-Differentiability                                               -->
+<!----------------------------------------------------------------------------->
+<div class="grid">
+<div>
+<div>
+
+<div class="p"><h3 id="complex-differentiability"><a href="Complex-Differentiability" class="uri">Complex-Differentiability</a></h3>‌</div>
+</div>
+<div>
+<nobr><a href="Complex-Differentiability"><i class="fa fa-html5"></i></a> / <a href="Complex-Differentiability/Complex-Differentiability.pdf"><i class="fa fa-file-pdf-o"></i></a> / <a href="Complex-Differentiability/Complex-Differentiability.zip"><i class="fa fa-file-archive-o"></i></a> / <a href="https://bitbucket.org/boisgera/complex-differentiability"><i class="fa fa-bitbucket"></i></a> </nobr>
+</div>
+</div>
+<div>
+<div>
+<a href="Complex-Differentiability/Exercises">Exercises</a>
+</div>
+<div>
+<nobr><a href="Complex-Differentiability/Exercises"><i class="fa fa-html5"></i></a> / <a href="Complex-Differentiability/Exercises/Complex-Differentiability.pdf"><i class="fa fa-file-pdf-o"></i></a> / <a href="Complex-Differentiability/Exercises/Complex-Differentiability.zip"><i class="fa fa-file-archive-o"></i></a> / <a href="https://bitbucket.org/boisgera/complex-differentiability-exercises"><i class="fa fa-bitbucket"></i></a> </nobr>
+</div>
+</div>
+</div>
+<!-- Line Integrals & Primitives
+<!----------------------------------------------------------------------------->
+<div class="grid">
+<div>
+<div>
+
+<div class="p"><h3 id="line-integrals--primitives"><a href="Line%20Integrals%20&amp;%20Primitives">Line Integrals &amp; Primitives</a></h3>‌</div>
+</div>
+<div>
+<nobr> <a href="Line%20Integrals%20&amp;%20Primitives"><i class="fa fa-html5"></i></a> / <a href="Line%20Integrals%20&amp;%20Primitives/Line%20Integrals%20&amp;%20Primitives.pdf"><i class="fa fa-file-pdf-o"></i></a> / <a href="Line%20Integrals%20&amp;%20Primitives/Line%20Integrals%20&amp;%20Primitives.zip"><i class="fa fa-file-archive-o"></i></a> / <a href="https://bitbucket.org/boisgera/line-integrals-primitives"><i class="fa fa-bitbucket"></i></a> </nobr>
+</div>
+</div>
+<div>
+<div>
+<p><a href="Line%20Integrals%20&amp;%20Primitives/Exercises">Exercises</a></p>
+</div>
+<div>
+<nobr> <a href="Line%20Integrals%20&amp;%20Primitives/Exercises"><i class="fa fa-html5"></i></a> / <a href="Line%20Integrals%20&amp;%20Primitives/Exercises/Line%20Integrals%20&amp;%20Primitives.pdf"><i class="fa fa-file-pdf-o"></i></a> / <a href="Line%20Integrals%20&amp;%20Primitives/Exercises/Line%20Integrals%20&amp;%20Primitives.zip"><i class="fa fa-file-archive-o"></i></a> / <a href="https://bitbucket.org/boisgera/line-integrals-primitives-exercises"><i class="fa fa-bitbucket"></i></a> </nobr>
+</div>
+</div>
+</div>
+<!-- Connected Sets                                                          -->
+<!----------------------------------------------------------------------------->
+<div class="grid">
+<div>
+<div>
+
+<div class="p"><h3 id="connected-sets"><a href="Connected%20Sets">Connected Sets</a></h3>‌</div>
+</div>
+<div>
+<nobr> <a href="Connected%20Sets"><i class="fa fa-html5"></i></a> / <a href="Connected%20Sets/Connected%20Sets.pdf"><i class="fa fa-file-pdf-o"></i></a> / <a href="Connected%20Sets/Connected%20Sets.zip"><i class="fa fa-file-archive-o"></i></a> / <a href="https://bitbucket.org/boisgera/connected-sets"><i class="fa fa-bitbucket"></i></a> </nobr>
+</div>
+</div>
+<div>
+<div>
+<p><a href="Connected%20Sets/Exercises">Exercises</a></p>
+</div>
+<div>
+<nobr> <a href="Connected%20Sets/Exercises"><i class="fa fa-html5"></i></a> / <a href="Connected%20Sets/Exercises/Connected%20Sets.pdf"><i class="fa fa-file-pdf-o"></i></a> / <a href="Connected%20Sets/Exercises/Connected%20Sets.zip"><i class="fa fa-file-archive-o"></i></a> / <a href="https://bitbucket.org/boisgera/connected-sets-exercises"><i class="fa fa-bitbucket"></i></a> </nobr>
+</div>
+</div>
+</div>
+<!-- Cauchy's Integral Theorem -- Local Version                              -->
+<!----------------------------------------------------------------------------->
+<div class="grid">
+<div>
+<div>
+
+<div class="p"><h3 id="cauchys-integral-theorem--local-version"><a href="Cauchy's%20Integral%20Theorem%20--%20Local%20Version">Cauchy’s Integral Theorem – Local Version</a></h3>‌</div>
+</div>
+<div>
+<nobr> <a href="Cauchy's%20Integral%20Theorem%20--%20Local%20Version"><i class="fa fa-html5"></i></a> / <a href="Cauchy's%20Integral%20Theorem%20--%20Local%20Version/Cauchy's%20Integral%20Theorem%20--%20Local%20Version.pdf"><i class="fa fa-file-pdf-o"></i></a> / <a href="Cauchy's%20Integral%20Theorem%20--%20Local%20Version/Cauchy's%20Integral%20Theorem%20--%20Local%20Version.zip"><i class="fa fa-file-archive-o"></i></a> / <a href="https://bitbucket.org/boisgera/cauchys-integral-theorem-local-version"><i class="fa fa-bitbucket"></i></a> </nobr>
+</div>
+</div>
+<div>
+<div>
+<p><a href="Cauchy's%20Integral%20Theorem%20--%20Local%20Version/Exercises">Exercises</a></p>
+</div>
+<div>
+<nobr> <a href="Cauchy's%20Integral%20Theorem%20--%20Local%20Version/Exercises"><i class="fa fa-html5"></i></a> / <a href="Cauchy's%20Integral%20Theorem%20--%20Local%20Version/Exercises/Cauchy's%20Integral%20Theorem%20--%20Local%20Version.pdf"><i class="fa fa-file-pdf-o"></i></a> / <a href="Cauchy's%20Integral%20Theorem%20--%20Local%20Version/Exercises/Cauchy's%20Integral%20Theorem%20--%20Local%20Version.zip"><i class="fa fa-file-archive-o"></i></a> / <a href="https://bitbucket.org/boisgera/cauchys-integral-theorem-local-version-exercises"><i class="fa fa-bitbucket"></i></a> </nobr>
+</div>
+</div>
+</div>
+<!-- The Winding Number                                                      -->
+<!----------------------------------------------------------------------------->
+<div class="grid">
+<div>
+<div>
+
+<div class="p"><h3 id="the-winding-number"><a href="The%20Winding%20Number">The Winding Number</a></h3>‌</div>
+</div>
+<div>
+<nobr> <a href="The%20Winding%20Number"><i class="fa fa-html5"></i></a> / <a href="The%20Winding%20Number/The%20Winding%20Number.pdf"><i class="fa fa-file-pdf-o"></i></a> / <a href="The%20Winding%20Number/The%20Winding%20Number.zip"><i class="fa fa-file-archive-o"></i></a> / <a href="https://bitbucket.org/boisgera/the-winding-number"><i class="fa fa-bitbucket"></i></a> </nobr>
+</div>
+</div>
+<div>
+<div>
+<p><a href="The%20Winding%20Number/Exercises">Exercises</a></p>
+</div>
+<div>
+<nobr> <a href="The%20Winding%20Number/Exercises"><i class="fa fa-html5"></i></a> / <a href="The%20Winding%20Number/Exercises/The%20Winding%20Number.pdf"><i class="fa fa-file-pdf-o"></i></a> / <a href="The%20Winding%20Number/Exercises/The%20Winding%20Number.zip"><i class="fa fa-file-archive-o"></i></a> / <a href="https://bitbucket.org/boisgera/the-winding-number-exercises"><i class="fa fa-bitbucket"></i></a> </nobr>
+</div>
+</div>
+</div>
+<!-- Cauchy's Integral Theorem -- Global Version                             -->
+<!----------------------------------------------------------------------------->
+<div class="grid">
+<div>
+<div>
+
+<div class="p"><h3 id="cauchys-integral-theorem--global-version"><a href="Cauchy's%20Integral%20Theorem%20--%20Global%20Version">Cauchy’s Integral Theorem – Global Version</a></h3>‌</div>
+</div>
+<div>
+<nobr> <a href="Cauchy's%20Integral%20Theorem%20--%20Global%20Version"><i class="fa fa-html5"></i></a> / <a href="Cauchy's%20Integral%20Theorem%20--%20Global%20Version/Cauchy's%20Integral%20Theorem%20--%20Global%20Version.pdf"><i class="fa fa-file-pdf-o"></i></a> / <a href="Cauchy's%20Integral%20Theorem%20--%20Global%20Version/Cauchy's%20Integral%20Theorem%20--%20Global%20Version.zip"><i class="fa fa-file-archive-o"></i></a> / <a href="https://bitbucket.org/boisgera/cauchys-integral-theorem-global-version"><i class="fa fa-bitbucket"></i></a> </nobr>
+</div>
+</div>
+<div>
+<div>
+<p><a href="Cauchy's%20Integral%20Theorem%20--%20Global%20Version/Exercises">Exercises</a></p>
+</div>
+<div>
+<nobr> <a href="Cauchy's%20Integral%20Theorem%20--%20Global%20Version/Exercises"><i class="fa fa-html5"></i></a> / <a href="Cauchy's%20Integral%20Theorem%20--%20Global%20Version/Exercises/Cauchy's%20Integral%20Theorem%20--%20Global%20Version.pdf"><i class="fa fa-file-pdf-o"></i></a> / <a href="Cauchy's%20Integral%20Theorem%20--%20Global%20Version/Exercises/Cauchy's%20Integral%20Theorem%20--%20Global%20Version.zip"><i class="fa fa-file-archive-o"></i></a> / <a href="https://bitbucket.org/boisgera/cauchys-integral-theorem-global-version-exercises"><i class="fa fa-bitbucket"></i></a> </nobr>
+</div>
+</div>
+</div>
+<!-- Power Series                                                            -->
+<!----------------------------------------------------------------------------->
+<div class="grid">
+<div>
+<div>
+
+<div class="p"><h3 id="power-series"><a href="Power%20Series">Power Series</a></h3>‌</div>
+</div>
+<div>
+<nobr> <a href="Power%20Series"><i class="fa fa-html5"></i></a> / <a href="Power%20Series/Power%20Series.pdf"><i class="fa fa-file-pdf-o"></i></a> / <a href="Power%20Series/Power%20Series.zip"><i class="fa fa-file-archive-o"></i></a> / <a href="https://bitbucket.org/boisgera/power-series"><i class="fa fa-bitbucket"></i></a> </nobr>
+</div>
+</div>
+<div>
+<div>
+<p><a href="Power%20Series/Exercises">Exercises</a></p>
+</div>
+<div>
+<nobr> <a href="Power%20Series/Exercises"><i class="fa fa-html5"></i></a> / <a href="Power%20Series/Exercises/Power%20Series.pdf"><i class="fa fa-file-pdf-o"></i></a> / <a href="Power%20Series/Exercises/Power%20Series.zip"><i class="fa fa-file-archive-o"></i></a> / <a href="https://bitbucket.org/boisgera/power-series-exercises"><i class="fa fa-bitbucket"></i></a> </nobr>
+</div>
+</div>
+</div>
+<!-- Zeros & Poles                                                           -->
+<!----------------------------------------------------------------------------->
+<div class="grid">
+<div>
+<div>
+
+<div class="p"><h3 id="zeros--poles"><a href="Zeros%20&amp;%20Poles">Zeros &amp; Poles</a></h3>‌</div>
+</div>
+<div>
+<nobr> <a href="Zeros%20&amp;%20Poles"><i class="fa fa-html5"></i></a> / <a href="Zeros%20&amp;%20Poles/Zeros%20&amp;%20Poles.pdf"><i class="fa fa-file-pdf-o"></i></a> / <a href="Zeros%20&amp;%20Poles/Zeros%20&amp;%20Poles.zip"><i class="fa fa-file-archive-o"></i></a> / <a href="https://bitbucket.org/boisgera/zeros-poles"><i class="fa fa-bitbucket"></i></a> </nobr>
+</div>
+</div>
+<div>
+<div>
+<p><a href="Zeros%20&amp;%20Poles/Exercises">Exercises</a></p>
+</div>
+<div>
+<nobr> <a href="Zeros%20&amp;%20Poles/Exercises"><i class="fa fa-html5"></i></a> / <a href="Zeros%20&amp;%20Poles/Exercises/Zeros%20&amp;%20Poles.pdf"><i class="fa fa-file-pdf-o"></i></a> / <a href="Zeros%20&amp;%20Poles/Exercises/Zeros%20&amp;%20Poles.zip"><i class="fa fa-file-archive-o"></i></a> / <a href="https://bitbucket.org/boisgera/power-series-exercises"><i class="fa fa-bitbucket"></i></a> </nobr>
+</div>
+</div>
+</div>
+<!-- Analytic Functions                                                      -->
+<!----------------------------------------------------------------------------->
+<div class="grid">
+<div>
+<div>
+
+<div class="p"><h3 id="analytic-functions"><a href="Analytic%20Functions">Analytic Functions</a></h3>‌</div>
+</div>
+<div>
+<nobr> <a href="Analytic%20Functions"><i class="fa fa-html5"></i></a> / <a href="Analytic%20Functions/Analytic%20Functions.pdf"><i class="fa fa-file-pdf-o"></i></a> / <a href="Analytic%20Functions/Analytic%20Functions.zip"><i class="fa fa-file-archive-o"></i></a> / <a href="https://bitbucket.org/boisgera/analytic-functions"><i class="fa fa-bitbucket"></i></a> </nobr>
+</div>
+</div>
+<div>
+<div>
+<p><a href="Analytic%20Functions/Exercises">Exercises</a></p>
+</div>
+<div>
+<nobr> <a href="Analytic%20Functions/Exercises/"><i class="fa fa-html5"></i></a> / <a href="Analytic%20Functions/Exercises/Analytic%20Functions.pdf"><i class="fa fa-file-pdf-o"></i></a> / <a href="Analytic%20Functions/Exercises/Analytic%20Functions.zip"><i class="fa fa-file-archive-o"></i></a> / <a href="https://bitbucket.org/boisgera/analytic-functions-exercises"><i class="fa fa-bitbucket"></i></a> </nobr>
+</div>
+</div>
+</div>
+<!-- Integral Representations                                                -->
+<!----------------------------------------------------------------------------->
+<div class="grid">
+<div>
+<div>
+
+<div class="p"><h3 id="integral-representations"><a href="Integral%20Representations">Integral Representations</a></h3>‌</div>
+</div>
+<div>
+<nobr> <a href="Integral%20Representations"><i class="fa fa-html5"></i></a> / <a href="Integral%20Representations/Integral%20Representations.pdf"><i class="fa fa-file-pdf-o"></i></a> / <a href="Integral%20Representations/Integral%20Representations.zip"><i class="fa fa-file-archive-o"></i></a> / <a href="https://bitbucket.org/boisgera/integral-representations"><i class="fa fa-bitbucket"></i></a> </nobr>
+</div>
+</div>
+<div>
+<div>
+<p><a href="Integral%20Representations/Exercises">Exercises</a></p>
+</div>
+<div>
+<nobr> <a href="Integral%20Representations/Exercises/"><i class="fa fa-html5"></i></a> / <a href="Integral%20Representations/Exercises/Integral%20Representations.pdf"><i class="fa fa-file-pdf-o"></i></a> / <a href="Integral%20Representations/Exercises/Integral%20Representations.zip"><i class="fa fa-file-archive-o"></i></a> / <a href="https://bitbucket.org/boisgera/integral-representations-exercises"><i class="fa fa-bitbucket"></i></a> </nobr>
+</div>
+</div>
+</div>
+</section>
+<section id="workshops" class="level1">
+<h1><a href="#workshops">Workshops</a></h1>
+<div class="grid">
+<div>
+<div>
+
+<div class="p"><h3 id="complex-step-differentiation"><a href="Complex-Step%20Differentiation">Complex-Step Differentiation</a></h3>‌</div>
+</div>
+<div>
+<nobr> <a href="Complex-Step%20Differentiation"><i class="fa fa-html5"></i></a> / <a href="Complex-Step%20Differentiation/Complex-Step%20Differentiation.pdf"><i class="fa fa-file-pdf-o"></i></a> / <a href="Complex-Step%20Differentiation/Complex-Step%20Differentiation.zip"><i class="fa fa-file-archive-o"></i></a> / <a href="https://bitbucket.org/boisgera/complex-step-differentiation"><i class="fa fa-bitbucket"></i></a> </nobr>
+</div>
+</div>
+<div>
+<div>
+<p>Teaser screencast:</p>
+</div>
+<div>
+<nobr><a href="https://asciinema.org/a/39379?speed=2&amp;size=medium"><i class="fa fa-tv"></i></a> </nobr>
+</div>
+</div>
+</div>
+<section id="section" class="level3">
+<h3 style="margin-right: 0px;"><a href="#section"></a></h3>
+<div class="grid">
+<div>
+<div>
+
+<div class="p"><h3 id="poisson-image-editing"><a href="Poisson%20Image%20Editing">Poisson Image Editing</a></h3>‌</div>
+</div>
+<div>
+<nobr> <a href="Poisson%20Image%20Editing"><i class="fa fa-html5"></i></a> / <a href="Poisson%20Image%20Editing/Poisson%20Image%20Editing.pdf"><i class="fa fa-file-pdf-o"></i></a> / <a href="Poisson%20Image%20Editing/Poisson%20Image%20Editing.zip"><i class="fa fa-file-archive-o"></i></a> / <a href="https://bitbucket.org/boisgera/poisson-image-editing"><i class="fa fa-bitbucket"></i></a> </nobr>
+</div>
+</div>
+</div>
+
+</section>
+<section id="section-1" class="level3">
+<h3 style="margin-right: 0px;"><a href="#section-1"></a></h3>
+<div class="grid">
+<div>
+<div>
+
+<div class="p"><h3 id="discrete-time-signals-in-the-frequency-domain"><a href="Discrete-Time%20Signals%20in%20the%20Frequency%20Domain">Discrete-Time Signals in the Frequency Domain</a></h3>‌</div>
+</div>
+<div>
+<nobr> <a href="Discrete-Time%20Signals%20in%20the%20Frequency%20Domain"><i class="fa fa-html5"></i></a> / <a href="Discrete-Time%20Signals%20in%20the%20Frequency%20Domain/Discrete-Time%20Signals%20in%20the%20Frequency%20Domain.pdf"><i class="fa fa-file-pdf-o"></i></a> / <a href="Discrete-Time%20Signals%20in%20the%20Frequency%20Domain/Discrete-Time%20Signals%20in%20the%20Frequency%20Domain.zip"><i class="fa fa-file-archive-o"></i></a> / <a href="https://bitbucket.org/boisgera/discrete-time-signals-in-the-frequency-domain"><i class="fa fa-bitbucket"></i></a> </nobr>
+</div>
+</div>
+</div>
+
+</section>
+</section>
+<section id="mathbox-proof-of-concept" class="level1">
+<h1><a href="#mathbox-proof-of-concept">Mathbox (Proof of Concept)</a></h1>
+<section id="domain-coloring" class="level3">
+<h3><a href="http://boisgera.github.io/domain-coloring/">Domain Coloring</a></h3>
+‌
+<div style="float:right;overflow:hidden;">
+<p><a href="http://boisgera.github.io/domain-coloring/"><i class="fa fa-cube"></i></a></p>
+</div>
+<p>Use <i class="fa fa-hand-rock-o"></i> (mouse click-and-drag) to change the perspective.</p>
+</section>
+<section id="section-2" class="level3">
+<h3 style="margin-right: 0px;"><a href="#section-2"></a></h3>
+</section>
+<section id="cauchy-riemann-equations" class="level3">
+<h3><a href="http://eul.ink/complex-analysis/mathbox/">Cauchy-Riemann Equations</a></h3>
+‌
+<div style="float:right;overflow:hidden;">
+<p><a href="http://eul.ink/complex-analysis/mathbox/"><i class="fa fa-cube"></i></a> / <a href="https://github.com/boisgera/cauchy-riemann"><i class="fa fa-github"></i></a></p>
+</div>
+<p>Use <i class="fa fa-hand-rock-o"></i> (mouse click-and-drag) to change the perspective and <i class="fa fa-long-arrow-right"></i> (right arrow key) to navigate the slideshow.</p>
+</section>
+</section>
+<section id="free-resources" class="level1">
+<h1><a href="#free-resources">Free Resources</a></h1>
+<section id="complex-analysis" class="level3">
+<h3><a href="https://terrytao.wordpress.com/category/teaching/246a-complex-analysis/">Complex Analysis</a></h3>
+‌
+<div style="float:right;overflow:hidden;">
+<p><a href="https://terrytao.wordpress.com/category/teaching/246a-complex-analysis/"><i class="fa fa-link"></i></a></p>
+</div>
+<p>By <a href="https://en.wikipedia.org/wiki/Terence_Tao">T. Tao</a>, 2016, free to use (<a href="http://www.math.ucla.edu/~tao/tags.html">source</a>).<br>
+Lecture Notes of UCLA 246A course (work in progress).</p>
+</section>
+<section id="section-3" class="level3">
+<h3 style="margin-right: 0px;"><a href="#section-3"></a></h3>
+</section>
+<section id="real-and-complex-analysis" class="level3">
+<h3><a href="documents/Mitchener%20-%20Real%20and%20Complex%20Analysis.pdf">Real and Complex Analysis</a></h3>
+‌
+<div style="float:right;overflow:hidden;">
+<p><a href="documents/Mitchener%20-%20Real%20and%20Complex%20Analysis.pdf"><i class="fa fa-file-pdf-o"></i></a> / <a href="http://www.mitchener.staff.shef.ac.uk/writing.html"><i class="fa fa-link"></i></a></p>
+</div>
+<p>By <a href="http://www.mitchener.staff.shef.ac.uk">P. Mitchener</a>, 2010.<br>
+Lecture notes of a course given at the University of Sheffield.</p>
+</section>
+<section id="section-4" class="level3">
+<h3 style="margin-right: 0px;"><a href="#section-4"></a></h3>
+</section>
+<section id="fonctions-holomorphes-et-surfaces-de-riemann-french" class="level3">
+<h3><a href="documents/Demailly%20-%20Fonctions%20Holomorphes%20et%20Surfaces%20de%20Riemann.pdf">Fonctions Holomorphes et Surfaces de Riemann</a> (French)</h3>
+‌
+<div style="float:right;overflow:hidden;">
+<p><a href="documents/Demailly%20-%20Fonctions%20Holomorphes%20et%20Surfaces%20de%20Riemann.pdf"><i class="fa fa-file-pdf-o"></i></a> / <a href="https://www-fourier.ujf-grenoble.fr/~demailly/documents.html"><i class="fa fa-link"></i></a></p>
+</div>
+<!-- I'd like to clear:both this, but the links are wrapped into a paragraph, 
+     and its margin overflows despite the overflow:hidden ??? -->
+<p>By <a href="https://www-fourier.ujf-grenoble.fr/~demailly/">J.-P. Demailly</a>.<br>
+Extended lectures notes (<a href="http://www.ens-lyon.fr/en/english-ens-de-lyon-269761.kjsp">ENS de Lyon</a>, 1995-1997 and 2003-2005).</p>
+</section>
+<section id="section-5" class="level3">
+<h3 style="margin-right: 0px;"><a href="#section-5"></a></h3>
+</section>
+<section id="complex-variables" class="level3">
+<h3><a href="documents/Ash,%20Novinger%20-%20Complex%20Variables.pdf">Complex Variables</a></h3>
+‌
+<div style="float:right;overflow:hidden;">
+<p><a href="documents/Ash,%20Novinger%20-%20Complex%20Variables.pdf"><i class="fa fa-file-pdf-o"></i></a> / <a href="http://www.math.uiuc.edu/~r-ash/CV.html"><i class="fa fa-link"></i></a></p>
+</div>
+<p>© Copyright 2004 by R.B. Ash and W.P. Novinger.<br>
+Paper or electronic copies for non-commercial use may be made freely without explicit permission of the authors. All other rights are reserved.</p>
+</section>
+<section id="section-6" class="level3">
+<h3 style="margin-right: 0px;"><a href="#section-6"></a></h3>
+</section>
+<section id="a-brief-proof-of-cauchys-integral-theorem" class="level3">
+<h3><a href="http://www.ams.org/journals/proc/1971-029-03/S0002-9939-1971-0277699-8/S0002-9939-1971-0277699-8.pdf">A Brief Proof of Cauchy’s Integral Theorem</a></h3>
+‌
+<div style="float:right;overflow:hidden;">
+<p><a href="http://www.ams.org/journals/proc/1971-029-03/S0002-9939-1971-0277699-8/S0002-9939-1971-0277699-8.pdf"><i class="fa fa-file-pdf-o"></i></a> / <a href="http://www.ams.org/journals/proc/1971-029-03/S0002-9939-1971-0277699-8/"><i class="fa fa-link"></i></a></p>
+</div>
+<p>By <a href="http://people.math.carleton.ca/~jdixon/">John D. Dixon</a>, © copyright 1971 American Mathematical Society.<br>
+<a href="http://www.ams.org/journals/proc/1971-029-03/S0002-9939-1971-0277699-8/">Proc. Amer. Math. Soc. 29 (1971), 625-626</a>. <a href="https://zbmath.org/classification/?q=cc:30E20">MSC2010: 30E20</a>, <a href="https://zbmath.org/?q=an:0205.37801">Zbl 0205.37801</a>.</p>
+</section>
+<section id="section-7" class="level3">
+<h3 style="margin-right: 0px;"><a href="#section-7"></a></h3>
+</section>
+<section id="newmans-short-proof-of-the-prime-number-theorem" class="level3">
+<h3><a href="#newmans-short-proof-of-the-prime-number-theorem">Newman’s Short Proof of the Prime Number Theorem</a></h3>
+‌
+<div style="float:right;overflow:hidden;">
+<p><a href="http://www.jstor.org/stable/2975232"><i class="fa fa-link"></i></a></p>
+</div>
+<p>By <a href="http://www.hcm.uni-bonn.de/people/profile/don-bernard-zagier/">Don Bernard Zagier</a>, © 1997 Mathematical Association of America.<br>
+The American Mathematical Monthly, Vol. 104, No. 8 (Oct., 1997), pp.&nbsp;705-708.<br>
+<a href="http://www.jstor.org/stable/2975232">Read online with a JSTOR free account</a> (<a href="http://about.jstor.org/terms">JSTOR terms and conditions of use</a>).</p>
+</section>
+</section>
+<section id="mines-paristech-previous-sessions" class="level1">
+<h1><a href="#mines-paristech-previous-sessions">MINES ParisTech – Previous Sessions</a></h1>
+<!--
+Official MINES ParisTech repository (2017 document snapshot):
+
+<div style="text-align:center; margin:1.5em 0;"><i class="fa fa-university"
+style="margin-right:1em;"></i>[*https://doi.org/10.23646/oer.000001*](https://doi.org/10.23646/oer.000001)</div>
+
+The [DOI](https://www.doi.org/) was issued by MINES ParisTech.
+-->
+<div class="grid">
+<div>
+<div>
+
+<div class="p"><h3 id="official-stable-repository-2017-snapshot"><a href="#official-stable-repository-2017-snapshot">Official stable repository (2017 snapshot)</a></h3>‌<br>
+Content hosted and <a href="https://www.doi.org/">DOI</a> issued by MINES ParisTech.</div>
+</div>
+<div>
+<a href="https://doi.org/10.23646/oer.000001"><i class="fa fa-university"></i></a>
+</div>
+</div>
+</div>
+<div class="grid">
+<div>
+<div>
+
+<div class="p"><h3 id="exam--questions--answers-french-2016"><a href="Examen%20Corrigé%20(C1223,%20S1224)">Exam – Questions &amp; Answers (French): 2016</a></h3>‌</div>
+</div>
+<div>
+<p><a href="Examen%20Corrigé%20(C1223,%20S1224)"><i class="fa fa-html5"></i></a> / <a href="Examen%20Corrigé%20(C1223,%20S1224).pdf"><i class="fa fa-file-pdf-o"></i></a></p>
+</div>
+</div>
+<div>
+<div>
+
+<div class="p"><h3 id="exam--questions--answers-2017"><a href="Exam%202017">Exam – Questions &amp; Answers: 2017</a></h3>‌</div>
+</div>
+<div>
+<p><a href="Exam%202017"><i class="fa fa-html5"></i></a> / <a href="Exam%202017/Exam%202017.pdf"><i class="fa fa-file-pdf-o"></i></a></p>
+</div>
+</div>
+<div>
+<div>
+
+<div class="p"><h3 id="exam--questions--answers-2018"><a href="Exam%202018">Exam – Questions &amp; Answers: 2018</a></h3>‌</div>
+</div>
+<div>
+<p><a href="Exam%202018"><i class="fa fa-html5"></i></a> / <a href="Exam%202018/Exam%202018.pdf"><i class="fa fa-file-pdf-o"></i></a></p>
+</div>
+</div>
+</div>
+<div class="grid">
+<div>
+<div>
+
+<div class="p"><h3 id="exam-statistics-2016"><a href="marks.svg">Exam Statistics: 2016</a></h3>‌</div>
+</div>
+<div>
+<nobr> <a href="marks.svg"><i class="fa fa-file-image-o"></i></a> </nobr>
+</div>
+</div>
+<div>
+<div>
+
+<div class="p"><h3 id="exam-statistics-2017"><a href="marks-2017.svg">Exam Statistics: 2017</a></h3>‌</div>
+</div>
+<div>
+<nobr> <a href="marks-2017.svg"><i class="fa fa-file-image-o"></i></a> </nobr>
+</div>
+</div>
+<div>
+<div>
+
+<div class="p"><h3 id="exam-statistics-2018"><a href="#exam-statistics-2018">Exam Statistics: 2018</a></h3>‌</div>
+</div>
+<div>
+<nobr> <a href="marks-2018.svg"><i class="fa fa-file-image-o"></i></a> </nobr>
+</div>
+</div>
+</div>
+<section id="section-8" class="level3">
+<h3 style="margin-right: 0px;"><a href="#section-8"></a></h3>
+<div class="grid">
+<div>
+<div>
+
+<div class="p"><h3 id="course-survey-french-2016"><a href="survey%202016">Course Survey (French): 2016</a></h3>‌</div>
+</div>
+<div>
+<nobr> <a href="survey%202016"><i class="fa fa-html5"></i></a> / <a href="survey%202016.pdf"><i class="fa fa-file-pdf-o"></i></a> </nobr>
+</div>
+</div>
+<div>
+<div>
+
+<div class="p"><h3 id="course-survey-french-2017"><a href="survey%202017">Course Survey (French): 2017</a></h3>‌</div>
+</div>
+<div>
+<nobr> <a href="survey%202017"><i class="fa fa-html5"></i></a> / <a href="survey%202017/survey%202017.pdf"><i class="fa fa-file-pdf-o"></i></a> </nobr>
+</div>
+</div>
+<div>
+<div>
+
+<div class="p"><h3 id="course-survey-french-2018"><a href="survey%202018">Course Survey (French): 2018</a></h3>‌</div>
+</div>
+<div>
+<nobr> <a href="survey%202018/survey%202018.csv"><i class="fa fa-file-excel-o"></i></a> / <a href="survey%202018"><i class="fa fa-html5"></i></a> / <a href="survey%202018/survey%202018.pdf"><i class="fa fa-file-pdf-o"></i></a> </nobr>
+</div>
+</div>
+<div>
+<div>
+
+<div class="p"><h3 id="course-survey-french-2019"><a href="#course-survey-french-2019">Course Survey (French): 2019</a></h3>‌</div>
+</div>
+<div>
+<nobr> <a href="survey%202019/survey%202019.csv"><i class="fa fa-file-excel-o"></i></a> </nobr>
+</div>
+</div>
+</div>
+<!-- ----------------------------------------------------------------------- -->
+<!-- Document Index & Vue App -->
+<script src="js/index.js"></script>
+<script src="https://unpkg.com/vue"></script>
+<script src="js/search.js"></script>
+</section>
+</section>
+</main>
+
+
+</body></html>

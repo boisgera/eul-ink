@@ -1,0 +1,469 @@
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, MINES ParisTech">
+  <meta name="dcterms.date" content="2017-09-28">
+  <title>Kinematics of Caster Wheels</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: content-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+html {
+  line-height: 36px;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: normal;
+  font-family: Alegreya, serif;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html em {
+  font-style: italic;
+}
+html strong {
+  font-weight: bold;
+}
+html p, html .p {
+  margin-bottom: 36px;
+  text-align: justify;
+  hyphens: auto;
+  moz-hyphens: auto;
+}
+html section {
+  margin-bottom: 36px;
+}
+html main {
+  box-sizing: content-box;
+  max-width: 32em;
+  margin: auto;
+  padding: 36px;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, q:before {
+  content: none;
+}
+blockquote:after, q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: medium solid black;
+  border-bottom: medium solid black;
+}
+main {
+}
+main > header, main > .header, main > #header {
+  margin-top: 72px;
+  margin-bottom: 72px;
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: 54px;
+  margin-top: 0px;
+  margin-bottom: 36px;
+  font-weight: bold;
+}
+main > header .author, main > .header .author, main > #header .author {
+  font-size: 24px;
+  line-height: 36px;
+  margin-bottom: 18px;
+  font-weight: normal;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: Alegreya SC, serif;
+  line-height: 36px;
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: 18px;
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  font-weight: bold;
+  line-height: 45px;
+  margin-top: 72px;
+  margin-bottom: 27px;
+}
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 36px;
+  margin-bottom: 18px;
+}
+h3, h4, h5, h6 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 1em;
+  display: inline;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
+}
+a:hover {
+  text-decoration: none;
+}
+a:link {
+  color: black;
+}
+a:visited {
+  color: black;
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li {
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  margin-left: 36px;
+  padding-left: 0.5em;
+}
+ul {
+}
+ul li {
+  list-style: disc;
+}
+ol {
+}
+ol li {
+  list-style: decimal;
+}
+blockquote {
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+  padding: 36px;
+  margin-bottom: 36px;
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-size: 24px;
+  font-family: Inconsolata;
+}
+pre {
+  overflow-x: auto;
+  background-color: #ebebeb;
+  margin-bottom: 36px;
+  padding-left: 36px;
+  padding-right: 36px;
+  padding-top: 36px;
+  padding-bottom: 36;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: auto;
+}
+figure {
+  margin-bottom: 36px;
+  text-align: center;
+}
+figcaption {
+  display: inline-block;
+  font-style: italic;
+  text-align: justify;
+}
+.table {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  margin-bottom: 36px;
+}
+thead {
+  border-bottom: medium solid black;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+.MJXc-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+nav#TOC > ul {
+  position: relative;
+  font-weight: bold;
+}
+nav#TOC > ul > * {
+  margin-bottom: 36px;
+}
+nav#TOC > ul li {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+nav#TOC > ul ul {
+}
+nav#TOC > ul ul li {
+  margin-left: 36px;
+  font-weight: normal;
+}
+.section-flag {
+  line-height: 36px;
+  font-size: 17px;
+  font-weight: 300;
+  font-family: Alegreya Sans SC;
+  margin-bottom: 0;
+}
+nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+  padding-bottom: 36;
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+nav#TOC .badge {
+  position: relative;
+  bottom: 0.13em;
+  font-family: Alegreya Sans SC;
+  font-weight: 300;
+  font-size: 17px;
+  display: inline-block;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  vertical-align: baseline;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+  margin-right: 1em;
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,800,800italic,900,900italic|Alegreya+Sans+SC:400,100,300,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+SC:400,400italic,700,700italic,900,900italic|Alegreya:400,700,900,400italic,700italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.10.0
+(function() {
+  $(function() {
+    return console.log("HELLO FROM DEMO!");
+  });
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.10.0
+(function() {
+  var hide_proof, main, show_proof;
+
+  hide_proof = function(section) {
+    var clone, div, header, id, new_paragraph;
+    clone = section.clone();
+    id = section.attr("id");
+    clone.attr({
+      id: id + "---"
+    });
+    div = $("<div></div>");
+    div.css({
+      display: "none"
+    });
+    div.append(clone);
+    header = section.find("h3, h4, h5, h6").first().clone();
+    new_paragraph = $("<div class='p'></div>").append(header);
+    new_paragraph.append("<i class='fa fa-caret-down expand' style='float:right;cursor:pointer;'></i>");
+    section.empty();
+    section.append(new_paragraph);
+    section.append(div);
+    return section.find("i.expand").on("click", (function(section) {
+      return function() {
+        return show_proof(section);
+      };
+    })(section));
+  };
+
+  show_proof = function(section) {
+    var tombstone;
+    section.children().first().remove();
+    section.html(section.children().first().html());
+    tombstone = section.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer"
+    });
+    return tombstone.on("click", (function(section) {
+      return function() {
+        return hide_proof(section);
+      };
+    })(section));
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, results, section, sections, text;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    results = [];
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      results.push(hide_proof(section));
+    }
+    return results;
+  };
+
+  $(main);
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">Kinematics of Caster Wheels</a></h1>
+
+<h2 class="author">
+By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, MINES ParisTech, under <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>
+</h2> 
+
+<h3 class="date">September 28, 2017</h3>
+</header>
+<section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
+<ul>
+<li class="top-li"><p class="section-flag">section 1</p><a href="#introduction">Introduction</a></li>
+<li class="top-li"><p class="section-flag">section 2</p><a href="#the-model">The Model</a></li>
+<li class="top-li"><p class="section-flag">section 3</p><a href="#notes">Notes</a></li></ul>
+</nav></section>
+<section id="introduction" class="level1">
+<h1><a href="#introduction">Introduction</a></h1>
+<p>According to Wikipedia:</p>
+<blockquote>
+<p>A caster (also castor according to some dictionaries<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a><a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>) is a wheeled device typically mounted to a larger object that enables relatively easy rolling movement of the object. Casters are essentially special housings that include a wheel, facilitating the installation of wheels on objects. Casters are found virtually everywhere, from office desk chairs to shipyards, from hospital beds to automotive factories. They range in size from the very small furniture casters to massive industrial casters, and individual load capacities span 100 pounds (45 kg) or less to 100,000 pounds (45 t).</p>
+<p>Source: Wikipedia <a href="https://en.wikipedia.org/wiki/Caster" class="uri">https://en.wikipedia.org/wiki/Caster</a></p>
+</blockquote>
+<p>In technical terms, caster wheels “enable relatively easy rolling movement” because they add no kinematic constraints to the body the object they are attached to. Since there is an offset between the kingpin of the swivel and the vertical axis going through the center of the wheel, any plane trajectory may be assigned to the kingpin: the wheel and the swivel will rotate accordingly to accomodate this movement. We establish in the next section the equations that relate these values and prove this result.</p>
+<figure>
+<img src="images/Generic_Caster.jpg" alt="Generic caster by Richard Binstadt. License: CC BY-SA 4.0" style="width: 100%;"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Generic_Caster.jpg">Generic caster by Richard Binstadt</a>. License: <a href="https://creativecommons.org/licenses/by-sa/4.0/legalcode">CC BY-SA 4.0</a></figcaption>
+</figure>
+</section>
+<section id="the-model" class="level1">
+<h1><a href="#the-model">The Model</a></h1>
+<figure>
+<img src="images/drawing.svg" alt="Caster Wheel Schematics"><figcaption>Caster Wheel Schematics</figcaption>
+</figure>
+<p>Let <span class="math inline">\(R(\gamma)\)</span> denote the rotation matrix with angle <span class="math inline">\(\gamma\)</span>: <span class="math display">\[
+R(\gamma) = 
+\left[
+\begin{array}{cr}
+\cos \gamma &amp; -\sin \gamma \\
+\sin \gamma &amp;  \cos \gamma
+\end{array}
+\right]
+\]</span></p>
+<p>If the wheel is rolling without slipping, the linear velocity <span class="math inline">\(\vec{v}\)</span> of its center is parallel to the direction of the wheel and its intensity is <span class="math inline">\(r\dot{\phi}\)</span>. Therefore, <span class="math display">\[
+  \vec{v} = 
+  R(\gamma) 
+  \left[
+  \begin{array}{c}
+  r\dot{\phi} \\
+  0
+  \end{array}
+  \right]
+  =
+  r \dot{\phi}
+  \left[
+  \begin{array}{c}
+  \cos \gamma \\
+  \sin \gamma
+  \end{array}
+  \right]
+  \]</span> On the other hand, since the coordinates of this center are <span class="math inline">\(x+ \ell \cos \gamma\)</span> and <span class="math inline">\(y + \ell \sin \gamma\)</span>, we also have <span class="math display">\[
+  \vec{v}
+  =
+  \left[
+  \begin{array}{c}
+  \dot{x} \\
+  \dot{y}
+  \end{array}
+  \right]
+  +
+  \ell \dot{\gamma}
+  \left[
+  \begin{array}{r}
+  -\sin \gamma \\
+   \cos \gamma
+  \end{array}
+  \right]
+  \]</span> and thus <span class="math display">\[
+  \left[
+  \begin{array}{c}
+  \dot{x} \\
+  \dot{y}
+  \end{array}
+  \right]
+  = 
+  R(\gamma) 
+  \left[
+  \begin{array}{r}
+  r \dot{\phi} \\
+  -\ell \dot{\gamma}
+  \end{array}
+  \right]
+  \]</span> or equivalently <span class="math display">\[
+  \left[
+  \begin{array}{r}
+  \dot{\phi} \\
+  \dot{\gamma}
+  \end{array}
+  \right]
+  =
+  \left[
+  \begin{array}{cc}
+  1/r &amp; 0 \\
+  0 &amp;  -1/\ell
+  \end{array}
+  \right]
+  R(-\gamma)
+  \left[
+  \begin{array}{c}
+  \dot{x} \\
+  \dot{y}
+  \end{array}
+  \right]
+  =
+  \left[
+  \begin{array}{c}
+  (\dot{x} \cos \gamma  + \dot{y} \sin \gamma )/r \ \\
+  (\dot{x} \sin \gamma - \dot{y} \cos \gamma))/\ell
+  \end{array}
+  \right]
+  \]</span></p>
+</section>
+<section class="footnotes" id="notes"><h1><a href="#notes">Notes</a></h1>
+<hr>
+<ol>
+<li id="fn1"><p><a href="https://en.oxforddictionaries.com/definition/castor" class="uri">https://en.oxforddictionaries.com/definition/castor</a><a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p><a href="http://www.dictionary.com/browse/caster" class="uri">http://www.dictionary.com/browse/caster</a><a href="#fnref2">↩</a></p></li>
+</ol>
+</section>
+</main>
+
+
+</body></html>

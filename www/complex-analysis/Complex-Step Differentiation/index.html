@@ -1,0 +1,977 @@
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, Mines ParisTech">
+  <meta name="dcterms.date" content="2019-09-30">
+  <title>Complex-Step Differentiation</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: content-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+html {
+  line-height: var(--base-line-height);
+  --base-font-size: 24px;
+  --base-line-height: 36px;
+  --scale-ratio: 1.4142135623730951;
+  --small: 17px;
+  --medium: 24px;
+  --large: 34px;
+  --x-large: 48px;
+  font-size: 24px;
+  font-family: 'Alegreya', serif;
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html em {
+  font-style: italic;
+}
+html strong {
+  font-weight: bold;
+}
+html p, html .p {
+  margin-bottom: var(--base-line-height);
+  text-align: justify;
+  hyphens: auto;
+  -moz-hyphens: auto;
+}
+html section {
+  margin-bottom: var(--base-line-height_px);
+}
+html main {
+  box-sizing: content-box;
+  max-width: 32em;
+  margin: auto;
+  padding: var(--base-line-height);
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, q:before {
+  content: none;
+}
+blockquote:after, q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: medium solid black;
+  border-bottom: medium solid black;
+}
+main > header, main > .header, main > #header {
+  margin-top: calc(2 * var(--base-line-height));
+  margin-bottom: calc(2 * var(--base-line-height));
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: calc(1.5 * var(--base-line-height));
+  margin-top: 0;
+  margin-bottom: var(--base-line-height);
+  font-weight: bold;
+}
+main > header .author, main > .header .author, main > #header .author {
+  font-size: 24px;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  font-weight: normal;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: 'Alegreya SC', serif;
+  line-height: calc(1 * var(--base-line-height));
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  font-weight: bold;
+  line-height: calc(1.25 * var(--base-line-height));
+  margin-top: calc(2.00 * var(--base-line-height));
+  margin-bottom: calc(0.75 * var(--base-line-height));
+}
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+}
+h3, h4, h5, h6 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 1em;
+  display: inline;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
+}
+a:hover {
+  text-decoration: none;
+}
+a:link {
+  color: var(--color);
+}
+a:visited {
+  color: var(--color);
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li {
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  margin-left: var(--base-line-height);
+  padding-left: 0.5em;
+}
+ul li {
+  list-style: disc;
+}
+ol li {
+  list-style: decimal;
+}
+blockquote {
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+  padding: var(--base-line-height);
+  margin-bottom: var(--base-line-height);
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-size: 24px;
+  font-family: Inconsolata;
+}
+pre {
+  overflow-x: auto;
+  background-color: #ebebeb;
+  margin-bottom: var(--base-line-height);
+  padding-left: var(--base-line-height);
+  padding-right: var(--base-line-height);
+  padding-top: var(--base-line-height);
+  padding-bottom: var(--base-line-height);
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: auto;
+}
+figure {
+  margin-bottom: var(--base-line-height);
+  text-align: center;
+}
+figcaption {
+  display: inline-block;
+  font-style: italic;
+  text-align: justify;
+}
+.table {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  margin-bottom: var(--base-line-height);
+}
+thead {
+  border-bottom: medium solid black;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+.MJXc-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+nav#TOC > ul {
+  position: relative;
+  font-weight: bold;
+}
+nav#TOC > ul > * {
+  margin-bottom: var(--base-line-height);
+}
+nav#TOC > ul li {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+nav#TOC > ul ul li {
+  margin-left: var(--base-line-height);
+  font-weight: normal;
+}
+nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+  padding-bottom: var(--base-line-height);
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+.badge {
+  position: relative;
+  bottom: 0.13em;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  font-weight: 300;
+  font-size: var(--small);
+  display: inline-block;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  vertical-align: baseline;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+  margin-right: 1em;
+}
+.section-flag {
+  line-height: var(--base-line-height);
+  font-size: var(--small);
+  font-weight: 300;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  margin-bottom: 0;
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya: 400,700,900,400italic,700italic,900italic|Alegreya+SC:400,700,900,400italic,700italic,900italic|Alegreya+Sans:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+Sans+SC:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var box, hide_proof, main, show_proof;
+
+  hide_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("expanded");
+    sectionWrapper.addClass("minimized");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "visible"
+    });
+    w$(".header-wrapper").css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().css({
+      visibility: "hidden",
+      height: "0px"
+    });
+    w$(".header-wrapper").attr({
+      id: w$("section").first().attr("id")
+    });
+    return w$("section").first().attr({
+      id: ""
+    });
+  };
+
+  show_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("minimized");
+    sectionWrapper.addClass("expanded");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "hidden"
+    });
+    w$(".header-wrapper").css({
+      visibility: "hidden",
+      height: "0"
+    });
+    w$("section").first().css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().attr({
+      id: w$(".header-wrapper").attr("id")
+    });
+    return w$(".header-wrapper").attr({
+      id: ""
+    });
+  };
+
+  box = function(section) {
+    var clone, expand, header, headerWrapper, tombstone, wrapper;
+    clone = section.clone(true);
+    clone.css({
+      marginBottom: "0"
+    });
+    clone.children().last().css({
+      marginBottom: "0"
+    });
+    tombstone = clone.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer",
+      position: "absolute",
+      bottom: "0.75rem",
+      right: "0.75rem"
+    });
+    wrapper = $("<div class='proof-wrapper expanded'></div>");
+    wrapper.css({
+      position: "relative",
+      margin: "-0.75rem -0.75rem 0.75rem -0.75rem",
+      padding: "0.75rem",
+      backgroundColor: "#f9f9f9"
+    });
+    header = clone.find("h3, h4, h5, h6").first().clone();
+    headerWrapper = $("<div class='p header-wrapper' style='margin-bottom:0; visibility:hidden; overflow:hidden; height:0;'> </div>");
+    headerWrapper.append(header);
+    expand = $("<i class='fa fa-caret-down expand' style='visibility:hidden; cursor:pointer; position:absolute; top:0.75rem; right:0.75rem;'> </i>");
+    wrapper.append(headerWrapper);
+    wrapper.append(expand);
+    wrapper.append(clone);
+    expand.on("click", function() {
+      return show_proof(wrapper);
+    });
+    tombstone.on("click", function() {
+      return hide_proof(wrapper);
+    });
+    section.replaceWith(wrapper);
+    return wrapper;
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, section, sections, text, wrapper;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      wrapper = box(section);
+      hide_proof(wrapper);
+    }
+    return $(document).keydown(function(event) {
+      var k, l, len2, len3, ref1, ref2, results, sectionWrapper;
+      console.log("***", event.keyCode);
+      if (event.keyCode === 88) {
+        ref1 = $(".proof-wrapper.minimized");
+        for (k = 0, len2 = ref1.length; k < len2; k++) {
+          sectionWrapper = ref1[k];
+          show_proof($(sectionWrapper));
+        }
+      }
+      if (event.keyCode === 77) {
+        ref2 = $(".proof-wrapper.expanded");
+        results = [];
+        for (l = 0, len3 = ref2.length; l < len3; l++) {
+          sectionWrapper = ref2[l];
+          results.push(hide_proof($(sectionWrapper)));
+        }
+        return results;
+      }
+    });
+  };
+
+  $(main);
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var make_preview, mathjaxDebug;
+
+  make_preview = function(elt) {
+    var card, hidden_css, hide_preview, id, ref, show_preview, url, visible_css;
+    ref = elt.attr("href").split("#"), url = ref[0], id = ref[1];
+    card = $("<div class='card'>\n  <div class='holder'>\n    <p>Placeholder</p>\n  </div>\n</div>");
+    card.css({
+      width: "35vw",
+      padding: "1.5rem",
+      position: "fixed",
+      top: "1.5rem",
+      right: "1.5rem",
+      boxSizing: "border-box",
+      maxHeight: "calc(100vh - 3rem)",
+      overflow: "hidden",
+      boxShadow: "0 0 1rem #e6e6e6",
+      backgroundColor: "white"
+    });
+    visible_css = {
+      visibility: "visible",
+      opacity: 1,
+      transform: "translateX(0em)",
+      transition: "all 0.3s linear"
+    };
+    hidden_css = {
+      visibility: "hidden",
+      opacity: 0,
+      transform: "translateX(1em)",
+      transition: "all 0.3s linear 0.5s"
+    };
+    card.css(hidden_css);
+    elt.css({
+      textDecoration: "underline solid #0a0a0a",
+      textDecorationSkip: "ink",
+      transition: "background-color 0.3s linear"
+    });
+    show_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d3"
+      });
+      return card.css(visible_css);
+    };
+    hide_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d300"
+      });
+      return card.css(hidden_css);
+    };
+    return card.find(".holder").load(url + (" [id='" + id + "']"), function(response, status, jxXHR) {
+      console.log("XHR status:", status, url, id);
+      if (status === "success" || status === "notmodified") {
+        console.log("success!");
+        console.log("elt:", $(elt));
+        $("body").append(card);
+        card.find("p, .p").css({
+          textAlign: "left"
+        });
+        card.find("section").css({
+          marginBottom: "0"
+        });
+        card.find("section").children().last().css({
+          marginBottom: "0"
+        });
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, card[0]]);
+        elt.on("mouseenter", show_preview);
+        return elt.on("mouseleave", hide_preview);
+      }
+    });
+  };
+
+  mathjaxDebug = function() {
+    MathJax.Hub.signal.Interest(function(message) {
+      return console.log("*", message);
+    });
+    return MathJax.Hub.Register.StartupHook("End Process", function() {
+      var i, jax, len, ref, results;
+      console.log("list of jaxes:");
+      ref = MathJax.Hub.getAllJax();
+      results = [];
+      for (i = 0, len = ref.length; i < len; i++) {
+        jax = ref[i];
+        results.push(console.log("jax:", jax));
+      }
+      return results;
+    });
+  };
+
+  $(function() {
+    var elt, i, len, ref, results;
+    ref = $("a.preview");
+    results = [];
+    for (i = 0, len = ref.length; i < len; i++) {
+      elt = ref[i];
+      results.push(make_preview($(elt)));
+    }
+    return results;
+  });
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">Complex-Step Differentiation</a></h1>
+
+<h2 class="author">
+By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, Mines ParisTech, under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>
+</h2> 
+
+<h3 class="date" style="margin-right: 0px;">September 30, 2019</h3>
+</header>
+<section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
+<ul>
+<li class="top-li"><p class="section-flag">section 1</p><a href="#introduction">Introduction</a></li>
+<li class="top-li"><p class="section-flag">section 2</p><a href="#computer-arithmetic">Computer Arithmetic</a><ul>
+<li><a href="#floating-point-numbers-first-contact">Floating-Point Numbers: First Contact</a></li>
+<li><a href="#binary-floating-point-numbers">Binary Floating-Point Numbers</a></li>
+<li><a href="#accuracy">Accuracy</a><ul>
+<li><a href="#significant-digits">Significant Digits</a></li>
+<li><a href="#functions">Functions</a></li>
+</ul></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 3</p><a href="#complex-step-differentiation">Complex Step Differentiation</a><ul>
+<li><a href="#forward-difference">Forward Difference</a></li>
+<li><a href="#round-off-error">Round-Off Error</a></li>
+<li><a href="#higher-order-scheme">Higher-Order Scheme</a></li>
+<li><a href="#complex-step-differentiation-1">Complex Step Differentiation</a></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 4</p><a href="#spectral-method">Spectral Method</a><ul>
+<li><a href="#computation-method">Computation Method</a><ul>
+<li><a href="#estimate-and-accuracy">Estimate and Accuracy</a></li>
+<li><a href="#computation-of-the-estimate">Computation of the Estimate</a></li>
+</ul></li>
+<li><a href="#error-analysis">Error Analysis</a><ul>
+<li><a href="#round-off-error-1">Round-off error</a></li>
+<li><a href="#truncation-error">Truncation error</a></li>
+</ul></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 5</p><a href="#appendix">Appendix</a></li>
+<li class="top-li"><p class="section-flag">section 6</p><a href="#bibliography">Bibliography</a></li>
+<li class="top-li"><p class="section-flag">section 7</p><a href="#notes">Notes</a></li></ul>
+</nav></section>
+<section id="introduction" class="level1">
+<h1><a href="#introduction">Introduction</a></h1>
+<p>You may already have used numerical differentiation to estimate the derivative of a function, using for example Newton’s finite difference approximation <span class="math display">\[
+  f'(x) \approx \frac{f(x+h) - f(x)}{h}.
+  \]</span> The implementation of this scheme in Python is straightforward:</p>
+<pre><code>def FD(f, x, h):
+    return (f(x + h) - f(x)) / h</code></pre>
+<p>However, the relationship between the value of the step <span class="math inline">\(h\)</span> and the accuracy of the numerical derivative is more complex. Consider the following sample data:</p>
+<div class="table"><table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Expression</th>
+<th style="text-align: left;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\exp'(0)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(1\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>FD(exp, 0, 1e-4)</code></td>
+<td style="text-align: left;"><code>1.000050001667141</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>FD(exp, 0, 1e-8)</code></td>
+<td style="text-align: left;"><code>0.99999999392252903</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>FD(exp, 0, 1e-12)</code></td>
+<td style="text-align: left;"><code>1.000088900582341</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>The most accurate value of the numerical derivative is obtained for <span class="math inline">\(h=10^{-8}\)</span> and only 8 digits of the result are significant. For the larger value of <span class="math inline">\(h=10^{-4},\)</span> the accuracy is limited by the quality of the Taylor development of <span class="math inline">\(\exp\)</span> at the first order; this truncation error decreases linearly with the step size. For the smaller value of <span class="math inline">\(h=10^{-12},\)</span> the accuracy is essentially undermined by round-off errors in computations.</p>
+<p>In this document, we show that <em>complex-step differentiation</em> may be used to get rid of the influence of the round-off error for the computation of the first derivative. For higher-order derivatives, we introduce a <em>spectral method</em>, a fast algorithm with an error that decreases exponentially with the number of function evaluations.</p>
+</section>
+<section id="computer-arithmetic" class="level1">
+<h1><a href="#computer-arithmetic">Computer Arithmetic</a></h1>
+<p>You may skip this section if you are already familiar with the representation of real numbers as “doubles” on computers and with their basic properties. At the opposite, if you wish to have more details on this subject, it is probably a good idea to have a look at the classic “What every computer scientist should know about computer arithmetic” <span class="citation" data-cites="Gol91">(Goldberg <a href="#ref-Gol91">1991</a>)</span>.</p>
+<p>In the sequel, the examples are provided as snippets of Python code that often use the Numerical Python (<a href="http://www.numpy.org/">NumPy</a>) library; first of all, let’s make sure that all NumPy symbols are available:</p>
+<pre><code>&gt;&gt;&gt; from numpy import *</code></pre>
+<section id="floating-point-numbers-first-contact" class="level2">
+<h2><a href="#floating-point-numbers-first-contact">Floating-Point Numbers: First Contact</a></h2>
+<p>The most obvious way to display a number is to print it:</p>
+<pre><code>&gt;&gt;&gt; print pi
+3.14159265359</code></pre>
+<p>This is a lie of course: <code>print</code> is not supposed to display an accurate information about its argument, but something readable. To get something unambiguous instead, we can do:</p>
+<pre><code>&gt;&gt;&gt; pi
+3.141592653589793</code></pre>
+<p>When we say “unambiguous”, we mean that there is enough information in this sequence of digits to compute the original floating-point number; and indeed:</p>
+<pre><code>&gt;&gt;&gt; pi == eval("3.141592653589793")
+True</code></pre>
+<p>Actually, this representation is <em>also</em> a lie: it is not an exact decimal representation of the number <code>pi</code> stored in the computer memory. To get an exact representation of <code>pi</code>, we can request the display of a large number of the decimal digits:</p>
+<pre><code>&gt;&gt;&gt; def all_digits(number):
+...     print "{0:.100g}".format(number)    
+&gt;&gt;&gt; all_digits(pi)
+3.141592653589793115997963468544185161590576171875</code></pre>
+<p>Asking for 100 digits was actually good enough: only 49 of them are displayed anyway, as the extra digits are all zeros.</p>
+<p>Note that we obtained an exact representation of the floating-point number <code>pi</code> with 49 digits. That does <em>not</em> mean that all – or even most – of these digits are significant in the representation the real number of <span class="math inline">\(\pi.\)</span> Indeed, if we use the Python library for multiprecision floating-point arithmetic <a href="https://mpmath.googlecode.com/svn/trunk/doc/build/index.html">mpmath</a>, we see that</p>
+<pre><code>&gt;&gt;&gt; import mpmath
+&gt;&gt;&gt; mpmath.mp.dps = 49; mpmath.mp.pretty = True
+&gt;&gt;&gt; +mpmath.pi
+3.141592653589793238462643383279502884197169399375</code></pre>
+<p>and both representations are identical only up to the 16th digit.</p>
+</section>
+<section id="binary-floating-point-numbers" class="level2">
+<h2><a href="#binary-floating-point-numbers">Binary Floating-Point Numbers</a></h2>
+<p>Representation of floating-point numbers appears to be complex so far, but it’s only because we insist on using a <em>decimal</em> representation when these numbers are actually stored as <em>binary</em> numbers. In other words, instead of using a sequence of <em>(decimal) digits</em> <span class="math inline">\(f_i \in \{0,1,\dots,9\}\)</span> to represent a real number <span class="math inline">\(x\)</span> as <span class="math display">\[
+  x = \pm (f_0.f_1f_2 \dots f_i \dots) \times 10^{e} 
+  \]</span> we should use <em>binary digits</em> – aka <em>bits</em> – <span class="math inline">\(f_i \in \{0,1\}\)</span> to write: <span class="math display">\[
+  x = \pm (f_0.f_1f_2 \dots f_i \dots) \times 2^{e}.
+  \]</span> These representations are <em>normalized</em> if the leading digit of the <em>significand</em> <span class="math inline">\((f_0.f_1f_2 \dots f_i \dots)\)</span> is non-zero; for example, with this convention, the rational number <span class="math inline">\(999/1000\)</span> would be represented in base 10 as <span class="math inline">\(9.99 \times 10^{-1}\)</span> and not as <span class="math inline">\(0.999 \times 10^{0}.\)</span> In base 2, the only non-zero digit is 1, hence the significand of a normalized representation is always <span class="math inline">\((1.f_1f_2\dots f_i \dots).\)</span></p>
+<p>In scientific computing, real numbers are usually approximated to fit into a 64-bit layout named “double”<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>. In Python standard library, doubles are available as instances of <code>float</code> – or alternatively as <code>float64</code> in NumPy.</p>
+<p>A triple of</p>
+<ul>
+<li><p><em>sign bit</em> <span class="math inline">\(s \in \{0,1\},\)</span></p></li>
+<li><p><em>biased exponent</em> <span class="math inline">\(e\in\{1,\dots, 2046\}\)</span> (11-bit),</p></li>
+<li><p><em>fraction</em> <span class="math inline">\(f=(f_1,\dots,f_{52}) \in \{0,1\}^{52}.\)</span></p></li>
+</ul>
+<p>represents a normalized double <span class="math display">\[
+  x = (-1)^s \times 2^{e-1023} \times (1.f_1f_2 \dots f_{52}).
+  \]</span></p>
+<p>The doubles that are not normalized are not-a-number (<code>nan</code>), infinity (<code>inf</code>) and zero (<code>0.0</code>) (actually <em>signed</em> infinities and zeros), and denormalized numbers. In the sequel, we will never consider such numbers.</p>
+<!--
+With the [bitstream](https://pypi.python.org/pypi/bitstream) Python library, 
+it's actually quite easy to decompose a double into sign bit, biased exponent 
+and significand. Start with
+
+    >>> from bitstream import BitStream
+
+and define the function
+
+    def s_e_f(number):
+        stream = BitStream(number, float)
+        s = stream.read(bool)
+        e = 0
+        for bit in stream.read(bool, 11):
+            e = (e << 1) + bit
+        f = stream.read(bool, 52)
+        return s, e, f
+
+Getting the floating-point number from the values of $s,$ $e$ and $f$ is
+as easy:
+
+    def number(s, e, f):
+        bits = []
+        bits.append(s)
+        for i in range(11):
+            bits.insert(1, bool(e % 2))
+            e = e >> 1
+        bits.extend(f)
+        return BitStream(bits, bool).read(float)
+-->
+</section>
+<section id="accuracy" class="level2">
+<h2><a href="#accuracy">Accuracy</a></h2>
+<p>Almost all real numbers cannot be represented exactly as doubles. It makes sense to associate to a real number <span class="math inline">\(x\)</span> the nearest double <span class="math inline">\([x].\)</span> A “round-to-nearest” method that does this is fully specified in the IEE754 standard <span class="citation" data-cites="ANS85">(see IEEE Task P754 <a href="#ref-ANS85">1985</a>)</span>, together with alternate (“directed rounding”) methods.</p>
+<p>To have any kind of confidence in our computations with doubles, we need to be able to estimate the error in the representation of <span class="math inline">\(x\)</span> by <span class="math inline">\([x].\)</span> The <em>machine epsilon</em>, denoted <span class="math inline">\(\epsilon\)</span> in the sequel, is a key number in this respect. It is defined as the gap between <span class="math inline">\(1.0\)</span> – that can be represented exactly as a double – and the next double in the direction <span class="math inline">\(+\infty.\)</span></p>
+<pre><code>&gt;&gt;&gt; after_one = nextafter(1.0, +inf)
+&gt;&gt;&gt; after_one
+1.0000000000000002
+&gt;&gt;&gt; all_digits(after_one)
+1.0000000000000002220446049250313080847263336181640625
+&gt;&gt;&gt; eps = after_one - 1.0
+&gt;&gt;&gt; all_digits(eps)
+2.220446049250313080847263336181640625e-16</code></pre>
+<p>This number is also available as an attribute of the <code>finfo</code> class of NumPy that gathers machine limits for floating-point data types:</p>
+<pre><code>&gt;&gt;&gt; all_digits(finfo(float).eps)
+2.220446049250313080847263336181640625e-16</code></pre>
+<p>Alternatively, the examination of the structure of normalized doubles yields directly the value of <span class="math inline">\(\epsilon\)</span>: the fraction of the number after <span class="math inline">\(1.0\)</span> is <span class="math inline">\((f_1, f_2, \dots, f_{51}, f_{52}) = (0,0,\dots,0,1),\)</span> hence <span class="math inline">\(\epsilon =2^{-52},\)</span> a result confirmed by:</p>
+<pre><code>&gt;&gt;&gt; all_digits(2**-52)
+2.220446049250313080847263336181640625e-16</code></pre>
+<p>The machine epsilon matters so much because it provides a simple bound on the relative error of the representation of a real number as a double. Indeed, for any sensible rounding method, the structure of normalized doubles yields <span class="math display">\[
+    \frac{|[x] - x|}{|x|} \leq \epsilon.
+    \]</span> If the “round-to-nearest” method is used, you can actually derive a tighter bound: the inequality above still holds with <span class="math inline">\(\epsilon / 2\)</span> instead of <span class="math inline">\(\epsilon.\)</span></p>
+<section id="significant-digits" class="level3">
+
+<div class="p"><h3><a href="#significant-digits">Significant Digits</a></h3>This relative error translates directly into how many significant decimal digits there are in the best approximation of a real number by a double. Consider the exact representation of <span class="math inline">\([x]\)</span> in the scientific notation: <span class="math display">\[
+    [x] = \pm (f_0.f_1 \dots f_{p-1} \dots) \times 10^{e}.
+    \]</span> We say that it is significant up to the <span class="math inline">\(p\)</span>-th digit if <span class="math display">\[
+  |x -  [x]| \leq \frac{10^{e-(p-1)}}{2}.
+  \]</span> On the other hand, the error bound on <span class="math inline">\([x]\)</span> yields <span class="math display">\[
+  |x - [x]| \leq \frac{\epsilon}{2} |x| \leq \frac{\epsilon}{2} \times 10^{e+1}.
+  \]</span> Hence, the desired precision is achieved as long as <span class="math display">\[
+  p \leq - \log_{10} \epsilon/2 = 52 \log_{10} 2 \approx 15.7.
+  \]</span> Consequently, doubles provide a 15-th digit approximation of real numbers.</div>
+</section>
+<section id="functions" class="level3">
+
+<div class="p"><h3><a href="#functions">Functions</a></h3>Most real numbers cannot be represented exactly as doubles; accordingly, most real functions of real variables cannot be represented exactly as functions operating on doubles either. The best we can hope for are <em>correctly rounded</em> approximations. An approximation <span class="math inline">\([f]\)</span> of a function <span class="math inline">\(f\)</span> of <span class="math inline">\(n\)</span> variables is <em>correctly rounded</em> if for any <span class="math inline">\(n\)</span>-uple <span class="math inline">\((x_1,\dots,x_n),\)</span> we have <span class="math display">\[
+  [f](x_1,\dots,x_n) = [f([x_1], \dots, [x_n])].
+  \]</span> The IEEE 754 standard <span class="citation" data-cites="ANS85">(see IEEE Task P754 <a href="#ref-ANS85">1985</a>)</span> mandates that some functions have a correctly rounded implementation; they are:</div>
+<blockquote>
+<p>add, substract, multiply, divide, remainder and square root.</p>
+</blockquote>
+<p>Other standard elementary functions – such as sine, cosine, exponential, logarithm, etc. – are usually <em>not</em> correctly rounded; the design of computation algorithms that have a decent performance and are <em>provably</em> correctly rounded is a complex problem (see for example the documentation of the <a href="http://lipforge.ens-lyon.fr/www/crlibm/">Correctly Rounded mathematical library</a>).</p>
+</section>
+</section>
+</section>
+<section id="complex-step-differentiation" class="level1">
+<h1><a href="#complex-step-differentiation">Complex Step Differentiation</a></h1>
+<section id="forward-difference" class="level2">
+<h2><a href="#forward-difference">Forward Difference</a></h2>
+<p>Let <span class="math inline">\(f\)</span> be a real-valued function defined in some open interval. In many concrete use cases, we can make the assumption that the function is actually analytic and never have to worry about the existence of derivatives. As a bonus, for any real number <span class="math inline">\(x\)</span> in the domain of the function, the (truncated) Taylor expansion <span class="math display">\[
+  f(x+h) = f(x) + f'(x) h + \frac{f''(x)}{2} h^2 
+           + \dots
+           +\frac{f^{(n)}}{n!} h^n 
+           + \mathcal{O}(h^{n+1})
+  \]</span> is locally valid<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>. A straighforward computation shows that <span class="math display">\[
+  f'(x) = \frac{f(x+h) - f(x)}{h} + \mathcal{O}(h)
+  \]</span> The asymptotic behavior of this <em>forward difference</em> scheme – controlled by the term <span class="math inline">\(\mathcal{O}(h^1)\)</span> – is said to be of order 1. An implementation of this scheme is defined for doubles <span class="math inline">\(x\)</span> and <span class="math inline">\(h\)</span> as <span class="math display">\[
+  \mathrm{FD}(f, x, h) = \left[\frac{[[f] ( [x] + [h]) - [f] (x)]}{[h]} \right].
+  \]</span> or equivalently, in Python as:</p>
+<pre><code>def FD(f, x, h):
+    return (f(x + h) - f(x)) / h</code></pre>
+</section>
+<section id="round-off-error" class="level2">
+<h2><a href="#round-off-error">Round-Off Error</a></h2>
+<p>We consider again the function <span class="math inline">\(f(x) = \exp(x)\)</span> used in the introduction and compute the numerical derivative based on the forward difference at <span class="math inline">\(x=0\)</span> for several values of <span class="math inline">\(h.\)</span> The graph of <span class="math inline">\(h \mapsto \mathrm{FD}(\exp, 0, h)\)</span> shows that for values of <span class="math inline">\(h\)</span> near or below the machine epsilon <span class="math inline">\(\epsilon,\)</span> the difference between the numerical derivative and the exact value of the derivative is <em>not</em> explained by the classic asymptotic analysis.</p>
+<figure>
+<img src="images/fd-value.svg" alt="Forward Difference Scheme Values."><figcaption>Forward Difference Scheme Values.</figcaption>
+</figure>
+<p>If we take into account the representation of real numbers as doubles however, we can explain and quantify the phenomenon. To focus only on the effect of the round-off errors, we’d like to get rid of the truncation error. To achieve this, in the following computations, instead of <span class="math inline">\(\exp,\)</span> we use <span class="math inline">\(\exp_0,\)</span> the Taylor expansion of <span class="math inline">\(\exp\)</span> of order <span class="math inline">\(1\)</span> at <span class="math inline">\(x=0;\)</span> we have <span class="math inline">\(\exp_0 (x) = 1 + x.\)</span></p>
+<p>Assume that the rounding scheme is “round-to-nearest”; select a floating-point number <span class="math inline">\(h&gt;0\)</span> and compare it to the machine epsilon:</p>
+<ul>
+<li><p>If <span class="math inline">\(h \ll \epsilon,\)</span> then <span class="math inline">\(1 + h\)</span> is close to <span class="math inline">\(1,\)</span> actually, closer to <span class="math inline">\(1\)</span> than from the next binary floating-point value, which is <span class="math inline">\(1 + \epsilon.\)</span> Hence, the value is rounded to <span class="math inline">\([\exp_0](h) = 1,\)</span> and a <em>catastrophic cancellation</em> happens: <span class="math display">\[
+  \mathrm{FD}(\exp_0, 0, h) = \left[\frac{\left[ [\exp_0](h) - 1 \right]}{h}\right] = 0.
+  \]</span></p></li>
+<li><p>If <span class="math inline">\(h \approx \epsilon,\)</span> then <span class="math inline">\(1+h\)</span> is closer from <span class="math inline">\(1+\epsilon\)</span> than it is from <span class="math inline">\(1,\)</span> hence we have <span class="math inline">\([\exp_0](h) = 1+\epsilon\)</span> and <span class="math display">\[
+  \mathrm{FD}(\exp_0, 0, h) = \left[\frac{\left[ [\exp_0](h) - 1 \right]}{h}\right]
+  = \left[ \frac{\epsilon}{h} \right].
+  \]</span></p></li>
+<li><p>If <span class="math inline">\(\epsilon \ll h \ll 1,\)</span> then <span class="math inline">\([1+h] = 1+ h \pm \epsilon(1+h)\)</span> (the symbol <span class="math inline">\(\pm\)</span> is used here to define a confidence interval<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>). Hence <span class="math display">\[
+  [[\exp_0](h) - 1] = h \pm \epsilon \pm \epsilon(2h + \epsilon + \epsilon h)
+  \]</span> and <span class="math display">\[
+  \left[ \frac{[[\exp_0](h) - 1]}{h} \right] 
+  = 
+  1 \pm \frac{\epsilon}{h} + \frac{\epsilon}{h}(3h + 2\epsilon + 3h \epsilon +\epsilon^2 + \epsilon^2 h)
+  \]</span> therefore <span class="math display">\[
+  \mathrm{FD}(\exp_0, 0, h)  = \exp_0'(0) \pm \frac{\epsilon}{h}  \pm \epsilon', \; \epsilon' \ll \frac{\epsilon}{h}.
+  \]</span></p></li>
+</ul>
+<p>Going back to <span class="math inline">\(\mathrm{FD}(\exp, 0, h)\)</span> and using a log-log scale to display the total error, we can clearly distinguish the region where the error is dominated by the round-off error – the curve envelope is <span class="math inline">\(\log(\epsilon/h)\)</span> – and where it is dominated by the truncation error – a slope of <span class="math inline">\(1\)</span> being characteristic of schemes of order 1.</p>
+<figure>
+<img src="images/fd-error.svg" alt="Forward Difference Scheme Error."><figcaption>Forward Difference Scheme Error.</figcaption>
+</figure>
+</section>
+<section id="higher-order-scheme" class="level2">
+<h2><a href="#higher-order-scheme">Higher-Order Scheme</a></h2>
+<p>The theoretical asymptotic behavior of the forward difference scheme can be improved, for example if instead of the forward difference quotient we use a central difference quotient. Consider the Taylor expansion at the order 2 of <span class="math inline">\(f(x+h)\)</span> and <span class="math inline">\(f(x-h)\)</span>: <span class="math display">\[
+  f(x+h) = f(x) + f'(x) (+h)+ \frac{f''(x)}{2} (+h)^2 + \mathcal{O}\left(h^3\right)
+  \]</span> and <span class="math display">\[
+  f(x-h) = f(x) + f'(x) (-h) + \frac{f''(x)}{2} (-h)^2 + \mathcal{O}\left(h^3\right).
+  \]</span> We have <span class="math display">\[
+  f'(x) = \frac{f(x+h) - f(x-h)}{2h} + \mathcal{O}(h^2),
+  \]</span> hence, the <em>central difference</em> scheme is a scheme of order 2, with the<br>
+implementation: <span class="math display">\[
+  \mathrm{CD}(f, x, h) = \left[\frac{[[f] ( [x] + [h]) - [f] ([x]-[h])]}{[2 \times [h]]} \right].
+  \]</span> or equivalently, in Python:</p>
+<pre><code>def CD(f, x, h):
+    return 0.5 * (f(x + h) - f(x - h)) / h</code></pre>
+<p>The error graph for the central difference scheme confirms that a truncation error of order two may be used to improve the accuracy. However, it also shows that a higher-order actually <em>increases</em> the region dominated by the round-off error, making the problem of selection of a correct step size <span class="math inline">\(h\)</span> even more difficult.</p>
+<figure>
+<img src="images/cd-error.svg" alt="Central Difference Scheme Error."><figcaption>Central Difference Scheme Error.</figcaption>
+</figure>
+</section>
+<section id="complex-step-differentiation-1" class="level2">
+<h2><a href="#complex-step-differentiation-1">Complex Step Differentiation</a></h2>
+<p>If the function <span class="math inline">\(f\)</span> is analytic at <span class="math inline">\(x,\)</span> the Taylor expansion is also valid for (small values of) complex numbers <span class="math inline">\(h.\)</span> In particular, if we replace <span class="math inline">\(h\)</span> by a pure imaginary number <span class="math inline">\(ih,\)</span> we end up with</p>
+<p><span class="math display">\[
+  f(x + ih) = f(x) + f'(x) i h + \frac{f''(x)}{2} (ih)^2 + \mathcal{O}(h^3)
+  \]</span> If <span class="math inline">\(f\)</span> is real-valued, using the imaginary part yields: <span class="math display">\[
+  \mathrm{Im} \,\left( \frac{f(x + ih)}{h} \right) = f'(x) + \mathcal{O}(h^2).
+  \]</span> This is a method of order 2. The straightforward implementation of the complex-step differentiation is <span class="math display">\[
+  \mathrm{CSD}(f, x, h) = \left[ \frac{ \mathrm{Im}( [f]([x] + i [h])) }{[h]} \right].
+  \]</span> or equivalently, in Python:</p>
+<pre><code>def CSD(f, x, h):
+    return imag(f(x + 1j * h)) / h</code></pre>
+<p>The distinguishing feature of this scheme: it almost totally gets rid of the truncation error. Indeed, let’s consider again <span class="math inline">\(\exp_0;\)</span> when <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> are floating-point real numbers, the sum <span class="math inline">\(x + i y\)</span> can be computed with any round-off, hence, if <span class="math inline">\(h\)</span> is a floating-point number, <span class="math inline">\([\exp_0](ih) = [1+ih]= 1 + ih\)</span> and consequently, <span class="math inline">\(\mathrm{Im}( [\exp_0](ih)) = h,\)</span> which yields <span class="math display">\[
+  \mathrm{CSD}(\exp_0, 0, h) = \left[\frac{h}{h}\right]=
+  1 = \exp_0'(0).
+  \]</span></p>
+<figure>
+<img src="images/csd-error.svg" alt="Complex Step Difference Scheme Error."><figcaption>Complex Step Difference Scheme Error.</figcaption>
+</figure>
+</section>
+</section>
+<section id="spectral-method" class="level1">
+<h1><a href="#spectral-method">Spectral Method</a></h1>
+<p>The complex step differentiation is a powerful method but it also has limits. We can use it to compute the first derivative of a real analytic function <span class="math inline">\(f,\)</span> but not its second derivative because our estimate <span class="math inline">\(x\mapsto \mathrm{CSD}(f,x,h)\)</span> of the first derivative is only available for real values of <span class="math inline">\(x,\)</span> hence the method cannot be iterated. We cannot use it either if we know that <span class="math inline">\(f\)</span> is analytic but not real-valued.</p>
+<p>We introduce in this section an alternate method to compute first, second and higher-order derivatives of – real or complex-valued – analytic functions. More details may be found in <span class="citation" data-cites="For81">(Fornberg <a href="#ref-For81">2006</a>)</span> and <span class="citation" data-cites="Tre00">(Trefethen <a href="#ref-Tre00">2000</a>)</span>.</p>
+<section id="computation-method" class="level2">
+<h2><a href="#computation-method">Computation Method</a></h2>
+<p>Let <span class="math inline">\(f\)</span> be a function that is holomorphic in an open neighbourhood of <span class="math inline">\(x \in \mathbb{R}\)</span> that contains the closed disk with center <span class="math inline">\(x\)</span> and radius <span class="math inline">\(r.\)</span> In this disk, the values of <span class="math inline">\(f\)</span> can be computed by the Taylor series <span class="math display">\[
+  f(z) = \sum_{n=0}^{+\infty} a_n (z-x)^n, \; \; a_n = \frac{f^{(n)}(x)}{n!}.
+  \]</span> The open disk of convergence of the series has a radius that is larger than <span class="math inline">\(r\)</span>, thus the growth bound of the sequence <span class="math inline">\(a_n\)</span> is smaller than <span class="math inline">\(1/r\)</span>. Hence, <span class="math display">\[
+  \exists \, \kappa &gt;0, \,
+  \forall \, n \in \mathbb{N}, \; |a_n| \leq \kappa \, r^{-n}.
+  \]</span></p>
+<p>Let <span class="math inline">\(h \in (0,r)\)</span> and <span class="math inline">\(N\)</span> be a positive integer; let <span class="math inline">\(f_k\)</span> be the sequence of <span class="math inline">\(N\)</span> values of <span class="math inline">\(f\)</span> on the circle with center <span class="math inline">\(x\)</span> and radius <span class="math inline">\(h\)</span> defined by <span class="math display">\[
+  f_k = f(x + h w^{k}), \; w = e^{-i2\pi /N}, \; k =0, \dots ,N-1.
+  \]</span></p>
+<!--
+[^growth]: **Growth bound.** The number $r$ has to be smaller than the 
+radius of convergence of the series:
+  $$
+  r < \left( \limsup_{n \to +\infty} \sqrt[n]{|a_n|} \right)^{-1}.
+  $$
+This is equivalent to $\limsup_{n \to +\infty} \sqrt[n]{|a_n r^n|} < 1;$
+consequently, for $n$ large enough we have $|a_n| \leq r^{-n}.$
+With a suitable constant $\kappa > 0,$ we can turn this into
+$|a_n| \leq \kappa\, r^{-n}$ for *every* integer $n.$
+-->
+<section id="estimate-and-accuracy" class="level3">
+
+<div class="p"><h3><a href="#estimate-and-accuracy">Estimate and Accuracy</a></h3>The values <span class="math inline">\(f_k\)</span> can be computed as <span class="math display">\[
+  f_k = \sum_{n=0}^{+\infty} a_n (hw^k)^n 
+  = \sum_{n=0}^{N-1} \left[\sum_{m=0}^{+\infty} a_{n+mN} h^{n+mN} \right] w^{k(n+mN)}.
+  \]</span> Notice that we have <span class="math inline">\(w^{k(n+mN)} = w^{kn} (w^N)^{km} = w^{kn}.\)</span> Hence, if we define <span class="math display">\[
+  c_n = a_n h^n + a_{n+N} h^{n+N} + \dots = \sum_{m=0}^{+\infty} a_{n+mN} h^{n+mN},
+  \]</span> we end up with the following relationship between the values <span class="math inline">\(f_k\)</span> and <span class="math inline">\(c_n\)</span>: <span class="math display">\[
+  f_k = \sum_{n=0}^{N-1} w^{kn} c_n.
+  \]</span> It is useful because the coefficients <span class="math inline">\(c_n/h^n\)</span> provide an approximation of <span class="math inline">\(a_n\)</span>: <span class="math display">\[
+  \left|a_n - \frac{c_n}{h^n} \right| \leq 
+  \kappa r^{-n} \sum_{m=1}^{+\infty} (h/r)^{mN} = \kappa r^{-n} \frac{(h/r)^N}{1 - (h/r)^N}
+  \]</span> There are two ways to look at this approximation: if we freeze <span class="math inline">\(N\)</span> and consider the behavior of the error when the radius <span class="math inline">\(h\)</span> approaches <span class="math inline">\(0,\)</span> we derive <span class="math display">\[
+  a_n = \frac{c_n}{h^n} + \mathcal{O}(h^N)
+  \]</span> and conclude that the approximation of <span class="math inline">\(a_n\)</span> is of order <span class="math inline">\(N\)</span> with respect to <span class="math inline">\(h;\)</span> on the other hand, if we freeze <span class="math inline">\(h\)</span> and let <span class="math inline">\(N\)</span> grow to <span class="math inline">\(+\infty,\)</span> we obtain instead <span class="math display">\[
+  a_n = \frac{c_n}{h^n} + \mathcal{O}(e^{-\alpha N})
+  \; \mbox{ with } \; \alpha = -\log(h/r) &gt; 0,
+  \]</span> in other words, the approximation is exponential with respect to <span class="math inline">\(N.\)</span></div>
+</section>
+<section id="computation-of-the-estimate" class="level3">
+
+<div class="p"><h3><a href="#computation-of-the-estimate">Computation of the Estimate</a></h3>The right-hand side of the equation <span class="math display">\[
+  f_k = \sum_{n=0}^{N-1} w^{kn}c_n.
+  \]</span> can be interpreted as a classic matrix-vector product; the mapping from the <span class="math inline">\(c_n\)</span> to the <span class="math inline">\(f_k\)</span> is known has the <em>discrete Fourier transform</em> (DFT). The inverse mapping – the <em>inverse discrete Fourier transform</em> – is given by <span class="math display">\[
+  c_n = \frac{1}{N}\sum_{n=0}^{N-1}w^{-kn} f_k.
+  \]</span> Both the discrete Fourier transform and it inverse can be computed by algorithms having a <span class="math inline">\(\mathcal{O}(N\log N)\)</span> complexity (instead of the <span class="math inline">\(\mathcal{O}(N^2)\)</span> of the obvious method), the aptly named <em>fast Fourier transform</em> (FFT) and <em>inverse fast Fourier transform</em> (IFFT). Some of these algorithms actually deliver the minimal complexity only when <span class="math inline">\(N\)</span> is a power of two, so it is safer to pick only such numbers if you don’t know exactly what algorithm you are actually using.</div>
+<p>The implementation of this scheme is simple:</p>
+<pre><code>from numpy.fft import ifft
+from scipy.misc import factorial
+
+def SM(f, x, h, N):
+    w = exp(-1j * 2 * pi / N)
+    k = n = arange(N)
+    f_k = f(x + h * w**k)
+    c_n = ifft(f_k)
+    a_n = c_n / h ** n
+    return a_n * factorial(n)</code></pre>
+<figure>
+<img src="images/sm-error.svg" alt="Spectral Method Error"><figcaption>Spectral Method Error</figcaption>
+</figure>
+</section>
+</section>
+<section id="error-analysis" class="level2">
+<h2><a href="#error-analysis">Error Analysis</a></h2>
+<p>The algorithm introduced in the previous section provides approximation methods with an arbitrary large order for <span class="math inline">\(n\)</span>-th order derivatives. However, the region in which the round-off error dominates the truncation error is large and actually <em>increases</em> when the integer <span class="math inline">\(n\)</span> grows. A specific analysis has to be made to control both kind of errors.</p>
+<p>We conduct the detailled error analysis for the function <span class="math display">\[
+  f(z) = \frac{1}{1-z}
+  \]</span> at <span class="math inline">\(x=0\)</span> and attempt to estimate the derivatives up to the fourth order. We have selected this example because <span class="math inline">\(a_n=1\)</span> for every <span class="math inline">\(n,\)</span> hence the computation of the relative errors of the results are simple.</p>
+<section id="round-off-error-1" class="level3">
+
+<div class="p"><h3><a href="#round-off-error-1">Round-off error</a></h3>We assume that the main source of round-off errors is in the computations of the <span class="math inline">\(f_k.\)</span> The distance between <span class="math inline">\(f_k\)</span> and its approximation <span class="math inline">\([f_k]\)</span> is bounded by <span class="math inline">\(|f_k|\times \epsilon/2;\)</span> the coefficients in the IFFT matrix are of modulus <span class="math inline">\(1/N,\)</span> hence, if the sum is exact, we end up with an absolute error on <span class="math inline">\(c_n\)</span> bounded by <span class="math inline">\(M(h) \times {\epsilon}/{2}\)</span> with <span class="math display">\[M(h)=\max_{|z-x|=h} |f(z)|.\]</span></div>
+<p>Hence the absolute error on <span class="math inline">\(a_n = c_n / h^n\)</span> is bounded by <span class="math inline">\(M(h) \epsilon / (2 h^n).\)</span> Using the rough estimate <span class="math inline">\(|a_n| \simeq \kappa r^{-n},\)</span> we end up with a relative error for <span class="math inline">\(a_n\)</span> controlled by <span class="math display">\[
+  \left(\frac{M(h)}{\kappa}\frac{\epsilon}{2}\right) \left( \frac{h}{r} \right)^{-n}
+  \]</span> On our example, we can pick <span class="math inline">\(M(h) = 1/(1-h),\)</span> <span class="math inline">\(\kappa=1,\)</span> and <span class="math inline">\(r=1,\)</span> hence the best error bound we can hope for is obtained for the value of <span class="math inline">\(h\)</span> that minimizes <span class="math inline">\({1}/{((1-h)h^n)} {\epsilon/}{2};\)</span> the best <span class="math inline">\(h\)</span> and round-off error bound are actually <span class="math display">\[
+  h=\frac{n}{n+1}
+  \; \mbox{ and } \;
+  \mbox{round-off}(a_n) \leq
+  \frac{(n+1)^{n+1}}{n^n} \frac{\epsilon}{2}.
+  \]</span></p>
+<p>The error bound is always bigger than the structural relative error <span class="math inline">\(\epsilon/2\)</span> and increases with <span class="math inline">\(n,\)</span> hence the worst case is obtained for the highest derivative order that we want to compute, that is <span class="math inline">\(n=4.\)</span> If for example we settle on a round-off relative error of <span class="math inline">\(1000\)</span> times <span class="math inline">\(\epsilon/2,\)</span> we can select <span class="math inline">\(h=0.2.\)</span></p>
+</section>
+<section id="truncation-error" class="level3">
+
+<div class="p"><h3><a href="#truncation-error">Truncation error</a></h3>We have already estimated the difference between <span class="math inline">\(a_n\)</span> and <span class="math inline">\(c_n / h^n;\)</span> if we again model <span class="math inline">\(|a_n|\)</span> as <span class="math inline">\(\kappa r^{-n},\)</span> the relative error of this estimate is bounded by <span class="math display">\[
+  \frac{(h/r)^N}{1 - (h/r)^N} \simeq \left( \frac{h}{r}\right)^N,
+  \]</span> hence to obtain a truncation error of the same magnitude than the truncation error – that is <span class="math inline">\(1000 \times \epsilon /2,\)</span> we may select <span class="math inline">\(N\)</span> such that <span class="math inline">\(0.2^N \leq 1000 \times {\epsilon}/{2},\)</span> that is</div>
+<p><span class="math display">\[
+  N \geq \left \lceil \frac{\log (1000 \times {\epsilon}/{2})}{\log 0.2} \right \rceil = 19.
+  \]</span></p>
+<p>We pick for <span class="math inline">\(N\)</span> the next power of two after <span class="math inline">\(19;\)</span> the choices <span class="math inline">\(h=0.2\)</span> and <span class="math inline">\(N=32\)</span> yield the following estimates of the first 8 <span class="math inline">\(n\)</span>-th order derivatives of <span class="math inline">\(f.\)</span></p>
+<div class="table"><table>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(n\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(f^{(n)}(0)\)</span> estimate</th>
+<th style="text-align: center;">relative error</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1.0000000000000000\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0.0\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0.9999999999999998\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2.2 \times 10^{-16}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1.9999999999999984\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(7.8 \times 10^{-16}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(6.0000000000000284\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(4.7 \times 10^{-15}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(4\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(23.999999999999996\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1.1 \times 10^{-16}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(5\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(120.00000000001297\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1.1 \times 10^{-13}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(6\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(720.00000000016007\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2.2 \times 10^{-13}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(7\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(5040.0000000075588\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1.5 \times 10^{-12}\)</span></td>
+</tr>
+</tbody>
+</table></div>
+</section>
+</section>
+</section>
+<section id="appendix" class="level1">
+<h1><a href="#appendix">Appendix</a></h1>
+<p>Augustin-Louis is the proud author of a very simple Python CSD code fragment that people cut-and-paste in their numerical code:</p>
+<pre><code>from numpy import imag
+def CSD(f, x, h=1e-100):
+    return imag(f(x + 1j * h)) / h</code></pre>
+<p>One day, he receives the following mail:</p>
+<blockquote>
+<p>Dear Augustin-Louis,</p>
+<p>We are afraid that your Python CSD code is defective; we used it to compute the derivative of <span class="math inline">\(f(x) = \sqrt{|x|}\)</span> at <span class="math inline">\(x=1\)</span> and got <span class="math inline">\(0.\)</span> We’re pretty sure that it should be <span class="math inline">\(0.5\)</span> instead.</p>
+<p>Yours truly,</p>
+<p>Isaac &amp; Gottfried Wilhelm.</p>
+</blockquote>
+<ol type="1">
+<li><p>Should the complex-step differentiation method work in this case?</p></li>
+<li><p>How do you think that Isaac and Gottfried Wilhelm have implemented the function <span class="math inline">\(f\)</span>? Would that explain the value of <code>CSD(f, x=1.0)</code> that they report?</p></li>
+<li><p>Can you modify the CSD code fragment to “make it work” with the kind of function and implementation that Isaac and Gottried Wilhelm are using? Of course, you cannot change their code, only yours.</p></li>
+</ol>
+</section>
+<section id="bibliography" class="level1 unnumbered">
+<h1><a href="#bibliography">Bibliography</a></h1>
+<div id="refs" class="references"><ol><li id="ref-For81" style="margin-bottom:0.75em"><em>Numerical Differentiation of Analytic Functions</em><br>Bengt Fornberg, 2006.<br>JSON: <a href="data:application/json;charset=utf-8;fontSize64,ewogICJVUkwiOiAiaHR0cDovL2RibHAudW5pLXRyaWVyLmRlL2RiL2pvdXJuYWxzL3RvbXMvdG9tczcuaHRtbCNGb3JuYmVyZzgxIiwKICAiYXV0aG9yIjogWwogICAgewogICAgICAiZmFtaWx5IjogIkZvcm5iZXJnIiwKICAgICAgImdpdmVuIjogIkJlbmd0IgogICAgfQogIF0sCiAgImNvbnRhaW5lci10aXRsZSI6ICJBQ00gVHJhbnMuIE1hdGguIFNvZnR3LiIsCiAgImlkIjogIkZvcjgxIiwKICAiaXNzdWUiOiAiNCIsCiAgImlzc3VlZCI6IHsKICAgICJkYXRlLXBhcnRzIjogWwogICAgICBbCiAgICAgICAgMjAwNiwKICAgICAgICA0LAogICAgICAgIDMKICAgICAgXQogICAgXQogIH0sCiAgImtleXdvcmQiOiAiZGJscCIsCiAgInBhZ2UiOiAiNTEyLTUyNiIsCiAgInRpdGxlIjogIk51bWVyaWNhbCBkaWZmZXJlbnRpYXRpb24gb2YgYW5hbHl0aWMgZnVuY3Rpb25zLiIsCiAgInR5cGUiOiAiYXJ0aWNsZS1qb3VybmFsIiwKICAidm9sdW1lIjogIjciCn0="><i style="font-size:18px;position:relative;bottom:0.05em;" class="fa fa-file-text-o"></i></a>&nbsp; / URL: <a href="http://dblp.uni-trier.de/db/journals/toms/toms7.html#Fornberg81"><i style="font-size:18px" class="fa fa-link"></i></a></li><li id="ref-Gol91" style="margin-bottom:0.75em"><em>What Every Computer Scientist Should Know about Floating-Point Arithmetic</em><br>David Goldberg, 1991.<br>JSON: <a href="data:application/json;charset=utf-8;fontSize64,ewogICJVUkwiOiAiaHR0cDovL2NpdGVzZWVyeC5pc3QucHN1LmVkdS92aWV3ZG9jL3N1bW1hcnk/ZG9pPTEwLjEuMS4yMi42NzY4IiwKICAiYXV0aG9yIjogWwogICAgewogICAgICAiZmFtaWx5IjogIkdvbGRiZXJnIiwKICAgICAgImdpdmVuIjogIkRhdmlkIgogICAgfQogIF0sCiAgImNvbnRhaW5lci10aXRsZSI6ICJBQ00gQ29tcHV0aW5nIFN1cnZleXMiLAogICJpZCI6ICJHb2w5MSIsCiAgImlzc3VlIjogIjEiLAogICJpc3N1ZWQiOiB7CiAgICAiZGF0ZS1wYXJ0cyI6IFsKICAgICAgWwogICAgICAgIDE5OTEKICAgICAgXQogICAgXQogIH0sCiAgInBhZ2UiOiAiNS00OCIsCiAgInRpdGxlIjogIldoYXQgZXZlcnkgY29tcHV0ZXIgc2NpZW50aXN0IHNob3VsZCBrbm93IGFib3V0IGZsb2F0aW5nLXBvaW50IGFyaXRobWV0aWMiLAogICJ0eXBlIjogImFydGljbGUtam91cm5hbCIsCiAgInZvbHVtZSI6ICIyMyIKfQ=="><i style="font-size:18px;position:relative;bottom:0.05em;" class="fa fa-file-text-o"></i></a>&nbsp; / URL: <a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.22.6768"><i style="font-size:18px" class="fa fa-link"></i></a></li><li id="ref-ANS85" style="margin-bottom:0.75em"><em>ANSI/IEEE 754-1985, Standard for Binary Floating-Point Arithmetic</em><br>IEEE Task P754, 1985.<br>JSON: <a href="data:application/json;charset=utf-8;fontSize64,ewogICJJU0JOIjogIjEtNTU5MzctNjUzLTgiLAogICJhdXRob3IiOiBbCiAgICB7CiAgICAgICJsaXRlcmFsIjogIklFRUUgVGFzayBQNzU0IgogICAgfQogIF0sCiAgImlkIjogIkFOUzg1IiwKICAiaXNzdWVkIjogewogICAgImRhdGUtcGFydHMiOiBbCiAgICAgIFsKICAgICAgICAxOTg1LAogICAgICAgIDgsCiAgICAgICAgMTIKICAgICAgXQogICAgXQogIH0sCiAgInBhZ2UiOiAiMjAiLAogICJwdWJsaXNoZXIiOiAiSUVFRSIsCiAgInB1Ymxpc2hlci1wbGFjZSI6ICJOZXcgWW9yaywgTlksIFVTQSIsCiAgInRpdGxlIjogIkFOU0kvSUVFRSA3NTQtMTk4NSwgc3RhbmRhcmQgZm9yIGJpbmFyeSBmbG9hdGluZy1wb2ludCBhcml0aG1ldGljIiwKICAidHlwZSI6ICJib29rIgp9"><i style="font-size:18px;position:relative;bottom:0.05em;" class="fa fa-file-text-o"></i></a>&nbsp;</li><li id="ref-Tre00" style="margin-bottom:0.75em"><em>Spectral Methods in Matlab</em><br>Lloyd N. Trefethen, 2000.<br>JSON: <a href="data:application/json;charset=utf-8;fontSize64,ewogICJVUkwiOiAiaHR0cDovL3d3dy5tYXRod29ya3MuaXIvZG93bmxvYWRzL2VuZ2xpc2gvU3BlY3RyYWwlMjBNZXRob2RzJTIwaW4lMjBNQVRMQUIucGRmIiwKICAiYXV0aG9yIjogWwogICAgewogICAgICAiZmFtaWx5IjogIlRyZWZldGhlbiIsCiAgICAgICJnaXZlbiI6ICJMbG95ZCBOLiIKICAgIH0KICBdLAogICJpZCI6ICJUcmUwMCIsCiAgImlzc3VlZCI6IHsKICAgICJkYXRlLXBhcnRzIjogWwogICAgICBbCiAgICAgICAgMjAwMAogICAgICBdCiAgICBdCiAgfSwKICAicHVibGlzaGVyIjogIlNpYW0iLAogICJ0aXRsZSI6ICJTcGVjdHJhbCBtZXRob2RzIGluIG1hdGxhYiIsCiAgInR5cGUiOiAiYm9vayIsCiAgInZvbHVtZSI6ICIxMCIKfQ=="><i style="font-size:18px;position:relative;bottom:0.05em;" class="fa fa-file-text-o"></i></a>&nbsp; / URL: <a href="http://www.mathworks.ir/downloads/english/Spectral%20Methods%20in%20MATLAB.pdf"><i style="font-size:18px" class="fa fa-link"></i></a></li></ol></div>
+</section>
+<section class="footnotes" id="notes"><h1><a href="#notes">Notes</a></h1>
+<hr>
+<ol>
+<li id="fn1">
+<div class="p"><h3 id="double"><a href="#double">“Double”</a></h3>‌is a shortcut for “double-precision floating-point format”, defined in the IEEE 754 standard, see <span class="citation" data-cites="ANS85">(IEEE Task P754 <a href="#ref-ANS85">1985</a>)</span>. A single-precision format is also defined, that uses only 32 bits. NumPy provides it under the name <code>float32</code>.<a href="#fnref1">↩</a></div></li>
+<li id="fn2">
+<div class="p"><h3 id="bachmann-landau-notation."><a href="#bachmann-landau-notation.">Bachmann-Landau notation.</a></h3>‌For a real or complex variable <span class="math inline">\(h,\)</span> we write <span class="math inline">\(\psi(h) = \mathcal{O}(\phi(h))\)</span> if there is a suitable deleted neighbourhood of <span class="math inline">\(h=0\)</span> where the functions <span class="math inline">\(\psi\)</span> and <span class="math inline">\(\phi\)</span> are defined and the inequality <span class="math inline">\(|\psi(h)| \leq \kappa |\phi(h)|\)</span> holds for some <span class="math inline">\(\kappa &gt; 0.\)</span> When <span class="math inline">\(N\)</span> is a natural number, we write <span class="math inline">\(\psi(N) = \mathcal{O}(\phi(N))\)</span> if there is a <span class="math inline">\(n\)</span> such that <span class="math inline">\(\psi\)</span> and <span class="math inline">\(\phi\)</span> are defined for <span class="math inline">\(N\geq n\)</span> and for any such <span class="math inline">\(N,\)</span> the inequality <span class="math inline">\(|\psi(N)| \leq \kappa |\phi(N)|\)</span> holds for some <span class="math inline">\(\kappa &gt; 0.\)</span><a href="#fnref2">↩</a></div></li>
+<li id="fn3"><p><strong>Plus-minus sign and confidence interval.</strong> The equation <span class="math inline">\(a = b \pm c\)</span> should be interpreted as the inequality <span class="math inline">\(|a - b| \leq |c|.\)</span><a href="#fnref3">↩</a></p></li>
+</ol>
+</section>
+</main>
+
+
+</body></html>

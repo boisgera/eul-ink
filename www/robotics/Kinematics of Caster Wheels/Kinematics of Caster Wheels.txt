@@ -1,0 +1,153 @@
+% Kinematics of Caster Wheels
+% [Sébastien Boisgérault][email], MINES ParisTech
+
+[email]: mailto:Sebastien.Boisgerault@mines-paristech.fr
+
+---
+license: "[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)"
+---
+
+Introduction
+================================================================================
+
+According to Wikipedia:
+
+> A caster (also castor according to some dictionaries[^1][^2]) 
+> is a wheeled device typically mounted to a larger object that 
+> enables relatively easy rolling movement of the object. 
+> Casters are essentially special housings that include a wheel, 
+> facilitating the installation of wheels on objects. 
+> Casters are found virtually everywhere, from office desk chairs to shipyards,
+> from hospital beds to automotive factories. 
+> They range in size from the very small furniture casters to massive 
+> industrial casters, 
+> and individual load capacities span 100 pounds (45 kg) or less to 
+> 100,000 pounds (45 t). 
+>
+> Source: Wikipedia <https://en.wikipedia.org/wiki/Caster>
+
+[^1]: <https://en.oxforddictionaries.com/definition/castor>
+
+[^2]: <http://www.dictionary.com/browse/caster>
+
+In technical terms, caster wheels "enable relatively easy rolling movement"
+because they add no kinematic constraints to the body the object they are
+attached to. Since there is an offset between the kingpin of the swivel 
+and the vertical axis going through the center of the wheel, any plane
+trajectory may be assigned to the kingpin: the wheel and the swivel will
+rotate accordingly to accomodate this movement. We establish in the
+next section the equations that relate these values and prove this result.
+
+![[Generic caster by Richard Binstadt](https://commons.wikimedia.org/wiki/File:Generic_Caster.jpg). License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/legalcode)](images/Generic_Caster.jpg)
+
+
+The Model
+================================================================================
+
+![Caster Wheel Schematics](images/drawing.pdf)
+
+Let $R(\gamma)$ denote the rotation matrix with angle $\gamma$:
+$$
+R(\gamma) = 
+\left[
+\begin{array}{cr}
+\cos \gamma & -\sin \gamma \\
+\sin \gamma &  \cos \gamma
+\end{array}
+\right]
+$$
+
+If the wheel is rolling without slipping, 
+the linear velocity $\vec{v}$ of its center 
+is parallel to the direction of the wheel
+and its intensity is $r\dot{\phi}$. 
+Therefore,
+  $$
+  \vec{v} = 
+  R(\gamma) 
+  \left[
+  \begin{array}{c}
+  r\dot{\phi} \\
+  0
+  \end{array}
+  \right]
+  =
+  r \dot{\phi}
+  \left[
+  \begin{array}{c}
+  \cos \gamma \\
+  \sin \gamma
+  \end{array}
+  \right]
+  $$
+On the other hand, since the coordinates of this center are
+$x+ \ell  \cos \gamma$ and $y + \ell \sin \gamma$, we also 
+have
+  $$
+  \vec{v}
+  =
+  \left[
+  \begin{array}{c}
+  \dot{x} \\
+  \dot{y}
+  \end{array}
+  \right]
+  +
+  \ell \dot{\gamma}
+  \left[
+  \begin{array}{r}
+  -\sin \gamma \\
+   \cos \gamma
+  \end{array}
+  \right]
+  $$
+and thus
+  $$
+  \left[
+  \begin{array}{c}
+  \dot{x} \\
+  \dot{y}
+  \end{array}
+  \right]
+  = 
+  R(\gamma) 
+  \left[
+  \begin{array}{r}
+  r \dot{\phi} \\
+  -\ell \dot{\gamma}
+  \end{array}
+  \right]
+  $$
+or equivalently
+  $$
+  \left[
+  \begin{array}{r}
+  \dot{\phi} \\
+  \dot{\gamma}
+  \end{array}
+  \right]
+  =
+  \left[
+  \begin{array}{cc}
+  1/r & 0 \\
+  0 &  -1/\ell
+  \end{array}
+  \right]
+  R(-\gamma)
+  \left[
+  \begin{array}{c}
+  \dot{x} \\
+  \dot{y}
+  \end{array}
+  \right]
+  =
+  \left[
+  \begin{array}{c}
+  (\dot{x} \cos \gamma  + \dot{y} \sin \gamma )/r \ \\
+  (\dot{x} \sin \gamma - \dot{y} \cos \gamma))/\ell
+  \end{array}
+  \right]
+  $$
+
+
+

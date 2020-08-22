@@ -1,0 +1,545 @@
+% The Winding Number
+% [Sébastien Boisgérault][email], Mines ParisTech
+
+[email]: mailto:Sebastien.Boisgerault@mines-paristech.fr
+
+---
+license: "[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0)"
+---
+
+Definitions
+================================================================================
+
+The argument of a non-zero complex number is only defined modulo $2\pi.$
+A convenient way to describe mathematically this relationship is 
+to associate to any such number the set of admissible values 
+of its argument:
+
+**Definition -- The Argument Function.** 
+The *set-valued* (or *multi-valued*) function $\mathrm{Arg},$
+defined on $\mathbb{C}^{*}$ by
+  $$
+  \mathrm{Arg} \, z 
+  = 
+  \left\{ 
+    \theta \in \mathbb{R} 
+    \; \left| \; 
+    e^{i\theta} = \frac{z}{|z|} \right. 
+  \right\},
+  $$
+is called the *argument* function.
+
+If we need a classic *single-valued* function instead, we have for example:
+
+**Definition -- Principal Value of the Argument.**
+The *principal value of the argument* is the unique continuous function 
+  $$
+  \mathrm{arg}: \mathbb{C} \setminus \mathbb{R}_- \to \mathbb{R}
+  $$
+such that
+  $$
+  \arg \, 1 = 0
+  $$
+which is a *choice* of the argument on its domain:
+  $$
+  \forall \, z \in \mathbb{C} \setminus \mathbb{R}_-, \;
+  \mathrm{arg}\, z \in \mathrm{Arg}  \, z.
+  $$
+
+**Proof (existence and uniqueness).** 
+Define $\mathrm{arg}$ on $\mathbb{C} \setminus \mathbb{R}_- \to \mathbb{R}$ by:
+  $$
+  \arg (x + i y) = 
+  \left| 
+  \begin{array}{cl}
+  \arctan y/x & \mbox{if } x > 0, \\
+  +\pi/2 - \arctan x/y & \mbox{if } y > 0, \\
+  -\pi/2 - \arctan x/y & \mbox{if } y < 0. \\
+  \end{array}
+  \right.
+  $$
+This definition is non-ambiguous: if $x>0$ and $y>0,$ we have
+  $$
+  \arctan x/y + \arctan y/x = \pi/2
+  $$
+and a similar equality holds when $x>0$ and $y<0.$ 
+As each of the three expressions used to define $\mathrm{arg}$ has an open
+domain and is continuous, the function itself is continuous.
+It is a choice of the argument thanks to the definition of $\arctan$: 
+for example, if $x>0,$ with $\theta=\arg(x+iy),$ we have
+  $$
+  \frac{\sin\theta}{\cos\theta}=\tan \theta = \tan (\arctan y/x) = \frac{y}{x}, 
+  $$
+hence, as $\cos \theta > 0$ and $x>0,$ there is a $\lambda > 0$
+such that
+  $$
+  x + i y = \lambda (\cos \theta + i \sin \theta) = \lambda e^{i\theta},
+  $$
+This equation yields $\arg x+ i y \in \mathrm{Arg} \, x + iy.$ 
+The proof for the half-planes $y>0$ and $y<0$ is similar.
+
+If $f$ is another continuous choice of the argument 
+on $\mathbb{C} \setminus \mathbb{R}_-$ such that $f(1) = 0,$ 
+the image of $\mathbb{C} \setminus \mathbb{R}_-$ by the 
+difference $f - \arg$ is a subset of $2\pi \mathbb{Z}$ that 
+contains $0,$ and it's also path-connected as the image of a path-connected
+set by a continuous function. Consequently, it is the singleton $\{0\}$:
+$f$ and $\arg$ are equal.
+\hfill $\blacksquare$
+
+We cannot avoid the introduction of a *cut* in the complex plane when we
+search for a continuous choice of the argument:
+there is no continuous choice of the argument on $\mathbb{C}^*.$
+However, for a continuous choice of the argument along a path of
+$\mathbb{C}^*,$ there is no such restriction:
+
+The following theorem is a special case of the path lifting property
+(in the context of covering spaces; refer to [@Hat02] for details).
+
+**Theorem -- Continuous Choice of the Argument.** 
+Let $a \in \mathbb{C}$ and $\gamma$ be a path of $\mathbb{C} \setminus \{a\}.$ 
+Let $\theta_0 \in \mathbb{R}$ be a value of the argument of $\gamma(0) - a$:
+  $$
+  \theta_0 \in \mathrm{Arg}(\gamma(0) - a).
+  $$
+There is a unique continous function $\theta:[0,1] \mapsto \mathbb{R}$ such that 
+$\theta(0) = \theta_0$ which is a *choice* of $z \mapsto \mathrm{Arg}(z-a)$ on $\gamma$:
+  $$
+  \forall \, t \in [0,1], \; 
+  \theta(t) \in \mathrm{Arg}(\gamma(t) - a).
+  $$
+
+**Proof.** 
+Let $(x(t), y(t))$ be the cartesian coordinates of $\gamma(t)$ in the system 
+with origin $a$ and basis $(e^{i\theta_0}, i e^{i\theta_0}).$ 
+As long as $x(t) > 0,$ the function 
+  $$t \mapsto \theta_0 + \arg(x(t)+iy(t))$$
+is a continuous choice of the argument of $\gamma(t) - a.$ 
+Let $d$ be the distance between $a$ and $\gamma([0,1])$ 
+and let $n \in \mathbb{N}$ such that
+  $$
+  |t - s| \leq 2^{-n} \, \Rightarrow \, |\gamma(t) - \gamma(s)| < d.
+  $$
+The condition $x(t) > 0$ is ensured for any $t$ in $[0, 2^{-n}].$
+This construction of a continuous choice may be iterated locally on every 
+interval $[k2^{-n}, (k+1)2^{-n}]$ with a new coordinate system to provide
+a global continuous choice of the argument on $[0,1].$
+
+The uniqueness of a continuous choice is a consequence of the intermediate
+value theorem: if we assume that there are two such functions $\theta_1$ and
+$\theta_2$ with the same initial value $\theta_0,$ as 
+$\theta_1(0) - \theta_2(0)=0,$ if $\theta_1(t) - \theta_2(t) \neq 0$ for
+some $t\in[0,1],$ then either $|\theta_1(t) - \theta_2(t)| < \pi,$ or 
+there is a $\tau \in \left]0,t\right[$ such that 
+$\theta_1(\tau) - \theta_2(\tau) \neq 0$ and 
+$|\theta_1(\tau) -\theta_2(\tau)| < \pi.$
+In any case, there is a contradiction since all values of the argument
+differ of a multiple of $2\pi.$ \hfill $\blacksquare$
+
+**Definition -- Variation of the Argument.** 
+Let $a \in \mathbb{C}$ and $\gamma$ be a path of $\mathbb{C} \setminus \{a\}.$
+The *variation* of $z \mapsto \mathrm{Arg}(z-a)$ on $\gamma$ is defined as
+  $$
+  [z \mapsto \mathrm{Arg}(z-a)]_{\gamma}
+  = \theta(1) - \theta(0)
+  $$
+where $\theta$ is a continous choice of $z \mapsto \mathrm{Arg}(z-a)$ 
+on $\gamma.$
+
+**Proof (unambiguous definition).**
+If $\theta_1$ and $\theta_2$ are two continuous choices of 
+$z \mapsto \mathrm{Arg}(z-a)$ on $\gamma,$
+for any $t \in [0,1],$ they differ of a multiple of $2\pi.$
+As the function $\theta_1  - \theta_2$ is continuous, 
+by the intermediate value theorem, it is constant.
+Hence $$(\theta_1 - \theta_2)(1) = (\theta_1 - \theta_2)(0),$$
+and $\theta_1(1) - \theta_1(0) = \theta_2(1) - \theta_2(0).$
+\hfill $\blacksquare$
+
+**Definition -- Winding Number / Index.** 
+Let $a \in \mathbb{C}$ and $\gamma$ be a closed path of 
+$\mathbb{C} \setminus \{a\}.$
+The *winding number* -- or *index* -- of $\gamma$ around $a$ is the integer 
+  $$
+  \mathrm{ind}(\gamma,a)
+   = \frac{1}{2\pi}[z\mapsto \mathrm{Arg}(z-a)]_{\gamma}.
+  $$
+
+**Proof -- The Winding Number is an Integer.**
+Let $\theta$ be a continuous choice function of $z \mapsto \mathrm{Arg}(z-a)$ 
+on $\gamma;$
+as the path $\gamma$ is closed, $\theta(0)$ and $\theta(1),$
+which are values of the argument of $\gamma(0)-a = \gamma(1)-a,$
+are equal modulo $2\pi,$ hence $(\theta(1) - \theta(0))/2\pi$ is an integer.
+\hfill $\blacksquare$
+
+**Definition -- Path Exterior & Interior.** 
+The *exterior* and *interior* of a closed path $\gamma$ 
+are the subsets of the complex plane defined by
+  $$
+  \mathrm{Ext} \, \gamma 
+  = 
+  \{ 
+    z \in \mathbb{C} \setminus \gamma([0,1]) 
+    \; | \;
+    \mathrm{ind}(\gamma, z) = 0 
+  \}.
+  $$
+and
+  $$
+  \mathrm{Int} \, \gamma 
+  =
+  \mathbb{C} \setminus (\gamma([0,1]) \cup \mathrm{Ext} \, \gamma) 
+  =
+  \{ 
+    z \in \mathbb{C} \setminus \gamma([0,1]) 
+    \; | \;
+    \mathrm{ind}(\gamma, z) \neq 0 
+  \}.
+  $$
+
+
+Properties
+================================================================================
+
+**Theorem -- The Winding Number is Locally Constant.** 
+Let $a \in \mathbb{C}$ and $\gamma$ be a closed path of $\mathbb{C} \setminus \{a\}.$
+There is a $\epsilon > 0$ such that, 
+for any $b \in \mathbb{C}$ and any closed path $\beta,$ if
+  $$
+  |b - a| < \epsilon 
+  \; \mbox{ and } \; 
+  (\forall \, t \in [0,1], \; |\beta(t) - \gamma(t)| < \epsilon)
+  $$
+then $\beta$ is a path of $\mathbb{C} \setminus \{b\}$ and
+  $$
+  \mathrm{ind}(\gamma,a) = \mathrm{ind}(\beta,b).
+  $$
+
+**Proof.** 
+Let $\epsilon = d(a, \gamma([0,1])) /2.$ 
+If $|b - a| < \epsilon$ and for any $t \in [0,1],$ 
+$|\gamma(t) - \beta(t)| < \epsilon,$ then clearly
+$b \in \mathbb{C} \setminus \beta([0,1]).$
+Additionally, for any $t \in [0,1]$
+there are values $\theta_1$ of $\mathrm{Arg} (\gamma(t)-a)$
+and $\theta_2$ of $\mathrm{Arg}(\beta(t)-b)$ such that 
+$|\theta_1 - \theta_2| < \pi/2.$
+If we select some values $\theta_{1,0}$ of $\mathrm{Arg} (\gamma(0) - a)$ and 
+$\theta_{2,0}$ of $\mathrm{Arg} (\beta(0) -b)$ such that 
+$|\theta_{1,0} - \theta_{2,0}| < \pi/2,$
+then the corresponding continuous choices $\theta_1$ and $\theta_2$ satisfy
+$|\theta_1(t) - \theta_2(t)| < \pi/2$ for any $t \in [0,1]$([^lemma]).
+Consequently
+  $$
+  |\mathrm{ind}(\gamma,a) - \mathrm{ind}(\beta,b)| = 
+  \left|
+    \frac{\theta_1(1) - \theta_1(0)}{2\pi} - 
+    \frac{\theta_2(1) - \theta_2(0)}{2\pi}
+  \right| < 
+  \frac{1}{2}.
+  $$
+As both winding numbers are integers, they are equal.
+\hfill $\blacksquare$
+
+[^lemma]: Otherwise, by the intermediate value theorem, we could find some 
+$t \in \left]0,1\right]$ such that $|\theta_1(t) - \theta_2(t)| = \pi/2,$
+but then, for every value $\theta_{1,t}$ of $\mathrm{Arg} (\gamma(t)-a)$
+and $\theta_{2,t}$ of $\mathrm{Arg}(\beta(t)-b),$ we would have
+$$\theta_{1,t}- \theta_{2,t} = \theta_1(t) - \theta_2(t) + 2\pi k$$ for
+some $k \in \mathbb{Z}.$ 
+Therefore, the choice of $\theta_{1,t}$ and $\theta_{2,t}$
+such that $|\theta_{1,t} - \theta_{2,t}| < \pi/2$ would be impossible.
+
+
+
+
+**Corollary -- The Winding Number is Constant on Components.** 
+Let $\gamma$ be a closed path. 
+The function 
+  $$
+  z \in \mathbb{C} \setminus \gamma([0,1]) \mapsto \mathrm{ind}(\gamma,z)
+  $$
+is constant on each component of $\mathbb{C} \setminus \gamma([0,1])$.
+If additionally the component is unbounded, the value of the winding
+number is zero.
+
+**Proof.** 
+The mapping $z \mapsto \mathrm{ind}(\gamma, z)$ is locally constant -- 
+and hence constant -- 
+on every connected component of $\mathbb{C} \setminus \gamma([0,1]).$
+If $a$ belongs to some unbounded component of this set, 
+there is a $b$ in the same component such that
+$|b|> r = \max_{t \in [0,1]} |\gamma(t)|.$
+It is possible to connect $b$ to any point $c$ such that $|c| = r$ 
+by a circular path in $\mathbb{C} \setminus \gamma([0,1]),$
+thus we may assume that $b \in \mathbb{R}_-.$
+The function
+  $$
+  \theta: t \in [0,1] \mapsto \mathrm{arg}(\gamma(t) - b)
+  $$
+is a continuous choice of $z \mapsto \mathrm{Arg}(z-b)$ along $\gamma$
+and it satisfies 
+  $$
+  \forall \,  t \in [0,1], \; |\theta(t)|  = 
+  \left|\arctan \frac{\mathrm{Im} (\gamma(t) - b)}{\mathrm{Re} (\gamma(t) -b)} \right|
+  < \arctan \frac{r}{|b| - r} < \frac{\pi}{2}.
+  $$
+As $\gamma$ is a closed path, $\theta(0)$ and $\theta(1)$
+-- which are equal modulo $2\pi$ -- are actually equal and
+  $$
+  \mathrm{ind}(\gamma, a) = \mathrm{ind}(\gamma, b) = \frac{\theta(1) - \theta(0)}{2\pi} =0
+  $$
+as expected.
+\hfill $\blacksquare$
+
+
+Simply Connected Sets
+================================================================================
+
+**Definition -- Simply/Multiply Connected Set & Holes.‌** 
+Let $\Omega$ be an open subset of the plane.
+A *hole* of $\Omega$ is a bounded component of its complement 
+$\mathbb{C} \setminus \Omega.$
+The set $\Omega$ is *simply connected* if it has no
+hole (if every component of its complement is unbounded) 
+and *multiply connected* otherwise. 
+
+**Examples.**
+
+ 1. The open set 
+    $\Omega = \{(x,y) \in \mathbb{R}^2 \; | \; x < -1 \, \mbox{ or }\, x>1\}$
+    is not connected but it is simply connected: its complement has 
+    a unique component which is unbounded, hence it has no holes.
+
+ 3. The open set 
+    $\Omega = \mathbb{C} \setminus \overline{\{2^{-n} \, | \, n \in \mathbb{N}\}}$
+    is multiply connected: its holes are exactly the singletons of
+    its complement. 
+
+Intuitively, we should be able to circle around any hole of $\Omega$
+without leaving the set; 
+this idea leads to an alternate characterization of simply connected sets.
+
+**Theorem -- Simply Connected Sets & The Winding Number.** 
+An open subset $\Omega$ of the complex plane is simply connected if and only if
+the interior of any closed path $\gamma$ of $\Omega$ is included in $\Omega$:
+  $$
+  \forall \, z \in \mathbb{C} \setminus \gamma([0,1]),\;
+  \mathrm{ind}(\gamma, z) \neq 0 \, \Rightarrow \, z \in \Omega,
+  $$
+or equivalently, if the complement of $\Omega$ is included in 
+the exterior of $\gamma$:
+  $$
+  \forall \, z \in \mathbb{C} \setminus \Omega, \; \mathrm{ind}(\gamma, z) = 0.
+  $$
+
+**Examples.**
+
+ 1. If $\gamma$ is a closed path of
+    $\Omega = \{(x,y) \in \mathbb{R}^2 \; | \; x < -1 \, \mbox{ or }\, x>1\}$
+    and $z \in \mathbb{C} \setminus \Omega$,
+    since $\mathbb{C} \setminus \Omega$ is connected and unbounded, 
+    $z$ belongs to an unbounded component of $\mathbb{C} \setminus \gamma([0,1]).$
+    Thus $\mathrm{ind}(\gamma, z)=0$ for any $z \in \mathbb{C} \setminus \Omega.$
+
+ 3. The open set 
+    $\Omega = \mathbb{C} \setminus \overline{\{2^{-n} \, | \, n \in \mathbb{N}\}}$
+    is open and multiply connected: for example 
+    $\gamma = 1 + 1/4 [\circlearrowleft]$ is a path of $\Omega$,
+    $z=1$ is a point of $\mathbb{C} \setminus \Omega$
+    and $\mathrm{ind}(\gamma, 1) = 1.$
+
+**Remark.** Note that we may not always be able to encircle only one hole at 
+a time. 
+For example, in the case of the set
+$\Omega = \mathbb{C} \setminus \overline{\{2^{-n} \, | \, n \in \mathbb{N}\}},$
+we can find a closed path $\gamma$
+of $\mathbb{C} \setminus \Omega$ such that $\mathrm{ind}(\gamma, 0)=1,$
+but then we also have $\mathrm{ind}(\gamma, 2^{-n})=1$ for $n$ large
+enough: we cannot encircle the hole $\{0\}$ of $\Omega$ unless we also
+encircle an infinity of extra holes.
+
+**Lemma.**
+If the compact set $K$ is a hole of the open set $\Omega$,
+there is a compact subset $L$ of $\mathbb{C} \setminus \Omega$ 
+such that $K\subset L$ and $d(L, (\mathbb{C} \setminus \Omega) \setminus L) > 0.$ 
+
+**Proof of the Lemma.**
+The set $C = \mathbb{C} \setminus \Omega$ is closed in $\mathbb{C}$ 
+which is locally compact, thus it is locally compact.
+Since $\mathbb{C}$ is Hausdorff, its subspace $C$ is also Hausdorff.
+By the Šura-Bura theorem [@Rem91, p. 304],
+$K$ has a neighbourhood base in $C$
+consisting in open compact subsets of $C$. 
+Since $C$ is a neighbourhood of $K$ in $C$, 
+there is a compact set $L$ such that 
+$K \subset L \subset C$ which is open in $C$.
+Thus, its complement
+$(\mathbb{C} \setminus \Omega) \setminus L$ is also closed in $C$.
+Since $C$ is closed, both sets are also closed in $\mathbb{C}$.
+They are also disjoint by construction, 
+and thus $d(L, (\mathbb{C} \setminus \Omega) \setminus L) > 0.$ 
+\hfill $\blacksquare$
+
+
+**Proof -- Simply Connected Sets & The Winding Number.** 
+Assume that $\Omega$ is simply connected and let $\gamma$ be a closed path
+of $\Omega$.
+Let $z \in \mathbb{C} \setminus \Omega;$ this point belongs to an unbounded
+connected component of $\mathbb{C} \setminus \Omega$ and therefore to an
+unbounded connected component of $\mathbb{C} \setminus \gamma([0,1]),$
+thus $\mathrm{ind}(\gamma, z)=0.$
+
+Conversely, if $\Omega$ is not simply connected, 
+the set $\mathbb{C} \setminus \Omega$ has a hole $K$ which is contained
+in some compact subset $L$ of $\mathbb{C} \setminus \Omega$ such that
+the distance $\epsilon$ between $L$ and 
+$(\mathbb{C} \setminus \Omega) \setminus L$ is positive.
+Let $r < \epsilon/\sqrt{2};$ 
+Define for any pair $(k, l)$ of integers the node
+$n_{k,l} = (k + i l)r$ and $S_{k,l}$ as the closed square with
+vertices $n_{k,l},$ $n_{k+1,l},$ $n_{k+1,l+1}$ and $n_{k,l+1}.$
+The (positively) oriented boundary of the square $S_{k,l}$ is the
+polyline
+  $$
+  [n_{k,l} \to n_{k+1,l} \to n_{k+1,l+1} \to n_{k,l+1} \to n_{k,l}]
+  $$
+The collection of squares that intersect $L$ is finite and covers $L.$ 
+Additionally, all of its squares are included in $\Omega \cup L.$
+
+For any square $S$ in the cover of $L$ and any interior point $a$ of $S$
+if $\gamma$ is the oriented boundary of $S,$ 
+then $\mathrm{ind}(\gamma, a) = 1.$ 
+Additionally, 
+$\mathrm{ind}(\mu, a) = 0$ for the oriented boundary $\mu$ of any other
+square in the collection. Consequently, if $\Gamma$ denotes the collection 
+of oriented line segments that composes the oriented boundaries of all
+squares of the cover of $L,$ we have
+  $$
+  \sum_{\gamma \in \Gamma}\frac{1}{2\pi} [z \mapsto \mathrm{Arg}(z-a)]_{\gamma} = 1.
+  $$
+Now if the line segment $\gamma$ belongs to $\Gamma$ and 
+$\gamma([0,1]) \cap L \neq \varnothing,$ then 
+$\gamma^{\leftarrow}$ also belongs to $\Gamma;$ 
+if we remove all such pairs from $\Gamma,$ the resulting collection 
+$\Gamma'$ also satisfies
+  $$
+  \sum_{\gamma \in \Gamma'}\frac{1}{2\pi} [z \mapsto \mathrm{Arg}(z-a)]_{\gamma} = 1.
+  $$
+and by construction the image of any $\gamma$ in $\Gamma'$ is included in
+$\Omega.$ The original collection $\Gamma$ is balanced: for any square
+vertice $n,$ the number of line segments with $n$ as an initial point and
+with $n$ as a terminal point is the same. The collection $\Gamma'$ has
+the same property. Consequently, the line segments of $\Gamma'$ may
+be assembled in a finite sequence of closed paths $\gamma_1,$ $\dots,$
+$\gamma_n$ and
+  $$
+  \sum_{k=1}^n \mathrm{ind}(\gamma_k, a) = 1.
+  $$
+Every point of $L$ is either an interior point of some square of the collection,
+or the limit of such point; anyway, that means that
+  $$
+  \forall \, z \in L, \; \sum_{k=1}^n \mathrm{ind}(\gamma_k, z) = 1
+  $$
+and thus that there is at least one path $\gamma_k$ such that
+  $\mathrm{ind}(\gamma_k, z) \neq 0.$
+\hfill $\blacksquare$
+
+A Complex Analytic Approach
+================================================================================
+
+If a closed path is rectifiable, we may compute its winding number 
+as a line integral; to prove this, we need the:
+
+**Lemma.** 
+Let $a \in \mathbb{C}$ and $\gamma$ be a rectifiable path of 
+$\mathbb{C} \setminus \{a\}.$
+For any $t \in [0,1],$ let $\gamma_t$ be the path such that for any $s\in[0,1],$
+$\gamma_t(s) = \gamma(t s).$ 
+The function $\mu:[0,1]\to \mathbb{C},$ defined by
+  $$
+  \mu(t) = \int_{\gamma_t} \frac{dz}{z-a}
+  $$
+satisfies
+  $$
+  \exists \, \lambda \in \mathbb{C}^*, \,
+  \forall \, t \in [0,1], \,
+  e^{\mu(t)} = \lambda \times (\gamma(t) - a).
+  $$
+
+**Proof.** 
+We only prove the lemma under the assumption that $\gamma$ is continuously 
+differentiable; 
+the rectifiable case is a straightforward extension.
+
+We have for any $t\in [0,1]$
+  $$
+  \mu(t) = \int_{\gamma_t} \frac{dz}{z-a}
+  =
+  \int_0^1 \frac{\gamma'(ts) \times t}{\gamma(t s) - a} ds
+  =
+  \int_0^t \frac{\gamma'(s)}{\gamma(s) - a} ds,
+  $$
+hence
+  $$
+  \mu'(t) = \frac{\gamma'(t)}{\gamma(t) - a}
+  $$
+and the derivative of the quotient
+$\phi(t) = {e^{\mu(t)}}/{(\gamma(t)}-a)$ satisfies
+  $$
+  \phi'(t)
+  =
+  \mu'(t) \phi(t)
+  -
+  \frac{\gamma'(t)}{\gamma(t) - a} \phi(t)
+  = 0
+  $$
+which yields the result. \hfill $\blacksquare$
+
+
+**Theorem -- The Winding Number as a Line Integral.** 
+Let $a \in \mathbb{C}$ and $\gamma$ be a  rectifiable 
+path of $\mathbb{C} \setminus \{a\}.$ Then
+  $$
+  [z \mapsto \mathrm{Arg} (z-a)]_{\gamma} = \mathrm{Im} \left( \int_{\gamma} \frac{dz}{z - a} \right). 
+  $$
+If the path $\gamma$ is closed, then
+  $$
+  \mathrm{ind}(\gamma,a) = 
+  \frac{1}{i2\pi} \int_{\gamma} \frac{dz}{z - a}. 
+  $$
+
+**Proof.** We use the function $\mu$ of the previous lemma. 
+Applying the modulus to both sides of the equation
+$e^{\mu(t)} = \lambda \times (\gamma(t) - a)$ 
+provides $e^{\mathrm{Re}(\mu(t))} = |\lambda| \times |\gamma(t) - a|,$
+hence
+  $$
+  e^{i \mathrm{Im}(\mu(t))} = \frac{\lambda}{|\lambda|} \frac{\gamma(t) - a}{|\gamma(t) - a|}.
+  $$
+The function $t \in [0,1] \mapsto \mathrm{Im}(\mu(t))$ is -- up to a constant -- 
+a continuous choice of $z \mapsto \mathrm{Arg}\, (z-a)$ on $\gamma.$ 
+Consequently,
+$$[z \mapsto \mathrm{Arg} \, (z-a)]_{\gamma} = \mathrm{Im}(\mu(1)) - \mathrm{Im}(\mu(0))
+= \mathrm{Im}(\mu(1)),$$
+which is the desired result. 
+
+If additionally $\gamma$ is a closed path, the equations 
+  $$
+  \gamma(0) = \gamma(1) \; \mbox{ and } \;
+  e^{\mathrm{Re}(\mu(t))} = |\lambda| \times |\gamma(t) - a|
+  $$ 
+yield $e^{\mathrm{Re}(\mu(0))}= e^{\mathrm{Re}(\mu(1))}$
+and hence $\mathrm{Re}(\mu(1)) = \mathrm{Re}(\mu(0)) = 0.$ 
+Thus,
+  $$
+  \mathrm{ind}(\gamma,a) = 
+  \frac{1}{2\pi} \mathrm{Im}(\mu(1)) = \frac{1}{i2\pi} \mu(1),
+  $$
+which concludes the proof. \hfill $\blacksquare$
+
+
+References
+================================================================================
+

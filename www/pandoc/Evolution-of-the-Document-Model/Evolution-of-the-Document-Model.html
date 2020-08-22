@@ -1,0 +1,782 @@
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, MINES ParisTech">
+  <title>Evolution of the Document Model</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: content-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+html {
+  line-height: 36px;
+  --base: 24;
+  --line-height: 1.5;
+  font-size: 24px;
+  font-family: Alegreya, serif;
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html em {
+  font-style: italic;
+}
+html strong {
+  font-weight: bold;
+}
+html p, html .p {
+  margin-bottom: 36px;
+  text-align: justify;
+  hyphens: auto;
+  moz-hyphens: auto;
+}
+html section {
+  margin-bottom: 36px;
+}
+html main {
+  box-sizing: content-box;
+  max-width: 32em;
+  margin: auto;
+  padding: 36px;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, q:before {
+  content: none;
+}
+blockquote:after, q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: medium solid black;
+  border-bottom: medium solid black;
+}
+main {
+}
+main > header, main > .header, main > #header {
+  margin-top: 72px;
+  margin-bottom: 72px;
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: 54px;
+  margin-top: 0px;
+  margin-bottom: 36px;
+  font-weight: bold;
+}
+main > header .author, main > .header .author, main > #header .author {
+  font-size: 24px;
+  line-height: 36px;
+  margin-bottom: 18px;
+  font-weight: normal;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: Alegreya SC, serif;
+  line-height: 36px;
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: 18px;
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  font-weight: bold;
+  line-height: 45px;
+  margin-top: 72px;
+  margin-bottom: 27px;
+}
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 36px;
+  margin-bottom: 18px;
+}
+h3, h4, h5, h6 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 1em;
+  display: inline;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
+}
+a:hover {
+  text-decoration: none;
+}
+a:link {
+  color: black;
+}
+a:visited {
+  color: black;
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li {
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  margin-left: 36px;
+  padding-left: 0.5em;
+}
+ul {
+}
+ul li {
+  list-style: disc;
+}
+ol {
+}
+ol li {
+  list-style: decimal;
+}
+blockquote {
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+  padding: 36px;
+  margin-bottom: 36px;
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-size: 24px;
+  font-family: Inconsolata;
+}
+pre {
+  overflow-x: auto;
+  background-color: #ebebeb;
+  margin-bottom: 36px;
+  padding-left: 36px;
+  padding-right: 36px;
+  padding-top: 36px;
+  padding-bottom: 36;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: auto;
+}
+figure {
+  margin-bottom: 36px;
+  text-align: center;
+}
+figcaption {
+  display: inline-block;
+  font-style: italic;
+  text-align: justify;
+}
+.table {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  margin-bottom: 36px;
+}
+thead {
+  border-bottom: medium solid black;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+.MJXc-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+nav#TOC > ul {
+  position: relative;
+  font-weight: bold;
+}
+nav#TOC > ul > * {
+  margin-bottom: 36px;
+}
+nav#TOC > ul li {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+nav#TOC > ul ul {
+}
+nav#TOC > ul ul li {
+  margin-left: 36px;
+  font-weight: normal;
+}
+.section-flag {
+  line-height: 36px;
+  font-size: 17px;
+  font-weight: 300;
+  font-family: Alegreya Sans SC;
+  margin-bottom: 0;
+}
+nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+  padding-bottom: 36;
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+nav#TOC .badge {
+  position: relative;
+  bottom: 0.13em;
+  font-family: Alegreya Sans SC;
+  font-weight: 300;
+  font-size: 17px;
+  display: inline-block;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  vertical-align: baseline;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+  margin-right: 1em;
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,800,800italic,900,900italic|Alegreya+Sans+SC:400,100,300,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+SC:400,400italic,700,700italic,900,900italic|Alegreya:400,700,900,400italic,700italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.10.0
+(function() {
+  var box, hide_proof, main, show_proof;
+
+  hide_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("expanded");
+    sectionWrapper.addClass("minimized");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "visible"
+    });
+    w$(".header-wrapper").css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().css({
+      visibility: "hidden",
+      height: "0px"
+    });
+    w$(".header-wrapper").attr({
+      id: w$("section").first().attr("id")
+    });
+    return w$("section").first().attr({
+      id: ""
+    });
+  };
+
+  show_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("minimized");
+    sectionWrapper.addClass("expanded");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "hidden"
+    });
+    w$(".header-wrapper").css({
+      visibility: "hidden",
+      height: "0"
+    });
+    w$("section").first().css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().attr({
+      id: w$(".header-wrapper").attr("id")
+    });
+    return w$(".header-wrapper").attr({
+      id: ""
+    });
+  };
+
+  box = function(section) {
+    var clone, expand, header, headerWrapper, tombstone, wrapper;
+    clone = section.clone(true);
+    clone.css({
+      marginBottom: "0"
+    });
+    clone.children().last().css({
+      marginBottom: "0"
+    });
+    tombstone = clone.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer",
+      position: "absolute",
+      bottom: "0.75rem",
+      right: "0.75rem"
+    });
+    wrapper = $("<div class='proof-wrapper expanded'></div>");
+    wrapper.css({
+      position: "relative",
+      margin: "-0.75rem -0.75rem 0.75rem -0.75rem",
+      padding: "0.75rem",
+      backgroundColor: "#f9f9f9"
+    });
+    header = clone.find("h3, h4, h5, h6").first().clone();
+    headerWrapper = $("<div class='p header-wrapper' style='margin-bottom:0; visibility:hidden; overflow:hidden; height:0;'> </div>");
+    headerWrapper.append(header);
+    expand = $("<i class='fa fa-caret-down expand' style='visibility:hidden; cursor:pointer; position:absolute; top:0.75rem; right:0.75rem;'> </i>");
+    wrapper.append(headerWrapper);
+    wrapper.append(expand);
+    wrapper.append(clone);
+    expand.on("click", function() {
+      return show_proof(wrapper);
+    });
+    tombstone.on("click", function() {
+      return hide_proof(wrapper);
+    });
+    section.replaceWith(wrapper);
+    return wrapper;
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, section, sections, text, wrapper;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      wrapper = box(section);
+      hide_proof(wrapper);
+    }
+    return $(document).keydown(function(event) {
+      var k, l, len2, len3, ref1, ref2, results, sectionWrapper;
+      console.log("***", event.keyCode);
+      if (event.keyCode === 88) {
+        ref1 = $(".proof-wrapper.minimized");
+        for (k = 0, len2 = ref1.length; k < len2; k++) {
+          sectionWrapper = ref1[k];
+          show_proof($(sectionWrapper));
+        }
+      }
+      if (event.keyCode === 77) {
+        ref2 = $(".proof-wrapper.expanded");
+        results = [];
+        for (l = 0, len3 = ref2.length; l < len3; l++) {
+          sectionWrapper = ref2[l];
+          results.push(hide_proof($(sectionWrapper)));
+        }
+        return results;
+      }
+    });
+  };
+
+  $(main);
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.10.0
+(function() {
+  var make_preview, mathjaxDebug;
+
+  make_preview = function(elt) {
+    var card, hidden_css, hide_preview, id, ref, show_preview, url, visible_css;
+    ref = elt.attr("href").split("#"), url = ref[0], id = ref[1];
+    card = $("<div class='card'>\n  <div class='holder'>\n    <p>Placeholder</p>\n  </div>\n</div>");
+    card.css({
+      width: "35vw",
+      padding: "1.5rem",
+      position: "fixed",
+      top: "1.5rem",
+      right: "1.5rem",
+      boxSizing: "border-box",
+      maxHeight: "calc(100vh - 3rem)",
+      overflow: "hidden",
+      boxShadow: "0 0 1rem #e6e6e6",
+      backgroundColor: "white"
+    });
+    visible_css = {
+      visibility: "visible",
+      opacity: 1,
+      transform: "translateX(0em)",
+      transition: "all 0.3s linear"
+    };
+    hidden_css = {
+      visibility: "hidden",
+      opacity: 0,
+      transform: "translateX(1em)",
+      transition: "all 0.3s linear 0.5s"
+    };
+    card.css(hidden_css);
+    elt.css({
+      textDecoration: "underline solid #0a0a0a",
+      textDecorationSkip: "ink",
+      transition: "background-color 0.3s linear"
+    });
+    show_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d3"
+      });
+      return card.css(visible_css);
+    };
+    hide_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d300"
+      });
+      return card.css(hidden_css);
+    };
+    return card.find(".holder").load(url + (" [id='" + id + "']"), function(response, status, jxXHR) {
+      console.log("XHR status:", status, url, id);
+      if (status === "success" || status === "notmodified") {
+        console.log("success!");
+        console.log("elt:", $(elt));
+        $("body").append(card);
+        card.find("p, .p").css({
+          textAlign: "left"
+        });
+        card.find("section").css({
+          marginBottom: "0"
+        });
+        card.find("section").children().last().css({
+          marginBottom: "0"
+        });
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, card[0]]);
+        elt.on("mouseenter", show_preview);
+        return elt.on("mouseleave", hide_preview);
+      }
+    });
+  };
+
+  mathjaxDebug = function() {
+    MathJax.Hub.signal.Interest(function(message) {
+      return console.log("*", message);
+    });
+    return MathJax.Hub.Register.StartupHook("End Process", function() {
+      var i, jax, len, ref, results;
+      console.log("list of jaxes:");
+      ref = MathJax.Hub.getAllJax();
+      results = [];
+      for (i = 0, len = ref.length; i < len; i++) {
+        jax = ref[i];
+        results.push(console.log("jax:", jax));
+      }
+      return results;
+    });
+  };
+
+  $(function() {
+    var elt, i, len, ref, results;
+    ref = $("a.preview");
+    results = [];
+    for (i = 0, len = ref.length; i < len; i++) {
+      elt = ref[i];
+      results.push(make_preview($(elt)));
+    }
+    return results;
+  });
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">Evolution of the Document Model</a></h1>
+
+<h2 class="author">
+By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, MINES ParisTech, under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>
+</h2> 
+
+<h3 class="date" style="margin-right: 0px;">February 7, 2018</h3>
+</header>
+<section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
+<ul>
+<li class="top-li"><p class="section-flag">section 1</p><a href="#introduction">Introduction</a></li>
+<li class="top-li"><p class="section-flag">section 2</p><a href="#evolutions">Evolutions</a><ul>
+<li><a href="#version-1.7">Version 1.7</a></li>
+<li><a href="#version-1.8">Version 1.8</a><ul>
+<li><a href="#inline-code-gets-attributes">Inline code gets attributes</a></li>
+<li><a href="#raw-elements">Raw elements</a></li>
+</ul></li>
+<li><a href="#version-1.9.0.1">Version 1.9(.0.1)</a><ul>
+<li><a href="#new-representation-for-em-dash-en-dash-apostrophe-and-ellipses">New representation for em-dash, en-dash, apostrophe and ellipses</a></li>
+</ul></li>
+<li><a href="#version-1.12">Version 1.12</a><ul>
+<li><a href="#a-new-metadata-model">A new metadata model</a></li>
+<li><a href="#introduction-of-span-and-div">Introduction of span and div</a></li>
+<li><a href="#headers-get-attributes">Headers get attributes</a></li>
+<li><a href="#format-becomes-a-newtype"><code>Format</code> becomes a <code>newtype</code></a></li>
+</ul></li>
+<li><a href="#version-1.16">Version 1.16</a><ul>
+<li><a href="#soft-breaks">Soft breaks</a></li>
+<li><a href="#links-and-images-get-attributes">Links and images get attributes</a></li>
+</ul></li>
+<li><a href="#version-1.17">Version 1.17</a><ul>
+<li><a href="#line-blocks">Line blocks</a></li>
+</ul></li>
+<li><a href="#version-1.19">Version 1.19</a></li>
+<li><a href="#version-2.0">Version 2.0</a></li>
+<li><a href="#version-2.1">Version 2.1</a></li>
+</ul></li>
+</ul>
+</nav></section>
+<section id="introduction" class="level1">
+<h1><a href="#introduction">Introduction</a></h1>
+<p><code>Text.Pandoc.Definition</code> is the module of the <a href="https://hackage.haskell.org/package/pandoc-types">pandoc-types</a> Haskell package that contains the definitions for the Pandoc data structure used by pandoc to represent structured documents.</p>
+<p>Actually, there is not a single model of document, but a collection of models since the original design has evolved over time. Unless you deliberately use a fixed version of pandoc – and therefore a unique document model – you may at some point need to manage several models of documents.</p>
+<p>To ease this work, we describe here the evolution of this model, from the creation of pandoc-types to the present day.</p>
+</section>
+<section id="evolutions" class="level1">
+<h1><a href="#evolutions">Evolutions</a></h1>
+<section id="version-1.7" class="level2">
+<h2><a href="#version-1.7">Version 1.7</a></h2>
+<p>The original model, included below for the sake of completeness: 66 lines only, that describe the structure of any pandoc document.</p>
+<pre><code>data Pandoc = Pandoc Meta [Block]
+data Meta
+  = Meta {docTitle :: [Inline],
+          docAuthors :: [[Inline]],
+          docDate :: [Inline]}
+data Alignment
+  = AlignLeft | AlignRight | AlignCenter | AlignDefault
+type ListAttributes = (Int, ListNumberStyle, ListNumberDelim)
+data ListNumberStyle
+  = DefaultStyle
+  | Example
+  | Decimal
+  | LowerRoman
+  | UpperRoman
+  | LowerAlpha
+  | UpperAlpha
+data ListNumberDelim = DefaultDelim | Period | OneParen | TwoParens
+type Attr = (String, [String], [(String, String)])
+type TableCell = [Block]
+data Block
+  = Plain [Inline]
+  | Para [Inline]
+  | CodeBlock Attr String
+  | RawHtml String
+  | BlockQuote [Block]
+  | OrderedList ListAttributes [[Block]]
+  | BulletList [[Block]]
+  | DefinitionList [([Inline], [[Block]])]
+  | Header Int [Inline]
+  | HorizontalRule
+  | Table [Inline] [Alignment] [Double] [TableCell] [[TableCell]]
+  | Null
+data QuoteType = SingleQuote | DoubleQuote
+type Target = (String, String)
+data MathType = DisplayMath | InlineMath
+data Inline
+  = Str String
+  | Emph [Inline]
+  | Strong [Inline]
+  | Strikeout [Inline]
+  | Superscript [Inline]
+  | Subscript [Inline]
+  | SmallCaps [Inline]
+  | Quoted QuoteType [Inline]
+  | Cite [Citation] [Inline]
+  | Code String
+  | Space
+  | EmDash
+  | EnDash
+  | Apostrophe
+  | Ellipses
+  | LineBreak
+  | Math MathType String
+  | TeX String
+  | HtmlInline String
+  | Link [Inline] Target
+  | Image [Inline] Target
+  | Note [Block]
+data Citation
+  = Citation {citationId :: String,
+              citationPrefix :: [Inline],
+              citationSuffix :: [Inline],
+              citationMode :: CitationMode,
+              citationNoteNum :: Int,
+              citationHash :: Int}
+data CitationMode = AuthorInText | SuppressAuthor | NormalCitation</code></pre>
+</section>
+<section id="version-1.8" class="level2">
+<h2><a href="#version-1.8">Version 1.8</a></h2>
+<section id="inline-code-gets-attributes" class="level3">
+
+<div class="p"><h3><a href="#inline-code-gets-attributes">Inline code gets attributes</a></h3>The code block element of the 1.7 document model has an attributes (<code>Attr</code>) field. For example, a code block described by</div>
+<pre><code>~~~~ {#mycode .haskell .numberLines startFrom="100"}
+qsort []     = []
+qsort (x:xs) = qsort (filter (&lt; x) xs) ++ [x] ++
+               qsort (filter (&gt;= x) xs)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</code></pre>
+<p>has the attributes field</p>
+<pre><code>[["mycode",["haskell","numberLines"],[["startFrom","100"]]]</code></pre>
+<p>This triple should be interpreted as id, classes and key-value pairs, something very similar to the model of HTML elements.</p>
+<p>In the 1.7 model, however, inline code lack attributes; in the 1.8 version, they get this field too:</p>
+<pre><code>data Inline
+  = ...
+  | Code Attr String
+  | ...</code></pre>
+<p>For example, the markdown text</p>
+<pre><code>`&lt;$&gt;`{.haskell}</code></pre>
+<p>attaches the class <code>haskell</code> to the inline code <code>&lt;$&gt;</code>. A <code>nullAttr</code> constant is also introduced to denote the default value of the attributes field</p>
+<pre><code>nullAttr :: Attr</code></pre>
+</section>
+<section id="raw-elements" class="level3">
+
+<div class="p"><h3><a href="#raw-elements">Raw elements</a></h3>In the 1.7 model, HTML fragments could be inserted in documents as <code>RawHtml</code> blocks or <code>HtmlInline</code> inlines; TeX fragments could only be inline, with the <code>TeX</code> type.</div>
+<p>In the 1.8 model, these constructs are generalized and merged: native (HTML or TeX) elements are now described either as raw blocks or raw inlines:</p>
+<pre><code>type Format = String
+data Block
+  = ...
+  | RawBlock Format String
+  | ...
+data Inline
+  = ...
+  | RawInline Format String
+  | ...</code></pre>
+<p>Concretely, the format is either “tex” or “html” but this is a not a hard constraint of the document model.</p>
+</section>
+</section>
+<section id="version-1.9.0.1" class="level2">
+<h2><a href="#version-1.9.0.1">Version 1.9(.0.1)</a></h2>
+<p>(there is no version 1.9 released, only 1.9.0.1, 1.9.0.2 and 1.9.1)</p>
+<section id="new-representation-for-em-dash-en-dash-apostrophe-and-ellipses" class="level3">
+
+<div class="p"><h3><a href="#new-representation-for-em-dash-en-dash-apostrophe-and-ellipses">New representation for em-dash, en-dash, apostrophe and ellipses</a></h3><code>EmDash</code>, <code>EnDash</code>, <code>Apostrophe</code> and <code>Ellipses</code> disappear from the <code>Inline</code> type. You can still use the corresponding constructs in you markdown text, but they will be described as regular string (<code>Str</code>) instances, which makes sense: since the unicode standard knows about them, it is pointless to have an extra construct.</div>
+</section>
+</section>
+<section id="version-1.12" class="level2">
+<h2><a href="#version-1.12">Version 1.12</a></h2>
+<section id="a-new-metadata-model" class="level3">
+
+<div class="p"><h3><a href="#a-new-metadata-model">A new metadata model</a></h3>In the initial document model, the metadata of a document was made of three fixed attributes, specified in a <a href="https://pandoc.org/MANUAL.html#extension-pandoc_title_block">title block</a>: the document title, author list and date.</div>
+<pre><code>data Meta
+  = Meta {docTitle :: [Inline],
+          docAuthors :: [[Inline]],
+          docDate :: [Inline]}</code></pre>
+<p>A typical markdown document would start with lines prefixed by percentages to specify these attributes, such as</p>
+<pre><code> % Document Title
+ % Author 1; Author 2; Author 3
+ % Date</code></pre>
+<p>Starting with 1.12, pandoc support arbitrary <a href="https://pandoc.org/MANUAL.html#extension-yaml_metadata_block">YAML metadata blocks</a></p>
+<pre><code>newtype Meta = Meta {unMeta :: Map String MetaValue}
+data MetaValue
+  = MetaMap (Map String MetaValue)
+  | MetaList [MetaValue]
+  | MetaBool Bool
+  | MetaString String
+  | MetaInlines [Inline]
+  | MetaBlocks [Block]</code></pre>
+<p>Helper functions are created to help with the new structure, for example to get the title, authors and date.</p>
+<pre><code>nullMeta :: Meta
+isNullMeta :: Meta -&gt; Bool
+lookupMeta :: String -&gt; Meta -&gt; Maybe MetaValue
+docTitle :: Meta -&gt; [Inline]
+docAuthors :: Meta -&gt; [[Inline]]
+docDate :: Meta -&gt; [Inline]</code></pre>
+</section>
+<section id="introduction-of-span-and-div" class="level3">
+
+<div class="p"><h3><a href="#introduction-of-span-and-div">Introduction of span and div</a></h3>The span and div constructs from HTML are incorporated to the document model, as inline and block elements respectively:</div>
+<pre><code>data Inline
+  = ...
+  | Span Attr [Inline]
+  | ...
+
+data Block
+  = ...
+  | Div Attr [Block]
+  | ...</code></pre>
+<p>Their markdown syntax is the classic HTML one.</p>
+</section>
+<section id="headers-get-attributes" class="level3">
+
+<div class="p"><h3><a href="#headers-get-attributes">Headers get attributes</a></h3>Instead of</div>
+<pre><code>data Block
+  = ...
+  | Header Int [Inline]
+  | ...</code></pre>
+<p>we now get</p>
+<pre><code>data Block
+  = ...
+  | Header Int Attr [Inline]
+  | ...</code></pre>
+</section>
+<section id="format-becomes-a-newtype" class="level3">
+
+<div class="p"><h3><a href="#format-becomes-a-newtype"><code>Format</code> becomes a <code>newtype</code></a></h3>A technical change to improve the type safety of the data model: <code>Format</code> was a simple synonym for <code>String</code></div>
+<pre><code>type Format = String</code></pre>
+<p>It becomes a distinct type whose content is still a string:</p>
+<pre><code>newtype Format = Format String</code></pre>
+</section>
+</section>
+<section id="version-1.16" class="level2">
+<h2><a href="#version-1.16">Version 1.16</a></h2>
+<section id="soft-breaks" class="level3">
+
+<div class="p"><h3><a href="#soft-breaks">Soft breaks</a></h3>When pandoc reads markdown files, only explicit line breaks – specified with either <code>\</code> or two spaces at the end of the line – are registered – as <code>LineBreak</code> elements – and thus may be preserved in output documents.</div>
+<p>With soft breaks, introduced in the 1.16 document model, the input to output behavior remains the same by default, but the weaker variants of line breaks, only specified by a new line are now registered; to make them apear in your output document, you can use the option <code>--wrap=preserve</code>.</p>
+<pre><code>data Inline
+  = ...
+  | SoftBreak
+  | ...</code></pre>
+</section>
+<section id="links-and-images-get-attributes" class="level3">
+
+<div class="p"><h3><a href="#links-and-images-get-attributes">Links and images get attributes</a></h3>The new model is:</div>
+<pre><code>data Inline
+  = ...
+  | Link Attr [Inline] Target
+  | Image Attr [Inline] Target
+  | ...</code></pre>
+</section>
+</section>
+<section id="version-1.17" class="level2">
+<h2><a href="#version-1.17">Version 1.17</a></h2>
+<section id="line-blocks" class="level3">
+
+<div class="p"><h3><a href="#line-blocks">Line blocks</a></h3>A structure that preserves line breaks and leading spaces (refer to the <a href="https://pandoc.org/MANUAL.html#line-blocks">user manual</a> for details):</div>
+<pre><code>data Block
+  = ...
+  | LineBlock [[Inline]]
+  | ...</code></pre>
+</section>
+</section>
+<section id="version-1.19" class="level2">
+<h2><a href="#version-1.19">Version 1.19</a></h2>
+<p>No change with respect to 1.17.</p>
+</section>
+<section id="version-2.0" class="level2">
+<h2><a href="#version-2.0">Version 2.0</a></h2>
+<p>No change with respect to 1.19.</p>
+</section>
+<section id="version-2.1" class="level2">
+<h2><a href="#version-2.1">Version 2.1</a></h2>
+<p>No change with respect to 2.0.</p>
+</section>
+</section>
+</main>
+
+
+</body></html>

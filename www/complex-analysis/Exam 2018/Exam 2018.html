@@ -1,0 +1,971 @@
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, MINES ParisTech">
+  <meta name="dcterms.date" content="2018-01-29">
+  <title>C1223 – Complex Analysis Final Examination</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: content-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+html {
+  line-height: 36px;
+  --base: 24;
+  --line-height: 1.5;
+  font-size: 24px;
+  font-family: Alegreya, serif;
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html em {
+  font-style: italic;
+}
+html strong {
+  font-weight: bold;
+}
+html p, html .p {
+  margin-bottom: 36px;
+  text-align: justify;
+  hyphens: auto;
+  moz-hyphens: auto;
+}
+html section {
+  margin-bottom: 36px;
+}
+html main {
+  box-sizing: content-box;
+  max-width: 32em;
+  margin: auto;
+  padding: 36px;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, q:before {
+  content: none;
+}
+blockquote:after, q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: medium solid black;
+  border-bottom: medium solid black;
+}
+main {
+}
+main > header, main > .header, main > #header {
+  margin-top: 72px;
+  margin-bottom: 72px;
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: 54px;
+  margin-top: 0px;
+  margin-bottom: 36px;
+  font-weight: bold;
+}
+main > header .author, main > .header .author, main > #header .author {
+  font-size: 24px;
+  line-height: 36px;
+  margin-bottom: 18px;
+  font-weight: normal;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: Alegreya SC, serif;
+  line-height: 36px;
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: 18px;
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  font-weight: bold;
+  line-height: 45px;
+  margin-top: 72px;
+  margin-bottom: 27px;
+}
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 36px;
+  margin-bottom: 18px;
+}
+h3, h4, h5, h6 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 1em;
+  display: inline;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
+}
+a:hover {
+  text-decoration: none;
+}
+a:link {
+  color: black;
+}
+a:visited {
+  color: black;
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li {
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  margin-left: 36px;
+  padding-left: 0.5em;
+}
+ul {
+}
+ul li {
+  list-style: disc;
+}
+ol {
+}
+ol li {
+  list-style: decimal;
+}
+blockquote {
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+  padding: 36px;
+  margin-bottom: 36px;
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-size: 24px;
+  font-family: Inconsolata;
+}
+pre {
+  overflow-x: auto;
+  background-color: #ebebeb;
+  margin-bottom: 36px;
+  padding-left: 36px;
+  padding-right: 36px;
+  padding-top: 36px;
+  padding-bottom: 36;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: auto;
+}
+figure {
+  margin-bottom: 36px;
+  text-align: center;
+}
+figcaption {
+  display: inline-block;
+  font-style: italic;
+  text-align: justify;
+}
+.table {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  margin-bottom: 36px;
+}
+thead {
+  border-bottom: medium solid black;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+.MJXc-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+nav#TOC > ul {
+  position: relative;
+  font-weight: bold;
+}
+nav#TOC > ul > * {
+  margin-bottom: 36px;
+}
+nav#TOC > ul li {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+nav#TOC > ul ul {
+}
+nav#TOC > ul ul li {
+  margin-left: 36px;
+  font-weight: normal;
+}
+.section-flag {
+  line-height: 36px;
+  font-size: 17px;
+  font-weight: 300;
+  font-family: Alegreya Sans SC;
+  margin-bottom: 0;
+}
+nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+  padding-bottom: 36;
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+nav#TOC .badge {
+  position: relative;
+  bottom: 0.13em;
+  font-family: Alegreya Sans SC;
+  font-weight: 300;
+  font-size: 17px;
+  display: inline-block;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  vertical-align: baseline;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+  margin-right: 1em;
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,800,800italic,900,900italic|Alegreya+Sans+SC:400,100,300,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+SC:400,400italic,700,700italic,900,900italic|Alegreya:400,700,900,400italic,700italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.10.0
+(function() {
+  var box, hide_proof, main, show_proof;
+
+  hide_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("expanded");
+    sectionWrapper.addClass("minimized");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "visible"
+    });
+    w$(".header-wrapper").css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().css({
+      visibility: "hidden",
+      height: "0px"
+    });
+    w$(".header-wrapper").attr({
+      id: w$("section").first().attr("id")
+    });
+    return w$("section").first().attr({
+      id: ""
+    });
+  };
+
+  show_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("minimized");
+    sectionWrapper.addClass("expanded");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "hidden"
+    });
+    w$(".header-wrapper").css({
+      visibility: "hidden",
+      height: "0"
+    });
+    w$("section").first().css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().attr({
+      id: w$(".header-wrapper").attr("id")
+    });
+    return w$(".header-wrapper").attr({
+      id: ""
+    });
+  };
+
+  box = function(section) {
+    var clone, expand, header, headerWrapper, tombstone, wrapper;
+    clone = section.clone(true);
+    clone.css({
+      marginBottom: "0"
+    });
+    clone.children().last().css({
+      marginBottom: "0"
+    });
+    tombstone = clone.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer",
+      position: "absolute",
+      bottom: "0.75rem",
+      right: "0.75rem"
+    });
+    wrapper = $("<div class='proof-wrapper expanded'></div>");
+    wrapper.css({
+      position: "relative",
+      margin: "-0.75rem -0.75rem 0.75rem -0.75rem",
+      padding: "0.75rem",
+      backgroundColor: "#f9f9f9"
+    });
+    header = clone.find("h3, h4, h5, h6").first().clone();
+    headerWrapper = $("<div class='p header-wrapper' style='margin-bottom:0; visibility:hidden; overflow:hidden; height:0;'> </div>");
+    headerWrapper.append(header);
+    expand = $("<i class='fa fa-caret-down expand' style='visibility:hidden; cursor:pointer; position:absolute; top:0.75rem; right:0.75rem;'> </i>");
+    wrapper.append(headerWrapper);
+    wrapper.append(expand);
+    wrapper.append(clone);
+    expand.on("click", function() {
+      return show_proof(wrapper);
+    });
+    tombstone.on("click", function() {
+      return hide_proof(wrapper);
+    });
+    section.replaceWith(wrapper);
+    return wrapper;
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, section, sections, text, wrapper;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      wrapper = box(section);
+      hide_proof(wrapper);
+    }
+    return $(document).keydown(function(event) {
+      var k, l, len2, len3, ref1, ref2, results, sectionWrapper;
+      console.log("***", event.keyCode);
+      if (event.keyCode === 88) {
+        ref1 = $(".proof-wrapper.minimized");
+        for (k = 0, len2 = ref1.length; k < len2; k++) {
+          sectionWrapper = ref1[k];
+          show_proof($(sectionWrapper));
+        }
+      }
+      if (event.keyCode === 77) {
+        ref2 = $(".proof-wrapper.expanded");
+        results = [];
+        for (l = 0, len3 = ref2.length; l < len3; l++) {
+          sectionWrapper = ref2[l];
+          results.push(hide_proof($(sectionWrapper)));
+        }
+        return results;
+      }
+    });
+  };
+
+  $(main);
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.10.0
+(function() {
+  var make_preview, mathjaxDebug;
+
+  make_preview = function(elt) {
+    var card, hidden_css, hide_preview, id, ref, show_preview, url, visible_css;
+    ref = elt.attr("href").split("#"), url = ref[0], id = ref[1];
+    card = $("<div class='card'>\n  <div class='holder'>\n    <p>Placeholder</p>\n  </div>\n</div>");
+    card.css({
+      width: "35vw",
+      padding: "1.5rem",
+      position: "fixed",
+      top: "1.5rem",
+      right: "1.5rem",
+      boxSizing: "border-box",
+      maxHeight: "calc(100vh - 3rem)",
+      overflow: "hidden",
+      boxShadow: "0 0 1rem #e6e6e6",
+      backgroundColor: "white"
+    });
+    visible_css = {
+      visibility: "visible",
+      opacity: 1,
+      transform: "translateX(0em)",
+      transition: "all 0.3s linear"
+    };
+    hidden_css = {
+      visibility: "hidden",
+      opacity: 0,
+      transform: "translateX(1em)",
+      transition: "all 0.3s linear 0.5s"
+    };
+    card.css(hidden_css);
+    elt.css({
+      textDecoration: "underline solid #0a0a0a",
+      textDecorationSkip: "ink",
+      transition: "background-color 0.3s linear"
+    });
+    show_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d3"
+      });
+      return card.css(visible_css);
+    };
+    hide_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d300"
+      });
+      return card.css(hidden_css);
+    };
+    return card.find(".holder").load(url + (" [id='" + id + "']"), function(response, status, jxXHR) {
+      console.log("XHR status:", status, url, id);
+      if (status === "success" || status === "notmodified") {
+        console.log("success!");
+        console.log("elt:", $(elt));
+        $("body").append(card);
+        card.find("p, .p").css({
+          textAlign: "left"
+        });
+        card.find("section").css({
+          marginBottom: "0"
+        });
+        card.find("section").children().last().css({
+          marginBottom: "0"
+        });
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, card[0]]);
+        elt.on("mouseenter", show_preview);
+        return elt.on("mouseleave", hide_preview);
+      }
+    });
+  };
+
+  mathjaxDebug = function() {
+    MathJax.Hub.signal.Interest(function(message) {
+      return console.log("*", message);
+    });
+    return MathJax.Hub.Register.StartupHook("End Process", function() {
+      var i, jax, len, ref, results;
+      console.log("list of jaxes:");
+      ref = MathJax.Hub.getAllJax();
+      results = [];
+      for (i = 0, len = ref.length; i < len; i++) {
+        jax = ref[i];
+        results.push(console.log("jax:", jax));
+      }
+      return results;
+    });
+  };
+
+  $(function() {
+    var elt, i, len, ref, results;
+    ref = $("a.preview");
+    results = [];
+    for (i = 0, len = ref.length; i < len; i++) {
+      elt = ref[i];
+      results.push(make_preview($(elt)));
+    }
+    return results;
+  });
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">C1223 – Complex Analysis<br>
+Final Examination</a></h1>
+
+<h2 class="author">
+By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, MINES ParisTech, under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>
+</h2> 
+
+<h3 class="date" style="margin-right: 0px;">January 29, 2018</h3>
+</header>
+<section id="problem-r" class="level1">
+<h1><a href="#problem-r">Problem R</a></h1>
+<section id="preamble." class="level3">
+
+<div class="p"><h3><a href="#preamble.">Preamble.</a></h3>‌Let <span class="math inline">\(\Omega\)</span> be an open subset of <span class="math inline">\(\mathbb{C}\)</span>. For any <span class="math inline">\(r&gt;0\)</span>, we denote <span class="math inline">\(\Omega_r\)</span> the set of points of <span class="math inline">\(\mathbb{C}\)</span> whose distance to the complement of <span class="math inline">\(\Omega\)</span> is larger than <span class="math inline">\(r\)</span>: <span class="math display">\[
+  \Omega_r = \{z \in \mathbb{C} \; | \; d(z, \mathbb{C} \setminus \Omega) &gt; r \}.
+  \]</span></div>
+<ol type="1">
+<li><p>Show that <span class="math inline">\(\Omega_r\)</span> is an open subset of <span class="math inline">\(\Omega\)</span> and that <span class="math inline">\(\Omega = \cup_{r&gt;0} \Omega_r\)</span>.</p></li>
+<li><p>Assume that <span class="math inline">\(\Omega\)</span> is connected. Is <span class="math inline">\(\Omega_r\)</span> necessarily connected? (Hint: consider for example <span class="math inline">\(\Omega = \{z \in \mathbb{C}  \; | \; |\mathrm{Im} \, z| &lt; |\mathrm{Re} \, z| +1 \}\)</span> and <span class="math inline">\(r = 1\)</span>).</p></li>
+<li><p>Show that if <span class="math inline">\(z \in \mathbb{C} \setminus \Omega_r\)</span>, there is a <span class="math inline">\(w \in \mathbb{C} \setminus \Omega\)</span> such that the segment <span class="math inline">\([w, z]\)</span> is included in <span class="math inline">\(\mathbb{C} \setminus \Omega_r\)</span>. Deduce from this property that if <span class="math inline">\(\Omega\)</span> is simply connected, then <span class="math inline">\(\Omega_r\)</span> is also simply connected. Is the converse true?</p></li>
+<li><p>Show that if <span class="math inline">\(\Omega\)</span> is bounded and simply connected, <span class="math inline">\(\mathbb{C} \setminus \Omega\)</span> is connected. (Hint: assume that <span class="math inline">\(\Omega\)</span> is bounded but that <span class="math inline">\(\mathbb{C} \setminus \Omega\)</span> is disconnected, then introduce a suitable dilation of this complement).</p></li>
+</ol>
+<p>From now on, <span class="math inline">\(\Omega\)</span> is a bounded open subset of <span class="math inline">\(\mathbb{C}\)</span>. Let <span class="math inline">\(\mathcal{F}\)</span> be a class of holomorphic functions defined on <span class="math inline">\(\Omega\)</span> (or a superset of <span class="math inline">\(\Omega\)</span>). A holomorphic function <span class="math inline">\(f: \Omega \to \mathbb{C}\)</span> has <em>uniform approximations</em> in <span class="math inline">\(\mathcal{F}\)</span> if <span class="math display">\[
+  \forall \, \epsilon &gt; 0, 
+  \exists \, \hat{f} \in \mathcal{F}, \;
+  \forall \, z \in \Omega, \; |f(z) - \hat{f}(z)| \leq \epsilon.
+  \]</span></p>
+<ol start="5" type="1">
+<li><p>Let <span class="math inline">\(f: \Omega \to \mathbb{C}\)</span> be a holomorphic function and let <span class="math inline">\(a \in \mathbb{C} \setminus \Omega\)</span>. Assume that <span class="math inline">\(f\)</span> has uniform approximations in the class of functions defined and holomorphic on <span class="math inline">\(\mathbb{C} \setminus \{a\}\)</span>. Show that if <span class="math inline">\(|a|\)</span> is large enough, <span class="math inline">\(f\)</span> has uniform approximations among polynomials.</p></li>
+<li><p>Show that for any non-empty bounded open subset <span class="math inline">\(\Omega\)</span> of <span class="math inline">\(\mathbb{C}\)</span>, there is a holomorphic function <span class="math inline">\(f :\Omega \to \mathbb{C}\)</span> which doesn’t have uniform approximations among polynomials (Hint: consider <span class="math inline">\(z\mapsto 1/(z-a)\)</span> for some suitable choice of <span class="math inline">\(a\)</span>).</p></li>
+</ol>
+<p>A holomorphic function <span class="math inline">\(f: \Omega \to \mathbb{C}\)</span> has <em>locally uniform approximations</em> in <span class="math inline">\(\mathcal{F}\)</span> if for any <span class="math inline">\(r&gt;0\)</span>, its restriction to any <span class="math inline">\(\Omega_r\)</span> has uniform approximations in <span class="math inline">\(\mathcal{F}\)</span>: <span class="math display">\[
+  \forall \, \epsilon &gt; 0, \forall \, r &gt; 0, 
+  \exists \, \hat{f} \in \mathcal{F}, \;
+  \forall \, z \in \Omega_r, \; |f(z) - \hat{f}(z)| \leq \epsilon.
+  \]</span></p>
+<ol start="7" type="1">
+<li>Show that if <span class="math inline">\(\Omega\)</span> is not simply connected, there is a holomorphic function <span class="math inline">\(f: \Omega \to \mathbb{C}\)</span> which has no locally uniform approximations among polynomials (Hint: consider <span class="math inline">\(f:z\mapsto 1/(z-a)\)</span> for some suitable choice of <span class="math inline">\(a\)</span> then compare <span class="math display">\[
+  \int_{\gamma} f(z) \, dz 
+  \; \mbox{ and } \; 
+  \int_{\gamma} \hat{f}(z) \, dz
+  \]</span> for some suitable closed rectifiable path <span class="math inline">\(\gamma\)</span>).</li>
+</ol>
+<p>From now on, we assume that <span class="math inline">\(\Omega\)</span> is simply connected.</p>
+<p>Let <span class="math inline">\(f:\Omega \to \mathbb{C}\)</span> and let <span class="math inline">\(r&gt;0\)</span>. We define the function <span class="math inline">\(\chi_r: \mathbb{C} \setminus \Omega \to \{0,1\}\)</span> by:</p>
+<ul>
+<li><p><span class="math inline">\(\chi_r(z) = 1\)</span> if for every <span class="math inline">\(\epsilon &gt; 0\)</span>, there is a holomorphic function <span class="math inline">\(\hat{f}_z\)</span> defined on <span class="math inline">\(\mathbb{C} \setminus \{z\}\)</span> such that <span class="math inline">\(|f - \hat{f}_z| \leq \epsilon\)</span> on <span class="math inline">\(\Omega_r\)</span>,</p></li>
+<li><p><span class="math inline">\(\chi_r(z) = 0\)</span> otherwise.</p></li>
+</ul>
+<ol start="8" type="1">
+<li><p>Show that if some points <span class="math inline">\(z\)</span> and <span class="math inline">\(w\)</span> of <span class="math inline">\(\mathbb{C} \setminus \Omega\)</span> satisfy <span class="math inline">\(\chi_r(z) = 1\)</span> and <span class="math inline">\(|w - z| &lt; r/2\)</span> then <span class="math inline">\(\chi_r(w) = 1\)</span> (Hint: first, prove that the open annulus <span class="math inline">\(A := A(w, r/2, +\infty)\)</span> satisfies <span class="math inline">\(A \subset \mathbb{C} \setminus \{z\}\)</span> and <span class="math inline">\(\overline{\Omega_r} \subset A\)</span>).</p></li>
+<li><p>Prove that <span class="math inline">\(\chi_r\)</span> is locally constant then show that if <span class="math inline">\(\chi_r(a) = 1\)</span> for some <span class="math inline">\(a \in \mathbb{C} \setminus \Omega\)</span>, then <span class="math inline">\(\chi_r(z) = 1\)</span> for every <span class="math inline">\(z \in \mathbb{C} \setminus \Omega\)</span>.</p></li>
+<li><p>Assume that <span class="math inline">\(f: \Omega \to \mathbb{C}\)</span> has locally uniform approximations among holomorphic functions defined on <span class="math inline">\(\mathbb{C} \setminus \{a\}\)</span> for some <span class="math inline">\(a \in \mathbb{C} \setminus \Omega\)</span>. Show that <span class="math inline">\(f\)</span> has locally uniform approximations among polynomials.</p></li>
+<li><p>Let <span class="math inline">\(\hat{f}: \mathbb{C} \setminus \{a_1,\dots, a_n\}\to \mathbb{C}\)</span> be holomorphic (all the <span class="math inline">\(a_k\)</span> are distincts). Show that there are holomorphic functions <span class="math inline">\(\hat{f}_k: \mathbb{C} \setminus \{a_k\} \to \mathbb{C}\)</span> for <span class="math inline">\(k=1,\dots,n\)</span> such that <span class="math display">\[
+   \forall \, z \in \mathbb{C} \setminus \{a_1,\dots, a_n\}, \;
+   \hat{f}(z) =  \hat{f}_1(z) + \dots + \hat{f}_n(z).
+   \]</span></p>
+<p>Prove the following corollary: if a function <span class="math inline">\(f: \Omega \to \mathbb{C}\)</span> has locally uniform approximations among holomorphic functions defined on <span class="math inline">\(\mathbb{C} \setminus \{a_1, \dots, a_n\}\)</span> for some <span class="math inline">\(a_1, \dots, a_n \in \mathbb{C} \setminus \Omega\)</span>, then <span class="math inline">\(f\)</span> has locally uniform approximations among polynomials.</p></li>
+</ol>
+<!-- \newpage -->
+</section>
+</section>
+<section id="problem-l" class="level1">
+<h1><a href="#problem-l">Problem L</a></h1>
+<p>The <em>ray</em> with origin <span class="math inline">\(a\in \mathbb{C}\)</span> and direction <span class="math inline">\(u \in \mathbb{C}^*\)</span> is the function<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> <span class="math display">\[
+  \gamma: t \in \mathbb{R}_+ \mapsto a + t u.
+  \]</span></p>
+<p>Let <span class="math inline">\(f:\Omega \mapsto \mathbb{C}\)</span> be a holomorphic function defined on some open subset <span class="math inline">\(\Omega\)</span> of <span class="math inline">\(\mathbb{C}\)</span> that contains the image <span class="math inline">\(\gamma(\mathbb{R}_+)\)</span> of the ray <span class="math inline">\(\gamma\)</span>. The Laplace transform <span class="math inline">\(\mathcal{L}_{\gamma}[f]\)</span> of <span class="math inline">\(f\)</span> along <span class="math inline">\(\gamma\)</span> at <span class="math inline">\(s \in \mathbb{C}\)</span> is given by <span class="math display">\[
+  \mathcal{L}_{\gamma}[f](s)
+  =
+  \int_{\mathbb{R}_+} f(\gamma(t)) e^{-\gamma(t) s} \gamma'(t) \, dt
+  \]</span> (we consider that this integral is defined when its integrand is summable). This definition generalizes the classic Laplace transform <span class="math inline">\(\mathcal{L}[f]\)</span> since <span class="math inline">\(\mathcal{L}_{\gamma}[f] = \mathcal{L}[f]\)</span> when <span class="math inline">\(\gamma(t) = t\)</span> (that is when <span class="math inline">\(a=0\)</span> and <span class="math inline">\(u=1\)</span>).</p>
+We assume that there are some <span class="math inline">\(\kappa &gt; 0\)</span> and <span class="math inline">\(\sigma \in \mathbb{R}\)</span> such that
+\begin{equation} \label{bound}
+  \forall \, z \in \gamma(\mathbb{R}_+), \; |f(z)| \leq \kappa e^{\sigma |z|}.
+  \end{equation}
+<ol type="1">
+<li><p>Show that if <span class="math inline">\(\gamma(t) = a + t u\)</span> and <span class="math inline">\(\mu(t) = a + t(\lambda u)\)</span> for some <span class="math inline">\(\lambda &gt; 0\)</span>, then <span class="math display">\[
+ \mathcal{L}_{\mu}[f] = \mathcal{L}_{\gamma}[f]
+ \]</span> (Reminder: two functions are equal when the have the same domain of definition and the same values in this shared domain.)</p></li>
+<li><p>Characterize geometrically the set <span class="math display">\[
+  \Pi(u, \sigma)
+  = 
+  \left\{
+  s \in \mathbb{C} 
+  \; \left| \; 
+  \mathrm{Re} \left( s u \right) &gt; \sigma |u|
+  \right.
+  \right\}
+  \]</span> and show that <span class="math inline">\(\mathcal{L}_\gamma[f]\)</span> is defined and holomorphic on <span class="math inline">\(\Pi(u, \sigma)\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(U\)</span> be an open subset of <span class="math inline">\(\mathbb{C}^*\)</span>. We assume that bound  is valid for every <span class="math inline">\(u \in U\)</span> (for a given origin <span class="math inline">\(a\)</span> and fixed values of <span class="math inline">\(\kappa\)</span> and <span class="math inline">\(\sigma\)</span>). Show that for any <span class="math inline">\(s\in \mathbb{C}\)</span>, the set <span class="math inline">\(U_{s}\)</span> of directions <span class="math inline">\(u \in U\)</span> such that <span class="math inline">\(s \in \Pi(u,\sigma)\)</span> is open and that the function <span class="math inline">\(u \in U_s \mapsto \mathcal{L}_{\gamma}[f](s)\)</span> is holomorphic (Hint: show that the complex-differentiation under the integral sign theorem is applicable).</p></li>
+<li><p>Show that the derivative of <span class="math inline">\(\mathcal{L}_{\gamma}[f](s)\)</span> with respect to <span class="math inline">\(u\)</span> is zero (Hint: the result of question 1 may be used).</p></li>
+</ol>
+<p>The exponential integral <span class="math inline">\(E_1(x)\)</span> is defined for <span class="math inline">\(x&gt;0\)</span> by <span class="math display">\[
+      E_1(x) = \int_x^{+\infty} \frac{e^{-t}}{t}dt.
+      \]</span></p>
+<ol start="5" type="1">
+<li>Compute the (classic) Laplace transform <span class="math inline">\(F\)</span> of <span class="math display">\[
+  t \in \mathbb{R}_+ \to \frac{1}{t+1}
+  \]</span> and give a formula for <span class="math inline">\(E_1(x)\)</span> that depends on <span class="math inline">\(F(x)\)</span>. Prove that <span class="math inline">\(E_1\)</span> has a unique holomorphic extension to the open right half-plane <span class="math inline">\(\{s \in \mathbb{C} \; | \; \mathrm{Re}(s) &gt; 0\}\)</span>.</li>
+</ol>
+<p>From now on, we study the case of <span class="math display">\[
+  f: z \in \mathbb{C} \setminus \{-1\} \mapsto \frac{1}{z+1}
+  \]</span> with <span class="math inline">\(a=0\)</span>, <span class="math inline">\(\sigma=0\)</span> and <span class="math inline">\(U =\{u \in\mathbb{C} \; | \; \mathrm{Re}(u)&gt;0\}.\)</span></p>
+<ol start="6" type="1">
+<li>Show that there is a <span class="math inline">\(\kappa &gt; 0\)</span> such that  is valid for every <span class="math inline">\(u \in U\)</span>. Characterize geometrically the set <span class="math inline">\(U_s\)</span>; show that it is non-empty when <span class="math inline">\(s\in \mathbb{C}\setminus \mathbb{R}_-\)</span>.</li>
+</ol>
+<p>Let <span class="math inline">\(s \in \mathbb{C} \setminus \mathbb{R}_-\)</span>. We define <span class="math display">\[
+  G(s) := \mathcal{L}_{\gamma}[f](s)
+  \; \mbox{ if } \;
+  u \in U_s
+  \; \mbox{ and } \;
+  \gamma: t \in \mathbb{R}_+ \mapsto tu.
+  \]</span> Note that this definition is <em>a priori</em> ambiguous since several <span class="math inline">\(u \in U_s\)</span> exist for a given value of <span class="math inline">\(s\)</span>. For any <span class="math inline">\(u_0 \in \mathbb{C}^*\)</span> and <span class="math inline">\(u_1 \in \mathbb{C}^*\)</span> and for any <span class="math inline">\(\theta \in [0,1]\)</span>, we denote <span class="math display">\[u_{\theta} = (1-\theta) u_0 + \theta u_1\]</span> and whenever <span class="math inline">\(u_{\theta} \neq 0\)</span>, we denote <span class="math inline">\(\gamma_{\theta}\)</span> the ray of origin <span class="math inline">\(a=0\)</span> and direction <span class="math inline">\(u_{\theta}\)</span>.</p>
+<ol start="7" type="1">
+<li><p>Let <span class="math inline">\(s \in \mathbb{C}\setminus \mathbb{R}_-\)</span>. Show that if <span class="math inline">\(u_0 \in U_s\)</span> and <span class="math inline">\(u_1 \in U_s\)</span> then for every <span class="math inline">\(\theta \in [0,1]\)</span>, <span class="math inline">\(u_{\theta} \in U_s\)</span> and that <span class="math display">\[
+  \mathcal{L}_{\gamma_1}[f](s)
+  - 
+  \mathcal{L}_{\gamma_0}[f](s)
+  =
+  \int_0^1 \frac{d}{d\theta} 
+  \mathcal{L}_{\gamma_{\theta}}[f](s) 
+  \, d\theta.
+  \]</span> Conclude that the definition of <span class="math inline">\(G\)</span> is unambiguous.</p></li>
+<li><p>We search for a new expression of the difference <span class="math inline">\(\mathcal{L}_{\gamma_1}[f](s) - \mathcal{L}_{\gamma_0}[f](s)\)</span> to build an alternate proof for the conclusion of the previous question.</p>
+<p>Let again <span class="math inline">\(s \in \mathbb{C}\setminus \mathbb{R}_-\)</span>, <span class="math inline">\(u_0 \in U_s\)</span> and <span class="math inline">\(u_1 \in U_s\)</span>; let <span class="math inline">\(r \geq 0\)</span> and <span class="math inline">\(\gamma_0^r\)</span> and <span class="math inline">\(\gamma_1^r\)</span> be the paths defined by <span class="math display">\[
+  \gamma_{0}^r: t \in [0,1] \mapsto \gamma_0(tr)
+  \; \mbox{ and } \;
+  \gamma_{1}^r: t \in [0,1] \mapsto \gamma_1(tr)
+  \]</span> Show that <span class="math display">\[
+  \mathcal{L}_{\gamma_1}[f](s) - \mathcal{L}_{\gamma_0}[f](s)
+  =
+  \lim_{r \to +\infty} \int_{\mu_r} f(z) e^{-sz} \, dz \;
+  \; \mathrm{ where } \; \mu_r = (\gamma_0^r)^{\leftarrow} | (\gamma_1^r)
+  \]</span> Conclude again that the definition of <span class="math inline">\(G\)</span> is unambiguous (Hint: “close” the path <span class="math inline">\(\mu_r\)</span> and use Cauchy’s integral theorem).</p></li>
+<li><p>Prove that <span class="math inline">\(E_1\)</span> has a unique holomorphic extension to <span class="math inline">\(\mathbb{C} \setminus \mathbb{R}_-\)</span>.</p></li>
+</ol>
+<!-- \newpage -->
+</section>
+<section id="problem-r-answers" class="level1">
+<h1><a href="#problem-r-answers">Problem R – Answers</a></h1>
+<ol type="1">
+<li><p><strong>(1.5pt)</strong> If <span class="math inline">\(z \in \Omega_r\)</span>, then <span class="math inline">\(d(z, \mathbb{C} \setminus \Omega) &gt; r &gt; 0\)</span>. Since any point <span class="math inline">\(z\)</span> of <span class="math inline">\(\mathbb{C} \setminus \Omega\)</span> satisfies <span class="math inline">\(d(z, \mathbb{C} \setminus \Omega) = 0\)</span>, we have <span class="math inline">\(\mathbb{C} \setminus \Omega \subset \mathbb{C} \setminus \Omega_r\)</span> and thus <span class="math inline">\(\Omega_r \subset \Omega\)</span>.</p>
+<p>For any <span class="math inline">\(z \in \Omega_r\)</span>, the number <span class="math inline">\(\epsilon = d(z, \mathbb{C} \setminus \Omega) - r\)</span> is positive. If <span class="math inline">\(|w - z| &lt; \epsilon\)</span> then for any <span class="math inline">\(v \in \mathbb{C} \setminus \Omega\)</span>, <span class="math inline">\(|z - v| \geq d(z, \mathbb{C} \setminus \Omega)\)</span> and <span class="math display">\[
+  |w - v| 
+  \geq 
+  |z - v| - |w - z|
+  &gt; 
+  d(z, \mathbb{C} \setminus \Omega)
+  - 
+  \epsilon
+  =
+  r.
+  \]</span> Consequently <span class="math inline">\(D(z, \epsilon) \subset \Omega\)</span> and <span class="math inline">\(\Omega\)</span> is open.</p>
+<p>Finally, if <span class="math inline">\(z \in \Omega\)</span>, since <span class="math inline">\(\Omega\)</span> is open, <span class="math inline">\(d = d(z, \mathbb{C} \setminus \Omega) &gt; 0\)</span>, thus if <span class="math inline">\(r = d/2\)</span>, the point <span class="math inline">\(z\)</span> belongs to <span class="math inline">\(\Omega_r\)</span>. Consequently, <span class="math inline">\(\Omega = \cup_{r&gt;0} \Omega_r\)</span>.</p></li>
+<li><p><strong>(1pt)</strong> Let <span class="math inline">\(\Omega = \{z \in \mathbb{C} \; | \; |\mathrm{Im} \, z| &lt; |\mathrm{Re} \, z| +1 \}\)</span>. This set is open: the function <span class="math display">\[
+  \phi: z \in \mathbb{C} \to |\mathrm{Re} \, z| + 1 - |\mathrm{Im} \, z| \in \mathbb{R}
+  \]</span> is continuous and <span class="math inline">\(\Omega\)</span> is the pre-image of the open set <span class="math inline">\(\mathbb{R}_{+}^*\)</span> by <span class="math inline">\(\phi\)</span>. Now, for any purely imaginary number <span class="math inline">\(iy\)</span> of <span class="math inline">\(\Omega\)</span>, since <span class="math inline">\(|iy - i| \leq 1\)</span> or <span class="math inline">\(|iy + i| \leq 1\)</span>, we have <span class="math inline">\(d(iy, \mathbb{C} \setminus \Omega) \leq 1\)</span>. Therefore, no such point belongs to <span class="math inline">\(\Omega_1\)</span>. On the other hand, <span class="math inline">\(d(-2, \mathbb{C} \setminus \Omega) = d(-2, \mathbb{C} \setminus \Omega) = 3\sqrt{2}/2 &gt; 1\)</span> and hence <span class="math inline">\(-2 \in \Omega_1\)</span> and <span class="math inline">\(2 \in \Omega_1\)</span>.</p>
+<p>Assume that <span class="math inline">\(\Omega_1\)</span> is connected. Since it is open, it is path-connected: there is a continuous function <span class="math inline">\(\gamma:[0,1] \to \Omega_{1}\)</span> that joins <span class="math inline">\(-2\)</span> and <span class="math inline">\(2\)</span>. By the intermediate value theorem, there is a <span class="math inline">\(t\in \left]0,1\right[\)</span> such that <span class="math inline">\(\mathrm{Re} \, \gamma(t) = 0\)</span>. Since <span class="math inline">\(\gamma(t) \in \Omega_1\)</span>, we have a contradiction. Consequently, <span class="math inline">\(\Omega_1\)</span> is not connected.</p></li>
+<li><p><strong>(2.5pt)</strong> By definition of <span class="math inline">\(\Omega_r\)</span>, its complement satisfies <span class="math display">\[
+  \mathbb{C} \setminus \Omega_r 
+  = 
+  \{
+    z \in \mathbb{C}  
+    \; | \; 
+   d(z, \mathbb{C} \setminus \Omega) \leq r
+  \}.
+  \]</span> Thus, if <span class="math inline">\(z \in \mathbb{C} \setminus \Omega_r\)</span>, since <span class="math inline">\(\mathbb{C} \setminus \Omega\)</span> is closed, there is a <span class="math inline">\(w \in \mathbb{C} \setminus \Omega\)</span> such that <span class="math inline">\(|z - w| \leq r\)</span>. Since for any <span class="math inline">\(\lambda \in [0,1]\)</span>, the point <span class="math inline">\(z_{\lambda} = \lambda w + (1-\lambda) z\)</span> satisfies <span class="math inline">\(|z_{\lambda} - w| = (1-\lambda) |z - w| \leq r\)</span>, we also have <span class="math inline">\(z_{\lambda} \in \mathbb{C} \setminus \Omega_r\)</span>. Hence, <span class="math inline">\([w, z] \subset \mathbb{C} \setminus \Omega_r\)</span>.</p>
+<p>Assume that <span class="math inline">\(\Omega\)</span> is simply connected. Let <span class="math inline">\(z \in \mathbb{C} \setminus \Omega_r\)</span> and let <span class="math inline">\(\gamma\)</span> be a closed path of <span class="math inline">\(\Omega_r\)</span>; since <span class="math inline">\(\Omega_r \subset \Omega\)</span>, <span class="math inline">\(\gamma\)</span> is also a closed path of <span class="math inline">\(\Omega\)</span>. Let <span class="math inline">\(w \in \mathbb{C} \setminus \Omega\)</span> such that <span class="math inline">\([w, z] \subset \mathbb{C} \setminus \Omega_r\)</span>. Since <span class="math inline">\([w, z]\)</span> is connected and the function <span class="math inline">\(\xi \in \mathbb{C} \setminus \Omega_r \mapsto \mathrm{ind}(\gamma, \xi)\)</span> is locally constant, <span class="math inline">\(\mathrm{ind}(\gamma, z) = \mathrm{ind}(\gamma, w)\)</span>. Since <span class="math inline">\(\Omega\)</span> is simply connected, <span class="math inline">\(\mathrm{ind}(\gamma, w)= 0\)</span>. Hence, <span class="math inline">\(\Omega_r\)</span> is simply connected.</p>
+<p>Alternatively, assume that <span class="math inline">\(\Omega_r\)</span> is multiply connected. Let <span class="math inline">\(\mathbb{C} \setminus \Omega_r = K \cup L\)</span> where <span class="math inline">\(K\)</span> is bounded and non-empty and <span class="math inline">\(d(K, L) &gt; 0\)</span>. Since <span class="math inline">\(\Omega_r \subset \Omega\)</span>, <span class="math inline">\(\mathbb{C} \setminus \Omega \subset \mathbb{C} \setminus \Omega_r\)</span>. Let <span class="math inline">\(K' = K \cap (\mathbb{C} \setminus \Omega)\)</span> and <span class="math inline">\(L' = L \cap (\mathbb{C} \setminus \Omega)\)</span>. Clearly, <span class="math inline">\(\mathbb{C} \setminus \Omega = K' \cup L'\)</span>, <span class="math inline">\(K'\)</span> is bounded and <span class="math inline">\(d(K', L') &gt; 0\)</span>. Now, let <span class="math inline">\(z \in K\)</span> and let <span class="math inline">\(w \in \mathbb{C} \setminus \Omega\)</span> such that <span class="math inline">\([w, z] \subset \mathbb{C} \setminus \Omega_r = K \cup L\)</span>. Every connected <span class="math inline">\(C\)</span> subset of <span class="math inline">\(K \cup L\)</span> that contains a point of <span class="math inline">\(K\)</span> is included in <span class="math inline">\(K\)</span> since for any <span class="math inline">\(r \leq d(K,L)\)</span>, the dilation <span class="math inline">\(C + B(0,r)\)</span> doesn’t intersect <span class="math inline">\(L\)</span>. Since <span class="math inline">\([w,z]\)</span> is a connected subset of <span class="math inline">\(K \cup L\)</span> and <span class="math inline">\(z \in K\)</span>, we have <span class="math inline">\([w,z] \subset K\)</span>, thus <span class="math inline">\(K'\)</span> is also non-empty. Finally, <span class="math inline">\(\Omega\)</span> is multiply connected.</p>
+<p>The converse result is false: for any open subset <span class="math inline">\(\Omega\)</span> which is bounded and not simply connected, for <span class="math inline">\(r\)</span> large enough, <span class="math inline">\(\Omega_r = \varnothing\)</span> which is simply connected.</p></li>
+<li><p><strong>(2.5pt)</strong> Assume that <span class="math inline">\(\mathbb{C} \setminus \Omega\)</span> is disconnected. Since <span class="math inline">\(\Omega\)</span> is bounded, for <span class="math inline">\(r\)</span> large enough, the annulus <span class="math inline">\(A(0,r+\infty)\)</span>, which is connected, is a subset of <span class="math inline">\(\mathbb{C} \setminus \Omega\)</span>. Consider a dilation of <span class="math inline">\(\mathbb{C} \setminus \Omega\)</span> which is not (path-)connected; let <span class="math inline">\(V_{\infty}\)</span> be the component of this dilation that contains the annulus above, while <span class="math inline">\(V\)</span> is the (non-empty) union of the other components of the dilation. By construction, <span class="math inline">\(V\)</span> and <span class="math inline">\(V_{\infty}\)</span> are open and disjoints and <span class="math inline">\(V\)</span> is bounded. The set <span class="math display">\[K = (\mathbb{C} \setminus \Omega) \cap V 
+   = (\mathbb{C} \setminus \Omega) \setminus V_{\infty}\]</span> is closed, non-empty and bounded; with <span class="math display">\[
+  L 
+  = 
+  (\mathbb{C} \setminus \Omega) \cap V_{\infty} 
+  = 
+  (\mathbb{C} \setminus \Omega) \setminus V,
+  \]</span> which is closed, we have <span class="math inline">\(\mathbb{C} \setminus \Omega = K \cup L\)</span>. Thus <span class="math inline">\(\mathbb{C} \setminus \Omega\)</span> is multiply connected.</p></li>
+<li><p><strong>(1.5pt)</strong> Since <span class="math inline">\(\Omega\)</span> is bounded, there is a <span class="math inline">\(r&gt;0\)</span> such that <span class="math inline">\(\Omega \subset K = \overline{D(0, r)}\)</span>. Let <span class="math inline">\(a \in \mathbb{C}\)</span> such that <span class="math inline">\(|a|&gt;r\)</span>; let <span class="math inline">\(\epsilon &gt; 0\)</span> and <span class="math inline">\(\hat{f}: \mathbb{C} \setminus \{a\}\)</span> be a holomorphic function such that <span class="math inline">\(|f - \hat{f}| \leq \epsilon/2\)</span> on <span class="math inline">\(\Omega\)</span>. Since <span class="math inline">\(K\)</span> is a compact subset of <span class="math inline">\(D(0, |a|) \subset \mathbb{C} \setminus \{a\}\)</span>, the Taylor series expansion <span class="math inline">\(\sum a_n (z-c)^n\)</span> of <span class="math inline">\(\hat{f}\)</span> in <span class="math inline">\(D(0, |a|)\)</span> is uniformly convergent in <span class="math inline">\(K\)</span>, thus there is a <span class="math inline">\(m \in \mathbb{N}\)</span> such that the polynomial <span class="math display">\[
+   p(z) = \sum_{n=0}^m a_n (z-c)^n
+   \]</span> satisfies <span class="math inline">\(|\hat{f} - p| \leq \epsilon/2\)</span> in <span class="math inline">\(K\)</span> and hence in <span class="math inline">\(\Omega\)</span>. Consequently, <span class="math display">\[
+  \forall \, z \in \Omega, \; 
+  |f(z) - p(z)| \leq |f(z) - \hat{f}(z)| + |\hat{f}(z) - p(z)| \leq \epsilon.
+  \]</span></p></li>
+<li><p><strong>(1.5pt)</strong> Assume that there is a polynomial <span class="math inline">\(p\)</span> such that <span class="math inline">\(|f - p| &lt; 1\)</span> on <span class="math inline">\(\Omega\)</span>. Since <span class="math inline">\(\Omega\)</span> is bounded, the set <span class="math inline">\(K = \overline{\Omega}\)</span> is compact and since <span class="math inline">\(p\)</span> is continuous on <span class="math inline">\(K\)</span>, it is bounded on <span class="math inline">\(\Omega\)</span>. Given that <span class="math display">\[
+  |f(z)| \leq |f(z) - p(z)| + |p(z)|
+  \]</span> the function <span class="math inline">\(f\)</span> is necessarily bounded on <span class="math inline">\(\Omega\)</span>.</p>
+<p>Now all we have to do is to find a holomorphic function on <span class="math inline">\(\Omega\)</span> which is not bounded. Consider <span class="math inline">\(f: z\mapsto 1/(z-a)\)</span> where <span class="math inline">\(a\)</span> is a point of the boundary of <span class="math inline">\(\Omega\)</span> (such a point exists since <span class="math inline">\(\Omega \neq \varnothing\)</span> and <span class="math inline">\(\Omega \neq \mathbb{C}\)</span>); since <span class="math inline">\(\Omega\)</span> is open, <span class="math inline">\(a \not \in \Omega\)</span> and the function <span class="math inline">\(f\)</span> is defined and holomorphic on <span class="math inline">\(\Omega\)</span>. By construction there is a sequence <span class="math inline">\(z_n \in \Omega\)</span> such that <span class="math inline">\(z_n \to a\)</span> and thus <span class="math display">\[|f(z_n)| = \left|\frac{1}{z_n - a}\right| \to +\infty,\]</span> thus <span class="math inline">\(f\)</span> is not bounded on <span class="math inline">\(\Omega\)</span>.</p></li>
+<li><p><strong>(2pt)</strong> If <span class="math inline">\(\Omega\)</span> is not simply connected, there is a closed rectifiable path <span class="math inline">\(\gamma\)</span> of <span class="math inline">\(\Omega\)</span> and a point <span class="math inline">\(a \in \mathbb{C} \setminus \Omega\)</span> which is in the interior of <span class="math inline">\(\gamma\)</span>, that is <span class="math inline">\(\mathrm{ind}(\gamma, a)\)</span> is a non-zero integer. The function <span class="math inline">\(z \mapsto 1/(z-a)\)</span> is defined and holomorphic on <span class="math inline">\(\Omega\)</span>. Additionally <span class="math display">\[
+  \frac{1}{2\pi} \int_{\gamma} f(z) dz
+  =
+   \mathrm{ind}(\gamma, a) \in \mathbb{Z}^*.
+  \]</span> Since the distance between <span class="math inline">\(\gamma([0,1])\)</span> and the complement of <span class="math inline">\(\Omega\)</span> is positive, there is a <span class="math inline">\(r&gt;0\)</span> such that <span class="math inline">\(\gamma([0,1]) \subset \Omega_r\)</span>. Now if <span class="math inline">\(\hat{f}\)</span> is a polynomial such that <span class="math inline">\(|f - \hat{f}| \leq \epsilon\)</span> on <span class="math inline">\(\Omega_r\)</span>, <span class="math display">\[
+  \left| 
+  \frac{1}{2\pi}
+  \int_{\gamma} f(z) \, dz 
+  \right|
+  \leq 
+  \left| 
+  \frac{1}{2\pi}
+  \int_{\gamma} \hat{f}(z) \, dz 
+  \right|
+  +
+  \left|
+  \frac{1}{2\pi} 
+  \int_{\gamma} (f-\hat{f})(z) \, dz 
+  \right|.
+  \]</span> By Cauchy’s theorem (the local version, in <span class="math inline">\(\mathbb{C}\)</span>), the first integral in the right-hand side is zero. By the M-L inequality, the second one is dominated by <span class="math inline">\((\epsilon/2\pi) \times \ell(\gamma)\)</span>. Thus for <span class="math inline">\(\epsilon &lt; 2\pi / \ell(\gamma)\)</span>, we would have <span class="math display">\[
+  \left| 
+  \frac{1}{2\pi}
+  \int_{\gamma} f(z) \, dz 
+  \right|
+  &lt; 1.
+  \]</span> Consequently <span class="math inline">\(z\mapsto 1/(z-a)\)</span> is holomorphic on <span class="math inline">\(\Omega\)</span> but cannot be locally uniformly approximated by polynomials.</p></li>
+<li><p><strong>(3pt)</strong> The condition <span class="math inline">\(|w - z| &lt;r/2\)</span> yields <span class="math display">\[
+  \{z\} \subset \overline{D(w, r/2)} 
+  = 
+  \mathbb{C} \setminus A(w, r/2, +\infty).
+  \]</span> or equivalently, <span class="math inline">\(A = A(w, r/2, +\infty) \subset \mathbb{C} \setminus \{z\}\)</span>. Additionally, any <span class="math inline">\(v \in \overline{\Omega}_r\)</span> satisfies <span class="math inline">\(d(v, \mathbb{C} \setminus \Omega) \geq r\)</span> and in particular <span class="math inline">\(|v - z| \geq r\)</span>. Since <span class="math inline">\(|w - z| &lt; r/2\)</span>, <span class="math display">\[
+  |v - w| \geq |v - z| - |w - z| &gt; r - r/2 = r/2,
+  \]</span> hence <span class="math inline">\(v \in A(w, r/2, +\infty)\)</span>. Consequently, <span class="math inline">\(\overline{\Omega_r} \subset A\)</span>.</p>
+<p>Since <span class="math inline">\(\chi_r(z) = 1\)</span>, for any <span class="math inline">\(\epsilon &gt; 0\)</span>, there is a function <span class="math inline">\(\hat{f}_z\)</span> holomorphic in <span class="math inline">\(\mathbb{C} \setminus \{z\}\)</span> such such that <span class="math inline">\(|f - \hat{f}| \leq \epsilon / 2\)</span> on <span class="math inline">\(\Omega_r\)</span>. Now, since the annulus <span class="math inline">\(A\)</span> is included in the domain of definition of <span class="math inline">\(\hat{f}_z\)</span>, we have the Laurent series expansion <span class="math display">\[
+  \forall \, v \in A, \;
+  \hat{f}_z(v) = \sum_{n=-\infty}^{+\infty} a_n (v - w)^n.
+  \]</span> This expansion is locally uniformly convergent; since <span class="math inline">\(\overline{\Omega_r}\)</span> is compact and included in <span class="math inline">\(A\)</span>, there is a natural number <span class="math inline">\(m\)</span> such that the function <span class="math inline">\(\hat{f}_w(v) :=\sum_{n=-m}^m a_n (v - w)^n\)</span> – which is holomorphic on <span class="math inline">\(\mathbb{C} \setminus \{w\}\)</span> – satisfies <span class="math inline">\(|\hat{f}_z - \hat{f}_w| \leq \epsilon/2\)</span> on <span class="math inline">\(\overline{\Omega}_r\)</span>. Finally, on <span class="math inline">\(\Omega_r\)</span>, we have <span class="math display">\[
+  |f - \hat{f}_w| \leq |f - \hat{f}_z| + |\hat{f}_z - \hat{f}_w|
+                  \leq \epsilon/2 + \epsilon/2 = \epsilon. 
+  \]</span> and thus <span class="math inline">\(\chi(w) = 1\)</span>.</p></li>
+<li><p><strong>(1pt)</strong> We know that if <span class="math inline">\(\chi(z) = 1\)</span> and <span class="math inline">\(|w - z| &lt; r/2\)</span>, then <span class="math inline">\(\chi(w) = 1\)</span>. Now, by contraposition of this property, if <span class="math inline">\(\chi(w) = 0\)</span> and <span class="math inline">\(|w-z| &lt; r/2\)</span>, we have <span class="math inline">\(\chi(z) = 0\)</span>. Therefore <span class="math inline">\(\chi\)</span> is locally constant. Now since <span class="math inline">\(\Omega\)</span> is simply connected and bounded, by question 4, <span class="math inline">\(\mathbb{C} \setminus \Omega\)</span> is connected. Since <span class="math inline">\(\chi: \mathbb{C}\setminus \Omega \to \{0,1\}\)</span> is locally constant, if <span class="math inline">\(\chi(a) = 1\)</span> for some <span class="math inline">\(a \in \mathbb{C}\setminus \Omega\)</span>, <span class="math inline">\(\chi = 1\)</span> on <span class="math inline">\(\mathbb{C} \setminus \Omega\)</span>.</p></li>
+<li><p><strong>(1pt)</strong> If <span class="math inline">\(f: \Omega \to \mathbb{C}\)</span> has locally uniform approximations among the holomorphic functions defined on <span class="math inline">\(\mathbb{C} \setminus \{a\}\)</span>, then for any <span class="math inline">\(r&gt;0\)</span> <span class="math inline">\(\chi_r(a)=1\)</span>. By the previous question, <span class="math inline">\(\chi_r(b)=1\)</span> for any <span class="math inline">\(b \in \mathbb{C} \setminus \Omega\)</span> and thus <span class="math inline">\(f\)</span> has locally uniform approximations among the holomorphic functions defined on <span class="math inline">\(\mathbb{C} \setminus \{b\}\)</span>. We can select a <span class="math inline">\(b\)</span> that is arbitrarily large, thus by question 5, <span class="math inline">\(f\)</span> has locally uniform approximations among polynomials.</p></li>
+<li><p><strong>(4pt)</strong> We proceed by induction. The result is plain if <span class="math inline">\(n=1\)</span>; now assume that the result holds for a given <span class="math inline">\(n \geq 1\)</span> and let <span class="math inline">\(\hat{f}: \mathbb{C} \setminus \{a_1,\dots, a_n, a_{n+1}\}\to \mathbb{C}\)</span> be holomorphic. Since <span class="math inline">\(a_{n+1}\)</span> is an isolated singularity of <span class="math inline">\(f\)</span>, there is a <span class="math inline">\(r&gt;0\)</span> such that <span class="math inline">\(A(a_{n+1}, 0, r)\)</span> is a non-empty annulus included in the domain of definition of <span class="math inline">\(f\)</span>. Let <span class="math inline">\(\sum_{k={-\infty}}^{+\infty} b_k (z-a_{n+1})^k\)</span> be the Laurent series expansion of <span class="math inline">\(\hat{f}\)</span> in this annulus and define <span class="math display">\[
+   \hat{f}_{n+1}(z) = \sum_{n = -{\infty}}^{-1} b_k (z - a_{n+1})^k
+   \]</span> Since there are only negative powers, the sum is convergent (and holomorphic) in <span class="math inline">\(\mathbb{C} \setminus \{a_{n+1}\}\)</span>. Now since in the annulus <span class="math display">\[
+   \hat{f}(z) - \hat{f}_{n+1}(z) = \sum_{n=0}^{+\infty} b_k (z - a_{n+1})^k
+   \]</span> the point <span class="math inline">\(a_{n+1}\)</span> is a removable singularity of the function <span class="math inline">\(\hat{f} - \hat{f}_k\)</span> that may thus be extended holomorphically to <span class="math inline">\(\mathbb{C} \setminus \{a_1,\dots, a_n\}\)</span>. We may apply the induction hypothesis to this extension; we get holomorphic functions <span class="math inline">\(\hat{f}_k: \mathbb{C} \setminus \{a_k\} \to \mathbb{C}\)</span> for <span class="math inline">\(k=1,\dots,n\)</span> such that <span class="math display">\[
+   \forall \, z \in \mathbb{C} \setminus \{a_1,\dots, a_{n+1}\}, \;
+   \hat{f}(z) - \hat{f}_{n+1}(z)=  \hat{f}_1(z) + \dots + \hat{f}_n(z)
+   \]</span> which is the induction hypothesis at stage <span class="math inline">\(n+1\)</span>.</p>
+<p>Now the corollary: assume that for any <span class="math inline">\(r&gt;0\)</span> and any <span class="math inline">\(\epsilon&gt;0\)</span>, there is a holomorphic function <span class="math inline">\(\hat{f}: \mathbb{C} \setminus \{a_1, \dots, a_n\} \to \mathbb{C}\)</span> such that <span class="math inline">\(|f - \hat{f}| \leq \epsilon / 2\)</span> in <span class="math inline">\(\Omega_r\)</span>. Let <span class="math inline">\(\hat{f}_k: \mathbb{C} \setminus \{a_k\} \to \mathbb{C}\)</span> for <span class="math inline">\(k=1,\dots,n\)</span> be such that <span class="math display">\[
+   \forall \, z \in \mathbb{C} \setminus \{a_1,\dots, a_n\}, \;
+   \hat{f}(z) =  \hat{f}_1(z) + \dots + \hat{f}_n(z).
+   \]</span> Since the restriction of every <span class="math inline">\(\hat{f}_k\)</span> to <span class="math inline">\(\Omega\)</span> is locally uniformly approximated by holomorphic functions on <span class="math inline">\(\mathbb{C} \setminus \{a_k\}\)</span>, by question 9, it is locally uniformly approximated by polynomials, so there is a polynomial <span class="math inline">\(p_k\)</span> such that <span class="math inline">\(|\hat{f}_k - p_k| \leq \epsilon/2n\)</span> on <span class="math inline">\(\Omega_r\)</span>. Let <span class="math inline">\(p = \sum_{k=1}^n p_k\)</span>; on <span class="math inline">\(\Omega_r\)</span>, we have <span class="math display">\[
+   |f - p|
+   \leq 
+   |f - \hat{f}| + \sum_{k=1}^n |\hat{f}_k - p_k| \leq \epsilon.
+   \]</span> Thus, <span class="math inline">\(f\)</span> is locally uniformly approximated by polynomials.</p></li>
+</ol>
+<!-- \newpage -->
+</section>
+<section id="problem-l-answers" class="level1">
+<h1><a href="#problem-l-answers">Problem L – Answers</a></h1>
+<ol type="1">
+<li><p><strong>(1pt)</strong> Since <span class="math display">\[
+  \mathcal{L}_{\mu}[f](s) = 
+  \int_{\mathbb{R}_+} 
+  f(a + t\lambda u) e^{-s(a+ t\lambda u)} (\lambda u) \, dt,
+  \]</span> if <span class="math inline">\(\mathcal{L}_{\mu}[f](s)\)</span> is defined, the change of variable <span class="math inline">\(\tau = \lambda t\)</span> yields <span class="math display">\[
+  \mathcal{L}_{\mu}[f](s) 
+  = 
+  \int_{\mathbb{R}_+} 
+  f(a + \tau u) e^{-s(a+ \tau u)} u \, d\tau ,
+  \]</span> thus <span class="math inline">\(\mathcal{L}_{\lambda}[f](s)\)</span> is defined and <span class="math inline">\(\mathcal{L}_{\mu}[f](s) = \mathcal{L}_{\lambda}[f](s)\)</span>. Conversely, if <span class="math inline">\(\mathcal{L}_{\lambda}[f](s)\)</span> is defined, the same argument with <span class="math inline">\(1/\lambda\)</span> instead of <span class="math inline">\(\lambda\)</span> shows that <span class="math inline">\(\mathcal{L}_{\mu}[f](s)\)</span> is also defined (and obviously <span class="math inline">\(\mathcal{L}_{\mu}[f](s) = \mathcal{L}_{\lambda}[f](s)\)</span>).</p></li>
+<li><p><strong>(2pt)</strong> The set <span class="math inline">\(\Pi(u, \sigma)\)</span> is an open half-plane: if <span class="math inline">\(u = |u|e^{i\theta}\)</span> and <span class="math inline">\(s = x + iy\)</span>,<br>
+then the condition <span class="math inline">\(\mathrm{Re}(s u) &gt; \sigma |u|\)</span> is equivalent to <span class="math display">\[
+  x \cos \theta  - y \sin \theta &gt; \sigma.
+  \]</span></p>
+<p>The Laplace transform of <span class="math inline">\(f\)</span> along <span class="math inline">\(\gamma\)</span> satisfies <span class="math display">\[
+  \begin{split}
+  \mathcal{L}_{\gamma}[f](s) 
+    &amp; = \int_{\mathbb{R}_+} f(a+tu) e^{-s(a+tu)}u\, dt \\
+    &amp; = (e^{-sa}u) \int_{\mathbb{R}_+} f(a+tu) e^{-(su)t}\, dt
+  \end{split}
+  \]</span> and thus <span class="math display">\[
+  \mathcal{L}_{\gamma}[f](s) 
+  = 
+  (e^{-sa} u) \mathcal{L}[t \mapsto f(a+tu)](su).
+  \]</span> The function <span class="math inline">\(t \in \mathbb{R}_+ \mapsto f(a+tu)\)</span> is locally integrable (it is continuous since <span class="math inline">\(f\)</span> is holomorphic) and since for any <span class="math inline">\(t\geq 0\)</span> <span class="math display">\[
+  -|a| + t |u| \leq |a + tu| \leq |a| + t |u|,
+  \]</span> we have <span class="math display">\[
+  |f(a+tu)| 
+    \leq \kappa e^{\sigma |a+tu|} 
+    \leq \kappa \max(e^{-\sigma|a|},e^{\sigma|a|}) e^{(\sigma|u|) t}
+  \]</span> therefore <span class="math inline">\(t \geq 0 \mapsto |f(a+tu)|e^{-\sigma^+ t}\)</span> is integrable whenever <span class="math inline">\(\sigma^+ &gt; \sigma |u|\)</span>. Hence the Laplace transform <span class="math inline">\(\mathcal{L}[t \mapsto f(a+tu)]\)</span> is defined and holomorphic on the set <span class="math inline">\(\Pi(u, \sigma) =\{s \in \mathbb{C} \; | \; \mathrm{Re}(s) &gt; \sigma |u|\}\)</span> and <span class="math inline">\(\mathcal{L}_{\gamma}[f]\)</span> as well, as a composition and product of holomorphic functions.</p></li>
+<li><p><strong>(3pt)</strong> For a <span class="math inline">\(s \in \mathbb{C}\)</span>, the set of <span class="math inline">\(u\)</span> such that <span class="math inline">\(s \in \Pi(u, \sigma)\)</span> is open as the preimage of the open set <span class="math inline">\(\left]0, + \infty\right[\)</span> by the continuous function <span class="math inline">\(u \in U \mapsto \mathrm{Re}(s u) - \sigma|u|\)</span>.</p>
+<p>Let <span class="math inline">\(\psi: U_s \times \mathbb{R}_+ \to \mathbb{C}\)</span> be defined as <span class="math display">\[
+ \psi(u, t) = f(a+tu) e^{-(a+tu)s} u.
+ \]</span> Since <span class="math display">\[
+ |f(a+tu)| 
+ \leq 
+ \kappa e^{\sigma|a+tu|} 
+ \leq 
+ \kappa_1 e^{t|u| \sigma}
+ \]</span> with <span class="math inline">\(\kappa_1 = \kappa \max(e^{-\sigma|a|},e^{\sigma|a|})\)</span> and <span class="math display">\[
+ |e^{-(a+tu)s}|  
+ =
+ e^{-\mathrm{Re}((a+tu)s)}
+ = 
+ e^{-\mathrm{Re}(as)}e^{-t\mathrm{Re}(su)},
+ \]</span> we end up with <span class="math display">\[
+ |\psi(u, t)| 
+ \leq (\kappa_1 e^{-\mathrm{Re}(as)}|u|) 
+        e^{t(\sigma |u|- \mathrm{Re}(s u))}.
+ \]</span></p>
+<p>Since for any <span class="math inline">\(u \in U_s\)</span> <span class="math display">\[
+  \mathcal{L}_{\gamma}[f](s) = \int_{\mathbb{R}_+} \psi(u, t) \, dt
+  \]</span> we check the assumptions of the complex-differentiation under the integral sign theorem:</p>
+<ul>
+<li><p>For every <span class="math inline">\(u \in U_s\)</span>, the function <span class="math inline">\(t \in \mathbb{R}_+ \mapsto \psi(u, t)\)</span> is Lebesgue measurable (it is actually continuous since <span class="math inline">\(f\)</span> is holomorphic).</p></li>
+<li><p>If <span class="math inline">\(s \in \Pi(u_0, \sigma)\)</span>, since <span class="math inline">\(\epsilon := \mathrm{Re}(s u_0) - \sigma |u_0|&gt; 0\)</span>, by continuity there is a <span class="math inline">\(0&lt;r&lt;|u_0|\)</span> such that <span class="math inline">\(|u-u_0| \leq r\)</span> ensures <span class="math inline">\(\mathrm{Re}(s u) - \sigma |u| \geq \epsilon/2\)</span>. Let <span class="math inline">\(\kappa_2\)</span> be an upper bound of <span class="math inline">\(\kappa_1 e^{-\mathrm{Re}(as)}|u|\)</span> when <span class="math inline">\(|u-u_0| \leq r\)</span>. The bound on <span class="math inline">\(\psi\)</span> that we have derived above yields <span class="math display">\[
+  |\psi(u,t)| \leq \kappa_2 e^{-t \epsilon/2}
+  \]</span> and the right-hand side of this inequality is a Lebesgue integrable function of <span class="math inline">\(t\)</span>.</p></li>
+<li><p>For every <span class="math inline">\(t \in \mathbb{R}_+\)</span>, it is plain that the function <span class="math inline">\(u \in U_s \mapsto \psi(u, t)\)</span> is holomorphic.</p></li>
+</ul>
+<p>Consequently <span class="math inline">\(\mathcal{L}_{\gamma}[f](s)\)</span> is a complex-differentiable function of <span class="math inline">\(u\)</span>.</p></li>
+<li><p><strong>(1.5pt)</strong> First method: since we know that the complex-derivative of <span class="math inline">\(\mathcal{L}_{\gamma}[f](s)\)</span> exists with respect to <span class="math inline">\(u\)</span>, we can apply the chain rule to the differentiable function <span class="math display">\[
+  \chi: \lambda \in \mathbb{R}_+^{*} \to \mathcal{L}_{\mu}[f](s)
+  \; \mbox{ with } \;
+  \mu(t) = a + t(\lambda u)
+  \]</span> at <span class="math inline">\(t=1\)</span>: it yields <span class="math display">\[
+  \frac{d\chi}{d\lambda} (1)
+  =
+  \frac{d}{du}\mathcal{L}_{\mu}[f](s)
+  \times \frac{d(\lambda u)}{d\lambda} (1)  
+  =
+  \frac{d}{du}\mathcal{L}_{\mu}[f](s) \times u.
+  \]</span> Since by question 1 we know that the function <span class="math inline">\(\chi\)</span> is constant, we conclude that <span class="math inline">\(\frac{d}{du}\mathcal{L}_{\mu}[f](s) = 0\)</span>.</p>
+<p>Second method: we use the result of the differentiation under the integral sign. It provides <span class="math display">\[
+  \frac{d}{du}\mathcal{L}_{\mu}[f](s)
+  =
+  \int_{\mathbb{R}_+} \frac{\partial \psi}{\partial u} (u, t) \, dt.
+  \]</span> Since <span class="math inline">\(\psi(u, t) = g(tu) u\)</span> with <span class="math inline">\(g(z) = f(a+z) e^{-s(a+z)}\)</span>, we have <span class="math display">\[
+  \begin{split}
+  \frac{\partial \psi}{\partial u} (u, t)
+  &amp;= \frac{d}{du} (g(tu) u) = g'(tu) tu + g(tu)
+  = \frac{d g(tu)}{dt}  t + g(tu) \\
+  &amp;= \frac{d}{dt} (g(tu) t)
+  \end{split}
+  \]</span> and thus <span class="math display">\[
+  \begin{split}
+  \int_0^r \frac{\partial \psi}{\partial u} (u, t) \, dt
+  &amp;= 
+  \int_0^r \frac{d}{dt} (g(tu) t) \, dt =  [g(tu) t]^r_0 \\
+  &amp;= f(a+ ru) e^{-s(a+ru)} r 
+  \end{split}
+  \]</span> Since <span class="math inline">\(\epsilon := \mathrm{Re}(s u) - \sigma|u| &gt; 0\)</span> <span class="math display">\[
+  |f(a+ ru) e^{-s(a+ru)} r| 
+  \leq |\psi(u, r)r / u|   
+  \leq (\kappa_1 e^{-\mathrm{Re}(as)}) 
+        e^{-\epsilon r} r.
+  \]</span> The right-hand side of this inequality converges to <span class="math inline">\(0\)</span> when <span class="math inline">\(r\to +\infty\)</span>. Therefore, by the dominated convergence theorem <span class="math display">\[
+  \frac{d}{du}\mathcal{L}_{\mu}[f](s)
+  =
+  \int_{\mathbb{R}_+} \frac{\partial \psi}{\partial u} (u, t) \, dt
+  =
+  \lim_{r \to +\infty}
+  \int_{0}^r \frac{\partial \psi}{\partial u} (u, t) \, dt = 0.
+  \]</span></p></li>
+<li><p><strong>(2pt)</strong> Since the Laplace transform of <span class="math inline">\(t \in \mathbb{R}_+ \to 1/(t+1)\)</span> is given by <span class="math display">\[
+  F(s) = \int_{0}^{+\infty} \frac{e^{-s t}}{t+1} \, dt,
+  \]</span> the change of variable <span class="math inline">\(t+1 \to t\)</span> yields <span class="math display">\[
+  F(s) 
+  = \int_1^{+\infty} \frac{e^{-s (t-1)}}{t} \, dt
+  = e^s \int_1^{+\infty} \frac{e^{-s t}}{t} \, dt.
+  \]</span> If <span class="math inline">\(s\)</span> is equal to the real number <span class="math inline">\(x&gt;0\)</span>, the change of variable <span class="math inline">\(xt \to t\)</span> then provides <span class="math display">\[
+  F(x) 
+  = e^x \int_1^{+\infty} \frac{e^{-xt}}{xt} \, d(xt)
+  = e^x \int_x^{+\infty} \frac{e^{-t}}{t} \, dt
+  \]</span> and thus <span class="math inline">\(E_1(x) = e^{-x} F(x)\)</span>. Since <span class="math inline">\(t \in \mathbb{R}_+ \to 1/(t+1) e^{-\sigma^+t}\)</span> is integrable whenever <span class="math inline">\(\sigma^+ &gt; 0\)</span> the Laplace transform <span class="math inline">\(F\)</span> of <span class="math inline">\(t \mapsto 1/(t+1)\)</span> is defined and holomorphic on <span class="math inline">\(\{s \in \mathbb{C} \; | \; \mathrm{Re}(s) &gt; 0\}\)</span>. Thus, the function <span class="math inline">\(G: s \mapsto e^{-s} F(s)\)</span> extends holomorphically <span class="math inline">\(E_1\)</span> on this open right-hand plane. Any other function <span class="math inline">\(\tilde{G}\)</span> with the same property would be equal to <span class="math inline">\(G\)</span> on <span class="math inline">\(\mathbb{R}_+^*\)</span> and thus every positive real number <span class="math inline">\(x\)</span> would be a non-isolated zero of <span class="math inline">\(G - \tilde{G}\)</span>. By the isolated zeros theorem, since the open right-hand plane is connected, <span class="math inline">\(G\)</span> and <span class="math inline">\(\tilde{G}\)</span> are necessarily equal.</p></li>
+<li><p><strong>(2pt)</strong> For any <span class="math inline">\(u \in U\)</span>, since <span class="math inline">\(\mathrm{Re} \, u &gt; 0\)</span>, for any <span class="math inline">\(t \geq 0\)</span>, <span class="math inline">\(\mathrm{Re}(\gamma(t)) = t \, \mathrm{Re} \, u \geq 0\)</span>. Since for any <span class="math inline">\(z\)</span> such that <span class="math inline">\(\mathrm{Re} \, z \geq 0\)</span>, <span class="math inline">\(|z + 1| \geq 1\)</span>, we have <span class="math inline">\(|f(z)| = 1 / |z + 1| \leq 1\)</span> and thus <span class="math display">\[
+   \forall \, z \in \gamma(\mathbb{R}_+), \,
+   |f(z)| = \kappa e^{\sigma |z|}
+   \]</span> with <span class="math inline">\(\kappa = 1\)</span> and <span class="math inline">\(\sigma=0\)</span>.</p>
+<p>By definition, for any <span class="math inline">\(s \in \mathbb{C} \setminus \mathbb{R}_-\)</span>, <span class="math inline">\(U_s\)</span> is the set of all directions <span class="math inline">\(u\)</span> such that <span class="math inline">\(\mathrm{Re}(u) &gt; 0\)</span> and <span class="math inline">\(\mathrm{Re}(s u) &gt; 0\)</span>. To be more explicit, if <span class="math inline">\(\alpha\)</span> denotes the argument of <span class="math inline">\(u\)</span> in <span class="math inline">\(\left[-\pi, \pi\right[\)</span> and <span class="math inline">\(\beta\)</span> the argument of <span class="math inline">\(s\)</span> in <span class="math inline">\(\left]-\pi,\pi \right[\)</span>, this is equivalent to <span class="math display">\[
+  -\pi/2 &lt; \alpha &lt; \pi/2 
+  \; \mbox{ and } \; 
+  - \pi/2 &lt; \alpha + \beta &lt; \pi/2
+  \]</span> The points <span class="math inline">\(u = r e^{i\alpha}\)</span> that satisfy these constraints form an open sector: <span class="math inline">\(r&gt;0\)</span> is arbitrary and if <span class="math inline">\(\beta \geq 0\)</span>, <span class="math inline">\(\alpha\)</span> is subject to <span class="math display">\[
+  -\frac{\pi}{2} &lt; \alpha &lt; \frac{\pi}{2} - \beta
+  \]</span> and if <span class="math inline">\(\beta &lt; 0\)</span> <span class="math display">\[
+  -\frac{\pi}{2} - \beta &lt; \alpha &lt; \frac{\pi}{2}. 
+  \]</span> In any case, since <span class="math inline">\(|\beta| &lt; \pi\)</span>, the set of admissible arguments <span class="math inline">\(\alpha\)</span> is not empty.</p></li>
+<li><p><strong>(3pt)</strong> It is plain that <span class="math display">\[
+  \mathrm{Re}(u_{\theta}) 
+  = \mathrm{Re}((1-\theta) u_0 + \theta u_1)
+  = (1-\theta) \mathrm{Re}(u_0) + \theta \mathrm{Re} (u_1).
+  \]</span> and that for any <span class="math inline">\(s \in \mathbb{C}\)</span> <span class="math display">\[
+  \mathrm{Re}(su_{\theta}) 
+  = \mathrm{Re}(s((1-\theta) u_0 + \theta u_1))
+  = (1-\theta) \mathrm{Re}(su_0) + \theta \mathrm{Re} (su_1).
+  \]</span> Since <span class="math inline">\(u \in U_s\)</span> if and only if <span class="math inline">\(\mathrm{Re}(u) &gt; 0\)</span> and <span class="math inline">\(\mathrm{Re}(su) &gt; 0\)</span>, if <span class="math inline">\(u_0 \in U_s\)</span> and <span class="math inline">\(u_1 \in U_s\)</span> then <span class="math inline">\(u_{\theta} \in U_s\)</span> for any <span class="math inline">\(\theta \in [0,1]\)</span>.</p>
+<p>The function <span class="math inline">\(u \in U_s \mapsto \mathcal{L}_{\gamma} [f](s)\)</span> is holomorphic, hence the composition of <span class="math display">\[
+  \theta \in [0,1] 
+    \mapsto u_{\theta} \in U_s
+    \; \mbox{ and } \;
+    u \in U_s \mapsto \mathcal{L}_{\gamma} [f](s)
+  \]</span> is continuously differentiable, <span class="math display">\[
+  \mathcal{L}_{\gamma_0}[f](s)
+  - 
+  \mathcal{L}_{\gamma_1}[f](s)
+  =
+  \int_0^1 \frac{d}{d\theta} 
+  \mathcal{L}_{\gamma_{\theta}}[f](s) 
+  \, d\theta
+  \]</span> and <span class="math display">\[
+  \frac{d}{d\theta} \mathcal{L}_{\gamma_{\theta}}[f](s)
+  =
+  \frac{d \mathcal{L}_{\gamma}[f](s)}{du} |_{u=u_{\theta}} 
+  \times \frac{d u_{\theta}}{d\theta}
+  \]</span> which is zero by question 4. Hence <span class="math inline">\(\mathcal{L}_{\gamma_0}[f](s) = \mathcal{L}_{\gamma_1}[f](s)\)</span>; the definition of <span class="math inline">\(G\)</span> is unambiguous.</p></li>
+<li><p><strong>(4pt)</strong> For <span class="math inline">\(k \in \{0,1\}\)</span> and any <span class="math inline">\(r\geq 0\)</span>, <span class="math display">\[
+  \int_{\gamma_k^r} f(z) e^{-sz} \, dz
+  = \int_0^1 f((tr) u_k) e^{-s((tr)u_k)} r u_k \, dt
+  = \int_0^r f(t u_k) e^{-s(t u_k)} u_k \, dt
+  \]</span> thus by the dominated convergence theorem <span class="math display">\[
+  \mathcal{L}_{\gamma_1}[f](s)
+  - 
+  \mathcal{L}_{\gamma_0}[f](s)
+  =
+  \lim_{r\to +\infty} 
+  \left( 
+  \int_{\gamma_1^r} f(z) e^{-sz} dz
+  -
+  \int_{\gamma_0^r} f(z) e^{-sz} dz
+  \right).
+  \]</span> Since <span class="math inline">\((\gamma_0^r)^{\leftarrow}\)</span> and <span class="math inline">\(\gamma_1^r\)</span> are consecutive, with the path <span class="math inline">\(\mu_r = (\gamma_0^r)^{\leftarrow} \,|\, \gamma_1^r\)</span>, this is equivalent to <span class="math display">\[
+  \mathcal{L}_{\gamma_1}[f](s)
+  - 
+  \mathcal{L}_{\gamma_0}[f](s)
+  =
+  \lim_{r\to +\infty} 
+  \int_{\mu_r} f(z) e^{-sz} dz.
+  \]</span></p>
+<p>Now, the path <span class="math inline">\(\nu_r\)</span> defined by <span class="math inline">\(\nu_r(\theta) = (1-\theta) r u_0 + \theta r u_1\)</span> is such that <span class="math inline">\(\mu_r \, | \, \nu_r^{\leftarrow}\)</span> is a closed rectifiable path in <span class="math inline">\(U_s\)</span> which is simply connected. Therefore by Cauchy’s integral theorem <span class="math display">\[
+  \int_{\mu_r} f(z) e^{-sz} dz
+  =
+  \int_{\nu_r} f(z) e^{-sz} dz.
+  \]</span></p>
+<p>For any <span class="math inline">\(\theta \in [0,1]\)</span>, we have <span class="math inline">\(\mathrm{Re}(s u_\theta) = (1 - \theta) \mathrm{Re}(s u_0) + \theta \mathrm{Re}(s u_1)\)</span>, thus <span class="math display">\[
+  \epsilon := \min_{\theta \in [0,1]} \mathrm{Re}(s u_{\theta}) &gt; 0
+  \]</span> and <span class="math display">\[
+  |f(\nu_r(\theta)) e^{-s\nu_r(\theta)}|
+  \leq \kappa e^{- \mathrm{Re}(s ru_{\theta})} \leq \kappa e^{-\epsilon r}.
+  \]</span> Given that <span class="math inline">\(\ell(\nu_r) = r |u_1 - u_0|\)</span>, the M-L inequality provides <span class="math display">\[
+  \left| \int_{\nu_r} f(z) e^{-sz} dz \right|
+  \leq \kappa e^{-\epsilon r}r |u_1 - u_0|
+  \]</span> and thus <span class="math display">\[
+\lim_{r \to +\infty} \int_{\nu_r} f(z) e^{-sz} dz
+= 
+0.
+\]</span><br>
+Finally, <span class="math inline">\(\mathcal{L}_{\gamma_1}[f](s) = \mathcal{L}_{\gamma_0}[f](s)\)</span>: the definition of <span class="math inline">\(G\)</span> is unambiguous.</p></li>
+<li><p><strong>(1pt)</strong> By construction the function <span class="math display">\[s \in \mathbb{C} \setminus \mathbb{R}_- \mapsto e^{-s} G(s)\]</span> is holomorphic (since every <span class="math inline">\(\mathcal{L}_{\gamma}\)</span> is holomorphic, <span class="math inline">\(G\)</span> is holomorphic); It extends <span class="math inline">\(s \mapsto e^{-s}F(s)\)</span>, thus it also extends <span class="math inline">\(E_1\)</span>. Since <span class="math inline">\(\mathbb{C} \setminus \mathbb{R}_-\)</span> is connected, by the isolated zeros theorem, this extension is unique (the argument is identical to the one used in question 6).</p></li>
+</ol>
+</section>
+<section class="footnotes" id="notes"><h1><a href="#notes">Notes</a></h1>
+<hr>
+<ol>
+<li id="fn1"><p>This notation emphasizes that the complex number <span class="math inline">\(\gamma(t)\)</span> depends on <span class="math inline">\(t\)</span>; however it also depends implicitly on some <span class="math inline">\(a\)</span> and <span class="math inline">\(u\)</span> that are usually clear from the context. Feel free to use a more explicit notation if you feel that it is beneficial.<a href="#fnref1">↩</a></p></li>
+</ol>
+</section>
+</main>
+
+
+</body></html>

@@ -1,0 +1,51 @@
+body section {
+  max-width: 32em;
+  margin: auto;
+  font-family: Alegreya;
+  font-size: 22px; }
+  body section .header h1 {
+    font-size: 48px;
+    font-weight: bold; }
+  body section .header h2 {
+    font-size: 36px;
+    font-weight: bold; }
+  body section .header h3 {
+    font-size: 22px;
+    font-weight: bold; }
+  body section a {
+    text-decoration: none; }
+  body section a:hover {
+    text-decoration: underline; }
+  body section a:link {
+    color: black; }
+  body section a:visited {
+    color: black; }
+  body section h1 {
+    font-size: 36px;
+    font-weight: bold; }
+  body section h2 {
+    font-size: 22px;
+    font-weight: bold; }
+  body section p {
+    text-align: justify; }
+  body section code {
+    background-color: #ebebeb;
+    font-family: Inconsolata; }
+  body section pre {
+    margin: 1em 0em 1em 0em;
+    padding: 0.5em 1em 0.5em 1em;
+    background-color: #ebebeb; }
+    body section pre code {
+      color: black; }
+  body section img {
+    width: 32em; }
+  body section p.caption {
+    margin-top: 0.0em;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.5); }
+  body section figure {
+    margin: 0px; }
+  body section span.MathJax_SVG svg {
+    color: black; }
+
+/*# sourceMappingURL=style.css.map */

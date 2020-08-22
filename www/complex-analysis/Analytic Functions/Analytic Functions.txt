@@ -1,0 +1,583 @@
+% Analytic Functions
+% [Sébastien Boisgérault][email], Mines ParisTech
+
+[email]: mailto:Sebastien.Boisgerault@mines-paristech.fr
+
+---
+license: "[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0)"
+---
+
+Analytic Functions
+================================================================================
+
+**Definition -- Analytic Function.**
+A function $f: A \subset \mathbb{C} \to \mathbb{C}$ is *analytic* 
+if it is locally the sum of a (convergent) power series: 
+for any $c \in A,$ there is a $r>0$ and a sequence of complex numbers $a_n$ 
+such that
+  $$
+  \forall \, z \in A \cap D(c, r), \; 
+  f(z) = \sum_{n=0}^{+\infty} a_n (z-c)^n.
+  $$
+
+The characterization of analytic functions defined on open sets is simple:
+we know that the sum of every power series is holomorphic 
+in its open disk of convergence 
+and conversely that every holomorphic function defined on an open set 
+is locally the sum of a power series. 
+Hence, we have the:
+
+**Theorem -- Analyticity & Holomorphicity in Open Sets.** 
+A function defined in an open set is analytic if and only if it is holomorphic. 
+
+The definition of analytic function is not limited to open sets;
+we may also extend the definition of holomorphic function to 
+sets that may not be open:
+
+**Definition -- Holomorphic Function (Non-Open Sets).**
+A function $f: A \subset \mathbb{C} \to \mathbb{C}$ is *holomorphic* 
+if there is an open subset $\Omega$ of $\mathbb{C}$ such that
+$A \subset \Omega$ and a holomorphic function $g: \Omega \to 
+\mathbb{C}$ that extends $f$.
+
+This definition is appropriate because -- 
+at least on "well-behaved" sets --
+the classes of analytic and holomorphic functions are identical,
+as they are on open sets. 
+For example, convex sets are well-behaved:
+
+**Theorem -- Analyticity & Holomorphicity in Convex Sets.** 
+A function $f: A \subset \mathbb{C} \to \mathbb{C}$ 
+defined in a convex set $A$ is analytic 
+if and only if it is holomorphic.
+
+**Proof.** 
+It is clear that such restrictions of holomorphic functions are analytic 
+(the convexity assumption is not needed here).
+
+Conversely, let $A$ be a convex subset of $\mathbb{C}$ and let 
+$f: A \to \mathbb{C}$ be an analytic function. 
+There is a positive function $a \in A \mapsto r_a$ and a family 
+$a \in A \mapsto f_a$ of holomorphic functions defined on $D(a, r_a)$ 
+such that $f$ and $f_a$ are  equal on $A \cap D(a, r_a).$ 
+Let $\phi$ be the complex-valued function defined on 
+the union $\Omega$ of all disks $D(a, r_a)$ by
+  $$
+  \phi(z) = f_a(z) 
+  \; \mbox{ if } \; a \in A 
+  \; \mbox{ and } \; z \in D(a, r_a).
+  $$
+This definition is non-ambiguous:
+if $a \in A,$ $b \in A$ and $z$ belongs to $D(a, r_a)$ and $D(b, r_b),$ 
+then by convexity of $A,$ the domain of $f$
+contains the set $L = [a,b] \cap D(a, r_a) \cap D(b, r_b).$ 
+By the isolated zeros theorem, the functions $f_a$ and $f_b,$ equal on $L,$ 
+are also equal on $D(a, r_a) \cap D(b, r_b),$ therefore $f_a(z) = f_b(z).$
+The function $\phi$ is by construction an extension of $f$ which is holomorphic.
+\hfill $\blacksquare$
+
+
+**Example -- Closed Unit Disk.**
+If the function $f$ is analytic on the closed unit disk 
+$$\overline{D}(0,1) = \{z \in \mathbb{C} \; | \; |z| \leq 1 \},$$
+there is a holomorphic extension of $f$ on an open superset 
+$\Omega$ of the closed unit disk. 
+This function may be restricted to an open disk $D(0,r)$ 
+for some radius $r>1$ and expanded into a 
+Taylor series: there are complex coefficients $a_n$
+such that $\sum_{n=0}^{+\infty} a_n z^n$ is convergent in
+$D(0,r)$ and
+  $$
+  \forall \, z \in \overline{D}(0,1), \; f(z) = \sum_{n=0}^{+\infty} a_n z^n.
+  $$
+Conversely it is plain that such a function is holomorphic -- 
+and thus analytic -- in the closed unit disk.
+
+<!--
+
+**TODO:** need to add that no point of $A$ is isolated. Make it clear where
+we need it (to ensure uniqueness of the germs of holomorphic functions).
+
+**TODO:** consider wording the geometric assumption on $A$ in terms of
+skeleton of $A$ 
+(even if my use would be slightly improper wrt the classic
+use in morpho math?). Nah, this definition is fine, 
+per Zolésio in Shapes and Geometries. 
+"Projection onto $A$" is also used there.
+Nota: Z. uses a "reverse convention" and defines as skeleton of $A$ what
+would be the skeleton of $\mathbb{C} \setminus A$ in morpho math?
+
+**TODO:** jetison skeleton; make it optional, put it in a remark/example.
+
+-->
+
+**Definition -- Projection.** 
+A *projection* onto a non-empty closed subset $A$ of $\mathbb{C}$ 
+of a point $z \in \mathbb{C}$ is a minimizer of the distance between $z$ and $A.$
+In other words, the set of all projections of $z$ onto $A$ is
+  $$
+  \Pi(z) = \{a \in A \; | \; |z - a| = \inf_{w \in A} |z - w|\}.
+  $$
+<!-- If there is a unique projection of $z$ onto $A,$ it is denoted  $\pi(z).$ -->
+
+<!--
+
+**Definition -- Skeleton.**
+The skeleton $\mathrm{Ske}(\Omega)$ of an open strict subset $\Omega$ of the 
+complex plane is the subset of $\Omega$ with more than one projection onto 
+$\mathbb{C} \setminus \Omega.$
+
+-->
+
+**Theorem -- Analyticity & Holomorphicity in Regular Compact Sets.** 
+Let $A$ be a compact subset of the complex plane with no isolated point and
+such that the projection onto $A$ is unique in some neighbourhood of $A.$
+A function $f: A \to \mathbb{C}$ is analytic if and only if it is
+holomorphic.
+
+**Proof.** 
+It is plain that restrictions to $A$ of holomorphic functions 
+defined in a open neighbourhood of $A$ are analytic on $A:$
+holomorphic functions are analytic. 
+
+Conversely, assume that $f: A \to \mathbb{C}$ is analytic. 
+Let $r_z$ be a collection of positive radii indexed by $z \in A$ and 
+$f_z: D(z,r_z) \to \mathbb{C}$
+the corresponding collection of holomorphic functions such that
+  $$
+  \forall \, z \in A, \; 
+  \forall \, w \in A \cap D(z,r_z), \;
+  f_z(w) = f(w).
+  $$
+There is another collection with the same property, 
+but associated with a constant and positive radius $r.$ 
+It is easy to build this collection
+-- by a simple restriction of the $f_z$ --
+if we can first extend the functions of the original collection
+to make sure that $z \in A \mapsto r_z$ has a positive lower bound. 
+To do so, we may consider for any $z \in A$ the set of 
+holomorphic functions defined on open disks centered on $z$ 
+with the same values as $f$ on the points that also belong to $A.$ 
+This set is not empty, as it contains $f_z.$
+Additionally, if two functions belong to this set, as $z$ is not isolated
+in $A,$ they are equal on the intersection of their domain of definition.
+Hence, we may select as a new $f_z$ the function in the set whose domain of
+definition has the largest radius.
+Now, if we assume that the infimum of the $r_z$ is $0,$ 
+there is a sequence $z_n$ in $A$ such that $r_{z_n} \to 0$ and thus
+a subsequence $w_n$ that converges to some $z \in A.$
+But for any $w \in D(z,r_z),$ the radius of the largest disk at $w$ 
+satisfies $$r_{w} + |w-z| \geq r_z,$$ 
+thus we have a contradiction eventually when 
+$|w_n - z| < r_z / 2$ and $r_{w_n} < r_z /2.$
+
+Let $V$ be an open neighbourhood of $A$ 
+where the projection onto $A$ is unique.
+We may assume that $r$ is smaller than the distance between $A$ and 
+$\mathbb{C} \setminus V.$ 
+For any $z \in \Omega = A + D(0,r),$ 
+denote $\pi(z)$ the projection of $z$ onto $A$ 
+and define $g(z) = f_{\pi(z)}(z);$
+the function $g: \Omega \mapsto \mathbb{C}$ obviously extends $f.$
+Additionally, it is holomorphic,
+because it satisfies
+  $$
+  \forall \, z \in \Omega, \;
+  \exists \, \epsilon > 0, \; 
+  \forall \, w \in D(z, \epsilon), \; g(w) = f_{\pi(z)}(w).
+  $$
+Indeed, if $|w - z| < \epsilon = r - |z - \pi(z)|,$ then
+  $$
+  |w - \pi(z)| \leq |w - z| + |z - \pi(z)| < r,
+  $$ 
+so $w$ that belongs to $D(\pi(w), r)$ by construction 
+also belongs to $D(\pi(z), r).$
+By construction, the functions $f_{\pi(z)}$ and $f_{\pi(w)}$ have the same
+values on every point of $A$ that belongs to both of their domains of
+definition. Naturally, $\pi(z)$ belongs to the domain of $f_{\pi(z)};$
+since
+  $$
+  |\pi(w) - \pi(z)| \leq |w - z| < r
+  $$
+it also belongs to the domain of $f_{\pi(w)}.$
+As none of the points of $A$ is isolated, by the isolated zeros theorem,
+the functions $f_{\pi(w)}$ and $f_{\pi(z)}$ are identical on 
+$D(\pi(z), r) \cap D(\pi(w),r),$
+which leads to $g(w) = f_{\pi(w)}(w) = f_{\pi(z)}(w).$
+\hfill $\blacksquare$
+
+**Example -- Unit Circle.** The unit circle 
+  $$
+  \mathbb{U} = \{z \in \mathbb{C} \; | \; |z| = 1\}
+  $$
+is not convex, but it is compact and has no isolated point.
+Additionally, unless $z=0$, the point $z/|z|$ is the unique projection
+of $z$ onto $\mathbb{C}$; 
+the set $\mathbb{C}^*$ is a neighbourhood of $\mathbb{U}$. 
+Thus, the classes of analytic and holomorphic functions defined 
+on $\mathbb{U}$ are identical. 
+Any holomorphic extension of a holomorphic function 
+defined on $\mathbb{U}$ has a restriction to 
+$A(0,r,1/r)$ for some radius $r \in \left]0,1\right[$, 
+thus a function $f$ is analytic on $\mathbb{U}$ if and only if
+there are some coefficients $a_n$ such that 
+$\sum_{n=-\infty}^{+\infty} a_n z^n$ is convergent on some annulus
+$A(0,r,1/r)$ and
+  $$
+  \forall \, z \in \mathbb{U}, \; f(z) = \sum_{n=-\infty}^{+\infty} a_n z^n.
+  $$
+
+
+Real Analytic Functions
+================================================================================
+
+**Definition -- Interval.** 
+In the sequel, an interval may be open, closed or half-open, 
+bounded or unbounded; in other words, it is a synonym for
+"convex subset of the real line".
+
+**Definition -- Real Analytic Function.** 
+A real-valued function defined on an interval of the real line which is analytic
+is *real analytic*.
+
+The characterization of analytic functions on convex sets provides:
+
+**Theorem -- Characterization of Real Analytic Functions.** 
+A real-valued function defined on an interval of the real line
+is real analytic if and only if it has a holomorphic extension 
+on some open neighbourhood of its domain of definition in the complex plane.
+
+We also have:
+
+**Theorem -- (Real) Taylor Series Expansion.** 
+A function $f: I \to \mathbb{R}$ defined on an interval $I$ of 
+$\mathbb{R}$ is real analytic if and only it is smooth -- 
+the $n$-th order (real) derivative defined by $f^{(0)} = f$ and
+  $$
+  f^{(n+1)}(x) = \lim_{y \in I \to x} \frac{f^{(n)}(y) - f^{(n)}(x)}{y - x}
+  $$
+exists at every order -- and for any 
+$a \in I,$ there is a $r>0$ such that 
+  $$
+  \forall \, x \in I \cap \left]a-r, a + r \right[, \;
+  f(x) = \sum_{n=0}^{+\infty} \frac{f^{(n)}(a)}{n!} (x-a)^n.
+  $$
+
+**Proof.** Assume that the function $f$ is smooth and that for any
+$a$ in $I,$ it is equal to the sum of its (convergent) Taylor expansion on 
+$\left]a-r, a + r \right[$ for some $r>0.$ 
+Then, the power series $$z \mapsto \sum_{n=0}^{+\infty} \frac{f^{(n)}(a)}{n!} (z-a)^n$$
+is convergent on $D(a, r)$ and its restriction to 
+$$I \cap D(a, r) = I \cap \left] a-r, a + r \right[$$ is equal to $f.$ 
+Hence, $f$ is real analytic.
+
+Conversely, if $f$ is real analytic, let $g$ be one of its holomorphic 
+extensions. At every $x$ in $I,$ 
+  $$
+  f'(x) = 
+  \lim_{y \in I \to x} \frac{f(y) - f(x)}{y - x}
+  = \lim _{y \in I \to x} \frac{g(y) - g(x)}{y - x} = g'(x);
+  $$
+the real derivative of $f$ exists and 
+is equal to the complex derivative of $g,$ hence $g'$ is a holomorphic 
+extension of $f'.$ By induction, at every order $n,$ $f^{(n)}$ exists 
+and accepts $g^{(n)}$ as a holomorphic extension.
+Consequently, the local expansion of $g$ as a Taylor series
+provides a local expansion of $f$ as a (real) Taylor series.
+\hfill $\blacksquare$
+
+Analytic Continuation
+================================================================================
+
+The term "analytic continuation" refers to two related concepts;
+the first one is straightforward: "continuation" is simply used as a 
+synonym of "function extension".
+
+**Definition -- Analytic Continuation to a Set.**
+Let $\Omega$ be an non-empty open subset of $\mathbb{C},$
+$f:\Omega \to \mathbb{C}$ be a holomorphic function.
+An *analytic continuation* of $f$ on a superset $\Sigma$ of $\Omega$ 
+which is open and connected is a holomorphic function $g:\Sigma \to \mathbb{C}$ 
+such that the restriction of $g$ to $\Omega$ is $f.$
+
+We define the continuation for open and connected sets only so that:
+
+**Theorem -- Uniqueness of Analytic Continuation to Sets.** 
+There is at most one analytic continuation of an analytic function 
+to a given set.
+
+**Proof.** It is a consequence of the isolated zeros theorem.
+Indeed, if there are two holomorphic extensions, 
+they are identical on $\Omega$ which is open and non-empty. 
+Every point of $\Omega$ is a limit point of the zeros of their difference; 
+this difference is holomorphic and defined on a connected set, 
+thus it is identically zero and the two holomorphic extensions are equal.
+\hfill $\blacksquare$
+
+The second concept of continuation applies to holomorphic functions along paths.
+Although the concept may be defined for arbitrary paths, 
+for the sake of simplicity we will only consider the case of
+regular analytic paths.
+
+**Definition -- Regular Analytic Path.** 
+A path $\gamma: [0,1] \mapsto \mathbb{C}$ is *analytic* if it is an analytic 
+function. It is *regular* if $\gamma'$ has no zero on $[0,1].$
+
+**Definition -- Analytic Continuation Along a Path.** 
+Let $\Omega$ be an open subset of $\mathbb{C},$
+$f:\Omega \to \mathbb{C}$ be a holomorphic function and 
+$\gamma:[0,1] \mapsto \mathbb{C}$ be a regular analytic path such
+that $\gamma(0) \in \Omega.$ 
+An *analytic continuation* of $f$ along $\gamma$ is an analytic function 
+$\phi:[0,1] \mapsto \mathbb{C}$ such that for some $0 < \epsilon \leq 1,$
+  $$
+  \forall \, t \in \left[0, \epsilon\right[, \; 
+  \gamma(t) \in \Omega \; \mbox{ and } \; 
+  \phi(t) = f(\gamma(t)).
+  $$
+
+**Example -- Analytic Continuations of the Logarithm.** 
+The principal value of the logarithm 
+  $$
+  \log: \mathbb{C} \setminus \mathbb{R}_- \to \mathbb{C}
+  $$
+is an analytic continuation of the function $f: D(1,1) \mapsto \mathbb{C}$ 
+defined by
+  $$
+  f(z) = \sum_{n=1}^{+\infty} \frac{(-1)^{n+1}}{n} (z-1)^n.
+  $$
+On the other hand, the function $$\phi:t \in [0,1] \mapsto i2\pi t$$ is an 
+analytic continuation of $\log$ along the regular analytic path 
+$$[\circlearrowleft]: t \in [0,1] \mapsto e^{i2\pi t}.$$ 
+Indeed, the function $\phi$ is analytic --
+the holomorphic function $z\in\mathbb{C} \mapsto i2\pi z$ is an extension
+of it --
+and 
+  $$
+  \forall \, t \in \left[0, 1/2\right[, \; 
+  [\circlearrowleft](t) = e^{i2\pi t} \in \mathbb{C} \setminus \mathbb{R}_- 
+  \; \mbox{ and } \;
+  \phi(t) = \log e^{i2\pi t} = \log ([\circlearrowleft](t)).
+  $$
+
+Like analytic continuations to sets, 
+analytic continuations along paths are also unique whenever they exist:
+
+**Theorem -- Uniqueness of Analytic Continuation along Paths.** 
+There is at most one analytic continuation of an analytic function 
+along a given regular analytic path.
+
+**Proof.** If $\phi_1:[0,1] \to \mathbb{C}$ and $\phi_2:[0,1] \to \mathbb{C}$ 
+are two analytic continuations of the same holomorphic function along the
+same path, they have holomorphic extensions -- 
+still denoted $\phi_1$ and $\phi_2$ -- defined on some shared 
+open tubular neighbourhood of $[0,1]$
+  $$
+  \{z \in \mathbb{C} \; | \; d(z, [0,1]) < \epsilon\},
+  $$
+which is connected. 
+The point $0$ is a limit point of the zeros of the holomorphic
+function $\phi_1-\phi_2.$ 
+By the isolated zeros theorem, $\phi_1$ and $\phi_2$ are identical.
+\hfill $\blacksquare$
+
+**Remark -- Comparison of Analytic Continuations Concepts.** 
+Continuation along paths is a more flexible tool than continuation to sets: 
+if $\phi: \Sigma \mapsto \mathbb{C}$ is an analytic continuation of 
+$f:\Omega \mapsto \mathbb{C}$ to the open connected set $\Sigma$ 
+and $\gamma$ is a regular analytic path of $\Sigma$ 
+whose initial point is in $\Omega,$ then $\phi \circ \gamma$ is always
+an analytic continuation of $f$ along $\gamma.$ 
+However, on the other hand, there may exist an analytic continuation of $f$
+along a path $\gamma$ but no analytic continuation 
+$\phi: \Sigma \mapsto \mathbb{C}$ such that $\gamma([0,1]) \subset \Sigma$
+(refer e.g. to the logarithm example).
+
+**Remark -- Values of Analytic Continuations.**
+The analytic continuation of a function $f$ to an open connected set $\Sigma$
+provides a unique "natural" value of the function $f$ associated to a point 
+$z \in \Sigma$ that may be outside of the original function domain. 
+An analytic continuation along a path $\phi$ also provides a new value associated
+to the terminal point $z=\gamma(1)$: 
+the terminal value $\phi(1)$ of the continuation $\phi.$ 
+However, several analytic continuations of $f$ along paths with the same 
+initial and terminal points may have different terminal values; 
+thus, analytic continuations along paths may define multi-valued functions.
+
+**Example -- Values of the Logarithm.** 
+The analytic continuation of $\log$ along the path
+$[\circlearrowleft]$ -- whose initial and terminal point is $z=1$ -- 
+is the function $t \in [0,1] \mapsto i2\pi t;$ 
+its terminal value is $i2\pi.$
+On the other hand, the path $\gamma = 2 - [\circlearrowleft]$ 
+has the same endpoints as $[\circlearrowleft],$ but
+its image is included in $\mathbb{C} \setminus \mathbb{R}_-.$ 
+Thus, the function $t\in[0,1] \mapsto \log \gamma(t)$ is the analytic 
+continuation of $\log$ along $\gamma$ and its terminal value is $\log 1 = 0$.
+Both paths have the same initial and terminal points but the 
+terminal values of the corresponding continuations are different.
+
+Actually, an analytic continuation along a path carries more information 
+than a simple value from the initial point to the terminal point of the 
+path: it defines a new holomorphic function in the some open neighbourhood 
+of the terminal point.
+To formalize this, we introduce a new definition.
+
+**Definition -- Germ of Holomorphic Function.** 
+Two holomorphic functions $f:\Omega \mapsto \mathbb{C}$ and 
+$g:\Sigma \to \mathbb{C}$ *define the same germ* 
+at $z \in \Omega \cap \Sigma$ if the functions are identical in some 
+neighbourghood of $z.$ We denote this relation
+  $$
+  f \sim_z g
+  $$
+A *germ of holomorphic function* at $z$ is an equivalence class for this
+relation between holomorphic functions:
+  $$
+  [f]_z= \{g \; | \; f \sim_z g\}.
+  $$
+
+**Theorem -- Analytic Continuation of Germs.** 
+The existence and definition of an analytic continuation of a holomorphic
+function $f:\Omega \to \mathbb{C}$ along the regular analytic path 
+$\gamma$ depends only on the germ of $f$ at $\gamma(0).$
+
+**Proof.** 
+Assume that 
+$g:\Sigma \to \mathbb{C}$ defines the same germ as $f$ at $\gamma(0);$
+let $\Gamma \subset \Omega \cap \Sigma$ be some open set that contains 
+$\gamma(0)$ and where both functions are identical.
+Let $\epsilon > 0$ be such that 
+  $$
+  \forall \, t \in \left[0, \epsilon\right[, \; 
+  \gamma(t) \in \Omega \; \mbox{ and } \; 
+  \phi(t) = f(\gamma(t)).
+  $$
+and $\eta$ be some positive number, smaller than $\epsilon,$ 
+such that 
+  $$
+  \forall \, t \in \left[0, \eta\right[, \; \gamma(t) \in \Gamma.
+  $$
+Then, by construction of $\Gamma,$ it is plain that
+  $$
+  \forall \, t \in \left[0, \eta\right[, \; 
+  \gamma(t) \in \Sigma \; \mbox{ and } \; 
+  \phi(t) = g(\gamma(t)),
+  $$
+thus $\phi$ is also a continuation of $g.$
+\hfill $\blacksquare$
+
+There is a converse statement that holds true: 
+a candidate continuation function does determine uniquely the germ 
+that it continues. We encapsulate that result in a definition:
+
+**Definition -- Initial Germ.**
+If $\gamma:[0,1] \mapsto \mathbb{C}$ is a regular analytic path
+and $\phi:[0,1] \mapsto \mathbb{C}$ is an analytic function,
+there is a unique germ of holomorphic function at $\gamma(0)$
+of which $\phi$ is an analytic continuation: the *initial germ* 
+of the continuation.
+
+**Proof.** 
+A function $f:\Omega \mapsto$ is an element of the germ of which $\phi$ is an
+analytic continuation along $\gamma$ if there is a
+$\epsilon \in \left]0,1\right]$ such that
+  $$
+  \forall \, t \in \left[0, \epsilon\right[, \; 
+  \gamma(t) \in \Omega \; \mbox{ and } \; 
+  \phi(t) = f(\gamma(t)).
+  $$ 
+The uniqueness of such a germ is a consequence of the isolated zeros theorem;
+let's prove its existence.
+The functions $\phi$ and $\gamma$ are analytic, therefore there are
+holomorphic functions, still denoted by the symbols $\phi$ and $\gamma,$ 
+that extend the original functions to some non-empty open tubular 
+neighbourhood $\Sigma$ of $[0,1]$:
+  $$
+  \Sigma = \{z \in \mathbb{C} \; | \; d(z,[0,1]) < r\}.
+  $$
+Since the path $\gamma$ is regular and analytic,
+the function $\gamma:D(0,r) \mapsto \mathbb{C}$ is continuously 
+real-differentiable and its real-differential $d\gamma$ is invertible
+on some non-empty neighbourhood of $0.$
+By the inverse function theorem, there is an open neighbourhood $U$ of $0$ 
+included in $D(0,r)$ and an open neighbourhood $V$ of $\gamma(0)$ such that
+the restriction $\gamma|_U$ of $\gamma$ to $U$ is a $C^1$-diffeomorphism.
+Its inverse satisfies $d(\gamma|_{U}^{-1})_{\gamma(z)} = (d\gamma_z)^{-1};$
+this differential is complex-linear, therefore $\gamma|_{U}^{-1}$ is holomorphic.
+Thus we may define a holomorphic function $f$ on $V$ by
+  $$
+  \forall \, w \in V, \; f(w) = \phi(\gamma|_{U}^{-1}(w))
+  $$
+Now let $\epsilon \in \left]0,1 \right]$ be such that 
+$\left[0,\epsilon\right[ \subset U.$
+For any value of $t \in \left[0,\epsilon\right[,$ 
+the point $w=\gamma(t)$ belongs to $V$ and $f(\gamma(t)) = \phi(t).$
+\hfill $\blacksquare$
+
+**Definition -- Terminal Germ.**
+Let $\gamma$ be a regular analytic path and let 
+$\phi:[0,1] \mapsto \mathbb{C}$ be an analytic continuation of 
+a germ of holomorphic function at $\gamma(0).$
+The *terminal germ* of the continuation $\phi$ is the initial germ of
+the continuation $\phi^{\leftarrow}: t \in [0,1] \mapsto \phi(1-t)$ 
+along ${\gamma}^{\leftarrow};$
+in other words, an holomorphic function $f:\Omega \mapsto \mathbb{C}$ 
+belongs to the terminal germ if and only if, 
+there is a $\epsilon \in [0,1]$ such that
+  $$
+  \forall \, t \in \left]1-\epsilon,1\right], \;
+  \gamma(t) \in \Omega \; \mbox{ and } \; \phi(t) = f(\gamma(t)).
+  $$
+
+**Theorem -- Monodromy Theorem (Local).** 
+Let $\Omega$ be an open star-shaped subset of $\mathbb{C}$ that contains
+the non-empty open disk $D(z_0,r)$ and let $f: D(z_0, r) \to \mathbb{C}$ be a holomorphic function. 
+If for any regular analytic path $\gamma$ of $\Omega$ whose 
+initial point is $z_0$ an analytic continuation of $f$ along $\gamma$ exists, 
+then there is an analytic continuation of $f$ on $\Omega.$
+
+**Proof.** We will assume in the sequel that $z_0$ is a center $c$ of the 
+star-shaped set $\Omega$: if this is not true, consider a center $c$ of
+$\Omega$ and the germ $f_c$ of the holomorphic function defined at $c$ by 
+the analytic continuation of $f$ along $[z_0,c].$ A function defined on 
+$\Omega$ is an analytic continuation of $f_c$ if and only if
+it is an analytic continuation of the original germ $f.$
+
+Let $z \in \Omega$ and let $\phi_z$ be the analytic continuation of $f$ along 
+$[c \to z].$
+By construction, there is a $\epsilon \in \left]0,1\right]$ such that 
+$\phi_z(t) = f((1-t)c + tz)$ for any $0 \leq t < \epsilon.$
+If we still denote $\phi_z$ the holomorphic extension of $\phi_z$ to some
+open neighbourghood $\{w \in \mathbb{C} \;|\; d(w,[0,1])< r\}$ of $[0,1],$ 
+then for any complex number $w$ in some 
+non-empty open disk centered at $0,$ we have
+  $$\phi_z(w) = f((1-w)c + wz).$$
+Now, for any $z \in \Omega \setminus D(z_0,r)$ 
+and any complex number $h$ such that $|h| < r |z-c|,$ 
+the function
+  $$
+  \psi_{z,h}: t \in [0,1] \mapsto \phi_z(w) 
+  \; \mbox{ with } \; 
+  w =  t \frac{z+h-c}{z-c}
+  $$
+is defined, analytic and as $w$ satisfies
+  $$
+  (1 - t) c + t (z+h) = (1-w) c + wz,
+  $$
+for small values of $t,$ we have
+  $$
+  \psi_{z,h}(t) = \phi_z(w)
+  = f((1-w)c + wz) = f((1-t)c + t(z+h)),
+  $$
+therefore $\psi_{z,h}$ is the analytic continuation of $f_c$ along $[c \to z+h]$:
+$$\psi_{z,h}=\phi_{z+h}.$$ 
+This leads for small values of $h$ to the equality 
+  $$
+  \phi_{z+h}(1) = \psi_{z,h}(1) = \phi_z\left(\frac{z+h-c}{z-c}\right).
+  $$
+The function $z \in \Omega \mapsto \phi_z(1)$ is an extension of $f$ to 
+$\Omega;$ by the above equality it is also holomorphic, thus it is the
+analytic extension of $f$ to $\Omega.$
+\hfill $\blacksquare$
+

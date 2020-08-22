@@ -1,0 +1,75 @@
+---
+title: Shape Optimization
+author:  
+-  "[Sébastien Boisgérault](mailto:Sebastien.Boisgerault@mines-paristech.fr),
+   Mines ParisTech"
+---
+
+<style> 
+  .grid { 
+    margin-bottom: 1.5em;
+  }
+  .grid > * { /* row */
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin-bottom: 1.5em;
+  }
+  .grid > * > :last-child { /* item */
+    white-space: nowrap;
+  }
+  .grid * {
+    line-height: 1.5em;
+  }
+  .grid > * > *:not(:last-child) { /* item*/
+    margin: 0 1em 0 0;
+  }
+</style>
+
+
+Lecture Notes
+================================================================================
+
+Support document for a MAREVA[^MAREVA] course (in French).
+
+<div class="grid">
+<div>
+<div>**Introduction à L'Optimisation de Forme**</div>
+<div>[<i class="fa fa-file-pdf-o"></i>](documents/Introduction à l'Optimisation de Forme.pdf)</div>
+</div>
+</div>
+
+[^MAREVA]: MAREVA is the Applied Mathematics Minor of MINES ParisTech 
+"Master's in Science and Executive Engineering" degree.
+
+
+Research
+================================================================================
+
+I am a former student of 
+[Jean-Paul Zolésio](https://zbmath.org/authors/?q=ai:zolesio.jean-paul).
+
+<div class="grid">
+<div>
+<div>**Shape Optimisation: Nonlinear Systems and Fluid Mechanics**   
+PhD Thesis (2000).</div>
+<div>[<i class="fa fa-file-pdf-o"></i>](documents/thesis.pdf)</div>
+</div>
+<div>
+<div>**Boundary variations in the Navier-Stokes equations
+and Lagrangian functionals**</div>
+<div>[<i class="fa fa-link"></i>](https://zbmath.org/?q=an:01604930) / [<i class="fa fa-file-pdf-o"></i>](documents/Boundary Variations in the Navier-Stokes.pdf)</div>
+</div>
+<div>
+<div>**Shape derivative of sharp functionals governed by Navier-Stokes flow**</div>
+<div>[<i class="fa fa-link"></i>](https://zbmath.org/?q=an:01361418) / [<i class="fa fa-file-pdf-o"></i>](documents/Shape derivative of sharp functionals.pdf
+)</div>
+</div>
+</div>
+
+
+
+
+
+
+

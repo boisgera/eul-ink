@@ -1,0 +1,704 @@
+% Complex-Differentiability
+% [Sébastien Boisgérault][email], Mines ParisTech
+
+[email]: mailto:Sebastien.Boisgerault@mines-paristech.fr
+
+---
+license: "[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0)"
+---
+
+[@ref]
+
+[@GRUHU]
+
+![Tufulu!](images/peano1.pdf)
+
+Core Definitions
+================================================================================
+
+**Definition -- Complex-Differentiability & Derivative.** 
+Let $f:A \subset \mathbb{C} \to \mathbb{C}.$
+The function $f$ is *complex-differentiable* at an interior point $z$ of $A$ 
+if the *derivative* of $f$ at $z,$ 
+defined as the limit of the difference quotient
+  $$
+  f'(z) = \lim_{h \to 0} \frac{f(z+h) - f(z)}{h}
+  $$
+exists in $\mathbb{C}.$
+
+**Remark -- Why Interior Points?** 
+The point $z$ is an interior point of $A$ if 
+  $$
+  \exists \, r > 0, \; \forall \, h \in \mathbb{C}, \;
+  |h| < r \to z+h \in A.
+  $$
+In the definition above, this assumption ensures that $f(z+h)$ -- 
+and therefore the difference quotient -- 
+are well defined when $|h|$ is (nonzero and) small enough. 
+Therefore, the derivative of $f$ at $z$ is defined as the limit 
+in "all directions at once" of the difference quotient of $f$ at $z.$ 
+To question the existence of the derivative of 
+$f: A \subset \mathbb{C} \to \mathbb{C}$ at every point of its domain, 
+we therefore require that every point of $A$ is an interior point, 
+or in other words, that $A$ is open.
+
+**Definition -- Holomorphic Function.** 
+Let $\Omega$ be an open subset of $\mathbb{C}.$
+A function $f:\Omega \to \mathbb{C}$ is *complex-differentiable* 
+-- or *holomorphic* -- in $\Omega$ if it is complex-differentiable
+at every point $z \in \Omega.$
+If additionally $\Omega = \mathbb{C}$, the function is *entire*.
+
+**Examples -- Elementary Functions.** 
+
+ 1. Every constant function $f: z \in \mathbb{C} \mapsto \lambda \in \mathbb{C}$
+    is holomorphic as 
+      $$
+      \forall \, z \in \mathbb{C}, \,
+      f'(z) = \lim_{h \to 0} \frac{\lambda - \lambda}{h} = 0.
+      $$
+
+ 2. The identity function $f: z \in \mathbb{C} \mapsto z$ is holomorphic:
+      $$
+      \forall \, z \in \mathbb{C}, \,
+      f'(z) = \lim_{h \to 0} \frac{(z+h) - z}{h} = 1.
+      $$
+
+ 3. The inverse function $f: z \in \mathbb{C}^* \to 1/z$ is holomorphic: 
+    the set $\mathbb{C}^*$ is open and for any $z \in \mathbb{C}^*$ 
+    and any $h \in \mathbb{C}$ such that $z+h \neq 0,$ we have
+      $$
+      \frac{1/(z+h) - 1/z}{h}  = -\frac{1}{z(z+h)},
+      $$
+    hence
+      $$
+      f'(z) = \lim_{h \to 0} -\frac{1}{z(z+h)} = - \frac{1}{z^2}.
+      $$
+
+ 4. The complex conjugate function $f: z\in\mathbb{C} \to \overline{z}$ 
+    is nowhere complex-differentiable. 
+    Its difference quotient satisfies
+      $$
+      \frac{f(z+h)-f(z)}{h} =
+      \frac{\overline{z+h} - \overline{z}}{h}  = \frac{\overline{h}}{h},
+      $$
+    therefore when $t \in \mathbb{R},$
+      $$
+      \lim_{t \to 0} \frac{f(z+t) - f(z)}{t} = +1,
+      $$
+    but
+      $$
+      \lim_{t \to 0} \frac{f(z+it) - f(z)}{it} = -1,
+      $$
+    hence the difference quotient has no limit when $h \to 0.$
+
+**Remark -- Derivatives are Continuous.**
+The derivative of a holomorphic function is always continuous.
+This similar result doesn't hold in the context of real analysis: 
+there are some real-valued functions of a real variable that are 
+differentiable and whose derivative is *not* continous[^derivatives].
+
+We mention this property now because we will use it to simplify
+the statements of some results of the current and subsequent chapters.
+Unfortunately, we cannot prove it yet; it is a consequence of
+Cauchy's integral theory which is not trivial.
+To make sure that we won't develop a circular argument, 
+we flag the results that use this property with the symbol $[\dagger],$ 
+until we can prove it.
+
+[^derivatives]: In the context of real analysis, 
+  derivatives can't be totally arbitrary either.
+  They satisfy for example the intermediate value theorem 
+  (a property which is weaker than continuity).
+  Refer to [@Fre99] for a complete characterization.
+
+**Remark -- Historical Perspective.** 
+We should not feel too bad about the (temporary) assumption that the derivative 
+is continuous; 
+after all, it was good enough for the best mathematicians of the 19th century.
+ 
+A major result of complex analysis, Cauchy's integral theorem,
+was originally formulated under the assumption that the derivative exists
+and is continuous[^precision] [@Cau25]. 
+We have to wait for the paper 
+"Sur la définition générale des fonctions analytiques, d'après Cauchy"
+[@Gou00] to officially get rid of this assumption:
+
+> J'ai reconnu depuis longtemps que la démonstration du théorème de Cauchy,
+> que j'ai donnée en 1883, ne supposait pas la continuité de la dérivée. 
+> Pour répondre au désir qui m'a été exprimé par M. le Professeur W. F. Osgood, 
+> je vais indiquer ici rapidement comment on peut faire cette extension.
+
+which means:
+
+> I have long recognized that the proof of Cauchy's theorem, that
+> I have given in 1883, did not assume the continuity of the derivative.
+> To meet the desire which was expressed to me by Professor W. F. Osgood,
+> I'll tell here quickly how we can make this extension.
+
+Because of this improvement, 
+Cauchy's integral theorem is also known as the "Cauchy-Goursat theorem".
+Refer to [@Hil73, footnote p.163] for a broader historical perspective 
+on this subject.
+
+[^precision]: To be honest, this assumption is only implicit, 
+but you can't really blame Cauchy for this lack of precision.
+The standards of quality for Mathematics in the 19th century 
+were quite different from the present ones.
+
+
+Derivative and Complex-Differential
+================================================================================
+
+**Definition -- Real/Complex Vector Space.**
+A vector space is *real* or *on $\mathbb{R}$* 
+if its field of scalars is the real line;
+it is *complex* or *on $\mathbb{C}$* 
+if its field of scalars is the complex plane.
+
+**Remark -- Complex Vector Spaces are Real Vector Spaces.**
+If the set $E$ is endowed with a structure of complex vector space,
+it is automatically endowed with a structure of real vector space.
+Because of this ambiguity, it may be necessary to qualify the usual
+concepts of linear algebra -- for example to say that a function is
+*real-linear* or *complex-linear* instead of simply linear -- to
+be totally explicit about the structure to which we refer.
+
+**Example -- The Complex Plane.**
+The set $\mathbb{C}$ is a complex vector space with the sum
+  $$
+  (x + iy) + (v + i w) = (x + v) + i(y + w)
+  $$
+and scalar-vector multiplication
+  $$
+  (\mu + i \nu) (x + i y) = (\mu x - \nu y) + i (\mu y + \nu x) 
+  $$
+It is of dimension $1$ with for example $\{1\}$ 
+(the single vector $1 \in \mathbb{C}$) as a basis;
+indeed every complex number $z \in \mathbb{C}$ 
+is a linear combination of the vectors of $\{1\}$ (as $z = z 1$),
+and the vectors of $\{1\}$ are linearly independent
+(the only scalar $\lambda \in \mathbb{C}$ such that $\lambda 1 = 0$ 
+is $\lambda = 0$).
+
+Note how things change if we consider the plane as a real vector
+space: it is of dimension 2 with for example $\{1,i\}$ as a basis.
+In particular,
+the vectors $1$ and $i$ which are complex-colinear and not real-colinear.
+
+**Definition -- Complex-Linearity.** 
+Let $E$ and $F$ be complex normed vector spaces.
+A function $\ell: E \to F$ is *complex-linear* 
+if it is additive and *complex-homogeneous*:
+  $$
+  \forall \, u \in E, \; \forall \, v \in E, \;
+  \ell (u + v) = \ell(u)+ \ell(v),
+  $$
+  $$
+  \forall \, \lambda \in \mathbb{C}, \; \forall \, u \in E, \;
+  \ell (\lambda u) = \lambda \ell (u).
+  $$
+
+**Definition -- Complex-Differential.**
+Let $f: A \subset E \to F$ where $E$ and $F$ are complex normed vector spaces.
+Let $z$ be an interior point of $A;$
+the *complex-differential* of $f$ at $z$ is a complex-linear continuous 
+operator $df_z: E \to F$ such that
+  $$
+  \lim_{h\to 0} \frac{\|f(z+h) - f(z) - df_z(h)\|}{\|h\|} = 0,
+  $$
+or equivalently in expanded form
+  $$
+  f(z+h) =  f(z) + df_z (h) + \epsilon_z(h) \|h\|
+  \; \mbox{ with } \; 
+  \lim_{h \to 0} \epsilon_z(h) = \epsilon_z(0) = 0.
+  $$
+If such an operator exists, it is unique.
+
+**Remark -- Real/Complex-Differentiability.**
+Since the complex vector spaces $E$ and $F$ are real vector spaces,
+we may also use the classic concept of differential from Real Analysis 
+for the function $f: E \to F.$ We call this operator
+*real-differential* to avoid any ambiguity with the complex-differential.
+The definitions of both operators are identical, except that the 
+complex-differential is required to be a complex-linear operator when
+the real-differential is only required to be real-linear.
+
+**Proof -- Uniqueness.** If for small values of $h$ the function $f$ satisfies
+ $$
+  f(z+h) 
+  = f(z) + \ell^1_z (h) + \epsilon^1_z(h) \|h\| 
+  = f(z) + \ell^2_z(h) + \epsilon^2_z(h) \|h\|
+ $$ 
+with continuous linear operators $\ell^1_z$ and $\ell^2_z$ 
+and functions $\epsilon^1_z$ and $\epsilon^2_z$ such that
+  $$
+  \lim_{h \to 0} \epsilon^1_z(h) = \epsilon^1_z(h) = 0 
+  \; \mbox{ and } \;
+  \lim_{h \to 0} \epsilon^2_z(h) = \epsilon^2_z(h) = 0,
+  $$
+then for any $u \in E$
+  $$
+  (\ell^1_z - \ell^2_z)(u) = 
+  \lim_{t \to 0} \frac{(\ell^1_z - \ell^2_z)(tu)}{t}  
+  = \lim_{t \to 0} (\epsilon_z^2(tu) - \epsilon_z^1(tu)) \|u\| = 0
+  $$
+and consequently $\ell^1 = \ell^2.$ \hfill $\blacksquare$
+
+<!--
+**Remark -- Complex-Differentiability.** 
+At this stage, we would like to say that a function is 
+complex-differentiable if its complex-differential exists,
+but we have already used this term to mean that the derivative exists.
+Luckily, this ambiguity is only apparent[^more-ambiguous]:
+
+[^more-ambiguous]: Some authors even use the notation $f'(z)$ instead of
+$df_z$ for the differential of $f$ at $z.$ Again, this ambiguity is (mostly) 
+harmless.
+-->
+
+**Theorem -- Derivative and Differential.** 
+Let $f:A \to \mathbb{C}$ with $A \subset \mathbb{C}$ and let 
+$z$ be an interior point of $A.$ 
+The complex-differential $df_z$ exists if and only if the derivative $f'(z)$ 
+exists. 
+In this case, we have
+  $$
+  \forall \, h \in \mathbb{C}, \, df_z(h) = f'(z) h.
+  $$
+
+**Proof.** 
+If $f'(z)$ exists, the mapping $h \in \mathbb{C} \mapsto f'(z) h$
+is complex-linear and
+  $$
+  \lim_{h \to 0}\frac{|f(z+h) - f(z) - f'(z) h|}{|h|}
+  = \lim_{h \to 0} \left|\frac{f(z+h) - f(z)}{h} - f'(z) \right| = 0,
+  $$
+hence, it is the differential of $f$ at $z.$
+Conversely, if $df_z$ exists, its complex-linearity yields 
+$df_z(h) = df_z(1) h.$ 
+Therefore,
+  $$
+  \lim_{h \to 0} \left| \frac{f(z+h) - f(z)}{h} - df_z(1) \right|
+  = \lim_{h \to 0}\frac{|f(z+h) - f(z) - df_z (h)|}{|h|}
+  = 0
+  $$
+thus $f'(z)$ exists and is equal to $df_z(1).$
+\hfill $\blacksquare$
+
+
+
+
+Calculus
+================================================================================
+
+**Theorem -- Sum and Product Rules.**
+Let $f: A \to \mathbb{C}$ and $g: A \to \mathbb{C}$ 
+with $A \subset \mathbb{C}$ and let $z$ an interior point of $A.$
+If $f$ and $g$ are complex-differentiable at $z,$ 
+the derivative of $f+g$ at $z$ exists and
+  $$
+  (f + g)'(z) = f'(z) + g'(z),
+  $$
+the derivative of $f \times g$ at $z$ exists and
+  $$
+  (f \times g)'(z) = f'(z) \times g(z) + f(z) \times g'(z).
+  $$
+
+**Proof.** For any $h \in \mathbb{C}$ such that $z+h \in A,$ we have
+  $$
+  \frac{(f+g)(z+h) - (f+g)(z)}{h}
+  =
+  \frac{f(z+h) - f(z)}{h} + \frac{g(z+h) - g(z)}{h},
+  $$
+hence the derivative of $f+g$ at $z$ exists and satisfies the sum rule.
+On the other hand,
+  \begin{multline*}
+  \frac{(f \times g)(z+h) - (f \times g)(z)}{h}
+  = \\
+  \frac{f(z+h) - f(z)}{h} g(z) 
+  +
+  f(z+h)\frac{g(z+h) - g(z)}{h},
+  \end{multline*}
+hence the derivative of $f \times g$ exists and satisfies the product rule.
+\hfill $\blacksquare$
+
+**Theorem -- Chain Rule.** 
+Let $f: A \to \mathbb{C},$ $g: B \to \mathbb{C}$ 
+with $A, B$ two subsets of $\mathbb{C}.$ 
+If $z$ is an interior point of $A,$
+$f$ is complex-differentiable at $z,$ $f(z)$ is an interior point of $B$ and 
+$g$ is complex-differentiable at $f(z),$ then $g \circ f$ is 
+complex-differentiable at $z$ and
+  $$
+  (g \circ f)'(z) = g'(f(z)) \times f'(z).
+  $$
+
+**Proof.** Given the assumption, we have for $h$ small enough
+  $$
+  f(z+h) - f(z) = f'(z) h+ \epsilon^1_z(h) |h|
+  $$
+and
+  $$
+  g(f(z)+h) - g(f(z)) = g'(f(z)) h + \epsilon^2_{f(z)}(h) |h|
+  $$
+with 
+  $$
+  \lim_{h \to 0} \epsilon_z^1(h) = \epsilon_z^1(h)= 0
+  \; \mbox{ and } \; 
+  \lim_{h \to 0} \epsilon_{f(z)}^2(h) = \epsilon_{f(z)}^2(0) = 0.
+  $$
+Consequently, 
+  $$
+  \begin{split}
+  g(f(z+h)) - g(f(z))
+  = & \; 
+  g'(f(z))(f(z+h) - f(z)) \\ 
+  &+ \epsilon^2_{f(z)}(f(z+h) - f(z)) |f(z+h) - f(z)|,
+  \end{split}
+  $$
+which can be expanded into
+  $$
+  g(f(z+h)) - g(f(z))
+  =
+  g'(f(z)) f'(z) h + \epsilon^{3}_z(h) |h|,
+  $$
+where
+  $$
+  \epsilon^3_z(h) 
+  = g'(f(z)) \epsilon_z^1(h) 
+  + \epsilon^2_{f(z)}(f(z+h) - f(z)) |f'(z) + \epsilon^1_z(h)|
+  $$
+and satisfies 
+  $$
+  \lim_{h \to 0} \epsilon^3_z(h) = \epsilon^3_z(0) = 0.
+  $$
+This decomposition proves the existence of the complex-differential of $g\circ f$ at 
+$z$ as well as the equality $(g \circ f)'(z) = g'(f(z)) f'(z).$
+\hfill $\blacksquare$
+
+**Corollary -- Quotient Rule.** 
+Let $f: A \to \mathbb{C}$ and $g: A \to \mathbb{C}$ whith $A \subset \mathbb{C}$ 
+and let $z$ be an interior point of $A$ such that $g(z) \neq 0.$
+If $f$ and $g$ are complex-differentiable at $z,$ 
+then $f/g$ is complex-differentiable at $z$ and
+  $$
+  \left(\frac{f}{g}\right)'(z) = \frac{f'(z)g(z) - f(z)g'(z)}{g(z)^2}.
+  $$
+
+**Proof.** 
+By the chain rule applied to the function $g$ and $z \mapsto 1/z,$ 
+the derivative of $1/g$ is $-g'/g^2.$ 
+The desired result then follows from the product rule. 
+\hfill $\blacksquare$
+
+
+**Examples -- Polynomials & Rational Functions.** 
+Any polynomial $p$ with complex coefficients
+   $$
+   p: z \in \mathbb{C} \mapsto a_0 + a_1 z + \dots + a_n z^n
+   $$
+is holomorphic on $\mathbb{C}$ as the sum of products of holomorphic functions.
+By the quotient rule, the quotient of two polynomials $p$ and $q$ 
+-- with a non-zero $q$ --
+is also holomorphic on the open set 
+$\{z \in \mathbb{C} \; | \; q(z) \neq 0 \}.$
+
+
+Cauchy-Riemann Equations
+================================================================================
+
+It is sometimes convenient to remember that the set $\mathbb{C}$ is only 
+$\mathbb{R}^2,$ or in other words that we can always identify the complex number 
+$z=x+iy$ with the pair of real numbers $(x,y).$
+
+For complex-valued functions of a complex variable, 
+we can perform this identification for the variables $z = x+ iy$ and/or 
+for the values $f = u+ iv.$ 
+Both options are actually interesting and lead to
+slightly different characterizations of holomorphic functions.
+
+**Theorem -- Cauchy-Riemann Equations.** 
+Let $\Omega$ be an open subset of $\mathbb{C}.$
+The function $f = u + iv :\Omega \to \mathbb{C}$ is complex-differentiable on
+$\Omega$ if and only if:
+
+  - it is real-differentiable on $\Omega$ and
+
+  - for every $z$ in $\Omega,$ $df_z$ is complex-linear. 
+
+The second clause may be replaced by any of the following:
+
+ 1. the function $f$ satisfies 
+
+    $$\forall\, z \in \Omega, \; df_z(i) = idf_z(1),$$
+
+ 2. the function $f$ satisfies the *(complex) Cauchy-Riemann equation*:
+
+    $$
+    \frac{\partial f}{\partial x} = \frac{1}{i}\frac{\partial f}{\partial y},
+    $$
+
+ 3. the functions $u$ and $v$ satisfy the *(scalar) Cauchy-Riemann equations*: 
+
+    $$
+    \frac{\partial u}{\partial x}
+    = 
+    +\frac{\partial v}{\partial y}
+    \; \mbox{ and } \;
+    \frac{\partial u}{\partial y} 
+    = 
+    -\frac{\partial v}{\partial x}.
+    $$
+
+If the complex-differentiability holds, we have
+  $$
+  \begin{split}
+  f' 
+  =
+  (z \mapsto d_z f(1))
+  &=
+  \frac{\partial f}{\partial x} = \frac{1}{i}\frac{\partial f}{\partial y} \\
+  &= \frac{\partial u}{\partial x} + i \frac{\partial v}{\partial x} =
+   \frac{\partial v}{\partial y} - i \frac{\partial u}{\partial y} \\
+  &= \frac{\partial u}{\partial x} - i \frac{\partial u}{\partial y} =
+   \frac{\partial v}{\partial y} + i \frac{\partial v}{\partial x}
+  \end{split}
+  $$
+
+**Remark -- A Geometric Insight.** 
+We may rewrite the scalar Cauchy-Riemann equations as
+  $$
+    \left[ 
+    \begin{array}{c}
+    \partial v / \partial x \\
+    \partial v / \partial y
+    \end{array}
+  \right]  = 
+  \left[\begin{array}{rr} 0 & -1  \\ +1 & 0 \end{array} \right]
+    \left[ 
+    \begin{array}{c}
+    \partial u / \partial x \\
+    \partial u / \partial y
+    \end{array}
+  \right].
+  $$
+This formula provides the following insight:
+the gradient of the imaginary part of a holomorphic function is obtained 
+by a rotation of $\pi/2$ of the gradient of its real part.
+
+**Proof.** The equivalence between complex-differentiability and the
+combination of real-differentiability and complex-linearity of the differential
+is a direct consequence of the definitions.
+
+Assume that $f$ is real-differentiable; 
+the real-differential $\ell = df_z$ is real-linear, 
+that is, additive and real-homogeneous. 
+If additionally $\ell(i) = i \ell(1),$ 
+then we have for any real numbers $\mu,$ $\nu,$ $x$ and $y$
+
+  - $\ell(\mu x) = \mu\ell(x),$
+
+  - $\ell(i\nu x) = \nu x \ell(i) = \nu x i \ell(1) = i \nu \ell(x),$
+
+  - $\ell(i\mu y) = \mu\ell(iy),$
+
+  - $\ell(-\nu y) = - \nu y \ell(1) = i^2 \nu y \ell(1) = i \nu y \ell(i) = i \nu \ell(iy).$
+
+The function $\ell$ is additive, hence
+$\ell((\mu+i\nu)(x+iy)) = (\mu+i\nu) \ell(x+iy)$: the function
+$\ell$ is complex-homogeneous and therefore complex-linear. 
+Hence, property 1 yields the complex-linearity of the differential.
+
+As additionally
+  $$
+  \frac{\partial f}{\partial x}(z) = df_z(1), \;
+  \frac{\partial f}{\partial y}(z) = df_z(i),
+  $$
+properties 1 and 2 are equivalent. 
+
+The function $f=(u,v)=u+iv$ is real-differentiable if and only if $u$ and $v$
+are real-differentiable.
+In this case, $df = (du, dv) = du + idv,$ hence
+  $$
+  \frac{\partial f}{\partial x} = \frac{\partial u}{\partial x} + i \frac{\partial v}{\partial x}
+  , \;
+  \frac{\partial f}{\partial y} = \frac{\partial u}{\partial y} + i \frac{\partial v}{\partial y}
+  $$
+which yields the equivalence between properties 2 and 3. \hfill $\blacksquare$
+
+There is a variant of this theorem that does not require to check explicitly
+for the existence of the real-differential:
+
+**Corollary -- Cauchy-Riemann Equations (Alternate) $[\dagger].$** 
+Let $\Omega$ be an open subset of $\mathbb{C}.$
+The function $f = u + iv :\Omega \to \mathbb{C}$ is complex-differentiable 
+in $\Omega$ if and only if any of the following conditions holds:
+
+ 1. The partial derivatives $\partial f/\partial x$ and $\partial f/\partial y$
+    exist, are continuous and 
+
+    $$
+    \frac{\partial f}{\partial x} = \frac{1}{i}\frac{\partial f}{\partial y}.
+    $$
+
+ 2. The partial derivatives $\partial u / \partial x,$ $\partial u / \partial y,$
+    $\partial v / \partial x$ and $\partial v / \partial y$ exist, are
+    continuous and
+    $$
+    \frac{\partial u}{\partial x}
+    = 
+    +\frac{\partial v}{\partial y}
+    \; \mbox{ and } \;
+    \frac{\partial u}{\partial y} 
+    = 
+    -\frac{\partial v}{\partial x}.
+    $$
+
+**Proof.** 
+If the partial derivatives of $f$ exist and are continous,
+or equivalently the partial derivatives of $u$ and $v$ exist and are continuous, 
+then $f$ is continuously real-differentiable and we can apply the previous
+theorem to get our conclusion.
+
+Reciprocally, if the derivative of $f$ exist, then it is continuous, 
+hence the partial derivatives of $f$ (or of $u$ and $v$) are continous. 
+The previous theorem also shows that the Cauchy-Riemann equations are satisfied.
+\hfill $\blacksquare$
+
+**Definition & Example -- Exponential.** 
+The *exponential* function $\exp:\mathbb{C} \to \mathbb{C}$ is defined as 
+  $$
+  \exp (x+iy) = e^x \times (\cos y + i \sin y).
+  $$
+The exponential function satisfies on one hand
+  $$
+  \frac{\partial \exp(x+iy)}{\partial x}
+  = 
+  e^x \times (\cos y + i \sin y) = \exp(x+iy)
+  $$
+and on the other hand
+  $$
+  \frac{\partial \exp(x+iy)}{\partial y}
+  =
+  e^x \times (-\sin y + i \cos y) = \frac{1}{i} \exp (x+iy). 
+  $$
+Both partial derivatives exist and are continuous. They also satisfy the
+Cauchy-Riemann equation, hence $\exp$ is complex-differentiable and 
+  $$
+  \exp'(z) = \exp(z).
+  $$
+
+**Definition & Example -- Logarithm.**
+The *principal value of the logarithm* is the function 
+$\log: \mathbb{C} \setminus \mathbb{R}_- \to \mathbb{C}$ defined by
+  $$
+  \log re^{i\theta} = (\ln r) + i \theta,
+  \; r > 0,
+  \; \theta \in \left]-\pi,\pi\right[.
+  $$
+
+It is a bijection from  $\mathbb{C} \setminus \mathbb{R}_-$ into 
+$\mathbb{R} \times \left]-\pi, +\pi \right[$ and for every 
+$z \in \mathbb{C} \setminus \mathbb{R}_-$ 
+$$\exp \circ \log (z) = z.$$ 
+The exponential function is continuously real-differentiable
+and $$d\exp_z (h) = (\exp z) \times h$$ 
+hence its differential $d \exp_z$ is invertible.
+By the inverse function theorem, $\log$ is real-differentiable
+on $\mathbb{C} \setminus \mathbb{R}_-$ and
+  $$
+  d \exp_{\log z} \circ \, d\log_z (h) = z \times d \log_z (h) = h.
+  $$
+Consequently, $d \log_z(h) = h/z,$ which is a complex-linear function of $h.$
+Hence, $\log$ is complex-differentiable and 
+  $$
+  \log'(z) 
+  = \frac{1}{z}.
+  $$
+
+Appendix -- Terminology and Notation
+================================================================================
+
+It is common to use of the word "holomorphic" and 
+the notation $\mathcal{H}(\Omega)$ to refer to functions 
+that are complex-differentiable on some open set $\Omega;$ 
+it is for example the convention of the classic 
+"Real and Complex Analysis" book [@Rud87].
+
+The term "holomorphic" appears in "Théorie des fonctions elliptiques" [-@BB75], 
+by Charles Briot & Claude Bouquet, two students of Augustin-Louis Cauchy:
+
+> Lorsqu'une fonction est continue, monotrope, et a une dérivée, 
+> quand la variable se meut dans une certaine partie du plan,
+> nous dirons qu'elle est *holomorphe* dans cette partie du plan.
+> Nous indiquons par cette dénomination qu'elle est semblable 
+> aux fonctions entières qui jouissent de cette propriété dans 
+> toute l'étendue du plan.
+
+In essence, a function is holomorphic if it is continuous, 
+single-valued and differentiable in a subset of the complex plane. 
+The prefix "holo" (from ancient Greek) means "entire"; 
+it makes sense because such a function is similar to polynomials,
+which have these properties in the full complex plane 
+and were called "entire functions" in the 19th century[^entire].
+
+[^entire]: Nowadays, a function is entire if is defined and holomorphic 
+on $\mathbb{C},$ which is a more consistent definition.
+Polynomials are still entire functions, but they are not the only ones.
+
+The most common alternate notations and terms used in the literature 
+to refer to holomorphic functions probably are: 
+
+  - $\mathcal{A}(\Omega).$ 
+    The symbol "A" refers to the term "analytic";
+    it is often used interchangeably with the term "holomorphic".
+    Originally, "analytic" means "locally defined as a power series",
+    but both concepts actually refer to the same class of functions.
+    This is a classic -- but not trivial -- result of complex analysis.
+
+  - $C^{\omega}(\Omega).$ 
+    Another result of the theory of analytic functions:
+    analytic functions are "more than smooth": they all belong to the set
+    $C^{\infty}(\Omega)$ of smooth functions, 
+    but not every smooth function is analytic. 
+    Hence, it makes sense to use the symbol $\omega$ -- 
+    that denotes the smallest infinite ordinal number -- 
+    as an exponent.
+   
+  - $\mathcal{O}(\Omega)$
+    (used e.g. in "Theory of Complex Functions" by @Rem91). 
+    [Jean-Pierre Demailly] [-@Dem09] traces the origin of this notation
+    to the word "olomorfico" ("holomorphic" in Italian), 
+    but Hans Grauert and Reinhold Remmert [-@GR84] have a different analysis: 
+    the symbol "O" may have been chosen by [Henri Cartan], 
+    which is quoted saying (in French) that:
+
+    > Je m'étais simplement inspiré d'une notation utilisée par van der Waerden 
+    > dans son classique traité "Moderne Algebra" 
+    > (cf. par exemple §16 de la 2e édition allemande, p.52)
+
+    which means
+
+    > I simply took inspiration from a notation used by van der Waerden 
+    > in his classic treatise "Modern Algebra"
+    > (see e.g. §16 of the 2nd german edition, p.52)
+
+    If this interpretation is correct, then the symbol "O" 
+    [probably comes from] the word "ordnüng" ("order" in German).
+
+[Jean-Pierre Demailly]: https://www-fourier.ujf-grenoble.fr/~demailly/
+[Henri Cartan]: https://fr.wikipedia.org/wiki/Henri_Cartan
+[probably comes from]: http://math.stackexchange.com/questions/436078/where-does-the-symbol-mathcal-o-for-sheaves-come-from
+[Daniel Fischer]: http://math.stackexchange.com/users/83702/daniel-fischer
+
+<!--
+It's also worth mentioning that several classic Complex Analysis books -- 
+such as "The Theory of Functions" [@Tit75] and "Complex Analysis" [@Ahl79] --
+don't need any notation for the set of holomorphic functions; 
+they use words instead.
+-->
+
+References
+================================================================================
+

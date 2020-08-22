@@ -1,0 +1,2769 @@
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, Mines ParisTech">
+  <meta name="dcterms.date" content="2017-07-27">
+  <title>Jupyter on Azure (Work in Progress)</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: content-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+html {
+  line-height: 36px;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: normal;
+  font-family: Alegreya, serif;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html em {
+  font-style: italic;
+}
+html strong {
+  font-weight: bold;
+}
+html p, html .p {
+  margin-bottom: 36px;
+  text-align: justify;
+  hyphens: auto;
+  moz-hyphens: auto;
+}
+html section {
+  margin-bottom: 36px;
+}
+html main {
+  box-sizing: content-box;
+  max-width: 32em;
+  margin: auto;
+  padding: 36px;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, q:before {
+  content: none;
+}
+blockquote:after, q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: medium solid black;
+  border-bottom: medium solid black;
+}
+main {
+}
+main > header, main > .header, main > #header {
+  margin-top: 72px;
+  margin-bottom: 72px;
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: 54px;
+  margin-top: 0px;
+  margin-bottom: 36px;
+  font-weight: bold;
+}
+main > header .author, main > .header .author, main > #header .author {
+  font-size: 24px;
+  line-height: 36px;
+  margin-bottom: 18px;
+  font-weight: normal;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: Alegreya SC, serif;
+  line-height: 36px;
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: 18px;
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  font-weight: bold;
+  line-height: 45px;
+  margin-top: 72px;
+  margin-bottom: 27px;
+}
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 36px;
+  margin-bottom: 18px;
+}
+h3, h4, h5, h6 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 1em;
+  display: inline;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
+}
+a:hover {
+  text-decoration: none;
+}
+a:link {
+  color: black;
+}
+a:visited {
+  color: black;
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li {
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  margin-left: 36px;
+  padding-left: 0.5em;
+}
+ul {
+}
+ul li {
+  list-style: disc;
+}
+ol {
+}
+ol li {
+  list-style: decimal;
+}
+blockquote {
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+  padding: 36px;
+  margin-bottom: 36px;
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-size: 24px;
+  font-family: Inconsolata;
+}
+pre {
+  overflow-x: auto;
+  background-color: #ebebeb;
+  margin-bottom: 36px;
+  padding-left: 36px;
+  padding-right: 36px;
+  padding-top: 36px;
+  padding-bottom: 36;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: auto;
+}
+figure {
+  margin-bottom: 36px;
+  text-align: center;
+}
+figcaption {
+  display: inline-block;
+  font-style: italic;
+  text-align: justify;
+}
+.table {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  margin-bottom: 36px;
+}
+thead {
+  border-bottom: medium solid black;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+.MJXc-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+nav#TOC > ul {
+  position: relative;
+  font-weight: bold;
+}
+nav#TOC > ul > * {
+  margin-bottom: 36px;
+}
+nav#TOC > ul li {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+nav#TOC > ul ul {
+}
+nav#TOC > ul ul li {
+  margin-left: 36px;
+  font-weight: normal;
+}
+.section-flag {
+  line-height: 36px;
+  font-size: 17px;
+  font-weight: 300;
+  font-family: Alegreya Sans SC;
+  margin-bottom: 0;
+}
+nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+  padding-bottom: 36;
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+nav#TOC .badge {
+  position: relative;
+  bottom: 0.13em;
+  font-family: Alegreya Sans SC;
+  font-weight: 300;
+  font-size: 17px;
+  display: inline-block;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  vertical-align: baseline;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+  margin-right: 1em;
+}
+.badge {
+  white-space: nowrap;
+}
+.badge span {
+  text-transform: lowercase;
+  position: relative;
+  bottom: 0.13em;
+  font-family: Alegreya Sans SC;
+  font-weight: 300;
+  font-size: 17px;
+  display: inline-block;
+  line-height: 1.2em;
+  height: 1.2em;
+  text-align: center;
+  background-color: #f0f0f0;
+  vertical-align: baseline;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+  padding: 0 0.5em 0 0.5em;
+}
+.badge span:first-child {
+  border-radius: 2px 0 0 2px;
+}
+.badge span:last-child {
+  border-radius: 0 2px 2px 0;
+}
+.badge .key {
+  background-color: #707070;
+  color: white;
+  font-weight: normal;
+  box-shadow: 0px 1.0px 1.0px #a0a0a0;
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,800,800italic,900,900italic|Alegreya+Sans+SC:400,100,300,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+SC:400,400italic,700,700italic,900,900italic|Alegreya:400,700,900,400italic,700italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.11.1
+(function() {
+  $(function() {
+    return console.log("HELLO FROM DEMO!");
+  });
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.11.1
+(function() {
+  var hide_proof, main, show_proof;
+
+  hide_proof = function(section) {
+    var clone, div, header, id, new_paragraph;
+    clone = section.clone();
+    id = section.attr("id");
+    clone.attr({
+      id: id + "---"
+    });
+    div = $("<div></div>");
+    div.css({
+      display: "none"
+    });
+    div.append(clone);
+    header = section.find("h3, h4, h5, h6").first().clone();
+    new_paragraph = $("<div class='p'></div>").append(header);
+    new_paragraph.append("<i class='fa fa-caret-down expand' style='float:right;cursor:pointer;'></i>");
+    section.empty();
+    section.append(new_paragraph);
+    section.append(div);
+    return section.find("i.expand").on("click", (function(section) {
+      return function() {
+        return show_proof(section);
+      };
+    })(section));
+  };
+
+  show_proof = function(section) {
+    var tombstone;
+    section.children().first().remove();
+    section.html(section.children().first().html());
+    tombstone = section.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer"
+    });
+    return tombstone.on("click", (function(section) {
+      return function() {
+        return hide_proof(section);
+      };
+    })(section));
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, results, section, sections, text;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    results = [];
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      results.push(hide_proof(section));
+    }
+    return results;
+  };
+
+  $(main);
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">Jupyter on Azure (Work in Progress)</a></h1>
+
+<h2 class="author">
+By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, Mines ParisTech, under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>
+</h2> 
+
+<h3 class="date">July 27, 2017</h3>
+</header>
+<section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
+<ul>
+<li class="top-li"><p class="section-flag">section 1</p><a href="#getting-started">Getting Started</a></li>
+<li class="top-li"><p class="section-flag">section 2</p><a href="#the-azure-platform">The Azure Platform</a></li>
+<li class="top-li"><p class="section-flag">section 3</p><a href="#data-management">Data Management</a></li>
+<li class="top-li"><p class="section-flag">section 4</p><a href="#software-packages">Software Packages</a><ul>
+<li><a href="#todo">TODO:</a></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 5</p><a href="#networking">Networking</a><ul>
+<li><a href="#todo-1">[TODO]</a></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 6</p><a href="#appendix-conda-packages">Appendix – Conda Packages</a></li>
+<li class="top-li"><p class="section-flag">section 7</p><a href="#notes">Notes</a></li></ul>
+</nav></section>
+<!--
+
+TODO:
+  
+  - What are Jupyter Notebooks
+
+  - What is (Microsoft) Azure
+
+  - The Microsoft Azure Notebooks 
+ 
+  - Help to discover if hosting your notebooks on Azure is the right choice
+    (vs self-hosting for example ... or using a user-configured VM on Azure !
+    see <https://github.com/Microsoft/azure-docs/blob/master/articles/virtual-machines/linux/jupyter-notebook.md>).
+
+Intro
+================================================================================
+
+Preview, free, well done, limitations.
+
+-->
+<section id="getting-started" class="level1">
+<h1><a href="#getting-started">Getting Started</a></h1>
+<ol type="1">
+<li><p>Create a <a href="https://account.microsoft.com/">Microsoft account</a> if you don’t already have one.</p>
+<figure>
+<img src="images/Microsoft-Account.png" alt="https://account.microsoft.com/" style="width: 100%;"><figcaption><a href="https://account.microsoft.com/" class="uri">https://account.microsoft.com/</a></figcaption>
+</figure></li>
+<li><p>Go to the <a href="https://notebooks.azure.com/">Microsoft Azure Notebooks</a> web site and sign in.</p>
+<figure>
+<img src="images/Microsoft-Azure-Notebooks.png" alt="https://notebooks.azure.com/" style="width: 100%;"><figcaption><a href="https://notebooks.azure.com/" class="uri">https://notebooks.azure.com/</a></figcaption>
+</figure></li>
+<li><p>Select “Libraries” in the navigation bar (libraries are groups of related notebooks) and create a new library named “Sandbox”.</p>
+<figure>
+<img src="images/New-Library.png" style="width: 100%;">
+</figure></li>
+<li><p>Create a new notebook named “My First Notebook.ipynb” in the Sandbox library, or upload an existing one. For this article, I will use a new Python 2.7 notebook.</p>
+<figure>
+<img src="images/Add-Notebook.png" style="width: 100%;">
+</figure></li>
+<li><p>Start the notebook.</p>
+<figure>
+<img src="images/Empty-Notebook.png" style="width: 100%;">
+</figure></li>
+</ol>
+</section>
+<section id="the-azure-platform" class="level1">
+<h1><a href="#the-azure-platform">The Azure Platform</a></h1>
+<p>To explore the Azure plaform hosting the Jupyter notebook, we will issue some shell commands; the simplest way to do that if from within a Python notebook is to type the command in a cell, prefixed with an exclamation point<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>.</p>
+<p>First of all, Azure notebooks are hosted on Linux (Debian-based) machine:</p>
+<pre><code>&gt;&gt;&gt; import platform
+&gt;&gt;&gt; platform.system()
+'Linux'
+&gt;&gt;&gt; platform.platform()
+'Linux-4.4.0-81-generic-x86_64-with-debian-stretch-sid'</code></pre>
+<p>The distribution used is the latest LTS version of Ubuntu: <a href="http://releases.ubuntu.com/16.04/">Xenial Xerus</a>.</p>
+<pre><code>&gt;&gt;&gt; !cat /etc/lsb-release
+DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=16.04
+DISTRIB_CODENAME=xenial
+DISTRIB_DESCRIPTION="Ubuntu 16.04.2 LTS"</code></pre>
+<p>The notebook is actually running within a Docker container:</p>
+<pre><code>&gt;&gt;&gt; import os.path
+&gt;&gt;&gt; os.path.isfile("/.dockerenv")
+True</code></pre>
+<p>What it means concretely is that when you start – or restart – a notebook, you are likely to wait for a couple of seconds while Azure is provisioning a new container. As far as I can tell, container instances are shared between notebooks in the same library, but not across libraries.</p>
+<p>The processor specs are:</p>
+<pre><code>&gt;&gt; !lscpu | grep "Model name"
+Model name: Intel(R) Xeon(R) CPU E5-2673 v3 @ 2.40GHz</code></pre>
+<p>PassMark gives this CPU <a href="https://www.cpubenchmark.net/cpu_lookup.php?cpu=Intel+Xeon+E5-2673+v3+%40+2.40GHz&amp;id=2606%3E">a mark of 16.904</a>; this is far better than the laptop I am working on, so I guess that performance is uniquely to be an issue.</p>
+</section>
+<section id="data-management" class="level1">
+<h1><a href="#data-management">Data Management</a></h1>
+<p>If you use the <a href="http://jupyter-notebook-beginner-guide.readthedocs.io/en/latest/what_is_jupyter.html#notebook-app">Jupyter Notebook App</a>, which executes the notebooks on your computer, or if you have deployed a <a href="https://jupyterhub.readthedocs.io/en/latest/">JupyterHub</a> server, the input data that you use for your notebooks, the ouput data that they may produce and the notebooks themselves are in the same filesystem, probably organized into directories, one for each projects.</p>
+<p>Things are different for Azure notebooks, where notebooks and data are handled separately. Notebook files (with the <code>.ipynb</code> extension) are stored permanently and associated to your Microsoft account; they can be managed from the Libraries view and/or from the dashboard. You can also download/upload them if you loke but this is not mandatory. However, you will not find them in the filesystem accessible in the notebook <a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>.</p>
+<p>Your data files on the other hand – anything that is in the notebook filesystem – is ephemeral and will be lost when your library container is shut down. Consequently:</p>
+<ul>
+<li><p>If your notebook requires some input data, you need to check that it’s available before you execute the notebook, or “rehydrate” your filesystem, upload this data again.</p></li>
+<li><p>If your notebook produces some output data that you want to keep, you need to download it.</p></li>
+</ul>
+<p>For both steps there are several options available.</p>
+<ul>
+<li><p>You may upload/download your data manually from/to your computer: use the “Data” menu in the notebook navigation panel. Data may also be uploaded from a Dropbox account.</p></li>
+<li><p>To compress the files in the current directory into a <code>data.zip</code> archive – but anaconda Python distributions and hidden files – and upload the archive to <code>transfer.sh</code>, type in a cell:</p>
+<pre><code>&gt;&gt;&gt; !zip -q -r data.zip . -x "anaconda*" ".*"
+&gt;&gt;&gt; !curl --upload-file data.zip https://transfer.sh/data.zip</code></pre>
+<p>The last command prints an address, something like:</p>
+<pre><code>https://transfer.sh/yKwUl/data.zip</code></pre>
+<p>This is where your archive is located (and will be for 14 days). To download and unzip this archive, type:</p>
+<pre><code>&gt;&gt;&gt; !curl https://transfer.sh/yKwUl/data.zip -o data.zip
+&gt;&gt;&gt; !unzip -o data.zip</code></pre>
+<p>Note that these commands work in Azure notebooks because <a href="https://transfer.sh" class="uri">https://transfer.sh</a> is explicitly whitelisted (see <a href="#networking">Networking</a>), so use specifically this service; other file sharing sites probably won’t work.</p></li>
+</ul>
+</section>
+<section id="software-packages" class="level1">
+<h1><a href="#software-packages">Software Packages</a></h1>
+<p>By default, the Azure notebook platform comes with a large set of pre-installed software packages provided by <a href="https://www.continuum.io/">Anaconda</a>, a Python distribution popular in numerical analysis and data science circles. Actually, three different versions of the Anaconda distributions are installed:</p>
+<pre><code>&gt;&gt;&gt; !ls
+anaconda2_410  anaconda3_410  anaconda3_431</code></pre>
+<p>Each distribution supports a different version of Python (at the time of writing: Python 2.7.11, 3.5.1 and 3.6.0).</p>
+<p>To see for yourself the list of installed packaged, type:</p>
+<pre><code>&gt;&gt;&gt; !conda list
+# packages in environment at /home/nbcommon/anaconda2_410:
+#
+_nb_ext_conf              0.2.0                    py27_0  
+adal                      0.4.6                     &lt;pip&gt;
+alabaster                 0.7.8                    py27_0  
+altair                    1.2.0                     &lt;pip&gt;
+anaconda                  custom                   py27_0  
+anaconda-client           1.4.0                    py27_0  
+anaconda-navigator        1.2.1                    py27_0
+... </code></pre>
+<p>The full list is rather large; refer to the <a href="#appendix-conda-packages">appendix</a> if you are interested. The list is also compared with the default set of packages in the Anaconda distribution. There are generally more packages in the Azure notebook platform; some of them are obviously Azure-specific. Additionally, a package that would be missing from the Azure platform – for example <a href="http://wrapt.readthedocs.io/en/latest/">wrapt</a> – can easily be installed, either with</p>
+<pre><code>&gt;&gt;&gt; !conda install -y wrapt</code></pre>
+<p>or – as long as it’s available on <a href="https://pypi.python.org/pypi">PyPI</a> – with</p>
+<pre><code>&gt;&gt;&gt; !pip install wrapt</code></pre>
+<p>Note that these installations are performed as a user, not at the system level: you are merely <code>nbuser</code> and you don’t have administrator rights in the Azure container. In particular, you won’t be able to <code>apt-get install</code> your way out of missing software.</p>
+<section id="todo" class="level3">
+
+<div class="p"><h3><a href="#todo">TODO:</a></h3>‌document Fortran, C/C++ &amp; other stuff. Binaries from sources, packaged via conda (ex: curl, etc.)</div>
+</section>
+</section>
+<section id="networking" class="level1">
+<h1><a href="#networking">Networking</a></h1>
+<section id="todo-1" class="level3">
+
+<div class="p"><h3><a href="#todo-1">[TODO]</a></h3>‌</div>
+</section>
+</section>
+<section id="appendix-conda-packages" class="level1">
+<h1><a href="#appendix-conda-packages">Appendix – Conda Packages</a></h1>
+<div class="table"><table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Package</th>
+<th style="text-align: center;">Anaconda (default)</th>
+<th style="text-align: center;">Azure Notebooks</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">_license</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_nb_ext_conf</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">adal</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">alabaster</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">altair</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">anaconda</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">anaconda-client</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">anaconda-navigator</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">anaconda-project</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">applicationinsights</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">argcomplete</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">asn1crypto</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">astroid</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">astropy</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">attrs</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Automat</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-batch</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-cli</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-cli-acr</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-cli-acs</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-cli-appservice</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-cli-batch</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-cli-billing</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-cli-cdn</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-cli-cloud</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-cli-cognitiveservices</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-cli-command-modules-nspkg</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-cli-component</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-cli-configure</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-cli-consumption</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-cli-core</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-cli-cosmosdb</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-cli-dla</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-cli-dls</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-cli-feedback</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-cli-find</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-cli-interactive</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-cli-iot</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-cli-keyvault</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-cli-lab</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-cli-monitor</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-cli-network</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-cli-nspkg</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-cli-profile</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-cli-rdbms</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-cli-redis</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-cli-resource</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-cli-role</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-cli-sf</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-cli-sql</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-cli-storage</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-cli-vm</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-common</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-datalake-store</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-graphrbac</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-keyvault</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-mgmt-authorization</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-mgmt-batch</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-mgmt-billing</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-mgmt-cdn</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-mgmt-cognitiveservices</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-mgmt-compute</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-mgmt-consumption</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-mgmt-containerregistry</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-mgmt-datalake-analytics</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-mgmt-datalake-nspkg</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-mgmt-datalake-store</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-mgmt-devtestlabs</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-mgmt-dns</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-mgmt-documentdb</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-mgmt-iothub</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-mgmt-keyvault</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-mgmt-monitor</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-mgmt-network</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-mgmt-nspkg</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-mgmt-rdbms</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-mgmt-redis</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-mgmt-resource</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-mgmt-sql</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-mgmt-storage</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-mgmt-trafficmanager</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-mgmt-web</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-monitor</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-multiapi-storage</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azure-nspkg</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">azure-servicefabric</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">azureml</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">babel</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">backports</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">backports.shutil_get_terminal_size</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">backports.ssl-match-hostname</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">backports.weakref</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">backports_abc</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bcrypt</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">beautifulsoup4</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bitarray</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bkcharts</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">blaze</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bleach</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bleach-whitelist</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bokeh</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">boto</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">boto3</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">botocore</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bottleneck</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bqplot</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">brewer2mpl</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bz2file</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">cachecontrol</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">cairo</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">cdecimal</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">certifi</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">cffi</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">chardet</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">chest</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">click</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">cloudpickle</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">clyent</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">cntk</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">colorama</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">conda</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">conda-build</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">conda-env</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">configobj</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">configparser</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">constantly</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">contextlib2</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">cryptography</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">curl</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">cycler</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">cython</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">cytoolz</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">dask</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">datashape</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">dbus</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">decorator</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">dill</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">distributed</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">docker-py</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">docker-pycreds</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">docutils</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">dynd-python</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">edward</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">elasticsearch</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">entrypoints</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">enum34</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">et_xmlfile</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">expat</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">fastcache</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">fastlmm</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">feedparser</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">flask</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">flask-cors</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">fontconfig</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">freetype</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">funcsigs</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">functools32</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">future</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">futures</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">gdal</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">geos</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">geotiff</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">get_terminal_size</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">gevent</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ggplot</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">glib</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">graphviz</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">greenlet</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">grin</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">grpcio</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">gst-plugins-base</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">gstreamer</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">h5py</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">harfbuzz</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">hdf4</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">hdf5</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">heapdict</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">holoviews</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">html5lib</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">humanfriendly</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">hyperlink</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">icu</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">idna</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">imagesize</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">incremental</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ipaddress</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ipykernel</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ipython</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ipython_genutils</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ipywidgets</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">isodate</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">isort</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">itsdangerous</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">jbig</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">jdcal</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">jedi</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">jinja2</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">jmespath</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">joblib</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">jpeg</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">jsonschema</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">jupyter</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">jupyter_client</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">jupyter_console</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">jupyter_core</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">kafka-python</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">kazoo</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">kealib</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">keras</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">keyring</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">klein</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">lazy-object-proxy</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">libdynd</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">libffi</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">libgcc</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">libgdal</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">libgfortran</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">libgpuarray</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">libiconv</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">libnetcdf</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">libpng</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">libpq</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">libprotobuf</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">libsodium</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">libtiff</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">libtool</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">libxcb</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">libxml2</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">libxslt</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">line-profiler</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">llvmlite</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">locket</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">lockfile</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">luigi</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">lxml</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mako</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Markdown</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">markupsafe</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">matplotlib</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">memory-profiler</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mistune</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mkl</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mkl-service</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mock</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">monotonic</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mpmath</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">msgpack-python</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">msrest</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">msrestazure</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">multipledispatch</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">natsort</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">navigator-updater</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">nb_anacondacloud</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">nb_conda</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">nb_conda_kernels</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">nbconvert</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">nbformat</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">nbpresent</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">networkx</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">nltk</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">nose</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">notebook</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">numba</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">numexpr</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">numpy</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">numpydoc</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">oauthlib</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">odo</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">olefile</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">opencv</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">openfst</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">openpyxl</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">openssl</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">packaging</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pandas</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pandasql</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pandocfilters</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pango</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">param</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">paramiko</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">partd</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">patchelf</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">path.py</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pathlib2</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">patsy</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pbr</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pcre</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pep8</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pexpect</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pickleshare</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pillow</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pip</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pixman</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">plotly</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ply</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">proj4</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">prompt-toolkit</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">prompt_toolkit</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">protobuf</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">psutil</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">psycopg2</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ptyprocess</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">py</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pyang</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pyasn1</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pyasn1-modules</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pycairo</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pycosat</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pycparser</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pycrypto</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pycurl</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pydocumentdb</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pydot</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pyflakes</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PyGithub</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pygments</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pygpu</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PyJWT</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pykafka</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pylint</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pymc</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pymc3</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pymongo</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Pympler</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pymssql</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pymysql</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PyNaCl</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pyodbc</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pyopenssl</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pypachy</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pyparsing</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pyprof2calltree</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pyqt</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pysnptools</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pytables</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pytest</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">python</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">python-daemon</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">python-dateutil</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pytz</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PyWavelets</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pywavelets</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pywget</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pyyaml</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pyzmq</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">qt</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">qtawesome</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">qtconsole</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">qtpy</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">readline</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">redis</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">redis-py</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">requests</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">requests-oauthlib</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">rope</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">rpy2</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ruamel_yaml</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">s3transfer</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">scandir</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">scikit-bio</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">scikit-image</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">scikit-learn</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">scipy</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">scp</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">seaborn</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SecretStorage</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">service-identity</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">setuptools</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">simplegeneric</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">singledispatch</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sip</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">six</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">snakeviz</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">snowballstemmer</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sockjs-tornado</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sortedcollections</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sortedcontainers</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sphinx</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sphinx_rtd_theme</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">spyder</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sqlalchemy</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sqlite</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sshtunnel</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ssl_match_hostname</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">statsmodels</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">subprocess32</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sympy</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tabulate</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tblib</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tensorflow</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">terminado</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">testpath</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">theano</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Theano</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tk</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">toolz</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tornado</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tqdm</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">traitlets</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">traittypes</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">treq</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Twisted</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">unicodecsv</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">unixodbc</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">urllib3</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">vega</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">vsts-cd-manager</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">wcwidth</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">websocket-client</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">werkzeug</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">wheel</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Whoosh</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">widgetsnbextension</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">word2vec</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">wrapt</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">xerces-c</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">xlrd</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">xlsxwriter</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">xlutils</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">xlwt</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">xmltodict</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">xz</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yaml</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">zeromq</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">zict</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">zlib</td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">zope.interface</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><i class="fa fa-check" aria-hidden="true"></i></td>
+</tr>
+</tbody>
+</table></div>
+<!--
+
+Document one container by Library (not notebook). Impact on UX?
+
+Intro: point to <https://github.com/garth-wells/IA-maths-Jupyter> ?
+
+Packages
+================================================================================
+
+Everything in anaconda is installed? `!conda list` gives a large list of
+installed packages...
+
+Using pip (no root!) or conda (use `-y`).
+
+Not root but `nbuser`. No Terminal either. (have a "limitation" section?).
+But terminal may be replaced (mostly) by Jupyter shell commands.
+
+Why not root? Probably not for the user (or the other users) safety (the containers do that) but to avoid
+to canibalize the not-free azure offers. Cause it's perfectly possible to
+kill all fucking jupyter stuff anyway (rm the home dir, that's it).
+
+**UPDATE:** this is wrong! There is a terminal possible access: click on
+the jupyter icon in the left-top corner and here is the usual access to
+jupyter stuff!
+
+Tests show that package that depend on C or Fortran work. Great!
+
+You are not root though ...
+
+Missing stuff? GitHub issues.
+
+Network Access
+================================================================================
+
+Why we need network access: install software, manage data (in/out).
+
+Whitelist principles, list of stuff that works (Azure stuff, Github,
+transfer.sh, Pypi).
+
+Ways to access it: shell commands (curl, etc.), requests, pip
+
+Data Management
+================================================================================
+
+Transient only (bur for the notebooks), 
+need to manage rehydration. (the notebook itself is persistent).
+
+So need to restore any data files that are needed and reinstall packages.
+When the notebook is done, the output files should be recovered too.
+
+Dropbox works. Can only transfer files, not folders :(
+Same thing locally. The "download selected" seems to freeze the stuff somehow.
+Actually that also used to happen on my hosted jupyterhub on the upload.
+
+Upload from computer also works (but single file at a time).
+
+UI to push / pull data.
+
+Command-line
+
+NOTA: the usual "view" from the filesystem displays the notebooks only,
+not the home dir and the files it may contain. OTOH, commands (shell,
+terminal) work on the "real" filesystems and the notebooks are not
+here.
+
+NOTA: a single docker container is instantiated for multiple repos;
+it may be handy to create a workspace for each notebook and to
+`os.chdir` into it. It also helps (moderately) to create a single 
+zip file, that will be downloaded and later re-uploaded and 
+unpacked (then again, need to cd into it).
+
+TODO: interface to manage this data? 
+create a package that may be pip installed?
+
+Try the Dropbox API? 
+See <http://www.dropboxwiki.com/tips-and-tricks/using-the-official-dropbox-command-line-interface-cli>
+Nah, doesn't work like that.
+
+Social Media / Sharing / Cloning, etc.
+================================================================================
+
+Explore UX to share, upload, etc. notebooks.
+
+Everything is accessible (read) if you know the adress.
+And everyone can visualize the notebook, download it, etc. even
+without a Microsoft account AFAICT. 
+Modifying/execution requires a clone that needs an account.
+
+
+-->
+</section>
+<section class="footnotes" id="notes"><h1><a href="#notes">Notes</a></h1>
+<hr>
+<ol>
+<li id="fn1"><p>Alternatively, you can open a full-fledged terminal. First you need to access the Jupyter dashboard (click on the Jupyter logo in the top-left corner of the notebook), then open the “New” drop down menu and select “Terminal”.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>Actually there is a hidden <code>.library</code> directory, where <em>sometimes</em> you can find your notebook file, but not consistently AFAICT.<a href="#fnref2">↩</a></p></li>
+</ol>
+</section>
+</main>
+
+
+</body></html>

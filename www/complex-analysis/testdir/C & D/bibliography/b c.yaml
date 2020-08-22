@@ -1,0 +1,15 @@
+---
+references:
+- id: ref
+  type: book
+  author:
+  - family: Rudin
+    given: Walter
+  issued:
+  - year: '1987'
+  title: REF
+  publisher: 'McGraw-Hill'
+  page: xiv + 416
+  edition: 3rd ed.
+  ISBN: '0-07-054234-1'
+---

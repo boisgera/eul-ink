@@ -1,0 +1,834 @@
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, Mines ParisTech">
+  <meta name="dcterms.date" content="2019-09-30">
+  <title>Integral Representations</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: content-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+html {
+  line-height: var(--base-line-height);
+  --base-font-size: 24px;
+  --base-line-height: 36px;
+  --scale-ratio: 1.4142135623730951;
+  --small: 17px;
+  --medium: 24px;
+  --large: 34px;
+  --x-large: 48px;
+  font-size: 24px;
+  font-family: 'Alegreya', serif;
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html em {
+  font-style: italic;
+}
+html strong {
+  font-weight: bold;
+}
+html p, html .p {
+  margin-bottom: var(--base-line-height);
+  text-align: justify;
+  hyphens: auto;
+  -moz-hyphens: auto;
+}
+html section {
+  margin-bottom: var(--base-line-height_px);
+}
+html main {
+  box-sizing: content-box;
+  max-width: 32em;
+  margin: auto;
+  padding: var(--base-line-height);
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, q:before {
+  content: none;
+}
+blockquote:after, q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: medium solid black;
+  border-bottom: medium solid black;
+}
+main > header, main > .header, main > #header {
+  margin-top: calc(2 * var(--base-line-height));
+  margin-bottom: calc(2 * var(--base-line-height));
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: calc(1.5 * var(--base-line-height));
+  margin-top: 0;
+  margin-bottom: var(--base-line-height);
+  font-weight: bold;
+}
+main > header .author, main > .header .author, main > #header .author {
+  font-size: 24px;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  font-weight: normal;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: 'Alegreya SC', serif;
+  line-height: calc(1 * var(--base-line-height));
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  font-weight: bold;
+  line-height: calc(1.25 * var(--base-line-height));
+  margin-top: calc(2.00 * var(--base-line-height));
+  margin-bottom: calc(0.75 * var(--base-line-height));
+}
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+}
+h3, h4, h5, h6 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 1em;
+  display: inline;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
+}
+a:hover {
+  text-decoration: none;
+}
+a:link {
+  color: var(--color);
+}
+a:visited {
+  color: var(--color);
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li {
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  margin-left: var(--base-line-height);
+  padding-left: 0.5em;
+}
+ul li {
+  list-style: disc;
+}
+ol li {
+  list-style: decimal;
+}
+blockquote {
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+  padding: var(--base-line-height);
+  margin-bottom: var(--base-line-height);
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-size: 24px;
+  font-family: Inconsolata;
+}
+pre {
+  overflow-x: auto;
+  background-color: #ebebeb;
+  margin-bottom: var(--base-line-height);
+  padding-left: var(--base-line-height);
+  padding-right: var(--base-line-height);
+  padding-top: var(--base-line-height);
+  padding-bottom: var(--base-line-height);
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: auto;
+}
+figure {
+  margin-bottom: var(--base-line-height);
+  text-align: center;
+}
+figcaption {
+  display: inline-block;
+  font-style: italic;
+  text-align: justify;
+}
+.table {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  margin-bottom: var(--base-line-height);
+}
+thead {
+  border-bottom: medium solid black;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+.MJXc-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+nav#TOC > ul {
+  position: relative;
+  font-weight: bold;
+}
+nav#TOC > ul > * {
+  margin-bottom: var(--base-line-height);
+}
+nav#TOC > ul li {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+nav#TOC > ul ul li {
+  margin-left: var(--base-line-height);
+  font-weight: normal;
+}
+nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+  padding-bottom: var(--base-line-height);
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+.badge {
+  position: relative;
+  bottom: 0.13em;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  font-weight: 300;
+  font-size: var(--small);
+  display: inline-block;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  vertical-align: baseline;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+  margin-right: 1em;
+}
+.section-flag {
+  line-height: var(--base-line-height);
+  font-size: var(--small);
+  font-weight: 300;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  margin-bottom: 0;
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya: 400,700,900,400italic,700italic,900italic|Alegreya+SC:400,700,900,400italic,700italic,900italic|Alegreya+Sans:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+Sans+SC:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var box, hide_proof, main, show_proof;
+
+  hide_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("expanded");
+    sectionWrapper.addClass("minimized");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "visible"
+    });
+    w$(".header-wrapper").css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().css({
+      visibility: "hidden",
+      height: "0px"
+    });
+    w$(".header-wrapper").attr({
+      id: w$("section").first().attr("id")
+    });
+    return w$("section").first().attr({
+      id: ""
+    });
+  };
+
+  show_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("minimized");
+    sectionWrapper.addClass("expanded");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "hidden"
+    });
+    w$(".header-wrapper").css({
+      visibility: "hidden",
+      height: "0"
+    });
+    w$("section").first().css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().attr({
+      id: w$(".header-wrapper").attr("id")
+    });
+    return w$(".header-wrapper").attr({
+      id: ""
+    });
+  };
+
+  box = function(section) {
+    var clone, expand, header, headerWrapper, tombstone, wrapper;
+    clone = section.clone(true);
+    clone.css({
+      marginBottom: "0"
+    });
+    clone.children().last().css({
+      marginBottom: "0"
+    });
+    tombstone = clone.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer",
+      position: "absolute",
+      bottom: "0.75rem",
+      right: "0.75rem"
+    });
+    wrapper = $("<div class='proof-wrapper expanded'></div>");
+    wrapper.css({
+      position: "relative",
+      margin: "-0.75rem -0.75rem 0.75rem -0.75rem",
+      padding: "0.75rem",
+      backgroundColor: "#f9f9f9"
+    });
+    header = clone.find("h3, h4, h5, h6").first().clone();
+    headerWrapper = $("<div class='p header-wrapper' style='margin-bottom:0; visibility:hidden; overflow:hidden; height:0;'> </div>");
+    headerWrapper.append(header);
+    expand = $("<i class='fa fa-caret-down expand' style='visibility:hidden; cursor:pointer; position:absolute; top:0.75rem; right:0.75rem;'> </i>");
+    wrapper.append(headerWrapper);
+    wrapper.append(expand);
+    wrapper.append(clone);
+    expand.on("click", function() {
+      return show_proof(wrapper);
+    });
+    tombstone.on("click", function() {
+      return hide_proof(wrapper);
+    });
+    section.replaceWith(wrapper);
+    return wrapper;
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, section, sections, text, wrapper;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      wrapper = box(section);
+      hide_proof(wrapper);
+    }
+    return $(document).keydown(function(event) {
+      var k, l, len2, len3, ref1, ref2, results, sectionWrapper;
+      console.log("***", event.keyCode);
+      if (event.keyCode === 88) {
+        ref1 = $(".proof-wrapper.minimized");
+        for (k = 0, len2 = ref1.length; k < len2; k++) {
+          sectionWrapper = ref1[k];
+          show_proof($(sectionWrapper));
+        }
+      }
+      if (event.keyCode === 77) {
+        ref2 = $(".proof-wrapper.expanded");
+        results = [];
+        for (l = 0, len3 = ref2.length; l < len3; l++) {
+          sectionWrapper = ref2[l];
+          results.push(hide_proof($(sectionWrapper)));
+        }
+        return results;
+      }
+    });
+  };
+
+  $(main);
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var make_preview, mathjaxDebug;
+
+  make_preview = function(elt) {
+    var card, hidden_css, hide_preview, id, ref, show_preview, url, visible_css;
+    ref = elt.attr("href").split("#"), url = ref[0], id = ref[1];
+    card = $("<div class='card'>\n  <div class='holder'>\n    <p>Placeholder</p>\n  </div>\n</div>");
+    card.css({
+      width: "35vw",
+      padding: "1.5rem",
+      position: "fixed",
+      top: "1.5rem",
+      right: "1.5rem",
+      boxSizing: "border-box",
+      maxHeight: "calc(100vh - 3rem)",
+      overflow: "hidden",
+      boxShadow: "0 0 1rem #e6e6e6",
+      backgroundColor: "white"
+    });
+    visible_css = {
+      visibility: "visible",
+      opacity: 1,
+      transform: "translateX(0em)",
+      transition: "all 0.3s linear"
+    };
+    hidden_css = {
+      visibility: "hidden",
+      opacity: 0,
+      transform: "translateX(1em)",
+      transition: "all 0.3s linear 0.5s"
+    };
+    card.css(hidden_css);
+    elt.css({
+      textDecoration: "underline solid #0a0a0a",
+      textDecorationSkip: "ink",
+      transition: "background-color 0.3s linear"
+    });
+    show_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d3"
+      });
+      return card.css(visible_css);
+    };
+    hide_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d300"
+      });
+      return card.css(hidden_css);
+    };
+    return card.find(".holder").load(url + (" [id='" + id + "']"), function(response, status, jxXHR) {
+      console.log("XHR status:", status, url, id);
+      if (status === "success" || status === "notmodified") {
+        console.log("success!");
+        console.log("elt:", $(elt));
+        $("body").append(card);
+        card.find("p, .p").css({
+          textAlign: "left"
+        });
+        card.find("section").css({
+          marginBottom: "0"
+        });
+        card.find("section").children().last().css({
+          marginBottom: "0"
+        });
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, card[0]]);
+        elt.on("mouseenter", show_preview);
+        return elt.on("mouseleave", hide_preview);
+      }
+    });
+  };
+
+  mathjaxDebug = function() {
+    MathJax.Hub.signal.Interest(function(message) {
+      return console.log("*", message);
+    });
+    return MathJax.Hub.Register.StartupHook("End Process", function() {
+      var i, jax, len, ref, results;
+      console.log("list of jaxes:");
+      ref = MathJax.Hub.getAllJax();
+      results = [];
+      for (i = 0, len = ref.length; i < len; i++) {
+        jax = ref[i];
+        results.push(console.log("jax:", jax));
+      }
+      return results;
+    });
+  };
+
+  $(function() {
+    var elt, i, len, ref, results;
+    ref = $("a.preview");
+    results = [];
+    for (i = 0, len = ref.length; i < len; i++) {
+      elt = ref[i];
+      results.push(make_preview($(elt)));
+    }
+    return results;
+  });
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">Integral Representations</a></h1>
+
+<h2 class="author">
+By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, <a href="http://www.mines-paristech.fr/">Mines ParisTech</a>, under <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+</h2> 
+
+<h3 class="date" style="margin-right: 0px;">September 30, 2019</h3>
+</header>
+<section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
+<ul>
+<li class="top-li"><p class="section-flag">section 1</p><a href="#complex-differentiation-of-integrals">Complex Differentiation of Integrals</a><ul>
+<li><span class="badge">the<span></span></span><a href="#theorem--complex-differentiation-under-the-integral-sign.">Complex-Differentiation under the Integral Sign</a></li>
+<li></li>
+<li><span class="badge">cor<span></span></span><a href="#corollary--complex-differentiation-of-line-integrals.">Complex-Differentiation of Line Integrals</a></li>
+<li></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 2</p><a href="#the-laplace-transform">The Laplace Transform</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--the-laplace-transform.">The Laplace Transform</a></li>
+<li></li>
+<li><span class="badge">exa<span></span></span><a href="#example--laplace-transform-of-exponential-functions.">Laplace Transform of Exponential Functions</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--derivative-of-the-laplace-transform.">Derivative of the Laplace Transform</a></li>
+<li></li>
+<li><span class="badge">exa<span></span></span><a href="#example--laplace-transform-of-polynomials.">Laplace Transform of Polynomials</a></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 3</p><a href="#cauchys-integral-theorem-dixons-proof">Cauchy’s Integral Theorem – Dixon’s Proof</a><ul>
+<li><span class="badge">lem<span></span></span><a href="#lemma--integral-of-the-difference-quotient.">Integral of the Difference Quotient</a></li>
+<li></li>
+<li></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 4</p><a href="#the-pi-function">The <span class="math inline">\(\Pi\)</span> Function</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--pi-function.">\(\Pi\) Function</a></li>
+<li></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 5</p><a href="#references">References</a></li>
+</ul>
+</nav></section>
+<section id="complex-differentiation-of-integrals" class="level1">
+<h1><a href="#complex-differentiation-of-integrals">Complex Differentiation of Integrals</a></h1>
+<section id="theorem--complex-differentiation-under-the-integral-sign." class="level3">
+
+<div class="p"><h3><a href="#theorem--complex-differentiation-under-the-integral-sign.">Theorem – Complex-Differentiation under the Integral Sign.</a></h3>‌ Let <span class="math inline">\(\Omega\)</span> be an open subset of <span class="math inline">\(\mathbb{C}\)</span> and <span class="math inline">\((X, \mu)\)</span> be a measurable space. Let <span class="math inline">\(f : \Omega \times X \to \mathbb{C}\)</span> be a function such that:</div>
+<ol type="1">
+<li><p>for every <span class="math inline">\(z\)</span> in <span class="math inline">\(\Omega,\)</span> <span class="math inline">\(x \in X \mapsto f(z, x)\)</span> is <span class="math inline">\(\mu\)</span>-measurable,</p></li>
+<li><p>for any <span class="math inline">\(z_0 \in \Omega,\)</span> there is a neighborhood <span class="math inline">\(V\)</span> of <span class="math inline">\(z_0\)</span> in <span class="math inline">\(\Omega\)</span> and a <span class="math inline">\(\mu\)</span>-integrable function <span class="math inline">\(g: X \to \mathbb{R}_+\)</span> such that <span class="math display">\[\forall \, z \in V, \;|f(z,x)| \leq g(x) \; \mbox{$\mu$-a.e.}\]</span></p></li>
+<li><p>for <span class="math inline">\(\mu\)</span>-almost every <span class="math inline">\(x \in X,\)</span> the function <span class="math inline">\(z \in \Omega \mapsto f(z, x)\)</span> is holomorphic.</p></li>
+</ol>
+<p>Then the function <span class="math inline">\(z \in \Omega \mapsto \int_X f(z, x) \, d\mu(x)\)</span> is holomorphic and its derivative at any order <span class="math inline">\(n\)</span> is <span class="math display">\[
+  \frac{\partial^n}{\partial z^n} \left[ \int_X f(z, x) \, d\mu(x) \right]
+  =
+  \int_X \partial_z^n
+  f(z, x) \, d\mu(x).
+  \]</span></p>
+</section>
+<section id="proof." class="level3">
+
+<div class="p"><h3><a href="#proof.">Proof.</a></h3>‌Let <span class="math inline">\(z_0\)</span> in <span class="math inline">\(\Omega\)</span> and <span class="math inline">\(V\)</span> be as in assumption 2; let <span class="math inline">\(r&gt;0\)</span> be a radius such that <span class="math inline">\(\overline{D}(z_0,r) \subset V\)</span> and let <span class="math inline">\(\gamma= z_0 + r [\circlearrowleft].\)</span> The Cauchy formula, followed by an integration by parts, yields for <span class="math inline">\(\mu\)</span>-almost every <span class="math inline">\(x \in X\)</span> and any <span class="math inline">\(z \in D(z_0, r/2)\)</span> <span class="math display">\[
+  \partial_z f(z, x) 
+  = \frac{1}{i2\pi} \int_{\gamma} \frac{\partial_z f(w, x)}{w-z} \, dw
+  = \frac{1}{i2\pi} \int_{\gamma} \frac{f(w, x)}{(w-z)^2} \, dw,
+  \]</span> which by the M-L estimation lemma provides the bound <span class="math display">\[
+  |\partial_z f(z, x)| \leq \frac{4|g(x)|}{r}.
+  \]</span></div>
+<p>The difference quotient of <span class="math inline">\(z \mapsto \int_X f(z, x) \, d\mu(x)\)</span> at <span class="math inline">\(z_0\)</span> is equal to <span class="math display">\[
+  \int_X \frac{f(z_0+h, x) - f(z_0, x)}{h}\, d\mu(x).
+  \]</span> Let <span class="math inline">\(h\)</span> be a complex number such that <span class="math inline">\(|h|&lt; r/2.\)</span> For <span class="math inline">\(\mu\)</span>-almost every <span class="math inline">\(x \in X,\)</span> the function <span class="math inline">\(\phi: t \in [0,1] \mapsto f(z_0 + t h, x)\)</span> is continuous on <span class="math inline">\([0,1],\)</span> differentiable on <span class="math inline">\(\left]0,1\right[\)</span> and satisfies <span class="math display">\[
+  |\phi'(t)| = |\partial_z f(z_0+th, x)| |h| \leq \frac{g(x)}{r} |h|.
+  \]</span> Hence, the mean value inequality yields <span class="math display">\[
+  \left| \frac{f(z_0+h, x) - f(z_0, x)}{h} \right|
+  =
+  \frac{|\phi(1) - \phi(0)|}{|h|}  \leq \frac{4g(x)}{r}.
+  \]</span> Since <span class="math display">\[
+  \lim_{h \to 0} \frac{f(z_0+h, x) - f(z_0, x)}{h} = \partial_z f(z_0, x) 
+  \; \mbox{ $\mu$-a.e.},
+  \]</span> Lebesgue’s dominated convergence theorem provides the result for <span class="math inline">\(n=1.\)</span> Now, the function <span class="math inline">\(\partial_z f\)</span> also satisfies the three assumptions required by the theorem, hence by induction, the theorem statement holds at any order <span class="math inline">\(n.\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+<section id="corollary--complex-differentiation-of-line-integrals." class="level3">
+
+<div class="p"><h3><a href="#corollary--complex-differentiation-of-line-integrals.">Corollary – Complex-Differentiation of Line Integrals.</a></h3>‌ Let <span class="math inline">\(f: \Omega \times \Lambda \to \mathbb{C}\)</span> where <span class="math inline">\(\Omega\)</span> and <span class="math inline">\(\Lambda\)</span> are two subsets of <span class="math inline">\(\mathbb{C}\)</span> and <span class="math inline">\(\Omega\)</span> is open. Assume that</div>
+<ol type="1">
+<li><p><span class="math inline">\(f\)</span> is a continuous function.</p></li>
+<li><p>for any <span class="math inline">\(w \in \Lambda,\)</span> the function <span class="math inline">\(z \in \Omega \mapsto f(z, w)\)</span> is holomorphic.</p></li>
+</ol>
+<p>Then, for any sequence of rectifiable paths <span class="math inline">\(\gamma\)</span> of <span class="math inline">\(\Lambda,\)</span> the function <span class="math inline">\(z \in \Omega \mapsto \int_{\gamma} f(z, w) \, dw\)</span> is holomorphic and <span class="math display">\[
+  \frac{\partial}{\partial z} \left[ \int_{\gamma} f(z, w) \, dw \right]
+  =
+  \int_{\gamma} \partial_z
+  f(z, w) \, dw.
+  \]</span></p>
+</section>
+<section id="proof.-1" class="level3">
+
+<div class="p"><h3><a href="#proof.-1">Proof.</a></h3>‌ We prove the result for any continuously differentiable path <span class="math inline">\(\gamma\)</span> of <span class="math inline">\(\Lambda\)</span> (the case of a sequence of rectifiable paths is a simple corollary). By definition of the line integral, <span class="math display">\[
+  \int_{\gamma} f(z, w) \, dw 
+  = 
+  \int_{[0,1]} f(z, \gamma(t)) \gamma'(t) \, dt.
+  \]</span> Now,</div>
+<ol type="1">
+<li><p>For any <span class="math inline">\(z \in \Omega,\)</span> the function <span class="math inline">\(t \in [0,1] \mapsto f(z, \gamma(t)) \gamma'(t)\)</span> is continuous and therefore Lebesgue measurable.</p></li>
+<li><p>Let <span class="math inline">\(z_0 \in \Omega\)</span> and let <span class="math inline">\(r&gt;0\)</span> be such that <span class="math inline">\(K = \overline{D}(z_0, r) \subset \Omega.\)</span> The restriction of <span class="math inline">\(f\)</span> to the compact set <span class="math inline">\(K \times \gamma([0,1])\)</span> is bounded by some constant <span class="math inline">\(\kappa.\)</span> Therefore, for any <span class="math inline">\(z \in D(z_0,r),\)</span> the function <span class="math inline">\(t \in [0,1] \mapsto f(z, \gamma(t)) \gamma'(t)\)</span> is dominated by <span class="math inline">\(t \in [0,1] \mapsto \kappa |\gamma'(t)|\)</span> which is Lebesgue integrable.</p></li>
+<li><p>For any <span class="math inline">\(t \in [0,1],\)</span> the function <span class="math inline">\(z \in \Omega \mapsto f(z, \gamma(t)) \gamma'(t)\)</span> is holomorphic; its derivative is <span class="math inline">\(\partial_z f(z, \gamma(t)) \gamma'(t).\)</span></p></li>
+</ol>
+<p>Consequently, the differentiation of Lebesgue integrals theorem provides the existence of <span class="math inline">\(\partial_z\left[ \int_{\gamma} f(z, w) \, dw \right]\)</span> and its value: <span class="math display">\[
+  \frac{\partial}{\partial z} \left[ \int_{\gamma} f(z, w) \, dw \right]
+  =
+  \int_{[0,1]} \partial_z f(z, \gamma(t)) \gamma'(t) \, dt.
+  \]</span> The right-hand side is equal to <span class="math inline">\(\int_{\gamma} \partial_z f(z, w) \, dw.\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+</section>
+<section id="the-laplace-transform" class="level1">
+<h1><a href="#the-laplace-transform">The Laplace Transform</a></h1>
+<section id="definition--the-laplace-transform." class="level3">
+
+<div class="p"><h3><a href="#definition--the-laplace-transform.">Definition – The Laplace Transform.</a></h3>‌ Let <span class="math inline">\(f: \mathbb{R}_+ \to \mathbb{C}\)</span> be a Lebesgue measurable function. We denote by <span class="math inline">\(\sigma\)</span> the extended real number defined by <span class="math display">\[
+  \sigma \in [-\infty, +\infty] = \inf   
+  \left\{
+  \sigma^+ \in \mathbb{R} 
+  \; \left| \;
+  \int_{\mathbb{R}_+} |f(t)| e^{-\sigma^+ t} \, dt &lt; +\infty
+  \right.
+  \right\}.
+  \]</span> If <span class="math inline">\(s \in \mathbb{C}\)</span> and <span class="math inline">\(\mathrm{Re}(s) &gt; \sigma,\)</span> the function <span class="math inline">\(t \in \mathbb{R}_+ \mapsto f(t) e^{-st}\)</span> is Lebesgue integrable. The <em>Laplace transform</em> of <span class="math inline">\(f\)</span> is the function <span class="math display">\[
+  \mathcal{L} [f]: \{s \in \mathbb{C} \; | \; \mathrm{Re}(s) &gt; \sigma\} \to \mathbb{C}
+  \]</span> defined by <span class="math display">\[
+  \mathcal{L} [f](s) = \int_{\mathbb{R}_+} f(t) e^{-st} \, dt.
+  \]</span></div>
+</section>
+<section id="proof--definition-of-the-laplace-transform." class="level3">
+
+<div class="p"><h3><a href="#proof--definition-of-the-laplace-transform.">Proof – Definition of the Laplace Transform.</a></h3>‌ For any <span class="math inline">\(s \in \mathbb{C},\)</span> the function <span class="math inline">\(t \in \mathbb{R}_+ \mapsto f(t) e^{-s t}\)</span> is Lebesgue measurable . If additionally <span class="math inline">\(\mathrm{Re}(s) &gt; \sigma,\)</span> then there is some <span class="math inline">\(\sigma^+\)</span> such that <span class="math inline">\(\sigma &lt; \sigma^+ &lt; \mathrm{Re}(s)\)</span> and <span class="math inline">\(t \mapsto |f(t)| e^{-\sigma^+ t}\)</span> is Lebesgue integrable. Thus, <span class="math display">\[
+  \int_{\mathbb{R}_+} |f(t) e^{-s t}| \, dt
+  = 
+  \int_{\mathbb{R}_+} |f(t)| e^{-\mathrm{Re}(s) t} \, dt \leq \int_{\mathbb{R}_+} |f(t)| e^{-\sigma^+ t} \, dt &lt; + \infty.
+  \]</span> and therefore <span class="math inline">\(t \in \mathbb{R}_+ \mapsto f(t) e^{-s t}\)</span> is Lebesgue integrable. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="example--laplace-transform-of-exponential-functions." class="level3">
+
+<div class="p"><h3><a href="#example--laplace-transform-of-exponential-functions.">Example – Laplace Transform of Exponential Functions.</a></h3>‌ For any <span class="math inline">\(\lambda \in \mathbb{C},\)</span> the function <span class="math inline">\(t \in \mathbb{R}_+ \mapsto e^{\lambda t}\)</span> is Lebesgue measurable. Additionally, <span class="math display">\[
+ \forall \, t \geq 0, \;|f(t)| e^{-\sigma^+ t} = e^{-(\sigma^+ - \mathrm{Re}(\lambda)) t},
+ \]</span> hence the function <span class="math inline">\(t \in \mathbb{R}_+ \mapsto |f(t)|e^{-\sigma^+ t}\)</span> is Lebesgue integrable if and only if <span class="math inline">\(\sigma^+ &gt; \mathrm{Re}(\lambda).\)</span> The infimum <span class="math inline">\(\sigma\)</span> of all such <span class="math inline">\(\sigma^+\)</span> is therefore <span class="math inline">\(\mathrm{Re}(\lambda).\)</span> Now, if <span class="math inline">\(\mathrm{Re}(s) &gt; \mathrm{Re}(\lambda),\)</span> <span class="math display">\[
+  \mathcal{L} [f](s) 
+  = 
+  \int_{\mathbb{R}_+} e^{(\lambda-s)t} \, dt
+  = 
+  \left[ \frac{e^{(\lambda-s)t}}{\lambda - s}\right]_0^{+\infty}
+  =
+  \frac{1}{s-\lambda}.
+  \]</span></div>
+</section>
+<section id="theorem--derivative-of-the-laplace-transform." class="level3">
+
+<div class="p"><h3><a href="#theorem--derivative-of-the-laplace-transform.">Theorem – Derivative of the Laplace Transform.</a></h3>‌ The Laplace transform of a Lebesgue measurable function <span class="math inline">\(f: \mathbb{R}_+ \to \mathbb{C}\)</span> is holomorphic on its domain of definition and <span class="math display">\[
+  (\mathcal{L} [f])'(s) = \mathcal{L} [t \mapsto -t f(t)](s).
+  \]</span></div>
+</section>
+<section id="proof.-2" class="level3">
+
+<div class="p"><h3><a href="#proof.-2">Proof.</a></h3>‌ Let <span class="math inline">\(\Omega = \{s \in \mathbb{C} \; | \; \mathrm{Re}(s) &gt; \sigma\}.\)</span></div>
+<ol type="1">
+<li><p>For any <span class="math inline">\(s \in \Omega,\)</span> the function <span class="math inline">\(t\mapsto f(t) e^{-st}\)</span> is Lebesgue measurable.</p></li>
+<li><p>Let <span class="math inline">\(s \in \Omega\)</span> and let <span class="math inline">\(r &gt; 0\)</span> be such that <span class="math inline">\(\epsilon = \mathrm{Re}(s) - \sigma - r &gt; 0.\)</span> For any <span class="math inline">\(w \in D(s, r),\)</span> we have <span class="math inline">\(\mathrm{Re}(w) &gt; \mathrm{Re}(s) - r = \sigma + \epsilon,\)</span> thus <span class="math display">\[
+  \int_{\mathbb{R}_+} |f(t) e^{-wt}| \, dt 
+  =
+  \int_{\mathbb{R}_+} |f(t)| e^{-\mathrm{Re}(w)t} \, dt 
+  \leq
+  \int_{\mathbb{R}_+} |f(t)| e^{-(\sigma + \epsilon)t} \, dt
+  &lt; +\infty. 
+  \]</span></p></li>
+<li><p>For almost any <span class="math inline">\(t \geq 0,\)</span> <span class="math inline">\(s \mapsto f(t) e^{-st}\)</span> is holomorphic and <span class="math display">\[\partial_s [f(t) e^{-st}] = -t f(t) e^{-st}.\]</span></p></li>
+</ol>
+<p>We can therefore differentiate under the integral sign and obtain <span class="math display">\[
+  \frac{\partial}{\partial s}\int_0^{+\infty} f(t) e^{-st} \, dt
+  =
+  \int_0^{+\infty} -t f(t) e^{-st} \, dt
+  =
+  \mathcal{L} [t \mapsto -t f(t)](s)
+  \]</span> as expected. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+<section id="example--laplace-transform-of-polynomials." class="level3">
+
+<div class="p"><h3><a href="#example--laplace-transform-of-polynomials.">Example – Laplace Transform of Polynomials.</a></h3>‌ The constant function defined by <span class="math inline">\(f(t) = 1\)</span> for <span class="math inline">\(t\geq 0\)</span> is an exponential function (as <span class="math inline">\(1 = e^{0 \times t}\)</span>); its Laplace transform is defined for <span class="math inline">\(\mathrm{Re}(s) &gt; 0\)</span> and equal to <span class="math inline">\(1/s.\)</span> Now, this Laplace transform has a derivative at every of order <span class="math inline">\(n\)</span> which is <span class="math display">\[
+  \frac{(-1)^n n!}{s^{n+1}}.
+  \]</span> It is also the Laplace transform of <span class="math inline">\(t \in \mathbb{R}_+ \mapsto (-t)^n.\)</span> Thus, by linearity, the Laplace transform of the polynomial <span class="math inline">\(f(t) = \sum_{p=0}^n a_{p} t^p\)</span> is <span class="math display">\[
+  \mathcal{L}[f](s) = \sum_{p=0}^{n} a_{p} p! \frac{1}{s^{p+1}}.
+  \]</span></div>
+</section>
+</section>
+<section id="cauchys-integral-theorem-dixons-proof" class="level1">
+<h1><a href="#cauchys-integral-theorem-dixons-proof">Cauchy’s Integral Theorem – Dixon’s Proof</a></h1>
+<p>In <span class="citation" data-cites="Dix71">(Dixon <a href="#ref-Dix71">1971</a>)</span>, John D. Dixon provides a short proof of the global version of Cauchy’s Formula, using the local Cauchy theory. The proof relies on the following key result:</p>
+<section id="lemma--integral-of-the-difference-quotient." class="level3">
+
+<div class="p"><h3><a href="#lemma--integral-of-the-difference-quotient.">Lemma – Integral of the Difference Quotient.</a></h3>‌ Let <span class="math inline">\(\Omega\)</span> be an open subset of the complex plane, <span class="math inline">\(f\)</span> be a holomorphic function on <span class="math inline">\(\Omega\)</span> and <span class="math inline">\(\gamma\)</span> be a sequence of rectifiable closed paths of <span class="math inline">\(\Omega.\)</span> The function <span class="math display">\[
+  z \in \Omega \setminus \gamma([0,1]) \mapsto \int_{\gamma} \frac{f(z) - f(w)}{z - w}  dw
+  \]</span> has a holomorphic extension on <span class="math inline">\(\Omega.\)</span></div>
+</section>
+<section id="proof.-3" class="level3">
+
+<div class="p"><h3><a href="#proof.-3">Proof.</a></h3>‌We may define the function <span class="math inline">\(g:\Omega \times \Omega \to \mathbb{C}\)</span> by <span class="math display">\[
+  g(z, w) = 
+  \frac{f(z) - f(w)}{z - w} \; \mbox{ if }\; z \neq w 
+  \; \mbox{ and } \;
+  g(w, w) = f'(w).
+  \]</span> The continuity and complex-differentiability of <span class="math inline">\(g\)</span> at any point <span class="math inline">\((z, w) \in \Omega^2\)</span> such that <span class="math inline">\(z \neq w\)</span> is plain. Now, let <span class="math inline">\(c \in \Omega\)</span> and let <span class="math inline">\(r&gt;0\)</span> be a radius such that the closure of the disk <span class="math inline">\(D = D(c,r)\)</span> is included in <span class="math inline">\(\Omega.\)</span> Using the Taylor expansion of <span class="math inline">\(f\)</span> in this disk, we derive for any <span class="math inline">\(z \in D\)</span> and <span class="math inline">\(w \in D\)</span>: <span class="math display">\[
+  \begin{split}
+  \frac{f(z) - f(w)}{z-w} 
+  &amp; = \frac{1}{z-w} \sum_{n=0}^{+\infty} a_n ((z-c)^n - (w-c)^n) \\
+  &amp; = \sum_{n=1}^{+\infty} a_n \left[\sum_{p=0}^{n-1}(z-c)^{n-1-p} (w-c)^p\right]
+  \end{split}
+  \]</span> The right-hand side of this equation is a uniformly convergent sum of continuous functions of <span class="math inline">\((w, z) \in D^2\)</span> . Thus, its limit is a continuous function of <span class="math inline">\((w,z)\)</span> and we have <span class="math display">\[
+  \lim_{(w,z) \to (c,c), w\neq z}  \frac{f(z) - f(w)}{z-w} 
+  =
+  \sum_{n=1}^{+\infty} n a_n (w-c)^{n-1}=f'(w) = g(w,w),
+  \]</span> thus this continuous function is actually <span class="math inline">\(g.\)</span> Additionally, for every <span class="math inline">\(w \in D,\)</span> every function of the sum is a holomorphic function with respect to <span class="math inline">\(z,\)</span> hence its uniform limit <span class="math inline">\(z \in D \mapsto g(z,w)\)</span> is also holomorphic.</div>
+<p>Now the function <span class="math display">\[
+  z \in \Omega \mapsto \int_{\gamma} g(z, w)  dw
+  \]</span> clearly extends the function of the lemma statement. It also satisfies the assumptions of the complex-differentiation of line integrals result, thus it is holomorphic. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+
+</section><section><p>For completeness, here is Dixon’s proof of Cauchy’s formula:</p></section>
+<section id="proof--cauchys-integral-formula." class="level3">
+
+<div class="p"><h3><a href="#proof--cauchys-integral-formula.">Proof – Cauchy’s Integral Formula.</a></h3>‌ Let <span class="math inline">\(\Omega\)</span> be an open subset of <span class="math inline">\(\mathbb{C}\)</span> and let <span class="math inline">\(f:\Omega \mapsto \mathbb{C}\)</span> be a holomorphic function. Let <span class="math inline">\(\gamma\)</span> be a sequence of rectifiable closed paths of <span class="math inline">\(\Omega\)</span> such that <span class="math inline">\(\mathrm{Int} \, \gamma \subset \Omega.\)</span></div>
+<p>Introduce the holomorphic extension <span class="math inline">\(h\)</span> to <span class="math inline">\(\Omega\)</span> of<br>
+<span class="math display">\[
+  z \in \Omega \setminus \gamma([0,1]) \mapsto \frac{1}{i2\pi}
+  \int_{\gamma} \frac{f(z) - f(w)}{z - w}  dw
+  \]</span> and define the function <span class="math inline">\(\phi: \mathbb{C} \mapsto \mathbb{C}\)</span> by <span class="math display">\[
+  \phi(z) = h(z) \; \mbox{ if } \, z \in \Omega, \;
+  \phi(z) = -\frac{1}{i2\pi} \int_{\gamma} \frac{f(w)}{w - z} \, dw
+  \; \mbox{ if } \; z\in \mathrm{Ext} \, \gamma.
+  \]</span> This definition is unambiguous: if <span class="math inline">\(z \in \Omega \cap \mathrm{Ext} \, \gamma,\)</span> then <span class="math display">\[
+  \begin{split}
+  h(z) 
+  &amp;= \frac{1}{i2\pi} \int_{\gamma} \frac{f(z) - f(w)}{z - w}  dw \\
+  &amp;= f(z) \mathrm{ind}(\gamma, z)
+  - \frac{1}{i2\pi}  \int_{\gamma} \frac{f(w)}{z - w}  dw \\
+  &amp;=
+  - \frac{1}{i2\pi}  \int_{\gamma} \frac{f(w)}{z - w}  dw
+  \end{split}.
+  \]</span> The function <span class="math inline">\(\phi\)</span> is holomorphic on <span class="math inline">\(\Omega\)</span> and also on <span class="math inline">\(\mathrm{Ext}\, \gamma\)</span> by the complex-differentiation of line integrals theorem. Hence, it is holomorphic on <span class="math inline">\(\mathbb{C}.\)</span> Additionally, if <span class="math inline">\(|z|&gt; r= \max \{|w| \; | \; w \in \gamma([0,1])\},\)</span> then <span class="math inline">\(z \in \mathrm{Ext} \, \gamma,\)</span> thus if <span class="math inline">\(M\)</span> is an upper bound of <span class="math inline">\(f\)</span> on the image of <span class="math inline">\(\gamma,\)</span> <span class="math display">\[
+  |\phi(z)|
+  \leq \frac{1}{2\pi}\frac{M}{|z| - r} \times \ell(\gamma)
+  \]</span> and <span class="math inline">\(|\phi(z)| \to 0\)</span> when <span class="math inline">\(|z|\to +\infty.\)</span> By Liouville’s Theorem, <span class="math inline">\(\phi\)</span> is identically zero; hence, if <span class="math inline">\(z\in\Omega,\)</span> <span class="math display">\[
+  \frac{1}{i2\pi} \int_{\gamma} \frac{f(w)}{z - w}  dw
+  =
+  \frac{1}{i2\pi} \int_{\gamma} \frac{f(z)}{z - w}  dw
+  =
+  \mathrm{ind}(\gamma, z)  f(z),
+  \]</span> which is Cauchy’s integral formula. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+<!--
+
+The Cauchy Transform
+================================================================================
+
+  - issue: what should I focus on ? Path case ? 
+    unit circle with measure/function ?
+    real line measure/function ? Connection with the Hilbert transform 
+    (see e.g. <http://www.math.caltech.edu/papers/bsimon/p325.pdf>)
+    ? See also remark <http://mathoverflow.net/questions/59544/hilbert-transforms-of-measures> 
+    for the link between the "classic" definition of Hilbert transform vs its
+    definition via the Cauchy transform.
+    General measure case (see the analytic capacity literature) ?
+    Nota: at least focus on complex-valued measure with finite
+    real and imaginary parts.
+
+Make real line & unit circle case 
+(see <https://facultystaff.richmond.edu/~wross/pdf/cauchy.pdf> for the latter) ?
+Nah, unit circle only but with fcts & measures versions ?
+Use path in general ?
+
+<http://mat.uab.es/~xtolsa/ecm.pdf>
+
+WTF no ref on real line ? Get rid of it or relate this to the Hilbert transform?
+(Probably not trivial ...). See <https://www.emis.de/journals/AASF/Vol29/jones.pdf>
+<http://www.math.uni.wroc.pl/~pms/files/26.1/Article/26.1.12.pdf>
+
+
+**Definition -- Cauchy Transform on the Unit Circle.** 
+The Cauchy transform of a complex-valued Borel measure $\mu$ defined on 
+the unit circle $\mathbb{U}$ is the function
+  $$
+  z \in \mathbb{C} \setminus \mathbb{U} 
+  \mapsto
+  \frac{1}{i2\pi} \int_{\mathbb{U}} \frac{1}{1 - \overline{w} z} d \mu(w).
+  $$
+
+**Definition -- Cauchy Transform on the Real Line.** 
+The Cauchy transform of a complex-valued Borel measure $\mu$ defined on 
+$\mathbb{R}$ is the function
+  $$
+  z \in \mathbb{C} \setminus \mathbb{R} 
+  \mapsto
+  \frac{1}{i2\pi} \int_{\mathbb{R}} \frac{1}{t - z} d \mu(t).
+  $$
+
+-->
+</section>
+</section>
+<section id="the-pi-function" class="level1">
+<h1><a href="#the-pi-function">The <span class="math inline">\(\Pi\)</span> Function</a></h1>
+<section id="definition--pi-function." class="level3">
+
+<div class="p"><h3><a href="#definition--pi-function.">Definition – <span class="math inline">\(\Pi\)</span> Function.</a></h3>‌ The <span class="math inline">\(\Pi\)</span> function is defined for all complex numbers <span class="math inline">\(z\)</span> such that <span class="math inline">\(\mathrm{Re}(z) &gt; -1\)</span> by <span class="math display">\[
+  \Pi(z) = \int_0^{+\infty} t^{z} e^{-t} \, dt
+  \]</span> It is a holomorphic function whose <span class="math inline">\(n\)</span>-th order derivative is given by <span class="math display">\[
+  \Pi^{(n)}(z) = \int_0^{+\infty} (\ln t)^n t^{z} e^{-t} \, dt.
+  \]</span></div>
+</section>
+<section id="proof--pi-function." class="level3">
+
+<div class="p"><h3><a href="#proof--pi-function.">Proof – <span class="math inline">\(\Pi\)</span> Function.</a></h3>‌ For any <span class="math inline">\(z \in \mathbb{C}\)</span> and any <span class="math inline">\(t&gt;0,\)</span> <span class="math display">\[
+  t^{z} e^{-t} = e^{z\ln t - t}
+  \;\mbox{ and } \; |t^z e^{-t}|=e^{\mathrm{Re}(z) \ln t - t}
+  = t^{\mathrm{Re}(z)} e^{-t}. 
+  \]</span> Thus, if <span class="math inline">\(\mathrm{Re}(z) &gt; -1,\)</span> the function <span class="math inline">\(t \in \mathbb{R}_+^* \mapsto t^{z} e^{-t}\)</span> is Lebesgue integrable. Let <span class="math inline">\(z\in\mathbb{C}\)</span> such that <span class="math inline">\(\mathrm{Re}(z) &gt; -1\)</span> and let <span class="math inline">\(r = (\mathrm{Re}(z) + 1)/2 &gt; 0.\)</span> For any <span class="math inline">\(h \in \mathbb{C}\)</span> such that <span class="math inline">\(|h| &lt; r\)</span> and any <span class="math inline">\(t&gt;0,\)</span> <span class="math display">\[
+  |t^{(z+h)} e^{-t}| = t^{\mathrm{Re} (z+h)} e^{-t} &lt; 
+  \max(t^{\mathrm{Re}(z)-r}, t^{\mathrm{Re}(z)+r}) e^{-t}
+  \]</span> and the right-hand side of this inequality is a Lebesgue integrable function of <span class="math inline">\(t.\)</span> Finally, for any <span class="math inline">\(t&gt;0,\)</span> the function <span class="math inline">\(z \mapsto t^z e^{-t}\)</span> is holomorphic on the domain of the <span class="math inline">\(\Pi\)</span> function and at any order <span class="math inline">\(n,\)</span> <span class="math display">\[
+  \partial_z^n t^{z} e^{-t}
+  = \partial_z^n e^{z\ln t - t}
+  = (\ln t)^n t^z e^{-t}.
+  \]</span> The assumptions of differentiation under the integral sign are met and the application of this theorem provides the desired result. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+</section>
+<section id="references" class="level1 unnumbered">
+<h1><a href="#references">References</a></h1>
+<div id="refs" class="references"><ol><li id="ref-Dix71" style="margin-bottom:0.75em"><em>A Brief Proof of Cauchy’S Integral Theorem</em><br>John D. Dixon, 1971.<br>JSON: <a href="data:application/json;charset=utf-8;fontSize64,ewogICJET0kiOiAiMTAuMjMwNy8yMDM4NjE0IiwKICAiSVNTTiI6ICIwMDAyLTk5Mzk7IDEwODgtNjgyNi9lIiwKICAiVVJMIjogImh0dHA6Ly93d3cuYW1zLm9yZy9qb3VybmFscy9wcm9jLzE5NzEtMDI5LTAzL1MwMDAyLTk5MzktMTk3MS0wMjc3Njk5LTgiLAogICJhdXRob3IiOiBbCiAgICB7CiAgICAgICJmYW1pbHkiOiAiRGl4b24iLAogICAgICAiZ2l2ZW4iOiAiSm9obiBELiIKICAgIH0KICBdLAogICJjb250YWluZXItdGl0bGUiOiAiUHJvY2VlZGluZ3Mgb2YgdGhlIEFtZXJpY2FuIE1hdGhlbWF0aWNhbCBTb2NpZXR5IiwKICAiaWQiOiAiRGl4NzEiLAogICJpc3N1ZWQiOiB7CiAgICAiZGF0ZS1wYXJ0cyI6IFsKICAgICAgWwogICAgICAgIDE5NzEKICAgICAgXQogICAgXQogIH0sCiAgInBhZ2UiOiAiNjI1LTYyNiIsCiAgInB1Ymxpc2hlciI6ICJBbWVyaWNhbiBNYXRoZW1hdGljYWwgU29jaWV0eSAoQU1TKSwgUHJvdmlkZW5jZSwgUkkiLAogICJ0aXRsZSI6ICJBIGJyaWVmIHByb29mIG9mIENhdWNoeeKAmXMgaW50ZWdyYWwgdGhlb3JlbS4iLAogICJ0eXBlIjogImFydGljbGUtam91cm5hbCIsCiAgInZvbHVtZSI6ICIyOSIKfQ=="><i style="font-size:18px;position:relative;bottom:0.05em;" class="fa fa-file-text-o"></i></a>&nbsp; / URL: <a href="http://www.ams.org/journals/proc/1971-029-03/S0002-9939-1971-0277699-8"><i style="font-size:18px" class="fa fa-link"></i></a>  / DOI: <a href="https://doi.org/10.2307/2038614"><i style="font-size:18px" class="fa fa-link"></i></a></li></ol></div>
+</section>
+</main>
+
+
+</body></html>

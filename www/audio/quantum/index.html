@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!-- Google Fonts -->
+    <link 
+      href='http://fonts.googleapis.com/css?family=Inconsolata:400,700&subset=latin,latin-ext'
+      rel='stylesheet' type='text/css'>
+    <link 
+      href='http://fonts.googleapis.com/css?family=PT+Serif:700' 
+      rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Alegreya:400,400italic,700,700italic,900,900italic|Alegreya+SC:400,400italic,700,700italic,900,900italic&subset=latin,latin-ext' 
+      rel='stylesheet' type='text/css'>
+    <!-- Mathjax -->
+    <script 
+      type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+      MathJax.Hub.Config({
+        "HTML-CSS": {scale: 90},
+        "TeX": {equationNumbers: {autoNumber: "AMS"}}
+      });
+    </script>
+    <title>Quantum</title>
+  </head>
+  <body>
+
+    <section>
+<!----------------------------------------------------------------------------->
+
+<div class="header">
+<h1 class="title">Digital Audio Coding<br /> Lab Session 3 &mdash; Quantum</h1>
+<h2 class="author"><a href="mailto:sebastien.boisgerault@mines-paristech.fr">Sébastien Boisgérault, Mines ParisTech</a></h2>
+<h3 class="date">Feb. 26, 2015</h3>
+</div>
+
+<p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/deed.en_US">Creative Commons Attribution 3.0 Unported License (CC BY 3.0)</a>. You are free to <strong>share</strong> -- to copy, distribute and transmit the work -- and to <strong>remix</strong> -- to adapt the work -- under the condition that the work is properly attributed to its author.</p>
+<h1 id="preamble">Preamble</h1>
+<p>This lab session investigates two lossy compression methods:</p>
+<ol style="list-style-type: decimal">
+<li><p>subsampling (or downsampling),</p></li>
+<li><p>nonlinear (scalar) quantization.</p></li>
+</ol>
+<p>This combination of methods is used in the context of speech compression, for example in the <a href="http://www.itu.int/rec/T-REC-G.711/en">G.711 ITU-T 1972 standard</a> for &quot;Pulse Code Modulation (PCM) of Voice Frequencies&quot; that encodes data at a 64 kbits/s bit rate. In this lab session we design a compression scheme, applicable to 256 kbit/s (16-bit, 16 kHz) audio data, that relies on these two methods and also achieves a 64 kbit/sec output bit rate.</p>
+<hr />
+<p>The <a href="http://www.ldc.upenn.edu/Catalog/CatalogEntry.jsp?catalogId=LDC93S1">TIMIT</a> corpus is a collection of read speech data with time-aligned phonetic and word information about utterances that are stored as 16-bit wide band audio data, i.e. sampled at 16 kHz. A subset of this corpus is available <a href="http://nltk.org/">Natural Language Toolkit</a> (NLTK) Python library. All utterances of the database can be listed:</p>
+<pre><code>&gt;&gt;&gt; from audio.index import *
+&gt;&gt;&gt; utterances = search(type=Utterance)
+&gt;&gt;&gt; utterances
+0. a crab challenged me but a quick stab vanquished him
+1. a screwdriver is made from vodka and orange juice
+...
+158. would a tomboy often play outdoors
+159. you always come up with pathological examples</code></pre>
+<p>The audio data of an utterance is the <code>audio</code> attribute:</p>
+<pre><code>&gt;&gt;&gt; utterance = utterances[152]
+&gt;&gt;&gt; data = utterance.audio</code></pre>
+<p>It is an array of floating-points numbers in <span class="math inline">\([-1.0, +1.0]\)</span>, obtained from the original 16-bit signed integers by a scaling of <span class="math inline">\(2^{-15}\)</span>.</p>
+<p><img src="images/utterance.svg" alt="Example of utterance waveform" /><br />
+</p>
+<h1 id="wide-band-vs-narrow-band-speech-coding">Wide-Band vs Narrow-Band Speech Coding</h1>
+<p>The TIMIT audio data has been sampled at the frequency of 16 kHz, in order to describe the audio content up to 8 kHz. In the context of voice data, this is considered <em>wide-band</em>, a frequency range large enough to ensure the quality needed for all kinds of applications.</p>
+<p>But most of the spoken voice contents are actually in the 30 Hz - 3400 Hz frequency range; this <em>narrow-band</em> is therefore sufficient for many applications where the size of the data matters. We may therefore use a sample rate of 8 kHz instead of 16 kHz, have a two-fold decrease of the audio data size and still capture most of the voice content.</p>
+<p>In this section, we generate such narrow-band data from wide-band data.</p>
+<ol style="list-style-type: decimal">
+<li><p>Select an utterance from the TIMIT index and listen to it. Drop every other value from its audio data array and save the result as a 8 kHz WAVE file. Listen to it, assess its quality and explain it.</p></li>
+<li><p>Compute the frequency response of a perfect low-pass filter with a sample rate of <span class="math inline">\(f=16\)</span> kHz and a cutoff frequency <span class="math inline">\(f_c = 4\)</span> kHz. Truncate and delay the impulse response of this filter to obtain an approximation that is causal and has a finite impulse response (FIR) of length <span class="math inline">\(N=127\)</span>. Plot the amplitude of its frequency response.</p>
+<img src="images/low-pass.svg" alt="Low pass frequency response" /><br />
+</li>
+<li><p>Apply the low-pass filter to the original utterance audio data, then decimate it by a factor of two. Save the result as a 8 kHz WAVE file, listen to it and compare its quality with the audio data from paragraph 1.</p></li>
+<li><p>Measure the maximal error (in dB) between the perfect filter and its approximation in the pass-band <span class="math inline">\(0-3400\)</span> Hz and in the stop-band <span class="math inline">\(4600 - 8000\)</span> Hz (do <em>not</em> take into account the error induced by the delay). Is it good enough ?</p></li>
+<li><p>Show that increasing the filter length decreases the approximation error. Say that we can allow a maximal delay of 20 ms in the signal processing. Can solve our problem simply be increasing the length of the filter ?</p></li>
+<li><p>Multiply the FIR impulse responses obtained previously by a selection of some classic windows <!--[classic windows](https://en.wikipedia.org/wiki/Window_function)--> of appropriate size. Can this approach solve the approximation problem ?</p></li>
+</ol>
+<h1 id="quantization">Quantization</h1>
+<ol style="list-style-type: decimal">
+<li><p>Load the 8 kHz WAVE file obtained at step 3 (or later) of the previous section as an array of floats in the <span class="math inline">\([-1, +1]\)</span> range. Make sure that the integer <span class="math inline">\(2^{15}\)</span> has been mapped to the floating-point number <span class="math inline">\(1.0\)</span>. Have we lost any information with this representation 16-bit signed integer data as floating-points ?</p></li>
+<li><p>Implement a function <code>quantizer_SNR</code> that, given a <code>Quantizer</code> instance <code>quantizer</code> and a one-dimensional  floating-point array <code>data</code>, computes the signal-to-noise ratio (in dB) associated to the quantization of <code>data</code> by <code>quantizer</code>.</p></li>
+<li><p>Compute the power <span class="math inline">\(P\)</span> (mean square value) of the audio data. What is the theoretical value of the quantization SNR -- under a high resolution assumption -- as a function of the number <span class="math inline">\(b\)</span> of quantization bits ? Compute the effective quantization SNR for a uniform quantizer on <span class="math inline">\([-1, 1]\)</span> and <span class="math inline">\(b=2,3,..., 12\)</span> ; compare with the theory.</p></li>
+<li><p>Is the value 0 encoded exacly by these <em>midrise</em> quantizers ? Why ? What is the simplest way to design a uniform <span class="math inline">\(b\)</span>-bit quantizer on <span class="math inline">\([-1,1]\)</span> that has this property (is <em>midtread</em>) ? Compute the effective quantization SNR for such quantizers and compare with the results of the previous step.</p>
+<img src="images/quantizer-SNR.svg" alt="" /><br />
+</li>
+<li><p>Display the SNR of the previous midrise and midtread quantizer for <span class="math inline">\(b\)</span> in the <span class="math inline">\(13-24\)</span> range. What is going on for 16 bits and above ? Why is there such a discrepancy between the experimental measures of the SNR and the theory ?</p></li>
+<li><p>We say that the quantizer <span class="math inline">\([\,\cdot\,]_2\)</span> has a higher resolution than the quantizer <span class="math inline">\([\,\cdot\,]_1\)</span> if any value produced by <span class="math inline">\([\,\cdot\,]_1\)</span> is encoded without error by <span class="math inline">\([\,\cdot\,]_2\)</span>.</p>
+<p>Are our <span class="math inline">\(b\)</span>-bit midrise and midtread quantizers higher resolution than the 16-bit quantizer used in the WAVE format when <span class="math inline">\(b \geq 16\)</span> ?</p>
+<p>Design a family of uniform quantizers, indexed by the number of allocated bits <span class="math inline">\(b\)</span>, such that:</p>
+<ul>
+<li>the 16-bit quantizer is consistent with the 16-bit WAVE quantizer,</li>
+<li>if <span class="math inline">\(b_1 \leq b_2\)</span>, the <span class="math inline">\(b_2\)</span>-bit quantizer has a higher resolution than the <span class="math inline">\(b_1\)</span>-bit quantizer.</li>
+</ul>
+<p>Compute the effective quantization SNR for such quantizers and compare with the previous experimental results.</p></li>
+<li><p>Quantize the data with the (8-bit, nonlinear) <span class="math inline">\(\mu\)</span>-law quantizer. What is the corresponding SNR ? How many bits would be required to achieve the same precision with a uniform quantizer ? Show that the 16-bit linear quantizer is higher-resolution than the <span class="math inline">\(\mu\)</span>-law quantizer.</p></li>
+<li><p>Create an histogram of the values <span class="math inline">\(x\)</span> of <code>data</code> and find a parameter <span class="math inline">\(a\)</span> such that the probability density proportional to <span class="math inline">\(\exp -a |x|\)</span> is a decent approximation of the repartion of the data.</p>
+<p>Implement the nonlinear quantizer that is optimal w.r.t. this probability law. Compute its SNR and compare with the <span class="math inline">\(\mu\)</span>-law.</p>
+<p><img src="images/proba.svg" alt="" /><br />
+</p></li>
+</ol>
+<div class="references">
+
+</div>
+
+
+<!----------------------------------------------------------------------------->
+    </section>
+  </body>
+</html>

@@ -1,0 +1,879 @@
+<html lang="fr"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, Jean-Emmanuel Deschaud, Mines ParisTech">
+  <title>Enquête Maths 3 2018 (C1223)</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: content-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+html {
+  line-height: 36px;
+  --base: 24;
+  --line-height: 1.5;
+  font-size: 24px;
+  font-family: Alegreya, serif;
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html em {
+  font-style: italic;
+}
+html strong {
+  font-weight: bold;
+}
+html p, html .p {
+  margin-bottom: 36px;
+  text-align: justify;
+  hyphens: auto;
+  moz-hyphens: auto;
+}
+html section {
+  margin-bottom: 36px;
+}
+html main {
+  box-sizing: content-box;
+  max-width: 32em;
+  margin: auto;
+  padding: 36px;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, q:before {
+  content: none;
+}
+blockquote:after, q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: medium solid black;
+  border-bottom: medium solid black;
+}
+main {
+}
+main > header, main > .header, main > #header {
+  margin-top: 72px;
+  margin-bottom: 72px;
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: 54px;
+  margin-top: 0px;
+  margin-bottom: 36px;
+  font-weight: bold;
+}
+main > header .author, main > .header .author, main > #header .author {
+  font-size: 24px;
+  line-height: 36px;
+  margin-bottom: 18px;
+  font-weight: normal;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: Alegreya SC, serif;
+  line-height: 36px;
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: 18px;
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  font-weight: bold;
+  line-height: 45px;
+  margin-top: 72px;
+  margin-bottom: 27px;
+}
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 36px;
+  margin-bottom: 18px;
+}
+h3, h4, h5, h6 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 1em;
+  display: inline;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
+}
+a:hover {
+  text-decoration: none;
+}
+a:link {
+  color: black;
+}
+a:visited {
+  color: black;
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li {
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  margin-left: 36px;
+  padding-left: 0.5em;
+}
+ul {
+}
+ul li {
+  list-style: disc;
+}
+ol {
+}
+ol li {
+  list-style: decimal;
+}
+blockquote {
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+  padding: 36px;
+  margin-bottom: 36px;
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-size: 24px;
+  font-family: Inconsolata;
+}
+pre {
+  overflow-x: auto;
+  background-color: #ebebeb;
+  margin-bottom: 36px;
+  padding-left: 36px;
+  padding-right: 36px;
+  padding-top: 36px;
+  padding-bottom: 36;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: auto;
+}
+figure {
+  margin-bottom: 36px;
+  text-align: center;
+}
+figcaption {
+  display: inline-block;
+  font-style: italic;
+  text-align: justify;
+}
+.table {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  margin-bottom: 36px;
+}
+thead {
+  border-bottom: medium solid black;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+.MJXc-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+nav#TOC > ul {
+  position: relative;
+  font-weight: bold;
+}
+nav#TOC > ul > * {
+  margin-bottom: 36px;
+}
+nav#TOC > ul li {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+nav#TOC > ul ul {
+}
+nav#TOC > ul ul li {
+  margin-left: 36px;
+  font-weight: normal;
+}
+.section-flag {
+  line-height: 36px;
+  font-size: 17px;
+  font-weight: 300;
+  font-family: Alegreya Sans SC;
+  margin-bottom: 0;
+}
+nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+  padding-bottom: 36;
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+nav#TOC .badge {
+  position: relative;
+  bottom: 0.13em;
+  font-family: Alegreya Sans SC;
+  font-weight: 300;
+  font-size: 17px;
+  display: inline-block;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  vertical-align: baseline;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+  margin-right: 1em;
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,800,800italic,900,900italic|Alegreya+Sans+SC:400,100,300,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+SC:400,400italic,700,700italic,900,900italic|Alegreya:400,700,900,400italic,700italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.10.0
+(function() {
+  var box, hide_proof, main, show_proof;
+
+  hide_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("expanded");
+    sectionWrapper.addClass("minimized");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "visible"
+    });
+    w$(".header-wrapper").css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().css({
+      visibility: "hidden",
+      height: "0px"
+    });
+    w$(".header-wrapper").attr({
+      id: w$("section").first().attr("id")
+    });
+    return w$("section").first().attr({
+      id: ""
+    });
+  };
+
+  show_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("minimized");
+    sectionWrapper.addClass("expanded");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "hidden"
+    });
+    w$(".header-wrapper").css({
+      visibility: "hidden",
+      height: "0"
+    });
+    w$("section").first().css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().attr({
+      id: w$(".header-wrapper").attr("id")
+    });
+    return w$(".header-wrapper").attr({
+      id: ""
+    });
+  };
+
+  box = function(section) {
+    var clone, expand, header, headerWrapper, tombstone, wrapper;
+    clone = section.clone(true);
+    clone.css({
+      marginBottom: "0"
+    });
+    clone.children().last().css({
+      marginBottom: "0"
+    });
+    tombstone = clone.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer",
+      position: "absolute",
+      bottom: "0.75rem",
+      right: "0.75rem"
+    });
+    wrapper = $("<div class='proof-wrapper expanded'></div>");
+    wrapper.css({
+      position: "relative",
+      margin: "-0.75rem -0.75rem 0.75rem -0.75rem",
+      padding: "0.75rem",
+      backgroundColor: "#f9f9f9"
+    });
+    header = clone.find("h3, h4, h5, h6").first().clone();
+    headerWrapper = $("<div class='p header-wrapper' style='margin-bottom:0; visibility:hidden; overflow:hidden; height:0;'> </div>");
+    headerWrapper.append(header);
+    expand = $("<i class='fa fa-caret-down expand' style='visibility:hidden; cursor:pointer; position:absolute; top:0.75rem; right:0.75rem;'> </i>");
+    wrapper.append(headerWrapper);
+    wrapper.append(expand);
+    wrapper.append(clone);
+    expand.on("click", function() {
+      return show_proof(wrapper);
+    });
+    tombstone.on("click", function() {
+      return hide_proof(wrapper);
+    });
+    section.replaceWith(wrapper);
+    return wrapper;
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, section, sections, text, wrapper;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      wrapper = box(section);
+      hide_proof(wrapper);
+    }
+    return $(document).keydown(function(event) {
+      var k, l, len2, len3, ref1, ref2, results, sectionWrapper;
+      console.log("***", event.keyCode);
+      if (event.keyCode === 88) {
+        ref1 = $(".proof-wrapper.minimized");
+        for (k = 0, len2 = ref1.length; k < len2; k++) {
+          sectionWrapper = ref1[k];
+          show_proof($(sectionWrapper));
+        }
+      }
+      if (event.keyCode === 77) {
+        ref2 = $(".proof-wrapper.expanded");
+        results = [];
+        for (l = 0, len3 = ref2.length; l < len3; l++) {
+          sectionWrapper = ref2[l];
+          results.push(hide_proof($(sectionWrapper)));
+        }
+        return results;
+      }
+    });
+  };
+
+  $(main);
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.10.0
+(function() {
+  var make_preview, mathjaxDebug;
+
+  make_preview = function(elt) {
+    var card, hidden_css, hide_preview, id, ref, show_preview, url, visible_css;
+    ref = elt.attr("href").split("#"), url = ref[0], id = ref[1];
+    card = $("<div class='card'>\n  <div class='holder'>\n    <p>Placeholder</p>\n  </div>\n</div>");
+    card.css({
+      width: "35vw",
+      padding: "1.5rem",
+      position: "fixed",
+      top: "1.5rem",
+      right: "1.5rem",
+      boxSizing: "border-box",
+      maxHeight: "calc(100vh - 3rem)",
+      overflow: "hidden",
+      boxShadow: "0 0 1rem #e6e6e6",
+      backgroundColor: "white"
+    });
+    visible_css = {
+      visibility: "visible",
+      opacity: 1,
+      transform: "translateX(0em)",
+      transition: "all 0.3s linear"
+    };
+    hidden_css = {
+      visibility: "hidden",
+      opacity: 0,
+      transform: "translateX(1em)",
+      transition: "all 0.3s linear 0.5s"
+    };
+    card.css(hidden_css);
+    elt.css({
+      textDecoration: "underline solid #0a0a0a",
+      textDecorationSkip: "ink",
+      transition: "background-color 0.3s linear"
+    });
+    show_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d3"
+      });
+      return card.css(visible_css);
+    };
+    hide_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d300"
+      });
+      return card.css(hidden_css);
+    };
+    return card.find(".holder").load(url + (" [id='" + id + "']"), function(response, status, jxXHR) {
+      console.log("XHR status:", status, url, id);
+      if (status === "success" || status === "notmodified") {
+        console.log("success!");
+        console.log("elt:", $(elt));
+        $("body").append(card);
+        card.find("p, .p").css({
+          textAlign: "left"
+        });
+        card.find("section").css({
+          marginBottom: "0"
+        });
+        card.find("section").children().last().css({
+          marginBottom: "0"
+        });
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, card[0]]);
+        elt.on("mouseenter", show_preview);
+        return elt.on("mouseleave", hide_preview);
+      }
+    });
+  };
+
+  mathjaxDebug = function() {
+    MathJax.Hub.signal.Interest(function(message) {
+      return console.log("*", message);
+    });
+    return MathJax.Hub.Register.StartupHook("End Process", function() {
+      var i, jax, len, ref, results;
+      console.log("list of jaxes:");
+      ref = MathJax.Hub.getAllJax();
+      results = [];
+      for (i = 0, len = ref.length; i < len; i++) {
+        jax = ref[i];
+        results.push(console.log("jax:", jax));
+      }
+      return results;
+    });
+  };
+
+  $(function() {
+    var elt, i, len, ref, results;
+    ref = $("a.preview");
+    results = [];
+    for (i = 0, len = ref.length; i < len; i++) {
+      elt = ref[i];
+      results.push(make_preview($(elt)));
+    }
+    return results;
+  });
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">Enquête Maths 3 2018 (C1223)</a></h1>
+
+<h2 class="author">
+By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, <a href="mailto:jean-emmanuel.deschaud@mines-paristech.fr">Jean-Emmanuel Deschaud</a>, Mines ParisTech
+</h2> 
+
+<h3 class="date" style="margin-right: 0px;">29 janvier 2017</h3>
+</header>
+<section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
+<ul>
+<li class="top-li"><p class="section-flag">section 1</p><a href="#synthèse">Synthèse</a></li>
+<li class="top-li"><p class="section-flag">section 2</p><a href="#général">Général</a></li>
+<li class="top-li"><p class="section-flag">section 3</p><a href="#le-cours">Le cours</a><ul>
+<li><a href="#format">Format</a></li>
+<li><a href="#qualités">Qualités</a></li>
+<li><a href="#sessions">Sessions</a></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 4</p><a href="#les-pcs-travaux-dirigés">Les PCs (travaux dirigés)</a></li>
+<li class="top-li"><p class="section-flag">section 5</p><a href="#ateliers-ou-révisions">Ateliers (ou révisions)</a></li>
+<li class="top-li"><p class="section-flag">section 6</p><a href="#ressources">Ressources</a><ul>
+<li><a href="#polycopié">Polycopié</a></li>
+<li><a href="#langue">Langue</a></li>
+<li><a href="#autres">Autres</a></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 7</p><a href="#annexes">Annexes</a><ul>
+<li><a href="#adéquationintérêtutilité-de-lenseignement-commentaires">Adéquation/intérêt/utilité de l’enseignement – commentaires</a></li>
+<li><a href="#le-cours-commentaires">Le cours – commentaires</a></li>
+<li><a href="#les-pcs-travaux-dirigés-commentaires">Les PCs (travaux dirigés) – commentaires</a></li>
+<li><a href="#ateliers-ou-révisions-commentaires">Ateliers (ou révisions) – commentaires</a></li>
+<li><a href="#les-resssources-associées-au-cours-commentaires">Les resssources associées au cours – commentaires</a></li>
+<li><a href="#la-formule-ski-maths-divers-commentaires">La formule Ski-Maths (&amp; divers) – commentaires</a></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 8</p><a href="#notes">Notes</a></li></ul>
+</nav></section>
+<!-- \newpage -->
+<section id="synthèse" class="level1">
+<h1><a href="#synthèse">Synthèse</a></h1>
+<p>Nombre de participants à l’enquête 2018: 73/115</p>
+<p>Résultats des enquêtes 2016 et 2017: <a href="http://eul.ink/complex-analysis/" class="uri">http://eul.ink/complex-analysis/</a></p>
+<ul>
+<li><p>Les indicateurs “macros” (satisfaction globale, adaptation au cursus, intérêt/utilité du cours) sont excellents, comparables à 2017.</p></li>
+<li><p>Le cours est très bien perçu; les prestations des trois intervenants sont toutes très bien évaluées (3.50, 3.69 et 3.67/4.00). Concernant le format du cours, le cours en amphi à Paris est jugé moins adapté que celui des Arcs (3.00 contre 3.40), lui-même moins bien perçu que le tutorat (3.92). Cela suggère la possibilité d’étendre la formule du tutorat, sous réserve que sur la base des très bon retours de 2017 et 2018 plus de volontaires se manifestent.</p></li>
+<li><p>Les PCs sont légèrement moins appréciées qu’en 2017 – tout en restant très bonnes. Les insatisfactions se concentrent dans un unique groupe de PC; cette situation a bien été prise en compte.</p></li>
+<li><p>Les ateliers et/ou séances de révisions sont un peu moins appréciées qu’en 2017, mais la situation est contrastée: l’appréciation des ateliers dédiés aux applications est similaire, ce sont les révisions qui ont été moins bien perçues et dont les modalités seront ajustées.</p></li>
+<li><p>A la question “Pensez-vous que l’usage de l’anglais soit une bonne idée?”, la réponse moyenne n’est pas un oui franc et massif, mais un “plutôt oui” avec de vrais disparités, une situation similaire à 2017<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>. Nous (S.B., J.-E.D.) comprenons que l’usage de l’anglais – ou le mélange entre cours et TDs en français, poly en anglais et examen disponible au choix dans les deux langues – puisse être inconfortable pour une partie des étudiants, mais nous pensons également que cela correspond à la réalité d’une pratique professionelle à laquelle il faut prépaper les étudiants. A titre d’exemple, 100% des références utilisées dans les chapitres dédiés aux applications sont des sources en anglais; le plus souvent, il n’existe aucun équivalent en français<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>. Nous pensons que travailler sur un support en anglais – même si, ou plutôt surtout si c’est inconfortable – participe de l’acquisition de ce savoir-faire. Par contre, faut-il prévoir – en amont – une formation spécifique pour préparer à cet exercice ?</p></li>
+<li><p>Les ressources numériques, comme en 2017, sont peu utilisées. De nombreux étudiants les découvrent à l’occasion de l’enquête. Parmi les éléments disponibles, ce sont les documents des années précédentes (en particulier les sujets d’examen corrigés) qui sont jugés les plus utiles.</p></li>
+</ul>
+</section>
+<section id="général" class="level1">
+<h1><a href="#général">Général</a></h1>
+<ul>
+<li><p>Votre satisfaction globale (formule Ski-Maths ou Maths 3 à Paris)</p>
+<img src="images/satisfaction.svg"><br>
+</li>
+<li><p>L’enseignement est adapté à votre niveau/formation en Mathématiques</p>
+<img src="images/niveau.svg"><br>
+</li>
+<li><p>L’enseignement vous a semblé intéressant et/ou utile.</p>
+<img src="images/interet.svg"><br>
+</li>
+</ul>
+</section>
+<section id="le-cours" class="level1">
+<h1><a href="#le-cours">Le cours</a></h1>
+<section id="format" class="level2">
+<h2><a href="#format">Format</a></h2>
+<ul>
+<li><p>Le format du cours auquel vous avez participé (cours magistral ou tutorat) vous convient</p>
+<img src="images/format-cours.svg"><br>
+</li>
+</ul>
+</section>
+<section id="qualités" class="level2">
+<h2><a href="#qualités">Qualités</a></h2>
+<ul>
+<li><p>Votre encadrant était dynamique/compétent/pédagogue/etc.</p>
+<img src="images/encadrant-cours.svg"><br>
+</li>
+<li><p>Le programme/contenu des cours est globalement bien conçu.</p>
+<img src="images/contenu-cours.svg"><br>
+</li>
+</ul>
+</section>
+<section id="sessions" class="level2">
+<h2><a href="#sessions">Sessions</a></h2>
+<ul>
+<li><p>Les sessions du cours qui vous ont posé problème (pas intéressantes, ou trop ambitieuses, pas claires, etc.):</p>
+<img src="images/sessions.svg"><br>
+</li>
+</ul>
+</section>
+</section>
+<section id="les-pcs-travaux-dirigés" class="level1">
+<h1><a href="#les-pcs-travaux-dirigés">Les PCs (travaux dirigés)</a></h1>
+<ul>
+<li><p>Votre responsable de PC était dynamique/compétent/pédagogue/etc.</p>
+<img src="images/encadrant-PC.svg"><br>
+</li>
+<li><p>Les exercices sont adaptés / permettent d’assimiler le cours</p>
+<p><img src="images/contenu-PC.svg"><br>
+</p></li>
+</ul>
+</section>
+<section id="ateliers-ou-révisions" class="level1">
+<h1><a href="#ateliers-ou-révisions">Ateliers (ou révisions)</a></h1>
+<ul>
+<li><p>Votre encadrant était dynamique/compétent/pédagogue/etc.</p>
+<img src="images/encadrant-atelier.svg"><br>
+</li>
+<li><p>Le contenu de l’atelier (ou des révisions) était intéressant et/ou utile.</p>
+<p><img src="images/contenu-atelier.svg"><br>
+</p></li>
+</ul>
+</section>
+<section id="ressources" class="level1">
+<h1><a href="#ressources">Ressources</a></h1>
+<section id="polycopié" class="level2">
+<h2><a href="#polycopié">Polycopié</a></h2>
+<ul>
+<li><p>Le polycopié (support des cours, PC et ateliers) vous a satisfait</p>
+<p><img src="images/poly.svg"><br>
+</p></li>
+</ul>
+</section>
+<section id="langue" class="level2">
+<h2><a href="#langue">Langue</a></h2>
+<ul>
+<li><p>Vous pensez que l’usage de l’anglais est une bonne idée</p>
+<img src="images/anglais.svg"><br>
+</li>
+</ul>
+</section>
+<section id="autres" class="level2">
+<h2><a href="#autres">Autres</a></h2>
+<ul>
+<li><p>Les ressources utiles de <a href="http://eul.ink/complex-analysis/" class="uri">http://eul.ink/complex-analysis/</a>:</p>
+<img src="images/resources.svg"><br>
+</li>
+</ul>
+<!--
+
+Trousse de secours
+================================================================================
+
+C'est presque un étudiant sur cinq a utilisé les trousses de secours mises à 
+leur disposition par l'Ecole. 
+
+Dans les besoins listés par les étudiants (cf. [Trousse de secours -- besoins]),
+il a pu manquer des pansements double peau pour les ampoules et des 
+anti-inflammatoires. 
+Les pansemeents double peau ne sont pas fournis en raison de leur coût.
+Quant aux anti-inflammatoires, ce sont des produits qui sont pas totalement
+anodins; il semble donc difficile de les inclure dans des trousses de soins 
+qui sont en libre accès.
+L'information donnée en amont aux étudiants quant à leurs besoins probables
+pourrait par contre être précisée pour inclure ce type de produits.
+
+-->
+</section>
+</section>
+<section id="annexes" class="level1">
+<h1><a href="#annexes">Annexes</a></h1>
+<section id="adéquationintérêtutilité-de-lenseignement-commentaires" class="level2">
+<h2><a href="#adéquationintérêtutilité-de-lenseignement-commentaires">Adéquation/intérêt/utilité de l’enseignement – commentaires</a></h2>
+<ol type="1">
+<li><p>Cours intéressant et format adapté</p></li>
+<li><p>J’ai déjà eu ce cours d’Analyse complexe à Dauphine en L3, mais je l’ai trouvé bien plus poussé et mieux présenté cette année. j’ai notamment découvert des nouvelles notions dans ce domaine, et approfondi beaucoup d’autres.</p></li>
+<li><p>Merci beaucoup pour cet enseignement et pour cette semaine dans son intégralité. On se rend bien compte de la chance qui nous est ainsi offerte.</p>
+<p>En ce qui concerne les cours, le découpage amphi/tutorat est une bonne idée, et permet à chacun de suivre les cours à son rythme.</p>
+<p>Bref que du positif, merci encore</p></li>
+<li><p>Le format 1h/chapitre est trop court pour bien maîtriser les notions. La définition de la connexité qui est donnée est très spécifique au cours : les caractérisations alternatives (qui sont les définitions usuelles) n’apparaissent nulle part dans le poly.</p></li>
+<li><p>Ça allait un peu vite malgré le format 1hcours/1hpc qui était super. Pas du tout assez d’exemples en revanche !</p></li>
+<li><p>Très intéressant, je ne suis pas apte à juger de l’utilité car je ne connais pas assez bien les applications</p></li>
+<li><p>à mon avis, l’enseignement est assez théorique et pas assez appliqué</p></li>
+<li><p>J’ai pris plaisir à suivre sérieusement un cours pour la première fois depuis un an et demi</p></li>
+<li><p>C’était plus abordable que ce que je pensais et très intéressant interessant</p></li>
+<li><p>Ce cours m’a globalement redonné envie de faire des maths !</p></li>
+<li><p>Le cours de maths était génial, l’enseignant a de vraies capacités pédagogiques, ce qui pourrait sembler aller de soit pour un prof, mais qui jusqu’à présent dans les cours de maths des Mines n’était pas une évidence. La matière est intéressante, les chapitres s’enchaînent de manière cohérente. Le fait que le poly soit en anglais est plutôt drôle et formateur.</p></li>
+<li><p>Cours équilibré entre théorie et applications concrètes</p></li>
+<li><p>Intéressant mais pas suffisamment approfondi</p></li>
+<li><p>J’ai un peu décroché sur les dernières séances lorsque les preuves des théorèmes se complexifiaient et me suis donc plutôt concentré sur les énoncés et résultats principaux.</p></li>
+<li><p>Le prérequis est trop souvent celui des MP* des grands lycées parisiens. Pour une fois, venant de PC, le cours était adapté. Malheureusement les pales de l’an dernier semble encore une fois donner la part belle à du programme de maths de prépa pour MP</p></li>
+<li><p>Difficultés du fait de certaines lacunes en topologie, notions de séries. Bonne compréhension du cours et de la résolution des exercices, mais je ne suis pas capable de résoudre les exercices seules.</p></li>
+<li><p>Ski et Math, intéressant et fatiguant</p></li>
+<li><p>Les cours d’amphi étaient très clairs</p></li>
+</ol>
+</section>
+<section id="le-cours-commentaires" class="level2">
+<h2><a href="#le-cours-commentaires">Le cours – commentaires</a></h2>
+<ol type="1">
+<li><p>Certains cours ne méritent pas une séance (par exemple quand il n’y a que des defs ou autres comme le chapitre power series et zeros et poles)</p></li>
+<li><p>C’était appréciable que ce soit écrit au tableau</p></li>
+<li><p>Très bien, nuance sur le tableau qui était un peu petit pour ceux qui assistaient au cours après les 5 premiers rangs</p></li>
+<li><p>Très bon cours, je regrette juste la salle de cours qui n’était pas du tout faite pour travailler avec poly ET prise de notes, sans table. Encore une fois, j’ai préféré ce cours à celui que j’avais suivi il y a deux ans en L3 à Dauphine</p></li>
+<li><p>Dans certaines preuves, des points non évidents sont passés sous silence sans aucun commentaire(passage à la limite sous l’intégrale sans aucun commentaire concernant la convergence uniforme, majoration de l’angle dans la preuve concernant la constance locale du nombre de tours, distance strictement positive entre deux ensembles dans le chapitre sur la connexité…)</p></li>
+<li><p>Super bien fait</p></li>
+<li><p>trop focalisé sur les preuves et pas sur l’intuition et signification des concepts</p></li>
+<li><p>Certaines sessions compliqués tombent le soir, moment où j’avais le plus de mal.</p></li>
+<li><p>Je pense que le cours allait parfois un peu lentement, notamment sur les rappels de maths 1</p></li>
+<li><p>J’ai pu suivre confortablement le début du cours car je l’avais appris pendant les vacances. A partir de mercredi j’ai été largué car j’avais à peine le temps de mémoriser les définitions si je voulais comprendre l’ensemble du chapitre. En fait je ne suis capable de restituer 80% d’un cours qu’à partir de la troisième lecture. La première lecture d’apprentissage me prend environ 2h. L’apprentissage est êce qui me concerne un processus de long terme, mais j’ai eu l’impression que mon prof de PC était partisan de la théorie de l’acquisition spontanée de connaissance.</p></li>
+<li><p>Bien</p></li>
+<li><p>J’ai eu trop peu de souvenir de maths 2 pour que le dernier chapitre soit utile. Pour les chapitre 4 et 6 les preuves sont trop longues pour les personnes qui n’ont pas d’affinités particulières avec la matière.</p></li>
+<li><p>Le plus dur c’était la topologie, avec les vieilles preuves comme en prépa … j’avoue que j’ai un peu décroché à ce moment là, mais pour le reste, vraiment très intéressant et bien conçu même pour quelqu’un qui n’est pas un grand fan de maths, comme moi. De plus, le fait que le cours soit concentré sur une semaine était vraiment top pour pouvoir progresser et se rappeler d’une séance à l’autre du cours et de sa progression logique. Peut-être cela vaudrait-il le coup de passer un petit peu plus vite sur les notions basiques du début ou sur les preuves très complexes pour traiter quelques exemples concrets supplémentaires ?</p></li>
+<li><p>Le cours était bien conçu , mais parfois on passait trop de temps sur des démonstrations et on ne pouvait pas finir le chapitre.</p>
+<p>Les dessins et les explications visuelles étaient nombreuses cela aide beaucoup à la compréhension</p></li>
+<li><p>Le chapitre sur les séries entière m’a paru long et fastidieux. J’ai eu l’impression de ne rien apprendre de vraiment nouveau dans ce chapitre (surtout des généralisation de concepts déjà connus). Je ne l’ai donc pas trouvé très intéressant.</p></li>
+<li><p>Les démos étaient claires mais malheureusement certains théorèmes ont été traités rapidement à la fin du cours par faute de temps. C’est le seul point négatif que je peux trouver au cours.</p></li>
+<li><p>Très intéressant, mais manque quelques rappels sur les notions vues en première année</p></li>
+<li><p>C’est dommage de ne pas pouvoir préparer un minimum les TD</p></li>
+<li><p>Le tutorat était tout à fait adapté pour moi (je préfère travailler de mon côté, à mon rythme, et je m’endors en amphi), il m’a permis de “survivre” à ce cours alors que j’ai une aversion assez prononcée pour l’analyse… L’encadrant était très attentif et comprenait que chacun aille à son rythme, en posant des questions si besoin. Les reprises des points importants de chaque section étaient très bien dosées également. Merci !</p></li>
+<li><p>Le système du tutorat était vraiment bien, en plus de pouvoir prendre son temps pour comprendre les notions et prendre des notes, l’encadrant était là pour nous aider en cas de problème, et répondait à toutes nos questions, tout en synthétisant simplement les différentes parties du chapitre.</p></li>
+<li><p>super bien, merci !!!</p></li>
+<li><p>Le cours est vraiment bien construit, les notions arrivent progressivement et on a vraiment l’impression de construire les théorèmes les uns après les autres. La progression se fait à un rythme idéal</p></li>
+<li><p>Mr Boisgérault était particulièrement intéressant et pédagogue, il a su nous faire cours en deux vitesses, mais je regrette que le programme d’analyse Complexe ne fût pas plus ambitieux et complet. Il faudrait plus d’heures (quitte à ne faire pas que des maths en skimath mais aussi une dizaine d’heures avant) et aller´ plus vite</p></li>
+<li><p>Je ne suis normalement pas fan des maths (notamment maths 1 et 2 des Mines), mais ce cours de maths 3 m’a plu !</p></li>
+<li><p>Très bien découpé (format un chapitre / une heure)</p></li>
+<li><p>Très intéressant, ça fait du bien de refaire des Maths un peu comme prépa</p></li>
+</ol>
+</section>
+<section id="les-pcs-travaux-dirigés-commentaires" class="level2">
+<h2><a href="#les-pcs-travaux-dirigés-commentaires">Les PCs (travaux dirigés) – commentaires</a></h2>
+<ol type="1">
+<li><p>Format adapté et encadré compétent</p></li>
+<li><p>Bien !</p></li>
+<li><p>Les rappels de cours au début de chaque PC sont toujours très utiles pour se remettre en tête tous les résultats que l’on va utiliser. Les PCs étaient toujours dynamiques et très bien menées !</p></li>
+<li><p>Peut-être insister un peu plus sur les exercices compliqués, notamment lorsqu’il s’agit de trouver des chemins un peu complexes.</p></li>
+<li><p>Elles sont très intéressantes, mais le format 1h ne permet pas de réfléchir à l’exercice, et nous(les élèves) passons donc à côté de beaucoup de subtilités de l’exercice (pourquoi telle hypothèse est nécessaire, où est-ce qu’elle sert vraiment…etc). De plus, il peut être intéressant de proposer des classements de difficulté des exercices, et des exercices permettant d’approfondir/des résultats intéressants sur le sujet du chapitre, en plus des exercices d’application plus ou moins directe du cours.</p></li>
+<li><p>Pareil, un peu trop rapide, on n’a pas ‘e temps de comprendre et de réfléchir. Mais très bonne pc dans l’ ensemble, surtout les points de révisions et les questions aux élèves qui permettaient de rendre la pc dynamique</p></li>
+<li><p>J’ai juste eu du mal à suivre l’exercice sur les fonctions anti-holomorphes qui est allé un peu vite pour moi mais sinon c’était parfait, PC très dynamiques et bien illustrées et un récapitulatif du cours très apprécié !</p></li>
+<li><p>Très bien, les exos sont intéressants, bien choisis, on se croirait de nouveau avec les belles mathématiaques de prépa.</p></li>
+<li><p>Je les ai subies à partir de mercredi. Je n’étais plus capable de proposer des pistes de réflexion puisque j’avais une idée vague des résultats à ma disposition. En plus j’étais fatigué et je somnolais en fin de cours. Il aurait peut-être fallu pouvoir préparer les exos avant la PC.</p></li>
+<li><p>J’ai beaucoup apprécié les amphis. Par contre, c’est loin d’être le cas des PC. Entre le style de présentation qui ressemblait plus à un élève de prépa en colle s’adressant à un prof qui aurait déjà fait l’exercice, plutôt qu’un discours pédagogue, les erreurs de notations qui une fois corrigées rendaient le tableau illisible et une connaissance approximative du contenu du cours assumée, il ne reste plus grand chose de positif à dire.</p>
+<p>A plusieurs reprises, un élève en question qui, comme le reste de la classe avait découvert le chapitre une heure avant, semblait plus à l’aise avec les notions du cours que le prof. Cela est d’autant plus décevant lorsqu’on peut comparer ce cours avec celui de Jean Auriol, par exemple, auquel l’attribution des adjectifs pédagogue, claire et utile seraient juste.</p></li>
+<li><p>Très compétent et sympathique</p></li>
+<li><p>Bravo Jean ! Tu fait saisir les incontournables du cours et l’esprit des exercices ! Bravo car les cours passent vite et on a presque envie de faire du temps supplémentaire ! (même avec le domaine skiable s’étendant à perte de vue par la fenêtre !)</p></li>
+<li><p>Xavier est très gentil et il a mis du cœur à l’ouvrage pour essayer de mener convenablement ses PC, malheureusement il n’était pas au niveau. Manifestement mal à l’aise, il semblait stressé d’être devant nous, toujours à se raccrocher au corrigé, multipliant les erreurs et ne sachant pas bien expliquer pourquoi appliquer telle ou telle méthode. Certains élèves de la PC semblaient plus compétents que lui pour expliquer aux autres où nous allons dans l’exercice, quelles méthodes appliquer … Dommage après un cours d’aussi bonne qualité de se retrouver dans une PC moyenne (dont les élèves qui en ont eu l’occasion sont partis rapidement). Point positif : les rappels du cours écrit au tableau en début de PC.</p></li>
+<li><p>Très bon responsable de PC, qui explique bien.</p></li>
+<li><p>Parfois un peu rapide en fin de séance pour finir des exercices</p></li>
+<li><p>Bien dans l’ensemble. Les rappels de cours en début de PC étaient une très bonne chose. Peut-être un peu plus insister sur la philosophie de la résolution des exercices : comment, face à un problème, décider de la stratégie à adopter. J’ai eu un peu l’impression que, à chaque fois, le prof nous donnait la stratégie à adopter, mais sans forcément expliquer pourquoi cette stratégie était la bonne. Mais, à part ce détail, résolution claire des exercices, enseignant compétant et pédagogue !</p></li>
+<li><p>Les PC étaient difficiles à suivre, le professeur n’était pas pédagogue et semblait peiner à finir l’exercice…</p></li>
+<li><p>très bien mais un peu court en temps pour prendre le temps de chercher</p></li>
+<li><p>parfois un peu trop rapides</p></li>
+<li><p>c’était super avec les rappels de cours au début</p></li>
+<li><p>Bon… Comment expliquer? Je suis colleur en sup 3h par semaine, et franchement, je n’ai pas vu une grande différence entre le contenu de la PC et ce que fournissent mes élèves au tableau : discours hésitant, tout sauf clair, erreurs à répétition, désagréable impression que le chargé de TD découvre les exercices en même temps que nous. C’est drôle une journée, pas cinq.</p>
+<p>La scène devient cocasse lorsque l’un des élèves doit venir terminer l’exo au tableau à la place du chargé de TD, complètement perdu (pour faire une identification partie réelle - partie imaginaire dans une égalité complexe, sans commentaire).</p>
+<p>En bref, le chargé n’était pas méchant, motivé et sûrement très stressé (encore une fois, gros fou rire quand la personne qui doit vous expliquer de façon claire des notions nouvelles pour vous hésite, bafouille et écrit une absurdité sans nom avant de raturer la moitié du tableau, les colles m’avaient presque manqué.), mais il aurait dû travailler plus les exos en amont…</p></li>
+<li><p>Les PC étaient très bien encadrées, la responsable savait expliquer clairement les différentes idées à utiliser pour résoudre les exercices, et on comprenait bien dans quels buts étaient utilisés quels théorèmes.</p>
+<p>Un peu plus d’interactions avec les élèves auraient peut-être rendu la PC un peu plus dynamique</p></li>
+<li><p>les PCs auraient mérité d’être plus détaillées</p></li>
+<li><p>Dure à comprendre mais super prof de pc</p></li>
+<li><p>Professeur extrêmement pédagogue. Ses rappels de cours sont vraiment efficaces et il sait insister sur les choses à retenir. Il explique bien et les PC étaient toujours très clair ! Merci Jean !</p></li>
+<li><p>Les exercices de PC sont un peu trop faciles. D’un autre côté, s’ils étaient plus difficiles, ils ne serviraient plus à rien, étant donné que les PC juste après le cours ne permettent pas de les préparer.</p></li>
+<li><p>Il me semble que les PC allaient trop doucement</p></li>
+<li><p>Correction sans doute un peu rapide par moments.</p></li>
+<li><p>C’est dommage de ne pas aller plus loin que le corrigé</p></li>
+<li><p>Les exercices étaient très bien expliqués. J’ai retenu une grande partie des notions du cours en PC</p></li>
+<li><p>Rarement aussi agréable de suivre une PC de maths ! Merci !</p></li>
+<li><p>L’encadrant, Xavier, était assez stressé et donc allait trop rapidement, était brouillon et peu clair (nombreuses ratures et erreurs au tableau). Il donnait l’impression de vouloir montrer qu’il savait résoudre l’exercice en direct, plutôt que de nous enseigner et expliquer la résolution de l’exercice en elle-même.</p></li>
+<li><p>Super j’ai l’impression d’avoir tout compris!</p></li>
+<li><p>Très dynamique, et très bien pour les révisions de cours à chaque début et chaque fin (permet une meilleure assimilation)</p></li>
+<li><p>Les PCs n’étaient pas claires du tout, le professeur avait beaucoup de mal à expliquer ce qu’il faisait c’était très brouillon</p></li>
+</ol>
+</section>
+<section id="ateliers-ou-révisions-commentaires" class="level2">
+<h2><a href="#ateliers-ou-révisions-commentaires">Ateliers (ou révisions) – commentaires</a></h2>
+<ol type="1">
+<li><p>Pas de révision d’analyse complexe mais de l’analyse de prépa… Pas forcément l’objectif de ces révisions…</p></li>
+<li><p>Le format n’était pas adapté : 3 groupes dans la même salle d’amphi, sur un exercice pas très représentatif du cours. Il vaudrait mieux faire 3 groupes différents (comme des pc) et effectuer les exercices avec le prof</p></li>
+<li><p>Très, très bien, rien à redire !</p></li>
+<li><p>le cours était intéressant, mais surtout sur le plan mathématique, on n’a pas forcément vu dans quelle mesure cela était utilisé dans le domaine de l’imagerie</p></li>
+<li><p>Très intéressant. Malheureusement, nous n’avons pas pu avoir de démonstration sur la télévision à cause d’une incompatibilité entre l’ordinateur et la télévision.</p></li>
+<li><p>Ce serait bien d’avoir les formats papiers pour les révisions…</p></li>
+<li><p>Très utile, exposé qui a permis de résumer rapidement de longues pages du poly ce qui est très appréciable</p></li>
+<li><p>C’est bien d’avoir des exemples pratiques comme ceux-là</p></li>
+<li><p>Je m’attendais à quelque chose de plus concret</p></li>
+<li><p>J’ai relu un cours de mon côté et refait un exo pendant l’atelier</p></li>
+<li><p>Le partiel de l’examen reprenait peu de notions du cours</p></li>
+<li><p>J’ai révisé les PC pour mieux les assimiler.</p></li>
+<li><p>Bon atelier pour un petit groupe d’élèves intéressés par les méthodes numériques. Intéressant et bien mené. Pierre-Etienne est nettement plus à l’aise et pédagogue que Xavier, ça faisait du bien !</p></li>
+<li><p>Je m’attendais à des applications “concrètes” exposées avant d’étudier les mathématiques associées. J’ai l’impression que c’était un chapitre de maths de plus sans application</p></li>
+<li><p>C’etait Intéressant de réfléchir sur un problème par petits groupes, l’assimisation des propriétés et des théorèmes et plus dynamique.</p>
+<p>Par contre, les premières questions du sujets (jusqu’a La 5 ) faisaient plus appel à l’analyse qu’à l’analyse complexe, alors que l’autre exercice avait l’air d’approfondir les intégrales sur des chemins.</p></li>
+<li><p>Excellent ! L’introduction par GIMP était géniale et permettait de bien saisir le contexte. L’interactivité avec les élèves (demander de rappeler les théorèmes, de faire des démonstrations) aide à rester concentré et à réviser le reste du cours.</p></li>
+<li><p>Un atelier très intéressant pour comprendre l’utilité du cours via une application qui est souvent utilisée</p></li>
+<li><p>bien fait mais un peu trop intense pour une fin de semaine</p></li>
+<li><p>salle bruyante</p></li>
+<li><p>l’atelier était plus une introduction assez légère au sujet en question, ce qui correspondait parfaitement à la fatigue du dernier cours de la semaine</p></li>
+<li><p>dommage qu’on ait pas vu plus de “pratique” algorithmique</p></li>
+<li><p>Faire des annales en révisions sur des notions aussi fraîches ne me parait pas pertinent, j’ai donc choisi de réviser cours et PC “dans mon coin”</p></li>
+<li><p>Atelier intéressant avec un encadrant dynamique qui explique bien les idées liées aux preuves.</p>
+<p>Un très léger manque de formalisme se faisait parfois ressentir (par soucis de simplicité sans doute), mais ces abus de notations pouvaient porter à confusion pour des élèves non habitués à de telles notations, qui pourraient donc confondre les objets manipulés.</p></li>
+<li><p>L’atelier de Poisson Image Editing était trop théorique</p></li>
+<li><p>super!</p></li>
+<li><p>J’aurai préféré que qu’on fasse la révision sous la forme de TD, où l’encadrant corrige les questions au fur et à mesure</p></li>
+<li><p>Aperçu très intéressant de la méthode, encore une fois très bien mené par le professeur.</p></li>
+<li><p>L’atelier “Poisson Image Editing” est étonnant car il est contextualisé par l’utilisation de GIMP, alors que ce programme n’utilise pas la théorie développée pendant l’atelier. L’exposé sur les fonctions harmoniques reste toutefois intéressant.</p></li>
+<li><p>Je ne suis pas venu malheureusement</p></li>
+<li><p>C’est bien de laisser la possibilité de faire une séance de révision à la fin de la semaine.</p></li>
+<li><p>Le problème choisi ne faisait que très peu intervenir les notions du cours</p></li>
+<li><p>Difficulté de résoudre les exercices de révision, et je n’ai pas forcément osé dire ce qui me posait problème auprès des tuteurs car cela aurait pris trop de temps.</p></li>
+<li><p>Mélanger cet atelier avec la pratique info serait l’idéal : pourquoi pas le prolonger à Paris après en séance de TP ?</p></li>
+<li><p>Le temps est limité et le contenu est pas riche</p></li>
+</ol>
+</section>
+<section id="les-resssources-associées-au-cours-commentaires" class="level2">
+<h2><a href="#les-resssources-associées-au-cours-commentaires">Les resssources associées au cours – commentaires</a></h2>
+<ol type="1">
+<li><p>J’en prends connaissance aujourd’hui, je mets le lien dans mes favoris d’ici l’examen !</p></li>
+<li><p>Le format est très proche de celui des articles scientifiques (références citées), mais il peut être intéressant de mettre plus en évidence une référence pouvant faire office de “suite de cours” (actuellement, ces ressources sont toutes mises sur pied d’égalité dans la section Free resources)</p></li>
+<li><p>C’est la première fois que je vois ce lien, ça me sera utile à présent pour les révisions mais les dates de séjour ne me servent plus à rien^^</p></li>
+<li><p>Tout est centralisé, c’est très appréciable</p></li>
+<li><p>Je n’avais pas entendu parler du lien http://eul.ink/complex-analysis/</p></li>
+<li><p>Je ne savais pas qu’il existait une telle plateforme numérique.</p></li>
+<li><p>Le lien ne marche pas</p></li>
+<li><p>On aurait bien aimé savoir que ces ressources existaient avant de partir en ski maths !</p></li>
+<li><p>Je n’ai pas éprouvé le besoin jusqu’à maintenant de me rendre sur ce site.</p></li>
+<li><p>existence inconnue jusqu’alors</p></li>
+<li><p>je n’en connaissais pas l’existence avant ce questionnaire</p></li>
+<li><p>L’utilisation de l’anglais aurait pu être intéressante si le cours avait été lui-même en anglais. L’anglais ici a juste été à l’origine de questions visant à traduire le vocabulaire en français.</p></li>
+<li><p>Le poly est bien fait dans son contenu , mais je pense que l´usage’ de l’anglais est une très mauvaise idée. Les concepts sont assimilés en français, et la traduction de concept est très penible. Je pense que faire des maths en anglais est aussi problématique car pour l’immense majorité qui n’a pas fait de maths en anglais et qui n’est pas complètement bilingue, cela nuit à la mémorisation</p></li>
+<li><p>RAS</p></li>
+<li><p>Je ne savais pas qu’il y avait autant de ressources</p></li>
+</ol>
+</section>
+<section id="la-formule-ski-maths-divers-commentaires" class="level2">
+<h2><a href="#la-formule-ski-maths-divers-commentaires">La formule Ski-Maths (&amp; divers) – commentaires</a></h2>
+<ol type="1">
+<li><p>Probablement un des meilleurs cours de l’école, à ne pas changer</p></li>
+<li><p>Merci.</p></li>
+<li><p>Cette semaine aux Arcs était très réussie, merci beaucoup ! La formule 1h de cours/1h de PC (plutôt que des blocs de 2h de cours ou de PC par exemple) est une bonne idée car elle permet de ne pas s’endormir et d’appliquer immédiatement les notions vues.</p></li>
+<li><p>Merci d’avoir organisé ce cours ! Il est de loin le cours de mathématiques le plus satisfaisant et le mieux enseigné depuis le début de la première année. Il peut être intéressant, vu le caractère très intense de l’enseignement, de proposer, dans le poly et les exercices, deux niveaux de lecture : ce qu’on voit en cours, et ce que l’on peut faire pour aller plus loin (dans les appendices, qui sont pour la majorité anecdotiques et restent très en surface pour l’instant). Cela pourrait intéresser ceux qui veulent aller un peu plus loin.</p></li>
+<li><p>Merci les mines !</p></li>
+<li><p>La formule 1h cours suivi de 1h de PC est super, les horaires sont parfaits et permettent de profiter à fond du ski et des maths, rien à redire</p></li>
+<li><p>superbe propostion</p></li>
+<li><p>Les salles étaient vraiment trop petites. Une fois que l’on est dans la moitié de la salle la plus éloignée du tableau, il est très difficile d’arriver à suivre le cours au tableau. Mis à part cela, le cours était très agréable et à un rythme adéquat.</p></li>
+<li><p>Un cours qui allie magnifiquement divertissement avec le ski, et stimulation intellectuelle avec les maths. Ils ne sont pas trop lourds, intéressants et même ludiques. La transition vacances-reprise n’aurait pas pu être meilleure!</p></li>
+<li><p>Le cadre mis à disposition par l’UCPA était excellent !</p></li>
+<li><p>Essayer de trouver des tables</p></li>
+<li><p>Merci beaucoup, c’était une super semaine!</p></li>
+<li><p>Juste un détail concernant les responsables du ski maths parmi les élèves. On avait très peu d’informations et on les recevaient très tard. Cela pourrait être améliorer pour un meilleur déroulement de l’amont du ski maths</p></li>
+<li><p>Merci</p></li>
+<li><p>Bravo pour ce cours ! bravo et merci pour ce beau moment en promotion !</p></li>
+<li><p>Cette semaine était magique, c’est le point culminant de la scolarité aux Mines. Merci encore à l’équipe enseignante organisatrice de ce cours.</p></li>
+<li><p>2h + 2h permettent de bien se concentrer pendant les sessions de mathématiques. De plus le cours était intéressant (bien que je ne sois pas un grand fan des mathématiques).</p></li>
+<li><p>Un grand merci pour toute cette organisation. Le concept du ski-maths m’a clairement convaincu. Jamais je n’aurais aussi bien suivi un cours de maths si il n’avait pas été concentré sur une semaine, et loin de Paris. Je pense d’ailleurs que c’est sans doute le cours scientifique que j’ai le mieux suivi depuis mon entrée aux Mines.</p>
+<p>Par rapport aux VP ski maths, nous n’avons pas été beaucoup mis au courant. Je pense qu’à l’avenir, ce serait une bonne chose que le ski-maths soit directement géré par le Bureau des Sports (BDS).</p></li>
+<li><p>un cadre idéal pour suivre un cours de maths avec plaisir. Merci !</p></li>
+<li><p>c’est une réelle chance ! merci</p></li>
+<li><p>Le ski-math est clairement une des formule à conserver, où tous les élèves peuvent partir ensemble et passer une super semaine, tout en suivant un cours de manière assidue.</p></li>
+<li><p>Pour ma part je suis satisfait, j’ai appris à skier l’année dernière pour cette année et j’ai l’impression que la formation de ski des débutants était mal faite. Ils ont très peu de cours et leurs cours sont très court. J’ai l’impression que les premiers jours ils ont skié environs 3 à 4 heures sur 8 possibles donc l’apprentissage et mauvais et ensuite ils sont quasiment incapable de skier tout seul.</p></li>
+<li><p>Formule excellente ! Il n’y a pas à dire, le grand air permet vraiment de mieux se concentrer. L’équilibre entre les 4 heures de cours par jour et le ski rythme bien les journées et c’est un plaisir de retrouver toute sa promotion dans un tel cadre. L’UCPA est un centre très convivial. Merci à tous les encadrants pour cette organisation et cette superbe semaine !</p></li>
+<li><p>Je pense que le cours pourrait et devrait être plus ambitieux. Les professeurs sont bons, il suffit de rajouter un peu de profondeurs aux notions importantes en allant plus loin, et je suis convaincu que ca forcerait les élèves intéressés à plus travailler.</p></li>
+<li><p>Le découpage des cours en 2*(1h amphi + 1h PC le matin et en fin d’aprem) est top et permet d’être bien concentré pendant ces 4h quotidiennes.</p></li>
+<li><p>Merci pour votre investissement dans la réalisation de cette belle semaine !</p></li>
+<li><p>Semaine à conserver absolument dans le cursus, car son format permet à la fois d’être plus concentré sur le cours de maths et de profiter d’une belle semaine à la montagne</p></li>
+<li><p>Merci :)</p></li>
+<li><p>J’aime vraiment les sciences, mais d’habitude je ne suis quasiment aucun cours aux Mines, par manque de temps, de motivation et de qualité de cours. Les cours de Maths de Mr.&nbsp;ROSIER notamment n’était pas des plus motivants.</p>
+<p>Au ski-maths c’était vraiment plaisant d’avoir un cours intéressant, et un contrat implicite de confiance avec les élèves : ça m’a permis pour la première fois depuis 2 ans aux Mines de suivre à 100% un cours, et franchement ça fait du bien.</p>
+<p>Il faudrait partir à la montagne pour chaque module de cours…</p>
+<p>Merci !</p></li>
+<li><p>Cette semaine au ski est vraiment une bonne idée. Très bon esprit de groupe. Motive à aller en maths et à bien comprendre le cours. Mis à part les pcs tout était parfait.</p></li>
+</ol>
+</section>
+</section>
+<section class="footnotes" id="notes"><h1><a href="#notes">Notes</a></h1>
+<hr>
+<ol>
+<li id="fn1"><p>2.95/4.0 où 3.0 correspond à “plutôt oui” et 4.0 à “oui”. Situation similaire en 2017 avec 3.22/4.0.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>dans le cours lui-même, les références en français se limitent en pratique aux textes présentant un intérêt historique.<a href="#fnref2">↩</a></p></li>
+</ol>
+</section>
+</main>
+
+
+</body></html>

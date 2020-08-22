@@ -1,0 +1,775 @@
+% Jupyter on Azure (Work in Progress)
+% [Sébastien Boisgérault][email], Mines ParisTech
+
+[email]: mailto:Sebastien.Boisgerault@mines-paristech.fr
+
+---
+license: "[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0)"
+---
+
+<!--
+
+TODO:
+  
+  - What are Jupyter Notebooks
+
+  - What is (Microsoft) Azure
+
+  - The Microsoft Azure Notebooks 
+ 
+  - Help to discover if hosting your notebooks on Azure is the right choice
+    (vs self-hosting for example ... or using a user-configured VM on Azure !
+    see <https://github.com/Microsoft/azure-docs/blob/master/articles/virtual-machines/linux/jupyter-notebook.md>).
+
+Intro
+================================================================================
+
+Preview, free, well done, limitations.
+
+-->
+
+Getting Started
+================================================================================
+
+ 1. Create a [Microsoft account] if you don't already have one.
+
+    ![<https://account.microsoft.com/>](images/Microsoft-Account.png)
+
+ 2. Go to the [Microsoft Azure Notebooks] web site and sign in.
+  
+    ![<https://notebooks.azure.com/>](images/Microsoft-Azure-Notebooks.png)
+
+ 3. Select "Libraries" in the navigation bar 
+    (libraries are groups of related notebooks)
+    and create a new library named "Sandbox".
+
+    ![](images/New-Library.png)
+
+ 4. Create a new notebook named "My First Notebook.ipynb" 
+    in the Sandbox library, or upload an existing one.
+    For this article, I will use a new Python 2.7 notebook.
+
+    ![](images/Add-Notebook.png)
+
+ 5. Start the notebook.
+
+    ![](images/Empty-Notebook.png)
+
+
+[Microsoft account]: https://account.microsoft.com/
+
+[Microsoft Azure Notebooks]: https://notebooks.azure.com/
+
+The Azure Platform
+================================================================================
+
+To explore the Azure plaform hosting the Jupyter notebook, 
+we will issue some shell commands; the simplest way to do that
+if from within a Python notebook is to type the command in
+a cell, prefixed with an exclamation point[^f1].
+
+[^f1]: Alternatively, you can open a full-fledged terminal.
+  First you need to access the Jupyter dashboard 
+  (click on the Jupyter logo in the top-left corner of the notebook),
+  then open the "New" drop down menu and select "Terminal".
+
+First of all, Azure notebooks are hosted on Linux (Debian-based) machine:
+
+    >>> import platform
+    >>> platform.system()
+    'Linux'
+    >>> platform.platform()
+    'Linux-4.4.0-81-generic-x86_64-with-debian-stretch-sid'
+
+The distribution used is the latest LTS version of Ubuntu: 
+[Xenial Xerus].
+
+    >>> !cat /etc/lsb-release
+    DISTRIB_ID=Ubuntu
+    DISTRIB_RELEASE=16.04
+    DISTRIB_CODENAME=xenial
+    DISTRIB_DESCRIPTION="Ubuntu 16.04.2 LTS"
+
+[Xenial Xerus]: http://releases.ubuntu.com/16.04/
+
+The notebook is actually running within a Docker container:
+
+    >>> import os.path
+    >>> os.path.isfile("/.dockerenv")
+    True
+
+What it means concretely is that when you start  -- or restart -- a notebook,
+you are likely to wait for a couple of seconds while Azure is provisioning
+a new container. As far as I can tell, container instances are shared between
+notebooks in the same library, but not across libraries. 
+
+The processor specs are:
+
+    >> !lscpu | grep "Model name"
+    Model name: Intel(R) Xeon(R) CPU E5-2673 v3 @ 2.40GHz
+
+PassMark gives this CPU [a mark of 16.904](https://www.cpubenchmark.net/cpu_lookup.php?cpu=Intel+Xeon+E5-2673+v3+%40+2.40GHz&id=2606>);
+this is far better than the laptop I am working on, 
+so I guess that performance is uniquely to be an issue.
+
+Data Management
+================================================================================
+
+If you use the [Jupyter Notebook App], 
+which executes the notebooks on your computer,
+or if you have deployed a [JupyterHub] server,
+the input data that you use for your notebooks,
+the ouput data that they may produce and the
+notebooks themselves are in the same filesystem,
+probably organized into directories, one for each 
+projects.
+
+Things are different for Azure notebooks, where notebooks and data are handled
+separately. Notebook files (with the `.ipynb` extension) are stored permanently
+and associated to your Microsoft account; 
+they can be managed from the Libraries view and/or from the dashboard.
+You can also download/upload them if you loke but this is not mandatory. 
+However, you will not find them in the filesystem accessible in the notebook
+[^wrong].
+
+[^wrong]: Actually there is a hidden `.library` directory,
+where *sometimes* you can find your notebook file, but not consistently
+AFAICT.
+
+Your data files on the other hand 
+-- anything that is in the notebook filesystem --
+is ephemeral and will be lost when your library container is shut down.
+Consequently:
+
+  - If your notebook requires some input data, 
+    you need to check that it's available before you execute the notebook,
+    or "rehydrate" your filesystem, upload this data again.
+
+  - If your notebook produces some output data that you want to keep,
+    you need to download it.
+
+For both steps there are several options available. 
+
+  - You may upload/download your data manually from/to your computer: 
+    use the "Data" menu in the notebook navigation panel. 
+    Data may also be uploaded from a Dropbox account.
+
+  - To compress the files in the current directory into a `data.zip` archive
+    -- but anaconda Python distributions and hidden files --
+    and upload the archive to `transfer.sh`, type in a cell:
+
+        >>> !zip -q -r data.zip . -x "anaconda*" ".*"
+        >>> !curl --upload-file data.zip https://transfer.sh/data.zip
+
+    The last command prints an address, something like:
+
+        https://transfer.sh/yKwUl/data.zip
+
+    This is where your archive is located (and will be for 14 days).
+    To download and unzip this archive, type:
+
+        >>> !curl https://transfer.sh/yKwUl/data.zip -o data.zip
+        >>> !unzip -o data.zip
+
+    Note that these commands work in Azure notebooks because 
+    <https://transfer.sh> is explicitly whitelisted (see [Networking]), 
+    so use specifically this service; 
+    other file sharing sites probably won't work. 
+
+
+
+[Jupyter Notebook App]: http://jupyter-notebook-beginner-guide.readthedocs.io/en/latest/what_is_jupyter.html#notebook-app
+
+[JupyterHub]: https://jupyterhub.readthedocs.io/en/latest/
+
+
+Software Packages
+==================================================================================
+
+By default, the Azure notebook platform comes with a large set of 
+pre-installed software packages provided by [Anaconda], 
+a Python distribution popular in numerical analysis and data science circles.
+Actually, three different versions of the Anaconda distributions are installed:
+
+    >>> !ls
+    anaconda2_410  anaconda3_410  anaconda3_431
+
+Each distribution supports a different version of Python
+(at the time of writing: Python 2.7.11, 3.5.1 and 3.6.0).
+
+[Anaconda]: https://www.continuum.io/
+
+To see for yourself the list of installed packaged, type:
+
+    >>> !conda list
+    # packages in environment at /home/nbcommon/anaconda2_410:
+    #
+    _nb_ext_conf              0.2.0                    py27_0  
+    adal                      0.4.6                     <pip>
+    alabaster                 0.7.8                    py27_0  
+    altair                    1.2.0                     <pip>
+    anaconda                  custom                   py27_0  
+    anaconda-client           1.4.0                    py27_0  
+    anaconda-navigator        1.2.1                    py27_0
+    ... 
+
+The full list is rather large;
+refer to the [appendix][Appendix -- Conda Packages] if you are interested.
+The list is also compared with the default set of packages in the Anaconda
+distribution. There are generally more packages in the Azure notebook
+platform; some of them are obviously Azure-specific. 
+Additionally, a package that would be missing from the Azure platform 
+-- for example [wrapt](http://wrapt.readthedocs.io/en/latest/) -- 
+can easily be installed, either with
+
+    >>> !conda install -y wrapt
+
+or 
+-- as long as it's available on [PyPI](https://pypi.python.org/pypi) --
+with
+
+    >>> !pip install wrapt
+
+Note that these installations are performed as a user,
+not at the system level: you are merely `nbuser` and 
+you don't have administrator rights in the Azure container.
+In particular, you won't be able to `apt-get install` 
+your way out of missing software.
+
+**TODO:** document Fortran, C/C++ & other stuff. 
+Binaries from sources, packaged via conda (ex: curl, etc.)
+
+Networking 
+=================================================================================
+
+**[TODO]**
+
+
+
+
+Appendix -- Conda Packages
+================================================================================
+
+Package                                     Anaconda (default)                                                     Azure Notebooks
+----------------------------------------  ------------------------------------------------------------  ------------------------------------------------------------
+_license                                  <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+_nb_ext_conf                                                                                            <i class="fa fa-check" aria-hidden="true"></i>              
+adal                                                                                                    <i class="fa fa-check" aria-hidden="true"></i>              
+alabaster                                 <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+altair                                                                                                  <i class="fa fa-check" aria-hidden="true"></i>              
+anaconda                                  <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+anaconda-client                           <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+anaconda-navigator                        <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+anaconda-project                          <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+applicationinsights                                                                                     <i class="fa fa-check" aria-hidden="true"></i>              
+argcomplete                                                                                             <i class="fa fa-check" aria-hidden="true"></i>              
+asn1crypto                                <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+astroid                                   <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+astropy                                   <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+attrs                                                                                                   <i class="fa fa-check" aria-hidden="true"></i>              
+Automat                                                                                                 <i class="fa fa-check" aria-hidden="true"></i>              
+azure-batch                                                                                             <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli                                                                                               <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-acr                                                                                           <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-acs                                                                                           <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-appservice                                                                                    <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-batch                                                                                         <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-billing                                                                                       <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-cdn                                                                                           <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-cloud                                                                                         <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-cognitiveservices                                                                             <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-command-modules-nspkg                                                                         <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-component                                                                                     <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-configure                                                                                     <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-consumption                                                                                   <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-core                                                                                          <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-cosmosdb                                                                                      <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-dla                                                                                           <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-dls                                                                                           <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-feedback                                                                                      <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-find                                                                                          <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-interactive                                                                                   <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-iot                                                                                           <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-keyvault                                                                                      <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-lab                                                                                           <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-monitor                                                                                       <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-network                                                                                       <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-nspkg                                                                                         <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-profile                                                                                       <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-rdbms                                                                                         <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-redis                                                                                         <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-resource                                                                                      <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-role                                                                                          <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-sf                                                                                            <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-sql                                                                                           <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-storage                                                                                       <i class="fa fa-check" aria-hidden="true"></i>              
+azure-cli-vm                                                                                            <i class="fa fa-check" aria-hidden="true"></i>              
+azure-common                                                                                            <i class="fa fa-check" aria-hidden="true"></i>              
+azure-datalake-store                                                                                    <i class="fa fa-check" aria-hidden="true"></i>              
+azure-graphrbac                                                                                         <i class="fa fa-check" aria-hidden="true"></i>              
+azure-keyvault                                                                                          <i class="fa fa-check" aria-hidden="true"></i>              
+azure-mgmt-authorization                                                                                <i class="fa fa-check" aria-hidden="true"></i>              
+azure-mgmt-batch                                                                                        <i class="fa fa-check" aria-hidden="true"></i>              
+azure-mgmt-billing                                                                                      <i class="fa fa-check" aria-hidden="true"></i>              
+azure-mgmt-cdn                                                                                          <i class="fa fa-check" aria-hidden="true"></i>              
+azure-mgmt-cognitiveservices                                                                            <i class="fa fa-check" aria-hidden="true"></i>              
+azure-mgmt-compute                                                                                      <i class="fa fa-check" aria-hidden="true"></i>              
+azure-mgmt-consumption                                                                                  <i class="fa fa-check" aria-hidden="true"></i>              
+azure-mgmt-containerregistry                                                                            <i class="fa fa-check" aria-hidden="true"></i>              
+azure-mgmt-datalake-analytics                                                                           <i class="fa fa-check" aria-hidden="true"></i>              
+azure-mgmt-datalake-nspkg                                                                               <i class="fa fa-check" aria-hidden="true"></i>              
+azure-mgmt-datalake-store                                                                               <i class="fa fa-check" aria-hidden="true"></i>              
+azure-mgmt-devtestlabs                                                                                  <i class="fa fa-check" aria-hidden="true"></i>              
+azure-mgmt-dns                                                                                          <i class="fa fa-check" aria-hidden="true"></i>              
+azure-mgmt-documentdb                                                                                   <i class="fa fa-check" aria-hidden="true"></i>              
+azure-mgmt-iothub                                                                                       <i class="fa fa-check" aria-hidden="true"></i>              
+azure-mgmt-keyvault                                                                                     <i class="fa fa-check" aria-hidden="true"></i>              
+azure-mgmt-monitor                                                                                      <i class="fa fa-check" aria-hidden="true"></i>              
+azure-mgmt-network                                                                                      <i class="fa fa-check" aria-hidden="true"></i>              
+azure-mgmt-nspkg                                                                                        <i class="fa fa-check" aria-hidden="true"></i>              
+azure-mgmt-rdbms                                                                                        <i class="fa fa-check" aria-hidden="true"></i>              
+azure-mgmt-redis                                                                                        <i class="fa fa-check" aria-hidden="true"></i>              
+azure-mgmt-resource                                                                                     <i class="fa fa-check" aria-hidden="true"></i>              
+azure-mgmt-sql                                                                                          <i class="fa fa-check" aria-hidden="true"></i>              
+azure-mgmt-storage                                                                                      <i class="fa fa-check" aria-hidden="true"></i>              
+azure-mgmt-trafficmanager                                                                               <i class="fa fa-check" aria-hidden="true"></i>              
+azure-mgmt-web                                                                                          <i class="fa fa-check" aria-hidden="true"></i>              
+azure-monitor                                                                                           <i class="fa fa-check" aria-hidden="true"></i>              
+azure-multiapi-storage                                                                                  <i class="fa fa-check" aria-hidden="true"></i>              
+azure-nspkg                                                                                             <i class="fa fa-check" aria-hidden="true"></i>              
+azure-servicefabric                                                                                     <i class="fa fa-check" aria-hidden="true"></i>              
+azureml                                                                                                 <i class="fa fa-check" aria-hidden="true"></i>              
+babel                                     <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+backports                                 <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+backports.shutil_get_terminal_size                                                                      <i class="fa fa-check" aria-hidden="true"></i>              
+backports.ssl-match-hostname                                                                            <i class="fa fa-check" aria-hidden="true"></i>              
+backports.weakref                                                                                       <i class="fa fa-check" aria-hidden="true"></i>              
+backports_abc                             <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+bcrypt                                                                                                  <i class="fa fa-check" aria-hidden="true"></i>              
+beautifulsoup4                            <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+bitarray                                  <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+bkcharts                                                                                                <i class="fa fa-check" aria-hidden="true"></i>              
+blaze                                     <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+bleach                                    <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+bleach-whitelist                                                                                        <i class="fa fa-check" aria-hidden="true"></i>              
+bokeh                                     <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+boto                                      <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+boto3                                                                                                   <i class="fa fa-check" aria-hidden="true"></i>              
+botocore                                                                                                <i class="fa fa-check" aria-hidden="true"></i>              
+bottleneck                                <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+bqplot                                                                                                  <i class="fa fa-check" aria-hidden="true"></i>              
+brewer2mpl                                                                                              <i class="fa fa-check" aria-hidden="true"></i>              
+bz2file                                                                                                 <i class="fa fa-check" aria-hidden="true"></i>              
+cachecontrol                                                                                            <i class="fa fa-check" aria-hidden="true"></i>              
+cairo                                     <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+cdecimal                                  <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+certifi                                                                                                 <i class="fa fa-check" aria-hidden="true"></i>              
+cffi                                      <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+chardet                                   <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+chest                                                                                                   <i class="fa fa-check" aria-hidden="true"></i>              
+click                                     <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+cloudpickle                               <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+clyent                                    <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+cntk                                                                                                    <i class="fa fa-check" aria-hidden="true"></i>              
+colorama                                  <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+conda                                     <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+conda-build                                                                                             <i class="fa fa-check" aria-hidden="true"></i>              
+conda-env                                 <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+configobj                                                                                               <i class="fa fa-check" aria-hidden="true"></i>              
+configparser                              <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+constantly                                                                                              <i class="fa fa-check" aria-hidden="true"></i>              
+contextlib2                               <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+cryptography                              <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+curl                                      <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+cycler                                    <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+cython                                    <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+cytoolz                                   <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+dask                                      <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+datashape                                 <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+dbus                                      <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+decorator                                 <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+dill                                                                                                    <i class="fa fa-check" aria-hidden="true"></i>              
+distributed                               <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+docker-py                                                                                               <i class="fa fa-check" aria-hidden="true"></i>              
+docker-pycreds                                                                                          <i class="fa fa-check" aria-hidden="true"></i>              
+docutils                                  <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+dynd-python                                                                                             <i class="fa fa-check" aria-hidden="true"></i>              
+edward                                                                                                  <i class="fa fa-check" aria-hidden="true"></i>              
+elasticsearch                                                                                           <i class="fa fa-check" aria-hidden="true"></i>              
+entrypoints                               <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+enum34                                    <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+et_xmlfile                                <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+expat                                     <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+fastcache                                 <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+fastlmm                                                                                                 <i class="fa fa-check" aria-hidden="true"></i>              
+feedparser                                                                                              <i class="fa fa-check" aria-hidden="true"></i>              
+flask                                     <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+flask-cors                                <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+fontconfig                                <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+freetype                                  <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+funcsigs                                  <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+functools32                               <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+future                                                                                                  <i class="fa fa-check" aria-hidden="true"></i>              
+futures                                   <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+gdal                                                                                                    <i class="fa fa-check" aria-hidden="true"></i>              
+geos                                                                                                    <i class="fa fa-check" aria-hidden="true"></i>              
+geotiff                                                                                                 <i class="fa fa-check" aria-hidden="true"></i>              
+get_terminal_size                         <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+gevent                                    <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+ggplot                                                                                                  <i class="fa fa-check" aria-hidden="true"></i>              
+glib                                      <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+graphviz                                                                                                <i class="fa fa-check" aria-hidden="true"></i>              
+greenlet                                  <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+grin                                      <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+grpcio                                                                                                  <i class="fa fa-check" aria-hidden="true"></i>              
+gst-plugins-base                          <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+gstreamer                                 <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+h5py                                      <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+harfbuzz                                  <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+hdf4                                                                                                    <i class="fa fa-check" aria-hidden="true"></i>              
+hdf5                                      <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+heapdict                                  <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+holoviews                                                                                               <i class="fa fa-check" aria-hidden="true"></i>              
+html5lib                                  <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+humanfriendly                                                                                           <i class="fa fa-check" aria-hidden="true"></i>              
+hyperlink                                                                                               <i class="fa fa-check" aria-hidden="true"></i>              
+icu                                       <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+idna                                      <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+imagesize                                 <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+incremental                                                                                             <i class="fa fa-check" aria-hidden="true"></i>              
+ipaddress                                 <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+ipykernel                                 <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+ipython                                   <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+ipython_genutils                          <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+ipywidgets                                <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+isodate                                                                                                 <i class="fa fa-check" aria-hidden="true"></i>              
+isort                                     <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+itsdangerous                              <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+jbig                                      <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+jdcal                                     <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+jedi                                      <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+jinja2                                    <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+jmespath                                                                                                <i class="fa fa-check" aria-hidden="true"></i>              
+joblib                                                                                                  <i class="fa fa-check" aria-hidden="true"></i>              
+jpeg                                      <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+jsonschema                                <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+jupyter                                   <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+jupyter_client                            <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+jupyter_console                           <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+jupyter_core                              <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+kafka-python                                                                                            <i class="fa fa-check" aria-hidden="true"></i>              
+kazoo                                                                                                   <i class="fa fa-check" aria-hidden="true"></i>              
+kealib                                                                                                  <i class="fa fa-check" aria-hidden="true"></i>              
+keras                                                                                                   <i class="fa fa-check" aria-hidden="true"></i>              
+keyring                                                                                                 <i class="fa fa-check" aria-hidden="true"></i>              
+klein                                                                                                   <i class="fa fa-check" aria-hidden="true"></i>              
+lazy-object-proxy                         <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+libdynd                                                                                                 <i class="fa fa-check" aria-hidden="true"></i>              
+libffi                                    <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+libgcc                                    <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+libgdal                                                                                                 <i class="fa fa-check" aria-hidden="true"></i>              
+libgfortran                               <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+libgpuarray                                                                                             <i class="fa fa-check" aria-hidden="true"></i>              
+libiconv                                  <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+libnetcdf                                                                                               <i class="fa fa-check" aria-hidden="true"></i>              
+libpng                                    <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+libpq                                                                                                   <i class="fa fa-check" aria-hidden="true"></i>              
+libprotobuf                                                                                             <i class="fa fa-check" aria-hidden="true"></i>              
+libsodium                                 <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+libtiff                                   <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+libtool                                   <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+libxcb                                    <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+libxml2                                   <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+libxslt                                   <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+line-profiler                                                                                           <i class="fa fa-check" aria-hidden="true"></i>              
+llvmlite                                  <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+locket                                    <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+lockfile                                                                                                <i class="fa fa-check" aria-hidden="true"></i>              
+luigi                                                                                                   <i class="fa fa-check" aria-hidden="true"></i>              
+lxml                                      <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+mako                                                                                                    <i class="fa fa-check" aria-hidden="true"></i>              
+Markdown                                                                                                <i class="fa fa-check" aria-hidden="true"></i>              
+markupsafe                                <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+matplotlib                                <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+memory-profiler                                                                                         <i class="fa fa-check" aria-hidden="true"></i>              
+mistune                                   <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+mkl                                       <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+mkl-service                               <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+mock                                                                                                    <i class="fa fa-check" aria-hidden="true"></i>              
+monotonic                                                                                               <i class="fa fa-check" aria-hidden="true"></i>              
+mpmath                                    <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+msgpack-python                            <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+msrest                                                                                                  <i class="fa fa-check" aria-hidden="true"></i>              
+msrestazure                                                                                             <i class="fa fa-check" aria-hidden="true"></i>              
+multipledispatch                          <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+natsort                                                                                                 <i class="fa fa-check" aria-hidden="true"></i>              
+navigator-updater                         <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+nb_anacondacloud                                                                                        <i class="fa fa-check" aria-hidden="true"></i>              
+nb_conda                                                                                                <i class="fa fa-check" aria-hidden="true"></i>              
+nb_conda_kernels                                                                                        <i class="fa fa-check" aria-hidden="true"></i>              
+nbconvert                                 <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+nbformat                                  <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+nbpresent                                                                                               <i class="fa fa-check" aria-hidden="true"></i>              
+networkx                                  <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+nltk                                      <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+nose                                      <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+notebook                                  <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+numba                                     <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+numexpr                                   <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+numpy                                     <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+numpydoc                                  <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+oauthlib                                                                                                <i class="fa fa-check" aria-hidden="true"></i>              
+odo                                       <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+olefile                                   <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+opencv                                                                                                  <i class="fa fa-check" aria-hidden="true"></i>              
+openfst                                                                                                 <i class="fa fa-check" aria-hidden="true"></i>              
+openpyxl                                  <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+openssl                                   <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+packaging                                 <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+pandas                                    <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+pandasql                                                                                                <i class="fa fa-check" aria-hidden="true"></i>              
+pandocfilters                             <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+pango                                     <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+param                                                                                                   <i class="fa fa-check" aria-hidden="true"></i>              
+paramiko                                                                                                <i class="fa fa-check" aria-hidden="true"></i>              
+partd                                     <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+patchelf                                                                                                <i class="fa fa-check" aria-hidden="true"></i>              
+path.py                                   <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+pathlib2                                  <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+patsy                                     <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+pbr                                                                                                     <i class="fa fa-check" aria-hidden="true"></i>              
+pcre                                      <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+pep8                                      <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+pexpect                                   <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+pickleshare                               <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+pillow                                    <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+pip                                       <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+pixman                                    <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+plotly                                                                                                  <i class="fa fa-check" aria-hidden="true"></i>              
+ply                                       <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+proj4                                                                                                   <i class="fa fa-check" aria-hidden="true"></i>              
+prompt-toolkit                                                                                          <i class="fa fa-check" aria-hidden="true"></i>              
+prompt_toolkit                            <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+protobuf                                                                                                <i class="fa fa-check" aria-hidden="true"></i>              
+psutil                                    <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+psycopg2                                                                                                <i class="fa fa-check" aria-hidden="true"></i>              
+ptyprocess                                <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+py                                        <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+pyang                                                                                                   <i class="fa fa-check" aria-hidden="true"></i>              
+pyasn1                                                                                                  <i class="fa fa-check" aria-hidden="true"></i>              
+pyasn1-modules                                                                                          <i class="fa fa-check" aria-hidden="true"></i>              
+pycairo                                   <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+pycosat                                   <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+pycparser                                 <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+pycrypto                                  <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+pycurl                                    <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+pydocumentdb                                                                                            <i class="fa fa-check" aria-hidden="true"></i>              
+pydot                                                                                                   <i class="fa fa-check" aria-hidden="true"></i>              
+pyflakes                                  <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+PyGithub                                                                                                <i class="fa fa-check" aria-hidden="true"></i>              
+pygments                                  <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+pygpu                                                                                                   <i class="fa fa-check" aria-hidden="true"></i>              
+PyJWT                                                                                                   <i class="fa fa-check" aria-hidden="true"></i>              
+pykafka                                                                                                 <i class="fa fa-check" aria-hidden="true"></i>              
+pylint                                    <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+pymc                                                                                                    <i class="fa fa-check" aria-hidden="true"></i>              
+pymc3                                                                                                   <i class="fa fa-check" aria-hidden="true"></i>              
+pymongo                                                                                                 <i class="fa fa-check" aria-hidden="true"></i>              
+Pympler                                                                                                 <i class="fa fa-check" aria-hidden="true"></i>              
+pymssql                                                                                                 <i class="fa fa-check" aria-hidden="true"></i>              
+pymysql                                                                                                 <i class="fa fa-check" aria-hidden="true"></i>              
+PyNaCl                                                                                                  <i class="fa fa-check" aria-hidden="true"></i>              
+pyodbc                                    <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+pyopenssl                                 <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+pypachy                                                                                                 <i class="fa fa-check" aria-hidden="true"></i>              
+pyparsing                                 <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+pyprof2calltree                                                                                         <i class="fa fa-check" aria-hidden="true"></i>              
+pyqt                                      <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+pysnptools                                                                                              <i class="fa fa-check" aria-hidden="true"></i>              
+pytables                                  <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+pytest                                    <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+python                                    <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+python-daemon                                                                                           <i class="fa fa-check" aria-hidden="true"></i>              
+python-dateutil                           <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+pytz                                      <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+PyWavelets                                                                                              <i class="fa fa-check" aria-hidden="true"></i>              
+pywavelets                                <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+pywget                                                                                                  <i class="fa fa-check" aria-hidden="true"></i>              
+pyyaml                                    <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+pyzmq                                     <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+qt                                        <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+qtawesome                                 <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+qtconsole                                 <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+qtpy                                      <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+readline                                  <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+redis                                                                                                   <i class="fa fa-check" aria-hidden="true"></i>              
+redis-py                                                                                                <i class="fa fa-check" aria-hidden="true"></i>              
+requests                                  <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+requests-oauthlib                                                                                       <i class="fa fa-check" aria-hidden="true"></i>              
+rope                                      <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+rpy2                                                                                                    <i class="fa fa-check" aria-hidden="true"></i>              
+ruamel_yaml                               <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+s3transfer                                                                                              <i class="fa fa-check" aria-hidden="true"></i>              
+scandir                                   <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+scikit-bio                                                                                              <i class="fa fa-check" aria-hidden="true"></i>              
+scikit-image                              <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+scikit-learn                              <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+scipy                                     <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+scp                                                                                                     <i class="fa fa-check" aria-hidden="true"></i>              
+seaborn                                   <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+SecretStorage                                                                                           <i class="fa fa-check" aria-hidden="true"></i>              
+service-identity                                                                                        <i class="fa fa-check" aria-hidden="true"></i>              
+setuptools                                <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+simplegeneric                             <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+singledispatch                            <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+sip                                       <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+six                                       <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+snakeviz                                                                                                <i class="fa fa-check" aria-hidden="true"></i>              
+snowballstemmer                           <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+sockjs-tornado                                                                                          <i class="fa fa-check" aria-hidden="true"></i>              
+sortedcollections                         <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+sortedcontainers                          <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+sphinx                                    <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+sphinx_rtd_theme                                                                                        <i class="fa fa-check" aria-hidden="true"></i>              
+spyder                                    <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+sqlalchemy                                <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+sqlite                                    <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+sshtunnel                                                                                               <i class="fa fa-check" aria-hidden="true"></i>              
+ssl_match_hostname                        <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+statsmodels                               <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+subprocess32                              <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+sympy                                     <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+tabulate                                                                                                <i class="fa fa-check" aria-hidden="true"></i>              
+tblib                                     <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+tensorflow                                                                                              <i class="fa fa-check" aria-hidden="true"></i>              
+terminado                                 <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+testpath                                  <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+theano                                                                                                  <i class="fa fa-check" aria-hidden="true"></i>              
+Theano                                                                                                  <i class="fa fa-check" aria-hidden="true"></i>              
+tk                                        <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+toolz                                     <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+tornado                                   <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+tqdm                                                                                                    <i class="fa fa-check" aria-hidden="true"></i>              
+traitlets                                 <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+traittypes                                                                                              <i class="fa fa-check" aria-hidden="true"></i>              
+treq                                                                                                    <i class="fa fa-check" aria-hidden="true"></i>              
+Twisted                                                                                                 <i class="fa fa-check" aria-hidden="true"></i>              
+unicodecsv                                <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+unixodbc                                  <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+urllib3                                                                                                 <i class="fa fa-check" aria-hidden="true"></i>              
+vega                                                                                                    <i class="fa fa-check" aria-hidden="true"></i>              
+vsts-cd-manager                                                                                         <i class="fa fa-check" aria-hidden="true"></i>              
+wcwidth                                   <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+websocket-client                                                                                        <i class="fa fa-check" aria-hidden="true"></i>              
+werkzeug                                  <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+wheel                                     <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+Whoosh                                                                                                  <i class="fa fa-check" aria-hidden="true"></i>              
+widgetsnbextension                        <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+word2vec                                                                                                <i class="fa fa-check" aria-hidden="true"></i>              
+wrapt                                     <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+xerces-c                                                                                                <i class="fa fa-check" aria-hidden="true"></i>              
+xlrd                                      <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+xlsxwriter                                <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+xlutils                                                                                                 <i class="fa fa-check" aria-hidden="true"></i>              
+xlwt                                      <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+xmltodict                                                                                               <i class="fa fa-check" aria-hidden="true"></i>              
+xz                                        <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+yaml                                      <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+zeromq                                    <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+zict                                      <i class="fa fa-check" aria-hidden="true"></i>                                                                            
+zlib                                      <i class="fa fa-check" aria-hidden="true"></i>                <i class="fa fa-check" aria-hidden="true"></i>              
+zope.interface                                                                                          <i class="fa fa-check" aria-hidden="true"></i>               
+
+
+<!--
+
+Document one container by Library (not notebook). Impact on UX?
+
+Intro: point to <https://github.com/garth-wells/IA-maths-Jupyter> ?
+
+Packages
+================================================================================
+
+Everything in anaconda is installed? `!conda list` gives a large list of
+installed packages...
+
+Using pip (no root!) or conda (use `-y`).
+
+Not root but `nbuser`. No Terminal either. (have a "limitation" section?).
+But terminal may be replaced (mostly) by Jupyter shell commands.
+
+Why not root? Probably not for the user (or the other users) safety (the containers do that) but to avoid
+to canibalize the not-free azure offers. Cause it's perfectly possible to
+kill all fucking jupyter stuff anyway (rm the home dir, that's it).
+
+**UPDATE:** this is wrong! There is a terminal possible access: click on
+the jupyter icon in the left-top corner and here is the usual access to
+jupyter stuff!
+
+Tests show that package that depend on C or Fortran work. Great!
+
+You are not root though ...
+
+Missing stuff? GitHub issues.
+
+Network Access
+================================================================================
+
+Why we need network access: install software, manage data (in/out).
+
+Whitelist principles, list of stuff that works (Azure stuff, Github,
+transfer.sh, Pypi).
+
+Ways to access it: shell commands (curl, etc.), requests, pip
+
+Data Management
+================================================================================
+
+Transient only (bur for the notebooks), 
+need to manage rehydration. (the notebook itself is persistent).
+
+So need to restore any data files that are needed and reinstall packages.
+When the notebook is done, the output files should be recovered too.
+
+Dropbox works. Can only transfer files, not folders :(
+Same thing locally. The "download selected" seems to freeze the stuff somehow.
+Actually that also used to happen on my hosted jupyterhub on the upload.
+
+Upload from computer also works (but single file at a time).
+
+UI to push / pull data.
+
+Command-line
+
+NOTA: the usual "view" from the filesystem displays the notebooks only,
+not the home dir and the files it may contain. OTOH, commands (shell,
+terminal) work on the "real" filesystems and the notebooks are not
+here.
+
+NOTA: a single docker container is instantiated for multiple repos;
+it may be handy to create a workspace for each notebook and to
+`os.chdir` into it. It also helps (moderately) to create a single 
+zip file, that will be downloaded and later re-uploaded and 
+unpacked (then again, need to cd into it).
+
+TODO: interface to manage this data? 
+create a package that may be pip installed?
+
+Try the Dropbox API? 
+See <http://www.dropboxwiki.com/tips-and-tricks/using-the-official-dropbox-command-line-interface-cli>
+Nah, doesn't work like that.
+
+Social Media / Sharing / Cloning, etc.
+================================================================================
+
+Explore UX to share, upload, etc. notebooks.
+
+Everything is accessible (read) if you know the adress.
+And everyone can visualize the notebook, download it, etc. even
+without a Microsoft account AFAICT. 
+Modifying/execution requires a clone that needs an account.
+
+
+-->
+
+

@@ -1,0 +1,324 @@
+% Cauchy's Integral Theorem -- Global Version
+% [Sébastien Boisgérault][email], Mines ParisTech
+
+[email]: mailto: Sebastien.Boisgerault@mines-paristech.fr
+
+---
+license: "[CC BY-NC-SA 4.0](http://creativecommons.org/licenses/by-nc-sa/4.0/)"
+---
+
+Exercises
+================================================================================
+
+Cauchy's Converse Integral Theorem 
+--------------------------------------------------------------------------------
+
+### Question
+
+Let $\Omega$ be an open subset of $\mathbb{C}$.
+
+Suppose that for every holomorphic function $f: \Omega \to \mathbb{C},$
+  $$
+  \int_{\gamma} f(z) \, dz = 0
+  $$
+for some sequence $\gamma$ of closed rectifiable paths of $\Omega.$
+What conclusion can we draw? What if the property holds for
+every sequence $\gamma$ of closed rectifiable paths of $\Omega?$
+
+### Answer
+
+For any $w \in \mathbb{C} \setminus \Omega$, the function
+$f: z \in \Omega \mapsto 1/(z-w)$ is defined and holomorphic,
+thus
+  $$
+  \mathrm{ind}(\gamma, w) = 
+  \frac{1}{i2\pi} \int_{\gamma} \frac{dz}{z-w} = 0
+  $$
+and therefore $\mathrm{Int} \, \gamma \subset \Omega$.
+Now, suppose that this conclusion holds for any sequence $\gamma$ 
+of closed rectifiable paths of $\Omega.$ 
+Since the winding number is locally constant and since
+for any closed path $\mu$ of $\Omega$ and 
+any $\epsilon > 0$, there is a closed rectifiable path $\gamma$ 
+of $\Omega$ such that
+  $$
+  \forall \, t \in [0,1], \; |\gamma(t) - \mu(t)| < \epsilon,
+  $$
+we also have $\mathrm{ind}(\mu, w) = \mathrm{ind}(\gamma, w) = 0$.
+Therefore $\mathrm{Int} \, \mu \subset \Omega$: the set $\Omega$ is
+simply connected.
+
+
+
+
+Cauchy Transform of Power Functions
+--------------------------------------------------------------------------------
+
+### Question
+
+Compute for any $n \in \mathbb{Z}$ and any $z \in \mathbb{C}$ such that
+$|z| \neq 1$ the line integral
+  $$
+  \phi(z) = \frac{1}{i2\pi} \int_{[\circlearrowleft]} \frac{w^n}{w - z} dw.
+  $$
+
+
+### Answer
+
+For any $z \in \mathbb{C}$ such that $|z| \neq 1$, the function
+  $$
+  \psi_z: w \mapsto \frac{w^n}{w - z}
+  $$
+is defined and holomorphic on $\Omega = \mathbb{C} \setminus \{z\}$ if $n \geq 0$; 
+it is defined and holomorphic on $\Omega = \mathbb{C} \setminus \{0, z\}$ if $n < 0$.
+The interior of $[\circlearrowleft]$ is the open unit disk.
+
+We now study separately four configurations.
+
+ 1. Assume that $n \geq 0$ and $|z| > 1$. The interior of $[\circlearrowleft]$
+    is included in $\Omega$, hence by Cauchy's integral theorem, 
+    $\phi(z) = 0$.
+
+    Alternatively, Cauchy's formula was also applicable.
+
+ 2. Assume that $n \geq 0$ and $|z| < 1$. 
+    The unique singularity of $\psi_z$ is $w=z$; 
+    it satisfies $\mathrm{ind} ([\circlearrowleft], z) = 1$.
+    Let $\gamma(r) = z + r [\circlearrowleft]$; we have
+      $$
+      \mathrm{res}(\psi_z, z) = \lim_{r \to 0} \frac{1}{i 2 \pi} 
+      \int_{\gamma(r)} \frac{w^n}{w - z} dw =
+      \lim_{r \to 0} \int_0^1 (z + r e^{i2\pi t})^n dt
+      = z^n,
+      $$
+    hence by the residues theorem, $\phi(z) = z^n$.
+   
+    Alternatively, Cauchy's formula was also applicable.
+
+ 3. Assume that $n < 0$ and $|z| > 1$. We have
+      $$
+      \phi(z) =  
+      \frac{1}{i2\pi}
+      \int_{[\circlearrowleft]} \frac{1}{w^{|n|}(w-z)} \, dw.
+      $$
+    If $n=-1$, Cauchy's formula provides the answer: 
+      $$
+      \phi(z) = \frac{1}{0-z} = - z^{-1}. 
+      $$
+    Otherwise $n < -1$, we may use integration by parts (several times):
+      $$
+      \begin{split}
+      \phi(z)
+      = &\,
+      \frac{1}{i 2 \pi} \int_{[\circlearrowleft]} \frac{1}{w^{|n|}(w-z)} \, dw \\
+      = &\, 
+      - \frac{1}{i 2 \pi} \int_{[\circlearrowleft]} 
+      \frac{-1}{|n| - 1} \frac{1}{w^{|n|-1}} \frac{-1}{(w - z)^2}\, dw \\
+      = &\, \dots \\
+      = &\, 
+      (-1)^{|n|-1}\frac{1}{i 2 \pi} \int_{[\circlearrowleft]} 
+      \frac{1}{(|n| - 1)!} \frac{1}{w} \frac{(|n|-1)!}{(w - z)^{|n|}} \, dw \\
+      = &\, 
+      - \frac{1}{i 2 \pi} \int_{[\circlearrowleft]} 
+      \frac{1}{w} \frac{1}{(z - w)^{|n|}} \, dw.
+      \end{split}
+      $$
+    At this point, Cauchy's formula may be used again and we obtain 
+      $$
+      \phi(z) = - z^{n}.
+      $$
+
+    Alternatively, we may perform the change of variable $w = 1/\xi:$ 
+      $$
+      \begin{split}
+      \phi(z) = &\, \frac{1}{i2\pi} \int_{[\circlearrowleft]} \frac{w^n}{w - z} dw \\
+              = &\, - \frac{1}{i2\pi} \int_{[\circlearrowleft]} 
+                   \frac{\xi^{-n} }{\xi^{-1} - z} \left(-\frac{d\xi}{\xi^2}\right) \\
+              = &\, - \frac{1}{z} \frac{1}{i2\pi} \int_{[\circlearrowleft]} 
+                    \frac{\xi^{-n-1}}{\xi - z^{-1}}d\xi.
+      \end{split}
+      $$
+    As $-n-1 \geq 0$ and $|z^{-1}| < 1$, we may invoke the result obtained for
+    the first configuration: it provides $\phi(z) = -z^n$.
+
+    Alternatively, we may perform a partial fraction decomposition of
+    $w \mapsto 1/(w^{|n|}(w-z))$. Since
+      $$
+      1 - \left( \frac{w}{z} \right)^{|n|}
+      =
+      \left(1 - \frac{w}{z} \right)
+      \left(1 + \frac{w}{z} +  \dots + \left(\frac{w}{z}\right)^{|n| -1} \right),
+      $$
+    we have
+      $$
+      \frac{1}{w-z}
+      = 
+      -\frac{1}{z} 
+      \left(1 + \frac{w}{z} +  \dots + \left(\frac{w}{z}\right)^{|n| -1} \right)
+      + \frac{w^{|n|}/z^{|n|}}{w-z}
+      $$
+    and therefore
+      $$
+      \frac{1}{w^{|n|}(w-z)}
+      = 
+      - 
+      \left(
+        \frac{z}{w^{|n|}} 
+        + \frac{1/z^2}{w^{|n|-1}} 
+        + \dots  
+        + \frac{1/z^{|n|}}{w^{-1}}
+      \right)
+      + \frac{1/z^{|n|}}{w-z}.
+      $$
+    The integral along $\gamma$ of $w \in \mathbb{C} \mapsto 1/w^p$
+    is zero for $p>1$ since this function has a primitive. 
+    The integral of $w \mapsto 1/(w-z)$ is also zero since $|z|>1$.
+    Finally,
+      $$
+      \phi(z)
+      =
+      \frac{1}{i2\pi} \int_{\gamma} -\frac{1/z^{|n|}}{w^{-1}} dw
+      = -z^n.
+      $$
+
+ 4. Assume that $n < 0$ and $|z| < 1$.
+    There are two singularities of $\psi_z$ in the interior of 
+    $[\circlearrowleft]$, $w=0$ and $w=z$, unless of course if $z=0$.
+
+    If $z=0$, we have
+        $$
+        \phi(z) 
+        = \frac{1}{i2\pi} \int_{[\circlearrowleft]} w^{n-1} dw
+        = 0
+        $$
+    because $w \in \mathbb{C}^* \mapsto w^{n}/n$ is a primitive of 
+    $w \in \mathbb{C}^* \mapsto w^{n-1}$.
+
+    We now assume that $z \neq 0$.
+    The residue associated to $w=z$ can be computed directly with Cauchy's 
+    formula; with $\gamma(r) = z + r[\circlearrowleft]$, we have
+      $$
+      \mathrm{res}(\psi_z, z) 
+      = \lim_{r \to 0} \frac{1}{i2\pi} \int_{\gamma(r)} \frac{w^n}{(w-z)} dw
+      = z^n.
+      $$
+    On the other hand, using computations similar to those of the previous
+    question, we can derive
+      $$
+      \mathrm{res}(\psi_z, 0) 
+      = \lim_{r \to 0} \frac{1}{i2\pi} \int_{r[\circlearrowleft]} \frac{w^n}{(w-z)} dw
+      = - z^n.
+      $$
+    Consequently, $\phi(z) = 0$.     
+
+    In the case $z \neq 0$, we may perform again 
+    the change of variable $w = 1/\xi$ that provides
+      $$
+      \phi(z)= - \frac{1}{z} \frac{1}{i2\pi} \int_{[\circlearrowleft]} 
+                \frac{\xi^{-n-1}}{\xi - z^{-1}}d\xi.
+      $$
+    As $-n-1 \geq 0$ and $|z^{-1}| > 1$, we may invoke the result obtained for
+    the first configuration: it yields $\phi(z) = 0$.
+
+    There is yet another method:
+    we can notice that for $r>1$,
+    the interior of the path sequence 
+    $(r [\circlearrowleft], [\circlearrowleft]^{\leftarrow})$,
+    which is the annulus
+    $\{z \in \mathbb{C} \; | \; 1 < |z| < r\},$
+    is included in $\Omega$. 
+    Cauchy's integral theorem provides
+      $$
+      \forall \, r > 1, \; 
+      \phi(z) =
+      \frac{1}{i2\pi} \int_{r[\circlearrowleft]} \frac{w^n}{w - z} dw.  
+      $$
+    and the M-L estimation lemma
+      $$
+      \forall \, r > 1, \; 
+      |\phi(z)| \leq \frac{1}{r^{|n|-1}(r - |z|)}. 
+      $$
+    The limit of the right-hand side when $r \to +\infty$ yields $\phi(z) = 0$.
+
+    Finally, we may use again the partial fraction decomposition of
+    $w \mapsto 1/(w^{|n|}(w-z))$:
+      $$
+      \frac{1}{w^{|n|}(w-z)}
+      = 
+      - 
+      \left(
+        \frac{z}{w^{|n|}} 
+        + \frac{1/z^2}{w^{|n|-1}} 
+        + \dots  
+        + \frac{1/z^{|n|}}{w^{-1}}
+      \right)
+      + \frac{1/z^{|n|}}{w-z}.
+      $$
+    The integral along $\gamma$ of $w \in \mathbb{C} \mapsto 1/w^p$
+    is zero for $p>1$ since this function has a primitive. 
+    Therefore
+      $$
+      \phi(z)
+      = \frac{1}{i2\pi} \int_{\gamma} -\frac{1/z^{|n|}}{w^{-1}} dw
+      + \frac{1}{i2\pi} \int_{\gamma} \frac{1/z^{|n|}}{w-z} dw = 0.
+      $$
+
+<!--
+Cauchy's Integral Theorem -- Homotopic Version
+--------------------------------------------------------------------------------
+
+Let $\Omega$ be an open subset of $\mathbb{C}$.
+An *homotopy* of $\Omega$
+is a "continuous deformation" of closed paths of $\Omega$,
+or more formally,
+a family $\gamma_s$ of closed paths of $\Omega$, 
+indexed by $s \in[0,1]$, 
+such that the application 
+  $$
+  s\in [0,1] \mapsto \gamma_s \in C^0([0,1],\Omega)
+  $$
+is continuous.
+Two paths $\mu$ and $\nu$ are *homotopic* in $\Omega$ if there is such a 
+homotopy with $\gamma_0 = \mu$ and $\gamma_1 = \nu$.
+
+### Question
+
+Prove that for any holomorphic function $f:\Omega \to \mathbb {C}$
+and any pair $\mu$ and $\nu$ of closed rectifiable paths 
+which are homotopic in $\Omega$,
+  $$
+  \int_{\mu} f(z) \, dz = \int_{\nu} f(z) \, dz.
+  $$
+
+### Answer
+
+Consider the sequence of closed rectifiable path 
+$\lambda = (\mu, \nu^{\leftarrow})$ of $\Omega$. 
+We intend to prove that $\mathrm{Int} \, \lambda$ is a subset of $\Omega$
+(or rather than $\mathbb{C} \setminus \Omega$ is a subset of 
+$\mathrm{Ext} \, \lambda$, which is equivalent);
+given this property,
+Cauchy's Integral Theorem is applicable and provides
+  $$
+  \int_{\lambda} f(z) \, dz = \int_{\mu} f(z) \, dz - \int_{\nu} f(z) \, dz = 0
+  $$
+which is the desired result.
+
+Let $z \in \mathbb{C} \setminus \Omega$. We know that the function
+  $$
+  \gamma \in C^0([0,1], \Omega) \mapsto \mathrm{ind}(\gamma, z)
+  $$
+is locally constant, or equivalently, constant in each connected component
+of $X = C^0([0,1], \Omega)$. 
+If the paths $\mu$ and $\nu$ are homotopic in $\Omega$,
+the associated homotopy $s \in [0,1] \mapsto \gamma_s$ is a path of
+$X$ that joins $\mu$ and $\nu$, hence these two paths
+belong to the same (path-)connected component of $X$. 
+Consequently, $\mathrm{ind}(\mu,z) = \mathrm{ind}(\nu,z)$, hence
+$\mathrm{ind}(\lambda, z) = 0$: the point $z$ belongs to the exterior of
+$\lambda$ and as $z$ is arbitrary in $\mathbb{C} \setminus \Omega$,
+we have $\mathbb{C} \setminus \Omega \subset \mathrm{Ext} \, \lambda$.
+
+-->
+
+

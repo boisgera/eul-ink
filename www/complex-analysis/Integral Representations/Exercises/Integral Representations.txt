@@ -1,0 +1,72 @@
+% Integral Representations
+% [Sébastien Boisgérault][email], Mines ParisTech
+
+[email]: mailto: Sebastien.Boisgerault@mines-paristech.fr
+
+---
+license: "[CC BY-NC-SA 4.0](http://creativecommons.org/licenses/by-nc-sa/4.0/)"
+---
+
+Exercises
+================================================================================
+
+Functions of Several Complex Variables
+--------------------------------------------------------------------------------
+
+### Question
+
+Let $n \geq 2$, let $\Omega$ be an open subset of $\mathbb{C}^n$ and 
+let $f: \Omega \mapsto \mathbb{C}$ a continuous function.
+Show that $f$ is complex-differentiable in $\Omega$ if and only if
+for any $(z_1, \dots, z_n) \in \Omega$, the partial function
+  $$
+  f_{k,z}: w \mapsto f(z_1, \dots, z_{k-1}, w, z_{k+1}, \dots, z_n)
+  $$
+is holomorphic.
+
+### Answer
+
+We may define the embedding functions $e_{k,z}: \mathbb{C} \to \mathbb{C}^n$ by
+  $$
+  e_{k,z}(w) = (z_1, \dots, z_{k-1}, w, z_{k+1}, \dots, z_n).
+  $$
+It is plain that the $e_{k,z}$ are continuous.
+A function $f_{k,z}$ is defined on the preimage of the open
+set $\Omega$ by $e_{k,z}$ which is therefore an open set.
+
+Assume that $f$ is complex-differentiable; it is continuous.
+Additionally, $f_{k,z} = f \circ e_{k,z}$;
+as the function $e_{k,z}$ is complex-linear, 
+it is complex-differentiable and $f_{k,z}$ is complex-differentiable
+(or holomorphic) as the composition of complex-differentiable functions.
+
+Conversely, if $f$ if continuous and 
+every partial function $f_{k,z}$ is complex-differentiable, 
+the function $f$ itself is complex-differentiable as 
+every partial derivative $z \in \Omega \mapsto (\partial f/\partial z_k) (z)$ is 
+continuous -- not merely as a function of its $k$-th variable which is plain, 
+but as a function of all its variables. 
+
+Let $z=(z_1,\dots, z_n) \in \Omega$, let $c \in \mathbb{C}$ and $r>0$ such that
+  $$
+  \forall \, w \in \mathbb{C}, \;
+  |w - c| \leq r \; \to \; (z_1,\dots,z_{k-1},w,z_k,\dots, z_n) \in \Omega.
+  $$
+Cauchy's formula, applied to the partial function $f_{k,z}$ for the path
+$\gamma =c + r[\circlearrowleft]$, provides
+  $$
+  f(z_1,\dots, z_n) 
+  = 
+  \frac{1}{i2\pi} \int_{\gamma} \frac{f(z_1, \dots, z_{k-1}, w, z_{k+1}, \dots, z_n)}{w-z_k} dw
+  $$
+The integrand is continuous with respect to the pair $(z_1,w_1)$ and
+complex-differentiable with respect to $z_1$, thus we may compute
+the partial derivative of $f$ with respect to $z_k$ satisfies by
+differentiation under the integral sign:
+  $$
+  \frac{\partial f}{\partial z_k} (z_1,\dots, z_n) 
+  = 
+  \frac{1}{i2\pi} \int_{\gamma} \frac{f(z_1, \dots, z_{k-1}, w, z_{k+1}, \dots, z_n)}{(w-z_k)^2} dw.
+  $$
+As the function $f$ is continuous, the partial derivative is also continous.
+

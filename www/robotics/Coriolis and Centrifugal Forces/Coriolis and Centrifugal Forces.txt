@@ -1,0 +1,220 @@
+% Coriolis and Centrifugal Forces
+% [Sébastien Boisgérault][email], MINES ParisTech
+
+[email]: mailto:Sebastien.Boisgerault@mines-paristech.fr
+
+---
+license: "[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0)"
+---
+
+Euler-Langrange Dynamics
+--------------------------------------------------------------------------------
+
+The dynamics of a mechanical system with coordinates $q$, 
+kinetic energy $K$ and potential energy $V$ which is subject 
+to the forces $f$ is governed by the Euler-Lagrange equations
+  $$
+  \frac{d}{dt} \nabla_{\dot{q}} L(q, \dot{q}) 
+  - \nabla_{q} L (q, \dot{q}) 
+  = 
+  f
+  $$
+where the Lagrangian $L$ of the system is defined as
+  $$
+  L(q, \dot{q}) = K(q, \dot{q}) - V(q).
+  $$
+
+Since the kinematic energy varies quadratically with the velocity,
+  $$
+  K(q, \dot{q}) = \frac{1}{2} \dot{q}^t M(q) \dot{q}
+  $$
+for some mass matrix $M(q)$ which is symmetric and positive (semi-)definite.
+Using this expression in the Euler-Lagrange equations provides
+  $$
+  M(q) \ddot{q} 
+  = f - \nabla_q V(q) + f^c
+  $$
+where $f^c$ are -- by definition -- the Coriolis and centrifugal forces:
+  $$
+  f^c
+  = 
+  - \dot{M}(q,\dot{q}) \dot{q} + \frac{1}{2} \nabla_q (\dot{q}^t M(q) \dot{q}) 
+  $$  
+
+
+Coriolis and Centrifugal Forces
+--------------------------------------------------------------------------------
+
+Since 
+$f^c  = -\dot{M}(q,\dot{q}) \dot{q} + \frac{1}{2} \nabla_q (\dot{q}^t M(q) \dot{q})$,
+every component $f^c_i$ of the Coriolis and centrifugal forces 
+varies quadratically with the velocity:
+we can find some matrix $\Gamma_i$ such that
+  $$
+  f^c_i 
+  = 
+  - \dot{q}^t \Gamma_i \dot{q} 
+  = 
+  - \sum_{j,k} \dot{q}_j \Gamma_{ijk} \dot{q}_k
+  $$
+
+Indeed, we have
+  $$
+  f^c_i
+     = 
+    -\sum_j 
+    \dot{M}_{ij} \dot{q}_j 
+    + \frac{1}{2} 
+      \frac{\partial}{\partial q_i} \sum_{j, k}  \dot{q}_j M_{jk} \dot{q}_k  \\
+  $$
+and thus
+  $$
+  f^c_i =  \sum_{j, k}
+    \left(
+    - \frac{\partial M_{ij}}{\partial q_k} \dot{q}_k \dot{q}_j 
+    + \frac{1}{2} \frac{\partial M_{jk}}{\partial q_i} \dot{q}_k \dot{q}_j
+    \right)
+  $$
+
+Swapping the indices $j$ and $k$ yields
+  $$
+  \sum_j \sum_k \frac{\partial M_{ij}}{\partial q_k} \dot{q}_k \dot{q}_j 
+  = 
+  \sum_k \sum_j \frac{\partial M_{ik}}{\partial q_j} \dot{q}_j \dot{q}_k
+  =
+  \sum_j \sum_k \frac{\partial M_{ik}}{\partial q_j} \dot{q}_k \dot{q}_j
+  $$
+and thus we may also write
+  $$
+  f^c_i
+  =
+  - \sum_{j, k}
+  \frac{1}{2}
+  \left(
+  \frac{\partial M_{ij}}{\partial q_k} 
+  + \frac{\partial M_{ik}}{\partial q_j} 
+  - \frac{\partial M_{jk}}{\partial q_i}
+  \right)  \dot{q}_k \dot{q}_j \\
+  $$
+hence we may define
+  $$
+  \Gamma_{ijk}
+  =
+  \frac{1}{2}
+  \left(
+  \frac{\partial M_{ij}}{\partial q_k} 
+  + \frac{\partial M_{ik}}{\partial q_j} 
+  - \frac{\partial M_{jk}}{\partial q_i}
+  \right)
+  $$
+
+These $\Gamma_{ijk}$ are called the 
+[Christoffel symbols of the first kind](https://en.wikipedia.org/wiki/Christoffel_symbols)
+of $M(q)$.
+
+
+Mechanical Energy
+--------------------------------------------------------------------------------
+
+Let $C(q,\dot{q})$ be the matrix defined as
+  $$
+  C_{ij} = \sum_{k} \Gamma_{ijk} \dot{q}_k.
+  $$
+By construction $f_c = - C(q, \dot{q}) \dot{q}$ thus
+the Euler-Lagrange equations become
+  $$
+  M(q) \ddot{q} + C(q, \dot{q}) \dot{q}
+  = f - \nabla_q V(q).
+  $$
+
+Consider the matrix $S := \dot{M} - 2 C$. Since
+  $$
+  \begin{split}
+  S_{ij}  = [\dot{M} - 2 C]_{ij}
+  &=
+  \sum_k \frac{\partial M_{ij}}{\partial q_k} \dot{q}_k
+  -
+  \sum_k 
+  \left(
+  \frac{\partial M_{ij}}{\partial q_k} 
+  + \frac{\partial M_{ik}}{\partial q_j} 
+  - \frac{\partial M_{jk}}{\partial q_i}
+  \right) \dot{q}_k \\
+  &=
+  \sum_k 
+  \left(
+  \frac{\partial M_{jk}}{\partial q_i}
+  - \frac{\partial M_{ik}}{\partial q_j} 
+  \right) \dot{q}_k
+  \end{split}
+  $$
+it is skew-symmetric:
+  $$
+  \forall \, i, \; \forall \, j, \; 
+  S_{ij} = - S_{ji}
+  $$
+or equivalently[^footnote],
+  $$
+  \forall \, v \in \mathbb{R}^n, 
+  \; v^t S v = 0.
+  $$
+
+[^footnote]:
+  If $v^t S v = 0$ for every $v$,
+  then $v = e_i$ yields $S_{ii}=0$ and 
+  $v=e_i + e_j$ yields $S_{ii} + S_{jj} + S_{ij} + S_{ji} = 0$
+  and thus $S_{ij} = -S_{ji}$. On the other hand, if $S_{ij}
+  = -S_{ji}$ for every $i$ and $j$, then since every vectory
+  $v$ may be represented as a combination $v = \sum_i \lambda_i e_i$, 
+  we have
+    $$
+    \begin{split}
+    v^t S v
+    = \sum_{i,j} S_{ij} \lambda_i \lambda_j 
+    &= \sum_{i < j} S_{ij} \lambda_i \lambda_j + \sum_{i} S_{ii} (\lambda_i)^2
+       + \sum_{i > j} S_{ij} \lambda_i \lambda_j \\ 
+    &= \sum_{i < j} S_{ij} \lambda_i \lambda_j + \sum_{i} 0 \times (\lambda_i)^2
+       - \sum_{j < i} S_{ji} \lambda_j \lambda_i \\
+    &= 0.
+    \end{split}
+    $$
+
+The mechanical energy of a Euler-Lagrange systems is defined as
+  $$
+  E(q, \dot{q}) = K(q, \dot{q}) + V(q).
+  $$
+It time derivative satisfies
+  $$
+  \dot{E} = \dot{q}^t M(q) \ddot{q} 
+          + \frac{1}{2}\dot{q}^t \dot{M}(q) \dot{q} + \nabla V(q) \dot{q}
+  $$
+and thus
+  $$
+  \begin{split}
+  \dot{E} &= \dot{q}^t \left(- C(q,\dot{q}) \dot{q}+ f - \nabla_q V(q)) \right)
+          + \frac{1}{2}\dot{q}^t \dot{M}(q) \dot{q} + \nabla V(q) \dot{q} \\
+          &= f^t \dot{q} + \frac{1}{2} \dot{q}^t S \dot{q}
+  \end{split}
+  $$
+and since $S$ is skew-symmetric
+  $$
+  \dot{E} = f \cdot q.
+  $$
+In plain words: the derivative of the mechanical energy is equal to the
+power transferred to the system by non-conservative external forces.
+
+<!--
+
+Variants
+--------------------------------------------------------------------------------
+
+Other, valid expressions for $C(q, \dot{q}$ (such that $C(q,\dot{q}) \dot{q}$
+is the same).
+
+$\to$ add to any $c_{ijk}$ s.t.\ $C = c_{ijk} \dot{q}_k$ any
+$[d_{ijk}]$ such that $d_{ijk} = - d_{ikj}$ (necessary and sufficient
+condition). Proof: just write $C \dot{q} = \tilde{C} \dot{q}$, this is straightforward.
+
+-->
+
+

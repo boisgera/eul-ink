@@ -1,0 +1,1231 @@
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, MINES ParisTech">
+  <meta name="dcterms.date" content="2019-09-30">
+  <title>Line Integrals &amp; Primitives</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: content-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+html {
+  line-height: var(--base-line-height);
+  --base-font-size: 24px;
+  --base-line-height: 36px;
+  --scale-ratio: 1.4142135623730951;
+  --small: 17px;
+  --medium: 24px;
+  --large: 34px;
+  --x-large: 48px;
+  font-size: 24px;
+  font-family: 'Alegreya', serif;
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html em {
+  font-style: italic;
+}
+html strong {
+  font-weight: bold;
+}
+html p, html .p {
+  margin-bottom: var(--base-line-height);
+  text-align: justify;
+  hyphens: auto;
+  -moz-hyphens: auto;
+}
+html section {
+  margin-bottom: var(--base-line-height_px);
+}
+html main {
+  box-sizing: content-box;
+  max-width: 32em;
+  margin: auto;
+  padding: var(--base-line-height);
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, q:before {
+  content: none;
+}
+blockquote:after, q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: medium solid black;
+  border-bottom: medium solid black;
+}
+main > header, main > .header, main > #header {
+  margin-top: calc(2 * var(--base-line-height));
+  margin-bottom: calc(2 * var(--base-line-height));
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: calc(1.5 * var(--base-line-height));
+  margin-top: 0;
+  margin-bottom: var(--base-line-height);
+  font-weight: bold;
+}
+main > header .author, main > .header .author, main > #header .author {
+  font-size: 24px;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  font-weight: normal;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: 'Alegreya SC', serif;
+  line-height: calc(1 * var(--base-line-height));
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  font-weight: bold;
+  line-height: calc(1.25 * var(--base-line-height));
+  margin-top: calc(2.00 * var(--base-line-height));
+  margin-bottom: calc(0.75 * var(--base-line-height));
+}
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+}
+h3, h4, h5, h6 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 1em;
+  display: inline;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
+}
+a:hover {
+  text-decoration: none;
+}
+a:link {
+  color: var(--color);
+}
+a:visited {
+  color: var(--color);
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li {
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  margin-left: var(--base-line-height);
+  padding-left: 0.5em;
+}
+ul li {
+  list-style: disc;
+}
+ol li {
+  list-style: decimal;
+}
+blockquote {
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+  padding: var(--base-line-height);
+  margin-bottom: var(--base-line-height);
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-size: 24px;
+  font-family: Inconsolata;
+}
+pre {
+  overflow-x: auto;
+  background-color: #ebebeb;
+  margin-bottom: var(--base-line-height);
+  padding-left: var(--base-line-height);
+  padding-right: var(--base-line-height);
+  padding-top: var(--base-line-height);
+  padding-bottom: var(--base-line-height);
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: auto;
+}
+figure {
+  margin-bottom: var(--base-line-height);
+  text-align: center;
+}
+figcaption {
+  display: inline-block;
+  font-style: italic;
+  text-align: justify;
+}
+.table {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  margin-bottom: var(--base-line-height);
+}
+thead {
+  border-bottom: medium solid black;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+.MJXc-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+nav#TOC > ul {
+  position: relative;
+  font-weight: bold;
+}
+nav#TOC > ul > * {
+  margin-bottom: var(--base-line-height);
+}
+nav#TOC > ul li {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+nav#TOC > ul ul li {
+  margin-left: var(--base-line-height);
+  font-weight: normal;
+}
+nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+  padding-bottom: var(--base-line-height);
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+.badge {
+  position: relative;
+  bottom: 0.13em;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  font-weight: 300;
+  font-size: var(--small);
+  display: inline-block;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  vertical-align: baseline;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+  margin-right: 1em;
+}
+.section-flag {
+  line-height: var(--base-line-height);
+  font-size: var(--small);
+  font-weight: 300;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  margin-bottom: 0;
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya: 400,700,900,400italic,700italic,900italic|Alegreya+SC:400,700,900,400italic,700italic,900italic|Alegreya+Sans:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+Sans+SC:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var box, hide_proof, main, show_proof;
+
+  hide_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("expanded");
+    sectionWrapper.addClass("minimized");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "visible"
+    });
+    w$(".header-wrapper").css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().css({
+      visibility: "hidden",
+      height: "0px"
+    });
+    w$(".header-wrapper").attr({
+      id: w$("section").first().attr("id")
+    });
+    return w$("section").first().attr({
+      id: ""
+    });
+  };
+
+  show_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("minimized");
+    sectionWrapper.addClass("expanded");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "hidden"
+    });
+    w$(".header-wrapper").css({
+      visibility: "hidden",
+      height: "0"
+    });
+    w$("section").first().css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().attr({
+      id: w$(".header-wrapper").attr("id")
+    });
+    return w$(".header-wrapper").attr({
+      id: ""
+    });
+  };
+
+  box = function(section) {
+    var clone, expand, header, headerWrapper, tombstone, wrapper;
+    clone = section.clone(true);
+    clone.css({
+      marginBottom: "0"
+    });
+    clone.children().last().css({
+      marginBottom: "0"
+    });
+    tombstone = clone.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer",
+      position: "absolute",
+      bottom: "0.75rem",
+      right: "0.75rem"
+    });
+    wrapper = $("<div class='proof-wrapper expanded'></div>");
+    wrapper.css({
+      position: "relative",
+      margin: "-0.75rem -0.75rem 0.75rem -0.75rem",
+      padding: "0.75rem",
+      backgroundColor: "#f9f9f9"
+    });
+    header = clone.find("h3, h4, h5, h6").first().clone();
+    headerWrapper = $("<div class='p header-wrapper' style='margin-bottom:0; visibility:hidden; overflow:hidden; height:0;'> </div>");
+    headerWrapper.append(header);
+    expand = $("<i class='fa fa-caret-down expand' style='visibility:hidden; cursor:pointer; position:absolute; top:0.75rem; right:0.75rem;'> </i>");
+    wrapper.append(headerWrapper);
+    wrapper.append(expand);
+    wrapper.append(clone);
+    expand.on("click", function() {
+      return show_proof(wrapper);
+    });
+    tombstone.on("click", function() {
+      return hide_proof(wrapper);
+    });
+    section.replaceWith(wrapper);
+    return wrapper;
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, section, sections, text, wrapper;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      wrapper = box(section);
+      hide_proof(wrapper);
+    }
+    return $(document).keydown(function(event) {
+      var k, l, len2, len3, ref1, ref2, results, sectionWrapper;
+      console.log("***", event.keyCode);
+      if (event.keyCode === 88) {
+        ref1 = $(".proof-wrapper.minimized");
+        for (k = 0, len2 = ref1.length; k < len2; k++) {
+          sectionWrapper = ref1[k];
+          show_proof($(sectionWrapper));
+        }
+      }
+      if (event.keyCode === 77) {
+        ref2 = $(".proof-wrapper.expanded");
+        results = [];
+        for (l = 0, len3 = ref2.length; l < len3; l++) {
+          sectionWrapper = ref2[l];
+          results.push(hide_proof($(sectionWrapper)));
+        }
+        return results;
+      }
+    });
+  };
+
+  $(main);
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var make_preview, mathjaxDebug;
+
+  make_preview = function(elt) {
+    var card, hidden_css, hide_preview, id, ref, show_preview, url, visible_css;
+    ref = elt.attr("href").split("#"), url = ref[0], id = ref[1];
+    card = $("<div class='card'>\n  <div class='holder'>\n    <p>Placeholder</p>\n  </div>\n</div>");
+    card.css({
+      width: "35vw",
+      padding: "1.5rem",
+      position: "fixed",
+      top: "1.5rem",
+      right: "1.5rem",
+      boxSizing: "border-box",
+      maxHeight: "calc(100vh - 3rem)",
+      overflow: "hidden",
+      boxShadow: "0 0 1rem #e6e6e6",
+      backgroundColor: "white"
+    });
+    visible_css = {
+      visibility: "visible",
+      opacity: 1,
+      transform: "translateX(0em)",
+      transition: "all 0.3s linear"
+    };
+    hidden_css = {
+      visibility: "hidden",
+      opacity: 0,
+      transform: "translateX(1em)",
+      transition: "all 0.3s linear 0.5s"
+    };
+    card.css(hidden_css);
+    elt.css({
+      textDecoration: "underline solid #0a0a0a",
+      textDecorationSkip: "ink",
+      transition: "background-color 0.3s linear"
+    });
+    show_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d3"
+      });
+      return card.css(visible_css);
+    };
+    hide_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d300"
+      });
+      return card.css(hidden_css);
+    };
+    return card.find(".holder").load(url + (" [id='" + id + "']"), function(response, status, jxXHR) {
+      console.log("XHR status:", status, url, id);
+      if (status === "success" || status === "notmodified") {
+        console.log("success!");
+        console.log("elt:", $(elt));
+        $("body").append(card);
+        card.find("p, .p").css({
+          textAlign: "left"
+        });
+        card.find("section").css({
+          marginBottom: "0"
+        });
+        card.find("section").children().last().css({
+          marginBottom: "0"
+        });
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, card[0]]);
+        elt.on("mouseenter", show_preview);
+        return elt.on("mouseleave", hide_preview);
+      }
+    });
+  };
+
+  mathjaxDebug = function() {
+    MathJax.Hub.signal.Interest(function(message) {
+      return console.log("*", message);
+    });
+    return MathJax.Hub.Register.StartupHook("End Process", function() {
+      var i, jax, len, ref, results;
+      console.log("list of jaxes:");
+      ref = MathJax.Hub.getAllJax();
+      results = [];
+      for (i = 0, len = ref.length; i < len; i++) {
+        jax = ref[i];
+        results.push(console.log("jax:", jax));
+      }
+      return results;
+    });
+  };
+
+  $(function() {
+    var elt, i, len, ref, results;
+    ref = $("a.preview");
+    results = [];
+    for (i = 0, len = ref.length; i < len; i++) {
+      elt = ref[i];
+      results.push(make_preview($(elt)));
+    }
+    return results;
+  });
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">Line Integrals &amp; Primitives</a></h1>
+
+<h2 class="author">
+By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, MINES ParisTech, under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>
+</h2> 
+
+<h3 class="date" style="margin-right: 0px;">September 30, 2019</h3>
+</header>
+<section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
+<ul>
+<li class="top-li"><p class="section-flag">section 1</p><a href="#introduction">Introduction</a><ul>
+<li><span class="badge">the<span></span></span><a href="#theorem--fundamental-theorem-of-calculus-real-analysis.">Fundamental Theorem of Calculus (Real Analysis)</a></li>
+<li></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 2</p><a href="#paths">Paths</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--path.">Path</a></li>
+<li><span class="badge">def<span></span></span><a href="#definition--image-of-a-path.">Image of a Path</a></li>
+<li><span class="badge">def<span></span></span><a href="#definition--path-endpoints.">Path Endpoints</a></li>
+<li><span class="badge">exa<span></span></span><a href="#example--oriented-line-segment.">Oriented Line Segment</a></li>
+<li><span class="badge">exa<span></span></span><a href="#example--oriented-circle.">Oriented Circle</a></li>
+<li><span class="badge">def<span></span></span><a href="#definition--open-path-connected-sets.">Open (Path-)Connected Sets</a></li>
+<li><span class="badge">def<span></span></span><a href="#definition--reverse-path.">Reverse Path</a></li>
+<li><span class="badge">def<span></span></span><a href="#definition--path-concatenation.">Path Concatenation</a></li>
+<li><span class="badge">exa<span></span></span><a href="#example--oriented-polyline.">Oriented Polyline</a></li>
+<li><span class="badge">def<span></span></span><a href="#definition--rectifiable-path.">Rectifiable Path</a></li>
+
+<li><span class="badge">the<span></span></span><a href="#theorem--continuously-differentiable-decomposition.">Continuously Differentiable Decomposition</a></li>
+
+<li><span class="badge">lem<span></span></span><a href="#lemma--connectedness--rectifiable-paths.">Connectedness &amp; Rectifiable Paths</a></li>
+<li></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 3</p><a href="#line-integrals">Line Integrals</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--length-of-a-rectifiable-path.">Length of a Rectifiable Path</a></li>
+<li><span class="badge">exa<span></span></span><a href="#example--length-of-an-oriented-segment.">Length of an Oriented Segment</a></li>
+<li><span class="badge">exa<span></span></span><a href="#example--length-of-an-oriented-circle.">Length of an Oriented Circle</a></li>
+<li><span class="badge">def<span></span></span><a href="#definition--line-integral.">Line Integral</a></li>
+<li><span class="badge">rem<span></span></span><a href="#remark--undefined-integrands.">Undefined Integrands</a></li>
+<li><span class="badge">rem<span></span></span><a href="#remark--integral-notation.">Integral Notation</a></li>
+<li><span class="badge">exa<span></span></span><a href="#example--integration-along-an-oriented-segment.">Integration along an Oriented Segment</a></li>
+<li><span class="badge">exa<span></span></span><a href="#example--integration-along-an-oriented-circle.">Integration along an Oriented Circle</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--complex-linearity-of-the-line-integral.">Complex-Linearity of the Line Integral</a></li>
+<li></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--integration-along-a-reverse-path.">Integration along a Reverse Path</a></li>
+<li></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--integration-along-concatenation-of-paths.">Integration along Concatenation of Paths</a></li>
+<li></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--m-l-inequality.">M-L Inequality</a></li>
+<li></li>
+<li><span class="badge">cor<span></span></span><a href="#corollary--convergence-in-line-integrals.">Convergence in Line Integrals</a></li>
+<li></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--invariance-by-reparametrization.">Invariance By Reparametrization</a></li>
+<li></li>
+<li><span class="badge">def<span></span></span><a href="#definition--image-of-a-path-by-a-function.">Image of a Path by a Function</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--change-of-variable-in-line-integrals-dagger.">Change of Variable in Line Integrals [\(\dagger\)]</a></li>
+<li></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 4</p><a href="#primitives">Primitives</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--primitive.">Primitive</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--fundamental-theorem-of-calculus-complex-analysis.">Fundamental Theorem of Calculus (Complex Analysis)</a></li>
+<li></li>
+<li><span class="badge">cor<span></span></span><a href="#corollary--existence-of-primitives-dagger.">Existence of Primitives [\(\dagger\)]</a></li>
+<li></li>
+<li><span class="badge">cor<span></span></span><a href="#corollary--set-of-primitives.">Set of Primitives</a></li>
+<li></li>
+<li><span class="badge">cor<span></span></span><a href="#corollary--integration-by-parts-dagger.">Integration by Parts [\(\dagger\)]</a></li>
+<li></li>
+<li><span class="badge">rem<span></span></span><a href="#remark--definition--variation-of-a-function-on-a-path.">Variation of a Function on a Path</a></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 5</p><a href="#appendix-a-better-theory-of-rectifiability">Appendix – A Better Theory of Rectifiability</a><ul>
+<li><a href="#rectifiable-paths">Rectifiable Paths</a></li>
+<li><a href="#the-line-integral">The Line Integral</a></li>
+<li><a href="#a-non-rectifiable-curve">A Non-Rectifiable Curve</a></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 6</p><a href="#references">References</a></li>
+</ul>
+</nav></section>
+<section id="introduction" class="level1">
+<h1><a href="#introduction">Introduction</a></h1>
+<p>The main goal of this chapter is to derive the fundamental theorem of calculus for functions of a complex variable. This theorem characterizes the relation between functions and their primitives with the help of integrals. A version of this theorem for functions of a real variable is the following:</p>
+<section id="theorem--fundamental-theorem-of-calculus-real-analysis." class="level3">
+
+<div class="p"><h3><a href="#theorem--fundamental-theorem-of-calculus-real-analysis.">Theorem – Fundamental Theorem of Calculus (Real Analysis).</a></h3>‌ Let <span class="math inline">\(I\)</span> be an open interval of <span class="math inline">\(\mathbb{R},\)</span> <span class="math inline">\(f:I \to \mathbb{R}\)</span> be a continuous function and <span class="math inline">\(a \in I.\)</span> A function <span class="math inline">\(g: I \to \mathbb{R}\)</span> is a primitive of <span class="math inline">\(f\)</span> if and only if it satisfies <span class="math display">\[
+  \forall \, x \in I, \; g(x) = g(a) + \int_a^x f(t) \, dt.
+  \]</span></div>
+</section>
+<section id="proof." class="level3">
+
+<div class="p"><h3><a href="#proof.">Proof.</a></h3>‌ Suppose that the function <span class="math inline">\(g\)</span> satisfies the integral equation of the theorem. For any <span class="math inline">\(x \in I\)</span> and any real number <span class="math inline">\(h\)</span> such that <span class="math inline">\(x+h \in I,\)</span> <span class="math display">\[
+  \begin{split}
+  \frac{g(x+h) - g(x)}{h}
+  &amp;=
+  \frac{1}{h}\int_{x}^{x+h} f(t) \, dt \\
+  &amp;= 
+  \frac{1}{h}\int_x^{x+h} f(x) \, dt  +  \frac{1}{h}\int_x^{x+h} (f(t) - f(x)) \, dt \\
+  &amp;=  \, f(x)  +  \frac{1}{h}\int_x^{x+h} (f(t) - f(x)) \, dt, \\
+  \end{split}
+  \]</span> Let <span class="math inline">\(\epsilon &gt; 0;\)</span> by continuity of <span class="math inline">\(f\)</span> at <span class="math inline">\(x,\)</span> there is a <span class="math inline">\(\delta &gt; 0\)</span> such that <span class="math display">\[
+  \forall \, t \in I, \;
+  (|t-x| \leq \delta \, \Rightarrow \, |f(t) - f(x)| &lt; \epsilon)
+  \]</span> thus if <span class="math inline">\(|h| &lt; \delta,\)</span> <span class="math display">\[
+  \left| \frac{g(x+h) - g(x)}{h} - f(x) \right|
+  \leq \frac{1}{|h|} |h| \times \epsilon
+  = \epsilon.
+  \]</span> The difference quotient tends to <span class="math inline">\(f(x)\)</span> when <span class="math inline">\(h\)</span> tends to zero: <span class="math inline">\(g'(x)\)</span> exists and is equal to <span class="math inline">\(f(x).\)</span></div>
+<p>Conversely, suppose that <span class="math inline">\(e: I \to \mathbb{R}\)</span> is a primitive of <span class="math inline">\(f.\)</span> The difference <span class="math inline">\(d\)</span> between <span class="math inline">\(e\)</span> and the function <span class="math display">\[
+  g: x \in  I \mapsto e(a) + \int_a^x f(t) \, dt
+  \]</span> is zero at <span class="math inline">\(a\)</span> and has a zero derivative on <span class="math inline">\(I.\)</span> By the mean value theorem, for any <span class="math inline">\(x \in I\)</span> such that <span class="math inline">\(x\neq a,\)</span> there is a <span class="math inline">\(b \in I\)</span> such that <span class="math display">\[
+  \frac{d(x) - d(a)}{x - a} = d'(b) = 0,
+  \]</span> hence <span class="math inline">\(d(x) = d(a) = 0\)</span> and therefore <span class="math inline">\(e = g.\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+</section>
+<section id="paths" class="level1">
+<h1><a href="#paths">Paths</a></h1>
+<section id="definition--path." class="level3">
+
+<div class="p"><h3><a href="#definition--path.">Definition – Path.</a></h3>‌ A <em>path</em> <span class="math inline">\(\gamma\)</span> is a continuous function from <span class="math inline">\([0,1]\)</span> to <span class="math inline">\(\mathbb{C}.\)</span> If <span class="math inline">\(A\)</span> is a subset of the complex plane, <span class="math inline">\(\gamma\)</span> is a <em>path of <span class="math inline">\(A\)</span></em> if additionally <span class="math inline">\(\gamma([0,1]) \subset A.\)</span></div>
+</section>
+<section id="definition--image-of-a-path." class="level3">
+
+<div class="p"><h3><a href="#definition--image-of-a-path.">Definition – Image of a Path.</a></h3>‌ The <em>image</em> or <em>trajectory</em> or <em>trace</em> of the path <span class="math inline">\(\gamma\)</span> is the image <span class="math inline">\(\gamma([0,1])\)</span> of the interval <span class="math inline">\([0,1]\)</span> by the function <span class="math inline">\(\gamma.\)</span></div>
+</section>
+<section id="definition--path-endpoints." class="level3">
+
+<div class="p"><h3><a href="#definition--path-endpoints.">Definition – Path Endpoints.</a></h3>‌ The complex numbers <span class="math inline">\(\gamma(0)\)</span> and <span class="math inline">\(\gamma(1)\)</span> are the <em>initial point</em> and <em>terminal point</em> of <span class="math inline">\(\gamma\)</span> – they are its <em>endpoints</em>; the path <span class="math inline">\(\gamma\)</span> <em>joins</em> its initial and terminal points. The path is <em>closed</em> if the initial and terminal point are the same. The paths <span class="math inline">\(\gamma_1, \dots, \gamma_n\)</span> are <em>consecutive</em> if for <span class="math inline">\(k = 1 ,\dots, n-1,\)</span> the terminal point of <span class="math inline">\(\gamma_k\)</span> is the initial point of <span class="math inline">\(\gamma_{k+1}.\)</span></div>
+</section>
+<section id="example--oriented-line-segment." class="level3">
+
+<div class="p"><h3><a href="#example--oriented-line-segment.">Example – Oriented Line Segment.</a></h3>‌ The oriented line segment (or simply oriented segment) with initial point <span class="math inline">\(a \in \mathbb{C}\)</span> and terminal point <span class="math inline">\(b \in \mathbb{C}\)</span> is denoted <span class="math inline">\([a \to b]\)</span> and defined as <span class="math display">\[
+  [a \to b]: t \in [0,1] \mapsto (1-t) a + t b.
+  \]</span> Its image is the line segment <span class="math inline">\([a,b].\)</span></div>
+<figure>
+<img src="images/segment.svg" alt="Representation of the oriented line segment [0 \to 2+i]"><figcaption>Representation of the oriented line segment <span class="math inline">\([0 \to 2+i]\)</span></figcaption>
+</figure>
+</section>
+<section id="example--oriented-circle." class="level3">
+
+<div class="p"><h3><a href="#example--oriented-circle.">Example – Oriented Circle.</a></h3>‌ The oriented circle of radius one centered at the origin traversed once in the positive sense (counterclockwise) is denoted <span class="math inline">\([\circlearrowleft]\)</span> and defined as <span class="math display">\[
+  [\circlearrowleft]: t \in [0,1] \to e^{i2\pi t}.
+  \]</span> The circle of radius <span class="math inline">\(r \geq 0\)</span> centered at <span class="math inline">\(c \in \mathbb{C}\)</span> traversed <span class="math inline">\(n\in \mathbb{Z}^*\)</span> times in the positive sense is the path <span class="math display">\[
+ c + r[\circlearrowleft]^n: t \in [0,1] \to c + r e^{i2\pi n t}.
+ \]</span> Its image is the circle centered on <span class="math inline">\(c\)</span> with radius <span class="math inline">\(r;\)</span> its initial and terminal points are both <span class="math inline">\(c+r,\)</span> hence it is closed.</div>
+<figure>
+<img src="images/circle.svg" alt="Representation of the oriented circle [\circlearrowleft]"><figcaption>Representation of the oriented circle <span class="math inline">\([\circlearrowleft]\)</span></figcaption>
+</figure>
+</section>
+<section id="definition--open-path-connected-sets." class="level3">
+
+<div class="p"><h3><a href="#definition--open-path-connected-sets.">Definition – Open (Path-)Connected Sets.</a></h3>‌ An open subset <span class="math inline">\(\Omega\)</span> of the complex-plane is <em>(path-)connected</em> if for any points <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> of <span class="math inline">\(\Omega,\)</span> there is a path of <span class="math inline">\(\Omega\)</span> that joins <span class="math inline">\(x\)</span> and <span class="math inline">\(y.\)</span></div>
+</section>
+<section id="definition--reverse-path." class="level3">
+
+<div class="p"><h3><a href="#definition--reverse-path.">Definition – Reverse Path.</a></h3>‌ The <em>reverse</em> (or <em>opposite</em>) of the path <span class="math inline">\(\gamma\)</span> is the path <span class="math inline">\(\gamma^{\leftarrow}\)</span> defined by <span class="math display">\[ 
+  \forall \, t \in [0,1], \; \gamma^{\leftarrow}(t) = \gamma(1-t).
+  \]</span></div>
+</section>
+<section id="definition--path-concatenation." class="level3">
+
+<div class="p"><h3><a href="#definition--path-concatenation.">Definition – Path Concatenation.</a></h3>‌ Let <span class="math inline">\(t_0 = 0 &lt; t_1 &lt; \dots &lt; t_{n-1} &lt; t_{n} = 1\)</span> be a partition of the interval <span class="math inline">\([0,1].\)</span> The <em>concatenation</em> of consecutive paths <span class="math inline">\(\gamma_1, \dots, \gamma_n\)</span> associated to this partition is the path <span class="math inline">\(\gamma\)</span> denoted <span class="math display">\[
+  \gamma_1 \, |_{t_1} \, \cdots \, |_{t_{n-1}} \, \gamma_{n}
+  \]</span> such that <span class="math display">\[
+  \forall\, k \in \{1, \dots, n\}, \;
+  \gamma|_{[t_{k-1},t_{k}]} 
+  = 
+  \gamma_{k}\left( \frac{t-t_{k-1}}{t_{k} - t_{k - 1}}\right).
+  \]</span> If the partition of <span class="math inline">\([0,1]\)</span> is uniform, that is, if <span class="math display">\[
+  \forall \, k \in \{0,\dots, n\}, \; t_{k} = k/n,
+  \]</span> we denote the concatenated path with the simpler notation <span class="math display">\[
+  \gamma_1 \, | \, \cdots \, | \, \gamma_n.
+  \]</span></div>
+</section>
+<section id="example--oriented-polyline." class="level3">
+
+<div class="p"><h3><a href="#example--oriented-polyline.">Example – Oriented Polyline.</a></h3>‌ An oriented polyline (or piecewise linear path) is the concatenation of consecutive oriented line segments. When the associated partition of <span class="math inline">\([0,1]\)</span> is uniform, we use the notation <span class="math display">\[
+  [a_0 \to a_1 \to \dots \to a_{n-1} \to a_n]
+  =
+  [a_0 \to a_1] \, | \, \cdots \, | \, [a_{n-1} \to a_n].
+  \]</span></div>
+</section>
+<section id="definition--rectifiable-path." class="level3">
+
+<div class="p"><h3><a href="#definition--rectifiable-path.">Definition – Rectifiable Path.</a></h3>‌ A path <span class="math inline">\(\gamma:[0,1] \to \mathbb{C}\)</span> is <em>rectifiable</em> if the function <span class="math inline">\(\gamma\)</span> is piecewise continuously differentiable.</div>
+</section>
+<section id="section" class="level3">
+
+<div class="p"><h3 style="margin-right: 0px;"><a href="#section"></a></h3>Given the definition of piecewise continuously differentiable, the following alternate characterization is plain:</div>
+</section>
+<section id="theorem--continuously-differentiable-decomposition." class="level3">
+
+<div class="p"><h3><a href="#theorem--continuously-differentiable-decomposition.">Theorem – Continuously Differentiable Decomposition.</a></h3>‌ A path <span class="math inline">\(\gamma:[0,1] \to \mathbb{C}\)</span> is rectifiable if and only if there are consecutive continuously differentiable paths <span class="math inline">\(\gamma_1, \dots, \gamma_n\)</span> and a partition <span class="math inline">\((t_0, \dots, t_n)\)</span> of the interval <span class="math inline">\([0,1]\)</span> such that <span class="math display">\[
+  \gamma = \gamma_1 \, |_{t_1} \, \cdots \, |_{t_{n-1}} \, \gamma_n.
+  \]</span></div>
+</section>
+<section id="section-1" class="level3">
+
+<div class="p"><h3 style="margin-right: 0px;"><a href="#section-1"></a></h3>We characterized initially connected sets via merely continuous paths. However, when such sets are open, we can use rectifiable paths instead:</div>
+</section>
+<section id="lemma--connectedness--rectifiable-paths." class="level3">
+
+<div class="p"><h3><a href="#lemma--connectedness--rectifiable-paths.">Lemma – Connectedness &amp; Rectifiable Paths.</a></h3>‌ An open subset <span class="math inline">\(\Omega\)</span> of the complex plane is <em>connected</em> if and only if every pair of points of <span class="math inline">\(\Omega\)</span> may be joined by a rectifiable path of <span class="math inline">\(\Omega.\)</span></div>
+</section>
+<section id="proof.-1" class="level3">
+
+<div class="p"><h3><a href="#proof.-1">Proof.</a></h3>‌ If any pair of points of <span class="math inline">\(\Omega\)</span> can be joined by a rectifiable path of <span class="math inline">\(\Omega,\)</span> then <span class="math inline">\(\Omega\)</span> is connected. Conversely, assume that a (merely continuous) path <span class="math inline">\(\gamma\)</span> of <span class="math inline">\(\Omega\)</span> joins <span class="math inline">\(x\)</span> and <span class="math inline">\(y.\)</span> Its image <span class="math inline">\(\gamma([0,1])\)</span> is a compact subset of <span class="math inline">\(\Omega\)</span> – as the image of a compact set by a continuous function – thus the distance <span class="math inline">\(r\)</span> between <span class="math inline">\(\gamma([0,1])\)</span> and the closed set <span class="math inline">\(\mathbb{C} \setminus \Omega\)</span> is positive. Additionally, the function <span class="math inline">\(\gamma\)</span> is uniformly continuous – as a continuous function with a compact domain of definition; there is a positive integer <span class="math inline">\(n\)</span> such that <span class="math display">\[
+  \forall \, t \in [0,1], \; \forall \, s \in [0,1], \;
+  (|t - s| \leq 1/n \, \Rightarrow \, |\gamma(t) - \gamma(s)| &lt; r).
+  \]</span> For any <span class="math inline">\(k \in \{0,\dots,n\},\)</span> the point <span class="math inline">\(\gamma(k/n)\)</span> belongs to <span class="math inline">\(\Omega;\)</span> the path <span class="math inline">\(\mu\)</span> defined as <span class="math display">\[
+  \mu = [\gamma(0) \to \dots \to  \gamma(k/n) \to \dots \to \gamma(1)]
+  \]</span> is rectifiable and joins <span class="math inline">\(x\)</span> and <span class="math inline">\(y.\)</span> Now, for any <span class="math inline">\(t \in [0,1],\)</span> let <span class="math inline">\(k \in \{0,\dots, n-1\}\)</span> be such that <span class="math inline">\(t \in [k/n, (k+1)/n].\)</span> We have <span class="math display">\[
+  |\mu(t) - \gamma(k/n)| 
+  \leq 
+  |\gamma((k+1)/n) - \gamma(k/n)| &lt; r,
+  \]</span> therefore <span class="math inline">\(\mu\)</span> is a path of <span class="math inline">\(\Omega.\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+</section>
+<section id="line-integrals" class="level1">
+<h1><a href="#line-integrals">Line Integrals</a></h1>
+<section id="definition--length-of-a-rectifiable-path." class="level3">
+
+<div class="p"><h3><a href="#definition--length-of-a-rectifiable-path.">Definition – Length of a Rectifiable Path.</a></h3>‌ The length of a rectifiable path <span class="math inline">\(\gamma\)</span> is the nonnegative real number <span class="math display">\[
+  \ell(\gamma) = \int_0^1 |\gamma'(t)| \, dt.
+  \]</span></div>
+<!--
+The length of a rectifiable path 
+$\gamma = \gamma_1 \, |_{t_1} \, \cdots \, |_{t_{n-1}} \, \gamma_n$
+-- where every $\gamma_k$ is continuously differentiable --
+is the nonnegative real number
+  $$
+  \ell(\gamma) = \sum_{k=1}^n \ell(\gamma_k).
+  $$
+ -->
+</section>
+<section id="example--length-of-an-oriented-segment." class="level3">
+
+<div class="p"><h3><a href="#example--length-of-an-oriented-segment.">Example – Length of an Oriented Segment.</a></h3>‌ The oriented segment <span class="math inline">\([a \to b]\)</span> is continuously differentiable and thus rectifiable. For any <span class="math inline">\(t\in[0,1],\)</span> <span class="math inline">\([a\to b]'(t) = b - a,\)</span> hence its length is <span class="math display">\[
+  \ell([a \to b]) = \int_0^1 |b - a| \, dt = |b - a|.
+  \]</span></div>
+</section>
+<section id="example--length-of-an-oriented-circle." class="level3">
+
+<div class="p"><h3><a href="#example--length-of-an-oriented-circle.">Example – Length of an Oriented Circle.</a></h3>‌ The oriented circle <span class="math inline">\(c+ r[\circlearrowleft]^n\)</span> centered at <span class="math inline">\(c\)</span> with radius <span class="math inline">\(r\geq 0\)</span> traversed <span class="math inline">\(n\)</span> times in the positive sense is continuously differentiable and thus rectifiable. For any <span class="math inline">\(t \in [0,1],\)</span> <span class="math display">\[[c+ r[\circlearrowleft]^n]'(t) = (i2\pi n) r e^{i2\pi n t},\]</span> hence the length of this path is <span class="math display">\[
+  \ell(c+ r[\circlearrowleft]^n) 
+  = 
+  \int_0^1 |(i2\pi n) r e^{i2\pi n t}| \, dt
+  =
+  \int_0^1 |2\pi n r| \, dt = 2\pi r \times |n|.
+  \]</span> It differs from the length of its circle image – which is <span class="math inline">\(2\pi r\)</span> – unless the circle is traversed exactly once in the positive or negative sense.</div>
+</section>
+<section id="definition--line-integral." class="level3">
+
+<div class="p"><h3><a href="#definition--line-integral.">Definition – Line Integral.</a></h3>‌ The <em>line integral</em> along a rectifiable path <span class="math inline">\(\gamma\)</span> of a complex-valued function <span class="math inline">\(f\)</span> defined and continuous on the image of <span class="math inline">\(\gamma\)</span> is the complex number defined by <span class="math display">\[
+  \int_{\gamma} f(z) \, dz 
+  = 
+  \int_0^1 f(\gamma(t)) \gamma'(t) \, dt.
+  \]</span></div>
+</section>
+<section id="remark--undefined-integrands." class="level3">
+
+<div class="p"><h3><a href="#remark--undefined-integrands.">Remark – Undefined Integrands.</a></h3>‌ In the definitions of the length of <span class="math inline">\(\gamma\)</span> and of the integral along <span class="math inline">\(\gamma\)</span>, the integrands <span class="math display">\[|\gamma'(t)| \; \mbox{ and } \; f(\gamma(t))\gamma'(t)\]</span> may be undefined for some values of <span class="math inline">\(t\)</span> if <span class="math inline">\(\gamma\)</span> is merely rectifiable. However it’s not an issue since they are always defined almost everywhere (and integrable).</div>
+</section>
+<section id="remark--integral-notation." class="level3">
+
+<div class="p"><h3><a href="#remark--integral-notation.">Remark – Integral Notation.</a></h3>‌ It’s sometimes handy to use the notation <span class="math display">\[
+  \int_{\gamma} f(z) \, |dz|
+  =
+  \int_0^1 f(\gamma(t)) |\gamma'(t)| dt.
+  \]</span> which is similar to the one used for line integrals. With this convention, we have for example <span class="math display">\[
+  \ell(\gamma) = \int_{\gamma} |dz|.
+  \]</span></div>
+</section>
+<section id="example--integration-along-an-oriented-segment." class="level3">
+
+<div class="p"><h3><a href="#example--integration-along-an-oriented-segment.">Example – Integration along an Oriented Segment.</a></h3>‌ The line integral of the continuous function <span class="math inline">\(f: [a,b] \mapsto \mathbb{C}\)</span> along the oriented segment <span class="math inline">\([a \to b]\)</span> is <span class="math display">\[
+  \begin{split}
+  \int_{[a \to b]} f(z) \, dz
+  = &amp;\,
+  \int_{0}^1 f((1-t) a + t b) (b-a)\, dt \\
+  = &amp;\,
+  (b-a) \int_{0}^1 f((1-t) a + t b) \, dt.
+  \end{split}
+  \]</span></div>
+</section>
+<section id="example--integration-along-an-oriented-circle." class="level3">
+
+<div class="p"><h3><a href="#example--integration-along-an-oriented-circle.">Example – Integration along an Oriented Circle.</a></h3>‌ The line integral of a continuous function <span class="math inline">\(f: \{z \in \mathbb{C} \; | \; |z|=1\} \to \mathbb{C}\)</span> on the oriented circle <span class="math inline">\([\circlearrowleft]\)</span> is <span class="math display">\[
+  \begin{split}
+  \int_{[\circlearrowleft]} f(z) \, dz
+  = &amp;\,
+  \int_{0}^1 f(e^{i2\pi t }) (i2\pi e^{i2\pi t} dt) \\
+  = &amp;\,
+  i \int_{0}^1 f(e^{i2\pi t }) e^{i2\pi t}\, (2\pi dt)
+  \\
+  = &amp;\,
+  i \int_{0}^{2\pi} f(e^{i\theta})e^{i\theta} d\theta.
+  \end{split}
+  \]</span></div>
+</section>
+<section id="theorem--complex-linearity-of-the-line-integral." class="level3">
+
+<div class="p"><h3><a href="#theorem--complex-linearity-of-the-line-integral.">Theorem – Complex-Linearity of the Line Integral.</a></h3>‌ Let <span class="math inline">\(\gamma\)</span> be a rectifiable path. For any <span class="math inline">\(\alpha, \beta \in \mathbb{C}\)</span> and any continuous functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> defined on the image of <span class="math inline">\(\gamma\)</span>, <span class="math display">\[
+  \int_{\gamma} \alpha f(z) + \beta g(z) \, dz
+  =
+  \alpha \int_{\gamma} f(z) \, dz
+  +
+  \beta \int_{\gamma} g(z) \, dz.
+  \]</span></div>
+</section>
+<section id="proof.-2" class="level3">
+
+<div class="p"><h3><a href="#proof.-2">Proof.</a></h3>‌ Since <a href="#definition--line-integral." class="preview">by definition of the line integral</a> <span class="math display">\[
+  \int_{\gamma} \alpha f(z) + \beta g(z) \, dz
+  =
+  \int_0^1 (\alpha f(\gamma(t)) + \beta g(\gamma(t))) \gamma'(t) dt,
+  \]</span> the complex-linearity of the integral on <span class="math inline">\([0,1]\)</span> provides <span class="math display">\[
+  \begin{split}
+  \int_{\gamma} \alpha f(z) + \beta g(z) \, dz
+  &amp; =  
+  \alpha \int_0^1 f(\gamma(t)) \gamma'(t) \, dt
+  \\
+  &amp; \phantom{=}  + \beta \int_0^1 g(\gamma(t))  \gamma'(t) \, dt
+  \end{split}
+  \]</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="theorem--integration-along-a-reverse-path." class="level3">
+
+<div class="p"><h3><a href="#theorem--integration-along-a-reverse-path.">Theorem – Integration along a Reverse Path.</a></h3>‌ For any rectifiable path <span class="math inline">\(\gamma\)</span>, <span class="math display">\[
+  \ell(\gamma^{\leftarrow}) = \ell(\gamma).
+  \]</span> For any continuous function <span class="math inline">\(f: A \subset \mathbb{C} \to \mathbb{C}\)</span> defined on the image of <span class="math inline">\(\gamma\)</span>, <span class="math display">\[
+  \int_{\gamma^{\leftarrow}} f(z) \, dz = - \int_{\gamma} f(z) \, dz.
+  \]</span></div>
+</section>
+<section id="proof.-3" class="level3">
+
+<div class="p"><h3><a href="#proof.-3">Proof.</a></h3>‌Since <span class="math inline">\(\gamma^{\leftarrow}(t) = \gamma(1-t)\)</span>, the length of the opposite of <span class="math inline">\(\gamma\)</span> satisfies <span class="math display">\[
+  \ell(\gamma^{\leftarrow}(t)) 
+  =
+  \int_0^1 |(\gamma^{\leftarrow})'(t)| \, dt
+  =
+  \int_0^1 |-\gamma'(1-t)| \, dt.
+  \]</span> The change of variable <span class="math inline">\(t \mapsto 1- t\)</span> yields <span class="math display">\[
+  \ell(\gamma^{\leftarrow}(t)) 
+  =
+  \int_0^1 |\gamma'(t)| \, dt
+  =
+  \ell(\gamma).
+  \]</span> Similarly, <span class="math display">\[
+  \begin{split}
+  \int_{\gamma^{\leftarrow}} f(z) \, dz 
+  &amp;=
+  \int_0^1 f(\gamma^{\leftarrow}(t)) (\gamma^{\leftarrow})'(t) \, dt \\
+  &amp;=
+  \int_0^1 f(\gamma(1-t)) (-\gamma'(1-t))\, dt \\
+  &amp;= \int_0^1 f(\gamma(t)) (-\gamma'(t))\, dt \\
+  &amp;=
+  - \int_{\gamma} f(z) \, dz
+  \end{split}
+  \]</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="theorem--integration-along-concatenation-of-paths." class="level3">
+
+<div class="p"><h3><a href="#theorem--integration-along-concatenation-of-paths.">Theorem – Integration along Concatenation of Paths.</a></h3>‌ Let <span class="math inline">\(A\)</span> be a subset of <span class="math inline">\(\mathbb{C}\)</span>. Let <span class="math inline">\(\gamma_1, \dots, \gamma_n\)</span> be consecutive rectifiable paths of <span class="math inline">\(A\)</span> and let <span class="math inline">\(\gamma\)</span> be their concatenation <span class="math display">\[
+  \gamma = \gamma_1 \, |_{t_1} \, \cdots \, |_{t_{n-1}} \, \gamma_{n}.
+  \]</span> The length of <span class="math inline">\(\gamma\)</span> satisfies <span class="math display">\[
+  \ell(\gamma) = \sum_{k=1}^n \ell(\gamma_k).
+  \]</span> For any continuous function <span class="math inline">\(f: A \subset \mathbb{C} \to \mathbb{C}\)</span> defined on the image of <span class="math inline">\(\gamma\)</span>, <span class="math display">\[
+  \int_{\gamma} f(z) \, dz 
+  =
+  \sum_{k=1}^n \int_{\gamma_k} f(z) \, dz.
+  \]</span></div>
+</section>
+<section id="proof.-4" class="level3">
+
+<div class="p"><h3><a href="#proof.-4">Proof.</a></h3>‌ Since <a href="#definition--path-concatenation." class="preview">by definition</a> <span class="math inline">\(\gamma(t) = \gamma_k ((t - t_k)/(t_{k+1} - t_k))\)</span> whenever <span class="math inline">\(t \in [t_k, t_{k+1}]\)</span>, the decomposition <span class="math display">\[
+  \begin{split}
+  \ell(\gamma) 
+      &amp;= \int_0^1 |\gamma'(t)| \, dt \\
+      &amp;= \sum_{k=0}^{n-1} 
+           \int_{t_k}^{t_{k+1}} 
+             |\gamma'(t)| 
+           \, dt                  
+  \end{split}
+  \]</span> provides <span class="math display">\[
+  \begin{split}
+  \ell(\gamma) 
+      &amp;= \sum_{k=0}^{n-1} 
+           \int_{t_k}^{t_{k+1}}
+             \left|
+               \frac
+                 {\gamma_k'\left( \frac{t-t_k}{t_{k+1} - t_k} \right)}
+                 {t_{k+1} - t_k} \, dt
+             \right|  
+  \end{split}
+  \]</span> and the changes of variables <span class="math inline">\(t \in [t_k, t_{k+1}] \mapsto \frac{t-t_k}{t_{k+1} - t_k}\)</span> yield <span class="math display">\[
+  \begin{split}
+  \ell(\gamma) 
+      &amp;= \sum_{k=1}^n 
+           \int_0^1 
+             |\gamma_k'(t)| \, dt \\
+      &amp;= \sum_{k=1}^n 
+           \ell(\gamma_k)
+  \end{split}
+  \]</span></div>
+<p>Similarly, <span class="math display">\[
+  \begin{split}
+  \int_{\gamma} f(z) dz 
+      &amp;= \int_0^1 f(\gamma(t)) \gamma'(t) \, dt \\
+      &amp;= \sum_{k=0}^{n-1} 
+           \int_{t_k}^{t_{k+1}} 
+             f(\gamma(t)) \gamma'(t) 
+           \, dt  \\
+      &amp;= \sum_{k=0}^{n-1} 
+           \int_{t_k}^{t_{k+1}}
+             f\left(\gamma_k\left( \frac{t-t_k}{t_{k+1} - t_k} \right) \right)
+    \frac{\gamma_k'\left( \frac{t-t_k}{t_{k+1} - t_k} \right)}{t_k - t_{k-1}} \, dt  \\
+      &amp;= \sum_{k=1}^n 
+           \int_0^1 
+             f(\gamma_k(t))
+             \gamma_k'(t) \, dt \\
+      &amp;= \sum_{k=1}^n 
+           \int_{\gamma_k} 
+             f(z) \, dz
+  \end{split}
+  \]</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+<section id="theorem--m-l-inequality." class="level3">
+
+<div class="p"><h3><a href="#theorem--m-l-inequality.">Theorem – M-L Inequality.</a></h3>‌ For any rectifiable path <span class="math inline">\(\gamma\)</span> and any continuous function <span class="math inline">\(f: A \subset \mathbb{C} \to \mathbb{C}\)</span> defined on the image of <span class="math inline">\(\gamma\)</span>, <span class="math display">\[
+  \left| \int_{\gamma} f(z) \, dz \right| 
+  \leq 
+  \left( \max_{z \in \gamma([0,1])} |f(z)| \right) \times \ell(\gamma).
+  \]</span></div>
+</section>
+<section id="proof.-5" class="level3">
+
+<div class="p"><h3><a href="#proof.-5">Proof.</a></h3>‌<a href="#definition--line-integral." class="preview">By definition of the line integral</a> <span class="math display">\[
+  \begin{split}
+  \left| \int_{\gamma} f(z) \, dz \right|
+  =&amp;\,
+  \left| \int_0^1 f(\gamma(t)) \gamma'(t) \, dt \right| \\
+  \leq &amp;\,
+  \int_0^1 |f(\gamma(t))| |\gamma'(t)| \, dt  \\
+  \leq &amp;\, 
+  \left( \max_{t \in [0,1]} |f(\gamma(t))| \right) \times \int_0^1 |\gamma'(t)| \, dt  \\
+  = &amp;\, 
+  \left( \max_{z \in \gamma([0,1])} |f(z)| \right) \times \ell(\gamma).
+  \end{split}
+  \]</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+
+</section><section><p>A practical consequence of the M-L inequality:</p></section>
+<section id="corollary--convergence-in-line-integrals." class="level3">
+
+<div class="p"><h3><a href="#corollary--convergence-in-line-integrals.">Corollary – Convergence in Line Integrals.</a></h3>‌ For any rectifiable path <span class="math inline">\(\gamma\)</span> and any sequence of continuous function <span class="math inline">\(f_n: A \subset \mathbb{C} \to \mathbb{C}\)</span> defined on the image of <span class="math inline">\(\gamma\)</span> which converges uniformly to the function <span class="math inline">\(f,\)</span> <span class="math display">\[
+  \lim_{n \to +\infty} \int_{\gamma} f_n(z) \, dz = \int_{\gamma} f(z) \, dz.
+  \]</span></div>
+</section>
+<section id="proof.-6" class="level3">
+
+<div class="p"><h3><a href="#proof.-6">Proof.</a></h3>‌ The <a href="#theorem--complex-linearity-of-the-line-integral." class="preview">linearity of the line integral</a> and <a href="#theorem--m-l-inequality." class="preview">the M-L inequality</a> provide <span class="math display">\[
+  \begin{split}
+  \left| \int_{\gamma} f_n(z) \, dz - \int_{\gamma} f(z) \right|
+  &amp; = \left| \int_{\gamma} (f_n(z) - f(z)) \, dz \right| \\
+  &amp; \leq \left( \max_{z \in \gamma([0,1])} |f_n - f(z)| \right) \times \ell(\gamma)
+  \end{split}
+  \]</span> which yields the desired result. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="theorem--invariance-by-reparametrization." class="level3">
+
+<div class="p"><h3><a href="#theorem--invariance-by-reparametrization.">Theorem – Invariance By Reparametrization.</a></h3>‌ Let <span class="math inline">\(\gamma:[0,1] \to \mathbb{C}\)</span> be a continuously differentiable path. Let <span class="math inline">\(\phi:[0,1] \to [0,1]\)</span> be an increasing <span class="math inline">\(C^1\)</span>-diffeomorphism – a continuously differentiable function such that <span class="math inline">\(\phi(0) = 0,\)</span> <span class="math inline">\(\phi(1) = 1\)</span> and <span class="math inline">\(\phi'(t)&gt;0\)</span> for any <span class="math inline">\(t \in [0,1].\)</span> The following statements hold:</div>
+<ul>
+<li><p>The path <span class="math inline">\(\mu = \gamma \circ \phi\)</span> is a continuously differentiable path.</p></li>
+<li><p>It has the same initial point, terminal point and image as <span class="math inline">\(\gamma.\)</span></p></li>
+<li><p>The length of <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\gamma\)</span> are identical.</p></li>
+<li><p>For any continuous function <span class="math inline">\(f: \gamma([0,1]) \to \mathbb{C},\)</span> <span class="math display">\[
+  \int_{\mu} f(z) \, dz = \int_{\gamma} f(z) \, dz.
+  \]</span></p></li>
+</ul>
+</section>
+<section id="proof.-7" class="level3">
+
+<div class="p"><h3><a href="#proof.-7">Proof.</a></h3>‌ The function <span class="math inline">\(\mu\)</span> is continuously differentiable as the composition of continuously differentiable functions. We have <span class="math display">\[
+  \mu(0) = \gamma(\phi(0)) = \gamma(0), \; \mu(1) = \gamma(\phi(1)) = \gamma(1),
+  \]</span> hence the endpoints of <span class="math inline">\(\gamma\)</span> and <span class="math inline">\(\mu\)</span> are identical. The function <span class="math inline">\(\phi\)</span> is a bijection from <span class="math inline">\([0,1]\)</span> into itself, therefore <span class="math display">\[
+  \mu([0,1]) = \gamma (\phi([0,1])) = \gamma ([0,1])
+  \]</span> and the images of <span class="math inline">\(\gamma\)</span> and <span class="math inline">\(\mu\)</span> are identical.</div>
+<p>The length of <span class="math inline">\(\mu\)</span> is <span class="math display">\[
+  \ell(\mu) = \int_0^1 |\mu'(t)|\, dt
+  = \int_{0}^1 |\gamma' (\phi(t)) \phi'(t)| \, dt
+  = \int_{0}^1 |\gamma' (\phi(t))| \, \phi'(t) dt
+  \]</span> The change of variable <span class="math inline">\(s = \phi(t)\)</span> provides <span class="math display">\[
+  \int_{0}^1 |\gamma' (\phi(t))| \, \phi'(t) dt
+  = \int_0^1 |\gamma'(s)| \, ds,
+  \]</span> hence the lengths of <span class="math inline">\(\gamma\)</span> and <span class="math inline">\(\mu\)</span> are equal. We also have <span class="math display">\[
+  \int_{\mu} f(z) \, dz
+  = \int_{0}^1 (f \circ \mu)(t) \mu'(t)\,dt
+  = \int_{0}^1 (f \circ \gamma)(\phi(t)) \gamma'(\phi(t))\,(\phi'(t) dt).
+  \]</span> The same change of variable leads to <span class="math display">\[
+  \int_{\mu} f(z) \, dz
+  = \int_{0}^1 (f \circ \gamma)(s) \gamma'(s)\,ds
+  = \int_{\gamma} f(z) \, dz,
+  \]</span> which concludes the proof. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+<section id="definition--image-of-a-path-by-a-function." class="level3">
+
+<div class="p"><h3><a href="#definition--image-of-a-path-by-a-function.">Definition – Image of a Path by a Function.</a></h3>‌ Let <span class="math inline">\(\gamma:[0,1] \to \mathbb{C}\)</span> be a path and <span class="math inline">\(f:A \subset \mathbb{C} \to \mathbb{C}\)</span> be a continuous function defined on the image of <span class="math inline">\(\gamma\)</span>. The <em>image of <span class="math inline">\(\gamma\)</span> by <span class="math inline">\(f\)</span></em> is the path <span class="math inline">\(f \circ \gamma.\)</span></div>
+</section>
+<section id="theorem--change-of-variable-in-line-integrals-dagger." class="level3">
+
+<div class="p"><h3><a href="#theorem--change-of-variable-in-line-integrals-dagger.">Theorem – Change of Variable in Line Integrals [<span class="math inline">\(\dagger\)</span>].</a></h3>‌ Let <span class="math inline">\(\Omega\)</span> be an open subset of <span class="math inline">\(\mathbb{C},\)</span> let <span class="math inline">\(\gamma\)</span> be a rectifiable path of <span class="math inline">\(\Omega\)</span> and let <span class="math inline">\(f:\Omega \to \mathbb{C}\)</span> be a holomorphic function. The path <span class="math inline">\(f \circ \gamma\)</span> is rectifiable and for any continuous function <span class="math inline">\(g: A \subset \mathbb{C} \to \mathbb{C}\)</span> defined on the image of <span class="math inline">\(f \circ \gamma\)</span>, <span class="math display">\[
+  \int_{f \circ \gamma} g(z) \, dz = \int_{\gamma} g(f(w)) f'(w) \, dw.
+  \]</span></div>
+</section>
+<section id="proof.-8" class="level3">
+
+<div class="p"><h3><a href="#proof.-8">Proof.</a></h3>‌Let <span class="math inline">\(\gamma_1 \, |_{t_1} \, \dots \, |_{t_{n-1}} \, \gamma_n\)</span> be a <a href="#theorem--continuously-differentiable-decomposition." class="preview">continously differentiable decomposition of <span class="math inline">\(\gamma.\)</span></a> We have <span class="math display">\[
+  f \circ \gamma 
+  = 
+  f \circ \gamma_1 \, |_{t_1} \, \dots \, |_{t_{n-1}} \, f \circ \gamma_n,
+  \]</span> and for any <span class="math inline">\(k \in \{1,\dots,n\},\)</span> by the chain rule, the function <span class="math inline">\(f \circ \gamma_{k}\)</span> is continuously differentiable (<span class="math inline">\(f'\)</span> being continuous) hence the path <span class="math inline">\(f \circ \gamma\)</span> is rectifiable.</div>
+<p>Moreover, <span class="math display">\[
+  \begin{split}
+  \int_{\gamma} g(f(w)) f'(w) \, dw 
+  = &amp;\,
+  \int_0^1 g(f(\gamma(t)) f'(\gamma(t)) \gamma'(t) \, dt \\
+  = &amp;\,
+  \int_0^1 g(f(\gamma(t)) (f \circ \gamma)'(t) \, dt \\
+  = &amp;\,
+  \int_{f \circ \gamma} g(w) \, dw
+  \end{split}
+  \]</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+</section>
+<section id="primitives" class="level1">
+<h1><a href="#primitives">Primitives</a></h1>
+<section id="definition--primitive." class="level3">
+
+<div class="p"><h3><a href="#definition--primitive.">Definition – Primitive.</a></h3>‌ Let <span class="math inline">\(f: \Omega \to \mathbb{C}\)</span> where <span class="math inline">\(\Omega\)</span> is an open subset of <span class="math inline">\(\mathbb{C}.\)</span> A <em>primitive</em> (or <em>antiderivative)</em> of <span class="math inline">\(f\)</span> is a holomorphic function <span class="math inline">\(g: \Omega \to \mathbb{C}\)</span> such that <span class="math inline">\(g' = f.\)</span></div>
+</section>
+<section id="theorem--fundamental-theorem-of-calculus-complex-analysis." class="level3">
+
+<div class="p"><h3><a href="#theorem--fundamental-theorem-of-calculus-complex-analysis.">Theorem – Fundamental Theorem of Calculus (Complex Analysis).</a></h3>‌ Let <span class="math inline">\(\Omega\)</span> be an open connected subset of <span class="math inline">\(\mathbb{C},\)</span> <span class="math inline">\(f: \Omega \to \mathbb{C}\)</span> be a continuous function and let <span class="math inline">\(a \in \Omega.\)</span> A function <span class="math inline">\(g:\Omega \to \mathbb{C}\)</span> is a primitive of <span class="math inline">\(f\)</span> if and only if for any <span class="math inline">\(z \in \Omega\)</span> and any rectifiable path <span class="math inline">\(\gamma\)</span> of <span class="math inline">\(\Omega\)</span> that joins <span class="math inline">\(a\)</span> and <span class="math inline">\(z,\)</span> <span class="math display">\[
+  g(z) = g(a) + \int_{\gamma} f(w) \, dw.
+  \]</span></div>
+</section>
+<section id="proof.-9" class="level3">
+
+<div class="p"><h3><a href="#proof.-9">Proof.</a></h3>‌Let <span class="math inline">\(g\)</span> be a primitive of <span class="math inline">\(f\)</span> and <span class="math inline">\(\gamma\)</span> be a rectifiable path of <span class="math inline">\(\Omega\)</span> that joins <span class="math inline">\(a\)</span> and <span class="math inline">\(z.\)</span> Let <span class="math inline">\(\gamma = \gamma_1 \, |_{t_1} \, \dots \, |_{t_{n-1}} \, \gamma_n\)</span> be a <a href="#theorem--continuously-differentiable-decomposition." class="preview">continuously differentiable decomposition</a> of <span class="math inline">\(\gamma\)</span>. For any <span class="math inline">\(k \in \{1,\dots, n\},\)</span> the function <span class="math display">\[
+  \phi: t \in [0,1] \mapsto g(\gamma_{k}(t))
+  \]</span> is differentiable as a composition of real-differentiable functions, with <span class="math display">\[
+  \phi'(t) 
+  = 
+  dg_{\gamma_{k}(t)} (\gamma'_{k}(t))
+  =
+  g'(\gamma_{k}(t)) \gamma_{k}'(t).
+  \]</span> The function <span class="math inline">\(\phi'\)</span> is continuous hence <a href="#theorem--fundamental-theorem-of-calculus-real-analysis." class="preview">by the fundamental theorem of calculus (from real analysis)</a> applied to the real and imaginary parts of <span class="math inline">\(\phi'\)</span> on <span class="math inline">\(\left]0,1\right[,\)</span> we have for any positive number <span class="math inline">\(\epsilon\)</span> smaller than <span class="math inline">\(1,\)</span> <span class="math display">\[
+  \phi(1-\epsilon) - \phi(\epsilon) 
+  = 
+  \int_{\epsilon}^{1-\epsilon}
+  \phi'(t) \, dt,
+  \]</span> and thus by continuity of <span class="math inline">\(\phi\)</span> and <span class="math inline">\(\phi'\)</span> <span class="math display">\[
+  \phi(1) - \phi(0) 
+  = 
+  \int_0^1 \phi'(t) \, dt,
+  \]</span> which is equivalent to <span class="math display">\[
+  g(\gamma_{k}(1)) - g(\gamma_{k}(0))
+  =
+  \int_0^1 g'(\gamma_{k}(t)) \gamma_{k}'(t) \, dt
+  = 
+  \int_{\gamma_{k}} f(w) \, dw.
+  \]</span> The sum of these equations for all <span class="math inline">\(k \in \{1,\dots, n\}\)</span> provides <span class="math display">\[
+  g(z) - g(a)
+  = 
+  \int_{\gamma} f(w) \, dw.
+  \]</span> Conversely, assume that <span class="math inline">\(g\)</span> satisfies the theorem property. Let <span class="math inline">\(\gamma\)</span> be a rectifiable path of <span class="math inline">\(\Omega\)</span> that joins <span class="math inline">\(a\)</span> and <span class="math inline">\(z\)</span> and let <span class="math inline">\(r&gt;0\)</span> be such that the open disk centered at <span class="math inline">\(z\)</span> with radius <span class="math inline">\(r\)</span> is included in <span class="math inline">\(\Omega.\)</span> Consider the concatenation <span class="math inline">\(\mu\)</span> of <span class="math inline">\(\gamma\)</span> and of the oriented segment <span class="math inline">\([z \to z+h]\)</span> for <span class="math inline">\(h\)</span> such that <span class="math inline">\(|h| &lt; r.\)</span> It is a rectifiable path of <span class="math inline">\(\Omega,\)</span> hence <span class="math display">\[
+  \begin{split}
+  g(z+h) = &amp;\, g(a) + \int_{\mu} f(w) \, dw \\
+  = &amp;\, g(a) + \int_{\gamma} f(w)\, dw + h \int_0^1 f(z + t h) \, dt \\
+  = &amp;\, g(z) + h \int_0^1 f(z + t h) \, dt 
+  \end{split}
+  \]</span> hence <span class="math display">\[
+  \frac{g(z+h) - g(z)}{h}
+  =
+  \int_0^1 f(z + t h) \, dt.
+  \]</span> The right-hand side of this equation converges to <span class="math inline">\(f(z)\)</span> by continuity when <span class="math inline">\(h\)</span> goes to zero, therefore <span class="math inline">\(g\)</span> is a primitive of <span class="math inline">\(f.\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="corollary--existence-of-primitives-dagger." class="level3">
+
+<div class="p"><h3><a href="#corollary--existence-of-primitives-dagger.">Corollary – Existence of Primitives [<span class="math inline">\(\dagger\)</span>].</a></h3>‌ Let <span class="math inline">\(\Omega\)</span> be an open connected subset of <span class="math inline">\(\mathbb{C}.\)</span> The function <span class="math inline">\(f: \Omega \to \mathbb{C}\)</span> has a primitive if and only if it is continuous and for any closed rectifiable path <span class="math inline">\(\gamma\)</span> <span class="math display">\[
+  \int_{\gamma} f(z) \, dz = 0.
+  \]</span></div>
+</section>
+<section id="proof--existence-of-primitives." class="level3">
+
+<div class="p"><h3><a href="#proof--existence-of-primitives.">Proof – Existence of Primitives.</a></h3>‌ If the function <span class="math inline">\(f\)</span> has primitives, it is the derivative of a holomorphic function, thus it is continuous. Additionally, for any closed rectifiable path <span class="math inline">\(\gamma\)</span> of <span class="math inline">\(\Omega,\)</span> the fundamental theorem of calculus provides <span class="math display">\[
+  g(\gamma(1)) = g(\gamma(0)) + \int_{\gamma} f(w)\, dw,
+  \]</span> hence as <span class="math inline">\(\gamma(1) = \gamma(0),\)</span> <span class="math display">\[
+  \int_{\gamma} f(w) \, dw = 0.
+  \]</span> Conversely, assume that any such integral is zero. Select any <span class="math inline">\(a\)</span> in <span class="math inline">\(\Omega\)</span> and define for any point <span class="math inline">\(z\)</span> in <span class="math inline">\(\Omega\)</span> and any rectifiable path <span class="math inline">\(\gamma\)</span> of <span class="math inline">\(\Omega\)</span> that joins them the function <span class="math display">\[
+  g(z) = g(a) + \int_{\gamma} f(w) \, dw.
+  \]</span> This definition is non-ambiguous: if we select a different path <span class="math inline">\(\mu,\)</span> the difference between the right-hand sides of the definitions would be <span class="math display">\[
+  \left(g(a) + \int_{\gamma} f(w) \, dw\right) - \left(g(a) + \int_{\mu} f(w) \, dw\right)
+  =
+  \int_{\gamma \, | \, \mu^{\leftarrow}} f(w) \, dw = 0
+  \]</span> as <span class="math inline">\(\gamma \, | \, \mu^{\leftarrow}\)</span> is a closed rectifiable path of <span class="math inline">\(\Omega.\)</span> Consequently, <span class="math inline">\(g\)</span> is uniquely defined and <a href="#theorem--fundamental-theorem-of-calculus-complex-analysis." class="preview">by the fundamental theorem of calculus</a>, it is a primitive of <span class="math inline">\(f.\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="corollary--set-of-primitives." class="level3">
+
+<div class="p"><h3><a href="#corollary--set-of-primitives.">Corollary – Set of Primitives.</a></h3>‌ Let <span class="math inline">\(\Omega\)</span> be an open connected subset of <span class="math inline">\(\mathbb{C}\)</span> and let <span class="math inline">\(f: \Omega \to \mathbb{C}.\)</span> If <span class="math inline">\(g:\Omega \to \mathbb{C}\)</span> is a primitive of <span class="math inline">\(f,\)</span> the function <span class="math inline">\(h: \Omega \to \mathbb{C}\)</span> is also a primitive of <span class="math inline">\(f\)</span> if and only if it differs from <span class="math inline">\(g\)</span> by a constant.</div>
+</section>
+<section id="proof.-10" class="level3">
+
+<div class="p"><h3><a href="#proof.-10">Proof.</a></h3>‌ It is clear that a function <span class="math inline">\(h\)</span> that differs from <span class="math inline">\(g\)</span> by a constant is a primitive of <span class="math inline">\(f.\)</span> Conversely, if <span class="math inline">\(g\)</span> and <span class="math inline">\(h\)</span> are both primitives of <span class="math inline">\(f,\)</span> <span class="math inline">\(g - h\)</span> is a primitive of the zero function. The <a href="#theorem--fundamental-theorem-of-calculus-complex-analysis." class="preview">fundamental theorem of calculus</a> shows that for any <span class="math inline">\(a\)</span> and <span class="math inline">\(z\)</span> in <span class="math inline">\(\Omega\)</span> and any rectifiable path <span class="math inline">\(\gamma\)</span> of <span class="math inline">\(\Omega\)</span> that joins them, <span class="math display">\[
+  g(z) - h(z) = g(a) - h(a) + \int_{\gamma} 0 \, dw = g(a) - h(a)
+  \]</span> hence their difference is a constant. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="corollary--integration-by-parts-dagger." class="level3">
+
+<div class="p"><h3><a href="#corollary--integration-by-parts-dagger.">Corollary – Integration by Parts [<span class="math inline">\(\dagger\)</span>].</a></h3>‌ Let <span class="math inline">\(\Omega\)</span> be an open connected subset of <span class="math inline">\(\mathbb{C}\)</span> and let <span class="math inline">\(\gamma\)</span> be a rectifiable path of <span class="math inline">\(\Omega.\)</span> For any pair of holomorphic functions <span class="math inline">\(f: \Omega \to \mathbb{C}\)</span> and <span class="math inline">\(g: \Omega \to \mathbb{C},\)</span> <span class="math display">\[
+  \int_{\gamma} f' g (z) \, dz 
+  = 
+  [fg(\gamma(1)) - fg(\gamma(0))] -  \int_{\gamma} f g' (z) \, dz.
+  \]</span></div>
+</section>
+<section id="proof.-11" class="level3">
+
+<div class="p"><h3><a href="#proof.-11">Proof.</a></h3>‌ <a href="../Complex-Differentiability/#theorem--sum-and-product-rules." class="preview">The derivative of the function <span class="math inline">\(fg\)</span> is <span class="math inline">\(f'g + fg'.\)</span></a> It is continuous as a sum and product of continuous functions thus <a href="#theorem--fundamental-theorem-of-calculus-complex-analysis." class="preview">the fundamental theorem of calculus</a> provides <span class="math display">\[
+  fg(\gamma(1)) = fg(\gamma(0)) + \int_{\gamma} (f'g + fg')(z) \, dz,
+  \]</span> which is equivalent to the conclusion of the corollary. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="remark--definition--variation-of-a-function-on-a-path." class="level3">
+
+<div class="p"><h3><a href="#remark--definition--variation-of-a-function-on-a-path.">Remark &amp; Definition – Variation of a Function on a Path.</a></h3>‌ The difference between the value of a function <span class="math inline">\(f\)</span> at the terminal value and at the initial value of a path <span class="math inline">\(\gamma\)</span> may be denoted <span class="math inline">\([f]_{\gamma}\)</span>: <span class="math display">\[
+  [f]_{\gamma} = f(\gamma(1)) - f(\gamma(0)).
+  \]</span> With this convention, the formula that relates a function <span class="math inline">\(f\)</span> and its primitive <span class="math inline">\(g\)</span> is <span class="math display">\[
+  [g]_{\gamma} = \int_{\gamma} f(z) \, dz
+  \]</span> and the integration by parts formula becomes <span class="math display">\[
+  \int_{\gamma} f' g (z) \, dz 
+  = 
+  [fg]_{\gamma} -  \int_{\gamma} f g' (z) \, dz.
+  \]</span></div>
+</section>
+</section>
+<section id="appendix-a-better-theory-of-rectifiability" class="level1">
+<h1><a href="#appendix-a-better-theory-of-rectifiability">Appendix – A Better Theory of Rectifiability</a></h1>
+<section id="rectifiable-paths" class="level2">
+<h2><a href="#rectifiable-paths">Rectifiable Paths</a></h2>
+<p>The definition we used so far for “rectifiable” is a conservative one. In this section, we come up with a more general definition of the concept that still meets the requirements for the definition of line integrals.</p>
+<p>To “rectify” a path (from Latin <em>rectus</em> “straight” and <em>facere</em> “to make”) is to straighten – or by extension to compute its length, which is a trivial operation once a path has been straightened.</p>
+<p>The general definition of the length of a path does not require line integrals. Instead, consider any partition <span class="math inline">\((t_0,\dots,t_n)\)</span> of the interval <span class="math inline">\([0,1]\)</span> and the path <span class="math inline">\(\mu= \mu_1 \, |_{t_1} \, \dots \,|_{t_{n-1}} \mu_n\)</span> where <span class="math display">\[
+  \mu_{k}(t) = (1-t) \gamma(t_{k-1}) + t \gamma(t_{k}).
+  \]</span> We may define the length of such a combination of straight lines as <span class="math display">\[
+  \ell(\mu) = \sum_{k=1}^{n-1} |\gamma(t_{k+1}) - \gamma(t_{k})|.
+  \]</span> As the straight line is the shortest path between two points, this number should provide a lower bound of the length of <span class="math inline">\(\gamma.\)</span> On the other hand, using finer partitions of the interval <span class="math inline">\([0,1]\)</span> should also provide better approximations of the length of <span class="math inline">\(\gamma.\)</span> Following this idea, we may <em>define</em> the length of <span class="math inline">\(\gamma\)</span> as the supremum of the length of <span class="math inline">\(\mu\)</span> for all possible partitions of <span class="math inline">\([0,1]\)</span>: <span class="math display">\[
+  \ell(\gamma) 
+  = \sup \left\{ \sum_{k=0}^{n-1} |\gamma(t_{k+1}) - \gamma(t_{k})| 
+  \; \left| \; \vphantom{\sum_k^k} n\in \mathbb{N}^*, \, 
+  t_0=0 &lt; \dots &lt; t_n =1 \right. \right\}
+  \]</span></p>
+<p>Not every path has a finite length; those who have are by definition <em>rectifiable</em>. In general, a function <span class="math inline">\(\gamma:[0,1] \mapsto \mathbb{C}\)</span> whose length is finite – even if it is not continuous – is of <em>bounded variation</em>.</p>
+</section>
+<section id="the-line-integral" class="level2">
+<h2><a href="#the-line-integral">The Line Integral</a></h2>
+<p>To define line integrals along the path <span class="math inline">\(\gamma,\)</span> it is enough that <span class="math inline">\(\gamma\)</span> is of bounded variation. For any such function <span class="math inline">\(\gamma,\)</span> we may build a (complex-valued, Borel) measure on <span class="math inline">\([0,1]\)</span> denoted <span class="math inline">\(d\gamma.\)</span> This measure is defined by its integral of any continuous function <span class="math inline">\(\phi:[0,1]\to \mathbb{C},\)</span> as a limit of Riemann(-Stieltjes) sums <span class="math display">\[
+  \int_{[0,1]} \phi \, d\gamma 
+  =
+  \lim
+    \sum_{m=0}^{n-1}
+      \phi (t_m) 
+      (\gamma(t_{m+1}) - \gamma(t_m)).
+  \]</span> The limit is taken over the partitions of the interval <span class="math inline">\([0,1]\)</span> with <span class="math display">\[
+  \max \, \{|t_{m+1} - t_{m}| \; | \; m \in \{0,\dots, n-1\}\} \to 0.
+  \]</span> The line integral of a continuous function <span class="math inline">\(f: \gamma([0,1]) \to \mathbb{C}\)</span> is then defined by <span class="math display">\[
+  \int_{\gamma} f(z) \, dz = \int_{[0,1]} (f \circ \gamma) \, d\gamma.
+  \]</span> The <em>total variation</em> <span class="math inline">\(|d\gamma|\)</span> of <span class="math inline">\(d\gamma\)</span> is the positive measure defined by <span class="math display">\[
+  |d\gamma|(A) = \sup_{\mathfrak{P}} \sum_{B \in \mathfrak{P}} |d\gamma(B)|
+  \]</span> where the supremum is taken over all finite partitions <span class="math inline">\(\mathfrak{P}\)</span> of <span class="math inline">\(A\)</span> into measurable sets. This measure provides an integral expression for the length of <span class="math inline">\(\gamma\)</span>: <span class="math display">\[
+  \ell(\gamma) = \int_{[0,1]} |d\gamma|.
+  \]</span></p>
+</section>
+<section id="a-non-rectifiable-curve" class="level2">
+<h2><a href="#a-non-rectifiable-curve">A Non-Rectifiable Curve</a></h2>
+<p>The Koch snowflake <span class="citation" data-cites="Koc04">(Koch <a href="#ref-Koc04">1904</a>)</span> is an example of a continuous curve which is is nowhere differentiable; it is also a non-rectifiable closed path. It is defined as the limit of a sequence of polylines <span class="math inline">\(\gamma_n.\)</span> The first element of this sequence is an oriented equilateral triangle: <span class="math display">\[
+  \gamma_1 = [0 \to 1 \to e^{i\pi3} \to 0].
+  \]</span> Then, <span class="math inline">\(\gamma_{n+1}\)</span> is defined as a transformation of <span class="math inline">\(\gamma_n\)</span>: every oriented line segment <span class="math inline">\([a \to a+h]\)</span> that composes <span class="math inline">\(\gamma_n\)</span> is replaced by the polyline: <span class="math display">\[
+  \left[a \to a + \frac{h}{3} \to a + \left(1+e^{-i\pi/3} \right)\frac{h}{3}\to a + 2\frac{h}{3}  \to a+h\right]
+  \]</span></p>
+<figure>
+<img src="images/koch1.svg" alt="Image of the Koch snowflake, first iteration."><figcaption>Image of the Koch snowflake, first iteration.</figcaption>
+</figure>
+<figure>
+<img src="images/koch2.svg" alt="Image of the Koch snowflake, second iteration."><figcaption>Image of the Koch snowflake, second iteration.</figcaption>
+</figure>
+<figure>
+<img src="images/koch3.svg" alt="Image of the Koch snowflake, third iteration."><figcaption>Image of the Koch snowflake, third iteration.</figcaption>
+</figure>
+<figure>
+<img src="images/koch4.svg" alt="Image of the Koch snowflake, fourth iteration"><figcaption>Image of the Koch snowflake, fourth iteration</figcaption>
+</figure>
+<p>The Koch snowflake <span class="math inline">\(\gamma\)</span> is defined as the limit of the <span class="math inline">\(\gamma_n\)</span> sequence. The geometric construction yields that for any <span class="math inline">\(n\)</span> greater than zero, <span class="math display">\[
+  \forall \, t \in [0,1], \; 
+  |\gamma_{n+1}(t) - \gamma_n(t)| \leq \left(\frac{1}{3}\right)^{n} \frac{\sqrt{3}}{2}. 
+  \]</span> As <span class="math inline">\(\sum_{p=0}^{+\infty} \left( \frac{1}{3}\right)^p = \frac{1}{1-1/3} = \frac{3}{2},\)</span> for any positive integer <span class="math inline">\(p\)</span> we have <span class="math display">\[
+  \forall \, t \in [0,1], \; 
+  |\gamma_{n+p}(t) - \gamma_n(t)| \leq \left(\frac{1}{3}\right)^{n} \frac{3}{2}\frac{\sqrt{3}}{2}. 
+  \]</span> The sequence <span class="math inline">\(\gamma_n\)</span> is a Cauchy sequence in the space of continuous and complex-valued functions defined on <span class="math inline">\([0,1];\)</span> its uniform limit exists and is also continuous.</p>
+<p>On the other hand, the curve is not rectifiable. First, the definition of the sequence <span class="math inline">\(\gamma_n\)</span> makes it plain that every iteration increases the initial length of the path by one-third: <span class="math display">\[
+  \ell(\gamma_n) = 3 \times \left(\frac{4}{3}\right)^{n-1}.
+  \]</span> The length of <span class="math inline">\(\gamma_n\)</span> tends to <span class="math inline">\(+\infty\)</span> when <span class="math inline">\(n \to +\infty.\)</span> Now, every point at the junction of the segments of the polyline <span class="math inline">\(\gamma_n\)</span> also belongs to the Koch snowflake; more precisely <span class="math display">\[
+  \forall \, m \in \{0,\dots, 3 \times4^{n-1}\}, \;
+  \gamma\left(\frac{m}{3 \times 4^{n-1}}\right) 
+   = 
+   \gamma_n\left(\frac{m}{3 \times 4^{n-1}}\right).
+  \]</span> Therefore <span class="math display">\[
+  \ell(\gamma) 
+  \geq 
+  \sum_{m=0}^{3 \times 4^{n-1} -1} 
+    \left|  \gamma\left(\frac{m+1}{3 \times 4^{n-1}}\right) 
+          - \gamma\left(\frac{m}{3 \times 4^{n-1}}\right)\right|
+  = \ell(\gamma_n)
+  \]</span> and thus <span class="math inline">\(\ell(\gamma) = +\infty\)</span>: the path <span class="math inline">\(\gamma\)</span> is not rectifiable.</p>
+</section>
+</section>
+<section id="references" class="level1 unnumbered">
+<h1><a href="#references">References</a></h1>
+<div id="refs" class="references"><ol><li id="ref-Koc04" style="margin-bottom:0.75em"><em>Sur une Courbe Continue sans Tangente, Obtenue par une Construction Géométrique Élémentaire</em><br>Helge von Koch, 1904.<br>JSON: <a href="data:application/json;charset=utf-8;fontSize64,ewogICJJU1NOIjogIjAzNjUtNDEzMyIsCiAgImF1dGhvciI6IFsKICAgIHsKICAgICAgImRyb3BwaW5nLXBhcnRpY2xlIjogInZvbiIsCiAgICAgICJmYW1pbHkiOiAiS29jaCIsCiAgICAgICJnaXZlbiI6ICJIZWxnZSIKICAgIH0KICBdLAogICJjb250YWluZXItdGl0bGUiOiAiQXJraXYgZsO2ciBNYXRlbWF0aWssIEFzdHJvbm9taSBvY2ggRnlzaWsiLAogICJpZCI6ICJLb2MwNCIsCiAgImlzc3VlZCI6IHsKICAgICJkYXRlLXBhcnRzIjogWwogICAgICBbCiAgICAgICAgMTkwNAogICAgICBdCiAgICBdCiAgfSwKICAibGFuZ3VhZ2UiOiAiRnJlbmNoIiwKICAicGFnZSI6ICI2ODEtNzAyIiwKICAicHVibGlzaGVyIjogIkt1bmdsaWdhIFN2ZW5za2EgVmV0ZW5za2Fwc2FrYWRlbWllbi4iLAogICJ0aXRsZSI6ICJTdXIgdW5lIGNvdXJiZSBjb250aW51ZSBzYW5zIHRhbmdlbnRlLCBvYnRlbnVlIHBhciB1bmUgY29uc3RydWN0aW9uIGfDqW9tw6l0cmlxdWUgw6lsw6ltZW50YWlyZS4iLAogICJ0eXBlIjogImFydGljbGUtam91cm5hbCIsCiAgInZvbHVtZSI6ICIxIgp9"><i style="font-size:18px;position:relative;bottom:0.05em;" class="fa fa-file-text-o"></i></a>&nbsp;</li></ol></div>
+</section>
+</main>
+
+
+</body></html>

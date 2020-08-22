@@ -1,0 +1,422 @@
+% Complex-Differentiability
+% [Sébastien Boisgérault][email], Mines ParisTech
+
+[email]: mailto:Sebastien.Boisgerault@mines-paristech.fr
+
+---
+license: "[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0)"
+---
+
+Exercises
+================================================================================
+
+
+Antiholomorphic Functions
+--------------------------------------------------------------------------------
+
+A function $f:\Omega \to \mathbb{C}$ is *antiholomorphic* 
+if its complex conjugate $\overline{f}$ is holomorphic.
+
+### Questions
+
+ 1. Is the complex conjugate function $c:z \in \mathbb{C} \mapsto \overline{z}$ 
+    real-linear? complex-linear?
+    Is it real-differentiable? holomorphic? antiholomorphic?
+
+ 2. Show that any antiholomorphic function $f$ is real-differentiable.
+    Relate the differential of such a function and the differential of its
+    complex conjugate.
+ 
+ 3. Find the variant of the Cauchy-Riemann equation applicable to 
+    antiholomorphic functions.
+
+ 4. What property has the composition of two antiholomorphic functions?
+    
+ 5. Let $f: \Omega \mapsto \mathbb{C}$ be a holomorphic function; 
+    show that the function $$g: z \in \overline{\Omega} \mapsto \overline{f(\overline{z})}$$ 
+    is holomorphic and compute its derivative.
+
+### Answers
+
+ 1. For any $\lambda \in \mathbb{R}$ and $w, z \in \mathbb{C}$, we have
+      $$
+      \overline{w + z} = \overline{w} + \overline{z} 
+      \; \wedge \;
+      \overline{\lambda z} = \lambda \overline{z}, 
+      $$
+    therefore the function $c$ is real-linear.
+    However, it is not complex-linear: for example 
+    $\overline{i} = - i \neq i \times \overline{1}.$
+    The function $c$ is real-linear and continuous, 
+    hence it is real-differentiable and for any $z \in \mathbb{C}$,
+    $dc_z = c$.
+    This differential is not complex-linear, 
+    therefore the function is not complex-differentiable (or holomorphic).
+    On the other hand, $\overline{c(z)} = z$, therefore it is antiholomorphic.
+
+ 2. If the function $\overline{f}:\Omega \to \mathbb{R}$ is holomorphic, 
+    it is real-differentiable everywhere on its domain of definition.
+    Hence $f = c \circ \overline{f}$ is real-differentiable as the
+    composition of real-differentiable functions and
+    $$df_z = d(c\circ \overline{f})_z = c \circ d\overline{f}_z.$$
+
+ 3. The complex-valued Cauchy-Riemann equation for $\overline{f}$ is
+      $$
+      \frac{\partial \overline{f}}{\partial x}(z) 
+      = 
+      \frac{1}{i}\frac{\partial \overline{f}}{\partial y}(z), \; \mbox{ or }
+      d \overline{f}_z(i) = i \times d \overline{f}_z(1)
+      $$
+    On the other hand, we have
+      $$
+      \frac{\partial \overline{f}}{\partial x}(z) 
+      = 
+      d (c \circ f)_z (1) 
+      =
+      (c \circ df_z)(1)
+      =
+      \overline{\frac{\partial f}{\partial x}}
+      $$
+    and
+      $$
+      \frac{\partial \overline{f}}{\partial y}(z) 
+      = 
+      d (c \circ f)_z (i) 
+      =
+      (c \circ df_z)(i)
+      =
+      \overline{\frac{\partial f}{\partial y}},
+      $$
+    hence we can rewrite the Cauchy-Riemann equation for $\overline{f}$ as
+      $$
+      \frac{\partial f}{\partial x}(z) 
+      = 
+      -\frac{1}{i}\frac{\partial f}{\partial y}(z), \; \mbox{ or }
+      d f_z(i) = -i \times d f_z(1).
+      $$
+
+ 4. The composition of antiholomorphic functions is holomorphic.
+    Indeed, if $f$ and $g$ are antiholomorphic, they are real-differentiable; 
+    their composition -- assuming that it is defined -- is
+    $f \circ g = (c \circ \overline{f}) \circ (c \circ \overline{g})$; 
+    it satisfies
+      $$
+      d(f \circ g)_z
+        =d(c \circ \overline{f})_{c(\overline{g}(z))} \circ d(c \circ  \overline{g})_z
+        = c \circ d\overline{f}_{c(\overline{g}(z))} \circ c \circ d\overline{g}_z.
+      $$
+    Since for any $h, w \in \mathbb{C}$, 
+      $$c(h w) = \overline{h} c(w), \;d\overline{g}_z(h w) = h d\overline{g}(w), \; d\overline{f}_{c(\overline{g}(z))}(h w) = h d\overline{f}_{c(\overline{g}(z))}(w),$$ 
+    we have
+      $$
+      d(f \circ g)_z(h) = h d(f \circ g)_z(1).
+      $$
+    The differential of $f \circ g$ is complex-linear: the function is holomorphic.
+
+ 5. If the point $w$ belongs to $\overline{\Omega}$, then $w = \overline{z}$ for
+    some $z \in \Omega$, 
+    thus the complex number $\overline{f(\overline{z})}$ is defined.
+    Additionally, the set 
+      $$\overline{\Omega} = \{\overline{z} \;|\; z \in \Omega\} =
+      \{w \in \mathbb{C}\; | \; \overline{w} \in \Omega\}$$ 
+    is an open set, 
+    as the inverse image of the open set $\Omega$ by the continous function $c$.
+    The function $g$ satisfies 
+      $$
+      g = c \circ f \circ c = (c \circ f) \circ c
+      $$
+    which is holomorphic as the composition of two antiholomorphic functions.
+    We have
+      $$
+      dg_z(h) = (c \circ df_{c(z)} \circ c) (h)
+              = \overline{df_{\overline{z}}(\overline{h})}
+              = \overline{f'(\overline{z}) \overline{h}}
+              = \overline{f'(\overline{z})} h,
+      $$
+    hence $g'(z) = \overline{f'(\overline{z})}$.
+
+
+Principal Value of the Logarithm
+--------------------------------------------------------------------------------
+
+According to the definition of $\log$, 
+for any $x+iy \in \mathbb{C} \setminus \mathbb{R}_-$,
+   $$
+   \log (x + i y)
+   =
+   \ln \sqrt{x^2 + y^2} + i \arg (x+iy),
+   $$
+where $\arg: \mathbb{C} \setminus \mathbb{R}_- \to \mathbb{C}$ is
+*the principal value of the argument*:
+  $$
+  \forall\, z \in \mathbb{C} \setminus \mathbb{R}_-, \;
+  \arg z \in \left]-\pi,\pi\right[ \; \wedge \;  e^{i \arg z} = \frac{z}{|z|}.
+  $$
+
+### Questions
+
+ 1. Show that
+      $$
+      \arg (x + i y) = 
+      \left| 
+      \begin{array}{cl}
+      \arctan y/x & \mbox{if } x > 0, \\
+      +\pi/2 - \arctan x/y & \mbox{if } y > 0, \\
+      -\pi/2 - \arctan x/y & \mbox{if } y < 0. \\
+      \end{array}
+      \right.
+      $$
+
+ 2. Show that the function $\log$ is holomorphic and compute 
+    its derivative.
+
+
+### Answers
+
+ 1. Note that the definition of $\arg$ is non-ambiguous:
+    for any nonzero real number $\epsilon$,
+      $$
+      \arctan \epsilon + \arctan 1/\epsilon 
+      = 
+      \mathrm{sgn}(\epsilon) \times \pi/2,
+      $$
+    so if $x+iy$ belongs to two of the half-planes $x>0$, $y<0$ and $y>0$,
+    the two relevant expressions which may define $\arg(x+iy)$ are equal.
+
+    As $\arctan(\mathbb{R}) = \left]-\pi/2, \pi/2\right[$, 
+   the three expressions that define $\arg$ have values in $\left]-\pi,\pi\right[$.
+    Then, if for example $x>0$, with $\theta=\arg(x+iy)$, we have
+      $$
+      \frac{\sin\theta}{\cos\theta}=\tan \theta = \tan (\arctan y/x) = \frac{y}{x}. 
+      $$
+    Since $\cos \theta > 0$ and $x>0$, there is a $\lambda > 0$
+    such that
+      $$
+      x + i y = \lambda (\sin \theta + i \cos \theta) = \lambda e^{i\theta};
+      $$
+    this equation yields 
+      $$e^{i\arg (x+ i y)} = \frac{x+iy}{|x+iy|}.$$ 
+    The proof for the half-planes $y>0$ and $y<0$ is similar.
+
+ 2. The functions $\arg$, $\ln$ and therefore $\log$ 
+    are continuously real-differentiable. 
+    If $x > 0$, for example, we have
+     $$
+     \frac{\partial \arg(x+iy)}{\partial x}
+     =
+     \frac{1}{1 + (y/x)^2} \left(-\frac{y}{x^2}\right) = -\frac{y}{x^2 + y^2}.
+     $$
+    and
+     $$
+     \frac{\partial \arg(x+iy)}{\partial y}
+     =
+     \frac{1}{1 + (y/x)^2} \left(\frac{1}{x}\right) = \frac{x}{x^2 + y^2}.
+     $$
+    On the other hand,
+     $$
+     \frac{\partial}{\partial x} \ln \sqrt{x^2 + y^2}
+     =
+     \frac{1}{\sqrt{x^2 + y^2}} \frac{x}{\sqrt{x^2 + y^2}}
+     = 
+     \frac{x}{x^2 + y^2}
+     $$
+    and 
+     $$
+     \frac{\partial}{\partial y} \ln \sqrt{x^2 + y^2}
+     =
+     \frac{1}{\sqrt{x^2 + y^2}} \frac{y}{\sqrt{x^2 + y^2}}
+     = 
+     \frac{y}{x^2 + y^2}
+     $$
+    Finally 
+     $$
+     \frac{\partial \log}{\partial x}(x+iy)
+     =
+     \frac{x}{x^2 + y^2} - i \frac{y}{x^2 + y^2}
+     =
+     \frac{1}{x+iy}
+     $$
+    and
+     $$
+     \frac{\partial \log}{\partial y}(x+iy)
+     =
+     \frac{y}{x^2+y^2}
+     + i \frac{x}{x^2+y^2}
+     =\frac{1}{i}
+     \frac{1}{x+iy}.
+     $$
+    The computations for $y>0$ and $y<0$ are similar.
+    Conclusion: the function $\log$ is complex-differentiable and 
+    $\log'(z) = 1/z$. 
+
+
+Conformal Mappings
+--------------------------------------------------------------------------------
+
+### Questions
+
+A $\mathbb{R}$-linear mapping $L: \mathbb{C} \to \mathbb{C}$ is
+*angle-preserving* if $L$ is invertible and
+  $$
+  \forall \, \theta \in \mathbb{R}, \;
+  \exists \, \alpha_{\theta} > 0, \; 
+  L(e^{i\theta}) = \alpha_{\theta} \times e^{i\theta} L(1). 
+  $$
+A $\mathbb{R}$-differentiable function $f: \Omega \to \mathbb{C}$ 
+*(locally) angle-preserving* -- or *conformal* -- if its differential 
+is angle-preserving everywhere.
+
+ 1. Show that an invertible $\mathbb{R}$-linear mapping 
+    $L: \mathbb{C} \to \mathbb{C}$ is angle-preserving 
+    if and only if it is $\mathbb{C}$-linear.
+
+ 2. Identify the class of conformal mappings defined on $\Omega$.
+
+### Answers
+
+ 1. If $L$ is $\mathbb{C}$-linear, then for any $\theta \in \mathbb{R}$,
+    $L(e^{i\theta}) = e^{i\theta} L(1)$, hence it is angle-preserving.
+    Reciprocally, if $L$ is angle-preserving, we have on one hand
+      $$
+      L(e^{i \theta}) = \alpha_{\theta} \times e^{i\theta} L(1)
+      $$
+    and on the other hand, as $e^{i\theta}= \cos \theta + i \sin \theta$,
+      $$
+      L(e^{i\theta})
+      = \cos \theta \times L(1) + \sin \theta \times L(i)
+      = (\cos \theta + \sin \theta \times \alpha_{\frac{\pi}{2}} i) L(1).
+      $$
+    We know that $L(1) \neq 0$, hence these equations provide
+      $$
+      \alpha_{\theta} = 
+      \cos \theta e^{-i\theta} + \sin \theta e^{-i \theta}\times \alpha_{\frac{\pi}{2}} i =
+      \frac{1 + \alpha_{\frac{\pi}{2}}}{2} + \frac{1 - \alpha_{\frac{\pi}{2}}}{2} e^{-i2\theta}.
+      $$
+    As $\alpha_{\theta}$ is real-valued, $\alpha_{\frac{\pi}{2}} = 1$.
+    Consequently $\alpha_{\theta} = 1$ and $L$ is $\mathbb{C}$-linear.
+
+ 2. A mapping $f:\Omega \to \mathbb{C}$ is conformal if it is 
+    $\mathbb{R}$-differentiable, $df_z$ is invertible everywhere and
+    is $\mathbb{C}$-linear: this is exactly the class of holomorphic
+    mappings $f$ on $\Omega$ such that $f'(z) \neq 0$ everywhere.
+
+
+
+Directional Derivative
+--------------------------------------------------------------------------------
+
+Source: Mathématiques III, Francis Maisonneuve, Presses des Mines.
+
+### Questions
+
+Let $f$ be a complex-valued function defined in a neighbourhood of a point
+$z_0 \in \mathbb{C}$. 
+Assume that $f$ is $\mathbb{R}$-differentiable at $z_0$. 
+
+ 1. Let $\alpha \in \mathbb{R}$ and $z_{r,\alpha} = z_0 + r e^{i\alpha}$ for $r \in \mathbb{R}$.
+    Show that
+      $$
+      \ell_{\alpha} 
+      = 
+      \lim_{r \to 0} \frac{f(z_{r,\alpha}) - f(z_0)}{z_{r,\alpha} - z_0}
+      $$
+    exists and determine its value as a function of $df_{z_0}$ and $\alpha$.
+
+ 2. What is the geometric structure of the set 
+    $A = \{\ell_{\alpha} \; | \; \alpha \in \mathbb{R}\}$ ?
+
+ 3. For which of these sets $A$ is $f$ $\mathbb{C}$-differentiable at $z_0$?
+
+### Answers
+
+ 1. The real-differentiability of $f$ at $z_0$ provides
+      $$
+      f(z_0 + re^{i\alpha}) 
+      = f(z_0) + df_{z_0}(re^{i\alpha}) 
+      + \epsilon_{z_0}(re^{i\alpha}) |r| 
+      $$
+    where $\lim_{h \to 0} \epsilon_{z_0}(h) = 0$. 
+    Therefore,
+      $$
+      \frac{f(z_{r,\alpha}) - f(z_0)}{z_{r,\alpha} - z_0}
+      =
+      (re^{i\alpha})^{-1}(df_{z_0}(re^{i\alpha})  
+      + \epsilon_{z_0}(re^{i\alpha})|r|).
+      $$
+    Using the $\mathbb{R}$-linearity of $df_{z_0}$, we get
+      $$
+      \frac{f(z_{r,\alpha}) - f(z_0)}{z_{r,\alpha} - z_0}
+      =
+      e^{-i\alpha}df_{z_0}(e^{i\alpha})  
+      + \epsilon_{z_0,\alpha}(r)
+      $$ 
+    for some function $\epsilon_{z_0,\alpha}$ such that
+    $\lim_{r \to 0} \epsilon_{z_0,\alpha}(r) = 0$.
+    Hence, the limit that defines $\ell_{\alpha}$ exists and
+      $$
+      \ell_{\alpha} = e^{-i\alpha}df_{z_0}(e^{i\alpha}).  
+      $$
+
+ 2. For every real number $\alpha$, we have
+      $$
+      \ell_{\alpha} 
+      = 
+      e^{-i\alpha}
+      \left(
+        \frac{\partial f}{\partial x}(z_0) \cos \alpha
+        +
+        \frac{\partial f}{\partial y}(z_0) \sin \alpha
+      \right).
+      $$
+    Hence, 
+    if we use the equations
+      $$
+      \cos \alpha = \frac{e^{i\alpha} + e^{-i\alpha}}{2}, \;
+      \sin \alpha = \frac{e^{i\alpha} - e^{-i\alpha}}{2i}, \;
+      $$
+    we obtain 
+      $$
+      \ell_{\alpha} 
+      = 
+      \frac{1}{2}
+      \left(
+        \frac{\partial f}{\partial x}(z_0)
+        +
+        \frac{1}{i}\frac{\partial f}{\partial y}(z_0)
+      \right)
+        +
+      \frac{1}{2}
+      \left(
+        \frac{\partial f}{\partial x}(z_0)
+        - 
+        \frac{1}{i}\frac{\partial f}{\partial y}(z_0)
+      \right)e^{-i2\alpha}.
+      $$
+    Therefore, the set $A = \{\ell_{\alpha} \; | \; \alpha \in \mathbb{R}\}$ 
+    is a circle centered on 
+      $$
+      c = \frac{\partial f}{\partial x}(z_0)
+        +
+        \frac{1}{i}\frac{\partial f}{\partial y}(z_0)
+      $$
+    whose radius is
+      $$ 
+      r = 
+      \left|
+        \frac{\partial f}{\partial x}(z_0)
+        - 
+        \frac{1}{i}\frac{\partial f}{\partial y}(z_0)
+      \right|.
+      $$
+
+ 3. The function $f$ is complex-differentiable at $z_0$ if and only if the
+    Cauchy-Riemann equation
+      $$
+      \frac{\partial f}{\partial x}(z_0)
+      = 
+      \frac{1}{i}\frac{\partial f}{\partial y}(z_0)
+      $$
+    is met, which happens exactly when the radius of the circle $A$ is zero,
+    that is, when $A$ is a single point in the complex plane.
+
+

@@ -1,0 +1,259 @@
+% Complex Analysis
+% Sébastien Boisgérault, Jean-Emmanuel Deschaud, Mines ParisTech
+
+"Ski-Maths"
+================================================================================
+
+The Complex Analysis course of Mines ParisTech
+-- which is studied in this document -- 
+is very special in one obvious respect: 
+it is a part of the "Ski-Maths" program, 
+founded by Gilles Legrand in 1975.
+The program brings the Mines ParisTech students 
+in the heart of the French Alps for one week
+which includes a challenging scientific course, 
+days largely devoted to outdoor sports
+and a welcome social gathering.
+
+We won't say much directly about the sport and social components 
+of the program in this document but obviously this very special
+context matters a lot;
+and while the program has obviously evolved since its creation
+-- under the successive steering of Francis Maisonneuve,
+Sébastien Boisgérault and Jean-Emmanuel Deschaud --
+its core principles have been preserved.
+Ski-Maths is still a compact and demanding Mathematics course 
+which fits into an intense program which strives for the proper
+balance between education, sports & social components,
+with the deep involvement of students in its organization.
+
+[^s]: 
+
+
+Prerequisites
+--------------------------------------------------------------------------------
+
+The course prerequisites are listed below. Two remarks:
+
+  - Our list is merely a corpus of concepts and results. 
+    We did not attempt to define a list of general mathematical skills 
+    -- beyond this theoretical knowledge -- that would be required for this course. 
+    That does not mean that such skills are insignificant:
+    they are of the utmost importance and usually a much better
+    predictor of success than anything else. It's only that 
+    we feel that they are much harder to specify in any way
+    that could be useful; so we have simply given up at this stage.
+
+  - Elements enclosed in brackets -- [$\; \cdot \;$] -- are prerequisites,
+    but one can probably get away without (some of) them. 
+    The concepts enclosed in double brackets -- [[$\; \cdot \;$]] -- 
+    are not prerequisites, but one may gain a easier or deeper
+    understanding of the course if one has already been exposed to them.
+
+### Set Theory
+
+  - Set, membership, inclusion.
+    Sets are mostly subsets of the real line or of the complex plane
+    (we use the world "collection" for sets of higher order).
+
+  - Union, intersection, difference (for sets and collections); partitions.
+
+  - Sequences; functions (mostly with real or complex variables and values);
+    domain, codomain, image.
+
+### Algebra
+
+  - Linearly ordered sets: minimum/maximum, lower/upper bound, infimum/supremum.
+
+  - Real numbers: calculus, properties of the order 
+    (archimedean, complete). Elementary real-valued functions of a
+    real variable.
+
+  - Complex numbers: calculus,
+    real and imaginary part, conjugate, argument, modulus,
+    polar representation, $\exp$, $\sin$, $\cos$, etc. (as functions of a 
+    complex variable).
+
+  - Normed vector spaces (real or complex scalars).
+    Linearity, basis, dimension, completeness;
+    convexity, [[star-convexity]].
+
+### Topology
+
+  - Open and closed sets, interior, closure.
+
+  - [Interior point, limit point, isolated point.]
+
+  - Neighbourhood, [what "locally" means].
+
+  - [[Connectedness, simple connectedness.]]
+
+  - Continuity and limits (for sequences & functions).
+
+  - Compact sets (in the real line or the complex plane);
+    compact sets in relation with sequences, with continuous functions.
+
+  - Metric spaces: distance, open/closed disk, Cauchy sequences, completeness.
+    (mostly in the complex plane; spaces of continuous functions being
+    the exception); uniform continuity (and compactness).
+
+  - Continuous functions of a real or complex variable on compact sets.
+    Topology, uniform continuity, sequences of such functions, 
+    completeness.
+
+### Analysis
+
+  - Real analysis:
+    Derivative of functions of a real variable,
+    differential of functions of several real variables.
+    Elementary functions (exponential, logarithm, power functions, etc.), 
+    differential calculus (sum, product, chain rule, etc.).
+    Partial derivatives and how they relate to the differential.
+    (Piecewise) continuously differentiable functions.
+    Intermediate value theorem, mean value theorem.
+
+  - Complex analysis: polynomials and rational functions: 
+    roots, factorisation, 
+    poles, partial-fraction decomposition. 
+    Series: convergence and absolute convergence;
+    series of functions: pointwise, absolute, uniform [and normal] convergence.
+    Power series: [convergence radius, mode of convergence].
+
+  - Integration: integral of vector-valued functions with real parameters 
+    (on compact intervals, with a piecewise continuous assumption).
+    Linearity, additivity, change of variable, integration by parts,
+    triangle inequality, exchange of integral and limits
+    (uniform convergence assumption).
+    [Measure theory: measure, integral, measurability and integrability,
+    dominated convergence theorem.]
+    [[Vector-valued measure, total variation, 
+      Riesz representation theorem, Lebesgue-Stieltjes integrals.]]
+
+Contents
+--------------------------------------------------------------------------------
+
+Geometry of the complex plane: 
+
+  - paths, rectifiability,
+
+  - connected sets,
+
+  - variation of the argument, winding number,
+
+  - simply connected sets.
+
+Complex-Differential:
+
+  - derivative & complex-differential,
+
+  - functions of two real variables, Cauchy-Riemann equations,
+
+  - sum (and integral), product (/quotient) and chain rules, 
+
+  - polynomials, rational functions, exponential, logarithms, power functions,
+
+  - power (/Taylor) series, zeros, multiplicity, isolated zero theorem,
+
+  - Laurent series, poles, multiplicity, residues.
+
+Integral theory:
+
+  - line integrals, 
+
+  - primitives, fundamental theorem of calculus, Morera's theorem,
+
+  - Cauchy's integral theorem, Cauchy's Formula, the residue theorem.
+
+Applications in Engineering:
+
+  - complex-step differentiation,
+
+  - poisson image editing,
+
+  - discrete-time signals in the Fourier domain.
+  
+
+Learning Objectives
+--------------------------------------------------------------------------------
+
+At the end of this course, students should be able to:
+
+
+  - Identify when a function is -- or is not -- holomorphic:
+
+      - list the defining characteristics of holomorphy
+        (to prove or disprove holomorphy);
+        the "rules" that produce holomorphic functions
+        (to prove holomorphy);
+        the corollaries of holomorphy (to disprove it).
+
+      - design a plan to solve the problem.
+        Should we
+        try to prove that this function is holomorphic or disprove
+        this fact? 
+        What criteria should be tried first? What would be your second attempt if the first
+        does not succeed? etc.
+
+      - explain why this plan is appropriate.
+        Is this function similar to a known case?
+        Does the structure of the function make you 
+        think of some criterion? etc.
+
+      - carry out this plan using real or complex-analytic methods
+        (see below).
+
+  - Manage the representations and properties of holomorphic functions:
+  
+      - remember the standard representations of holomorphic functions:
+        as complex-differentiable functions, continuously differentiable 
+        function of two real variables satisfying Cauchy-Riemann equations,
+        or as the sum of power (or Laurent) series.
+
+      - explain the interplay between representations and properties 
+        of holomorphic functions.
+        For example: the representation as
+        a power series yields the existence
+        of a derivative at an arbitrary order; 
+        it also proves that holomorphic functions
+        are locally uniform limits of polynomials.
+
+      - determine the appropriate representation for the problem at hand,
+        know how to convert a function from one representation to another.
+
+  - Compute derivatives and line integrals of holomorphic functions.
+
+      - have a working knowledge of the definitions 
+        of complex-differential and line integrals and
+        of the computational properties 
+        (or "rules") for which there is an equivalent 
+        in real analysis.
+
+      - understand the geometric concepts used in Cauchy's
+        integral theory (sequence of closed paths, 
+        winding number, interior/exterior, simply connected set
+        star-shaped set, isolated singularity, etc.).
+
+      - determine if any of the three general statements of 
+        Cauchy's integral theory (or any of their simplified versions, 
+        optimized for the common special cases) may be applicable
+        to compute some line integral and perform the computation.
+
+  - Apply "imaginary" (complex-analytic) methods to solve "real" problems
+    (problems whose statement does not mention functions 
+    of complex numbers):
+
+      - solve autonomously mainstream problems such as
+        the computation of improper integrals of functions of a real variable, 
+        or the computation of higher-order derivatives of functions 
+        of a real variable with a holomorphic extension.
+
+      - solve -- with some help for framing the problem in complex-analytic terms -- 
+        a wide range of issues coming from algebra, geometry, real analysis, time series, 
+        combinatorics, etc.
+
+      - be knowledgeable about at least one larger-scale application 
+        of complex analysis to engineering methods 
+        (in image editing, signal processing, scientific computing, etc.)
+
+
+

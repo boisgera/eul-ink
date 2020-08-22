@@ -1,0 +1,129 @@
+/*global mathBox, ThreeBox */
+/*jslint browser: true, vars: true*/
+
+function f(z) {
+  return math.eval("1.0 / (1.0  - z)", {"z": z});
+}
+
+/* Is there a camera control to zoom in/out with the mouse ? 
+   Have a look at cameraControls stuff. More generally, this
+   is hard to move it in some direction, so initial pov (and 
+   associated selection of axis to represent data) may have 
+   to be selected carefully. Or, I understand the camera 
+   Control stuff & design my own, without those limitations.
+   Hint: the camera movement associated to some mouse mvt
+   should be independent of the curren position, always
+   defined as a "diff" wrt the current rotation.
+
+   Nota: the camera angle "blocks" in some direction, this is a pain, investigate that 
+
+   Investigate "dragpan control" (<https://github.com/jeromeetienne/tquery/issues/235>)
+
+   Actually, look at OrbirControl in the three.js code (ex of issue desc:
+   http://stackoverflow.com/questions/18581225/orbitcontrol-or-trackballcontrol)
+
+   Trackball control is probably what I want instead.
+   (see http://benchung.com/trackball-controls-three-js/)
+*/
+
+/* ---------------------------------------------------------------------------*/
+
+/* rk: we need either some shading or some lines style otherwise,
+       we can't see shit. Hence, we need to solve the inverted
+       shading issue, maybe put the light somewhere else ? Or
+       invert the face stuff somehow ? I'd rather not abandon
+       z as the data axis :(
+ */
+
+/* Test: shift the grid(s) for re and im so that they dont overlap ?
+*/
+
+/* TODO : provide abs and arg ? Refactor to avoid computations somehow */
+function surface(f) {
+  return {
+    re: function (x, y) {
+      var z = math.complex(x, y);
+      var fz = f(z);
+      return [x, y, fz.re]; 
+    },
+    im: function (x, y) { 
+      var z = math.complex(x, y);
+      var fz = f(z);
+      return [x, y, fz.im]; 
+    },
+  };
+}
+
+/* Shit. Where am I supposed to clip ? In the complex fct ? In surface data ?
+   That will be at the surface level for now.*/
+/* Actually, clip should be generalized to al directions and adjust automatically
+   to fit the viewport domain ?
+   Apply some special graphical hint where the data hits the wall ?
+   */
+function clip_z(f, min, max) {
+  return function () {
+    var f_ = f.apply(null, arguments);
+    f_[2] = Math.min(Math.max(f_[2], min), max);
+    return f_
+  };
+}
+
+function setup() {
+  var mathbox = mathBox({cameraControls: true});
+  window.mathbox = mathbox;
+  mathbox.start();
+
+  mathbox.viewport({
+    range: [[-2, 2], [-2, 2]],
+  });
+  var pov = {
+    orbit: 5,
+    phi:     Math.PI / 2,
+    theta: - 0.75 * (Math.PI / 2),
+    lookAt: [0, 0, 0]
+  };
+  mathbox.camera(pov);
+
+  /* Nota: I am disabling shading because the default lighted/in shadow selection would not work
+           (out of the box) with my selection of axes, I would have to use the second one to display
+          values. 
+  */
+  mathbox.grid().axis({axis: 0}).axis({axis: 1});
+  surf = surface(f);
+
+  /* Uhu ? The first surface hides the second one despite the opacity setting ?
+     OK, this is std WebGL "pb", see <http://stackoverflow.com/questions/8763603/transparent-textures-behaviour-in-webgl>.
+     Still worth investigating more thoroughly, is there a solution ?. Have a look at <https://github.com/mrdoob/three.js/issues/4724>*/
+
+  mathbox.surface({
+    id: "re",
+    n: [64, 64],
+    live: false,
+    domain: [[-2, 2], [-2, 2]],
+    expression: clip_z(surf.re, -2, 2),
+    color: 0x0000ff,
+    line: false,
+    opacity: 1.0,
+    shaded: true,
+  });
+
+mathbox.surface({
+    id: "im",
+    domain: [[-2, 2], [-2, 2]],
+    n: [64, 64],
+    live: false,
+    expression: clip_z(surf.im, -2, 2),
+    color: 0xff0000,
+    line: false, 
+    opacity: 1.0,
+    shaded: true,
+  });
+  
+}
+  
+/* TODO: Cauchy-Riemann conditions graphically, with some animation. */
+
+
+jQuery(function () {
+  ThreeBox.preload(["../html/MathBox.html"], setup);
+});

@@ -1,0 +1,1059 @@
+% C1223 -- Complex Analysis  
+  Final Examination
+% [Sébastien Boisgérault][email], MINES ParisTech
+
+[email]: mailto:Sebastien.Boisgerault@mines-paristech.fr
+
+---
+license: "[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0)"
+---
+
+Problem R
+================================================================================
+
+**Preamble.** Let $\Omega$ be an open subset of $\mathbb{C}$.
+For any $r>0$, we denote $\Omega_r$ the set of points of 
+$\mathbb{C}$ whose distance to the complement of $\Omega$ is larger than $r$:
+  $$
+  \Omega_r = \{z \in \mathbb{C} \; | \; d(z, \mathbb{C} \setminus \Omega) > r \}.
+  $$
+
+ 1. Show that $\Omega_r$ is an open subset of $\Omega$ and that
+    $\Omega = \cup_{r>0} \Omega_r$.
+
+ 2. Assume that $\Omega$ is connected. Is $\Omega_r$ necessarily connected?
+    (Hint: consider for example $\Omega = \{z \in \mathbb{C} 
+     \; | \; |\mathrm{Im} \, z| < |\mathrm{Re} \, z| +1 \}$ and $r = 1$).
+
+ 3. Show that if $z \in \mathbb{C} \setminus \Omega_r$,
+    there is a $w \in \mathbb{C} \setminus \Omega$ such that
+    the segment $[w, z]$ is included in 
+    $\mathbb{C} \setminus \Omega_r$.
+    Deduce from this property 
+    that if $\Omega$ is simply connected, 
+    then $\Omega_r$ is also simply connected.
+    Is the converse true?
+
+ 4. Show that if $\Omega$ is bounded and simply connected,
+    $\mathbb{C} \setminus \Omega$ is connected.
+    (Hint: assume that $\Omega$ is bounded but that 
+    $\mathbb{C} \setminus \Omega$ is disconnected,
+    then introduce a suitable dilation of this complement).
+
+From now on, $\Omega$ is a bounded open subset of $\mathbb{C}$.
+Let $\mathcal{F}$ be a class of holomorphic functions 
+defined on $\Omega$ (or a superset of $\Omega$).
+A holomorphic function $f: \Omega \to \mathbb{C}$ 
+has *uniform approximations* in $\mathcal{F}$ if
+  $$
+  \forall \, \epsilon > 0, 
+  \exists \, \hat{f} \in \mathcal{F}, \;
+  \forall \, z \in \Omega, \; |f(z) - \hat{f}(z)| \leq \epsilon.
+  $$
+
+ 5. Let $f: \Omega \to \mathbb{C}$ be a holomorphic function 
+    and let $a  \in \mathbb{C} \setminus \Omega$.
+    Assume that $f$ has uniform
+    approximations in the class of functions defined and holomorphic on
+    $\mathbb{C} \setminus \{a\}$.
+    Show that if $|a|$ is large enough, 
+    $f$ has uniform approximations among polynomials.
+
+ 6. Show that for any non-empty bounded open subset $\Omega$ of $\mathbb{C}$,
+    there is a holomorphic function $f :\Omega  \to \mathbb{C}$
+    which doesn't have uniform approximations among
+    polynomials (Hint: consider $z\mapsto 1/(z-a)$ for some suitable 
+    choice of $a$).
+
+A holomorphic function $f: \Omega \to \mathbb{C}$ has *locally uniform approximations* 
+in $\mathcal{F}$ if for any $r>0$, its restriction to any $\Omega_r$ has 
+uniform approximations in $\mathcal{F}$:
+  $$
+  \forall \, \epsilon > 0, \forall \, r > 0, 
+  \exists \, \hat{f} \in \mathcal{F}, \;
+  \forall \, z \in \Omega_r, \; |f(z) - \hat{f}(z)| \leq \epsilon.
+  $$
+
+ 7. Show that if $\Omega$ is not simply connected, 
+    there is a holomorphic function $f: \Omega \to \mathbb{C}$
+    which has no locally uniform approximations among polynomials
+    (Hint: 
+    consider $f:z\mapsto 1/(z-a)$ for some suitable choice of $a$ 
+    then compare
+      $$
+      \int_{\gamma} f(z) \, dz 
+      \; \mbox{ and } \; 
+      \int_{\gamma} \hat{f}(z) \, dz
+      $$
+    for some suitable closed rectifiable path $\gamma$).
+
+From now on, we assume that $\Omega$ is simply connected.
+
+Let $f:\Omega \to \mathbb{C}$ and let $r>0$.
+We define the function $\chi_r: \mathbb{C} \setminus \Omega \to \{0,1\}$
+by:
+
+  - $\chi_r(z) = 1$ if for every $\epsilon > 0$, there is a 
+holomorphic function $\hat{f}_z$ defined on $\mathbb{C} \setminus \{z\}$
+such that $|f - \hat{f}_z| \leq \epsilon$ on $\Omega_r$,
+
+  - $\chi_r(z) = 0$ otherwise.
+
+  8. Show that if some points $z$ and $w$ of $\mathbb{C} \setminus \Omega$
+     satisfy $\chi_r(z) = 1$ and $|w - z| < r/2$ then $\chi_r(w) = 1$
+     (Hint: first, prove that the open annulus
+     $A := A(w, r/2, +\infty)$ satisfies
+     $A \subset \mathbb{C} \setminus \{z\}$ 
+     and $\overline{\Omega_r} \subset A$).
+
+  9. Prove that $\chi_r$ is locally constant then
+     show that if $\chi_r(a) = 1$ for some $a \in \mathbb{C} \setminus \Omega$,
+     then $\chi_r(z) = 1$ for every $z \in \mathbb{C} \setminus \Omega$.
+
+ 10. Assume that $f: \Omega \to \mathbb{C}$ has locally uniform approximations
+     among holomorphic functions defined on $\mathbb{C} \setminus \{a\}$ 
+     for some $a \in \mathbb{C} \setminus \Omega$.
+     Show that $f$ has locally uniform approximations among polynomials.
+
+ 11. Let $\hat{f}: \mathbb{C} \setminus \{a_1,\dots, a_n\}\to \mathbb{C}$ 
+     be holomorphic (all the $a_k$ are distincts). 
+     Show that there are holomorphic functions 
+     $\hat{f}_k: \mathbb{C} \setminus \{a_k\} \to \mathbb{C}$ for $k=1,\dots,n$
+     such that
+       $$
+       \forall \, z \in \mathbb{C} \setminus \{a_1,\dots, a_n\}, \;
+       \hat{f}(z) =  \hat{f}_1(z) + \dots + \hat{f}_n(z).
+       $$
+
+     Prove the following corollary: if a function 
+     $f: \Omega \to \mathbb{C}$ has locally uniform approximations among 
+     holomorphic functions defined on $\mathbb{C} \setminus \{a_1, \dots, a_n\}$ 
+     for some $a_1, \dots, a_n \in \mathbb{C} \setminus \Omega$,
+     then $f$ has locally uniform approximations among polynomials.
+
+<!-- \newpage -->
+
+Problem L
+================================================================================
+
+The *ray* with origin $a\in \mathbb{C}$ and direction $u \in \mathbb{C}^*$
+is the function[^Notation]
+  $$
+  \gamma: t \in \mathbb{R}_+ \mapsto a + t u.
+  $$
+
+[^Notation]: This notation emphasizes that the complex number $\gamma(t)$ 
+  depends on $t$; however it also depends implicitly on some $a$ 
+  and $u$ that are usually clear from the context.
+  Feel free to use a more explicit notation 
+  if you feel that it is beneficial.
+
+Let $f:\Omega \mapsto \mathbb{C}$ be a holomorphic function defined on
+some open subset $\Omega$ of $\mathbb{C}$ that contains the image 
+$\gamma(\mathbb{R}_+)$ of the ray $\gamma$.
+The Laplace transform $\mathcal{L}_{\gamma}[f]$ of $f$ 
+along $\gamma$ at $s \in \mathbb{C}$ is given by 
+  $$
+  \mathcal{L}_{\gamma}[f](s)
+  =
+  \int_{\mathbb{R}_+} f(\gamma(t)) e^{-\gamma(t) s} \gamma'(t) \, dt
+  $$
+(we consider that this integral is defined when its integrand is summable).
+This definition generalizes the classic Laplace transform $\mathcal{L}[f]$
+since $\mathcal{L}_{\gamma}[f] = \mathcal{L}[f]$ when $\gamma(t) = t$
+(that is when $a=0$ and $u=1$).
+
+We assume that there are some $\kappa > 0$ and $\sigma \in \mathbb{R}$ such that
+  \begin{equation} \label{bound}
+  \forall \, z \in \gamma(\mathbb{R}_+), \; |f(z)| \leq \kappa e^{\sigma |z|}.
+  \end{equation}
+
+
+ 1. Show that if $\gamma(t) = a + t u$ and $\mu(t) = a + t(\lambda u)$
+    for some $\lambda > 0$, then
+     $$
+     \mathcal{L}_{\mu}[f] = \mathcal{L}_{\gamma}[f]
+     $$
+    (Reminder: two functions are equal when the have the same 
+     domain of definition and the same values in this shared domain.)
+
+ 2. Characterize geometrically the set
+      $$
+      \Pi(u, \sigma)
+      = 
+      \left\{
+      s \in \mathbb{C} 
+      \; \left| \; 
+      \mathrm{Re} \left( s u \right) > \sigma |u|
+      \right.
+      \right\}
+      $$
+    and show that $\mathcal{L}_\gamma[f]$ is defined and holomorphic on
+    $\Pi(u, \sigma)$.
+
+ 3. Let $U$ be an open subset of $\mathbb{C}^*$.
+    We assume that bound \eqref{bound} is valid for every $u \in U$
+    (for a given origin $a$ and fixed values of $\kappa$ and $\sigma$).
+    Show that for any $s\in \mathbb{C}$, the set $U_{s}$ of directions
+    $u \in U$
+    such that $s \in \Pi(u,\sigma)$ is open and that the function 
+    $u \in U_s \mapsto \mathcal{L}_{\gamma}[f](s)$ is holomorphic
+    (Hint: show that the complex-differentiation under the integral sign
+    theorem is applicable).
+
+    
+ 4. Show that  the derivative of $\mathcal{L}_{\gamma}[f](s)$ 
+    with respect to $u$ is zero (Hint: the result of question 1
+    may be used).
+
+The exponential integral $E_1(x)$ is defined for $x>0$ by
+      $$
+      E_1(x) = \int_x^{+\infty} \frac{e^{-t}}{t}dt.
+      $$
+
+ 5. Compute the (classic) Laplace transform $F$ of 
+      $$
+      t \in \mathbb{R}_+ \to \frac{1}{t+1}
+      $$
+    and give a formula for $E_1(x)$ that depends on $F(x)$.
+    Prove that $E_1$ has a unique holomorphic extension to 
+    the open right half-plane $\{s \in \mathbb{C} \; | \; \mathrm{Re}(s) > 0\}$.
+    
+From now on, we study the case of
+  $$
+  f: z \in \mathbb{C} \setminus \{-1\} \mapsto \frac{1}{z+1}
+  $$ 
+with $a=0$, $\sigma=0$ and $U =\{u \in\mathbb{C} \; | \; \mathrm{Re}(u)>0\}.$
+
+ 6. Show that there is a $\kappa > 0$ such that 
+    \eqref{bound} is valid for every $u \in U$. 
+    Characterize geometrically the set $U_s$; 
+    show that it is non-empty when 
+    $s\in \mathbb{C}\setminus \mathbb{R}_-$.
+
+Let $s \in \mathbb{C} \setminus \mathbb{R}_-$. We define
+  $$
+  G(s) := \mathcal{L}_{\gamma}[f](s)
+  \; \mbox{ if } \;
+  u \in U_s
+  \; \mbox{ and } \;
+  \gamma: t \in \mathbb{R}_+ \mapsto tu.
+  $$
+Note that this definition is *a priori* ambiguous since 
+several $u \in U_s$ exist for a given value of $s$.
+For any $u_0 \in \mathbb{C}^*$ and $u_1 \in \mathbb{C}^*$
+and for any $\theta \in [0,1]$, we denote
+$$u_{\theta} = (1-\theta) u_0 + \theta u_1$$
+and whenever $u_{\theta} \neq 0$, we denote
+$\gamma_{\theta}$ the ray of origin $a=0$ and 
+direction $u_{\theta}$.
+
+    
+ 7. Let $s \in \mathbb{C}\setminus \mathbb{R}_-$.
+    Show that if $u_0 \in U_s$ and $u_1 \in U_s$
+    then for every $\theta \in [0,1]$, $u_{\theta} \in U_s$ 
+    and that
+      $$
+      \mathcal{L}_{\gamma_1}[f](s)
+      - 
+      \mathcal{L}_{\gamma_0}[f](s)
+      =
+      \int_0^1 \frac{d}{d\theta} 
+      \mathcal{L}_{\gamma_{\theta}}[f](s) 
+      \, d\theta.
+      $$
+    Conclude that the definition of $G$ is unambiguous.
+
+
+ 8. We search for a new expression of the difference
+    $\mathcal{L}_{\gamma_1}[f](s) - \mathcal{L}_{\gamma_0}[f](s)$ 
+    to build an alternate proof for the conclusion of the previous question.
+
+     Let again $s \in \mathbb{C}\setminus \mathbb{R}_-$,
+     $u_0 \in U_s$ and $u_1 \in U_s$;
+     let $r \geq 0$ and $\gamma_0^r$ and $\gamma_1^r$ be the paths 
+     defined by
+      $$
+      \gamma_{0}^r: t \in [0,1] \mapsto \gamma_0(tr)
+      \; \mbox{ and } \;
+      \gamma_{1}^r: t \in [0,1] \mapsto \gamma_1(tr)
+      $$
+    Show that 
+      $$
+      \mathcal{L}_{\gamma_1}[f](s) - \mathcal{L}_{\gamma_0}[f](s)
+      =
+      \lim_{r \to +\infty} \int_{\mu_r} f(z) e^{-sz} \, dz \;
+      \; \mathrm{ where } \; \mu_r = (\gamma_0^r)^{\leftarrow} | (\gamma_1^r)
+      $$
+   Conclude again
+   that the definition of $G$ is unambiguous
+   (Hint: "close" the path $\mu_r$ and 
+    use Cauchy's integral theorem).
+
+ 9. Prove that $E_1$ has a unique holomorphic extension to 
+     $\mathbb{C} \setminus \mathbb{R}_-$.
+   
+<!-- \newpage -->
+
+Problem R -- Answers
+================================================================================
+
+ 1. **(1.5pt)**
+    If $z \in \Omega_r$, then $d(z, \mathbb{C} \setminus \Omega) > r > 0$.
+    Since any point $z$ of $\mathbb{C} \setminus \Omega$ satisfies
+    $d(z, \mathbb{C} \setminus \Omega) = 0$, we have 
+    $\mathbb{C} \setminus \Omega  \subset \mathbb{C} \setminus \Omega_r$
+    and thus $\Omega_r \subset \Omega$.
+
+    For any $z \in \Omega_r$, 
+    the number $\epsilon = d(z, \mathbb{C} \setminus \Omega) - r$ is positive. 
+    If $|w - z| < \epsilon$ then 
+    for any $v \in \mathbb{C} \setminus \Omega$,
+    $|z - v| \geq d(z, \mathbb{C} \setminus \Omega)$ and
+      $$
+      |w - v| 
+      \geq 
+      |z - v| - |w - z|
+      > 
+      d(z, \mathbb{C} \setminus \Omega)
+      - 
+      \epsilon
+      =
+      r.
+      $$
+    Consequently $D(z, \epsilon) \subset \Omega$ and $\Omega$ is open.
+
+    Finally, if $z \in \Omega$, since $\Omega$ is open, 
+    $d = d(z, \mathbb{C} \setminus \Omega) > 0$, thus if $r = d/2$,
+    the point $z$ belongs to $\Omega_r$. 
+    Consequently, $\Omega = \cup_{r>0} \Omega_r$.
+
+
+ 2. **(1pt)**
+    Let $\Omega = \{z \in \mathbb{C} \; | \; |\mathrm{Im} \, z| < |\mathrm{Re} \, z| +1 \}$.
+    This set is open: the function 
+      $$
+      \phi: z \in \mathbb{C} \to |\mathrm{Re} \, z| + 1 - |\mathrm{Im} \, z| \in \mathbb{R}
+      $$
+    is continuous and $\Omega$ is the pre-image of the open set 
+    $\mathbb{R}_{+}^*$ by $\phi$.
+    Now, for any purely imaginary number $iy$ of $\Omega$,
+    since $|iy - i| \leq 1$ or $|iy + i| \leq 1$, we have
+    $d(iy, \mathbb{C} \setminus \Omega) \leq 1$. 
+    Therefore, no such point belongs to $\Omega_1$.
+    On the other hand, 
+    $d(-2, \mathbb{C} \setminus \Omega) 
+    = d(-2, \mathbb{C} \setminus \Omega) =   3\sqrt{2}/2 > 1$ and hence
+    $-2 \in \Omega_1$ and $2 \in \Omega_1$.
+
+    Assume that $\Omega_1$ is connected. 
+    Since it is open, it is path-connected: there is 
+    a continuous function $\gamma:[0,1] \to \Omega_{1}$ that joins $-2$ and $2$. 
+    By the intermediate value theorem, there is a $t\in \left]0,1\right[$
+    such that $\mathrm{Re} \, \gamma(t) = 0$.
+    Since $\gamma(t) \in \Omega_1$, we have a contradiction.
+    Consequently, $\Omega_1$ is not connected.
+
+ 3. **(2.5pt)**
+    By definition of $\Omega_r$, its complement satisfies
+      $$
+      \mathbb{C} \setminus \Omega_r 
+      = 
+      \{
+        z \in \mathbb{C}  
+        \; | \; 
+       d(z, \mathbb{C} \setminus \Omega) \leq r
+      \}.
+      $$
+    Thus, if $z \in \mathbb{C} \setminus \Omega_r$,
+    since $\mathbb{C} \setminus \Omega$ is closed,
+    there is a $w \in \mathbb{C} \setminus \Omega$ such that
+    $|z - w| \leq r$.
+    Since for any $\lambda \in [0,1]$,
+    the point $z_{\lambda} = \lambda w + (1-\lambda) z$ satisfies 
+    $|z_{\lambda} - w| = (1-\lambda) |z - w| \leq r$,
+    we also have $z_{\lambda} \in \mathbb{C} \setminus \Omega_r$.
+    Hence, $[w, z] \subset \mathbb{C} \setminus \Omega_r$.
+  
+    Assume that $\Omega$ is simply connected. 
+    Let $z \in \mathbb{C} \setminus \Omega_r$ and let $\gamma$ be
+    a closed path of $\Omega_r$;
+    since $\Omega_r \subset \Omega$, $\gamma$ is also a closed path 
+    of $\Omega$.
+    Let $w \in \mathbb{C} \setminus \Omega$ such that
+    $[w, z] \subset \mathbb{C} \setminus \Omega_r$.
+    Since $[w, z]$ is connected and the function 
+    $\xi \in \mathbb{C} \setminus \Omega_r \mapsto \mathrm{ind}(\gamma, \xi)$
+    is locally constant, $\mathrm{ind}(\gamma, z) = \mathrm{ind}(\gamma, w)$.
+    Since $\Omega$ is simply connected, $\mathrm{ind}(\gamma, w)= 0$.
+    Hence, $\Omega_r$ is simply connected.
+
+    Alternatively, assume that $\Omega_r$ is multiply connected.
+    Let $\mathbb{C} \setminus \Omega_r = K  \cup L$ where $K$ is bounded and non-empty
+    and $d(K, L) > 0$. Since $\Omega_r \subset \Omega$,
+    $\mathbb{C} \setminus \Omega \subset \mathbb{C} \setminus \Omega_r$. 
+    Let $K' = K \cap (\mathbb{C} \setminus \Omega)$
+    and $L' = L \cap (\mathbb{C} \setminus \Omega)$.
+    Clearly, $\mathbb{C} \setminus \Omega = K'  \cup L'$,
+    $K'$ is bounded and $d(K', L') > 0$. 
+    Now, let $z \in K$ and let $w \in \mathbb{C} \setminus \Omega$ such that
+    $[w, z] \subset \mathbb{C} \setminus \Omega_r = K \cup L$. 
+    Every connected $C$ subset of $K \cup L$ 
+    that contains a point of $K$ is included in $K$ since for any
+    $r \leq d(K,L)$, the dilation $C + B(0,r)$ 
+    doesn't intersect $L$.
+    Since $[w,z]$ is a connected subset of $K \cup L$ and $z \in K$,
+    we have $[w,z] \subset K$, thus $K'$ is also non-empty.
+    Finally, $\Omega$ is multiply connected. 
+
+    The converse result is false: for any open subset $\Omega$ which is
+    bounded and not simply connected, for $r$ large enough,
+    $\Omega_r = \varnothing$ which is simply connected.
+
+ 4. **(2.5pt)** 
+    Assume that $\mathbb{C} \setminus \Omega$ is disconnected.
+    Since $\Omega$ is bounded, for $r$ large enough, the annulus
+    $A(0,r+\infty)$, which is connected, is a subset of 
+    $\mathbb{C} \setminus \Omega$. 
+    Consider a dilation of $\mathbb{C} \setminus \Omega$ which is 
+    not (path-)connected;
+    let $V_{\infty}$ be the component of this dilation that contains 
+    the annulus above, while $V$ is the (non-empty) union of the other 
+    components of the dilation. By construction, $V$ and $V_{\infty}$
+    are open and disjoints and $V$ is bounded. 
+    The set 
+      $$K = (\mathbb{C} \setminus \Omega) \cap V 
+       = (\mathbb{C} \setminus \Omega) \setminus V_{\infty}$$ 
+    is closed, non-empty and bounded;
+    with 
+      $$
+      L 
+      = 
+      (\mathbb{C} \setminus \Omega) \cap V_{\infty} 
+      = 
+      (\mathbb{C} \setminus \Omega) \setminus V,
+      $$
+    which is closed,
+    we have $\mathbb{C} \setminus \Omega = K \cup L$. 
+    Thus $\mathbb{C} \setminus \Omega$ is multiply connected.
+
+ 5. **(1.5pt)**
+    Since $\Omega$ is bounded, there is a $r>0$ such that
+    $\Omega \subset K = \overline{D(0, r)}$. 
+    Let $a \in \mathbb{C}$ such that $|a|>r$;
+    let $\epsilon > 0$ and $\hat{f}: \mathbb{C} \setminus \{a\}$ 
+    be a holomorphic function such that $|f - \hat{f}| \leq \epsilon/2$ 
+    on $\Omega$.
+    Since $K$ is a compact subset of 
+    $D(0, |a|) \subset \mathbb{C} \setminus \{a\}$,
+    the Taylor series expansion $\sum a_n (z-c)^n$ of $\hat{f}$
+    in $D(0, |a|)$ is uniformly convergent in $K$, thus there is
+    a $m \in \mathbb{N}$ such that the polynomial
+       $$
+       p(z) = \sum_{n=0}^m a_n (z-c)^n
+       $$
+   satisfies $|\hat{f} - p| \leq \epsilon/2$ in $K$ and hence in $\Omega$.
+   Consequently, 
+      $$
+      \forall \, z \in \Omega, \; 
+      |f(z) - p(z)| \leq |f(z) - \hat{f}(z)| + |\hat{f}(z) - p(z)| \leq \epsilon.
+      $$
+
+ 6. **(1.5pt)**
+    Assume that there is a polynomial $p$ such that
+    $|f - p| < 1$ on $\Omega$. Since $\Omega$ is bounded, 
+    the set $K = \overline{\Omega}$ is compact
+    and since $p$ is continuous on $K$, it is bounded on $\Omega$.
+    Given that
+      $$
+      |f(z)| \leq |f(z) - p(z)| + |p(z)|
+      $$
+    the function $f$ is necessarily bounded on $\Omega$.
+    
+    Now all we have to do is to find a holomorphic function
+    on $\Omega$ which is not bounded. 
+    Consider $f: z\mapsto 1/(z-a)$ where $a$ is a point of the boundary
+    of $\Omega$ (such a point exists since $\Omega \neq \varnothing$ and
+    $\Omega \neq \mathbb{C}$); 
+    since $\Omega$ is open, $a \not \in \Omega$ and
+    the function $f$ is defined and holomorphic on $\Omega$.
+    By construction there is a sequence $z_n \in \Omega$ 
+    such that $z_n \to a$ and thus 
+      $$|f(z_n)| = \left|\frac{1}{z_n - a}\right| \to +\infty,$$
+    thus $f$ is not bounded on $\Omega$.
+
+
+ 7. **(2pt)**
+    If $\Omega$ is not simply connected, 
+    there is a closed rectifiable path $\gamma$ of $\Omega$ 
+    and a point $a \in \mathbb{C} \setminus \Omega$ which is
+    in the interior of $\gamma$, that is
+    $\mathrm{ind}(\gamma, a)$ is a non-zero integer.
+    The function $z \mapsto 1/(z-a)$ is defined and holomorphic 
+    on $\Omega$. Additionally
+      $$
+      \frac{1}{2\pi} \int_{\gamma} f(z) dz
+      =
+       \mathrm{ind}(\gamma, a) \in \mathbb{Z}^*.
+      $$
+    Since the distance between $\gamma([0,1])$
+    and the complement of $\Omega$ is positive, 
+    there is a $r>0$ such that $\gamma([0,1]) \subset \Omega_r$.
+    Now if $\hat{f}$ is a polynomial such that 
+    $|f - \hat{f}| \leq \epsilon$ on $\Omega_r$,
+      $$
+      \left| 
+      \frac{1}{2\pi}
+      \int_{\gamma} f(z) \, dz 
+      \right|
+      \leq 
+      \left| 
+      \frac{1}{2\pi}
+      \int_{\gamma} \hat{f}(z) \, dz 
+      \right|
+      +
+      \left|
+      \frac{1}{2\pi} 
+      \int_{\gamma} (f-\hat{f})(z) \, dz 
+      \right|.
+      $$
+    By Cauchy's theorem (the local version, in $\mathbb{C}$), 
+    the first integral in the right-hand side is zero.
+    By the M-L inequality, the second one is dominated by
+    $(\epsilon/2\pi) \times \ell(\gamma)$.
+    Thus for $\epsilon < 2\pi / \ell(\gamma)$, 
+    we would have
+      $$
+      \left| 
+      \frac{1}{2\pi}
+      \int_{\gamma} f(z) \, dz 
+      \right|
+      < 1.
+      $$
+    Consequently $z\mapsto 1/(z-a)$ is holomorphic on $\Omega$ 
+    but cannot be locally uniformly approximated by polynomials.
+
+ 8. **(3pt)**
+    The condition $|w - z| <r/2$ yields 
+      $$
+      \{z\} \subset \overline{D(w, r/2)} 
+      = 
+      \mathbb{C} \setminus A(w, r/2, +\infty).
+      $$
+    or equivalently, $A = A(w, r/2, +\infty) \subset \mathbb{C} \setminus \{z\}$.
+    Additionally, any $v \in \overline{\Omega}_r$ satisfies 
+    $d(v, \mathbb{C} \setminus \Omega) \geq r$ 
+    and in particular $|v - z| \geq r$. 
+    Since $|w - z| < r/2$,
+      $$
+      |v - w| \geq |v - z| - |w - z| > r - r/2 = r/2,
+      $$
+    hence $v \in A(w, r/2, +\infty)$. Consequently, 
+    $\overline{\Omega_r} \subset A$.
+
+    Since $\chi_r(z) = 1$, for any $\epsilon > 0$, 
+    there is a function $\hat{f}_z$ holomorphic in 
+    $\mathbb{C} \setminus \{z\}$ such
+    such that $|f - \hat{f}| \leq \epsilon / 2$ on $\Omega_r$.
+    Now, since the annulus $A$ is included 
+    in the domain of definition of $\hat{f}_z$, we have the
+    Laurent series expansion
+      $$
+      \forall \, v \in A, \;
+      \hat{f}_z(v) = \sum_{n=-\infty}^{+\infty} a_n (v - w)^n.
+      $$
+    This expansion is locally uniformly convergent; since
+    $\overline{\Omega_r}$ is compact and included in $A$,
+    there is a natural number $m$ such that the function
+    $\hat{f}_w(v) :=\sum_{n=-m}^m a_n (v - w)^n$
+    -- which is holomorphic on $\mathbb{C} \setminus \{w\}$ --
+    satisfies $|\hat{f}_z - \hat{f}_w| \leq \epsilon/2$ on 
+    $\overline{\Omega}_r$.
+    Finally, on $\Omega_r$, we have
+      $$
+      |f - \hat{f}_w| \leq |f - \hat{f}_z| + |\hat{f}_z - \hat{f}_w|
+                      \leq \epsilon/2 + \epsilon/2 = \epsilon. 
+      $$
+    and thus $\chi(w) = 1$.
+
+ 9. **(1pt)**
+    We know that if $\chi(z) = 1$ and $|w - z| < r/2$, 
+    then $\chi(w) = 1$. 
+    Now, by contraposition of this property,
+    if $\chi(w) = 0$ and $|w-z| < r/2$,
+    we have $\chi(z) = 0$. Therefore $\chi$ is locally constant.
+    Now since $\Omega$ is simply connected and bounded, by question 4, 
+    $\mathbb{C} \setminus \Omega$ is connected.
+    Since $\chi: \mathbb{C}\setminus \Omega \to \{0,1\}$ is locally constant, 
+    if $\chi(a) = 1$ for some $a \in \mathbb{C}\setminus \Omega$,
+    $\chi = 1$ on $\mathbb{C} \setminus \Omega$.
+
+ 10. **(1pt)**
+     If $f: \Omega \to \mathbb{C}$ has locally uniform
+     approximations among the holomorphic functions defined on
+     $\mathbb{C} \setminus \{a\}$, then for any $r>0$ $\chi_r(a)=1$.
+     By the previous question, $\chi_r(b)=1$ for any
+     $b \in \mathbb{C} \setminus \Omega$ and thus $f$ 
+     has locally uniform approximations among the holomorphic functions 
+     defined on $\mathbb{C} \setminus \{b\}$. We can select a $b$ that
+     is arbitrarily large, thus by question 5,  $f$ has locally uniform
+     approximations among polynomials.
+
+ 11. **(4pt)**
+     We proceed by induction. The result is plain if $n=1$; now assume
+     that the result holds for a given $n \geq 1$ and let
+     $\hat{f}: \mathbb{C} \setminus \{a_1,\dots, a_n, a_{n+1}\}\to \mathbb{C}$ 
+     be holomorphic. Since $a_{n+1}$ is an isolated singularity of $f$,
+     there is a $r>0$ such that $A(a_{n+1}, 0, r)$ is a non-empty annulus
+     included in the domain of definition of $f$. 
+     Let $\sum_{k={-\infty}}^{+\infty} b_k (z-a_{n+1})^k$ be the Laurent
+     series expansion of $\hat{f}$ in this annulus and define
+       $$
+       \hat{f}_{n+1}(z) = \sum_{n = -{\infty}}^{-1} b_k (z - a_{n+1})^k
+       $$
+     Since there are only negative powers, the sum is convergent
+     (and holomorphic) in $\mathbb{C} \setminus \{a_{n+1}\}$.
+     Now since in the annulus
+       $$
+       \hat{f}(z) - \hat{f}_{n+1}(z) = \sum_{n=0}^{+\infty} b_k (z - a_{n+1})^k
+       $$
+     the point $a_{n+1}$ is a removable singularity of the function 
+     $\hat{f} - \hat{f}_k$ that may thus be extended holomorphically to
+     $\mathbb{C} \setminus \{a_1,\dots, a_n\}$. We may apply
+     the induction hypothesis to this extension; 
+     we get holomorphic functions 
+     $\hat{f}_k: \mathbb{C} \setminus \{a_k\} \to \mathbb{C}$ for $k=1,\dots,n$
+     such that
+       $$
+       \forall \, z \in \mathbb{C} \setminus \{a_1,\dots, a_{n+1}\}, \;
+       \hat{f}(z) - \hat{f}_{n+1}(z)=  \hat{f}_1(z) + \dots + \hat{f}_n(z)
+       $$
+     which is the induction hypothesis at stage $n+1$.
+
+     Now the corollary: assume that for any $r>0$ and any $\epsilon>0$, 
+     there is a holomorphic function
+     $\hat{f}: \mathbb{C} \setminus \{a_1, \dots, a_n\} \to \mathbb{C}$ 
+     such that $|f - \hat{f}| \leq \epsilon / 2$ in $\Omega_r$.
+     Let $\hat{f}_k: \mathbb{C} \setminus \{a_k\} \to \mathbb{C}$ 
+     for $k=1,\dots,n$ be such that
+       $$
+       \forall \, z \in \mathbb{C} \setminus \{a_1,\dots, a_n\}, \;
+       \hat{f}(z) =  \hat{f}_1(z) + \dots + \hat{f}_n(z).
+       $$
+     Since the restriction of every $\hat{f}_k$ to $\Omega$ 
+     is locally uniformly approximated by holomorphic functions
+     on $\mathbb{C} \setminus \{a_k\}$, by question 9, 
+     it is locally uniformly approximated by polynomials,
+     so there is a polynomial $p_k$ such that
+     $|\hat{f}_k - p_k| \leq \epsilon/2n$ on $\Omega_r$.
+     Let $p = \sum_{k=1}^n p_k$; on $\Omega_r$, we have
+       $$
+       |f - p|
+       \leq 
+       |f - \hat{f}| + \sum_{k=1}^n |\hat{f}_k - p_k| \leq \epsilon.
+       $$
+     Thus, $f$ is locally uniformly approximated by polynomials.
+
+<!-- \newpage -->
+
+Problem L -- Answers
+==============================================================================
+
+ 1. **(1pt)**
+    Since
+      $$
+      \mathcal{L}_{\mu}[f](s) = 
+      \int_{\mathbb{R}_+} 
+      f(a + t\lambda u) e^{-s(a+ t\lambda u)} (\lambda u) \, dt,
+      $$
+    if $\mathcal{L}_{\mu}[f](s)$ is defined,
+    the change of variable $\tau = \lambda t$ yields
+      $$
+      \mathcal{L}_{\mu}[f](s) 
+      = 
+      \int_{\mathbb{R}_+} 
+      f(a + \tau u) e^{-s(a+ \tau u)} u \, d\tau ,
+      $$
+    thus $\mathcal{L}_{\lambda}[f](s)$
+    is defined and $\mathcal{L}_{\mu}[f](s) 
+    = \mathcal{L}_{\lambda}[f](s)$.
+    Conversely, if $\mathcal{L}_{\lambda}[f](s)$ is defined,
+    the same argument with $1/\lambda$ instead of $\lambda$
+    shows that $\mathcal{L}_{\mu}[f](s)$ is also defined
+    (and obviously $\mathcal{L}_{\mu}[f](s) = \mathcal{L}_{\lambda}[f](s)$).
+
+
+ 2. **(2pt)**
+    The set $\Pi(u, \sigma)$ is an open half-plane:
+    if $u = |u|e^{i\theta}$ and $s = x + iy$,   
+    then the condition $\mathrm{Re}(s u) > \sigma |u|$ is
+    equivalent to 
+      $$
+      x \cos \theta  - y \sin \theta > \sigma.
+      $$
+
+    The Laplace transform of $f$ along $\gamma$ satisfies
+      $$
+      \begin{split}
+      \mathcal{L}_{\gamma}[f](s) 
+        & = \int_{\mathbb{R}_+} f(a+tu) e^{-s(a+tu)}u\, dt \\
+        & = (e^{-sa}u) \int_{\mathbb{R}_+} f(a+tu) e^{-(su)t}\, dt
+      \end{split}
+      $$
+    and thus
+      $$
+      \mathcal{L}_{\gamma}[f](s) 
+      = 
+      (e^{-sa} u) \mathcal{L}[t \mapsto f(a+tu)](su).
+      $$
+    The function $t \in \mathbb{R}_+ \mapsto f(a+tu)$ is locally integrable 
+    (it is continuous since $f$ is holomorphic) and since
+    for any $t\geq 0$
+      $$
+      -|a| + t |u| \leq |a + tu| \leq |a| + t |u|,
+      $$
+    we have
+      $$
+      |f(a+tu)| 
+        \leq \kappa e^{\sigma |a+tu|} 
+        \leq \kappa \max(e^{-\sigma|a|},e^{\sigma|a|}) e^{(\sigma|u|) t}
+      $$
+     therefore $t \geq 0 \mapsto |f(a+tu)|e^{-\sigma^+ t}$ is integrable
+     whenever $\sigma^+ > \sigma |u|$.
+     Hence the Laplace transform 
+     $\mathcal{L}[t \mapsto f(a+tu)]$ is defined and 
+     holomorphic on the set $\Pi(u, \sigma)  =\{s \in \mathbb{C} \; | \;
+    \mathrm{Re}(s) > \sigma |u|\}$ and $\mathcal{L}_{\gamma}[f]$
+    as well, as a composition and product of holomorphic
+    functions.
+
+ 3. **(3pt)**
+    For a $s \in \mathbb{C}$, the set of $u$ such that 
+    $s \in \Pi(u, \sigma)$ is open as the preimage of the 
+    open set $\left]0, + \infty\right[$ by the
+    continuous function $u \in U \mapsto \mathrm{Re}(s u) - \sigma|u|$.
+
+    Let $\psi: U_s \times \mathbb{R}_+ \to \mathbb{C}$ be defined as
+     $$
+     \psi(u, t) = f(a+tu) e^{-(a+tu)s} u.
+     $$
+    Since
+     $$
+     |f(a+tu)| 
+     \leq 
+     \kappa e^{\sigma|a+tu|} 
+     \leq 
+     \kappa_1 e^{t|u| \sigma}
+     $$
+    with $\kappa_1 = \kappa \max(e^{-\sigma|a|},e^{\sigma|a|})$
+    and 
+     $$
+     |e^{-(a+tu)s}|  
+     =
+     e^{-\mathrm{Re}((a+tu)s)}
+     = 
+     e^{-\mathrm{Re}(as)}e^{-t\mathrm{Re}(su)},
+     $$
+    we end up with
+     $$
+     |\psi(u, t)| 
+     \leq (\kappa_1 e^{-\mathrm{Re}(as)}|u|) 
+            e^{t(\sigma |u|- \mathrm{Re}(s u))}.
+     $$
+
+    Since for any $u \in U_s$
+      $$
+      \mathcal{L}_{\gamma}[f](s) = \int_{\mathbb{R}_+} \psi(u, t) \, dt
+      $$
+    we check the assumptions of the complex-differentiation under 
+    the integral sign theorem:
+
+      - For every $u \in U_s$, the function 
+        $t \in \mathbb{R}_+ \mapsto \psi(u, t)$
+        is Lebesgue measurable 
+        (it is actually continuous since $f$ is holomorphic).
+
+      - If $s \in \Pi(u_0, \sigma)$, since 
+        $\epsilon := \mathrm{Re}(s u_0) - \sigma |u_0|> 0$,
+        by continuity there is a $0<r<|u_0|$ such that $|u-u_0| \leq r$ 
+        ensures $\mathrm{Re}(s u) - \sigma |u| \geq \epsilon/2$.
+        Let $\kappa_2$ be an upper bound of
+        $\kappa_1 e^{-\mathrm{Re}(as)}|u|$
+        when $|u-u_0| \leq r$. 
+        The bound on $\psi$ that we have derived above yields
+          $$
+          |\psi(u,t)| \leq \kappa_2 e^{-t \epsilon/2}
+          $$
+        and the right-hand side of this inequality is a Lebesgue integrable 
+        function of $t$.
+ 
+      - For every $t \in \mathbb{R}_+$, it is plain that 
+        the function $u \in U_s \mapsto \psi(u, t)$ 
+        is holomorphic.
+
+    Consequently $\mathcal{L}_{\gamma}[f](s)$
+    is a complex-differentiable function of $u$.
+    
+ 4. **(1.5pt)**
+    First method: since we know that the complex-derivative of 
+    $\mathcal{L}_{\gamma}[f](s)$ exists with respect to $u$,
+    we can apply the chain rule to the differentiable function
+      $$
+      \chi: \lambda \in \mathbb{R}_+^{*} \to \mathcal{L}_{\mu}[f](s)
+      \; \mbox{ with } \;
+      \mu(t) = a + t(\lambda u)
+      $$
+    at $t=1$: it yields
+      $$
+      \frac{d\chi}{d\lambda} (1)
+      =
+      \frac{d}{du}\mathcal{L}_{\mu}[f](s)
+      \times \frac{d(\lambda u)}{d\lambda} (1)  
+      =
+      \frac{d}{du}\mathcal{L}_{\mu}[f](s) \times u.
+      $$
+    Since by question 1 we know that the function $\chi$ is constant,
+    we conclude that $\frac{d}{du}\mathcal{L}_{\mu}[f](s) = 0$.
+
+    Second method: we use the result of the differentiation under the
+    integral sign. It provides
+      $$
+      \frac{d}{du}\mathcal{L}_{\mu}[f](s)
+      =
+      \int_{\mathbb{R}_+} \frac{\partial \psi}{\partial u} (u, t) \, dt.
+      $$
+    Since $\psi(u, t) = g(tu) u$ with $g(z) = f(a+z) e^{-s(a+z)}$, we have
+      $$
+      \begin{split}
+      \frac{\partial \psi}{\partial u} (u, t)
+      &= \frac{d}{du} (g(tu) u) = g'(tu) tu + g(tu)
+      = \frac{d g(tu)}{dt}  t + g(tu) \\
+      &= \frac{d}{dt} (g(tu) t)
+      \end{split}
+      $$
+    and thus 
+      $$
+      \begin{split}
+      \int_0^r \frac{\partial \psi}{\partial u} (u, t) \, dt
+      &= 
+      \int_0^r \frac{d}{dt} (g(tu) t) \, dt =  [g(tu) t]^r_0 \\
+      &= f(a+ ru) e^{-s(a+ru)} r 
+      \end{split}
+      $$
+    Since $\epsilon := \mathrm{Re}(s u) - \sigma|u| > 0$
+      $$
+      |f(a+ ru) e^{-s(a+ru)} r| 
+      \leq |\psi(u, r)r / u|   
+      \leq (\kappa_1 e^{-\mathrm{Re}(as)}) 
+            e^{-\epsilon r} r.
+      $$
+    The right-hand side of this inequality converges to $0$ 
+    when $r\to +\infty$.
+    Therefore, by the dominated convergence theorem
+      $$
+      \frac{d}{du}\mathcal{L}_{\mu}[f](s)
+      =
+      \int_{\mathbb{R}_+} \frac{\partial \psi}{\partial u} (u, t) \, dt
+      =
+      \lim_{r \to +\infty}
+      \int_{0}^r \frac{\partial \psi}{\partial u} (u, t) \, dt = 0.
+      $$
+ 
+ 5. **(2pt)**
+    Since the Laplace transform of $t \in \mathbb{R}_+ \to 1/(t+1)$
+    is given by
+      $$
+      F(s) = \int_{0}^{+\infty} \frac{e^{-s t}}{t+1} \, dt,
+      $$
+    the change of variable $t+1 \to t$ yields
+      $$
+      F(s) 
+      = \int_1^{+\infty} \frac{e^{-s (t-1)}}{t} \, dt
+      = e^s \int_1^{+\infty} \frac{e^{-s t}}{t} \, dt.
+      $$
+    If $s$ is equal to the real number $x>0$,
+    the change of variable $xt \to t$ then provides
+      $$
+      F(x) 
+      = e^x \int_1^{+\infty} \frac{e^{-xt}}{xt} \, d(xt)
+      = e^x \int_x^{+\infty} \frac{e^{-t}}{t} \, dt
+      $$
+    and thus $E_1(x) = e^{-x} F(x)$. 
+    Since $t \in \mathbb{R}_+ \to 1/(t+1) e^{-\sigma^+t}$ is integrable 
+    whenever $\sigma^+ > 0$
+    the Laplace transform $F$ of $t \mapsto 1/(t+1)$
+    is defined and holomorphic on 
+    $\{s \in \mathbb{C} \; |  \; \mathrm{Re}(s) > 0\}$.
+    Thus, the function $G: s \mapsto e^{-s} F(s)$ extends holomorphically
+    $E_1$ on this open right-hand plane. Any other function $\tilde{G}$
+    with the same property would be equal to $G$ on $\mathbb{R}_+^*$ and
+    thus every positive real number $x$ would be a non-isolated zero 
+    of $G - \tilde{G}$.
+    By the isolated zeros theorem, since the
+    open right-hand plane is connected, $G$ and $\tilde{G}$ are necessarily
+    equal.
+
+ 6. **(2pt)**
+    For any $u \in U$, since $\mathrm{Re} \, u > 0$,
+    for any $t \geq 0$, 
+    $\mathrm{Re}(\gamma(t)) = t \, \mathrm{Re} \, u \geq 0$.
+    Since for any $z$ such that $\mathrm{Re} \, z \geq 0$, 
+    $|z + 1| \geq 1$, we have $|f(z)| = 1 / |z + 1| \leq 1$ and thus
+       $$
+       \forall \, z \in \gamma(\mathbb{R}_+), \,
+       |f(z)| = \kappa e^{\sigma |z|}
+       $$
+    with $\kappa = 1$ and $\sigma=0$.
+
+    By definition, for any $s \in \mathbb{C} \setminus \mathbb{R}_-$, 
+    $U_s$ is the set of all directions $u$
+    such that $\mathrm{Re}(u) > 0$ and 
+    $\mathrm{Re}(s u) > 0$.
+    To be more explicit, if $\alpha$ denotes the argument of $u$ in 
+    $\left[-\pi, \pi\right[$ and
+    $\beta$ the argument of $s$ in $\left]-\pi,\pi \right[$,
+    this is equivalent to
+      $$
+      -\pi/2 < \alpha < \pi/2 
+      \; \mbox{ and } \; 
+      - \pi/2 < \alpha + \beta < \pi/2
+      $$
+    The points $u = r e^{i\alpha}$ that satisfy these constraints form
+    an open sector: $r>0$ is arbitrary and if $\beta \geq 0$,
+    $\alpha$ is subject to
+      $$
+      -\frac{\pi}{2} < \alpha < \frac{\pi}{2} - \beta
+      $$
+    and if $\beta < 0$
+      $$
+      -\frac{\pi}{2} - \beta < \alpha < \frac{\pi}{2}. 
+      $$
+    In any case, since $|\beta| < \pi$, the set of admissible 
+    arguments $\alpha$ is not empty.
+
+ 7. **(3pt)**
+    It is plain that
+      $$
+      \mathrm{Re}(u_{\theta}) 
+      = \mathrm{Re}((1-\theta) u_0 + \theta u_1)
+      = (1-\theta) \mathrm{Re}(u_0) + \theta \mathrm{Re} (u_1).
+      $$
+    and that for any $s \in \mathbb{C}$
+      $$
+      \mathrm{Re}(su_{\theta}) 
+      = \mathrm{Re}(s((1-\theta) u_0 + \theta u_1))
+      = (1-\theta) \mathrm{Re}(su_0) + \theta \mathrm{Re} (su_1).
+      $$
+    Since $u \in U_s$ if and only if $\mathrm{Re}(u) > 0$ and
+    $\mathrm{Re}(su) > 0$, if $u_0 \in U_s$ and $u_1 \in U_s$ then
+    $u_{\theta} \in U_s$ for any $\theta \in [0,1]$.
+ 
+    The function $u \in U_s \mapsto \mathcal{L}_{\gamma} [f](s)$
+    is holomorphic, hence the composition of
+      $$
+      \theta \in [0,1] 
+        \mapsto u_{\theta} \in U_s
+        \; \mbox{ and } \;
+        u \in U_s \mapsto \mathcal{L}_{\gamma} [f](s)
+      $$
+    is continuously differentiable,
+      $$
+      \mathcal{L}_{\gamma_0}[f](s)
+      - 
+      \mathcal{L}_{\gamma_1}[f](s)
+      =
+      \int_0^1 \frac{d}{d\theta} 
+      \mathcal{L}_{\gamma_{\theta}}[f](s) 
+      \, d\theta
+      $$
+    and
+      $$
+      \frac{d}{d\theta} \mathcal{L}_{\gamma_{\theta}}[f](s)
+      =
+      \frac{d \mathcal{L}_{\gamma}[f](s)}{du} |_{u=u_{\theta}} 
+      \times \frac{d u_{\theta}}{d\theta}
+      $$
+    which is zero by question 4. 
+    Hence $\mathcal{L}_{\gamma_0}[f](s) = \mathcal{L}_{\gamma_1}[f](s)$;
+    the definition of $G$ is unambiguous.
+
+ 8. **(4pt)**
+    For $k \in \{0,1\}$ and any $r\geq 0$,
+      $$
+      \int_{\gamma_k^r} f(z) e^{-sz} \, dz
+      = \int_0^1 f((tr) u_k) e^{-s((tr)u_k)} r u_k \, dt
+      = \int_0^r f(t u_k) e^{-s(t u_k)} u_k \, dt
+      $$
+    thus by the dominated convergence theorem
+      $$
+      \mathcal{L}_{\gamma_1}[f](s)
+      - 
+      \mathcal{L}_{\gamma_0}[f](s)
+      =
+      \lim_{r\to +\infty} 
+      \left( 
+      \int_{\gamma_1^r} f(z) e^{-sz} dz
+      -
+      \int_{\gamma_0^r} f(z) e^{-sz} dz
+      \right).
+      $$
+    Since $(\gamma_0^r)^{\leftarrow}$ and $\gamma_1^r$ are consecutive,
+    with the path $\mu_r = (\gamma_0^r)^{\leftarrow} \,|\, \gamma_1^r$,
+    this is equivalent to 
+            $$
+      \mathcal{L}_{\gamma_1}[f](s)
+      - 
+      \mathcal{L}_{\gamma_0}[f](s)
+      =
+      \lim_{r\to +\infty} 
+      \int_{\mu_r} f(z) e^{-sz} dz.
+      $$
+
+    Now, the path $\nu_r$ defined by $\nu_r(\theta) = (1-\theta) r u_0 + \theta r u_1$
+    is such that $\mu_r \, | \, \nu_r^{\leftarrow}$ is a closed 
+    rectifiable path in $U_s$ which is simply connected. 
+    Therefore by Cauchy's integral theorem
+      $$
+      \int_{\mu_r} f(z) e^{-sz} dz
+      =
+      \int_{\nu_r} f(z) e^{-sz} dz.
+      $$
+    
+    For any $\theta \in [0,1]$, we have
+    $\mathrm{Re}(s u_\theta) 
+    = (1 - \theta) \mathrm{Re}(s u_0) +  \theta \mathrm{Re}(s u_1)$,
+    thus
+      $$
+      \epsilon := \min_{\theta \in [0,1]} \mathrm{Re}(s u_{\theta}) > 0
+      $$
+    and
+      $$
+      |f(\nu_r(\theta)) e^{-s\nu_r(\theta)}|
+      \leq \kappa e^{- \mathrm{Re}(s ru_{\theta})} \leq \kappa e^{-\epsilon r}.
+      $$
+    Given that $\ell(\nu_r) = r |u_1 - u_0|$, the M-L inequality provides
+      $$
+      \left| \int_{\nu_r} f(z) e^{-sz} dz \right|
+      \leq \kappa e^{-\epsilon r}r |u_1 - u_0|
+      $$
+    and thus
+    $$
+    \lim_{r \to +\infty} \int_{\nu_r} f(z) e^{-sz} dz
+    = 
+    0.
+    $$   
+    Finally, 
+    $\mathcal{L}_{\gamma_1}[f](s)
+    = \mathcal{L}_{\gamma_0}[f](s)$: the definition of $G$ is unambiguous.
+
+  9. **(1pt)**
+     By construction the function
+     $$s \in \mathbb{C} \setminus \mathbb{R}_- \mapsto e^{-s} G(s)$$ is
+     holomorphic (since every $\mathcal{L}_{\gamma}$ is holomorphic,
+     $G$ is holomorphic); 
+     It extends 
+     $s \mapsto e^{-s}F(s)$, thus it also extends $E_1$.
+     Since $\mathbb{C} \setminus \mathbb{R}_-$ is connected, 
+     by the isolated zeros theorem, this extension is unique
+     (the argument is identical to the one used in question 6).
+

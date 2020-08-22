@@ -1,0 +1,13 @@
+---
+references:
+- id: Dem09
+  type: book
+  author:
+  - family: Demailly
+    given: Jean-Pierre
+  issued:
+  - year: '2009'
+  title: Fonctions holomorphes et surfaces de riemann.
+  language: French
+  URL: "https://www-fourier.ujf-grenoble.fr/~demailly/manuscripts/variable_complexe.pdf"
+---

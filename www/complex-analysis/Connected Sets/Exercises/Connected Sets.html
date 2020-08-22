@@ -1,0 +1,624 @@
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, Mines ParisTech">
+  <meta name="dcterms.date" content="2019-09-30">
+  <title>Connected Sets</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: content-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+html {
+  line-height: var(--base-line-height);
+  --base-font-size: 24px;
+  --base-line-height: 36px;
+  --scale-ratio: 1.4142135623730951;
+  --small: 17px;
+  --medium: 24px;
+  --large: 34px;
+  --x-large: 48px;
+  font-size: 24px;
+  font-family: 'Alegreya', serif;
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html em {
+  font-style: italic;
+}
+html strong {
+  font-weight: bold;
+}
+html p, html .p {
+  margin-bottom: var(--base-line-height);
+  text-align: justify;
+  hyphens: auto;
+  -moz-hyphens: auto;
+}
+html section {
+  margin-bottom: var(--base-line-height_px);
+}
+html main {
+  box-sizing: content-box;
+  max-width: 32em;
+  margin: auto;
+  padding: var(--base-line-height);
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, q:before {
+  content: none;
+}
+blockquote:after, q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: medium solid black;
+  border-bottom: medium solid black;
+}
+main > header, main > .header, main > #header {
+  margin-top: calc(2 * var(--base-line-height));
+  margin-bottom: calc(2 * var(--base-line-height));
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: calc(1.5 * var(--base-line-height));
+  margin-top: 0;
+  margin-bottom: var(--base-line-height);
+  font-weight: bold;
+}
+main > header .author, main > .header .author, main > #header .author {
+  font-size: 24px;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  font-weight: normal;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: 'Alegreya SC', serif;
+  line-height: calc(1 * var(--base-line-height));
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  font-weight: bold;
+  line-height: calc(1.25 * var(--base-line-height));
+  margin-top: calc(2.00 * var(--base-line-height));
+  margin-bottom: calc(0.75 * var(--base-line-height));
+}
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+}
+h3, h4, h5, h6 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 1em;
+  display: inline;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
+}
+a:hover {
+  text-decoration: none;
+}
+a:link {
+  color: var(--color);
+}
+a:visited {
+  color: var(--color);
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li {
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  margin-left: var(--base-line-height);
+  padding-left: 0.5em;
+}
+ul li {
+  list-style: disc;
+}
+ol li {
+  list-style: decimal;
+}
+blockquote {
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+  padding: var(--base-line-height);
+  margin-bottom: var(--base-line-height);
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-size: 24px;
+  font-family: Inconsolata;
+}
+pre {
+  overflow-x: auto;
+  background-color: #ebebeb;
+  margin-bottom: var(--base-line-height);
+  padding-left: var(--base-line-height);
+  padding-right: var(--base-line-height);
+  padding-top: var(--base-line-height);
+  padding-bottom: var(--base-line-height);
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: auto;
+}
+figure {
+  margin-bottom: var(--base-line-height);
+  text-align: center;
+}
+figcaption {
+  display: inline-block;
+  font-style: italic;
+  text-align: justify;
+}
+.table {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  margin-bottom: var(--base-line-height);
+}
+thead {
+  border-bottom: medium solid black;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+.MJXc-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+nav#TOC > ul {
+  position: relative;
+  font-weight: bold;
+}
+nav#TOC > ul > * {
+  margin-bottom: var(--base-line-height);
+}
+nav#TOC > ul li {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+nav#TOC > ul ul li {
+  margin-left: var(--base-line-height);
+  font-weight: normal;
+}
+nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+  padding-bottom: var(--base-line-height);
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+.badge {
+  position: relative;
+  bottom: 0.13em;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  font-weight: 300;
+  font-size: var(--small);
+  display: inline-block;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  vertical-align: baseline;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+  margin-right: 1em;
+}
+.section-flag {
+  line-height: var(--base-line-height);
+  font-size: var(--small);
+  font-weight: 300;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  margin-bottom: 0;
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya: 400,700,900,400italic,700italic,900italic|Alegreya+SC:400,700,900,400italic,700italic,900italic|Alegreya+Sans:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+Sans+SC:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var box, hide_proof, main, show_proof;
+
+  hide_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("expanded");
+    sectionWrapper.addClass("minimized");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "visible"
+    });
+    w$(".header-wrapper").css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().css({
+      visibility: "hidden",
+      height: "0px"
+    });
+    w$(".header-wrapper").attr({
+      id: w$("section").first().attr("id")
+    });
+    return w$("section").first().attr({
+      id: ""
+    });
+  };
+
+  show_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("minimized");
+    sectionWrapper.addClass("expanded");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "hidden"
+    });
+    w$(".header-wrapper").css({
+      visibility: "hidden",
+      height: "0"
+    });
+    w$("section").first().css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().attr({
+      id: w$(".header-wrapper").attr("id")
+    });
+    return w$(".header-wrapper").attr({
+      id: ""
+    });
+  };
+
+  box = function(section) {
+    var clone, expand, header, headerWrapper, tombstone, wrapper;
+    clone = section.clone(true);
+    clone.css({
+      marginBottom: "0"
+    });
+    clone.children().last().css({
+      marginBottom: "0"
+    });
+    tombstone = clone.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer",
+      position: "absolute",
+      bottom: "0.75rem",
+      right: "0.75rem"
+    });
+    wrapper = $("<div class='proof-wrapper expanded'></div>");
+    wrapper.css({
+      position: "relative",
+      margin: "-0.75rem -0.75rem 0.75rem -0.75rem",
+      padding: "0.75rem",
+      backgroundColor: "#f9f9f9"
+    });
+    header = clone.find("h3, h4, h5, h6").first().clone();
+    headerWrapper = $("<div class='p header-wrapper' style='margin-bottom:0; visibility:hidden; overflow:hidden; height:0;'> </div>");
+    headerWrapper.append(header);
+    expand = $("<i class='fa fa-caret-down expand' style='visibility:hidden; cursor:pointer; position:absolute; top:0.75rem; right:0.75rem;'> </i>");
+    wrapper.append(headerWrapper);
+    wrapper.append(expand);
+    wrapper.append(clone);
+    expand.on("click", function() {
+      return show_proof(wrapper);
+    });
+    tombstone.on("click", function() {
+      return hide_proof(wrapper);
+    });
+    section.replaceWith(wrapper);
+    return wrapper;
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, section, sections, text, wrapper;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      wrapper = box(section);
+      hide_proof(wrapper);
+    }
+    return $(document).keydown(function(event) {
+      var k, l, len2, len3, ref1, ref2, results, sectionWrapper;
+      console.log("***", event.keyCode);
+      if (event.keyCode === 88) {
+        ref1 = $(".proof-wrapper.minimized");
+        for (k = 0, len2 = ref1.length; k < len2; k++) {
+          sectionWrapper = ref1[k];
+          show_proof($(sectionWrapper));
+        }
+      }
+      if (event.keyCode === 77) {
+        ref2 = $(".proof-wrapper.expanded");
+        results = [];
+        for (l = 0, len3 = ref2.length; l < len3; l++) {
+          sectionWrapper = ref2[l];
+          results.push(hide_proof($(sectionWrapper)));
+        }
+        return results;
+      }
+    });
+  };
+
+  $(main);
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var make_preview, mathjaxDebug;
+
+  make_preview = function(elt) {
+    var card, hidden_css, hide_preview, id, ref, show_preview, url, visible_css;
+    ref = elt.attr("href").split("#"), url = ref[0], id = ref[1];
+    card = $("<div class='card'>\n  <div class='holder'>\n    <p>Placeholder</p>\n  </div>\n</div>");
+    card.css({
+      width: "35vw",
+      padding: "1.5rem",
+      position: "fixed",
+      top: "1.5rem",
+      right: "1.5rem",
+      boxSizing: "border-box",
+      maxHeight: "calc(100vh - 3rem)",
+      overflow: "hidden",
+      boxShadow: "0 0 1rem #e6e6e6",
+      backgroundColor: "white"
+    });
+    visible_css = {
+      visibility: "visible",
+      opacity: 1,
+      transform: "translateX(0em)",
+      transition: "all 0.3s linear"
+    };
+    hidden_css = {
+      visibility: "hidden",
+      opacity: 0,
+      transform: "translateX(1em)",
+      transition: "all 0.3s linear 0.5s"
+    };
+    card.css(hidden_css);
+    elt.css({
+      textDecoration: "underline solid #0a0a0a",
+      textDecorationSkip: "ink",
+      transition: "background-color 0.3s linear"
+    });
+    show_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d3"
+      });
+      return card.css(visible_css);
+    };
+    hide_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d300"
+      });
+      return card.css(hidden_css);
+    };
+    return card.find(".holder").load(url + (" [id='" + id + "']"), function(response, status, jxXHR) {
+      console.log("XHR status:", status, url, id);
+      if (status === "success" || status === "notmodified") {
+        console.log("success!");
+        console.log("elt:", $(elt));
+        $("body").append(card);
+        card.find("p, .p").css({
+          textAlign: "left"
+        });
+        card.find("section").css({
+          marginBottom: "0"
+        });
+        card.find("section").children().last().css({
+          marginBottom: "0"
+        });
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, card[0]]);
+        elt.on("mouseenter", show_preview);
+        return elt.on("mouseleave", hide_preview);
+      }
+    });
+  };
+
+  mathjaxDebug = function() {
+    MathJax.Hub.signal.Interest(function(message) {
+      return console.log("*", message);
+    });
+    return MathJax.Hub.Register.StartupHook("End Process", function() {
+      var i, jax, len, ref, results;
+      console.log("list of jaxes:");
+      ref = MathJax.Hub.getAllJax();
+      results = [];
+      for (i = 0, len = ref.length; i < len; i++) {
+        jax = ref[i];
+        results.push(console.log("jax:", jax));
+      }
+      return results;
+    });
+  };
+
+  $(function() {
+    var elt, i, len, ref, results;
+    ref = $("a.preview");
+    results = [];
+    for (i = 0, len = ref.length; i < len; i++) {
+      elt = ref[i];
+      results.push(make_preview($(elt)));
+    }
+    return results;
+  });
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">Connected Sets</a></h1>
+
+<h2 class="author">
+By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, Mines ParisTech, under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>
+</h2> 
+
+<h3 class="date" style="margin-right: 0px;">September 30, 2019</h3>
+</header>
+<section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
+<ul>
+<li class="top-li"><p class="section-flag">section 1</p><a href="#exercises">Exercises</a><ul>
+<li><a href="#image-of-path-connectedconnected-sets">Image of Path-Connected/Connected Sets</a><ul>
+<li><span class="badge">que<span></span></span><a href="#question">Question</a></li>
+<li><span class="badge">ans<span></span></span><a href="#answer">Answer</a></li>
+</ul></li>
+<li><a href="#complement-of-a-compact-set">Complement of a Compact Set</a><ul>
+<li><span class="badge">que<span></span></span><a href="#question-1">Question</a></li>
+<li><span class="badge">ans<span></span></span><a href="#answer-1">Answer</a></li>
+</ul></li>
+<li><a href="#union-of-separated-sets">Union of Separated Sets</a><ul>
+<li><span class="badge">que<span></span></span><a href="#questions">Questions</a></li>
+<li><span class="badge">ans<span></span></span><a href="#answers">Answers</a></li>
+</ul></li>
+<li><a href="#anchor-set">Anchor Set</a><ul>
+<li><span class="badge">que<span></span></span><a href="#questions-1">Questions</a></li>
+<li><span class="badge">ans<span></span></span><a href="#answers-1">Answers</a></li>
+</ul></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 2</p><a href="#references">References</a></li>
+</ul>
+</nav></section>
+<section id="exercises" class="level1">
+<h1><a href="#exercises">Exercises</a></h1>
+<section id="image-of-path-connectedconnected-sets" class="level2">
+<h2><a href="#image-of-path-connectedconnected-sets">Image of Path-Connected/Connected Sets</a></h2>
+<p>Let <span class="math inline">\(f: A \subset \mathbb{C} \to \mathbb{C}\)</span> be a continuous function.</p>
+<section id="question" class="level3">
+
+<div class="p"><h3><a href="#question">Question</a></h3>Show that if <span class="math inline">\(A\)</span> is path-connected/connected, its image <span class="math inline">\(f(A)\)</span> is path-connected/connected.</div>
+</section>
+<section id="answer" class="level3">
+
+<div class="p"><h3><a href="#answer">Answer</a></h3>Suppose that <span class="math inline">\(A\)</span> is path-connected. Let <span class="math inline">\(a, b \in f(A)\)</span>; there are some <span class="math inline">\(c, d \in A\)</span> such that <span class="math inline">\(f(c) = a\)</span> and <span class="math inline">\(f(d) = b\)</span>. As <span class="math inline">\(A\)</span> is path-connected, there is a path <span class="math inline">\(\gamma\)</span> that joins <span class="math inline">\(c\)</span> and <span class="math inline">\(d\)</span> in <span class="math inline">\(A\)</span>. By continuity of <span class="math inline">\(f\)</span>, it is plain that its image <span class="math inline">\(f \circ \gamma\)</span> is a path of <span class="math inline">\(f(A)\)</span> that joins <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>. Consequently, <span class="math inline">\(f(A)\)</span> is path-connected.</div>
+<p>Now suppose that <span class="math inline">\(A\)</span> is connected. Let <span class="math inline">\(g\)</span> be a locally constant function defined on <span class="math inline">\(f(A)\)</span>. The function <span class="math inline">\(g \circ f\)</span> is locally constant on <span class="math inline">\(A\)</span>: if <span class="math inline">\(a \in A\)</span>, there is a radius <span class="math inline">\(r&gt;0\)</span> such that <span class="math inline">\(g\)</span> is constant on <span class="math inline">\(D(f(a), r) \cap f(A)\)</span>; by continuity of <span class="math inline">\(f\)</span>, there is a <span class="math inline">\(\epsilon&gt;0\)</span> such that if <span class="math inline">\(b \in D(a, \epsilon) \cap A\)</span>, <span class="math inline">\(f(b) \in D(f(a),\epsilon) \cap f(A)\)</span>, thus <span class="math inline">\(g \circ f\)</span> is constant on <span class="math inline">\(D(a, \epsilon) \cap A\)</span> and finally, <span class="math inline">\(g \circ f\)</span> is locally constant. Since <span class="math inline">\(A\)</span> is connected, <span class="math inline">\(g \circ f\)</span> is actually constant and <span class="math inline">\(g\)</span> itself is constant: <span class="math inline">\(f(A)\)</span> is connected.</p>
+</section>
+</section>
+<section id="complement-of-a-compact-set" class="level2">
+<h2><a href="#complement-of-a-compact-set">Complement of a Compact Set</a></h2>
+<section id="question-1" class="level3">
+
+<div class="p"><h3><a href="#question-1">Question</a></h3>Prove that the complement <span class="math inline">\(\mathbb{C} \setminus K\)</span> of a compact subset <span class="math inline">\(K\)</span> of the complex plane has a single unbounded component.</div>
+</section>
+<section id="answer-1" class="level3">
+
+<div class="p"><h3><a href="#answer-1">Answer</a></h3>The compact set <span class="math inline">\(K\)</span> is closed, hence its complement is open. Therefore, the connected and path-connected components of <span class="math inline">\(\mathbb{C} \setminus K\)</span> are the same. The compact set <span class="math inline">\(K\)</span> is also bounded, hence there is a <span class="math inline">\(r&gt;0\)</span> such that the annulus <span class="math display">\[
+  A = \{z \in \mathbb{C} \; | \; |z|&gt; r\}
+  \]</span> is included in <span class="math inline">\(\mathbb{C} \setminus K\)</span>. The annulus <span class="math inline">\(A\)</span> is path-connected: if <span class="math inline">\(z_1 = r_1 e^{i\theta_1}\)</span> and <span class="math inline">\(z_2 = r_2 e^{i\theta_2}\)</span> are in <span class="math inline">\(A\)</span>, the path <span class="math inline">\(\gamma= [r_1 \to r_2] e^{i[\theta_1 \to \theta_2]}\)</span>, which is defined by <span class="math display">\[
+  \gamma(t) = ((1-t) r_1 + t r_2) e^{i((1-t)\theta_1 + t\theta_2)}
+  \]</span> belongs to <span class="math inline">\(A\)</span> and joins <span class="math inline">\(z_1\)</span> and <span class="math inline">\(z_2\)</span>. Hence, <span class="math inline">\(A\)</span> is included in some path-connected component of <span class="math inline">\(\mathbb{C} \setminus K\)</span>. The collection of these path-connected components are a partition of <span class="math inline">\(\mathbb{C} \setminus K\)</span>, hence every other component <span class="math inline">\(C\)</span> is a subset of <span class="math inline">\(\mathbb{C} \setminus A = \overline{D}(0,r)\)</span>: it is bounded.</div>
+</section>
+</section>
+<section id="union-of-separated-sets" class="level2">
+<h2><a href="#union-of-separated-sets">Union of Separated Sets</a></h2>
+<p>Source: “Sur les ensembles connexes” <span class="citation" data-cites="KK21">(Knaster and Kuratowski <a href="#ref-KK21">1921</a>)</span></p>
+<section id="questions" class="level3">
+
+<div class="p"><h3><a href="#questions">Questions</a></h3>Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be two non-empty subsets of the complex plane.</div>
+<ol type="1">
+<li><p>If <span class="math inline">\(A \cap B = \varnothing\)</span>, is <span class="math inline">\(A \cup B\)</span> always disconnected ?</p></li>
+<li><p>Assume that <span class="math inline">\(d(A, B) &gt; 0\)</span>; show that <span class="math inline">\(A \cup B\)</span> is not connected.</p></li>
+<li><p>Assume that <span class="math inline">\(\overline{A} \cap B = \varnothing\)</span> and <span class="math inline">\(A \cap \overline{B} = \varnothing\)</span>; show that <span class="math inline">\(A \cup B\)</span> is not connected.</p></li>
+</ol>
+</section>
+<section id="answers" class="level3">
+<h3><a href="#answers">Answers</a></h3><br>
+<ol type="1">
+<li><p>No. For example, the sets <span class="math inline">\(A = \{z \in \mathbb{C} \; | \; \Re (z) &lt; 0\}\)</span> and <span class="math inline">\(B = \mathbb{C} \setminus A\)</span> are disjoints, but their union is <span class="math inline">\(\mathbb{C}\)</span>, which is connected.</p></li>
+<li><p>Let <span class="math inline">\(r = d(A, B) / 2\)</span>. Under the assumption, the sets <span class="math display">\[
+ A' = \cup_{a \in A} D(a, r), \; B' = \cup_{b \in B} D(b, r),
+ \]</span> which are both open sets, are disjoints, hence their union is not path-connected. However <span class="math inline">\(A' \cup B'\)</span> is a dilation of <span class="math inline">\(A \cup B\)</span>, hence <span class="math inline">\(A \cup B\)</span> is not connected.</p>
+<p>Alternatively, consider the function <span class="math inline">\(f\)</span> equal to <span class="math inline">\(1\)</span> on <span class="math inline">\(A\)</span> and <span class="math inline">\(0\)</span> on <span class="math inline">\(B\)</span>. It is locally constant – if <span class="math inline">\(z \in A \cup B\)</span>, f is constant on <span class="math inline">\((A\cup B)\cap D(z, r)\)</span> with <span class="math inline">\(r=d(A, B)\)</span> for example – but not constant, hence <span class="math inline">\(A \cup B\)</span> is not connected.</p></li>
+<li><p>Consider again the function <span class="math inline">\(f\)</span> introduced in the previous answer. The assumption yields <span class="math inline">\(A \cap B = \varnothing\)</span>; as <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are non-empty, <span class="math inline">\(f\)</span> is not constant. If this function was not locally constant around some <span class="math inline">\(a \in A\)</span>, we could find a sequence of <span class="math inline">\(b_n \in (A \cup B) \setminus A = B\)</span> such that <span class="math inline">\(b_n \to a\)</span>. But that would imply that <span class="math inline">\(a \in A \cap \overline{B}\)</span> and would lead to a contradiction. Similarly, if it was not constant around some <span class="math inline">\(b \in B\)</span>, that would lead to <span class="math inline">\(b \in \overline{A} \cap B\)</span>, another contradiction. Hence, it is locally constant and <span class="math inline">\(A \cup B\)</span> is not connected.</p></li>
+</ol>
+</section>
+</section>
+<section id="anchor-set" class="level2">
+<h2><a href="#anchor-set">Anchor Set</a></h2>
+<section id="questions-1" class="level3">
+<h3><a href="#questions-1">Questions</a></h3><br>
+<ol type="1">
+<li><p>Prove that if <span class="math inline">\(\mathcal{A}\)</span> is a collection of path-connected/connected sets and there is a set <span class="math inline">\(A^* \in \mathcal{A}\)</span> such that <span class="math inline">\(\forall \, A \in \mathcal{A}\)</span>, <span class="math inline">\(A \cap A^*\neq \varnothing\)</span>, then the union <span class="math inline">\(\cup \mathcal{A}\)</span> is path-connected/connected.</p></li>
+<li><p>A <em>deformation retraction</em> of a subset <span class="math inline">\(A\)</span> of the complex plane onto a subset <span class="math inline">\(B\)</span> of <span class="math inline">\(A\)</span> is a “continuous shrinking process” of <span class="math inline">\(A\)</span> into <span class="math inline">\(B\)</span>; formally, it is a collection of paths <span class="math inline">\(\gamma_a\)</span> of <span class="math inline">\(A\)</span>, indexed by <span class="math inline">\(a \in A\)</span>, such that:</p>
+<ul>
+<li><p><span class="math inline">\(\forall \, a \in A, \; \gamma_a(0) = a \, \mbox{ and } \, \gamma_a(1) \in B\)</span>,</p></li>
+<li><p><span class="math inline">\(\forall \, a \in B, \; \forall \, t \in [0,1], \; \gamma_a(t) = a\)</span>,</p></li>
+<li><p>the function <span class="math inline">\((t, a) \in [0,1] \times A \mapsto \gamma_a(t)\)</span> is continuous.</p></li>
+</ul>
+<p>(see e.g. <span class="citation" data-cites="Hat02">(Hatcher <a href="#ref-Hat02">2002</a>)</span>). Show that if there is a deformation retraction of <span class="math inline">\(A\)</span> onto <span class="math inline">\(B\)</span> and <span class="math inline">\(B\)</span> is path-connected/connected, then <span class="math inline">\(A\)</span> is also path-connected/connected.</p></li>
+</ol>
+</section>
+<section id="answers-1" class="level3">
+<h3><a href="#answers-1">Answers</a></h3><br>
+<ol type="1">
+<li><p>Let <span class="math inline">\(\mathcal{A}'\)</span> be the collection of all the sets <span class="math inline">\(A^* \cup A\)</span> for <span class="math inline">\(A \in \mathcal{A}\)</span>. For any <span class="math inline">\(A \in \mathcal{A}\)</span>, the collection <span class="math inline">\(\{A, A^{*}\}\)</span> is composed of two path-connected/connected sets with a non-empty intersection; hence all the sets of <span class="math inline">\(\mathcal{A}'\)</span> in path-connected/connected. Moreover, the unions <span class="math inline">\(\cup \mathcal{A}\)</span> and <span class="math inline">\(\cup \mathcal{A}'\)</span> are identical. By assumption, unless <span class="math inline">\(\mathcal{A}\)</span> is empty, <span class="math inline">\(A^{*}\)</span> is not empty; hence the intersection <span class="math inline">\(\cap \mathcal{A}'\)</span> that contains <span class="math inline">\(A^*\)</span> is not empty. Therefore, <span class="math inline">\(\cup \mathcal{A} = \cup \mathcal {A}'\)</span> is path-connected/connected.</p></li>
+<li><p>For any <span class="math inline">\(a \in A\)</span>, <span class="math inline">\(\gamma_a(0) = a\)</span> and <span class="math inline">\(\gamma_a([0,1]) \subset A\)</span>, hence <span class="math display">\[
+  A = \bigcup_{a \in A} \gamma_a([0,1]).
+  \]</span> For any <span class="math inline">\(a \in A\)</span>, the set <span class="math inline">\(\gamma_a([0,1])\)</span> is path-connected (as the image of a path-connected set by a continuous function), and <span class="math inline">\(\gamma_a([0,1]) \cap B\)</span> is non-empty (it contains <span class="math inline">\(\gamma_a(1)\)</span>). Consequently, the collection <span class="math display">\[
+  \mathcal{A} = \{B\} \cup \{\gamma_a([0,1]) \, | \, a \in A\}
+  \]</span> satisfies the assumption of the previous question with <span class="math inline">\(A^* = B\)</span>. Consequently, <span class="math inline">\(A = \cup \mathcal{A}\)</span> is path-connected/connected.</p></li>
+</ol>
+</section>
+</section>
+</section>
+<section id="references" class="level1 unnumbered">
+<h1><a href="#references">References</a></h1>
+<div id="refs" class="references"><ol><li id="ref-Hat02" style="margin-bottom:0.75em"><em>Algebraic Topology</em><br>Allen Hatcher, 2002.<br>JSON: <a href="data:application/json;charset=utf-8;fontSize64,ewogICJJU0JOIjogIjAtNTIxLTc5NTQwLTAvcGJrIiwKICAiVVJMIjogImh0dHBzOi8vd3d3Lm1hdGguY29ybmVsbC5lZHUvfmhhdGNoZXIvQVQvQVQucGRmIiwKICAiYXV0aG9yIjogWwogICAgewogICAgICAiZmFtaWx5IjogIkhhdGNoZXIiLAogICAgICAiZ2l2ZW4iOiAiQWxsZW4iCiAgICB9CiAgXSwKICAiaWQiOiAiSGF0MDIiLAogICJpc3N1ZWQiOiB7CiAgICAiZGF0ZS1wYXJ0cyI6IFsKICAgICAgWwogICAgICAgIDIwMDIKICAgICAgXQogICAgXQogIH0sCiAgInB1Ymxpc2hlciI6ICJDYW1icmlkZ2UgVW5pdmVyc2l0eSBQcmVzcyIsCiAgInRpdGxlIjogIkFsZ2VicmFpYyB0b3BvbG9neS4iLAogICJ0eXBlIjogImJvb2siCn0="><i style="font-size:18px;position:relative;bottom:0.05em;" class="fa fa-file-text-o"></i></a>&nbsp; / URL: <a href="https://www.math.cornell.edu/~hatcher/AT/AT.pdf"><i style="font-size:18px" class="fa fa-link"></i></a></li><li id="ref-KK21" style="margin-bottom:0.75em"><em>Sur les Ensembles Connexes</em><br>B. Knaster and C. Kuratowski, 1921.<br>JSON: <a href="data:application/json;charset=utf-8;fontSize64,ewogICJhdXRob3IiOiBbCiAgICB7CiAgICAgICJmYW1pbHkiOiAiS25hc3RlciIsCiAgICAgICJnaXZlbiI6ICJCLiIKICAgIH0sCiAgICB7CiAgICAgICJmYW1pbHkiOiAiS3VyYXRvd3NraSIsCiAgICAgICJnaXZlbiI6ICJDLiIKICAgIH0KICBdLAogICJjb250YWluZXItdGl0bGUiOiAiRnVuZGFtZW50YSBNYXRoZW1hdGljYWUiLAogICJpZCI6ICJLSzIxIiwKICAiaXNzdWVkIjogewogICAgImRhdGUtcGFydHMiOiBbCiAgICAgIFsKICAgICAgICAxOTIxCiAgICAgIF0KICAgIF0KICB9LAogICJsYW5ndWFnZSI6ICJGcmVuY2giLAogICJwYWdlIjogIjIwNi0yNTUiLAogICJwdWJsaXNoZXIiOiAiUG9saXNoIEFjYWRlbXkgb2YgU2NpZW5jZXMgKFBvbHNrYSBBa2FkZW1pYSBOYXVrIC0gUEFOKSwgSW5zdGl0dXRlIG9mIE1hdGhlbWF0aWNzIChJbnN0eXR1dCBNYXRlbWF0eWN6bnkpLCBXYXJzYXciLAogICJ0aXRsZSI6ICJTdXIgbGVzIGVuc2VtYmxlcyBjb25uZXhlcyIsCiAgInR5cGUiOiAiYXJ0aWNsZS1qb3VybmFsIiwKICAidm9sdW1lIjogIjIiCn0="><i style="font-size:18px;position:relative;bottom:0.05em;" class="fa fa-file-text-o"></i></a>&nbsp;</li></ol></div>
+</section>
+</main>
+
+
+</body></html>

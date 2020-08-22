@@ -1,0 +1,25 @@
+#!/bin/bash
+set -euo pipefail
+
+DOC="Power Series"
+DIR="/www/complex-analysis"
+HOST=www.eul.ink
+LOGIN=boisgera
+
+# Helpers
+# ------------------------------------------------------------------------------
+escape () {
+  echo $(printf %q "$1")
+}
+
+me="$LOGIN@$HOST"
+target="$DIR"/$(escape "$DOC")
+
+# Main
+# ------------------------------------------------------------------------------
+ssh "$me" mkdir -p "$target"
+scp -pr "$DOC".txt "$me:$target.txt"
+scp -pr "$DOC".pdf "$me:$target.pdf"
+scp -pr "$DOC".zip "$me:$target.zip"
+scp -pr "$DOC".html "$me:$target/index.html"
+

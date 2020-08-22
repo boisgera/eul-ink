@@ -1,0 +1,76 @@
+#!/usr/bin/env python
+
+import sys
+
+sys.path.append("/home/boisgera/DISKS/VOYAGER/SANDBOX/ACSAN")
+
+def save_pdf_svg(name, dpi=None):
+    if dpi:
+        options = {"dpi": dpi}
+    else:
+        options = {}
+    matplotlib.rc('text', usetex=True)
+    matplotlib.rc("font", size=8, family="serif")
+    savefig(name + ".pdf", **options)
+    #matplotlib.rcdefaults()
+    savefig(name + ".svg", **options)
+
+from quantizers import mulaw
+
+
+from matplotlib import rc
+# rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
+rc('text', usetex=True)
+rc("font", size=8, family="serif")
+
+from pylab import *
+
+
+#grid(True)
+
+fig = gcf()
+
+# target: 30 in (12 cm)
+
+# (w, h) = fig.get_size_inches()
+width_cm = 12.0
+width_in = width_cm / 2.54
+ratio = 1.618 # golden
+fig.set_size_inches((width_in, width_in / ratio))
+#print 2*w
+
+codes = arange(0,256)
+plot(codes, mulaw.decode(codes), "k+", markersize=2.0)
+
+xticks(arange(0,257,32))
+yticks(arange(-1.0, 1.1, 0.25))
+grid(True)
+
+axis([0, 256, -1.0, 1.0])
+
+
+#fig.set_size_inches((w, h/2))
+
+#savefig("legend-extrait.svg")
+save_pdf_svg("mu-law-decode-final")
+#savefig("legend-extrait.png", dpi=1080)
+
+#-------------------------------------------------------------------------------
+
+clf()
+fig = gcf()
+width_cm = 12.0
+width_in = width_cm / 2.54
+ratio = 2.5 #1.618 # golden
+fig.set_size_inches((width_in, width_in / ratio))
+
+data = arange(0.0, 0.05, 0.00001)
+plot(data, mulaw.encode(data), "k.", markersize=0.05)
+xticks(arange(0.0,0.051,0.01))
+yticks(arange(0,257,8))
+grid(True)
+axis([0.0, 0.05, 192, 256])
+
+save_pdf_svg("mu-law-encode-final")
+
+

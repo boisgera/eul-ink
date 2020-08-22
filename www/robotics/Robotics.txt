@@ -1,0 +1,137 @@
+---
+title: Robotics
+author:  
+-  "[Sébastien Boisgérault](mailto:Sebastien.Boisgerault@mines-paristech.fr),
+   MINES ParisTech"
+---
+
+<style> 
+  .grid { 
+    margin-bottom: 1.5em;
+  }
+  .grid > * { /* row */
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin-bottom: 1.5em;
+  }
+  .grid > * > :last-child { /* item */
+    white-space: nowrap;
+  }
+  .grid * {
+    line-height: 1.5em;
+  }
+  .grid > * > *:not(:last-child) { /* item*/
+    margin: 0 1em 0 0;
+  }
+</style>
+
+
+A mix of mechanical engineering and control theory.
+
+Presentations & Lecture Notes
+================================================================================
+
+Slides for some MAREVA[^MAREVA] courses.
+
+<div class="grid">
+<div>
+<div>**Elements of Lagrangian Mechanics - Applications to Mobile Robotics**</div>
+<div>[<i class="fa fa-file-pdf-o"></i>](documents/Elements of Lagrangian Mechanics - Applications to Mobile Robots.pdf)</div>
+</div>
+<div>
+<div>**Typologie des Robots Mobiles (in French)**</div>
+<div>[<i class="fa fa-file-pdf-o"></i>](documents/Typologie des Robots Mobiles.pdf)</div>
+</div>
+<div>
+<div>**Coriolis and Centrifugal Forces**</div>
+<div>[<i class="fa fa-html5"></i>](Coriolis and Centrifugal Forces) / [<i class="fa fa-file-pdf-o"></i>](Coriolis and Centrifugal Forces/Coriolis and Centrifugal Forces.pdf)</div>
+</div>
+</div>
+
+On Wheels
+================================================================================
+
+The only wheels considered in the document [Elements of Lagrangian Mechanics - Applications to Mobile Robotics](http://eul.ink/robotics/documents/Elements%20of%20Lagrangian%20Mechanics%20-%20Applications%20to%20Mobile%20Robots.pdf) are either fixed or orientable with a swivel axis that goes through the wheel center.
+Why? 
+Because these wheels add kinematics constraints to the mobile robot and
+restrict its possible trajectories.
+
+It is sometimes necessary to use wheels that do not have this 
+unfortunate effect;
+this is for example mandatory to design omnidirectional robots.
+Two example categories are [*caster wheels*](https://en.wikipedia.org/wiki/Caster) and 
+[*swedish (or Mecanum) wheels*](https://en.wikipedia.org/wiki/Mecanum_wheel):
+
+<div class="grid">
+<div>
+<div>**Kinematics of Caster Wheels**</div>
+<div>[<i class="fa fa-html5"></i>](Kinematics of Caster Wheels/index.html) / [<i class="fa fa-file-pdf-o"></i>](Kinematics of Caster Wheels/Kinematics of Caster Wheels.pdf) / [<i class="fa fa-file-zip-o"></i>](Kinematics of Caster Wheels/Kinematics of Caster Wheels.zip) / 
+[<i class="fa fa-bitbucket"></i>](https://bitbucket.org/boisgera/kinematics-of-caster-wheels)</div>
+</div>
+<div>
+<div>**Caster Wheel Interactive Demo**</div>
+<div>[<i class="fa fa-html5"></i>](caster-wheel-demo/index.html)</div>
+</div>
+</div>
+
+
+
+<div style="display: flex; align-items: center;justify-content: center;
+margin-bottom:1.5em;">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/wECcwlY0hOs?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+</div>
+
+<div style="margin-bottom:1.5em;">**Swedish Wheels**</div>
+
+<div style="display: flex; align-items: center;justify-content: center;">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Ne09Y72zW_Y?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+</div>
+
+
+Control Theory
+================================================================================
+
+Some ISIA[^ISIA] courses (in French).
+
+<div class="grid">
+<div>
+<div>**Robots Mobiles**</div>
+<div>[<i class="fa fa-file-pdf-o"></i>](documents/Robots Mobiles.pdf)</div>
+</div>
+<div>
+<div>**Représentation d'Etat des Systèmes Linéaires.**</div>
+<div>[<i class="fa fa-file-pdf-o"></i>](documents/Représentation d'Etat des Systèmes Linéaires.pdf)</div>
+</div>
+<div>
+<div>**Automatique et Calcul de Fourier-Laplace**</div>
+<div>[<i class="fa fa-file-pdf-o"></i>](documents/Automatique et Calcul de Fourier-Laplace.pdf)</div>
+</div>
+<div>
+<div>**L'Approche Fréquentielle**</div>
+<div>[<i class="fa fa-file-pdf-o"></i>](documents/L'Approche Fréquentielle.pdf)</div>
+</div>
+<div>
+<div>**Introduction aux Systèmes à Temps Discret**</div>
+<div>[<i class="fa fa-file-pdf-o"></i>](documents/Introduction aux Systèmes à Temps Discret.pdf)</div>
+</div>
+</div>
+
+
+Free Resources
+================================================================================
+
+<div class="grid">
+<div>
+<div>**Lagrangian Dynamics** <br> by [Miloš Žefran](http://robotics.ece.uic.edu/index.php/people/faculty/milos-zefran) 
+and [Francesco Bullo](http://motion.me.ucsb.edu/)</div>
+<div>[<i class="fa fa-file-pdf-o"></i>](documents/Zefran, Bullo - Lagrangian Dynamics.pdf)</div>
+</div>
+<div>
+
+[^MAREVA]: MAREVA is the Applied Mathematics Minor of MINES ParisTech 
+"Master's in Science and Executive Engineering" degree.
+
+[^ISIA]: ISIA was a post-graduate education program of MINES ParisTech
+dedicated to control theory and computer science.
+

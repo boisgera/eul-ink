@@ -1,0 +1,181 @@
+% Line Integrals & Primitives
+% [Sébastien Boisgérault][email], Mines ParisTech
+
+[email]: mailto:Sebastien.Boisgerault@mines-paristech.fr
+
+---
+license: "[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0)"
+---
+
+Exercises
+================================================================================
+
+Primitives of Power Functions
+--------------------------------------------------------------------------------
+
+### Question
+
+Determine the primitives of the power $z \mapsto z^n$ --
+defined on $\mathbb{C}$ if $n$ nonnegative and on $\mathbb{C}^*$ otherwise 
+-- or prove that no such function exist.
+
+### Answer
+
+If $n \neq -1$, 
+the function $z \mapsto z^{n+1}/(n+1)$ is a primitive of $z \mapsto z^n$. 
+As $\mathbb{C}$ and $\mathbb{C}^*$ are path-connected, the other primitives
+differ from this one by a constant.
+
+If $n=-1$, no primitive exist:
+the function $\gamma: t \in [0,1] \to e^{i2\pi t}$ is a 
+closed rectifiable path of $\mathbb{C}^*$ and
+  $$
+  \int_{\gamma} \frac{dz}{z}
+  =
+  \int_0^1 \frac{e^{i2\pi t} i2\pi}{e^{i2 \pi t}} \, dt
+  = i2\pi,
+  $$
+which is nonzero. 
+
+
+Primitive of a Rational Function
+--------------------------------------------------------------------------------
+
+### Question
+
+Let $\Omega = \mathbb{C} \setminus \{0,1\}$ and let $f: \Omega \to \mathbb{C}$ 
+be defined by
+  $$
+  f(z) = \frac{1}{z(z-1)}.
+  $$
+Show that $f$ has no primitive on $\Omega$, but that it has a primitive
+on $\mathbb{C} \setminus [0,1]$ and determine its expression.
+
+### Answer
+
+We have
+  $$
+  f(z) = -\frac{1}{z} + \frac{1}{z-1}.
+  $$
+The function $z\mapsto -1/z$ has no primitive on $D(0,1)\setminus \{0\}$:
+indeed if $\gamma(t) = 1/2 \times e^{i2\pi t}$, we have
+  $$
+  \int_{\gamma} \frac{dz}{z} = i2\pi \neq 0.
+  $$
+On the other hand, on the same set, $z \mapsto \log (z-1)$ is a primitive
+of $z \mapsto 1/(z-1)$. Hence $f(z)$ has no primitive.
+
+The function 
+  $$
+  g(z) = \log \frac{z-1}{z} = \log \left(1 - \frac{1}{z} \right)
+  $$
+is defined on $\mathbb{C} \setminus [0,1]$ and is a primitive of $f$.
+Indeed $g(z)$ is defined as long as neither of the conditions $z = 0$ and
+$1 - 1/z \in \mathbb{R}_-$ are met; they are equivalent to the condition 
+$z \in [0,1]$, which is excluded. 
+Moreover, $g$ satisfies
+  $$
+  g'(z) = \frac{1/z^2}{1 - 1/z} = \frac{1}{z(z-1)}
+  $$
+hence it is a primitive of $f$.
+ 
+
+Reparametrization of Paths
+--------------------------------------------------------------------------------
+
+### Questions
+
+Let $\alpha:[0,1] \to \mathbb{C}$ be a continuously differentiable path.
+Let $\phi:[0,1] \to [0,1]$ be a continuously differentiable function such
+that $\phi(0) = 0$, $\phi(1) = 1$ and $\phi'(t)>0$ for any $t \in [0,1]$.
+
+ 1. Show that $\beta = \alpha \circ \phi$ is a rectifiable path
+    which has the same initial point, terminal point and image as $\alpha$.
+
+ 2. Prove that for any continuous function $f: \alpha([0,1]) \to \mathbb{C}$,
+      $$
+      \int_{\alpha} f(z) \, dz = \int_{\beta} f(z) \, dz.
+      $$
+
+ 3. Prove that the paths $\alpha$ and $\beta$ have the same length.
+
+### Answers
+
+ 1. The statement about the initial and terminal points is obvious. 
+    The one relative to the image holds because, 
+    under the assumptions that were made,
+    the function $\phi$ is a bijection from $[0,1]$ on itself
+    (and its inverse is also continuously differentiable).
+
+ 2. We have
+      $$
+      \int_{\beta} f(z) \, dz
+      = \int_{0}^1 (f \circ \beta)(t) \beta'(t)\,dt
+      = \int_{0}^1 (f \circ \alpha)(\phi(t)) \alpha'(\phi(t))\,(\phi'(t) dt).
+      $$
+    The change of variable $s = \phi(t)$ leads to
+      $$
+      \int_{\beta} f(z) \, dz
+      = \int_{0}^1 (f \circ \alpha)(s) \alpha'(s)\,ds
+      = \int_{\alpha} f(z) \, dz.
+      $$
+
+ 3. We have
+      $$
+      \int_0^1 |\beta'(t)|\, dt
+      = \int_{0}^1 |\alpha' (\phi(t)) \phi'(t)| \, dt
+      = \int_{0}^1 |\alpha' (\phi(t))| \, \phi'(t) dt
+      $$
+    The change of variable $s = \phi(t)$ leads to
+      $$
+      \int_0^1 |\beta'(t)|\, dt
+      = \int_0^1 |\alpha'(s)| \, ds,
+      $$
+    hence the lengths of $\alpha$ and $\beta$ are equal.
+
+
+The Logarithm: Alternate Choices
+--------------------------------------------------------------------------------
+
+### Question
+
+Show that for any $\alpha \in \mathbb{R}$, 
+the function $z \in \mathbb{C}_{\alpha} \mapsto 1/z$ defined on 
+  $$
+  \mathbb{C}_{\alpha} 
+  =
+  \mathbb{C} \setminus \{r e^{i\alpha} \;|\; r \geq 0 \}.
+  $$
+has a primitive; describe the set of all its primitives.
+
+### Answer
+
+Let $\gamma$ be a closed rectifiable path of $\mathbb{C}_{\alpha}$.
+The path $\mu: [0,1] \mapsto e^{i(\pi-\alpha)} \gamma(t)$ is closed,
+rectifiable and 
+its image is included in $\mathbb{C} \setminus \mathbb{R}_-$.
+Additionally
+  $$
+  \int_{\gamma} \frac{dz}{z}
+  =
+  \int_{\gamma} \frac{d(e^{i(\pi-\alpha)}z)}{e^{i(\pi-\alpha)}z}
+  =
+  \int_{\mu} \frac{dz}{z}.
+  $$
+Since the principal value of the logarithm is a primitive if 
+$z \mapsto 1/z$ on $\mathbb{C} \setminus \mathbb{R}_-$, the integral
+of $z\mapsto 1/z$ on $\mu$ is equal to zero. Therefore, there are 
+primitives of $z\mapsto 1/z$ on $\mathbb{C}_{\alpha}$; 
+since $\mathbb{C}_{\alpha}$ is connected, 
+they all differ from an arbitrary constant.
+
+Alternatively, we can build explicitly such a primitive: the function
+  $$
+  f: z \mapsto \log (z e^{i(\pi - \alpha)});
+  $$
+it is defined and holomorphic on $\mathbb{C}_{\alpha}$ and
+for any $z \in \mathbb{C}_{\alpha}$,
+  $$
+  f'(z) = \frac{1}{z e^{i(\pi - \alpha)}} \times e^{i(\pi - \alpha)}= \frac{1}{z}.
+  $$
+

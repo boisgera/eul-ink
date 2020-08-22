@@ -1,0 +1,207 @@
+
+---
+title: Digital Audio Coding
+author: Sébastien Boisgérault, Mines ParisTech
+---
+
+<style> 
+  .grid { 
+    margin-bottom: 1.5em;
+  }
+  .grid > * { /* row */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .grid p, .grid .p {
+    line-height: 1em;
+    margin-bottom: 0px;
+  }
+</style>
+
+<i class="fa fa-download"></i> &nbsp; 
+<a href="documents/documents.zip">Document Archive</a>&nbsp;
+(latest update: November 30, 2015)
+
+Presentations
+================================================================================
+
+  - &nbsp;<i class="fa fa-file-pdf-o"></i>&nbsp; [Course Introduction (French)](documents/introduction.pdf)
+
+  - &nbsp;<i class="fa fa-file-pdf-o"></i>&nbsp; [Python & Digital Audio Coding](documents/python.pdf)
+
+  - &nbsp;<i class="fa fa-file-pdf-o"></i>&nbsp; [Lossless Coding](documents/coding.pdf)
+
+  - &nbsp;<i class="fa fa-file-pdf-o"></i>&nbsp; [Spectral Analysis](documents/fourier.pdf)
+
+  - &nbsp;<i class="fa fa-file-pdf-o"></i>&nbsp; [Scalar Quantization](documents/quantization.pdf)
+
+  - &nbsp;<i class="fa fa-file-pdf-o"></i>&nbsp; [Linear Prediction](documents/prediction.pdf)
+
+  - &nbsp;<i class="fa fa-file-pdf-o"></i>&nbsp; [Psychoacoustics](documents/psychoacoustics.pdf)
+
+Lab Sessions
+================================================================================
+
+## Lab 2018
+
+Quickstart: open the Jupyter notebooks in [<img src="images/binder-icon-black.svg" style="display:inline;vertical-align:-0.1em; width:0.9em;height:0.9em;"></img> **Binder**](https://mybinder.org/v2/gh/boisgera/audio-notebooks/master).
+
+All project files and some instructions are available on [<i class="fa fa-github"></i> **GitHub**](https://github.com/boisgera/audio-notebooks).
+
+
+## Lab 2017
+
+Jupyter notebooks have been introduced.
+
+  - &nbsp;<i class="fa fa-html5"></i>&nbsp; [Wave](notebooks/wave.html)
+    /
+    &nbsp;<i class="fa fa-file-code-o"></i>&nbsp; [Wave](notebooks/wave.ipynb)
+    /
+    &nbsp;<i class="fa fa-file-pdf-o"></i>&nbsp; [Wave](notebooks/wave.pdf)
+
+  - &nbsp;<i class="fa fa-html5"></i>&nbsp; [Shrink](notebooks/shrink.html)
+    /
+    &nbsp;<i class="fa fa-file-code-o"></i>&nbsp; [Shrink](notebooks/shrink.ipynb)
+    /
+    &nbsp;<i class="fa fa-file-pdf-o"></i>&nbsp; [Quantum](notebooks/shrink.pdf)
+
+  - &nbsp;<i class="fa fa-html5"></i>&nbsp; [Quantum](notebooks/quantum.html)
+    /
+    &nbsp;<i class="fa fa-file-code-o"></i>&nbsp; [Quantum](notebooks/quantum.ipynb)
+    /
+    &nbsp;<i class="fa fa-file-pdf-o"></i>&nbsp; [Quantum](notebooks/quantum.pdf)
+
+  - &nbsp;<i class="fa fa-html5"></i>&nbsp; [Vox](notebooks/vox.html)
+    /
+    &nbsp;<i class="fa fa-file-code-o"></i>&nbsp; [Vox](notebooks/vox.ipynb)
+    /
+    &nbsp;<i class="fa fa-file-pdf-o"></i>&nbsp; [Vox](notebooks/vox.pdf)
+
+  - &nbsp;<i class="fa fa-html5"></i>&nbsp; [Aware](notebooks/aware.html)
+    /
+    &nbsp;<i class="fa fa-file-code-o"></i>&nbsp; [Aware](notebooks/aware.ipynb)
+    /
+    &nbsp;<i class="fa fa-file-pdf-o"></i>&nbsp; [Aware](notebooks/aware.pdf)
+
+
+Lab 2015 and before
+--------------------------------------------------------------------------------
+
+  - &nbsp;<i class="fa fa-file-pdf-o"></i>&nbsp; [Wave](documents/wave.pdf)
+
+  - &nbsp;<i class="fa fa-file-pdf-o"></i>&nbsp; [Shrink](documents/shrink.pdf)
+
+  - &nbsp;<i class="fa fa-file-pdf-o"></i>&nbsp; [Quantum](documents/quantum.pdf)
+    /
+    &nbsp;<i class="fa fa-html5"></i>&nbsp; [Quantum](quantum)
+
+  - &nbsp;<i class="fa fa-file-pdf-o"></i>&nbsp; [Vox](documents/vox.pdf)
+    /
+    &nbsp;<i class="fa fa-html5"></i>&nbsp; [Vox](vox)
+
+  - &nbsp;<i class="fa fa-file-pdf-o"></i>&nbsp; [Aware](documents/aware.pdf)
+    /
+    &nbsp;<i class="fa fa-html5"></i>&nbsp; [Aware](aware).
+
+    &nbsp;<i class="fa fa-file-code-o"></i>&nbsp; [mask.py](python/mask.py)
+    (psychoacoustic model)
+
+
+Book
+================================================================================
+
+Current Version (2017 / work in progress)
+--------------------------------------------------------------------------------
+
+<div class="grid"><div>
+<div>Binary Coding</div>
+<div>
+[<i class="fa fa-html5"></i>](Binary Coding)
+/
+[<i class="fa fa-file-pdf-o"></i>](Binary Coding/Binary Coding.pdf)
+/
+[<i class="fa fa-bitbucket"></i>](https://bitbucket.org/boisgera/binary-coding)
+</div></div><div>
+<div>Quantization</div>
+<div>
+[<i class="fa fa-html5"></i>](Quantization)
+/
+[<i class="fa fa-file-pdf-o"></i>](Quantization/Quantization.pdf)
+/
+[<i class="fa fa-bitbucket"></i>](https://bitbucket.org/boisgera/quantization)
+</div>
+</div><div>
+<div>Prediction</div>
+<div>
+[<i class="fa fa-html5"></i>](Prediction)
+/
+[<i class="fa fa-file-pdf-o"></i>](Prediction/Prediction.pdf)
+/
+[<i class="fa fa-bitbucket"></i>](https://bitbucket.org/boisgera/prediction)
+</div>
+</div><div>
+<div>Spectral Methods</div>
+<div>[<i class="fa fa-html5"></i>](Spectral)
+/
+[<i class="fa fa-file-pdf-o"></i>](Spectral/Spectral.pdf)
+/
+[<i class="fa fa-bitbucket"></i>](https://bitbucket.org/boisgera/spectral-methods)</div>
+</div>
+</div></div>
+
+
+Old Version (2015)
+--------------------------------------------------------------------------------
+
+  - &nbsp;<i class="fa fa-file-pdf-o"></i>&nbsp; [The book](documents/book.pdf).
+
+    It covers most of the content of the presentations in greater 
+    depth, but is slightly outdated ; in particular, some of the code examples 
+    don't work anymore.
+
+
+Exam
+================================================================================
+
+<!--
+  - &nbsp;<i class="fa fa-file-pdf-o"></i>&nbsp; [2014 (French)](documents/exam-2014.pdf)
+
+  - &nbsp;<i class="fa fa-file-pdf-o"></i>&nbsp; [2015 (French)](documents/exam-2015.pdf)
+-->
+
+<div class="grid">
+<div>
+<div>Exam 2014 (French)</div>
+<div>[<i class="fa fa-file-pdf-o"></i>](documents/exam-2014.pdf)</div>
+</div>
+<div>
+<div>Exam 2015 (French)</div>
+<div>[<i class="fa fa-file-pdf-o"></i>](documents/exam-2015.pdf)</div>
+</div>
+<div>
+<div>Exam 2017 (French)</div>
+<div>[<i class="fa fa-html5"></i>](Exam-2017)&nbsp;/&nbsp;[<i class="fa fa-file-pdf-o"></i>](Exam-2017/Exam-2017.pdf)</div>
+</div>
+<div>
+<div>Exam 2018 (French, with answers)</div>
+<div>[<i class="fa fa-html5"></i>](Exam-2018)&nbsp;/&nbsp;[<i class="fa fa-file-pdf-o"></i>](Exam-2018/Exam-2018.pdf)</div>
+</div>
+<div>
+<div>Exam 2019 (French, with answers)</div>
+<div>[<i class="fa fa-html5"></i>](Exam-2019)&nbsp;/&nbsp;[<i class="fa fa-file-pdf-o"></i>](Exam-2019/Exam-2019.pdf)</div>
+</div>
+</div>
+
+-----
+
+Software
+================================================================================
+
+Get the latest version of the Python audio package with:
+
+    sudo pip install --upgrade audio
+
+The package was tested on Ubuntu 14.04; it won't work on Windows.
+
+

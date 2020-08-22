@@ -1,0 +1,110 @@
+---
+title: Delay Systems
+author:  
+-  "[Sébastien Boisgérault](mailto:Sebastien.Boisgerault@mines-paristech.fr),
+   MINES ParisTech"
+---
+
+<style> 
+  .grid { 
+    margin-bottom: 1.5em;
+  }
+  .grid > * { /* row */
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin-bottom: 1.5em;
+  }
+  .grid > * > :last-child { /* item */
+    white-space: nowrap;
+  }
+  .grid * {
+    line-height: 1.5em;
+  }
+  .grid > * > *:not(:last-child) { /* item*/
+    margin: 0 1em 0 0;
+  }
+</style>
+
+
+About
+================================================================================
+
+Systems of delay-differential algebraic equations (DDAE)
+-- or *delay systems* for the sake of brevity --
+combine differential and algebraic equations with 
+delayed variables in the right-hand side.
+A typical example[^FSA] would be:
+  $$
+  \begin{array}{rll}
+  \dot{x}(t) &=& E x(t) - FG y(t) \\
+  y(t) &=& \displaystyle e^{T E} x(t-T) - 
+           \int_{-T}^0 e^{-\theta E} FG  y(t+\theta) d\theta
+  \end{array}
+  $$
+
+[^FSA]: this example describes the interaction between the system
+$$\dot{x}(t) = E x(t) + Fu(t)$$ with a *deadtime* 
+-- $x(t)$ is unknown at time $t$, 
+only the value $x(t-T)$ is available for some delay $T>0$
+--
+and a predictor-controller designed to stabilize it
+(with a finite-spectrum assignment for example).
+Think of it as an improvement of the classic 
+[Smith predictor](https://en.wikipedia.org/wiki/Smith_predictor).
+
+Presentations
+================================================================================
+
+
+<div class="grid">
+<div>
+<div>**Introduction to Delay Systems**  
+A MAREVA[^MAREVA] course.</div>
+<div>[<i class="fa fa-file-pdf-o"></i>](documents/Introduction to Delay Systems.pdf)</div>
+</div>
+<div>
+<div>**Delay Equations -- A Case for Algebro-Differential Systems.**  
+[Mines ParisTech Mathematics and Systems Seminar](https://www.cri.mines-paristech.fr/page_MathsSystemes.html).</div>
+<div>[<i class="fa fa-file-pdf-o"></i>](documents/Delay Equations -- A Case for Algebro-Differential Systems.pdf
+)</div>
+</div>
+<div>
+<div>**Design of Algebraic Observers for Brass Instruments**  
+[ISMA 2014](http://isma.univ-lemans.fr/en/index.html), with [Brigitte d'Andrea-Novel](http://www.mines-paristech.fr/Services/Annuaire/brigitte-dandrea-novel).</div>
+<div>[<i class="fa fa-file-pdf-o"></i>](documents/ISMA 2014 -- Design of Algebraic Observers for Brass Instruments.pdf
+)</div>
+</div>
+</div>
+
+[^MAREVA]: MAREVA is the Applied Mathematics Minor of MINES ParisTech 
+"Master's in Science and Executive Engineering" degree.
+
+
+Papers
+================================================================================
+
+<div class="grid">
+<div>
+<div>**A Core Theory of Delay Systems**  
+Expository paper.</div>
+<div>[<i class="fa fa-link"></i>](https://arxiv.org/abs/1707.02558) / [<i class="fa fa-file-pdf-o"></i>](documents/A Core Theory of Delay Systems.pdf)</div>
+</div>
+<div>
+<div>**Design of Algebraic Observers for Brass Instruments**  
+with [Brigitte d'Andrea-Novel](http://www.mines-paristech.fr/Services/Annuaire/brigitte-dandrea-novel).</div>
+<div>[<i class="fa fa-link"></i>](https://hal-mines-paristech.archives-ouvertes.fr/hal-01068283) / [<i class="fa fa-file-pdf-o"></i>](documents/Design of Algebraic Observers for Brass Instruments.pdf
+)</div>
+</div>
+<div>
+<div>**Growth bound of delay-differential algebraic equations**</div>
+<div>[<i class="fa fa-link"></i>](http://dx.doi.org/10.1016/j.crma.2013.08.001) / [<i class="fa fa-file-pdf-o"></i>](documents/Growth Bound of Delay-Differential Algebraic Equations.pdf)</div>
+</div>
+</div>
+
+
+
+
+
+
+

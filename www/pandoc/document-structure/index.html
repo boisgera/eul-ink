@@ -1,0 +1,266 @@
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, Mines ParisTech">
+  <meta name="dcterms.date" content="2016-02-14">
+  <title>Pandoc – Document Structure</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<link href="css/style.css" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Alegreya:400,400italic,700,700italic|Alegreya+SC:400,400italic,700,700italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"></head>
+<body>
+<header>
+<h1 class="title">Pandoc – Document Structure</h1>
+
+<h2 class="author">
+By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, Mines ParisTech, under <a href="http://creativecommons.org/licenses/by/4.0/">CC-BY-4.0</a>
+</h2> 
+
+<h3 class="date">February 14, 2016</h3>
+</header>
+<p>A specification of the structure of pandoc documents could look like that:</p>
+<blockquote>
+<p>A document is defined by its metadata and a sequence of blocks.</p>
+<p>A block is either a plain text, a paragraph, a code block, …</p>
+<p>A plain text is defined by a sequence of inline elements.</p>
+<p>Inline elements are either text, emphasized text, …</p>
+<p>…</p>
+</blockquote>
+<p>No such document exists, but wait, that may actually be a good thing! What we have instead is a formal definition of the document structure, specified as a collection of <a href="https://www.haskell.org">Haskell</a> types, documented in <a href="http://hackage.haskell.org/package/pandoc-types-1.16.1/docs/Text-Pandoc-Definition.html">Text.Pandoc.Definition</a> on <a href="http://hackage.haskell.org">Hackage</a>.</p>
+<p>Of course, if you have never used the Haskell programming language, you may have a hard time reading this; I know that because I was in the same place not long ago. Actually, this is not that hard: you only need is an elementary introduction to the Haskell type system, with examples taken from pandoc, and this is what we are doing next.</p>
+<section id="the-haskell-interactive-environment" class="level1">
+<h1>The Haskell Interactive Environment</h1>
+<p>To explore the pandoc document structure, we will use the Haskell interactive environment This approach doesn’t require pandoc (the command-line tool), but the associated Haskell packages; they may not be available if you have only performed a basic install of pandoc.</p>
+<p>Make sure that the Haskell interactive environement <a href="https://wiki.haskell.org/GHC/GHCi">GHCi</a> and the Haskell packages associated to pandoc are installed. On Ubuntu for example, you may execute the command</p>
+<pre><code>$ sudo apt-get install libghc-pandoc.*</code></pre>
+<p>and then start GHCi with</p>
+<pre><code>$ ghci</code></pre>
+<p>In this document, we denote commands executed in GHCi with the <code>&gt;</code> prefix; that’s a behavior that you can reproduce if you type</p>
+<pre><code>:set prompt "&gt; "</code></pre>
+<p>once you have started GHCi.</p>
+</section>
+<section id="pandoc-types" class="level1">
+<h1>Pandoc Types</h1>
+<p>We introduce the constructs of Haskell type system that we need, in the context of the pandoc types (more details about the Haskell type system may be found in the <a href="https://wiki.haskell.org/Type">Haskell Wiki</a>).</p>
+<p>To make these type availables, load the <code>Text.Pandoc.Definition</code> module:</p>
+<pre><code>&gt; import Text.Pandoc.Definition</code></pre>
+<section id="the-document-type" class="level2">
+<h2>The Document Type</h2>
+<p>Pandoc documents are represented as values of type <code>Pandoc</code>; to get its definition, type:</p>
+<pre><code>&gt; :info Pandoc
+data Pandoc = Pandoc Meta [Block]
+...</code></pre>
+<p>(the ellipsis denotes details of the output that we have omitted).</p>
+<p>Here is how you should read this: the data type <code>Pandoc</code> (keyword <code>data</code>) is declared with a single constructor, also named <code>Pandoc</code>, whose arguments are:</p>
+<ul>
+<li><p>a value of type <code>Meta</code> (that represents the document metadata),</p></li>
+<li><p>a list (<code>[]</code> notation) of <code>Block</code> values (that represent the document itself).</p></li>
+</ul>
+<p>This is actually all the information we need to build a document – or at least the empty document – because <code>Text.Pandoc.Definition</code> conveniently provides an empty metadata named <code>nullMeta</code>. So we can define</p>
+<pre><code>&gt; let meta = nullMeta</code></pre>
+<p>for blocks, use an empty list</p>
+<pre><code>&gt; let blocks = []</code></pre>
+<p>and use these values to create an empty document:</p>
+<pre><code>&gt; let doc = Pandoc meta blocks</code></pre>
+</section>
+<section id="blocks-and-inlines" class="level2">
+<h2>Blocks and Inlines</h2>
+<p>Consider the <code>Block</code> type:</p>
+<pre><code>&gt; :info Block
+data Block
+  = Plain [Inline]
+  | Para [Inline]
+  | CodeBlock Attr String
+  | RawBlock Format String
+  | BlockQuote [Block]
+  | OrderedList ListAttributes [[Block]]
+  | BulletList [[Block]]
+  | DefinitionList [([Inline], [[Block]])]
+  | Header Int Attr [Inline]
+  | HorizontalRule
+  | Table [Inline] [Alignment] [Double] [TableCell] [[TableCell]]
+  | Div Attr [Block]
+  | Null
+...</code></pre>
+<p>Its has 13 different constructors. Some of the constructors have no arguments, for example the horizontal rule</p>
+<pre><code>&gt; let block = HorizontalRule</code></pre>
+<p>but most of them have arguments of various types:</p>
+<ul>
+<li><p><code>String</code>, <code>Int</code> and <code>Double</code> are Haskell primitive types that represent sequences of characters, integers and (floating-point) numbers,</p></li>
+<li><p>The notation <code>[]</code> is used for lists – homogeneous sequences of varying length – and the <code>(,)</code> notation for tuples – heterogeneous sequences of fixed length. Hence, <code>[[Block]]</code> denotes a list of list of blocks and <code>[([Inline], [[Block]])]</code> a list of pairs of list of inlines and list of list of blocks (ouch!).</p></li>
+<li><p>The burden of complex types based on lists and tuples may be reduced by the use of type aliases (defined with the keyword <code>type</code>). The constructs <code>Attr</code>, <code>Format</code>, <code>ListAttributes</code>, and <code>TableCell</code> are types aliases; for example:</p>
+<pre><code>&gt; :info Attr
+type Attr = (String, [String], [(String, String)])
+&gt; let attr = ("", [], [])</code></pre></li>
+<li><p><code>Format</code> is declared with the <code>newtype</code> keyword</p>
+<pre><code>&gt; :info Format
+newtype Format = Format String
+...</code></pre>
+<p>You can think of it as an mere optimization of the <code>data</code> construct when the type has a simple constructor whose name is the type name. Otherwise, this type is similar to a classic data type; for example, create a <code>Format</code> value with:</p>
+<pre><code>&gt; let format = Format "html"</code></pre></li>
+<li><p>The other types used as arguments are pandoc data types; for example</p>
+<pre><code>&gt; :info Inline
+data Inline
+  = Str String
+  | Emph [Inline]
+  | Strong [Inline]
+  | Strikeout [Inline]
+  | Superscript [Inline]
+  | Subscript [Inline]
+  | SmallCaps [Inline]
+  | Quoted QuoteType [Inline]
+  | Cite [Citation] [Inline]
+  | Code Attr String
+  | Space
+  | LineBreak
+  | Math MathType String
+  | RawInline Format String
+  | Link [Inline] Target
+  | Image [Inline] Target
+  | Note [Block]
+  | Span Attr [Inline]
+...</code></pre>
+<p>You should now be able to understand all constructs used in this definition.</p></li>
+</ul>
+</section>
+<section id="metadata" class="level2">
+<h2>Metadata</h2>
+<p>Let’s import some objects related to the Haskell <code>Map</code> type – a key-value store – extensively used in document metadata:</p>
+<pre><code>&gt; import Data.Map (Map, fromList, empty)</code></pre>
+<p>The <code>fromList</code> function creates a map from a list of key-value pairs and <code>empty</code> is the name of the empty map:</p>
+<pre><code>&gt; empty
+fromList []</code></pre>
+<p>Consider the pandoc <code>Meta</code> type that represents document metadata:</p>
+<pre><code>&gt; :info Meta
+newtype Meta
+  = Meta {unMeta :: Map String MetaValue}</code></pre>
+<p>Let’s discard the use of <code>newtype</code> keyword – we know that it’s similar to <code>data</code>. <code>Meta</code> has a single constructor which is declared as a record – using the <code>{}</code> syntax – with a single field named <code>unMeta</code>. The type of this field is a map with <code>String</code> keys and <code>MetaValue</code> values.</p>
+<p>To define values associated to record constructors, we may use named arguments instead of positional arguments; here:</p>
+<pre><code>&gt; let meta = Meta {unMeta = empty}
+&gt; meta
+Meta {unMeta = fromList []}</code></pre>
+<p>The only other use of the record construct among pandoc types is <code>Citation</code>:</p>
+<pre><code>&gt; :info Citation
+data Citation
+  = Citation {citationId :: String,
+              citationPrefix :: [Inline],
+              citationSuffix :: [Inline],
+              citationMode :: CitationMode,
+              citationNoteNum :: Int,
+              citationHash :: Int}
+...</code></pre>
+</section>
+</section>
+<section id="appendix-pandoc-types-definition" class="level1">
+<h1>Appendix – Pandoc Types Definition</h1>
+<p>To display the complete list of pandoc types definition, type in GHCi:</p>
+<pre><code>&gt; import Data.Map (Map)
+&gt; import Text.Pandoc.Definition
+&gt; :browse</code></pre>
+<p>The output of this command sequence, slightly reformated to enhance readability:</p>
+<pre><code>data Alignment
+  = AlignLeft 
+  | AlignRight 
+  | AlignCenter 
+  | AlignDefault
+
+type Attr = (String, [String], [(String, String)])
+
+data Block
+  = Plain [Inline]
+  | Para [Inline]
+  | CodeBlock Attr String
+  | RawBlock Format String
+  | BlockQuote [Block]
+  | OrderedList ListAttributes [[Block]]
+  | BulletList [[Block]]
+  | DefinitionList [([Inline], [[Block]])]
+  | Header Int Attr [Inline]
+  | HorizontalRule
+  | Table [Inline] [Alignment] [Double] [TableCell] [[TableCell]]
+  | Div Attr [Block]
+  | Null
+
+data Citation
+  = Citation {citationId :: String,
+              citationPrefix :: [Inline],
+              citationSuffix :: [Inline],
+              citationMode :: CitationMode,
+              citationNoteNum :: Int,
+              citationHash :: Int}
+
+data CitationMode 
+  = AuthorInText 
+  | SuppressAuthor 
+  | NormalCitation
+
+newtype Format = Format String
+
+data Inline
+  = Str String
+  | Emph [Inline]
+  | Strong [Inline]
+  | Strikeout [Inline]
+  | Superscript [Inline]
+  | Subscript [Inline]
+  | SmallCaps [Inline]
+  | Quoted QuoteType [Inline]
+  | Cite [Citation] [Inline]
+  | Code Attr String
+  | Space
+  | SoftBreak
+  | LineBreak
+  | Math MathType String
+  | RawInline Format String
+  | Link Attr [Inline] Target
+  | Image Attr [Inline] Target
+  | Note [Block]
+  | Span Attr [Inline]
+
+type ListAttributes = (Int, ListNumberStyle, ListNumberDelim)
+
+data ListNumberDelim 
+  = DefaultDelim 
+  | Period 
+  | OneParen 
+  | TwoParens
+
+data ListNumberStyle
+  = DefaultStyle
+  | Example
+  | Decimal
+  | LowerRoman
+  | UpperRoman
+  | LowerAlpha
+  | UpperAlpha
+
+data MathType 
+  = DisplayMath 
+  | InlineMath
+
+newtype Meta = Meta {unMeta :: Map String MetaValue}
+
+data MetaValue
+  = MetaMap (Map String MetaValue)
+  | MetaList [MetaValue]
+  | MetaBool Bool
+  | MetaString String
+  | MetaInlines [Inline]
+  | MetaBlocks [Block]
+
+data Pandoc = Pandoc Meta [Block]
+
+data QuoteType 
+  = SingleQuote 
+  | DoubleQuote
+
+type TableCell = [Block]
+
+type Target = (String, String)</code></pre>
+<p>Function declarations have been omitted.</p>
+</section>
+
+
+</body></html>

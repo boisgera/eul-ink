@@ -1,0 +1,975 @@
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, Mines ParisTech">
+  <meta name="dcterms.date" content="2019-09-30">
+  <title>Power Series</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: content-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+html {
+  line-height: var(--base-line-height);
+  --base-font-size: 24px;
+  --base-line-height: 36px;
+  --scale-ratio: 1.4142135623730951;
+  --small: 17px;
+  --medium: 24px;
+  --large: 34px;
+  --x-large: 48px;
+  font-size: 24px;
+  font-family: 'Alegreya', serif;
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html em {
+  font-style: italic;
+}
+html strong {
+  font-weight: bold;
+}
+html p, html .p {
+  margin-bottom: var(--base-line-height);
+  text-align: justify;
+  hyphens: auto;
+  -moz-hyphens: auto;
+}
+html section {
+  margin-bottom: var(--base-line-height_px);
+}
+html main {
+  box-sizing: content-box;
+  max-width: 32em;
+  margin: auto;
+  padding: var(--base-line-height);
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, q:before {
+  content: none;
+}
+blockquote:after, q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: medium solid black;
+  border-bottom: medium solid black;
+}
+main > header, main > .header, main > #header {
+  margin-top: calc(2 * var(--base-line-height));
+  margin-bottom: calc(2 * var(--base-line-height));
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: calc(1.5 * var(--base-line-height));
+  margin-top: 0;
+  margin-bottom: var(--base-line-height);
+  font-weight: bold;
+}
+main > header .author, main > .header .author, main > #header .author {
+  font-size: 24px;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  font-weight: normal;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: 'Alegreya SC', serif;
+  line-height: calc(1 * var(--base-line-height));
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  font-weight: bold;
+  line-height: calc(1.25 * var(--base-line-height));
+  margin-top: calc(2.00 * var(--base-line-height));
+  margin-bottom: calc(0.75 * var(--base-line-height));
+}
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+}
+h3, h4, h5, h6 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 1em;
+  display: inline;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
+}
+a:hover {
+  text-decoration: none;
+}
+a:link {
+  color: var(--color);
+}
+a:visited {
+  color: var(--color);
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li {
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  margin-left: var(--base-line-height);
+  padding-left: 0.5em;
+}
+ul li {
+  list-style: disc;
+}
+ol li {
+  list-style: decimal;
+}
+blockquote {
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+  padding: var(--base-line-height);
+  margin-bottom: var(--base-line-height);
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-size: 24px;
+  font-family: Inconsolata;
+}
+pre {
+  overflow-x: auto;
+  background-color: #ebebeb;
+  margin-bottom: var(--base-line-height);
+  padding-left: var(--base-line-height);
+  padding-right: var(--base-line-height);
+  padding-top: var(--base-line-height);
+  padding-bottom: var(--base-line-height);
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: auto;
+}
+figure {
+  margin-bottom: var(--base-line-height);
+  text-align: center;
+}
+figcaption {
+  display: inline-block;
+  font-style: italic;
+  text-align: justify;
+}
+.table {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  margin-bottom: var(--base-line-height);
+}
+thead {
+  border-bottom: medium solid black;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+.MJXc-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+nav#TOC > ul {
+  position: relative;
+  font-weight: bold;
+}
+nav#TOC > ul > * {
+  margin-bottom: var(--base-line-height);
+}
+nav#TOC > ul li {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+nav#TOC > ul ul li {
+  margin-left: var(--base-line-height);
+  font-weight: normal;
+}
+nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+  padding-bottom: var(--base-line-height);
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+.badge {
+  position: relative;
+  bottom: 0.13em;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  font-weight: 300;
+  font-size: var(--small);
+  display: inline-block;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  vertical-align: baseline;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+  margin-right: 1em;
+}
+.section-flag {
+  line-height: var(--base-line-height);
+  font-size: var(--small);
+  font-weight: 300;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  margin-bottom: 0;
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya: 400,700,900,400italic,700italic,900italic|Alegreya+SC:400,700,900,400italic,700italic,900italic|Alegreya+Sans:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+Sans+SC:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var box, hide_proof, main, show_proof;
+
+  hide_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("expanded");
+    sectionWrapper.addClass("minimized");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "visible"
+    });
+    w$(".header-wrapper").css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().css({
+      visibility: "hidden",
+      height: "0px"
+    });
+    w$(".header-wrapper").attr({
+      id: w$("section").first().attr("id")
+    });
+    return w$("section").first().attr({
+      id: ""
+    });
+  };
+
+  show_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("minimized");
+    sectionWrapper.addClass("expanded");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "hidden"
+    });
+    w$(".header-wrapper").css({
+      visibility: "hidden",
+      height: "0"
+    });
+    w$("section").first().css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().attr({
+      id: w$(".header-wrapper").attr("id")
+    });
+    return w$(".header-wrapper").attr({
+      id: ""
+    });
+  };
+
+  box = function(section) {
+    var clone, expand, header, headerWrapper, tombstone, wrapper;
+    clone = section.clone(true);
+    clone.css({
+      marginBottom: "0"
+    });
+    clone.children().last().css({
+      marginBottom: "0"
+    });
+    tombstone = clone.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer",
+      position: "absolute",
+      bottom: "0.75rem",
+      right: "0.75rem"
+    });
+    wrapper = $("<div class='proof-wrapper expanded'></div>");
+    wrapper.css({
+      position: "relative",
+      margin: "-0.75rem -0.75rem 0.75rem -0.75rem",
+      padding: "0.75rem",
+      backgroundColor: "#f9f9f9"
+    });
+    header = clone.find("h3, h4, h5, h6").first().clone();
+    headerWrapper = $("<div class='p header-wrapper' style='margin-bottom:0; visibility:hidden; overflow:hidden; height:0;'> </div>");
+    headerWrapper.append(header);
+    expand = $("<i class='fa fa-caret-down expand' style='visibility:hidden; cursor:pointer; position:absolute; top:0.75rem; right:0.75rem;'> </i>");
+    wrapper.append(headerWrapper);
+    wrapper.append(expand);
+    wrapper.append(clone);
+    expand.on("click", function() {
+      return show_proof(wrapper);
+    });
+    tombstone.on("click", function() {
+      return hide_proof(wrapper);
+    });
+    section.replaceWith(wrapper);
+    return wrapper;
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, section, sections, text, wrapper;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      wrapper = box(section);
+      hide_proof(wrapper);
+    }
+    return $(document).keydown(function(event) {
+      var k, l, len2, len3, ref1, ref2, results, sectionWrapper;
+      console.log("***", event.keyCode);
+      if (event.keyCode === 88) {
+        ref1 = $(".proof-wrapper.minimized");
+        for (k = 0, len2 = ref1.length; k < len2; k++) {
+          sectionWrapper = ref1[k];
+          show_proof($(sectionWrapper));
+        }
+      }
+      if (event.keyCode === 77) {
+        ref2 = $(".proof-wrapper.expanded");
+        results = [];
+        for (l = 0, len3 = ref2.length; l < len3; l++) {
+          sectionWrapper = ref2[l];
+          results.push(hide_proof($(sectionWrapper)));
+        }
+        return results;
+      }
+    });
+  };
+
+  $(main);
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var make_preview, mathjaxDebug;
+
+  make_preview = function(elt) {
+    var card, hidden_css, hide_preview, id, ref, show_preview, url, visible_css;
+    ref = elt.attr("href").split("#"), url = ref[0], id = ref[1];
+    card = $("<div class='card'>\n  <div class='holder'>\n    <p>Placeholder</p>\n  </div>\n</div>");
+    card.css({
+      width: "35vw",
+      padding: "1.5rem",
+      position: "fixed",
+      top: "1.5rem",
+      right: "1.5rem",
+      boxSizing: "border-box",
+      maxHeight: "calc(100vh - 3rem)",
+      overflow: "hidden",
+      boxShadow: "0 0 1rem #e6e6e6",
+      backgroundColor: "white"
+    });
+    visible_css = {
+      visibility: "visible",
+      opacity: 1,
+      transform: "translateX(0em)",
+      transition: "all 0.3s linear"
+    };
+    hidden_css = {
+      visibility: "hidden",
+      opacity: 0,
+      transform: "translateX(1em)",
+      transition: "all 0.3s linear 0.5s"
+    };
+    card.css(hidden_css);
+    elt.css({
+      textDecoration: "underline solid #0a0a0a",
+      textDecorationSkip: "ink",
+      transition: "background-color 0.3s linear"
+    });
+    show_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d3"
+      });
+      return card.css(visible_css);
+    };
+    hide_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d300"
+      });
+      return card.css(hidden_css);
+    };
+    return card.find(".holder").load(url + (" [id='" + id + "']"), function(response, status, jxXHR) {
+      console.log("XHR status:", status, url, id);
+      if (status === "success" || status === "notmodified") {
+        console.log("success!");
+        console.log("elt:", $(elt));
+        $("body").append(card);
+        card.find("p, .p").css({
+          textAlign: "left"
+        });
+        card.find("section").css({
+          marginBottom: "0"
+        });
+        card.find("section").children().last().css({
+          marginBottom: "0"
+        });
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, card[0]]);
+        elt.on("mouseenter", show_preview);
+        return elt.on("mouseleave", hide_preview);
+      }
+    });
+  };
+
+  mathjaxDebug = function() {
+    MathJax.Hub.signal.Interest(function(message) {
+      return console.log("*", message);
+    });
+    return MathJax.Hub.Register.StartupHook("End Process", function() {
+      var i, jax, len, ref, results;
+      console.log("list of jaxes:");
+      ref = MathJax.Hub.getAllJax();
+      results = [];
+      for (i = 0, len = ref.length; i < len; i++) {
+        jax = ref[i];
+        results.push(console.log("jax:", jax));
+      }
+      return results;
+    });
+  };
+
+  $(function() {
+    var elt, i, len, ref, results;
+    ref = $("a.preview");
+    results = [];
+    for (i = 0, len = ref.length; i < len; i++) {
+      elt = ref[i];
+      results.push(make_preview($(elt)));
+    }
+    return results;
+  });
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">Power Series</a></h1>
+
+<h2 class="author">
+By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, <a href="http://www.mines-paristech.fr/">Mines ParisTech</a>, under <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+</h2> 
+
+<h3 class="date" style="margin-right: 0px;">September 30, 2019</h3>
+</header>
+<section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
+<ul>
+<li class="top-li"><p class="section-flag">section 1</p><a href="#convergence-of-power-series">Convergence of Power Series</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--theorem--radius-of-convergence.">Radius of Convergence</a></li>
+<li></li>
+<li><span class="badge">exa<span></span></span><a href="#example--a-geometric-series.">A Geometric Series</a></li>
+<li><span class="badge">exa<span></span></span><a href="#example--a-lacunary-series.">A Lacunary Series</a></li>
+<li><span class="badge">lem<span></span></span><a href="#lemma--multiplication-of-power-series-coefficients.">Multiplication of Power Series Coefficients</a></li>
+<li></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--locally-normal-convergence.">Locally Normal Convergence</a></li>
+<li></li>
+<li><span class="badge">rem<span></span></span><a href="#remark--other-types-of-convergence.">Other Types of Convergence</a></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 2</p><a href="#power-series-and-holomorphic-functions">Power Series and Holomorphic Functions</a><ul>
+<li><span class="badge">the<span></span></span><a href="#theorem--power-series-derivative.">Power Series Derivative</a></li>
+<li><span class="badge">lem<span></span></span><a href="#lemma.">Lemma</a></li>
+<li></li>
+<li></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--definition--taylor-series.">Taylor Series</a></li>
+<li></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--power-series-expansion.">Power Series Expansion</a></li>
+<li></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 3</p><a href="#laurent-series">Laurent Series</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--annulus.">Annulus</a></li>
+<li><span class="badge">exa<span></span></span><a href="#examples--annuli.">Annuli</a></li>
+<li><span class="badge">def<span></span></span><a href="#definition--laurent-series.">Laurent Series</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--convergence-of-laurent-series.">Convergence of Laurent Series</a></li>
+<li></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--laurent-series-expansion.">Laurent Series Expansion</a></li>
+<li></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 4</p><a href="#notes">Notes</a></li></ul>
+</nav></section>
+<section id="convergence-of-power-series" class="level1">
+<h1><a href="#convergence-of-power-series">Convergence of Power Series</a></h1>
+<section id="definition--theorem--radius-of-convergence." class="level3">
+
+<div class="p"><h3><a href="#definition--theorem--radius-of-convergence.">Definition &amp; Theorem – Radius of Convergence.</a></h3>‌ Let <span class="math inline">\(c \in \mathbb{C}\)</span> and <span class="math inline">\(a_n \in \mathbb{C}\)</span> for every <span class="math inline">\(n \in \mathbb{N}\)</span>. The <em>radius of convergence</em> of the power series <span class="math display">\[
+  \sum_{n = 0}^{+\infty} a_{n} (z-c)^{n}
+  \]</span> is the unique <span class="math inline">\(r \in [0,+\infty]\)</span> such that the series converges if <span class="math inline">\(|z - c|&lt; r\)</span> and diverges if <span class="math inline">\(|z - c| &gt; r.\)</span> The disk <span class="math inline">\(D(c,r)\)</span> – the largest open disk centered on <span class="math inline">\(c\)</span> where the series converges – is the <em>open disk of convergence</em> of the series.</div>
+<p>The radius of convergence <span class="math inline">\(r\)</span> is the inverse of the <em>growth ratio</em> of the sequence <span class="math inline">\(a_n,\)</span> defined as the infimum in <span class="math inline">\([0,+\infty]\)</span> of the set of values <span class="math inline">\(\sigma \in [0,+\infty)\)</span> such that <span class="math inline">\(a_n\)</span> is eventually dominated by <span class="math inline">\(\sigma^n\)</span>: <span class="math display">\[
+  \exists \, m \in \mathbb{N}, \;
+  \forall \, n \in \mathbb{N}, \; 
+  (n \geq m) \, \Rightarrow \, |a_{n}| \leq \sigma^{n}.
+  \]</span> (or equivalently, such that <span class="math inline">\(\exists \, \kappa &gt; 0,\)</span> <span class="math inline">\(\forall \, n \in \mathbb{N},\)</span> <span class="math inline">\(|a_{n}| \leq \kappa \sigma^{n}.\)</span>) This growth ratio is equal to <span class="math inline">\(\limsup_{{n} \to +\infty} |a_{n}|^{1/{n}},\)</span> which leads to the Cauchy-Hadamard formula<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>: <span class="math display">\[
+  r = \frac{1}{\displaystyle \limsup_{n \to +\infty} |a_{n}|^{1/{n}}}.
+  \]</span> By convention here, <span class="math inline">\(1/0 = +\infty\)</span> and <span class="math inline">\(1/(+\infty) = 0.\)</span></p>
+</section>
+<section id="proof." class="level3">
+
+<div class="p"><h3><a href="#proof.">Proof.</a></h3>‌Let <span class="math inline">\(\rho\)</span> be the growth ratio of the sequence <span class="math inline">\(a_n.\)</span> If a complex number <span class="math inline">\(z\)</span> satisfies <span class="math inline">\(|z - c| &lt; \rho^{-1},\)</span> <span class="math inline">\(\rho\)</span> is finite and there is a <span class="math inline">\(\sigma &gt; \rho\)</span> such that <span class="math inline">\(|z-c| &lt; \sigma^{-1}.\)</span> Eventually, we have <span class="math inline">\(|a_n| \leq \sigma^n\)</span> and thus <span class="math display">\[
+  |a_n (z - c)^n| \leq (\sigma |z-c|)^n.
+  \]</span> As <span class="math inline">\(\sigma |z-c| &lt; 1,\)</span> the series <span class="math inline">\(\sum_{n=0}^{+\infty} a_n (z-c)^n\)</span> is convergent. Conversely, if <span class="math inline">\(|z - c| &gt; \rho^{-1},\)</span> <span class="math inline">\(\rho &gt; 0\)</span> and there is a <span class="math inline">\(\sigma &lt; \rho\)</span> such that <span class="math inline">\(|z-c| &gt; \sigma^{-1}.\)</span> As <span class="math inline">\(\sigma &lt; \rho,\)</span> there is a strictly increasing sequence of <span class="math inline">\(n \in \mathbb{N}\)</span> such that <span class="math inline">\(|a_n| &gt; \sigma^n\)</span> and thus <span class="math inline">\(|a_n (z - c)^n| &gt; (\sigma \sigma^{-1})^n = 1.\)</span> Since its terms do not converge to zero, the series <span class="math inline">\(\sum_{n=0}^{+\infty} a_n (z-c)^n\)</span> is divergent.</div>
+<p>We now prove that the growth ratio of <span class="math inline">\(|a_n|\)</span> is equal <span class="math inline">\(\limsup_n |a_n|^{1/n}.\)</span> Indeed, for any <span class="math inline">\(\sigma\)</span> greater than the growth ratio <span class="math inline">\(\rho,\)</span> eventually <span class="math inline">\(|a_n| \leq \sigma^n,\)</span> hence <span class="math inline">\(|a_n|^{1/n} \leq \sigma\)</span> and <span class="math inline">\(\limsup_n |a_n|^{1/n} \leq \sigma,\)</span> therefore <span class="math inline">\(\limsup_n |a_n|^{1/n} \leq \rho.\)</span> Conversely, if <span class="math inline">\(\sigma\)</span> is smaller than the growth ratio, there is a strictly increasing sequence of <span class="math inline">\(n \in \mathbb{N}\)</span> such that <span class="math inline">\(|a_n| &gt; \sigma^n,\)</span> hence <span class="math inline">\(|a_n|^{1/n} &gt; \sigma\)</span> and <span class="math inline">\(\limsup_n |a_n|^{1/n} \geq \sigma,\)</span> thus <span class="math inline">\(\limsup_n |a_n|^{1/n} \geq \rho.\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+<section id="example--a-geometric-series." class="level3">
+
+<div class="p"><h3><a href="#example--a-geometric-series.">Example – A Geometric Series.</a></h3>‌ Consider the power series <span class="math display">\[
+  \sum_{n=0}^{+\infty} (-1/2)^n z^n.
+  \]</span> Since <span class="math inline">\(|(-1/2)^n| = 1/2^n \leq \sigma^n\)</span> eventually if and only if <span class="math inline">\(\sigma \geq 1/2,\)</span> the growth bound of the geometric sequence <span class="math inline">\((-1/2)^n\)</span> is <span class="math inline">\(1/2.\)</span> Thus the open disk of convergence of this power series is <span class="math inline">\(D(0,2).\)</span></div>
+</section>
+<section id="example--a-lacunary-series." class="level3">
+
+<div class="p"><h3><a href="#example--a-lacunary-series.">Example – A Lacunary Series.</a></h3>‌ Consider the power series: <span class="math display">\[
+  \sum_{n=0}^{+\infty} z^{2^n} = z + z^2 + z^4 + z^8 + \cdots.
+  \]</span> The “lacunary” adjective refers to the large gaps between nonzero coefficients; These coefficients are defined by <span class="math display">\[
+  a_n = 
+  \left|
+  \begin{array}{ll}
+  1 &amp; \mbox{ if } \; \exists \, p \in \mathbb{N}, \; n = 2^p, \\
+  0 &amp; \mbox{ otherwise.}
+  \end{array}
+  \right.
+  \]</span> It is plain that <span class="math inline">\(|a_n| \leq \sigma^n\)</span> eventually if and only if <span class="math inline">\(\sigma \geq 1.\)</span> Hence the growth bound of the sequence if <span class="math inline">\(1\)</span> and the open disk of convergence of the power series is <span class="math inline">\(D(0,1).\)</span></div>
+</section>
+<section id="lemma--multiplication-of-power-series-coefficients." class="level3">
+
+<div class="p"><h3><a href="#lemma--multiplication-of-power-series-coefficients.">Lemma – Multiplication of Power Series Coefficients.</a></h3>‌ The radius of convergence of the power series <span class="math inline">\(\sum_{n=0}^{+\infty} a_n b_n (z-c)^n\)</span> is at least the product of the radii of convergence of the series <span class="math inline">\(\sum_{n=0}^{+\infty} a_n (z-c)^n\)</span> and <span class="math inline">\(\sum_{n=0}^{+\infty} b_n (z-c)^n\)</span>. In particular, for any nonzero polynomial sequence <span class="math display">\[
+  a_n = \alpha_0 + \alpha_1 n + \dots + \alpha_p n^p,
+  \]</span> the radii of convergence of <span class="math inline">\(\sum_{n=0}^{+\infty} a_n b_n (z-c)^n\)</span> and <span class="math inline">\(\sum_{n=0}^{+\infty} b_n (z-c)^n\)</span> are identical.</div>
+</section>
+<section id="proof.-1" class="level3">
+
+<div class="p"><h3><a href="#proof.-1">Proof.</a></h3>‌ Denote by <span class="math inline">\(\rho_a\)</span> and <span class="math inline">\(\rho_b\)</span> the respective growth bounds of the sequences <span class="math inline">\(a_n\)</span> and <span class="math inline">\(b_n\)</span>; the growth bound of the product sequence <span class="math inline">\(a_n b_n\)</span> is at most <span class="math inline">\(\rho_a \rho_b\)</span>: for any <span class="math inline">\(\sigma &gt; \rho_a \rho_b,\)</span> we may find some <span class="math inline">\(\sigma_a &gt; \rho_a\)</span> and <span class="math inline">\(\sigma_b &gt; \rho_b\)</span> such that <span class="math inline">\(\sigma= \sigma_a \sigma_b.\)</span> Since <span class="math inline">\(|a_n| \leq (\sigma_a)^n\)</span> and <span class="math inline">\(|b_n| \leq (\sigma_b)^n\)</span> eventually, <span class="math inline">\(|a_n b_n| \leq \sigma^n\)</span> eventually.</div>
+<p>The growth bound of any polynomial sequence <span class="math inline">\(a_n\)</span> is at most <span class="math inline">\(1\)</span>: the inequality <span class="math display">\[|\alpha_0 + \alpha_1 n + \dots + \alpha_p n^p| \leq \rho^n\]</span> holds for any <span class="math inline">\(\rho &gt; 1\)</span> eventually. Now, for any nonzero polynomial sequence <span class="math inline">\(a_n\)</span> and any sequence <span class="math inline">\(b_n\)</span>, eventually <span class="math inline">\(|b_n|\)</span> is dominated by a multiple of <span class="math inline">\(|a_n b_n|\)</span>, thus the growth bound of <span class="math inline">\(|b_n|\)</span> is at most the growth bound of <span class="math inline">\(|a_n b_n|\)</span>. Reciprocally, the growth bound of <span class="math inline">\(|a_n b_n|\)</span> is at most the product of the growth bound of <span class="math inline">\(|a_n|\)</span> – at most one – and the growth bound of <span class="math inline">\(|b_n|\)</span> and thus at most the growth bound of <span class="math inline">\(|b_n|\)</span>. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+<section id="theorem--locally-normal-convergence." class="level3">
+
+<div class="p"><h3><a href="#theorem--locally-normal-convergence.">Theorem – Locally Normal Convergence.</a></h3>‌ The convergence of the power series <span class="math inline">\(\sum_{n=0}^{+\infty} a_n(z-c)^n\)</span> in its open disk of convergence <span class="math inline">\(D(c,r)\)</span> is <em>locally normal</em>: for any <span class="math inline">\(z \in D(c,r)\)</span>, there is an open neighbourghood <span class="math inline">\(U\)</span> of <span class="math inline">\(z\)</span> in <span class="math inline">\(D(c,r)\)</span> such that <span class="math display">\[
+  \exists \, \kappa &gt; 0, \;
+  \forall \, z \in U, \;
+  \sum_{n=0}^{+\infty} |a_n(z-c)^n| \leq \kappa
+  \]</span> or equivalently, for every compact subset <span class="math inline">\(K\)</span> of <span class="math inline">\(D(c,r),\)</span> <span class="math display">\[
+  \exists \, \kappa &gt; 0, \;
+  \forall \, z \in K, \;
+  \sum_{n=0}^{+\infty} |a_n(z-c)^n| \leq \kappa. 
+  \]</span></div>
+</section>
+<section id="proof.-2" class="level3">
+
+<div class="p"><h3><a href="#proof.-2">Proof.</a></h3>‌ If <span class="math inline">\(K\)</span> is compact subset of <span class="math inline">\(D(c,r)\)</span> and <span class="math inline">\(\rho = \sup \, \{|z-c| \; | \; z \in K\},\)</span> <span class="math display">\[
+  \forall \, z \in K, \; 
+  \sum_{n=0}^{+\infty} |a_n(z-c)^n| \leq \sum_{n=0}^{+\infty} |a_n| \rho^n.
+  \]</span> Since the growth bound of the sequence <span class="math inline">\(a_n\)</span> and <span class="math inline">\(|a_n|\)</span> are identical, the radius of convergence of the series <span class="math inline">\(\sum_{n=0}^{+\infty} |a_n| (z-c)^n\)</span> is <span class="math inline">\(r.\)</span> Given that <span class="math inline">\(\rho &lt; r,\)</span> the series <span class="math inline">\(\sum_{n=0}^{+\infty} |a_n| \rho^n\)</span> is convergent; all its terms are non-negative real numbers, thus the sum is finite: there is a <span class="math inline">\(\kappa&gt;0\)</span> such that <span class="math inline">\(\sum_{n=0}^{+\infty} |a_n| \rho^n \leq \kappa.\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="remark--other-types-of-convergence." class="level3">
+
+<div class="p"><h3><a href="#remark--other-types-of-convergence.">Remark – Other Types of Convergence.</a></h3>‌ The locally normal convergence implies the <em>absolute convergence</em>: <span class="math display">\[
+  \forall \, z \in D(c, r), \;
+  \sum_{n=0}^{+\infty} |a_n(z-c)^n| &lt; + \infty.
+  \]</span> It also provides the <em>locally uniform convergence</em>: on any compact subset <span class="math inline">\(K\)</span> of <span class="math inline">\(D(c,r),\)</span> the partial sums <span class="math inline">\(\sum_{n=0}^p a_n(z-c)^n\)</span> converge uniformly to the sum <span class="math inline">\(\sum_{n=0}^{+\infty} a_n(z-c)^n\)</span>: <span class="math display">\[
+  \lim_{p\to +\infty}   
+  \sup_{z \in K} 
+  \left|\sum_{n=0}^p a_n(z-c)^n - \sum_{n=0}^{+\infty} a_n(z-c)^n \right|
+  = 0.
+  \]</span></div>
+</section>
+</section>
+<section id="power-series-and-holomorphic-functions" class="level1">
+<h1><a href="#power-series-and-holomorphic-functions">Power Series and Holomorphic Functions</a></h1>
+<section id="theorem--power-series-derivative." class="level3">
+
+<div class="p"><h3><a href="#theorem--power-series-derivative.">Theorem – Power Series Derivative.</a></h3>‌ A power series and its <em>formal derivative</em> <span class="math display">\[
+  \sum_{n = 0}^{+\infty} a_{n} (z-c)^{n}
+  \; \mbox{ and } \;
+  \sum_{n = 1}^{+\infty} n a_{n} (z-c)^{n-1}.
+  \]</span> have the same radius of convergence <span class="math inline">\(r.\)</span> The sum <span class="math display">\[f: z \in  D(c,r) \mapsto \sum_{n=0}^{+\infty} a_n (z-c)^n\]</span> is holomorphic; its derivative is the sum of the formal derivative: <span class="math display">\[
+  \forall \, z \in  D(c,r), \; f'(z) = \sum_{n=1}^{+\infty} n a_{n} (z-c)^{n-1}.
+  \]</span> More generally, the <span class="math inline">\(p\)</span>-th order derivative of <span class="math inline">\(f\)</span> is defined for any <span class="math inline">\(p \in \mathbb{N}\)</span> and <span class="math display">\[
+  \forall \, z \in  D(c,r), \; 
+  f^{(p)}(z) = \sum_{n=p}^{+\infty} n(n-1) \cdots (n-p+1) a_n (z-c)^{n-p}.
+  \]</span></div>
+</section>
+<section id="lemma." class="level3">
+
+<div class="p"><h3><a href="#lemma.">Lemma.</a></h3>‌For any <span class="math inline">\(z \in \mathbb{C},\)</span> <span class="math inline">\(h \in \mathbb{C}^*\)</span> and <span class="math inline">\(n \geq 2,\)</span> <span class="math display">\[
+  \left| \frac{(z+h)^n - z^n}{h} - n z^{n-1} \right|
+  \leq 
+  \frac{n(n-1)}{2} (|z| +|h|)^{n-2} |h|.
+  \]</span></div>
+</section>
+<section id="proof--lemma." class="level3">
+<h3><a href="#proof--lemma.">Proof – Lemma.</a></h3>
+‌Using the identity <span class="math inline">\(a^n - b^n = (a-b) \sum_{m=0}^{n-1} a^m b^{n-1-m}\)</span> yields <span class="math display">\[
+   (z+h)^n - z^n = h \sum_{m=0}^{n-1} (z+h)^m z^{n-1-m},
+   \]</span> hence
+\begin{eqnarray*}
+   \frac{(z+h)^n - z^n}{h} - n z^{n-1}
+   &amp;=&amp;
+   \sum_{m=0}^{n-1} (z+h)^m z^{n-1-m}
+   -
+   \sum_{m=0}^{n-1} z^m z^{n-1-m} \\
+   &amp;=&amp;
+   \sum_{m=0}^{n-1} \left[(z+h)^m - z^m\right] z^{n-1-m}.
+   \end{eqnarray*}
+By the same identity, we also have <span class="math display">\[
+   \left| (z+h)^m - z^m \right|
+   =
+   \left| h \sum_{l=0}^{m-1} (z+h)^{l} z^{m-1-l} \right|
+   \leq
+   m (|z| + |h|)^{m - 1} |h|.
+   \]</span> Therefore
+\begin{eqnarray*}
+   \left| \frac{(z+h)^n - z^n}{h} - n z^{n-1} \right|
+   &amp;\leq&amp;
+   \left[
+     \sum_{m=0}^{n-1} m \ (|z| + |h|)^{m - 1} (|z| + |h|)^{n - 1 - m}
+   \right] |h| \\
+   &amp;\leq&amp;
+   \frac{n(n-1)}{2} (|z| + |h|)^{n - 2} |h|
+   \end{eqnarray*}
+<p>as expected. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+<section id="proof--power-series-derivative." class="level3">
+
+<div class="p"><h3><a href="#proof--power-series-derivative.">Proof – Power Series Derivative.</a></h3>‌ Let <span class="math inline">\(D(c,r)\)</span> be the open disk of convergence of the series <span class="math display">\[
+  f(z) = \sum_{n = 0}^{+\infty} a_n (z-c)^{n}.
+  \]</span> The radii of convergence of the series <span class="math display">\[
+\sum_{n = 1}^{+\infty} na_n (z-c)^{n-1}
+\; \mbox{ and } \;
+\sum_{n = 0}^{+\infty} na_n (z-c)^{n}
+\]</span> are equal. Since the coefficient sequence of the latter series is the product of <span class="math inline">\(a_n\)</span> and a nonzero polynomial sequence, the open radius of convergence of <span class="math inline">\(f\)</span> and of its the formal derivative are identical. For any <span class="math inline">\(z \in D(c,r)\)</span> and any complex number <span class="math inline">\(h\)</span> such that <span class="math inline">\(0 &lt; |h| &lt; r\)</span>, define <span class="math inline">\(e(z, h)\)</span> as <span class="math display">\[
+  e(z, h) = \frac{f(z+h) - f(z)}{h} - \sum_{n = 1}^{+\infty} n a_{n} (z-c)^{n-1}.
+  \]</span> A straightforward calculation leads to <span class="math display">\[
+  e(z, h)
+  =
+  \sum_{n=1}^{+\infty} a_{n} \left[\frac{(z + h - c)^{n} - (z - c)^n}{h} - n(z-c)^{n-1} \right],
+  \]</span> hence, using the lemma, we obtain <span class="math display">\[
+  \left| e(z,h) \right|
+  \leq
+  \left[\sum_{n = 2}^{+\infty} \frac{n(n - 1)}{2} |a_{n}| (|z - c| + |h|)^{n-2}\right] \times |h|.
+  \]</span> The power series <span class="math display">\[
+  \sum_{n = 2}^{+\infty} \frac{n(n - 1)}{2} |a_{n}| z^{n-2}
+  \]</span> has the same radius of convergence than <span class="math display">\[
+  \sum_{n = 2}^{+\infty} \frac{n(n - 1)}{2} a_{n} (z - c)^{n-2}
+  \]</span> which is the the formal derivative of order 2 of the original series, hence the three series have the same radius of convergence <span class="math inline">\(r.\)</span> Consequently, for any <span class="math inline">\(h\)</span> such that <span class="math inline">\(|z-c| + |h| &lt; r,\)</span> <span class="math display">\[
+  \sum_{n = 2}^{+\infty} \frac{n(n - 1)}{2} |a_{n}| (|z - c| + |h|)^{n-2} &lt; + \infty
+  \]</span> and therefore <span class="math display">\[
+  \lim_{h \to 0} \frac{f(z+h) - f(z)}{h} = \sum_{n = 1}^{+\infty} n a_{n} (z-c)^{n-1}.
+  \]</span> The statement about the <span class="math inline">\(p\)</span>-th order derivative of <span class="math inline">\(f\)</span> can be obtained by a simple induction on <span class="math inline">\(p.\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="theorem--definition--taylor-series." class="level3">
+
+<div class="p"><h3><a href="#theorem--definition--taylor-series.">Theorem &amp; Definition – Taylor Series.</a></h3>‌ If the complex-valued function <span class="math inline">\(f\)</span> has a power series expansion centered at <span class="math inline">\(c\)</span> inside the non-empty open disk <span class="math inline">\(D(c,r),\)</span> it is the <em>Taylor series</em> of <span class="math inline">\(f\)</span>: <span class="math display">\[
+  \forall \, z \in D(c,r), \; 
+  f(z) = \sum_{n=0}^{+\infty} \frac{f^{(n)}(c)}{n!} (z-c)^n.
+  \]</span></div>
+</section>
+<section id="proof.-3" class="level3">
+
+<div class="p"><h3><a href="#proof.-3">Proof.</a></h3>‌If <span class="math inline">\(f(z) = \sum_{n=0}^{+\infty} a_n (z - c)^n,\)</span> then for any <span class="math inline">\(p \in \mathbb{N},\)</span> the <span class="math inline">\(p\)</span>-th order derivative of <span class="math inline">\(f\)</span> inside <span class="math inline">\(D(c, r)\)</span> is given by <span class="math display">\[
+  f^{(p)}(z) = \sum_{n=p}^{+\infty} n(n-1) \dots (n-p+1) a_n (z - c)^{n-p}
+  \]</span> and consequently, <span class="math inline">\(f^{(p)}(c) = p ! a_p.\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+
+</section><section><p>Note that the above theorem is only a uniqueness result; it says nothing about the existence of the power series expansion. This is the role of the following theorem.</p></section>
+<section id="theorem--power-series-expansion." class="level3">
+
+<div class="p"><h3><a href="#theorem--power-series-expansion.">Theorem – Power Series Expansion.</a></h3>‌ Let <span class="math inline">\(\Omega\)</span> be an open subset of <span class="math inline">\(\mathbb{C},\)</span> let <span class="math inline">\(c \in \Omega\)</span> and <span class="math inline">\(r \in \left]0,+\infty\right]\)</span> such that the open disk <span class="math inline">\(D(c, r)\)</span> is included in <span class="math inline">\(\Omega.\)</span> For any holomorphic function <span class="math inline">\(f: \Omega \to \mathbb{C},\)</span> there is a power series with coefficients <span class="math inline">\(a_n\)</span> such that <span class="math display">\[
+  \forall \, z\in D(c,r), \; f(z) = \sum_{n=0}^{+\infty} a_n (z-c)^n.
+  \]</span> Its coefficients are given by <span class="math display">\[
+  \forall \, \rho \in \left]0,r\right[, \;
+  a_n 
+  = 
+  \frac{1}{i2\pi} 
+  \int_{\gamma} 
+  \frac{f(z)}{(z-c)^{n+1}}
+  \, dz
+  \; \mbox{ with } \; 
+  \gamma = c + \rho[\circlearrowleft].
+  \]</span></div>
+</section>
+<section id="proof--power-series-expansion." class="level3">
+
+<div class="p"><h3><a href="#proof--power-series-expansion.">Proof – Power Series Expansion.</a></h3>‌ For any <span class="math inline">\(n \in \mathbb{N},\)</span> the complex number <span class="math display">\[
+  a_n = \frac{1}{i2\pi} \int_{\gamma} \frac{f(z)}{(z-c)^{n+1}}\, dz
+  \; \mbox{ with } \; 
+  \gamma = c + \rho[\circlearrowleft]
+  \]</span> is independent of <span class="math inline">\(\rho\)</span> as long as <span class="math inline">\(0 &lt;\rho &lt;r.\)</span> Indeed, if <span class="math inline">\(\rho_1\)</span> and <span class="math inline">\(\rho_2\)</span> are two such numbers, denote <span class="math inline">\(\gamma_1 = c + \rho_1 [\circlearrowleft]\)</span> and <span class="math inline">\(\gamma_2 = c + \rho_2 [\circlearrowleft].\)</span> The interior of the sequence of paths <span class="math inline">\(\mu = \gamma_{1} \, | \, \gamma_2^{\leftarrow}\)</span> is included in <span class="math inline">\(D(c, r) \setminus \{c\}\)</span> where the function <span class="math inline">\(z \mapsto {f(z)/}{(z-c)^{n+1}}\)</span> is holomorphic. Hence, by Cauchy’s integral theorem, <span class="math display">\[
+  \int_{\mu} \frac{f(z)}{(z-c)^{n+1}}\, dz =
+  \int_{\gamma_1} 
+  \frac{f(z)}{(z-c)^{n+1}}\, dz
+  -
+  \int_{\gamma_2} 
+  \frac{f(z)}{(z-c)^{n+1}}\, dz
+  = 0.
+  \]</span></div>
+<p>Now, let <span class="math inline">\(z \in D(c, r)\)</span> and let <span class="math inline">\(\rho \in \left]0,r \right[\)</span> such that <span class="math inline">\(|z-c| &lt; \rho.\)</span> Cauchy’s integral formula provides <span class="math display">\[
+  f(z) = \frac{1}{i2\pi} \int_{\gamma} \frac{f(w)}{w-z} \, dw.
+  \]</span> For any <span class="math inline">\(w \in \gamma([0,1]),\)</span> we have <span class="math display">\[
+  \frac{1}{w-z} 
+  = 
+  \frac{1}{(w-c) - (z-c)} 
+  = 
+  \frac{1}{w-c}\frac{1}{1 - \frac{z-c}{w-c}}.
+  \]</span> Since <span class="math display">\[
+  \left|\frac{z-c}{w-c}\right| 
+  = 
+  \frac{|z-c|}{\rho} &lt; 1,
+  \]</span> we may expand <span class="math inline">\(f(w)/(w-z)\)</span> into <span class="math display">\[
+  \frac{f(w)}{w-z} 
+  =
+  \frac{f(w)}{w-c}\frac{1}{1 - \frac{z-c}{w-c}}
+  =
+  \sum_{n=0}^{+\infty} \frac{f(w)}{w-c} \left(\frac{z-c}{w-c}\right)^n.
+  \]</span> The term of this series is dominated by <span class="math display">\[
+  \frac{\sup_{|w-c|=\rho} |f(w)|}{\rho} \left(\frac{|z-c|}{\rho}\right)^n;
+  \]</span> the convergence of the series is normal – and thus uniform – with respect to the variable <span class="math inline">\(w.\)</span> Finally <span class="math display">\[
+  \begin{split}
+  f(z) &amp;=
+  \frac{1}{i2\pi}
+  \int_{\gamma} 
+  \left[
+    \sum_{n=0}^{+\infty}\frac{f(w)}{(w-c)^{n+1}}(z-c)^n
+  \right] dw \\ 
+  &amp;=
+  \sum_{n=0}^{+\infty}
+  \left[
+  \frac{1}{i2\pi}
+  \int_{\gamma}\frac{f(w)}{(w-c)^{n+1}}(z-c)^n \, dw
+  \right]\\
+  &amp;=
+  \sum_{n=0}^{+\infty}
+  \left[
+  \frac{1}{i2\pi}
+  \int_{\gamma}\frac{f(w)}{(w-c)^{n+1}} \, dw
+  \right] (z-c)^n
+  \end{split}
+  \]</span> which is the desired expansion. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+</section>
+<section id="laurent-series" class="level1">
+<h1><a href="#laurent-series">Laurent Series</a></h1>
+<section id="definition--annulus." class="level3">
+
+<div class="p"><h3><a href="#definition--annulus.">Definition – Annulus.</a></h3>‌ Let <span class="math inline">\(c \in \mathbb{C}\)</span> and <span class="math inline">\(r_1, r_2 \in [0, +\infty].\)</span> We denote by <span class="math display">\[
+  A(c, r_1, r_2) 
+  = 
+  \{
+  z \in \mathbb{C} 
+  \; | \;
+  r_1 &lt; |z-c| &lt; r_2
+  \}
+  \]</span> the <em>open annulus</em> with <em>center</em> <span class="math inline">\(c,\)</span> <em>inner radius</em> <span class="math inline">\(r_1\)</span> and <em>outer radius</em> <span class="math inline">\(r_2.\)</span></div>
+</section>
+<section id="examples--annuli." class="level3">
+
+<div class="p"><h3><a href="#examples--annuli.">Examples – Annuli.</a></h3>‌</div>
+<ol type="1">
+<li><p>The open annulus <span class="math inline">\(A(0, 0, +\infty),\)</span> centered on the origin, with inner radius <span class="math inline">\(0\)</span> and outer radius <span class="math inline">\(+\infty,\)</span> is the set <span class="math inline">\(\mathbb{C}^*.\)</span></p></li>
+<li><p>The sets <span class="math inline">\(A(0,0,1),\)</span> <span class="math inline">\(A(0,1,2)\)</span> and <span class="math inline">\(A(0,2,+\infty)\)</span> are three open annuli centered on the origin and included in the open set <span class="math inline">\(\Omega = \mathbb{C} \setminus \{i,2\}.\)</span> They are maximal in <span class="math inline">\(\Omega\)</span> – if we decrease their inner radius and/or increase their outer radius the resulting annulus is not a subset of <span class="math inline">\(\Omega\)</span> anymore.</p></li>
+</ol>
+</section>
+<section id="definition--laurent-series." class="level3">
+
+<div class="p"><h3><a href="#definition--laurent-series.">Definition – Laurent Series.</a></h3>‌ The <em>Laurent series</em> centered on <span class="math inline">\(c\in \mathbb{C}\)</span> with coefficients <span class="math inline">\(a_n \in \mathbb{C}\)</span> for every <span class="math inline">\(n \in \mathbb{Z}\)</span> is <span class="math display">\[
+  \sum_{n=-\infty}^{+\infty} a_n (z-c)^n.
+  \]</span> It is <em>convergent</em> for some <span class="math inline">\(z \in \mathbb{C} \setminus \{c\}\)</span> if the series <span class="math display">\[
+  \sum_{n=0}^{+\infty} a_n(z-c)^n
+  \; \mbox{ and } \;
+  \sum_{n=1}^{+\infty} a_{-n}(z-c)^{-n}
+  \]</span> are both convergent – otherwise it is <em>divergent</em>. When the Laurent series is convergent its <em>sum</em> is defined as <span class="math display">\[
+  \sum_{n=-\infty}^{+\infty} a_n (z-c)^n
+  =
+  \sum_{n=0}^{+\infty} a_n(z-c)^n
+  +
+  \sum_{n=1}^{+\infty} a_{-n}(z-c)^{-n}.
+  \]</span></div>
+</section>
+<section id="theorem--convergence-of-laurent-series." class="level3">
+
+<div class="p"><h3><a href="#theorem--convergence-of-laurent-series.">Theorem – Convergence of Laurent Series.</a></h3>‌ Let <span class="math inline">\(c \in \mathbb{C}\)</span> and let <span class="math inline">\(a_n \in \mathbb{C}\)</span> for <span class="math inline">\(n \in \mathbb{Z}.\)</span> The <em>inner radius of convergence</em> <span class="math inline">\(r_1 \in [0,+\infty]\)</span> and <em>outer radius of convergence</em> <span class="math inline">\(r_2 \in [0,+\infty]\)</span> of the Laurent series <span class="math inline">\(\sum_{n=-\infty}^{+\infty} a_n (z-c)^n\)</span> defined by <span class="math display">\[
+  r_1 = \limsup_{n\to+\infty} {|a_{-n}|^{1/n}} 
+  \; \mbox{ and } \; 
+  r_2 = \frac{1}{\displaystyle \limsup_{n\to+\infty}{|a_n|^{1/n}}}.
+  \]</span> are such that the series converges in <span class="math inline">\(A(c, r_1, r_2)\)</span> and diverges if <span class="math inline">\(|z-c| &lt; r_1\)</span> or <span class="math inline">\(|z-c| &gt; r_2.\)</span> In this <em>open annulus of convergence</em>, the convergence is locally normal.</div>
+</section>
+<section id="proof--convergence-of-laurent-series." class="level3">
+
+<div class="p"><h3><a href="#proof--convergence-of-laurent-series.">Proof – Convergence of Laurent Series.</a></h3>‌ The first series converges if <span class="math inline">\(|z-c|\)</span> is smaller than the radius of convergence <span class="math inline">\(r_2\)</span> of this power series and diverges if it is greater. We may rewrite the second series as: <span class="math display">\[
+  \sum_{n=1}^{+\infty} a_{-n}(z-c)^{-n}
+  =
+  \sum_{n=1}^{+\infty} a_{-n}\left(\frac{1}{z-c}\right)^{n}.
+  \]</span> Consequently, it converges if <span class="math inline">\(|1/(z-c)|\)</span> is smaller than the radius of convergence <span class="math inline">\(1/r_1\)</span> of the power series <span class="math inline">\(\sum_{n=1}^{+\infty} a_{-n} z^n,\)</span> that is if <span class="math inline">\(|z-c| &gt; r_1,\)</span> and diverges if <span class="math inline">\(|1/(z-c)|\)</span> is greater than <span class="math inline">\(1/r_1,\)</span> that is <span class="math inline">\(|z-c|\)</span> is smaller than <span class="math inline">\(r_1.\)</span></div>
+<p>Now, for any <span class="math inline">\(z \in A(c,r_1,r_2),\)</span> there is an open neighbourhood <span class="math inline">\(U\)</span> of <span class="math inline">\(z\)</span> where <span class="math inline">\(\sum_{n=0}^{+\infty} a_n (z-c)^n\)</span> is normally convergent and an open neighbourhood <span class="math inline">\(V\)</span> of <span class="math inline">\((z-c)^{-1}\)</span> in <span class="math inline">\(\mathbb{C}^*\)</span> where <span class="math inline">\(\sum_{n=1}^{+\infty} a_{-n}w^{n}\)</span> is normally convergent. The Laurent series <span class="math inline">\(\sum_{n=-\infty}^{+\infty} a_n (z-c)^n\)</span> is normally convergent in the open neighbourhood <span class="math inline">\(U \cap \{w^{-1} + c \; | \; w \in V\}\)</span> of <span class="math inline">\(z.\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+<!--
+**Lemma -- Inner/Outer Decomposition.**
+Let $f: A(c,r_1, r_2) \to \mathbb{C}$ be a holomorphic function defined
+on some non-empty open annulus.
+There are holomorphic functions 
+$\phi:D(0,r_2) \mapsto \mathbb{C}$
+and $\psi: D(0,1/r_1) \mapsto \mathbb{C}$ such that $\psi(0) = 0$ and
+  $$
+  \forall \, z \in A(0,r_1,r_2), \; f(z) = \phi(z-c) + \psi((z-c)^{-1}). 
+  $$
+
+**Proof -- Inner/Outer Decomposition.**
+For the sake of simplicity we assume that $c=0.$
+Let $z \in A(0, r_1, r_2)$ and $\rho_1,\rho_2 \in \left]r_1,r_2\right[$
+such that $\rho_1 <|z| < \rho_2.$ 
+Cauchy's integral formula provides
+  $$
+  f(z) = 
+  \frac{1}{i2\pi} \int_{\rho_2[\circlearrowleft]} \frac{f(w)}{w-z} \, dw
+  -
+  \frac{1}{i2\pi} \int_{\rho_1[\circlearrowleft]} \frac{f(w)}{w-z} \, dw
+  $$
+The path $\rho_1[\circlearrowleft]$ is the image of the path
+$\rho_1^{-1} [\circlearrowleft]^{\leftarrow}$ by the holomorphic function
+ $z \in \mathbb{C}^* \mapsto 1/z,$ hence
+  $$
+  \begin{split}
+  -\frac{1}{i2\pi} \int_{\rho_1[\circlearrowleft]} \frac{f(w)}{w-z} \, dw
+  &= 
+  \frac{1}{i2\pi} 
+  \int_{\rho_1^{-1} [\circlearrowleft]}
+  \frac{f(1/v)}{1/v - z} \frac{-dv}{v^2} \\
+  &=
+  z^{-1}\frac{1}{i2\pi} 
+  \int_{\rho_1^{-1} [\circlearrowleft]}
+  \frac{f(1/v)/v}{v -z^{-1}} dv.
+  \end{split}
+  $$
+Define $\phi:D(0,r_2) \mapsto \mathbb{C}$ 
+and $\psi: D(0,1/r_1) \mapsto \mathbb{C}$ by
+  $$
+  \phi(z) = \frac{1}{i2\pi} \int_{\rho_2[\circlearrowleft]} \frac{f(w)}{w-z} \, dw
+  \; \mbox{ and } \;
+  \psi(\xi) = \xi \frac{1}{i2\pi} \int_{\rho_1^{-1}[\circlearrowleft]} \frac{f(1/v)/v}{v-\xi} \, dv
+  $$
+where $\rho_1$ and $\rho_2$ -- that depend on $z$ -- are selected such that 
+$|z| < \rho_2 < r_2$ and $|\xi| < \rho_1^{-1} < r_1^{-1};$ 
+by Cauchy's integral theorem, the two line integrals
+are independent of the selection of these radii as along as the inequalities 
+hold, thus the definition of $\phi$ and $\psi$ is unambiguous.
+Both integrals may expanded as convergent power series
+(refer to the proof of the power series expansion theorem),
+therefore both functions are holomorphic.
+It is also plain that for any $z\in A(0,\rho_1, \rho_2),$
+we have $f(z) = \phi(z) + \psi(z^{-1})$ and $\psi(0) = 0.$
+\hfill $\blacksquare$
+-->
+</section>
+<section id="theorem--laurent-series-expansion." class="level3">
+
+<div class="p"><h3><a href="#theorem--laurent-series-expansion.">Theorem – Laurent Series Expansion.</a></h3>‌ Let <span class="math inline">\(\Omega\)</span> be an open subset of <span class="math inline">\(\mathbb{C},\)</span> let <span class="math inline">\(c \in \mathbb{C}\)</span> and <span class="math inline">\(r_1, r_2 \in [0,+\infty]\)</span> such that <span class="math inline">\(r_1 &lt; r_2\)</span> and the open annulus <span class="math inline">\(A(c, r_1,r_2)\)</span> is included in <span class="math inline">\(\Omega.\)</span> For any holomorphic function <span class="math inline">\(f: \Omega \to \mathbb{C},\)</span> there is a Laurent series with coefficients <span class="math inline">\(a_n\)</span> such that <span class="math display">\[
+  \forall \, z\in A(c, r_1, r_2), \; f(z) = \sum_{n=-\infty}^{+\infty} a_n (z-c)^n.
+  \]</span> Its coefficients are given by <span class="math display">\[
+  \forall \, \rho \in \left]r_1,r_2\right[, \;
+  a_n 
+  = 
+  \frac{1}{i2\pi} 
+  \int_{\gamma} 
+  \frac{f(z)}{(z-c)^{n+1}}
+  \, dz
+  \; \mbox{ with } \; 
+  \gamma = c + \rho[\circlearrowleft].
+  \]</span></div>
+</section>
+<section id="proof--laurent-series-expansion." class="level3">
+
+<div class="p"><h3><a href="#proof--laurent-series-expansion.">Proof – Laurent Series Expansion.</a></h3>‌ For any integer <span class="math inline">\(n,\)</span> the coefficient <span class="math display">\[
+  a_n = \frac{1}{i2\pi} \int_{\gamma} \frac{f(z)}{(z-c)^{n+1}}\, dz
+  \; \mbox{ with } \; 
+  \gamma = c + \rho[\circlearrowleft]
+  \]</span> is independent of <span class="math inline">\(\rho \in \left]r_1,r_2\right[\)</span> – refer to the proof of “Power Series Expansion” for a detailled argument.</div>
+<p>Let <span class="math inline">\(z \in A(c, r_1, r_2)\)</span> and <span class="math inline">\(\rho_1,\rho_2 \in \left]r_1,r_2\right[\)</span> such that <span class="math inline">\(\rho_1 &lt;|z-c| &lt; \rho_2.\)</span> Let <span class="math inline">\(\gamma_1 = c + \rho_1 [\circlearrowleft]\)</span> and <span class="math inline">\(\gamma_2 = c + \rho_2 [\circlearrowleft];\)</span> Cauchy’s integral formula provides <span class="math display">\[
+  f(z) = 
+  \frac{1}{i2\pi} \int_{\gamma_2} \frac{f(w)}{w-z} \, dw
+  -
+  \frac{1}{i2\pi} \int_{\gamma_1} \frac{f(w)}{w-z} \, dw
+  \]</span> As in the proof of “Power Series Expansion”, we can establish that <span class="math display">\[
+  \frac{1}{i2\pi} \int_{\gamma_2} \frac{f(w)}{w-z} \, dw
+  =
+  \sum_{n=0}^{+\infty}
+  \left[
+  \frac{1}{i2\pi}\int_{\gamma_2}\frac{f(w)}{(w-c)^{n+1}} \, dw
+  \right] (z-c)^n.
+  \]</span> A similar argument, based on a series expansion of <span class="math display">\[
+  \frac{1}{w-z} 
+  = 
+  -\frac{1}{(z-c) - (w-c)} 
+  = 
+  -\frac{1}{z-c}\frac{1}{1 - \frac{w-c}{z-c}}
+  \]</span> yields <span class="math display">\[
+  \frac{1}{i2\pi} \int_{\gamma_1} \frac{f(w)}{w-z} \, dw
+  =
+  -\sum_{n=-1}^{-\infty}
+  \left[
+  \frac{1}{i2\pi}\int_{\gamma_1}\frac{f(w)}{(w-c)^{n+1}} \, dw
+  \right] (z-c)^n.
+  \]</span> The combination of both expansions provides the expected result. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+</section>
+<section class="footnotes" id="notes"><h1><a href="#notes">Notes</a></h1>
+<hr>
+<ol>
+<li id="fn1"><p>to compute the <em>limit superior</em> of a sequence of (extended) real numbers, consider all subsequences that converge (as extended real numbers: in <span class="math inline">\([-\infty, +\infty]\)</span>) and take the supremum of their limits.<a href="#fnref1">↩</a></p></li>
+</ol>
+</section>
+</main>
+
+
+</body></html>

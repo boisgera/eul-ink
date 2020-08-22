@@ -1,0 +1,47 @@
+/* 
+Credits:
+
+  - background image: Folker Gorter (superfamous.com)
+
+ */
+html {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url(../images/black-rock.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100%; }
+  html body {
+    font-family: Exo;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0px;
+    padding: 0px;
+    height: 100%; }
+    html body div {
+      height: 100%;
+      text-align: center; }
+      html body div div.button {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin: -6em auto 0em -6em;
+        width: 12em;
+        height: 12em; }
+        html body div div.button img {
+          width: 100%; }
+      html body div footer {
+        position: absolute;
+        bottom: 0%;
+        width: 100%;
+        margin-bottom: 0em;
+        background-color: black;
+        height: 2em; }
+    html body p {
+      text-align: center;
+      vertical-align: middle; }
+
+/*# sourceMappingURL=style.css.map */

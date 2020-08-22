@@ -1,0 +1,994 @@
+% Line Integrals & Primitives
+% [Sébastien Boisgérault][email], MINES ParisTech
+
+[email]: mailto:Sebastien.Boisgerault@mines-paristech.fr
+
+---
+license: "[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0)"
+---
+
+Introduction
+================================================================================
+
+The main goal of this chapter is to derive the fundamental theorem of calculus
+for functions of a complex variable. This theorem characterizes the relation
+between functions and their primitives with the help of integrals.
+A version of this theorem for functions of a real variable is the following:
+
+**Theorem -- Fundamental Theorem of Calculus (Real Analysis).** 
+Let $I$ be an open interval of $\mathbb{R},$ 
+$f:I \to \mathbb{R}$ be a continuous function and 
+$a \in I.$
+A function $g: I \to \mathbb{R}$ is a primitive of $f$
+if and only if it satisfies
+  $$
+  \forall \, x \in I, \; g(x) = g(a) + \int_a^x f(t) \, dt.
+  $$
+
+**Proof.** 
+Suppose that the function $g$ satisfies the integral equation of the theorem. 
+For any $x \in I$ and any real number $h$ such that $x+h \in I,$
+  $$
+  \begin{split}
+  \frac{g(x+h) - g(x)}{h}
+  &=
+  \frac{1}{h}\int_{x}^{x+h} f(t) \, dt \\
+  &= 
+  \frac{1}{h}\int_x^{x+h} f(x) \, dt  +  \frac{1}{h}\int_x^{x+h} (f(t) - f(x)) \, dt \\
+  &=  \, f(x)  +  \frac{1}{h}\int_x^{x+h} (f(t) - f(x)) \, dt, \\
+  \end{split}
+  $$
+Let $\epsilon > 0;$ by continuity of $f$ at $x,$
+there is a $\delta > 0$ such that 
+  $$
+  \forall \, t \in I, \;
+  (|t-x| \leq \delta \, \Rightarrow \, |f(t) - f(x)| < \epsilon)
+  $$
+thus if $|h| < \delta,$
+  $$
+  \left| \frac{g(x+h) - g(x)}{h} - f(x) \right|
+  \leq \frac{1}{|h|} |h| \times \epsilon
+  = \epsilon.
+  $$
+The difference quotient tends to $f(x)$ when $h$ tends to zero:
+$g'(x)$ exists and is equal to $f(x).$
+
+Conversely, suppose that $e: I \to \mathbb{R}$ is a primitive of $f.$
+The difference $d$ between $e$ and the function
+  $$
+  g: x \in  I \mapsto e(a) + \int_a^x f(t) \, dt
+  $$
+is zero at $a$ and has a zero derivative on $I.$
+By the mean value theorem, for any $x \in I$ such that $x\neq a,$
+there is a $b \in I$ such that 
+  $$
+  \frac{d(x) - d(a)}{x - a} = d'(b) = 0,
+  $$
+hence $d(x) = d(a) = 0$ and therefore $e = g.$ \hfill $\blacksquare$
+
+Paths
+================================================================================
+
+**Definition -- Path.** 
+A *path* $\gamma$ is a continuous function from $[0,1]$ to $\mathbb{C}.$ 
+If $A$ is a subset of the complex plane, 
+$\gamma$ is a *path of $A$* if additionally $\gamma([0,1]) \subset A.$
+
+**Definition -- Image of a Path.** 
+The *image* or *trajectory* or *trace* of the path $\gamma$
+is the image $\gamma([0,1])$ of the interval $[0,1]$ by the function $\gamma.$
+
+**Definition -- Path Endpoints.** 
+The complex numbers $\gamma(0)$ and $\gamma(1)$ are the *initial point* and
+*terminal point* of $\gamma$ -- they are its *endpoints*; 
+the path $\gamma$ *joins* its initial and terminal points.
+The path is *closed* if the initial and terminal point are the same.
+The paths $\gamma_1, \dots, \gamma_n$ are *consecutive* if for
+$k = 1 ,\dots, n-1,$
+the terminal point of $\gamma_k$ is the initial point of $\gamma_{k+1}.$
+
+**Example -- Oriented Line Segment.** 
+The oriented line segment (or simply oriented segment) 
+with initial point $a \in \mathbb{C}$ and terminal 
+point $b \in \mathbb{C}$ is denoted $[a \to b]$ and defined as
+  $$
+  [a \to b]: t \in [0,1] \mapsto (1-t) a + t b.
+  $$
+Its image is the line segment $[a,b].$
+
+![Representation of the oriented line segment $[0 \to 2+i]$](images/segment.pdf)
+
+**Example -- Oriented Circle.** 
+The oriented circle of radius one centered at the origin traversed once
+in the positive sense (counterclockwise) is denoted $[\circlearrowleft]$
+and defined as
+  $$
+  [\circlearrowleft]: t \in [0,1] \to e^{i2\pi t}.
+  $$
+The circle of radius $r \geq 0$ centered at $c \in \mathbb{C}$ 
+traversed $n\in \mathbb{Z}^*$ times in the positive sense 
+is the path
+ $$
+ c + r[\circlearrowleft]^n: t \in [0,1] \to c + r e^{i2\pi n t}.
+ $$
+Its image is the circle centered on $c$ with radius $r;$
+its initial and terminal points are both $c+r,$ hence it is closed.
+
+![Representation of the oriented circle $[\circlearrowleft]$](images/circle.pdf)
+
+**Definition -- Open (Path-)Connected Sets.** 
+An open subset $\Omega$ of the complex-plane is *(path-)connected* 
+if for any points $x$ and $y$ of $\Omega,$ 
+there is a path of $\Omega$ that joins $x$ and $y.$
+
+**Definition -- Reverse Path.** 
+The *reverse* (or *opposite*) of the path $\gamma$ is the path 
+$\gamma^{\leftarrow}$ defined by
+  $$ 
+  \forall \, t \in [0,1], \; \gamma^{\leftarrow}(t) = \gamma(1-t).
+  $$
+
+**Definition -- Path Concatenation.**
+Let $t_0 = 0 < t_1 < \dots < t_{n-1} < t_{n} = 1$ 
+be a partition of the interval $[0,1].$
+The *concatenation* of consecutive paths 
+$\gamma_1, \dots, \gamma_n$ associated to this partition 
+is the path $\gamma$ denoted
+  $$
+  \gamma_1 \, |_{t_1} \, \cdots \, |_{t_{n-1}} \, \gamma_{n}
+  $$
+such that
+  $$
+  \forall\, k \in \{1, \dots, n\}, \;
+  \gamma|_{[t_{k-1},t_{k}]} 
+  = 
+  \gamma_{k}\left( \frac{t-t_{k-1}}{t_{k} - t_{k - 1}}\right).
+  $$
+If the partition of $[0,1]$ is uniform, that is, if
+  $$
+  \forall \, k \in \{0,\dots, n\}, \; t_{k} = k/n,
+  $$
+we denote the concatenated path with the simpler notation
+  $$
+  \gamma_1 \, | \, \cdots \, | \, \gamma_n.
+  $$
+
+**Example -- Oriented Polyline.**
+An oriented polyline (or piecewise linear path) 
+is the concatenation of consecutive oriented line segments.
+When the associated partition of $[0,1]$ is uniform, we use the notation
+  $$
+  [a_0 \to a_1 \to \dots \to a_{n-1} \to a_n]
+  =
+  [a_0 \to a_1] \, | \, \cdots \, | \, [a_{n-1} \to a_n].
+  $$
+
+**Definition -- Rectifiable Path.** 
+A path $\gamma:[0,1] \to \mathbb{C}$ is *rectifiable* if
+the function $\gamma$ is piecewise continuously differentiable.
+
+-----
+
+Given the definition of piecewise continuously differentiable, 
+the following alternate characterization is plain:
+
+**Theorem -- Continuously Differentiable Decomposition.**
+A path $\gamma:[0,1] \to \mathbb{C}$ is rectifiable
+if and only if there are consecutive continuously differentiable paths 
+$\gamma_1, \dots, \gamma_n$
+and a partition $(t_0, \dots, t_n)$ of the interval $[0,1]$ such that
+  $$
+  \gamma = \gamma_1 \, |_{t_1} \, \cdots \, |_{t_{n-1}} \, \gamma_n.
+  $$
+
+-----
+
+We characterized initially connected sets via merely continuous paths. 
+However, when such sets are open, we can use rectifiable paths instead:
+
+**Lemma -- Connectedness & Rectifiable Paths.**
+An open subset $\Omega$ of the complex plane is *connected*
+if and only if every pair of points of $\Omega$ may be joined by a rectifiable
+path of $\Omega.$
+
+**Proof.** 
+If any pair of points of $\Omega$ can be joined by a rectifiable path of 
+$\Omega,$ then $\Omega$ is connected. 
+Conversely, assume that a (merely continuous) path $\gamma$ of $\Omega$ 
+joins $x$ and $y.$ 
+Its image $\gamma([0,1])$ is a compact subset of $\Omega$ -- 
+as the image of a compact set by a continuous function -- 
+thus the distance $r$ between $\gamma([0,1])$ 
+and the closed set $\mathbb{C} \setminus \Omega$ is positive.
+Additionally, the function $\gamma$ is uniformly continuous -- 
+as a continuous function with a compact domain of definition;
+there is a positive integer $n$ such that 
+  $$
+  \forall \, t \in [0,1], \; \forall \, s \in [0,1], \;
+  (|t - s| \leq 1/n \, \Rightarrow \, |\gamma(t) - \gamma(s)| < r).
+  $$
+For any $k \in \{0,\dots,n\},$ the point $\gamma(k/n)$
+belongs to $\Omega;$ the path $\mu$ defined as
+  $$
+  \mu = [\gamma(0) \to \dots \to  \gamma(k/n) \to \dots \to \gamma(1)]
+  $$
+is rectifiable and joins $x$ and $y.$
+Now, for any $t \in [0,1],$ let $k \in \{0,\dots, n-1\}$
+be such that $t \in [k/n, (k+1)/n].$ We have
+  $$
+  |\mu(t) - \gamma(k/n)| 
+  \leq 
+  |\gamma((k+1)/n) - \gamma(k/n)| < r,
+  $$
+therefore $\mu$ is a path of $\Omega.$
+\hfill $\blacksquare$
+
+Line Integrals
+================================================================================
+
+**Definition -- Length of a Rectifiable Path.** 
+The length of a rectifiable path $\gamma$ 
+is the nonnegative real number
+  $$
+  \ell(\gamma) = \int_0^1 |\gamma'(t)| \, dt.
+  $$
+
+<!--
+The length of a rectifiable path 
+$\gamma = \gamma_1 \, |_{t_1} \, \cdots \, |_{t_{n-1}} \, \gamma_n$
+-- where every $\gamma_k$ is continuously differentiable --
+is the nonnegative real number
+  $$
+  \ell(\gamma) = \sum_{k=1}^n \ell(\gamma_k).
+  $$
+ -->
+
+**Example -- Length of an Oriented Segment.** 
+The oriented segment $[a \to b]$ is continuously differentiable 
+and thus rectifiable.
+For any $t\in[0,1],$ $[a\to b]'(t) = b - a,$ hence its length is
+  $$
+  \ell([a \to b]) = \int_0^1 |b - a| \, dt = |b - a|.
+  $$
+
+**Example -- Length of an Oriented Circle.** 
+The oriented circle $c+ r[\circlearrowleft]^n$ centered at $c$ 
+with radius $r\geq 0$ traversed $n$ times in the positive sense 
+is continuously differentiable and thus rectifiable.
+For any $t \in [0,1],$ 
+  $$[c+ r[\circlearrowleft]^n]'(t) = (i2\pi n) r e^{i2\pi n t},$$ 
+hence the length of this path is
+  $$
+  \ell(c+ r[\circlearrowleft]^n) 
+  = 
+  \int_0^1 |(i2\pi n) r e^{i2\pi n t}| \, dt
+  =
+  \int_0^1 |2\pi n r| \, dt = 2\pi r \times |n|.
+  $$
+It differs from the length of its circle image 
+-- which is $2\pi r$ -- 
+unless the circle is traversed exactly once in the positive or negative sense.
+
+**Definition -- Line Integral.** 
+The *line integral* along a rectifiable path $\gamma$ 
+of a complex-valued function $f$ defined and continuous 
+on the image of $\gamma$ is the complex number defined by
+  $$
+  \int_{\gamma} f(z) \, dz 
+  = 
+  \int_0^1 f(\gamma(t)) \gamma'(t) \, dt.
+  $$
+
+**Remark -- Undefined Integrands.**
+In the definitions of the length of $\gamma$ and of the integral along $\gamma$, 
+the integrands 
+  $$|\gamma'(t)| \; \mbox{ and } \; f(\gamma(t))\gamma'(t)$$ 
+may be undefined for some values of $t$ if $\gamma$ is merely rectifiable.
+However it's not an issue since they are always defined almost everywhere 
+(and integrable).
+
+**Remark -- Integral Notation.**
+It's sometimes handy to use the notation
+  $$
+  \int_{\gamma} f(z) \, |dz|
+  =
+  \int_0^1 f(\gamma(t)) |\gamma'(t)| dt.
+  $$
+which is similar to the one used for line integrals.
+With this convention, we have for example
+  $$
+  \ell(\gamma) = \int_{\gamma} |dz|.
+  $$
+
+**Example -- Integration along an Oriented Segment.** 
+The line integral of the continuous function $f: [a,b] \mapsto \mathbb{C}$ along
+the oriented segment $[a \to b]$ is
+  $$
+  \begin{split}
+  \int_{[a \to b]} f(z) \, dz
+  = &\,
+  \int_{0}^1 f((1-t) a + t b) (b-a)\, dt \\
+  = &\,
+  (b-a) \int_{0}^1 f((1-t) a + t b) \, dt.
+  \end{split}
+  $$
+
+**Example -- Integration along an Oriented Circle.**
+The line integral of a continuous function 
+$f: \{z \in \mathbb{C} \; | \; |z|=1\} \to \mathbb{C}$ 
+on the oriented circle $[\circlearrowleft]$ is
+  $$
+  \begin{split}
+  \int_{[\circlearrowleft]} f(z) \, dz
+  = &\,
+  \int_{0}^1 f(e^{i2\pi t }) (i2\pi e^{i2\pi t} dt) \\
+  = &\,
+  i \int_{0}^1 f(e^{i2\pi t }) e^{i2\pi t}\, (2\pi dt)
+  \\
+  = &\,
+  i \int_{0}^{2\pi} f(e^{i\theta})e^{i\theta} d\theta.
+  \end{split}
+  $$
+
+**Theorem -- Complex-Linearity of the Line Integral.**
+Let $\gamma$ be a rectifiable path. For any $\alpha, \beta \in \mathbb{C}$ 
+and any continuous functions $f$ and $g$ defined on the image
+of $\gamma$, 
+  $$
+  \int_{\gamma} \alpha f(z) + \beta g(z) \, dz
+  =
+  \alpha \int_{\gamma} f(z) \, dz
+  +
+  \beta \int_{\gamma} g(z) \, dz.
+  $$
+
+**Proof.** 
+Since [by definition of the line integral](#definition--line-integral.){.preview}
+  $$
+  \int_{\gamma} \alpha f(z) + \beta g(z) \, dz
+  =
+  \int_0^1 (\alpha f(\gamma(t)) + \beta g(\gamma(t))) \gamma'(t) dt,
+  $$
+the complex-linearity of the integral on $[0,1]$ provides
+  $$
+  \begin{split}
+  \int_{\gamma} \alpha f(z) + \beta g(z) \, dz
+  & =  
+  \alpha \int_0^1 f(\gamma(t)) \gamma'(t) \, dt
+  \\
+  & \phantom{=}  + \beta \int_0^1 g(\gamma(t))  \gamma'(t) \, dt
+  \end{split}
+  $$
+\hfill $\blacksquare$
+
+
+**Theorem -- Integration along a Reverse Path.**
+For any rectifiable path $\gamma$,
+  $$
+  \ell(\gamma^{\leftarrow}) = \ell(\gamma).
+  $$
+For any continuous function $f: A \subset \mathbb{C} \to \mathbb{C}$ defined on
+the image of $\gamma$,
+  $$
+  \int_{\gamma^{\leftarrow}} f(z) \, dz = - \int_{\gamma} f(z) \, dz.
+  $$
+
+**Proof.** Since $\gamma^{\leftarrow}(t) = \gamma(1-t)$, the length
+of the opposite of $\gamma$ satisfies
+  $$
+  \ell(\gamma^{\leftarrow}(t)) 
+  =
+  \int_0^1 |(\gamma^{\leftarrow})'(t)| \, dt
+  =
+  \int_0^1 |-\gamma'(1-t)| \, dt.
+  $$
+The change of variable $t \mapsto 1- t$ yields
+  $$
+  \ell(\gamma^{\leftarrow}(t)) 
+  =
+  \int_0^1 |\gamma'(t)| \, dt
+  =
+  \ell(\gamma).
+  $$
+Similarly,
+  $$
+  \begin{split}
+  \int_{\gamma^{\leftarrow}} f(z) \, dz 
+  &=
+  \int_0^1 f(\gamma^{\leftarrow}(t)) (\gamma^{\leftarrow})'(t) \, dt \\
+  &=
+  \int_0^1 f(\gamma(1-t)) (-\gamma'(1-t))\, dt \\
+  &= \int_0^1 f(\gamma(t)) (-\gamma'(t))\, dt \\
+  &=
+  - \int_{\gamma} f(z) \, dz
+  \end{split}
+  $$
+\hfill $\blacksquare$
+
+**Theorem -- Integration along Concatenation of Paths.**
+Let $A$ be a subset of $\mathbb{C}$.
+Let $\gamma_1, \dots, \gamma_n$ be consecutive rectifiable paths of $A$ 
+and let $\gamma$ be their concatenation
+  $$
+  \gamma = \gamma_1 \, |_{t_1} \, \cdots \, |_{t_{n-1}} \, \gamma_{n}.
+  $$
+The length of $\gamma$ satisfies
+  $$
+  \ell(\gamma) = \sum_{k=1}^n \ell(\gamma_k).
+  $$
+For any continuous function $f: A \subset \mathbb{C} \to \mathbb{C}$ 
+defined on the image of $\gamma$,
+  $$
+  \int_{\gamma} f(z) \, dz 
+  =
+  \sum_{k=1}^n \int_{\gamma_k} f(z) \, dz.
+  $$
+
+**Proof.** 
+Since [by definition](#definition--path-concatenation.){.preview}
+$\gamma(t) = \gamma_k ((t - t_k)/(t_{k+1} - t_k))$ whenever
+$t \in [t_k, t_{k+1}]$, the decomposition
+  $$
+  \begin{split}
+  \ell(\gamma) 
+      &= \int_0^1 |\gamma'(t)| \, dt \\
+      &= \sum_{k=0}^{n-1} 
+           \int_{t_k}^{t_{k+1}} 
+             |\gamma'(t)| 
+           \, dt                  
+  \end{split}
+  $$
+provides
+  $$
+  \begin{split}
+  \ell(\gamma) 
+      &= \sum_{k=0}^{n-1} 
+           \int_{t_k}^{t_{k+1}}
+             \left|
+               \frac
+                 {\gamma_k'\left( \frac{t-t_k}{t_{k+1} - t_k} \right)}
+                 {t_{k+1} - t_k} \, dt
+             \right|  
+  \end{split}
+  $$
+and the changes of variables 
+$t \in [t_k, t_{k+1}] \mapsto \frac{t-t_k}{t_{k+1} - t_k}$
+yield
+  $$
+  \begin{split}
+  \ell(\gamma) 
+      &= \sum_{k=1}^n 
+           \int_0^1 
+             |\gamma_k'(t)| \, dt \\
+      &= \sum_{k=1}^n 
+           \ell(\gamma_k)
+  \end{split}
+  $$
+
+Similarly,
+  $$
+  \begin{split}
+  \int_{\gamma} f(z) dz 
+      &= \int_0^1 f(\gamma(t)) \gamma'(t) \, dt \\
+      &= \sum_{k=0}^{n-1} 
+           \int_{t_k}^{t_{k+1}} 
+             f(\gamma(t)) \gamma'(t) 
+           \, dt  \\
+      &= \sum_{k=0}^{n-1} 
+           \int_{t_k}^{t_{k+1}}
+             f\left(\gamma_k\left( \frac{t-t_k}{t_{k+1} - t_k} \right) \right)
+    \frac{\gamma_k'\left( \frac{t-t_k}{t_{k+1} - t_k} \right)}{t_k - t_{k-1}} \, dt  \\
+      &= \sum_{k=1}^n 
+           \int_0^1 
+             f(\gamma_k(t))
+             \gamma_k'(t) \, dt \\
+      &= \sum_{k=1}^n 
+           \int_{\gamma_k} 
+             f(z) \, dz
+  \end{split}
+  $$
+\hfill $\blacksquare$
+
+**Theorem -- M-L Inequality.**
+For any rectifiable path $\gamma$ and 
+any continuous function $f: A \subset \mathbb{C} \to \mathbb{C}$
+defined on the image of $\gamma$,
+  $$
+  \left| \int_{\gamma} f(z) \, dz \right| 
+  \leq 
+  \left( \max_{z \in \gamma([0,1])} |f(z)| \right) \times \ell(\gamma).
+  $$
+
+**Proof.** [By definition of the line integral](#definition--line-integral.){.preview}
+  $$
+  \begin{split}
+  \left| \int_{\gamma} f(z) \, dz \right|
+  =&\,
+  \left| \int_0^1 f(\gamma(t)) \gamma'(t) \, dt \right| \\
+  \leq &\,
+  \int_0^1 |f(\gamma(t))| |\gamma'(t)| \, dt  \\
+  \leq &\, 
+  \left( \max_{t \in [0,1]} |f(\gamma(t))| \right) \times \int_0^1 |\gamma'(t)| \, dt  \\
+  = &\, 
+  \left( \max_{z \in \gamma([0,1])} |f(z)| \right) \times \ell(\gamma).
+  \end{split}
+  $$
+\hfill $\blacksquare$
+
+A practical consequence of the M-L inequality:
+
+**Corollary -- Convergence in Line Integrals.**
+For any rectifiable path $\gamma$ and 
+any sequence of continuous function $f_n: A \subset \mathbb{C} \to \mathbb{C}$
+defined on the image of $\gamma$ 
+which converges uniformly to the function $f,$
+  $$
+  \lim_{n \to +\infty} \int_{\gamma} f_n(z) \, dz = \int_{\gamma} f(z) \, dz.
+  $$
+
+**Proof.** 
+The [linearity of the line integral](#theorem--complex-linearity-of-the-line-integral.){.preview} 
+and 
+[the M-L inequality](#theorem--m-l-inequality.){.preview} provide
+  $$
+  \begin{split}
+  \left| \int_{\gamma} f_n(z) \, dz - \int_{\gamma} f(z) \right|
+  & = \left| \int_{\gamma} (f_n(z) - f(z)) \, dz \right| \\
+  & \leq \left( \max_{z \in \gamma([0,1])} |f_n - f(z)| \right) \times \ell(\gamma)
+  \end{split}
+  $$
+which yields the desired result.
+\hfill $\blacksquare$
+
+
+**Theorem -- Invariance By Reparametrization.**
+Let $\gamma:[0,1] \to \mathbb{C}$ be a continuously differentiable path.
+Let $\phi:[0,1] \to [0,1]$ be an increasing $C^1$-diffeomorphism --
+a continuously differentiable function such that $\phi(0) = 0,$ 
+$\phi(1) = 1$ and $\phi'(t)>0$ for any $t \in [0,1].$
+The following statements hold:
+
+  - The path $\mu = \gamma \circ \phi$ is a continuously differentiable path.
+
+  - It has the same initial point, terminal point and image as $\gamma.$
+
+  - The length of $\mu$ and $\gamma$ are identical.
+
+  - For any continuous function $f: \gamma([0,1]) \to \mathbb{C},$
+      $$
+      \int_{\mu} f(z) \, dz = \int_{\gamma} f(z) \, dz.
+      $$
+
+**Proof.**
+The function $\mu$ is continuously differentiable as the composition of
+continuously differentiable functions. 
+We have 
+  $$
+  \mu(0) = \gamma(\phi(0)) = \gamma(0), \; \mu(1) = \gamma(\phi(1)) = \gamma(1),
+  $$ 
+hence the endpoints of $\gamma$ and $\mu$ are identical. 
+The function $\phi$ is a bijection from $[0,1]$ into itself, 
+therefore 
+  $$
+  \mu([0,1]) = \gamma (\phi([0,1])) = \gamma ([0,1])
+  $$ 
+and the images of $\gamma$ and $\mu$ are identical. 
+
+The length of $\mu$ is
+  $$
+  \ell(\mu) = \int_0^1 |\mu'(t)|\, dt
+  = \int_{0}^1 |\gamma' (\phi(t)) \phi'(t)| \, dt
+  = \int_{0}^1 |\gamma' (\phi(t))| \, \phi'(t) dt
+  $$
+The change of variable $s = \phi(t)$ provides
+  $$
+  \int_{0}^1 |\gamma' (\phi(t))| \, \phi'(t) dt
+  = \int_0^1 |\gamma'(s)| \, ds,
+  $$
+hence the lengths of $\gamma$ and $\mu$ are equal. 
+We also have
+  $$
+  \int_{\mu} f(z) \, dz
+  = \int_{0}^1 (f \circ \mu)(t) \mu'(t)\,dt
+  = \int_{0}^1 (f \circ \gamma)(\phi(t)) \gamma'(\phi(t))\,(\phi'(t) dt).
+  $$
+The same change of variable leads to
+  $$
+  \int_{\mu} f(z) \, dz
+  = \int_{0}^1 (f \circ \gamma)(s) \gamma'(s)\,ds
+  = \int_{\gamma} f(z) \, dz,
+  $$
+which concludes the proof. \hfill $\blacksquare$
+
+**Definition -- Image of a Path by a Function.** 
+Let $\gamma:[0,1] \to \mathbb{C}$ be a path and
+$f:A \subset \mathbb{C} \to \mathbb{C}$ be a continuous function
+defined on the image of $\gamma$.
+The *image of $\gamma$ by $f$* is the path $f \circ \gamma.$
+
+**Theorem -- Change of Variable in Line Integrals [$\dagger$].** 
+Let $\Omega$ be an open subset of $\mathbb{C},$ 
+let $\gamma$ be a rectifiable path of $\Omega$ and
+let $f:\Omega \to \mathbb{C}$ be a holomorphic function.
+The path $f \circ \gamma$ is rectifiable and 
+for any continuous function $g: A \subset \mathbb{C} \to \mathbb{C}$
+defined on the image of $f \circ \gamma$, 
+  $$
+  \int_{f \circ \gamma} g(z) \, dz = \int_{\gamma} g(f(w)) f'(w) \, dw.
+  $$
+
+**Proof.** Let $\gamma_1 \, |_{t_1} \, \dots \, |_{t_{n-1}} \, \gamma_n$ 
+be a [continously differentiable decomposition of $\gamma.$](#theorem--continuously-differentiable-decomposition.){.preview}
+We have
+  $$
+  f \circ \gamma 
+  = 
+  f \circ \gamma_1 \, |_{t_1} \, \dots \, |_{t_{n-1}} \, f \circ \gamma_n,
+  $$
+and for any $k \in \{1,\dots,n\},$ by the chain rule,
+the function $f \circ \gamma_{k}$ is continuously differentiable
+($f'$ being continuous)
+hence the path $f \circ \gamma$ is rectifiable.
+
+Moreover,
+  $$
+  \begin{split}
+  \int_{\gamma} g(f(w)) f'(w) \, dw 
+  = &\,
+  \int_0^1 g(f(\gamma(t)) f'(\gamma(t)) \gamma'(t) \, dt \\
+  = &\,
+  \int_0^1 g(f(\gamma(t)) (f \circ \gamma)'(t) \, dt \\
+  = &\,
+  \int_{f \circ \gamma} g(w) \, dw
+  \end{split}
+  $$
+\hfill $\blacksquare$
+
+
+Primitives
+================================================================================
+
+**Definition -- Primitive.** 
+Let $f: \Omega \to \mathbb{C}$ where $\Omega$ is an open subset of $\mathbb{C}.$
+A *primitive* (or *antiderivative)* of $f$ 
+is a holomorphic function $g: \Omega \to \mathbb{C}$ 
+such that $g' = f.$
+
+**Theorem -- Fundamental Theorem of Calculus (Complex Analysis).**
+Let $\Omega$ be an open connected subset of $\mathbb{C},$ 
+$f: \Omega \to \mathbb{C}$ be a continuous function
+and let $a \in \Omega.$ 
+A function $g:\Omega \to \mathbb{C}$
+is a primitive of $f$ if and only if 
+for any $z \in \Omega$ and any rectifiable path $\gamma$ of $\Omega$ that
+joins $a$ and $z,$
+  $$
+  g(z) = g(a) + \int_{\gamma} f(w) \, dw.
+  $$
+
+**Proof.** Let $g$ be a primitive of $f$ and $\gamma$ be a rectifiable path
+of $\Omega$ that joins $a$ and $z.$ 
+Let $\gamma = \gamma_1 \, |_{t_1} \, \dots \, |_{t_{n-1}} \,
+\gamma_n$ be a 
+[continuously differentiable decomposition](#theorem--continuously-differentiable-decomposition.){.preview}
+ of $\gamma$.
+For any $k \in \{1,\dots, n\},$ the function 
+  $$
+  \phi: t \in [0,1] \mapsto g(\gamma_{k}(t))
+  $$
+is differentiable as a composition of real-differentiable functions, with
+  $$
+  \phi'(t) 
+  = 
+  dg_{\gamma_{k}(t)} (\gamma'_{k}(t))
+  =
+  g'(\gamma_{k}(t)) \gamma_{k}'(t).
+  $$
+The function $\phi'$ is continuous hence
+[by the fundamental theorem of calculus (from real analysis)](#theorem--fundamental-theorem-of-calculus-real-analysis.){.preview}
+applied to the real and imaginary parts of $\phi'$ on $\left]0,1\right[,$ 
+we have for any positive number $\epsilon$ smaller than $1,$
+  $$
+  \phi(1-\epsilon) - \phi(\epsilon) 
+  = 
+  \int_{\epsilon}^{1-\epsilon}
+  \phi'(t) \, dt,
+  $$
+and thus by continuity of $\phi$ and $\phi'$
+  $$
+  \phi(1) - \phi(0) 
+  = 
+  \int_0^1 \phi'(t) \, dt,
+  $$
+which is equivalent to
+  $$
+  g(\gamma_{k}(1)) - g(\gamma_{k}(0))
+  =
+  \int_0^1 g'(\gamma_{k}(t)) \gamma_{k}'(t) \, dt
+  = 
+  \int_{\gamma_{k}} f(w) \, dw.
+  $$
+The sum of these equations for all $k \in \{1,\dots, n\}$ provides
+  $$
+  g(z) - g(a)
+  = 
+  \int_{\gamma} f(w) \, dw.
+  $$
+Conversely, assume that $g$ satisfies the theorem property. Let $\gamma$
+be a rectifiable path of $\Omega$ that joins $a$ and $z$ and let $r>0$ be such
+that the open disk centered at $z$ with radius $r$ is included in $\Omega.$
+Consider the concatenation $\mu$ of $\gamma$ and of the oriented segment
+$[z \to z+h]$ for $h$ such that $|h| < r.$ 
+It is a rectifiable path of $\Omega,$ hence
+  $$
+  \begin{split}
+  g(z+h) = &\, g(a) + \int_{\mu} f(w) \, dw \\
+  = &\, g(a) + \int_{\gamma} f(w)\, dw + h \int_0^1 f(z + t h) \, dt \\
+  = &\, g(z) + h \int_0^1 f(z + t h) \, dt 
+  \end{split}
+  $$
+hence
+  $$
+  \frac{g(z+h) - g(z)}{h}
+  =
+  \int_0^1 f(z + t h) \, dt.
+  $$
+The right-hand side of this equation converges to $f(z)$ by continuity when
+$h$ goes to zero, therefore $g$ is a primitive of $f.$
+\hfill $\blacksquare$
+
+**Corollary -- Existence of Primitives [$\dagger$].**
+Let $\Omega$ be an open connected subset of $\mathbb{C}.$
+The function $f: \Omega \to \mathbb{C}$ has a primitive 
+if and only if it is continuous and for any closed rectifiable path $\gamma$
+  $$
+  \int_{\gamma} f(z) \, dz = 0.
+  $$
+
+**Proof -- Existence of Primitives.** 
+If the function $f$ has primitives, it is the derivative of a holomorphic 
+function, thus it is continuous. 
+Additionally, for any closed rectifiable path $\gamma$ of $\Omega,$
+the fundamental theorem of calculus provides
+  $$
+  g(\gamma(1)) = g(\gamma(0)) + \int_{\gamma} f(w)\, dw,
+  $$
+hence as $\gamma(1) = \gamma(0),$
+  $$
+  \int_{\gamma} f(w) \, dw = 0.
+  $$
+Conversely, assume that any such integral is zero. 
+Select any $a$ in $\Omega$ and define for any point $z$ in $\Omega$ and 
+any rectifiable path $\gamma$ of $\Omega$ that joins them the function
+  $$
+  g(z) = g(a) + \int_{\gamma} f(w) \, dw.
+  $$
+This definition is non-ambiguous: if we select a different path $\mu,$ 
+the difference between the right-hand sides of the definitions would be
+  $$
+  \left(g(a) + \int_{\gamma} f(w) \, dw\right) - \left(g(a) + \int_{\mu} f(w) \, dw\right)
+  =
+  \int_{\gamma \, | \, \mu^{\leftarrow}} f(w) \, dw = 0
+  $$
+as $\gamma \, | \, \mu^{\leftarrow}$ is a closed rectifiable path of 
+$\Omega.$
+Consequently, $g$ is uniquely defined and 
+[by the fundamental theorem of calculus](#theorem--fundamental-theorem-of-calculus-complex-analysis.){.preview},
+it is a primitive of $f.$
+\hfill $\blacksquare$
+
+**Corollary -- Set of Primitives.** 
+Let $\Omega$ be an open connected subset of $\mathbb{C}$ and let
+$f: \Omega \to \mathbb{C}.$
+If $g:\Omega \to \mathbb{C}$ is a primitive of $f,$ 
+the function $h: \Omega \to \mathbb{C}$ is also a primitive of $f$ 
+if and only if it differs from $g$ by a constant.
+
+
+**Proof.**
+It is clear that a function $h$ that differs from $g$ by a constant is a 
+primitive of $f.$ 
+Conversely, if $g$ and $h$ are both primitives of $f,$ $g - h$ is a primitive
+of the zero function.
+The [fundamental theorem of calculus](#theorem--fundamental-theorem-of-calculus-complex-analysis.){.preview}
+shows that for any $a$ and $z$ in $\Omega$ 
+and any rectifiable path $\gamma$ of $\Omega$ that joins them, 
+  $$
+  g(z) - h(z) = g(a) - h(a) + \int_{\gamma} 0 \, dw = g(a) - h(a)
+  $$
+hence their difference is a constant. \hfill $\blacksquare$
+
+
+**Corollary -- Integration by Parts [$\dagger$].** 
+Let $\Omega$ be an open connected subset of $\mathbb{C}$ and
+let $\gamma$ be a rectifiable path of $\Omega.$
+For any pair of holomorphic functions
+$f: \Omega \to \mathbb{C}$ and $g: \Omega \to \mathbb{C},$
+  $$
+  \int_{\gamma} f' g (z) \, dz 
+  = 
+  [fg(\gamma(1)) - fg(\gamma(0))] -  \int_{\gamma} f g' (z) \, dz.
+  $$
+
+
+**Proof.** 
+[The derivative of the function $fg$ is $f'g + fg'.$](../Complex-Differentiability/#theorem--sum-and-product-rules.){.preview}
+It is continuous as a sum and product of continuous functions
+thus [the fundamental theorem of calculus](#theorem--fundamental-theorem-of-calculus-complex-analysis.){.preview}
+provides
+  $$
+  fg(\gamma(1)) = fg(\gamma(0)) + \int_{\gamma} (f'g + fg')(z) \, dz,
+  $$
+which is equivalent to the conclusion of the corollary.
+\hfill $\blacksquare$
+
+**Remark & Definition -- Variation of a Function on a Path.** 
+The difference between the value of a function $f$
+at the terminal value and at the initial value of a path $\gamma$
+may be denoted $[f]_{\gamma}$: 
+  $$
+  [f]_{\gamma} = f(\gamma(1)) - f(\gamma(0)).
+  $$
+With this convention, the formula that relates
+a function $f$ and its primitive $g$ is
+  $$
+  [g]_{\gamma} = \int_{\gamma} f(z) \, dz
+  $$
+and the integration by parts formula becomes
+  $$
+  \int_{\gamma} f' g (z) \, dz 
+  = 
+  [fg]_{\gamma} -  \int_{\gamma} f g' (z) \, dz.
+  $$
+
+
+Appendix -- A Better Theory of Rectifiability
+================================================================================
+
+Rectifiable Paths
+--------------------------------------------------------------------------------
+
+The definition we used so far for "rectifiable" is a conservative one.
+In this section, we come up with a more general definition of the concept
+that still meets the requirements for the definition of line integrals.
+
+To "rectify" a path 
+(from Latin *rectus* "straight" and *facere* "to make") is to straighten -- 
+or by extension to compute its length, which is a trivial operation
+once a path has been straightened.
+
+The general definition of the length of a path does not require line integrals.
+Instead, consider any partition $(t_0,\dots,t_n)$ of the interval $[0,1]$ and
+the path $\mu= \mu_1 \, |_{t_1} \, \dots \,|_{t_{n-1}} \mu_n$ where
+  $$
+  \mu_{k}(t) = (1-t) \gamma(t_{k-1}) + t \gamma(t_{k}).
+  $$
+We may define the length of such a combination of straight lines as
+  $$
+  \ell(\mu) = \sum_{k=1}^{n-1} |\gamma(t_{k+1}) - \gamma(t_{k})|.
+  $$
+As the straight line is the shortest path between two points, this number
+should provide a lower bound of the length of $\gamma.$ 
+On the other hand, using finer partitions of the interval $[0,1]$ should also 
+provide better approximations of the length of $\gamma.$ 
+Following this idea, we may *define* the length of $\gamma$
+as the supremum of the length of $\mu$ for all possible partitions of $[0,1]$:
+  $$
+  \ell(\gamma) 
+  = \sup \left\{ \sum_{k=0}^{n-1} |\gamma(t_{k+1}) - \gamma(t_{k})| 
+  \; \left| \; \vphantom{\sum_k^k} n\in \mathbb{N}^*, \, 
+  t_0=0 < \dots < t_n =1 \right. \right\}
+  $$
+
+Not every path has a finite length; those who have are by definition *rectifiable*.
+In general, a function $\gamma:[0,1] \mapsto \mathbb{C}$ whose length is finite
+-- even if it is not continuous -- is of *bounded variation*.
+
+The Line Integral
+--------------------------------------------------------------------------------
+
+To define line integrals along the path $\gamma,$ 
+it is enough that $\gamma$ is of bounded variation. 
+For any such function $\gamma,$ we may build a 
+(complex-valued, Borel) measure on $[0,1]$ denoted $d\gamma.$
+This measure is defined by its integral 
+of any continuous function $\phi:[0,1]\to \mathbb{C},$ 
+as a limit of Riemann(-Stieltjes) sums
+  $$
+  \int_{[0,1]} \phi \, d\gamma 
+  =
+  \lim
+    \sum_{m=0}^{n-1}
+      \phi (t_m) 
+      (\gamma(t_{m+1}) - \gamma(t_m)).
+  $$
+The limit is taken over the partitions of the interval $[0,1]$ with
+  $$
+  \max \, \{|t_{m+1} - t_{m}| \; | \; m \in \{0,\dots, n-1\}\} \to 0.
+  $$
+The line integral of a continuous function 
+$f: \gamma([0,1]) \to \mathbb{C}$ is then defined by
+  $$
+  \int_{\gamma} f(z) \, dz = \int_{[0,1]} (f \circ \gamma) \, d\gamma.
+  $$
+The *total variation* $|d\gamma|$ of $d\gamma$ is the positive measure defined
+by 
+  $$
+  |d\gamma|(A) = \sup_{\mathfrak{P}} \sum_{B \in \mathfrak{P}} |d\gamma(B)|
+  $$
+where the supremum is taken over all finite partitions $\mathfrak{P}$ of $A$
+into measurable sets. This measure provides an integral expression for the
+length of $\gamma$:
+  $$
+  \ell(\gamma) = \int_{[0,1]} |d\gamma|.
+  $$
+
+A Non-Rectifiable Curve
+--------------------------------------------------------------------------------
+
+The Koch snowflake [@Koc04] is an example of a continuous curve which is
+is nowhere differentiable; it is also a non-rectifiable closed path.
+It is defined as the limit of a sequence of polylines $\gamma_n.$ 
+The first element of this sequence is an oriented equilateral triangle:
+  $$
+  \gamma_1 = [0 \to 1 \to e^{i\pi3} \to 0].
+  $$
+Then, $\gamma_{n+1}$ is defined as a transformation of $\gamma_n$: 
+every oriented line segment $[a \to a+h]$ that composes $\gamma_n$ 
+is replaced by the polyline:
+  $$
+  \left[a \to a + \frac{h}{3} \to a + \left(1+e^{-i\pi/3} \right)\frac{h}{3}\to a + 2\frac{h}{3}  \to a+h\right]
+  $$
+
+![Image of the Koch snowflake, first iteration.](images/koch1.pdf)
+
+![Image of the Koch snowflake, second iteration.](images/koch2.pdf)
+
+![Image of the Koch snowflake, third iteration.](images/koch3.pdf)
+
+![Image of the Koch snowflake, fourth iteration](images/koch4.pdf)
+
+The Koch snowflake $\gamma$ is defined as the limit of the $\gamma_n$ sequence. 
+The geometric construction yields that for any $n$ greater than zero,
+  $$
+  \forall \, t \in [0,1], \; 
+  |\gamma_{n+1}(t) - \gamma_n(t)| \leq \left(\frac{1}{3}\right)^{n} \frac{\sqrt{3}}{2}. 
+  $$
+As $\sum_{p=0}^{+\infty} \left( \frac{1}{3}\right)^p = \frac{1}{1-1/3} = \frac{3}{2},$
+for any positive integer $p$ we have
+  $$
+  \forall \, t \in [0,1], \; 
+  |\gamma_{n+p}(t) - \gamma_n(t)| \leq \left(\frac{1}{3}\right)^{n} \frac{3}{2}\frac{\sqrt{3}}{2}. 
+  $$
+The sequence $\gamma_n$ is a Cauchy sequence in the space of continuous and
+complex-valued functions defined on $[0,1];$ its uniform limit exists and is 
+also continuous.
+
+On the other hand, the curve is not rectifiable. 
+First, the definition of the sequence $\gamma_n$ makes it plain that
+every iteration increases the initial length of the path by one-third:
+  $$
+  \ell(\gamma_n) = 3 \times \left(\frac{4}{3}\right)^{n-1}.
+  $$
+The length of $\gamma_n$ tends to $+\infty$ when $n \to +\infty.$
+Now, every point at the junction of the segments of the polyline $\gamma_n$ 
+also belongs to the Koch snowflake; more precisely
+  $$
+  \forall \, m \in \{0,\dots, 3 \times4^{n-1}\}, \;
+  \gamma\left(\frac{m}{3 \times 4^{n-1}}\right) 
+   = 
+   \gamma_n\left(\frac{m}{3 \times 4^{n-1}}\right).
+  $$
+Therefore
+  $$
+  \ell(\gamma) 
+  \geq 
+  \sum_{m=0}^{3 \times 4^{n-1} -1} 
+    \left|  \gamma\left(\frac{m+1}{3 \times 4^{n-1}}\right) 
+          - \gamma\left(\frac{m}{3 \times 4^{n-1}}\right)\right|
+  = \ell(\gamma_n)
+  $$
+and thus $\ell(\gamma) = +\infty$: the path $\gamma$ is not rectifiable.
+
+References
+================================================================================

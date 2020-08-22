@@ -1,0 +1,118 @@
+#!/bin/bash
+set -euo pipefail
+
+# Options Handling
+# ==============================================================================
+fast=false
+verbose=false
+
+for arg in "$@"
+do
+case $arg in
+    -f|--fast)
+      fast=true
+      ;;
+    -v|--verbose)
+      verbose=true
+      ;;
+    -q|--quiet)
+      verbose=false
+      ;;
+esac
+done
+
+if [ $verbose = true ]; then
+  echo
+  echo verbose=$verbose
+  echo fast=$fast
+  set -v
+fi
+
+# Convention over Configuration
+# ==============================================================================
+txt=$(ls *.txt)
+doc="${txt%.*}"
+
+bib=
+if ls *.bib > /dev/null 2> /dev/null; then
+    bib=$(ls *.bib)
+fi
+
+images=
+if [ -d images ]; then
+    images="images"
+fi
+
+
+# Variables
+# ==============================================================================
+TOC="--toc --toc-depth=2"
+TYPO="--smart"
+LANG_="-V lang=en" # don't shadow the LANG variable.
+BIB_OPT=
+if [ ! -z "$bib" ]; then
+    BIB_OPT="-M link-citations=true"
+    BIB_OPT="$BIB_OPT --bibliography="$bib""
+fi
+
+SHARED="$LANG_ $TOC $TYPO $BIB_OPT"
+JSON_OPT="-t json $SHARED"
+PDF_OPT="$SHARED"
+HTML_OPT="-t html5 $SHARED --section-divs --mathjax --email-obfuscation=none"
+
+txt="$doc.txt"
+pdf="$doc.pdf"
+html="$doc.html"
+json="$doc.json"
+zip="$doc.zip"
+# Temp files
+json_html="$doc.html.json"
+json_pdf="$doc.pdf.json"
+
+
+# Main
+# ==============================================================================
+
+# Install Templates
+# ------------------------------------------------------------------------------
+mkdir -p templates && cp -r /usr/share/pandoc-templates/. templates
+PDF_OPT="$PDF_OPT --template=templates/template.latex"
+HTML_OPT="$HTML_OPT --template=templates/template.html5"
+
+# Generate images
+# ------------------------------------------------------------------------------
+if [ $fast != true ] && [ ! -z $images ] && [ -e images/main.py ]; then
+    cd $images && python main.py && cd ..
+fi
+
+# Generate JSON
+# ------------------------------------------------------------------------------
+pandoc -o "$json" $JSON_OPT "$txt"
+
+# Generate PDF
+# ------------------------------------------------------------------------------
+cat "$json" | eul-doc --pdf > "$json_pdf"
+pandoc -f json -o "$pdf" $PDF_OPT "$json_pdf"
+rm "$json_pdf"
+
+# Generate HTML
+# ------------------------------------------------------------------------------
+cat "$json" | eul-doc --html > "$json_html"
+pandoc -f json $HTML_OPT "$json_html" > "_$html"
+rm "$json_html"
+eul-style "_$html" > "$html" && rm "_$html"
+
+# Generate ZIP File
+# ------------------------------------------------------------------------------
+mkdir -p "build_zip/$doc"
+cp -rf "$txt" "$html" "$pdf" "build_zip/$doc"
+if [ ! -z "$bib" ]; then
+  cp -rf "$bib" "build_zip/$doc"
+fi
+if [ ! -z "$images" ]; then
+  cp -rf "$images" "build_zip/$doc"
+fi
+cd build_zip && zip -r "$zip" "$doc" >> /dev/null && cp "$zip" .. 
+cd .. && rm -rf build_zip
+
+

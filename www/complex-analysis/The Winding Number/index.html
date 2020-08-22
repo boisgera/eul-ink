@@ -1,0 +1,834 @@
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, Mines ParisTech">
+  <meta name="dcterms.date" content="2019-09-30">
+  <title>The Winding Number</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: content-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+html {
+  line-height: var(--base-line-height);
+  --base-font-size: 24px;
+  --base-line-height: 36px;
+  --scale-ratio: 1.4142135623730951;
+  --small: 17px;
+  --medium: 24px;
+  --large: 34px;
+  --x-large: 48px;
+  font-size: 24px;
+  font-family: 'Alegreya', serif;
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html em {
+  font-style: italic;
+}
+html strong {
+  font-weight: bold;
+}
+html p, html .p {
+  margin-bottom: var(--base-line-height);
+  text-align: justify;
+  hyphens: auto;
+  -moz-hyphens: auto;
+}
+html section {
+  margin-bottom: var(--base-line-height_px);
+}
+html main {
+  box-sizing: content-box;
+  max-width: 32em;
+  margin: auto;
+  padding: var(--base-line-height);
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, q:before {
+  content: none;
+}
+blockquote:after, q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: medium solid black;
+  border-bottom: medium solid black;
+}
+main > header, main > .header, main > #header {
+  margin-top: calc(2 * var(--base-line-height));
+  margin-bottom: calc(2 * var(--base-line-height));
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: calc(1.5 * var(--base-line-height));
+  margin-top: 0;
+  margin-bottom: var(--base-line-height);
+  font-weight: bold;
+}
+main > header .author, main > .header .author, main > #header .author {
+  font-size: 24px;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  font-weight: normal;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: 'Alegreya SC', serif;
+  line-height: calc(1 * var(--base-line-height));
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  font-weight: bold;
+  line-height: calc(1.25 * var(--base-line-height));
+  margin-top: calc(2.00 * var(--base-line-height));
+  margin-bottom: calc(0.75 * var(--base-line-height));
+}
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+}
+h3, h4, h5, h6 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 1em;
+  display: inline;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
+}
+a:hover {
+  text-decoration: none;
+}
+a:link {
+  color: var(--color);
+}
+a:visited {
+  color: var(--color);
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li {
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  margin-left: var(--base-line-height);
+  padding-left: 0.5em;
+}
+ul li {
+  list-style: disc;
+}
+ol li {
+  list-style: decimal;
+}
+blockquote {
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+  padding: var(--base-line-height);
+  margin-bottom: var(--base-line-height);
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-size: 24px;
+  font-family: Inconsolata;
+}
+pre {
+  overflow-x: auto;
+  background-color: #ebebeb;
+  margin-bottom: var(--base-line-height);
+  padding-left: var(--base-line-height);
+  padding-right: var(--base-line-height);
+  padding-top: var(--base-line-height);
+  padding-bottom: var(--base-line-height);
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: auto;
+}
+figure {
+  margin-bottom: var(--base-line-height);
+  text-align: center;
+}
+figcaption {
+  display: inline-block;
+  font-style: italic;
+  text-align: justify;
+}
+.table {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  margin-bottom: var(--base-line-height);
+}
+thead {
+  border-bottom: medium solid black;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+.MJXc-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+nav#TOC > ul {
+  position: relative;
+  font-weight: bold;
+}
+nav#TOC > ul > * {
+  margin-bottom: var(--base-line-height);
+}
+nav#TOC > ul li {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+nav#TOC > ul ul li {
+  margin-left: var(--base-line-height);
+  font-weight: normal;
+}
+nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+  padding-bottom: var(--base-line-height);
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+.badge {
+  position: relative;
+  bottom: 0.13em;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  font-weight: 300;
+  font-size: var(--small);
+  display: inline-block;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  vertical-align: baseline;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+  margin-right: 1em;
+}
+.section-flag {
+  line-height: var(--base-line-height);
+  font-size: var(--small);
+  font-weight: 300;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  margin-bottom: 0;
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya: 400,700,900,400italic,700italic,900italic|Alegreya+SC:400,700,900,400italic,700italic,900italic|Alegreya+Sans:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+Sans+SC:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var box, hide_proof, main, show_proof;
+
+  hide_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("expanded");
+    sectionWrapper.addClass("minimized");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "visible"
+    });
+    w$(".header-wrapper").css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().css({
+      visibility: "hidden",
+      height: "0px"
+    });
+    w$(".header-wrapper").attr({
+      id: w$("section").first().attr("id")
+    });
+    return w$("section").first().attr({
+      id: ""
+    });
+  };
+
+  show_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("minimized");
+    sectionWrapper.addClass("expanded");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "hidden"
+    });
+    w$(".header-wrapper").css({
+      visibility: "hidden",
+      height: "0"
+    });
+    w$("section").first().css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().attr({
+      id: w$(".header-wrapper").attr("id")
+    });
+    return w$(".header-wrapper").attr({
+      id: ""
+    });
+  };
+
+  box = function(section) {
+    var clone, expand, header, headerWrapper, tombstone, wrapper;
+    clone = section.clone(true);
+    clone.css({
+      marginBottom: "0"
+    });
+    clone.children().last().css({
+      marginBottom: "0"
+    });
+    tombstone = clone.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer",
+      position: "absolute",
+      bottom: "0.75rem",
+      right: "0.75rem"
+    });
+    wrapper = $("<div class='proof-wrapper expanded'></div>");
+    wrapper.css({
+      position: "relative",
+      margin: "-0.75rem -0.75rem 0.75rem -0.75rem",
+      padding: "0.75rem",
+      backgroundColor: "#f9f9f9"
+    });
+    header = clone.find("h3, h4, h5, h6").first().clone();
+    headerWrapper = $("<div class='p header-wrapper' style='margin-bottom:0; visibility:hidden; overflow:hidden; height:0;'> </div>");
+    headerWrapper.append(header);
+    expand = $("<i class='fa fa-caret-down expand' style='visibility:hidden; cursor:pointer; position:absolute; top:0.75rem; right:0.75rem;'> </i>");
+    wrapper.append(headerWrapper);
+    wrapper.append(expand);
+    wrapper.append(clone);
+    expand.on("click", function() {
+      return show_proof(wrapper);
+    });
+    tombstone.on("click", function() {
+      return hide_proof(wrapper);
+    });
+    section.replaceWith(wrapper);
+    return wrapper;
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, section, sections, text, wrapper;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      wrapper = box(section);
+      hide_proof(wrapper);
+    }
+    return $(document).keydown(function(event) {
+      var k, l, len2, len3, ref1, ref2, results, sectionWrapper;
+      console.log("***", event.keyCode);
+      if (event.keyCode === 88) {
+        ref1 = $(".proof-wrapper.minimized");
+        for (k = 0, len2 = ref1.length; k < len2; k++) {
+          sectionWrapper = ref1[k];
+          show_proof($(sectionWrapper));
+        }
+      }
+      if (event.keyCode === 77) {
+        ref2 = $(".proof-wrapper.expanded");
+        results = [];
+        for (l = 0, len3 = ref2.length; l < len3; l++) {
+          sectionWrapper = ref2[l];
+          results.push(hide_proof($(sectionWrapper)));
+        }
+        return results;
+      }
+    });
+  };
+
+  $(main);
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var make_preview, mathjaxDebug;
+
+  make_preview = function(elt) {
+    var card, hidden_css, hide_preview, id, ref, show_preview, url, visible_css;
+    ref = elt.attr("href").split("#"), url = ref[0], id = ref[1];
+    card = $("<div class='card'>\n  <div class='holder'>\n    <p>Placeholder</p>\n  </div>\n</div>");
+    card.css({
+      width: "35vw",
+      padding: "1.5rem",
+      position: "fixed",
+      top: "1.5rem",
+      right: "1.5rem",
+      boxSizing: "border-box",
+      maxHeight: "calc(100vh - 3rem)",
+      overflow: "hidden",
+      boxShadow: "0 0 1rem #e6e6e6",
+      backgroundColor: "white"
+    });
+    visible_css = {
+      visibility: "visible",
+      opacity: 1,
+      transform: "translateX(0em)",
+      transition: "all 0.3s linear"
+    };
+    hidden_css = {
+      visibility: "hidden",
+      opacity: 0,
+      transform: "translateX(1em)",
+      transition: "all 0.3s linear 0.5s"
+    };
+    card.css(hidden_css);
+    elt.css({
+      textDecoration: "underline solid #0a0a0a",
+      textDecorationSkip: "ink",
+      transition: "background-color 0.3s linear"
+    });
+    show_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d3"
+      });
+      return card.css(visible_css);
+    };
+    hide_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d300"
+      });
+      return card.css(hidden_css);
+    };
+    return card.find(".holder").load(url + (" [id='" + id + "']"), function(response, status, jxXHR) {
+      console.log("XHR status:", status, url, id);
+      if (status === "success" || status === "notmodified") {
+        console.log("success!");
+        console.log("elt:", $(elt));
+        $("body").append(card);
+        card.find("p, .p").css({
+          textAlign: "left"
+        });
+        card.find("section").css({
+          marginBottom: "0"
+        });
+        card.find("section").children().last().css({
+          marginBottom: "0"
+        });
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, card[0]]);
+        elt.on("mouseenter", show_preview);
+        return elt.on("mouseleave", hide_preview);
+      }
+    });
+  };
+
+  mathjaxDebug = function() {
+    MathJax.Hub.signal.Interest(function(message) {
+      return console.log("*", message);
+    });
+    return MathJax.Hub.Register.StartupHook("End Process", function() {
+      var i, jax, len, ref, results;
+      console.log("list of jaxes:");
+      ref = MathJax.Hub.getAllJax();
+      results = [];
+      for (i = 0, len = ref.length; i < len; i++) {
+        jax = ref[i];
+        results.push(console.log("jax:", jax));
+      }
+      return results;
+    });
+  };
+
+  $(function() {
+    var elt, i, len, ref, results;
+    ref = $("a.preview");
+    results = [];
+    for (i = 0, len = ref.length; i < len; i++) {
+      elt = ref[i];
+      results.push(make_preview($(elt)));
+    }
+    return results;
+  });
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">The Winding Number</a></h1>
+
+<h2 class="author">
+By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, Mines ParisTech, under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>
+</h2> 
+
+<h3 class="date" style="margin-right: 0px;">September 30, 2019</h3>
+</header>
+<section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
+<ul>
+<li class="top-li"><p class="section-flag">section 1</p><a href="#definitions">Definitions</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--the-argument-function.">The Argument Function</a></li>
+<li><span class="badge">def<span></span></span><a href="#definition--principal-value-of-the-argument.">Principal Value of the Argument</a></li>
+<li></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--continuous-choice-of-the-argument.">Continuous Choice of the Argument</a></li>
+<li></li>
+<li><span class="badge">def<span></span></span><a href="#definition--variation-of-the-argument.">Variation of the Argument</a></li>
+<li></li>
+<li><span class="badge">def<span></span></span><a href="#definition--winding-number--index.">Winding Number / Index</a></li>
+<li></li>
+<li><span class="badge">def<span></span></span><a href="#definition--path-exterior--interior.">Path Exterior &amp; Interior</a></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 2</p><a href="#properties">Properties</a><ul>
+<li><span class="badge">the<span></span></span><a href="#theorem--the-winding-number-is-locally-constant.">The Winding Number is Locally Constant</a></li>
+<li></li>
+<li><span class="badge">cor<span></span></span><a href="#corollary--the-winding-number-is-constant-on-components.">The Winding Number is Constant on Components</a></li>
+<li></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 3</p><a href="#simply-connected-sets">Simply Connected Sets</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--simplymultiply-connected-set--holes.">Simply/Multiply Connected Set &amp; Holes.‌</a></li>
+<li><span class="badge">exa<span></span></span><a href="#examples.">Examples</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--simply-connected-sets--the-winding-number.">Simply Connected Sets &amp; The Winding Number</a></li>
+<li><span class="badge">exa<span></span></span><a href="#examples.-1">Examples</a></li>
+<li><span class="badge">rem<span></span></span><a href="#remark.">Remark</a></li>
+<li><span class="badge">lem<span></span></span><a href="#lemma.">Lemma</a></li>
+<li></li>
+<li></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 4</p><a href="#a-complex-analytic-approach">A Complex Analytic Approach</a><ul>
+<li><span class="badge">lem<span></span></span><a href="#lemma.-1">Lemma</a></li>
+<li></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--the-winding-number-as-a-line-integral.">The Winding Number as a Line Integral</a></li>
+<li></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 5</p><a href="#references">References</a></li>
+<li class="top-li"><p class="section-flag">section 6</p><a href="#notes">Notes</a></li></ul>
+</nav></section>
+<section id="definitions" class="level1">
+<h1><a href="#definitions">Definitions</a></h1>
+<p>The argument of a non-zero complex number is only defined modulo <span class="math inline">\(2\pi.\)</span> A convenient way to describe mathematically this relationship is to associate to any such number the set of admissible values of its argument:</p>
+<section id="definition--the-argument-function." class="level3">
+
+<div class="p"><h3><a href="#definition--the-argument-function.">Definition – The Argument Function.</a></h3>‌ The <em>set-valued</em> (or <em>multi-valued</em>) function <span class="math inline">\(\mathrm{Arg},\)</span> defined on <span class="math inline">\(\mathbb{C}^{*}\)</span> by <span class="math display">\[
+  \mathrm{Arg} \, z 
+  = 
+  \left\{ 
+    \theta \in \mathbb{R} 
+    \; \left| \; 
+    e^{i\theta} = \frac{z}{|z|} \right. 
+  \right\},
+  \]</span> is called the <em>argument</em> function.</div>
+<p>If we need a classic <em>single-valued</em> function instead, we have for example:</p>
+</section>
+<section id="definition--principal-value-of-the-argument." class="level3">
+
+<div class="p"><h3><a href="#definition--principal-value-of-the-argument.">Definition – Principal Value of the Argument.</a></h3>‌ The <em>principal value of the argument</em> is the unique continuous function <span class="math display">\[
+  \mathrm{arg}: \mathbb{C} \setminus \mathbb{R}_- \to \mathbb{R}
+  \]</span> such that <span class="math display">\[
+  \arg \, 1 = 0
+  \]</span> which is a <em>choice</em> of the argument on its domain: <span class="math display">\[
+  \forall \, z \in \mathbb{C} \setminus \mathbb{R}_-, \;
+  \mathrm{arg}\, z \in \mathrm{Arg}  \, z.
+  \]</span></div>
+</section>
+<section id="proof-existence-and-uniqueness." class="level3">
+
+<div class="p"><h3><a href="#proof-existence-and-uniqueness.">Proof (existence and uniqueness).</a></h3>‌ Define <span class="math inline">\(\mathrm{arg}\)</span> on <span class="math inline">\(\mathbb{C} \setminus \mathbb{R}_- \to \mathbb{R}\)</span> by: <span class="math display">\[
+  \arg (x + i y) = 
+  \left| 
+  \begin{array}{cl}
+  \arctan y/x &amp; \mbox{if } x &gt; 0, \\
+  +\pi/2 - \arctan x/y &amp; \mbox{if } y &gt; 0, \\
+  -\pi/2 - \arctan x/y &amp; \mbox{if } y &lt; 0. \\
+  \end{array}
+  \right.
+  \]</span> This definition is non-ambiguous: if <span class="math inline">\(x&gt;0\)</span> and <span class="math inline">\(y&gt;0,\)</span> we have <span class="math display">\[
+  \arctan x/y + \arctan y/x = \pi/2
+  \]</span> and a similar equality holds when <span class="math inline">\(x&gt;0\)</span> and <span class="math inline">\(y&lt;0.\)</span> As each of the three expressions used to define <span class="math inline">\(\mathrm{arg}\)</span> has an open domain and is continuous, the function itself is continuous. It is a choice of the argument thanks to the definition of <span class="math inline">\(\arctan\)</span>: for example, if <span class="math inline">\(x&gt;0,\)</span> with <span class="math inline">\(\theta=\arg(x+iy),\)</span> we have <span class="math display">\[
+  \frac{\sin\theta}{\cos\theta}=\tan \theta = \tan (\arctan y/x) = \frac{y}{x}, 
+  \]</span> hence, as <span class="math inline">\(\cos \theta &gt; 0\)</span> and <span class="math inline">\(x&gt;0,\)</span> there is a <span class="math inline">\(\lambda &gt; 0\)</span> such that <span class="math display">\[
+  x + i y = \lambda (\cos \theta + i \sin \theta) = \lambda e^{i\theta},
+  \]</span> This equation yields <span class="math inline">\(\arg x+ i y \in \mathrm{Arg} \, x + iy.\)</span> The proof for the half-planes <span class="math inline">\(y&gt;0\)</span> and <span class="math inline">\(y&lt;0\)</span> is similar.</div>
+<p>If <span class="math inline">\(f\)</span> is another continuous choice of the argument on <span class="math inline">\(\mathbb{C} \setminus \mathbb{R}_-\)</span> such that <span class="math inline">\(f(1) = 0,\)</span> the image of <span class="math inline">\(\mathbb{C} \setminus \mathbb{R}_-\)</span> by the difference <span class="math inline">\(f - \arg\)</span> is a subset of <span class="math inline">\(2\pi \mathbb{Z}\)</span> that contains <span class="math inline">\(0,\)</span> and it’s also path-connected as the image of a path-connected set by a continuous function. Consequently, it is the singleton <span class="math inline">\(\{0\}\)</span>: <span class="math inline">\(f\)</span> and <span class="math inline">\(\arg\)</span> are equal. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+
+
+</section><section><p>We cannot avoid the introduction of a <em>cut</em> in the complex plane when we search for a continuous choice of the argument: there is no continuous choice of the argument on <span class="math inline">\(\mathbb{C}^*.\)</span> However, for a continuous choice of the argument along a path of <span class="math inline">\(\mathbb{C}^*,\)</span> there is no such restriction:</p><p>The following theorem is a special case of the path lifting property (in the context of covering spaces; refer to <span class="citation" data-cites="Hat02">(Hatcher <a href="#ref-Hat02">2002</a>)</span> for details).</p></section>
+<section id="theorem--continuous-choice-of-the-argument." class="level3">
+
+<div class="p"><h3><a href="#theorem--continuous-choice-of-the-argument.">Theorem – Continuous Choice of the Argument.</a></h3>‌ Let <span class="math inline">\(a \in \mathbb{C}\)</span> and <span class="math inline">\(\gamma\)</span> be a path of <span class="math inline">\(\mathbb{C} \setminus \{a\}.\)</span> Let <span class="math inline">\(\theta_0 \in \mathbb{R}\)</span> be a value of the argument of <span class="math inline">\(\gamma(0) - a\)</span>: <span class="math display">\[
+  \theta_0 \in \mathrm{Arg}(\gamma(0) - a).
+  \]</span> There is a unique continous function <span class="math inline">\(\theta:[0,1] \mapsto \mathbb{R}\)</span> such that <span class="math inline">\(\theta(0) = \theta_0\)</span> which is a <em>choice</em> of <span class="math inline">\(z \mapsto \mathrm{Arg}(z-a)\)</span> on <span class="math inline">\(\gamma\)</span>: <span class="math display">\[
+  \forall \, t \in [0,1], \; 
+  \theta(t) \in \mathrm{Arg}(\gamma(t) - a).
+  \]</span></div>
+</section>
+<section id="proof." class="level3">
+
+<div class="p"><h3><a href="#proof.">Proof.</a></h3>‌ Let <span class="math inline">\((x(t), y(t))\)</span> be the cartesian coordinates of <span class="math inline">\(\gamma(t)\)</span> in the system with origin <span class="math inline">\(a\)</span> and basis <span class="math inline">\((e^{i\theta_0}, i e^{i\theta_0}).\)</span> As long as <span class="math inline">\(x(t) &gt; 0,\)</span> the function <span class="math display">\[t \mapsto \theta_0 + \arg(x(t)+iy(t))\]</span> is a continuous choice of the argument of <span class="math inline">\(\gamma(t) - a.\)</span> Let <span class="math inline">\(d\)</span> be the distance between <span class="math inline">\(a\)</span> and <span class="math inline">\(\gamma([0,1])\)</span> and let <span class="math inline">\(n \in \mathbb{N}\)</span> such that <span class="math display">\[
+  |t - s| \leq 2^{-n} \, \Rightarrow \, |\gamma(t) - \gamma(s)| &lt; d.
+  \]</span> The condition <span class="math inline">\(x(t) &gt; 0\)</span> is ensured for any <span class="math inline">\(t\)</span> in <span class="math inline">\([0, 2^{-n}].\)</span> This construction of a continuous choice may be iterated locally on every interval <span class="math inline">\([k2^{-n}, (k+1)2^{-n}]\)</span> with a new coordinate system to provide a global continuous choice of the argument on <span class="math inline">\([0,1].\)</span></div>
+<p>The uniqueness of a continuous choice is a consequence of the intermediate value theorem: if we assume that there are two such functions <span class="math inline">\(\theta_1\)</span> and <span class="math inline">\(\theta_2\)</span> with the same initial value <span class="math inline">\(\theta_0,\)</span> as <span class="math inline">\(\theta_1(0) - \theta_2(0)=0,\)</span> if <span class="math inline">\(\theta_1(t) - \theta_2(t) \neq 0\)</span> for some <span class="math inline">\(t\in[0,1],\)</span> then either <span class="math inline">\(|\theta_1(t) - \theta_2(t)| &lt; \pi,\)</span> or there is a <span class="math inline">\(\tau \in \left]0,t\right[\)</span> such that <span class="math inline">\(\theta_1(\tau) - \theta_2(\tau) \neq 0\)</span> and <span class="math inline">\(|\theta_1(\tau) -\theta_2(\tau)| &lt; \pi.\)</span> In any case, there is a contradiction since all values of the argument differ of a multiple of <span class="math inline">\(2\pi.\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+<section id="definition--variation-of-the-argument." class="level3">
+
+<div class="p"><h3><a href="#definition--variation-of-the-argument.">Definition – Variation of the Argument.</a></h3>‌ Let <span class="math inline">\(a \in \mathbb{C}\)</span> and <span class="math inline">\(\gamma\)</span> be a path of <span class="math inline">\(\mathbb{C} \setminus \{a\}.\)</span> The <em>variation</em> of <span class="math inline">\(z \mapsto \mathrm{Arg}(z-a)\)</span> on <span class="math inline">\(\gamma\)</span> is defined as <span class="math display">\[
+  [z \mapsto \mathrm{Arg}(z-a)]_{\gamma}
+  = \theta(1) - \theta(0)
+  \]</span> where <span class="math inline">\(\theta\)</span> is a continous choice of <span class="math inline">\(z \mapsto \mathrm{Arg}(z-a)\)</span> on <span class="math inline">\(\gamma.\)</span></div>
+</section>
+<section id="proof-unambiguous-definition." class="level3">
+
+<div class="p"><h3><a href="#proof-unambiguous-definition.">Proof (unambiguous definition).</a></h3>‌ If <span class="math inline">\(\theta_1\)</span> and <span class="math inline">\(\theta_2\)</span> are two continuous choices of <span class="math inline">\(z \mapsto \mathrm{Arg}(z-a)\)</span> on <span class="math inline">\(\gamma,\)</span> for any <span class="math inline">\(t \in [0,1],\)</span> they differ of a multiple of <span class="math inline">\(2\pi.\)</span> As the function <span class="math inline">\(\theta_1 - \theta_2\)</span> is continuous, by the intermediate value theorem, it is constant. Hence <span class="math display">\[(\theta_1 - \theta_2)(1) = (\theta_1 - \theta_2)(0),\]</span> and <span class="math inline">\(\theta_1(1) - \theta_1(0) = \theta_2(1) - \theta_2(0).\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="definition--winding-number--index." class="level3">
+
+<div class="p"><h3><a href="#definition--winding-number--index.">Definition – Winding Number / Index.</a></h3>‌ Let <span class="math inline">\(a \in \mathbb{C}\)</span> and <span class="math inline">\(\gamma\)</span> be a closed path of <span class="math inline">\(\mathbb{C} \setminus \{a\}.\)</span> The <em>winding number</em> – or <em>index</em> – of <span class="math inline">\(\gamma\)</span> around <span class="math inline">\(a\)</span> is the integer <span class="math display">\[
+  \mathrm{ind}(\gamma,a)
+   = \frac{1}{2\pi}[z\mapsto \mathrm{Arg}(z-a)]_{\gamma}.
+  \]</span></div>
+</section>
+<section id="proof--the-winding-number-is-an-integer." class="level3">
+
+<div class="p"><h3><a href="#proof--the-winding-number-is-an-integer.">Proof – The Winding Number is an Integer.</a></h3>‌ Let <span class="math inline">\(\theta\)</span> be a continuous choice function of <span class="math inline">\(z \mapsto \mathrm{Arg}(z-a)\)</span> on <span class="math inline">\(\gamma;\)</span> as the path <span class="math inline">\(\gamma\)</span> is closed, <span class="math inline">\(\theta(0)\)</span> and <span class="math inline">\(\theta(1),\)</span> which are values of the argument of <span class="math inline">\(\gamma(0)-a = \gamma(1)-a,\)</span> are equal modulo <span class="math inline">\(2\pi,\)</span> hence <span class="math inline">\((\theta(1) - \theta(0))/2\pi\)</span> is an integer. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="definition--path-exterior--interior." class="level3">
+
+<div class="p"><h3><a href="#definition--path-exterior--interior.">Definition – Path Exterior &amp; Interior.</a></h3>‌ The <em>exterior</em> and <em>interior</em> of a closed path <span class="math inline">\(\gamma\)</span> are the subsets of the complex plane defined by <span class="math display">\[
+  \mathrm{Ext} \, \gamma 
+  = 
+  \{ 
+    z \in \mathbb{C} \setminus \gamma([0,1]) 
+    \; | \;
+    \mathrm{ind}(\gamma, z) = 0 
+  \}.
+  \]</span> and <span class="math display">\[
+  \mathrm{Int} \, \gamma 
+  =
+  \mathbb{C} \setminus (\gamma([0,1]) \cup \mathrm{Ext} \, \gamma) 
+  =
+  \{ 
+    z \in \mathbb{C} \setminus \gamma([0,1]) 
+    \; | \;
+    \mathrm{ind}(\gamma, z) \neq 0 
+  \}.
+  \]</span></div>
+</section>
+</section>
+<section id="properties" class="level1">
+<h1><a href="#properties">Properties</a></h1>
+<section id="theorem--the-winding-number-is-locally-constant." class="level3">
+
+<div class="p"><h3><a href="#theorem--the-winding-number-is-locally-constant.">Theorem – The Winding Number is Locally Constant.</a></h3>‌ Let <span class="math inline">\(a \in \mathbb{C}\)</span> and <span class="math inline">\(\gamma\)</span> be a closed path of <span class="math inline">\(\mathbb{C} \setminus \{a\}.\)</span> There is a <span class="math inline">\(\epsilon &gt; 0\)</span> such that, for any <span class="math inline">\(b \in \mathbb{C}\)</span> and any closed path <span class="math inline">\(\beta,\)</span> if <span class="math display">\[
+  |b - a| &lt; \epsilon 
+  \; \mbox{ and } \; 
+  (\forall \, t \in [0,1], \; |\beta(t) - \gamma(t)| &lt; \epsilon)
+  \]</span> then <span class="math inline">\(\beta\)</span> is a path of <span class="math inline">\(\mathbb{C} \setminus \{b\}\)</span> and <span class="math display">\[
+  \mathrm{ind}(\gamma,a) = \mathrm{ind}(\beta,b).
+  \]</span></div>
+</section>
+<section id="proof.-1" class="level3">
+
+<div class="p"><h3><a href="#proof.-1">Proof.</a></h3>‌ Let <span class="math inline">\(\epsilon = d(a, \gamma([0,1])) /2.\)</span> If <span class="math inline">\(|b - a| &lt; \epsilon\)</span> and for any <span class="math inline">\(t \in [0,1],\)</span> <span class="math inline">\(|\gamma(t) - \beta(t)| &lt; \epsilon,\)</span> then clearly <span class="math inline">\(b \in \mathbb{C} \setminus \beta([0,1]).\)</span> Additionally, for any <span class="math inline">\(t \in [0,1]\)</span> there are values <span class="math inline">\(\theta_1\)</span> of <span class="math inline">\(\mathrm{Arg} (\gamma(t)-a)\)</span> and <span class="math inline">\(\theta_2\)</span> of <span class="math inline">\(\mathrm{Arg}(\beta(t)-b)\)</span> such that <span class="math inline">\(|\theta_1 - \theta_2| &lt; \pi/2.\)</span> If we select some values <span class="math inline">\(\theta_{1,0}\)</span> of <span class="math inline">\(\mathrm{Arg} (\gamma(0) - a)\)</span> and <span class="math inline">\(\theta_{2,0}\)</span> of <span class="math inline">\(\mathrm{Arg} (\beta(0) -b)\)</span> such that <span class="math inline">\(|\theta_{1,0} - \theta_{2,0}| &lt; \pi/2,\)</span> then the corresponding continuous choices <span class="math inline">\(\theta_1\)</span> and <span class="math inline">\(\theta_2\)</span> satisfy <span class="math inline">\(|\theta_1(t) - \theta_2(t)| &lt; \pi/2\)</span> for any <span class="math inline">\(t \in [0,1]\)</span>(<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>). Consequently <span class="math display">\[
+  |\mathrm{ind}(\gamma,a) - \mathrm{ind}(\beta,b)| = 
+  \left|
+    \frac{\theta_1(1) - \theta_1(0)}{2\pi} - 
+    \frac{\theta_2(1) - \theta_2(0)}{2\pi}
+  \right| &lt; 
+  \frac{1}{2}.
+  \]</span> As both winding numbers are integers, they are equal. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="corollary--the-winding-number-is-constant-on-components." class="level3">
+
+<div class="p"><h3><a href="#corollary--the-winding-number-is-constant-on-components.">Corollary – The Winding Number is Constant on Components.</a></h3>‌ Let <span class="math inline">\(\gamma\)</span> be a closed path. The function <span class="math display">\[
+  z \in \mathbb{C} \setminus \gamma([0,1]) \mapsto \mathrm{ind}(\gamma,z)
+  \]</span> is constant on each component of <span class="math inline">\(\mathbb{C} \setminus \gamma([0,1])\)</span>. If additionally the component is unbounded, the value of the winding number is zero.</div>
+</section>
+<section id="proof.-2" class="level3">
+
+<div class="p"><h3><a href="#proof.-2">Proof.</a></h3>‌ The mapping <span class="math inline">\(z \mapsto \mathrm{ind}(\gamma, z)\)</span> is locally constant – and hence constant – on every connected component of <span class="math inline">\(\mathbb{C} \setminus \gamma([0,1]).\)</span> If <span class="math inline">\(a\)</span> belongs to some unbounded component of this set, there is a <span class="math inline">\(b\)</span> in the same component such that <span class="math inline">\(|b|&gt; r = \max_{t \in [0,1]} |\gamma(t)|.\)</span> It is possible to connect <span class="math inline">\(b\)</span> to any point <span class="math inline">\(c\)</span> such that <span class="math inline">\(|c| = r\)</span> by a circular path in <span class="math inline">\(\mathbb{C} \setminus \gamma([0,1]),\)</span> thus we may assume that <span class="math inline">\(b \in \mathbb{R}_-.\)</span> The function <span class="math display">\[
+  \theta: t \in [0,1] \mapsto \mathrm{arg}(\gamma(t) - b)
+  \]</span> is a continuous choice of <span class="math inline">\(z \mapsto \mathrm{Arg}(z-b)\)</span> along <span class="math inline">\(\gamma\)</span> and it satisfies <span class="math display">\[
+  \forall \,  t \in [0,1], \; |\theta(t)|  = 
+  \left|\arctan \frac{\mathrm{Im} (\gamma(t) - b)}{\mathrm{Re} (\gamma(t) -b)} \right|
+  &lt; \arctan \frac{r}{|b| - r} &lt; \frac{\pi}{2}.
+  \]</span> As <span class="math inline">\(\gamma\)</span> is a closed path, <span class="math inline">\(\theta(0)\)</span> and <span class="math inline">\(\theta(1)\)</span> – which are equal modulo <span class="math inline">\(2\pi\)</span> – are actually equal and <span class="math display">\[
+  \mathrm{ind}(\gamma, a) = \mathrm{ind}(\gamma, b) = \frac{\theta(1) - \theta(0)}{2\pi} =0
+  \]</span> as expected. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+</section>
+<section id="simply-connected-sets" class="level1">
+<h1><a href="#simply-connected-sets">Simply Connected Sets</a></h1>
+<section id="definition--simplymultiply-connected-set--holes." class="level3">
+
+<div class="p"><h3><a href="#definition--simplymultiply-connected-set--holes.">Definition – Simply/Multiply Connected Set &amp; Holes.‌</a></h3>‌ Let <span class="math inline">\(\Omega\)</span> be an open subset of the plane. A <em>hole</em> of <span class="math inline">\(\Omega\)</span> is a bounded component of its complement <span class="math inline">\(\mathbb{C} \setminus \Omega.\)</span> The set <span class="math inline">\(\Omega\)</span> is <em>simply connected</em> if it has no hole (if every component of its complement is unbounded) and <em>multiply connected</em> otherwise.</div>
+</section>
+<section id="examples." class="level3">
+
+<div class="p"><h3><a href="#examples.">Examples.</a></h3>‌</div>
+<ol type="1">
+<li><p>The open set <span class="math inline">\(\Omega = \{(x,y) \in \mathbb{R}^2 \; | \; x &lt; -1 \, \mbox{ or }\, x&gt;1\}\)</span> is not connected but it is simply connected: its complement has a unique component which is unbounded, hence it has no holes.</p></li>
+<li><p>The open set <span class="math inline">\(\Omega = \mathbb{C} \setminus \overline{\{2^{-n} \, | \, n \in \mathbb{N}\}}\)</span> is multiply connected: its holes are exactly the singletons of its complement.</p></li>
+</ol>
+<p>Intuitively, we should be able to circle around any hole of <span class="math inline">\(\Omega\)</span> without leaving the set; this idea leads to an alternate characterization of simply connected sets.</p>
+</section>
+<section id="theorem--simply-connected-sets--the-winding-number." class="level3">
+
+<div class="p"><h3><a href="#theorem--simply-connected-sets--the-winding-number.">Theorem – Simply Connected Sets &amp; The Winding Number.</a></h3>‌ An open subset <span class="math inline">\(\Omega\)</span> of the complex plane is simply connected if and only if the interior of any closed path <span class="math inline">\(\gamma\)</span> of <span class="math inline">\(\Omega\)</span> is included in <span class="math inline">\(\Omega\)</span>: <span class="math display">\[
+  \forall \, z \in \mathbb{C} \setminus \gamma([0,1]),\;
+  \mathrm{ind}(\gamma, z) \neq 0 \, \Rightarrow \, z \in \Omega,
+  \]</span> or equivalently, if the complement of <span class="math inline">\(\Omega\)</span> is included in the exterior of <span class="math inline">\(\gamma\)</span>: <span class="math display">\[
+  \forall \, z \in \mathbb{C} \setminus \Omega, \; \mathrm{ind}(\gamma, z) = 0.
+  \]</span></div>
+</section>
+<section id="examples.-1" class="level3">
+
+<div class="p"><h3><a href="#examples.-1">Examples.</a></h3>‌</div>
+<ol type="1">
+<li><p>If <span class="math inline">\(\gamma\)</span> is a closed path of <span class="math inline">\(\Omega = \{(x,y) \in \mathbb{R}^2 \; | \; x &lt; -1 \, \mbox{ or }\, x&gt;1\}\)</span> and <span class="math inline">\(z \in \mathbb{C} \setminus \Omega\)</span>, since <span class="math inline">\(\mathbb{C} \setminus \Omega\)</span> is connected and unbounded, <span class="math inline">\(z\)</span> belongs to an unbounded component of <span class="math inline">\(\mathbb{C} \setminus \gamma([0,1]).\)</span> Thus <span class="math inline">\(\mathrm{ind}(\gamma, z)=0\)</span> for any <span class="math inline">\(z \in \mathbb{C} \setminus \Omega.\)</span></p></li>
+<li><p>The open set <span class="math inline">\(\Omega = \mathbb{C} \setminus \overline{\{2^{-n} \, | \, n \in \mathbb{N}\}}\)</span> is open and multiply connected: for example <span class="math inline">\(\gamma = 1 + 1/4 [\circlearrowleft]\)</span> is a path of <span class="math inline">\(\Omega\)</span>, <span class="math inline">\(z=1\)</span> is a point of <span class="math inline">\(\mathbb{C} \setminus \Omega\)</span> and <span class="math inline">\(\mathrm{ind}(\gamma, 1) = 1.\)</span></p></li>
+</ol>
+</section>
+<section id="remark." class="level3">
+
+<div class="p"><h3><a href="#remark.">Remark.</a></h3>‌Note that we may not always be able to encircle only one hole at a time. For example, in the case of the set <span class="math inline">\(\Omega = \mathbb{C} \setminus \overline{\{2^{-n} \, | \, n \in \mathbb{N}\}},\)</span> we can find a closed path <span class="math inline">\(\gamma\)</span> of <span class="math inline">\(\mathbb{C} \setminus \Omega\)</span> such that <span class="math inline">\(\mathrm{ind}(\gamma, 0)=1,\)</span> but then we also have <span class="math inline">\(\mathrm{ind}(\gamma, 2^{-n})=1\)</span> for <span class="math inline">\(n\)</span> large enough: we cannot encircle the hole <span class="math inline">\(\{0\}\)</span> of <span class="math inline">\(\Omega\)</span> unless we also encircle an infinity of extra holes.</div>
+</section>
+<section id="lemma." class="level3">
+
+<div class="p"><h3><a href="#lemma.">Lemma.</a></h3>‌ If the compact set <span class="math inline">\(K\)</span> is a hole of the open set <span class="math inline">\(\Omega\)</span>, there is a compact subset <span class="math inline">\(L\)</span> of <span class="math inline">\(\mathbb{C} \setminus \Omega\)</span> such that <span class="math inline">\(K\subset L\)</span> and <span class="math inline">\(d(L, (\mathbb{C} \setminus \Omega) \setminus L) &gt; 0.\)</span></div>
+</section>
+<section id="proof-of-the-lemma." class="level3">
+
+<div class="p"><h3><a href="#proof-of-the-lemma.">Proof of the Lemma.</a></h3>‌ The set <span class="math inline">\(C = \mathbb{C} \setminus \Omega\)</span> is closed in <span class="math inline">\(\mathbb{C}\)</span> which is locally compact, thus it is locally compact. Since <span class="math inline">\(\mathbb{C}\)</span> is Hausdorff, its subspace <span class="math inline">\(C\)</span> is also Hausdorff. By the Šura-Bura theorem <span class="citation" data-cites="Rem91">(Remmert <a href="#ref-Rem91">1998</a>, 304)</span>, <span class="math inline">\(K\)</span> has a neighbourhood base in <span class="math inline">\(C\)</span> consisting in open compact subsets of <span class="math inline">\(C\)</span>. Since <span class="math inline">\(C\)</span> is a neighbourhood of <span class="math inline">\(K\)</span> in <span class="math inline">\(C\)</span>, there is a compact set <span class="math inline">\(L\)</span> such that <span class="math inline">\(K \subset L \subset C\)</span> which is open in <span class="math inline">\(C\)</span>. Thus, its complement <span class="math inline">\((\mathbb{C} \setminus \Omega) \setminus L\)</span> is also closed in <span class="math inline">\(C\)</span>. Since <span class="math inline">\(C\)</span> is closed, both sets are also closed in <span class="math inline">\(\mathbb{C}\)</span>. They are also disjoint by construction, and thus <span class="math inline">\(d(L, (\mathbb{C} \setminus \Omega) \setminus L) &gt; 0.\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="proof--simply-connected-sets--the-winding-number." class="level3">
+
+<div class="p"><h3><a href="#proof--simply-connected-sets--the-winding-number.">Proof – Simply Connected Sets &amp; The Winding Number.</a></h3>‌ Assume that <span class="math inline">\(\Omega\)</span> is simply connected and let <span class="math inline">\(\gamma\)</span> be a closed path of <span class="math inline">\(\Omega\)</span>. Let <span class="math inline">\(z \in \mathbb{C} \setminus \Omega;\)</span> this point belongs to an unbounded connected component of <span class="math inline">\(\mathbb{C} \setminus \Omega\)</span> and therefore to an unbounded connected component of <span class="math inline">\(\mathbb{C} \setminus \gamma([0,1]),\)</span> thus <span class="math inline">\(\mathrm{ind}(\gamma, z)=0.\)</span></div>
+<p>Conversely, if <span class="math inline">\(\Omega\)</span> is not simply connected, the set <span class="math inline">\(\mathbb{C} \setminus \Omega\)</span> has a hole <span class="math inline">\(K\)</span> which is contained in some compact subset <span class="math inline">\(L\)</span> of <span class="math inline">\(\mathbb{C} \setminus \Omega\)</span> such that the distance <span class="math inline">\(\epsilon\)</span> between <span class="math inline">\(L\)</span> and <span class="math inline">\((\mathbb{C} \setminus \Omega) \setminus L\)</span> is positive. Let <span class="math inline">\(r &lt; \epsilon/\sqrt{2};\)</span> Define for any pair <span class="math inline">\((k, l)\)</span> of integers the node <span class="math inline">\(n_{k,l} = (k + i l)r\)</span> and <span class="math inline">\(S_{k,l}\)</span> as the closed square with vertices <span class="math inline">\(n_{k,l},\)</span> <span class="math inline">\(n_{k+1,l},\)</span> <span class="math inline">\(n_{k+1,l+1}\)</span> and <span class="math inline">\(n_{k,l+1}.\)</span> The (positively) oriented boundary of the square <span class="math inline">\(S_{k,l}\)</span> is the polyline <span class="math display">\[
+  [n_{k,l} \to n_{k+1,l} \to n_{k+1,l+1} \to n_{k,l+1} \to n_{k,l}]
+  \]</span> The collection of squares that intersect <span class="math inline">\(L\)</span> is finite and covers <span class="math inline">\(L.\)</span> Additionally, all of its squares are included in <span class="math inline">\(\Omega \cup L.\)</span></p>
+<p>For any square <span class="math inline">\(S\)</span> in the cover of <span class="math inline">\(L\)</span> and any interior point <span class="math inline">\(a\)</span> of <span class="math inline">\(S\)</span> if <span class="math inline">\(\gamma\)</span> is the oriented boundary of <span class="math inline">\(S,\)</span> then <span class="math inline">\(\mathrm{ind}(\gamma, a) = 1.\)</span> Additionally, <span class="math inline">\(\mathrm{ind}(\mu, a) = 0\)</span> for the oriented boundary <span class="math inline">\(\mu\)</span> of any other square in the collection. Consequently, if <span class="math inline">\(\Gamma\)</span> denotes the collection of oriented line segments that composes the oriented boundaries of all squares of the cover of <span class="math inline">\(L,\)</span> we have <span class="math display">\[
+  \sum_{\gamma \in \Gamma}\frac{1}{2\pi} [z \mapsto \mathrm{Arg}(z-a)]_{\gamma} = 1.
+  \]</span> Now if the line segment <span class="math inline">\(\gamma\)</span> belongs to <span class="math inline">\(\Gamma\)</span> and <span class="math inline">\(\gamma([0,1]) \cap L \neq \varnothing,\)</span> then <span class="math inline">\(\gamma^{\leftarrow}\)</span> also belongs to <span class="math inline">\(\Gamma;\)</span> if we remove all such pairs from <span class="math inline">\(\Gamma,\)</span> the resulting collection <span class="math inline">\(\Gamma'\)</span> also satisfies <span class="math display">\[
+  \sum_{\gamma \in \Gamma'}\frac{1}{2\pi} [z \mapsto \mathrm{Arg}(z-a)]_{\gamma} = 1.
+  \]</span> and by construction the image of any <span class="math inline">\(\gamma\)</span> in <span class="math inline">\(\Gamma'\)</span> is included in <span class="math inline">\(\Omega.\)</span> The original collection <span class="math inline">\(\Gamma\)</span> is balanced: for any square vertice <span class="math inline">\(n,\)</span> the number of line segments with <span class="math inline">\(n\)</span> as an initial point and with <span class="math inline">\(n\)</span> as a terminal point is the same. The collection <span class="math inline">\(\Gamma'\)</span> has the same property. Consequently, the line segments of <span class="math inline">\(\Gamma'\)</span> may be assembled in a finite sequence of closed paths <span class="math inline">\(\gamma_1,\)</span> <span class="math inline">\(\dots,\)</span> <span class="math inline">\(\gamma_n\)</span> and <span class="math display">\[
+  \sum_{k=1}^n \mathrm{ind}(\gamma_k, a) = 1.
+  \]</span> Every point of <span class="math inline">\(L\)</span> is either an interior point of some square of the collection, or the limit of such point; anyway, that means that <span class="math display">\[
+  \forall \, z \in L, \; \sum_{k=1}^n \mathrm{ind}(\gamma_k, z) = 1
+  \]</span> and thus that there is at least one path <span class="math inline">\(\gamma_k\)</span> such that <span class="math inline">\(\mathrm{ind}(\gamma_k, z) \neq 0.\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+</section>
+<section id="a-complex-analytic-approach" class="level1">
+<h1><a href="#a-complex-analytic-approach">A Complex Analytic Approach</a></h1>
+<p>If a closed path is rectifiable, we may compute its winding number as a line integral; to prove this, we need the:</p>
+<section id="lemma.-1" class="level3">
+
+<div class="p"><h3><a href="#lemma.-1">Lemma.</a></h3>‌ Let <span class="math inline">\(a \in \mathbb{C}\)</span> and <span class="math inline">\(\gamma\)</span> be a rectifiable path of <span class="math inline">\(\mathbb{C} \setminus \{a\}.\)</span> For any <span class="math inline">\(t \in [0,1],\)</span> let <span class="math inline">\(\gamma_t\)</span> be the path such that for any <span class="math inline">\(s\in[0,1],\)</span> <span class="math inline">\(\gamma_t(s) = \gamma(t s).\)</span> The function <span class="math inline">\(\mu:[0,1]\to \mathbb{C},\)</span> defined by <span class="math display">\[
+  \mu(t) = \int_{\gamma_t} \frac{dz}{z-a}
+  \]</span> satisfies <span class="math display">\[
+  \exists \, \lambda \in \mathbb{C}^*, \,
+  \forall \, t \in [0,1], \,
+  e^{\mu(t)} = \lambda \times (\gamma(t) - a).
+  \]</span></div>
+</section>
+<section id="proof.-3" class="level3">
+
+<div class="p"><h3><a href="#proof.-3">Proof.</a></h3>‌ We only prove the lemma under the assumption that <span class="math inline">\(\gamma\)</span> is continuously differentiable; the rectifiable case is a straightforward extension.</div>
+<p>We have for any <span class="math inline">\(t\in [0,1]\)</span> <span class="math display">\[
+  \mu(t) = \int_{\gamma_t} \frac{dz}{z-a}
+  =
+  \int_0^1 \frac{\gamma'(ts) \times t}{\gamma(t s) - a} ds
+  =
+  \int_0^t \frac{\gamma'(s)}{\gamma(s) - a} ds,
+  \]</span> hence <span class="math display">\[
+  \mu'(t) = \frac{\gamma'(t)}{\gamma(t) - a}
+  \]</span> and the derivative of the quotient <span class="math inline">\(\phi(t) = {e^{\mu(t)}}/{(\gamma(t)}-a)\)</span> satisfies <span class="math display">\[
+  \phi'(t)
+  =
+  \mu'(t) \phi(t)
+  -
+  \frac{\gamma'(t)}{\gamma(t) - a} \phi(t)
+  = 0
+  \]</span> which yields the result. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+<section id="theorem--the-winding-number-as-a-line-integral." class="level3">
+
+<div class="p"><h3><a href="#theorem--the-winding-number-as-a-line-integral.">Theorem – The Winding Number as a Line Integral.</a></h3>‌ Let <span class="math inline">\(a \in \mathbb{C}\)</span> and <span class="math inline">\(\gamma\)</span> be a rectifiable path of <span class="math inline">\(\mathbb{C} \setminus \{a\}.\)</span> Then <span class="math display">\[
+  [z \mapsto \mathrm{Arg} (z-a)]_{\gamma} = \mathrm{Im} \left( \int_{\gamma} \frac{dz}{z - a} \right). 
+  \]</span> If the path <span class="math inline">\(\gamma\)</span> is closed, then <span class="math display">\[
+  \mathrm{ind}(\gamma,a) = 
+  \frac{1}{i2\pi} \int_{\gamma} \frac{dz}{z - a}. 
+  \]</span></div>
+</section>
+<section id="proof.-4" class="level3">
+
+<div class="p"><h3><a href="#proof.-4">Proof.</a></h3>‌We use the function <span class="math inline">\(\mu\)</span> of the previous lemma. Applying the modulus to both sides of the equation <span class="math inline">\(e^{\mu(t)} = \lambda \times (\gamma(t) - a)\)</span> provides <span class="math inline">\(e^{\mathrm{Re}(\mu(t))} = |\lambda| \times |\gamma(t) - a|,\)</span> hence <span class="math display">\[
+  e^{i \mathrm{Im}(\mu(t))} = \frac{\lambda}{|\lambda|} \frac{\gamma(t) - a}{|\gamma(t) - a|}.
+  \]</span> The function <span class="math inline">\(t \in [0,1] \mapsto \mathrm{Im}(\mu(t))\)</span> is – up to a constant – a continuous choice of <span class="math inline">\(z \mapsto \mathrm{Arg}\, (z-a)\)</span> on <span class="math inline">\(\gamma.\)</span> Consequently, <span class="math display">\[[z \mapsto \mathrm{Arg} \, (z-a)]_{\gamma} = \mathrm{Im}(\mu(1)) - \mathrm{Im}(\mu(0))
+= \mathrm{Im}(\mu(1)),\]</span> which is the desired result.</div>
+<p>If additionally <span class="math inline">\(\gamma\)</span> is a closed path, the equations <span class="math display">\[
+  \gamma(0) = \gamma(1) \; \mbox{ and } \;
+  e^{\mathrm{Re}(\mu(t))} = |\lambda| \times |\gamma(t) - a|
+  \]</span> yield <span class="math inline">\(e^{\mathrm{Re}(\mu(0))}= e^{\mathrm{Re}(\mu(1))}\)</span> and hence <span class="math inline">\(\mathrm{Re}(\mu(1)) = \mathrm{Re}(\mu(0)) = 0.\)</span> Thus, <span class="math display">\[
+  \mathrm{ind}(\gamma,a) = 
+  \frac{1}{2\pi} \mathrm{Im}(\mu(1)) = \frac{1}{i2\pi} \mu(1),
+  \]</span> which concludes the proof. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+</section>
+<section id="references" class="level1 unnumbered">
+<h1><a href="#references">References</a></h1>
+<div id="refs" class="references"><ol><li id="ref-Hat02" style="margin-bottom:0.75em"><em>Algebraic Topology</em><br>Allen Hatcher, 2002.<br>JSON: <a href="data:application/json;charset=utf-8;fontSize64,ewogICJJU0JOIjogIjAtNTIxLTc5NTQwLTAvcGJrIiwKICAiVVJMIjogImh0dHBzOi8vd3d3Lm1hdGguY29ybmVsbC5lZHUvfmhhdGNoZXIvQVQvQVQucGRmIiwKICAiYXV0aG9yIjogWwogICAgewogICAgICAiZmFtaWx5IjogIkhhdGNoZXIiLAogICAgICAiZ2l2ZW4iOiAiQWxsZW4iCiAgICB9CiAgXSwKICAiaWQiOiAiSGF0MDIiLAogICJpc3N1ZWQiOiB7CiAgICAiZGF0ZS1wYXJ0cyI6IFsKICAgICAgWwogICAgICAgIDIwMDIKICAgICAgXQogICAgXQogIH0sCiAgInB1Ymxpc2hlciI6ICJDYW1icmlkZ2UgVW5pdmVyc2l0eSBQcmVzcyIsCiAgInRpdGxlIjogIkFsZ2VicmFpYyB0b3BvbG9neS4iLAogICJ0eXBlIjogImJvb2siCn0="><i style="font-size:18px;position:relative;bottom:0.05em;" class="fa fa-file-text-o"></i></a>&nbsp; / URL: <a href="https://www.math.cornell.edu/~hatcher/AT/AT.pdf"><i style="font-size:18px" class="fa fa-link"></i></a></li><li id="ref-Rem91" style="margin-bottom:0.75em"><em>Classical Topics in Complex Function Theory</em><br>Reinhold Remmert, 1998.<br>JSON: <a href="data:application/json;charset=utf-8;fontSize64,ewogICJJU0JOIjogIjAtMzg3LTk4MjIxLTMiLAogICJhdXRob3IiOiBbCiAgICB7CiAgICAgICJmYW1pbHkiOiAiUmVtbWVydCIsCiAgICAgICJnaXZlbiI6ICJSZWluaG9sZCIKICAgIH0KICBdLAogICJpZCI6ICJSZW05MSIsCiAgImlzc3VlZCI6IHsKICAgICJkYXRlLXBhcnRzIjogWwogICAgICBbCiAgICAgICAgMTk5OAogICAgICBdCiAgICBdCiAgfSwKICAibGFuZ3VhZ2UiOiAiRW5nbGlzaCIsCiAgIm51bWJlci1vZi1wYWdlcyI6ICJ4aXggKyAzNDkiLAogICJwdWJsaXNoZXIiOiAiTmV3IFlvcmssIE5ZOiBTcHJpbmdlciIsCiAgInRpdGxlIjogIkNsYXNzaWNhbCB0b3BpY3MgaW4gY29tcGxleCBmdW5jdGlvbiB0aGVvcnkuIFRyYW5zbC4gYnkgTGVzbGllIEtheS4iLAogICJ0eXBlIjogImJvb2siCn0="><i style="font-size:18px;position:relative;bottom:0.05em;" class="fa fa-file-text-o"></i></a>&nbsp;</li></ol></div>
+</section>
+<section class="footnotes" id="notes"><h1><a href="#notes">Notes</a></h1>
+<hr>
+<ol>
+<li id="fn1"><p>Otherwise, by the intermediate value theorem, we could find some <span class="math inline">\(t \in \left]0,1\right]\)</span> such that <span class="math inline">\(|\theta_1(t) - \theta_2(t)| = \pi/2,\)</span> but then, for every value <span class="math inline">\(\theta_{1,t}\)</span> of <span class="math inline">\(\mathrm{Arg} (\gamma(t)-a)\)</span> and <span class="math inline">\(\theta_{2,t}\)</span> of <span class="math inline">\(\mathrm{Arg}(\beta(t)-b),\)</span> we would have <span class="math display">\[\theta_{1,t}- \theta_{2,t} = \theta_1(t) - \theta_2(t) + 2\pi k\]</span> for some <span class="math inline">\(k \in \mathbb{Z}.\)</span> Therefore, the choice of <span class="math inline">\(\theta_{1,t}\)</span> and <span class="math inline">\(\theta_{2,t}\)</span> such that <span class="math inline">\(|\theta_{1,t} - \theta_{2,t}| &lt; \pi/2\)</span> would be impossible.<a href="#fnref1">↩</a></p></li>
+</ol>
+</section>
+</main>
+
+
+</body></html>

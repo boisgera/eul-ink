@@ -1,0 +1,335 @@
+% Power Series
+% [Sébastien Boisgérault][email], Mines ParisTech
+
+[email]: mailto: Sebastien.Boisgerault@mines-paristech.fr
+
+---
+license: "[CC BY-NC-SA 4.0](http://creativecommons.org/licenses/by-nc-sa/4.0/)"
+---
+
+Exercises
+================================================================================
+
+The Fibonacci Sequence
+--------------------------------------------------------------------------------
+
+We search for a closed form of the Fibonacci sequence $a_n$, defined by
+  $$
+  a_0 = 0, \; a_1 = 1, \; \forall \, n \in \mathbb{N}, \, a_{n+2} = a_n + a_{n+1}.
+  $$
+
+### Questions
+
+ 1. Show that the golden ratio 
+      $$
+      \phi = \frac{1 + \sqrt{5}}{2}
+      $$ 
+    is the largest solution of the equation $x^2  = x + 1$
+    and that the other solution is $\psi = - {1}/ {\phi}.$
+
+ 2. Establish that for any $n \in \mathbb{N}$, $a_n \leq \phi^n$.
+
+ 3. Show that the radius of convergence of the generating function
+      $$
+      f(z) = \sum_{n=0}^{+\infty} a_n z^n
+      $$
+    is at least $1/\phi$.
+
+ 4. Compute $f(z)$ when $|z| < 1/\phi$. 
+
+ 5. Find a closed form for $a_n$, $n \in \mathbb{N}$. 
+
+### Answers
+
+ 1. The discriminant $\Delta$ of the quadratic equation $x^2 - x - 1 = 0$ is 
+      $$
+      \Delta = (-1)^2 - 4 \times 1 \times (-1) = 5,
+      $$ 
+    therefore the solutions are 
+      $$
+      x = \frac{1 \pm \sqrt{5}}{2}.
+      $$
+    The golden ratio $\phi$, equal to $(1 + \sqrt{5}) / 2$, is the largest of 
+    the two. The fact that the other root $\psi$ of the equation is equal
+    to $-1/\phi$ can be demonstrated directly; we have indeed
+      $$
+      \psi = \frac{1-\sqrt{5}}{2} 
+           = \frac{1+\sqrt{5}}{1+\sqrt{5}} \frac{1 - \sqrt{5}}{2}
+           = \frac{1^2 - \sqrt{5}^2}{2(1+\sqrt{5})}
+           = - \frac{2}{1 + \sqrt{5}}.
+      $$
+    Alternatively, we know that 
+      $$
+      x^2 - x - 1 = (x-\phi)(x-\psi) = x^2 - (\phi+\psi) x + \phi \psi,
+      $$
+    hence $\phi \psi = -1$.
+
+ 2. It is clear that $a_0 = 0 \leq 1 = \phi^0$ and $a_1 = 1 \leq \phi = \phi^1$.
+    If we assume that the inequality $a_n \leq \phi^n$ holds for
+    $n=0, 1, \dots, m+1$, the recursive definition of the Fibonacci sequence 
+    yields
+      $$
+      a_{m+2} = a_m + a_{m+1} \leq \phi^m + \phi^{m+1} = \phi^m(1 + \phi) = \phi^{m+2}.
+      $$
+    Hence, by induction, the inequality holds for every $n \in \mathbb{N}$.
+
+ 3. The inequality $a_n \leq \phi^n$ provides
+      $$
+      \limsup_{n \to +\infty} \sqrt[n]{|a_n|} \leq \phi,
+      $$
+    and hence, by the Cauchy-Hadamard formula, 
+    the radius of convergence of the series 
+    $\sum_{n \geq 0} a_n z^n$ is at least $1/\phi$.
+
+ 4. If $|z| < 1/\phi$, we can write the expansion of $f(z)$ as 
+      $$
+      f(z) = \sum_{n=0}^{+\infty} a_n z^n 
+           = a_0 + a_1 z + \sum_{n=0}^{+\infty} a_{n+2} z^{n+2}
+           = z + \sum_{n=0}^{+\infty} a_{n+2} z^{n+2}.
+      $$
+    Using $a_{n+2} = a_n + a_{n+1}$, we deduce that
+      $$
+      f(z) = z + z^2 \sum_{n=0}^{+\infty} a_n z^n + z \sum_{n=0}^{+\infty} a_{n+1} z^{n+1}
+           = z + z^2 f(z) + z f(z),
+      $$
+    hence
+      $$
+      f(z) = \frac{z}{1 - z - z^2}.
+      $$
+ 
+ 5. The roots of the polynomial $1 - z - z^2$ are 
+    $-\phi$ and $-\psi$, hence 
+      $$
+      - z^2 - z + 1= - (z + \phi)(z + \psi).
+      $$
+    Thus, for any $|z| < 1/\phi$, we have
+      $$
+      f(z) = \frac{-z}{(z+\phi)(z+\psi)} 
+      = 
+      \frac{1}{\phi- \psi} \left[\frac{-\phi}{z+\phi} + \frac{\psi}{z+\psi} \right],
+      $$
+   or equivalently, using $\psi = -1/\phi$,
+      $$
+      f(z) =
+      \frac{1}{\phi - \psi} 
+      \left[ 
+      \frac{-1}{1 - \psi z} + \frac{1}{1 - \phi z}
+      \right].
+      $$
+   If $|z| < 1/\phi$, then $|\phi z| < 1$ and $|\psi z| < 1$ and consequently
+      $$
+      \frac{1}{1 - \phi z} = \sum_{n=0}^{+\infty} \phi^n z^n,\;
+      \frac{1}{1 - \psi z} = \sum_{n=0}^{+\infty} \psi^n z^n.
+      $$
+   Thus, $f(z)$ can be expanded as 
+      $$
+      f(z) = \sum_{n=0}^{+\infty} \frac{1}{\phi - \psi} \left[\phi^n - \psi^n \right]z^n.
+      $$
+   The power series expansion of $f(z)$ in the disk centered on the origin with 
+   radius $1/\phi$ is unique, therefore
+      $$
+      a_n = \frac{1}{\phi - \psi} \left[ \phi^n - \psi^n \right]
+          = \frac{1}{\sqrt{5}}\left[\left(\frac{1+\sqrt{5}}{2}\right)^n -
+            \left(\frac{1-\sqrt{5}}{2}\right)^n
+            \right]
+      $$
+   for every $n \in \mathbb{N}$.
+
+
+Entire Functions Dominated By Polynomials
+--------------------------------------------------------------------------------
+
+### Question
+
+Show that if a holomorphic function $f:\mathbb{C} \to \mathbb{C}$ is dominated
+by a polynomial $P$ of order $p$
+  $$ 
+  \forall \, z \in \mathbb{C}, \; |f(z)| \leq |P(z)|
+  $$
+then it is a polynomial whose degree is at most $p$.
+
+### Answer
+
+Let $\sum_{n=0}^{+\infty} a_n z^n$ be the power series expansion of $f$ in 
+$\mathbb{C}$. For any $r>0$, we have
+  $$
+  a_n = \frac{1}{i 2\pi} \int_{r[\circlearrowleft]} \frac{f(z)}{z^{n+1}} dz,
+  $$
+hence by the M-L estimation lemma,
+  $$
+  |a_n| \leq \frac{\sup \, \{|P(re^{i2\pi t})| \; | \; t \in [0,1]\}}{r^n}.
+  $$
+For any $n> p$, letting $r \to +\infty$ provides $a_n=0$. 
+Hence, the function $f$ is a polynomial of degree at most $p$.
+
+<!--
+Laurent Series Expansion
+--------------------------------------------------------------------------------
+
+### Question
+
+Provide a Laurent series expansion of the function
+  $$
+  z \mapsto \log \left(1 - \frac{1}{z}\right)
+  $$
+in the annulus $A(0,1, +\infty)$.
+
+### Answer
+
+The function $f$ above is defined and holomorphic in $A(0,1, +\infty)$.
+Its derivative is
+  $$
+  f'(z) = \frac{1/z^2}{1 - 1/z} = \frac{1}{(z^{-1})^2(1 - z^{-1})}. 
+  $$
+When $|z|>1$, we have $|z^{-1}| < 1$ and thus,
+  $$  
+  \frac{1}{1 - z^{-1}} = \sum_{n=0}^{-\infty} z^{n},
+  $$
+which leads to
+  $$
+  f'(z) = \sum_{n=-2}^{-\infty} z^{n}.
+  $$
+Now, the function defined by
+  $$
+  g(z) = \sum_{n=-1}^{-\infty} \frac{z^{n}}{n}.
+  $$
+is by construction a primitive of $f'$ in $A(0,1, +\infty)$.
+In the annulus, which is connected, all primitives of $f'$ differ from a 
+constant. Here $g(z) \to 0$ when $|z| \to +\infty$ and $f(z) \to 0$ when
+$|z| \to +\infty$, thus $f$ and $g$ are identical: the expected
+development of $f$ into a Laurent series in $A(0,1, +\infty)$ is
+  $$
+  f(z) = \sum_{n=-1}^{-\infty} \frac{z^{n}}{n}.
+  $$
+-->
+
+Existence of Primitives
+--------------------------------------------------------------------------------
+
+### Question
+
+Show that the function $$f: z \in \mathbb{C} \setminus [-1, 1] \mapsto 
+\frac{\pi}{z} \frac{1}{\sin \pi/z}$$
+has a primitive.
+
+### Answer
+The function $f$ is defined and holomorphic in $\mathbb{C} \setminus [-1,1]$
+(the zeros of $\sin \pi/z$ are $z=1/k$ for $k \in \mathbb{N}^*$).
+
+We first consider the restriction of $f$ to the annulus $A(0,1, +\infty)$. 
+For any $z$ in this annulus, $-z$ also belong to it and
+$f(-z) = f(z)$.
+Hence, if $\sum_{n=-\infty}^{+\infty} a_n z^n$ is a Laurent series expansion
+of $f$, $\sum_{n=-\infty}^{+\infty} (-1)^n a_n z^n$ is another valid one.
+The uniqueness of the expansion yields that $a_n = 0$ if $n$ is odd;
+in particular, $a_{-1}=0$ and the sum
+  $$
+  \sum_{p=-\infty}^{+\infty} \frac{a_{2p}}{2p+1} z^{2p+1}
+  $$
+provide a primitive of $f$ on the annulus.
+
+Now, let $\gamma$ be an arbitrary closed rectifiable path of 
+$\mathbb{C} \setminus [-1, 1]$. Let $n=\mathrm{ind}(\gamma, 0)$;
+define the path $\mu:t \in [0,1] \mapsto 2 e^{i2\pi n t}$ and the sequence
+of paths $\nu = (\gamma, \mu^{\leftarrow})$. As $[-1,1]$ is a connected
+subset of $\mathbb{C} \setminus \nu ([0,1])$, for any $z\in[-1,1]$,
+$\mathrm{ind}(\nu, z) = \mathrm{ind}(\nu, 0)= 0$. Consequently, 
+$\mathrm{Int} \, \nu \subset \mathbb{C} \setminus [-1,1]$ and
+Cauchy's integral theorem provides
+  $$
+  \int_{\gamma} f(z) \, dz = \int_{\mu} f(z) \, dz.
+  $$
+As $f$ has a primitive on the annulus $A(0,1, +\infty)$, the integral in
+the right-hand side of this equation is equal to zero. The classic criteria 
+therefore proves that primitives of $f$ exist in $\mathbb{C} \setminus [-1, 1]$.
+
+
+A Removable Set
+--------------------------------------------------------------------------------
+
+Let $f: \mathbb{C} \to \mathbb{C}$ be a continuous function 
+which is holomorphic on $\mathbb{C} \setminus \mathbb{U}$ 
+(where $\mathbb{U} = \{z \in \mathbb{C} \; | \; |z|=1\}$).
+
+### Question
+
+Prove that $f$ is an entire function.
+
+### Answer
+
+Let $\sum_{n=0}^{+\infty} a_n z^n$ be the Taylor series expansion of 
+$f$ in $D(0,1)$; we are going to prove that this expansion is actually
+a valid expansion of $f$ in $\mathbb{C}$.
+Consider the Laurent expansion $\sum_{n=-\infty}^{+\infty} b_n z^n$ of
+$f$ in $A(0,1,+\infty)$. For any $n \in \mathbb{Z}$ and any $r > 1$,
+we have
+  $$
+  b_n = \frac{1}{i2\pi}\int_{r[\circlearrowleft]} \frac{f(z)}{z^{n+1}} dz,
+  $$
+thus, by continuity of $f$
+  $$
+  \begin{split}
+  b_n &= \lim_{r\to 1^+} \frac{1}{i2\pi}\int_{r[\circlearrowleft]} \frac{f(z)}{z^{n+1}} dz\\
+      &=   \lim_{r\to 1^-} \frac{1}{i2\pi}\int_{r[\circlearrowleft]} \frac{f(z)}{z^{n+1}} dz
+  \end{split}
+  $$
+and consequently, $b_n= a_n$ if $n$ is non-negative and zero otherwise.
+The sum $\sum_{n=0}^{+\infty} a_n z^n$ is defined for any $|z| > 1$,
+thus its open disk of convergence is the full complex plane.
+It is equal to $f$ on $\mathbb{C} \setminus \mathbb{U}$ and both 
+functions are continuous on $\mathbb{C}$, hence they are equal on
+$\mathbb{C}$: the function $f$ is entire.
+
+
+Derivative of Power Series
+--------------------------------------------------------------------------------
+
+### Question 
+
+Provide an alternate proof of the existence and value of the derivative
+of the sum $\sum_{n=0}^{+\infty} a_n (z-c)^n$ in its open disk of
+convergence.
+
+Hint: a locally uniform limit of a sequence of holomorphic functions is 
+holomorphic.
+
+### Answer
+
+Let $f_m(z) = \sum_{n=0}^m a_n (z-c)^n$. Every polynomial $f_m$ is
+holomorphic and the sequence converges locally uniformly to 
+$f(z) = \sum_{n=0}^{+\infty} a_n (z-c)^n$ in the open disk of convergence
+$D(c, r)$ of the series, thus $f$ is holomorphic.
+
+For any holomorphic function $\phi$ in $D(c,r)$ and any 
+$\rho \in \left]0,r\right[$
+  $$
+  \phi'(z) 
+  = 
+  \frac{1}{i2\pi} 
+  \int_{c+\rho[\circlearrowleft]} \frac{\phi(w)}{(w-z)^2}.
+  $$
+Thus, for any $m \in \mathbb{N}$,
+  $$
+  f'_m(z) = \sum_{n=1}^m na_n (z-c)^{n-1}
+  =
+  \frac{1}{i2\pi} 
+  \int_{c+\rho[\circlearrowleft]} \frac{f_m(w)}{(w-z)^2}.
+  $$
+The integrand above converges locally uniformly in $D(c,r)$,
+hence
+  $$
+  \lim_{m \to +\infty}   
+  \frac{1}{i2\pi} 
+  \int_{c+\rho[\circlearrowleft]} \frac{f_m(w)}{(w-z)^2}
+  =
+  \frac{1}{i2\pi} 
+  \int_{c+\rho[\circlearrowleft]} \frac{f(w)}{(w-z)^2}
+  =
+  f'(z).
+  $$
+Finally, 
+  $$
+  \sum_{n=1}^{+\infty} na_n (z-c)^{n-1}
+  = \lim_{m \to +\infty} \sum_{n=1}^m na_n (z-c)^{n-1}
+  = f'(z).
+  $$

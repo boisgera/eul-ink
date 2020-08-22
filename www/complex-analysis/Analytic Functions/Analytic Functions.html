@@ -1,0 +1,832 @@
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, Mines ParisTech">
+  <meta name="dcterms.date" content="2019-09-30">
+  <title>Analytic Functions</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: content-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+html {
+  line-height: var(--base-line-height);
+  --base-font-size: 24px;
+  --base-line-height: 36px;
+  --scale-ratio: 1.4142135623730951;
+  --small: 17px;
+  --medium: 24px;
+  --large: 34px;
+  --x-large: 48px;
+  font-size: 24px;
+  font-family: 'Alegreya', serif;
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html em {
+  font-style: italic;
+}
+html strong {
+  font-weight: bold;
+}
+html p, html .p {
+  margin-bottom: var(--base-line-height);
+  text-align: justify;
+  hyphens: auto;
+  -moz-hyphens: auto;
+}
+html section {
+  margin-bottom: var(--base-line-height_px);
+}
+html main {
+  box-sizing: content-box;
+  max-width: 32em;
+  margin: auto;
+  padding: var(--base-line-height);
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, q:before {
+  content: none;
+}
+blockquote:after, q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: medium solid black;
+  border-bottom: medium solid black;
+}
+main > header, main > .header, main > #header {
+  margin-top: calc(2 * var(--base-line-height));
+  margin-bottom: calc(2 * var(--base-line-height));
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: calc(1.5 * var(--base-line-height));
+  margin-top: 0;
+  margin-bottom: var(--base-line-height);
+  font-weight: bold;
+}
+main > header .author, main > .header .author, main > #header .author {
+  font-size: 24px;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  font-weight: normal;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: 'Alegreya SC', serif;
+  line-height: calc(1 * var(--base-line-height));
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  font-weight: bold;
+  line-height: calc(1.25 * var(--base-line-height));
+  margin-top: calc(2.00 * var(--base-line-height));
+  margin-bottom: calc(0.75 * var(--base-line-height));
+}
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+}
+h3, h4, h5, h6 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 1em;
+  display: inline;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
+}
+a:hover {
+  text-decoration: none;
+}
+a:link {
+  color: var(--color);
+}
+a:visited {
+  color: var(--color);
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li {
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  margin-left: var(--base-line-height);
+  padding-left: 0.5em;
+}
+ul li {
+  list-style: disc;
+}
+ol li {
+  list-style: decimal;
+}
+blockquote {
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+  padding: var(--base-line-height);
+  margin-bottom: var(--base-line-height);
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-size: 24px;
+  font-family: Inconsolata;
+}
+pre {
+  overflow-x: auto;
+  background-color: #ebebeb;
+  margin-bottom: var(--base-line-height);
+  padding-left: var(--base-line-height);
+  padding-right: var(--base-line-height);
+  padding-top: var(--base-line-height);
+  padding-bottom: var(--base-line-height);
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: auto;
+}
+figure {
+  margin-bottom: var(--base-line-height);
+  text-align: center;
+}
+figcaption {
+  display: inline-block;
+  font-style: italic;
+  text-align: justify;
+}
+.table {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  margin-bottom: var(--base-line-height);
+}
+thead {
+  border-bottom: medium solid black;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+.MJXc-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+nav#TOC > ul {
+  position: relative;
+  font-weight: bold;
+}
+nav#TOC > ul > * {
+  margin-bottom: var(--base-line-height);
+}
+nav#TOC > ul li {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+nav#TOC > ul ul li {
+  margin-left: var(--base-line-height);
+  font-weight: normal;
+}
+nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+  padding-bottom: var(--base-line-height);
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+.badge {
+  position: relative;
+  bottom: 0.13em;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  font-weight: 300;
+  font-size: var(--small);
+  display: inline-block;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  vertical-align: baseline;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+  margin-right: 1em;
+}
+.section-flag {
+  line-height: var(--base-line-height);
+  font-size: var(--small);
+  font-weight: 300;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  margin-bottom: 0;
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya: 400,700,900,400italic,700italic,900italic|Alegreya+SC:400,700,900,400italic,700italic,900italic|Alegreya+Sans:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+Sans+SC:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var box, hide_proof, main, show_proof;
+
+  hide_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("expanded");
+    sectionWrapper.addClass("minimized");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "visible"
+    });
+    w$(".header-wrapper").css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().css({
+      visibility: "hidden",
+      height: "0px"
+    });
+    w$(".header-wrapper").attr({
+      id: w$("section").first().attr("id")
+    });
+    return w$("section").first().attr({
+      id: ""
+    });
+  };
+
+  show_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("minimized");
+    sectionWrapper.addClass("expanded");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "hidden"
+    });
+    w$(".header-wrapper").css({
+      visibility: "hidden",
+      height: "0"
+    });
+    w$("section").first().css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().attr({
+      id: w$(".header-wrapper").attr("id")
+    });
+    return w$(".header-wrapper").attr({
+      id: ""
+    });
+  };
+
+  box = function(section) {
+    var clone, expand, header, headerWrapper, tombstone, wrapper;
+    clone = section.clone(true);
+    clone.css({
+      marginBottom: "0"
+    });
+    clone.children().last().css({
+      marginBottom: "0"
+    });
+    tombstone = clone.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer",
+      position: "absolute",
+      bottom: "0.75rem",
+      right: "0.75rem"
+    });
+    wrapper = $("<div class='proof-wrapper expanded'></div>");
+    wrapper.css({
+      position: "relative",
+      margin: "-0.75rem -0.75rem 0.75rem -0.75rem",
+      padding: "0.75rem",
+      backgroundColor: "#f9f9f9"
+    });
+    header = clone.find("h3, h4, h5, h6").first().clone();
+    headerWrapper = $("<div class='p header-wrapper' style='margin-bottom:0; visibility:hidden; overflow:hidden; height:0;'> </div>");
+    headerWrapper.append(header);
+    expand = $("<i class='fa fa-caret-down expand' style='visibility:hidden; cursor:pointer; position:absolute; top:0.75rem; right:0.75rem;'> </i>");
+    wrapper.append(headerWrapper);
+    wrapper.append(expand);
+    wrapper.append(clone);
+    expand.on("click", function() {
+      return show_proof(wrapper);
+    });
+    tombstone.on("click", function() {
+      return hide_proof(wrapper);
+    });
+    section.replaceWith(wrapper);
+    return wrapper;
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, section, sections, text, wrapper;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      wrapper = box(section);
+      hide_proof(wrapper);
+    }
+    return $(document).keydown(function(event) {
+      var k, l, len2, len3, ref1, ref2, results, sectionWrapper;
+      console.log("***", event.keyCode);
+      if (event.keyCode === 88) {
+        ref1 = $(".proof-wrapper.minimized");
+        for (k = 0, len2 = ref1.length; k < len2; k++) {
+          sectionWrapper = ref1[k];
+          show_proof($(sectionWrapper));
+        }
+      }
+      if (event.keyCode === 77) {
+        ref2 = $(".proof-wrapper.expanded");
+        results = [];
+        for (l = 0, len3 = ref2.length; l < len3; l++) {
+          sectionWrapper = ref2[l];
+          results.push(hide_proof($(sectionWrapper)));
+        }
+        return results;
+      }
+    });
+  };
+
+  $(main);
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var make_preview, mathjaxDebug;
+
+  make_preview = function(elt) {
+    var card, hidden_css, hide_preview, id, ref, show_preview, url, visible_css;
+    ref = elt.attr("href").split("#"), url = ref[0], id = ref[1];
+    card = $("<div class='card'>\n  <div class='holder'>\n    <p>Placeholder</p>\n  </div>\n</div>");
+    card.css({
+      width: "35vw",
+      padding: "1.5rem",
+      position: "fixed",
+      top: "1.5rem",
+      right: "1.5rem",
+      boxSizing: "border-box",
+      maxHeight: "calc(100vh - 3rem)",
+      overflow: "hidden",
+      boxShadow: "0 0 1rem #e6e6e6",
+      backgroundColor: "white"
+    });
+    visible_css = {
+      visibility: "visible",
+      opacity: 1,
+      transform: "translateX(0em)",
+      transition: "all 0.3s linear"
+    };
+    hidden_css = {
+      visibility: "hidden",
+      opacity: 0,
+      transform: "translateX(1em)",
+      transition: "all 0.3s linear 0.5s"
+    };
+    card.css(hidden_css);
+    elt.css({
+      textDecoration: "underline solid #0a0a0a",
+      textDecorationSkip: "ink",
+      transition: "background-color 0.3s linear"
+    });
+    show_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d3"
+      });
+      return card.css(visible_css);
+    };
+    hide_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d300"
+      });
+      return card.css(hidden_css);
+    };
+    return card.find(".holder").load(url + (" [id='" + id + "']"), function(response, status, jxXHR) {
+      console.log("XHR status:", status, url, id);
+      if (status === "success" || status === "notmodified") {
+        console.log("success!");
+        console.log("elt:", $(elt));
+        $("body").append(card);
+        card.find("p, .p").css({
+          textAlign: "left"
+        });
+        card.find("section").css({
+          marginBottom: "0"
+        });
+        card.find("section").children().last().css({
+          marginBottom: "0"
+        });
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, card[0]]);
+        elt.on("mouseenter", show_preview);
+        return elt.on("mouseleave", hide_preview);
+      }
+    });
+  };
+
+  mathjaxDebug = function() {
+    MathJax.Hub.signal.Interest(function(message) {
+      return console.log("*", message);
+    });
+    return MathJax.Hub.Register.StartupHook("End Process", function() {
+      var i, jax, len, ref, results;
+      console.log("list of jaxes:");
+      ref = MathJax.Hub.getAllJax();
+      results = [];
+      for (i = 0, len = ref.length; i < len; i++) {
+        jax = ref[i];
+        results.push(console.log("jax:", jax));
+      }
+      return results;
+    });
+  };
+
+  $(function() {
+    var elt, i, len, ref, results;
+    ref = $("a.preview");
+    results = [];
+    for (i = 0, len = ref.length; i < len; i++) {
+      elt = ref[i];
+      results.push(make_preview($(elt)));
+    }
+    return results;
+  });
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">Analytic Functions</a></h1>
+
+<h2 class="author">
+By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, Mines ParisTech, under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>
+</h2> 
+
+<h3 class="date" style="margin-right: 0px;">September 30, 2019</h3>
+</header>
+<section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
+<ul>
+<li class="top-li"><p class="section-flag">section 1</p><a href="#analytic-functions">Analytic Functions</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--analytic-function.">Analytic Function</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--analyticity--holomorphicity-in-open-sets.">Analyticity &amp; Holomorphicity in Open Sets</a></li>
+<li><span class="badge">def<span></span></span><a href="#definition--holomorphic-function-non-open-sets.">Holomorphic Function (Non-Open Sets)</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--analyticity--holomorphicity-in-convex-sets.">Analyticity &amp; Holomorphicity in Convex Sets</a></li>
+<li></li>
+<li><span class="badge">exa<span></span></span><a href="#example--closed-unit-disk.">Closed Unit Disk</a></li>
+<li><span class="badge">def<span></span></span><a href="#definition--projection.">Projection</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--analyticity--holomorphicity-in-regular-compact-sets.">Analyticity &amp; Holomorphicity in Regular Compact Sets</a></li>
+<li></li>
+<li><span class="badge">exa<span></span></span><a href="#example--unit-circle.">Unit Circle</a></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 2</p><a href="#real-analytic-functions">Real Analytic Functions</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--interval.">Interval</a></li>
+<li><span class="badge">def<span></span></span><a href="#definition--real-analytic-function.">Real Analytic Function</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--characterization-of-real-analytic-functions.">Characterization of Real Analytic Functions</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--real-taylor-series-expansion.">(Real) Taylor Series Expansion</a></li>
+<li></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 3</p><a href="#analytic-continuation">Analytic Continuation</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--analytic-continuation-to-a-set.">Analytic Continuation to a Set</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--uniqueness-of-analytic-continuation-to-sets.">Uniqueness of Analytic Continuation to Sets</a></li>
+<li></li>
+<li><span class="badge">def<span></span></span><a href="#definition--regular-analytic-path.">Regular Analytic Path</a></li>
+<li><span class="badge">def<span></span></span><a href="#definition--analytic-continuation-along-a-path.">Analytic Continuation Along a Path</a></li>
+<li><span class="badge">exa<span></span></span><a href="#example--analytic-continuations-of-the-logarithm.">Analytic Continuations of the Logarithm</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--uniqueness-of-analytic-continuation-along-paths.">Uniqueness of Analytic Continuation along Paths</a></li>
+<li></li>
+<li><span class="badge">rem<span></span></span><a href="#remark--comparison-of-analytic-continuations-concepts.">Comparison of Analytic Continuations Concepts</a></li>
+<li><span class="badge">rem<span></span></span><a href="#remark--values-of-analytic-continuations.">Values of Analytic Continuations</a></li>
+<li><span class="badge">exa<span></span></span><a href="#example--values-of-the-logarithm.">Values of the Logarithm</a></li>
+<li><span class="badge">def<span></span></span><a href="#definition--germ-of-holomorphic-function.">Germ of Holomorphic Function</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--analytic-continuation-of-germs.">Analytic Continuation of Germs</a></li>
+<li></li>
+<li><span class="badge">def<span></span></span><a href="#definition--initial-germ.">Initial Germ</a></li>
+<li></li>
+<li><span class="badge">def<span></span></span><a href="#definition--terminal-germ.">Terminal Germ</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--monodromy-theorem-local.">Monodromy Theorem (Local)</a></li>
+<li></li>
+</ul></li>
+</ul>
+</nav></section>
+<section id="analytic-functions" class="level1">
+<h1><a href="#analytic-functions">Analytic Functions</a></h1>
+<section id="definition--analytic-function." class="level3">
+
+<div class="p"><h3><a href="#definition--analytic-function.">Definition – Analytic Function.</a></h3>‌ A function <span class="math inline">\(f: A \subset \mathbb{C} \to \mathbb{C}\)</span> is <em>analytic</em> if it is locally the sum of a (convergent) power series: for any <span class="math inline">\(c \in A,\)</span> there is a <span class="math inline">\(r&gt;0\)</span> and a sequence of complex numbers <span class="math inline">\(a_n\)</span> such that <span class="math display">\[
+  \forall \, z \in A \cap D(c, r), \; 
+  f(z) = \sum_{n=0}^{+\infty} a_n (z-c)^n.
+  \]</span></div>
+<p>The characterization of analytic functions defined on open sets is simple: we know that the sum of every power series is holomorphic in its open disk of convergence and conversely that every holomorphic function defined on an open set is locally the sum of a power series. Hence, we have the:</p>
+</section>
+<section id="theorem--analyticity--holomorphicity-in-open-sets." class="level3">
+
+<div class="p"><h3><a href="#theorem--analyticity--holomorphicity-in-open-sets.">Theorem – Analyticity &amp; Holomorphicity in Open Sets.</a></h3>‌ A function defined in an open set is analytic if and only if it is holomorphic.</div>
+<p>The definition of analytic function is not limited to open sets; we may also extend the definition of holomorphic function to sets that may not be open:</p>
+</section>
+<section id="definition--holomorphic-function-non-open-sets." class="level3">
+
+<div class="p"><h3><a href="#definition--holomorphic-function-non-open-sets.">Definition – Holomorphic Function (Non-Open Sets).</a></h3>‌ A function <span class="math inline">\(f: A \subset \mathbb{C} \to \mathbb{C}\)</span> is <em>holomorphic</em> if there is an open subset <span class="math inline">\(\Omega\)</span> of <span class="math inline">\(\mathbb{C}\)</span> such that <span class="math inline">\(A \subset \Omega\)</span> and a holomorphic function <span class="math inline">\(g: \Omega \to \mathbb{C}\)</span> that extends <span class="math inline">\(f\)</span>.</div>
+<p>This definition is appropriate because – at least on “well-behaved” sets – the classes of analytic and holomorphic functions are identical, as they are on open sets. For example, convex sets are well-behaved:</p>
+</section>
+<section id="theorem--analyticity--holomorphicity-in-convex-sets." class="level3">
+
+<div class="p"><h3><a href="#theorem--analyticity--holomorphicity-in-convex-sets.">Theorem – Analyticity &amp; Holomorphicity in Convex Sets.</a></h3>‌ A function <span class="math inline">\(f: A \subset \mathbb{C} \to \mathbb{C}\)</span> defined in a convex set <span class="math inline">\(A\)</span> is analytic if and only if it is holomorphic.</div>
+</section>
+<section id="proof." class="level3">
+
+<div class="p"><h3><a href="#proof.">Proof.</a></h3>‌ It is clear that such restrictions of holomorphic functions are analytic (the convexity assumption is not needed here).</div>
+<p>Conversely, let <span class="math inline">\(A\)</span> be a convex subset of <span class="math inline">\(\mathbb{C}\)</span> and let <span class="math inline">\(f: A \to \mathbb{C}\)</span> be an analytic function. There is a positive function <span class="math inline">\(a \in A \mapsto r_a\)</span> and a family <span class="math inline">\(a \in A \mapsto f_a\)</span> of holomorphic functions defined on <span class="math inline">\(D(a, r_a)\)</span> such that <span class="math inline">\(f\)</span> and <span class="math inline">\(f_a\)</span> are equal on <span class="math inline">\(A \cap D(a, r_a).\)</span> Let <span class="math inline">\(\phi\)</span> be the complex-valued function defined on the union <span class="math inline">\(\Omega\)</span> of all disks <span class="math inline">\(D(a, r_a)\)</span> by <span class="math display">\[
+  \phi(z) = f_a(z) 
+  \; \mbox{ if } \; a \in A 
+  \; \mbox{ and } \; z \in D(a, r_a).
+  \]</span> This definition is non-ambiguous: if <span class="math inline">\(a \in A,\)</span> <span class="math inline">\(b \in A\)</span> and <span class="math inline">\(z\)</span> belongs to <span class="math inline">\(D(a, r_a)\)</span> and <span class="math inline">\(D(b, r_b),\)</span> then by convexity of <span class="math inline">\(A,\)</span> the domain of <span class="math inline">\(f\)</span> contains the set <span class="math inline">\(L = [a,b] \cap D(a, r_a) \cap D(b, r_b).\)</span> By the isolated zeros theorem, the functions <span class="math inline">\(f_a\)</span> and <span class="math inline">\(f_b,\)</span> equal on <span class="math inline">\(L,\)</span> are also equal on <span class="math inline">\(D(a, r_a) \cap D(b, r_b),\)</span> therefore <span class="math inline">\(f_a(z) = f_b(z).\)</span> The function <span class="math inline">\(\phi\)</span> is by construction an extension of <span class="math inline">\(f\)</span> which is holomorphic. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+<section id="example--closed-unit-disk." class="level3">
+
+<div class="p"><h3><a href="#example--closed-unit-disk.">Example – Closed Unit Disk.</a></h3>‌ If the function <span class="math inline">\(f\)</span> is analytic on the closed unit disk <span class="math display">\[\overline{D}(0,1) = \{z \in \mathbb{C} \; | \; |z| \leq 1 \},\]</span> there is a holomorphic extension of <span class="math inline">\(f\)</span> on an open superset <span class="math inline">\(\Omega\)</span> of the closed unit disk. This function may be restricted to an open disk <span class="math inline">\(D(0,r)\)</span> for some radius <span class="math inline">\(r&gt;1\)</span> and expanded into a Taylor series: there are complex coefficients <span class="math inline">\(a_n\)</span> such that <span class="math inline">\(\sum_{n=0}^{+\infty} a_n z^n\)</span> is convergent in <span class="math inline">\(D(0,r)\)</span> and <span class="math display">\[
+  \forall \, z \in \overline{D}(0,1), \; f(z) = \sum_{n=0}^{+\infty} a_n z^n.
+  \]</span> Conversely it is plain that such a function is holomorphic – and thus analytic – in the closed unit disk.</div>
+<!--
+
+**TODO:** need to add that no point of $A$ is isolated. Make it clear where
+we need it (to ensure uniqueness of the germs of holomorphic functions).
+
+**TODO:** consider wording the geometric assumption on $A$ in terms of
+skeleton of $A$ 
+(even if my use would be slightly improper wrt the classic
+use in morpho math?). Nah, this definition is fine, 
+per Zolésio in Shapes and Geometries. 
+"Projection onto $A$" is also used there.
+Nota: Z. uses a "reverse convention" and defines as skeleton of $A$ what
+would be the skeleton of $\mathbb{C} \setminus A$ in morpho math?
+
+**TODO:** jetison skeleton; make it optional, put it in a remark/example.
+
+-->
+</section>
+<section id="definition--projection." class="level3">
+
+<div class="p"><h3><a href="#definition--projection.">Definition – Projection.</a></h3>‌ A <em>projection</em> onto a non-empty closed subset <span class="math inline">\(A\)</span> of <span class="math inline">\(\mathbb{C}\)</span> of a point <span class="math inline">\(z \in \mathbb{C}\)</span> is a minimizer of the distance between <span class="math inline">\(z\)</span> and <span class="math inline">\(A.\)</span> In other words, the set of all projections of <span class="math inline">\(z\)</span> onto <span class="math inline">\(A\)</span> is <span class="math display">\[
+  \Pi(z) = \{a \in A \; | \; |z - a| = \inf_{w \in A} |z - w|\}.
+  \]</span> <!-- If there is a unique projection of $z$ onto $A,$ it is denoted  $\pi(z).$ --></div>
+<!--
+
+**Definition -- Skeleton.**
+The skeleton $\mathrm{Ske}(\Omega)$ of an open strict subset $\Omega$ of the 
+complex plane is the subset of $\Omega$ with more than one projection onto 
+$\mathbb{C} \setminus \Omega.$
+
+-->
+</section>
+<section id="theorem--analyticity--holomorphicity-in-regular-compact-sets." class="level3">
+
+<div class="p"><h3><a href="#theorem--analyticity--holomorphicity-in-regular-compact-sets.">Theorem – Analyticity &amp; Holomorphicity in Regular Compact Sets.</a></h3>‌ Let <span class="math inline">\(A\)</span> be a compact subset of the complex plane with no isolated point and such that the projection onto <span class="math inline">\(A\)</span> is unique in some neighbourhood of <span class="math inline">\(A.\)</span> A function <span class="math inline">\(f: A \to \mathbb{C}\)</span> is analytic if and only if it is holomorphic.</div>
+</section>
+<section id="proof.-1" class="level3">
+
+<div class="p"><h3><a href="#proof.-1">Proof.</a></h3>‌ It is plain that restrictions to <span class="math inline">\(A\)</span> of holomorphic functions defined in a open neighbourhood of <span class="math inline">\(A\)</span> are analytic on <span class="math inline">\(A:\)</span> holomorphic functions are analytic.</div>
+<p>Conversely, assume that <span class="math inline">\(f: A \to \mathbb{C}\)</span> is analytic. Let <span class="math inline">\(r_z\)</span> be a collection of positive radii indexed by <span class="math inline">\(z \in A\)</span> and <span class="math inline">\(f_z: D(z,r_z) \to \mathbb{C}\)</span> the corresponding collection of holomorphic functions such that <span class="math display">\[
+  \forall \, z \in A, \; 
+  \forall \, w \in A \cap D(z,r_z), \;
+  f_z(w) = f(w).
+  \]</span> There is another collection with the same property, but associated with a constant and positive radius <span class="math inline">\(r.\)</span> It is easy to build this collection – by a simple restriction of the <span class="math inline">\(f_z\)</span> – if we can first extend the functions of the original collection to make sure that <span class="math inline">\(z \in A \mapsto r_z\)</span> has a positive lower bound. To do so, we may consider for any <span class="math inline">\(z \in A\)</span> the set of holomorphic functions defined on open disks centered on <span class="math inline">\(z\)</span> with the same values as <span class="math inline">\(f\)</span> on the points that also belong to <span class="math inline">\(A.\)</span> This set is not empty, as it contains <span class="math inline">\(f_z.\)</span> Additionally, if two functions belong to this set, as <span class="math inline">\(z\)</span> is not isolated in <span class="math inline">\(A,\)</span> they are equal on the intersection of their domain of definition. Hence, we may select as a new <span class="math inline">\(f_z\)</span> the function in the set whose domain of definition has the largest radius. Now, if we assume that the infimum of the <span class="math inline">\(r_z\)</span> is <span class="math inline">\(0,\)</span> there is a sequence <span class="math inline">\(z_n\)</span> in <span class="math inline">\(A\)</span> such that <span class="math inline">\(r_{z_n} \to 0\)</span> and thus a subsequence <span class="math inline">\(w_n\)</span> that converges to some <span class="math inline">\(z \in A.\)</span> But for any <span class="math inline">\(w \in D(z,r_z),\)</span> the radius of the largest disk at <span class="math inline">\(w\)</span> satisfies <span class="math display">\[r_{w} + |w-z| \geq r_z,\]</span> thus we have a contradiction eventually when <span class="math inline">\(|w_n - z| &lt; r_z / 2\)</span> and <span class="math inline">\(r_{w_n} &lt; r_z /2.\)</span></p>
+<p>Let <span class="math inline">\(V\)</span> be an open neighbourhood of <span class="math inline">\(A\)</span> where the projection onto <span class="math inline">\(A\)</span> is unique. We may assume that <span class="math inline">\(r\)</span> is smaller than the distance between <span class="math inline">\(A\)</span> and <span class="math inline">\(\mathbb{C} \setminus V.\)</span> For any <span class="math inline">\(z \in \Omega = A + D(0,r),\)</span> denote <span class="math inline">\(\pi(z)\)</span> the projection of <span class="math inline">\(z\)</span> onto <span class="math inline">\(A\)</span> and define <span class="math inline">\(g(z) = f_{\pi(z)}(z);\)</span> the function <span class="math inline">\(g: \Omega \mapsto \mathbb{C}\)</span> obviously extends <span class="math inline">\(f.\)</span> Additionally, it is holomorphic, because it satisfies <span class="math display">\[
+  \forall \, z \in \Omega, \;
+  \exists \, \epsilon &gt; 0, \; 
+  \forall \, w \in D(z, \epsilon), \; g(w) = f_{\pi(z)}(w).
+  \]</span> Indeed, if <span class="math inline">\(|w - z| &lt; \epsilon = r - |z - \pi(z)|,\)</span> then <span class="math display">\[
+  |w - \pi(z)| \leq |w - z| + |z - \pi(z)| &lt; r,
+  \]</span> so <span class="math inline">\(w\)</span> that belongs to <span class="math inline">\(D(\pi(w), r)\)</span> by construction also belongs to <span class="math inline">\(D(\pi(z), r).\)</span> By construction, the functions <span class="math inline">\(f_{\pi(z)}\)</span> and <span class="math inline">\(f_{\pi(w)}\)</span> have the same values on every point of <span class="math inline">\(A\)</span> that belongs to both of their domains of definition. Naturally, <span class="math inline">\(\pi(z)\)</span> belongs to the domain of <span class="math inline">\(f_{\pi(z)};\)</span> since <span class="math display">\[
+  |\pi(w) - \pi(z)| \leq |w - z| &lt; r
+  \]</span> it also belongs to the domain of <span class="math inline">\(f_{\pi(w)}.\)</span> As none of the points of <span class="math inline">\(A\)</span> is isolated, by the isolated zeros theorem, the functions <span class="math inline">\(f_{\pi(w)}\)</span> and <span class="math inline">\(f_{\pi(z)}\)</span> are identical on <span class="math inline">\(D(\pi(z), r) \cap D(\pi(w),r),\)</span> which leads to <span class="math inline">\(g(w) = f_{\pi(w)}(w) = f_{\pi(z)}(w).\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+<section id="example--unit-circle." class="level3">
+
+<div class="p"><h3><a href="#example--unit-circle.">Example – Unit Circle.</a></h3>‌The unit circle <span class="math display">\[
+  \mathbb{U} = \{z \in \mathbb{C} \; | \; |z| = 1\}
+  \]</span> is not convex, but it is compact and has no isolated point. Additionally, unless <span class="math inline">\(z=0\)</span>, the point <span class="math inline">\(z/|z|\)</span> is the unique projection of <span class="math inline">\(z\)</span> onto <span class="math inline">\(\mathbb{C}\)</span>; the set <span class="math inline">\(\mathbb{C}^*\)</span> is a neighbourhood of <span class="math inline">\(\mathbb{U}\)</span>. Thus, the classes of analytic and holomorphic functions defined on <span class="math inline">\(\mathbb{U}\)</span> are identical. Any holomorphic extension of a holomorphic function defined on <span class="math inline">\(\mathbb{U}\)</span> has a restriction to <span class="math inline">\(A(0,r,1/r)\)</span> for some radius <span class="math inline">\(r \in \left]0,1\right[\)</span>, thus a function <span class="math inline">\(f\)</span> is analytic on <span class="math inline">\(\mathbb{U}\)</span> if and only if there are some coefficients <span class="math inline">\(a_n\)</span> such that <span class="math inline">\(\sum_{n=-\infty}^{+\infty} a_n z^n\)</span> is convergent on some annulus <span class="math inline">\(A(0,r,1/r)\)</span> and <span class="math display">\[
+  \forall \, z \in \mathbb{U}, \; f(z) = \sum_{n=-\infty}^{+\infty} a_n z^n.
+  \]</span></div>
+</section>
+</section>
+<section id="real-analytic-functions" class="level1">
+<h1><a href="#real-analytic-functions">Real Analytic Functions</a></h1>
+<section id="definition--interval." class="level3">
+
+<div class="p"><h3><a href="#definition--interval.">Definition – Interval.</a></h3>‌ In the sequel, an interval may be open, closed or half-open, bounded or unbounded; in other words, it is a synonym for “convex subset of the real line”.</div>
+</section>
+<section id="definition--real-analytic-function." class="level3">
+
+<div class="p"><h3><a href="#definition--real-analytic-function.">Definition – Real Analytic Function.</a></h3>‌ A real-valued function defined on an interval of the real line which is analytic is <em>real analytic</em>.</div>
+<p>The characterization of analytic functions on convex sets provides:</p>
+</section>
+<section id="theorem--characterization-of-real-analytic-functions." class="level3">
+
+<div class="p"><h3><a href="#theorem--characterization-of-real-analytic-functions.">Theorem – Characterization of Real Analytic Functions.</a></h3>‌ A real-valued function defined on an interval of the real line is real analytic if and only if it has a holomorphic extension on some open neighbourhood of its domain of definition in the complex plane.</div>
+<p>We also have:</p>
+</section>
+<section id="theorem--real-taylor-series-expansion." class="level3">
+
+<div class="p"><h3><a href="#theorem--real-taylor-series-expansion.">Theorem – (Real) Taylor Series Expansion.</a></h3>‌ A function <span class="math inline">\(f: I \to \mathbb{R}\)</span> defined on an interval <span class="math inline">\(I\)</span> of <span class="math inline">\(\mathbb{R}\)</span> is real analytic if and only it is smooth – the <span class="math inline">\(n\)</span>-th order (real) derivative defined by <span class="math inline">\(f^{(0)} = f\)</span> and <span class="math display">\[
+  f^{(n+1)}(x) = \lim_{y \in I \to x} \frac{f^{(n)}(y) - f^{(n)}(x)}{y - x}
+  \]</span> exists at every order – and for any <span class="math inline">\(a \in I,\)</span> there is a <span class="math inline">\(r&gt;0\)</span> such that <span class="math display">\[
+  \forall \, x \in I \cap \left]a-r, a + r \right[, \;
+  f(x) = \sum_{n=0}^{+\infty} \frac{f^{(n)}(a)}{n!} (x-a)^n.
+  \]</span></div>
+</section>
+<section id="proof.-2" class="level3">
+
+<div class="p"><h3><a href="#proof.-2">Proof.</a></h3>‌Assume that the function <span class="math inline">\(f\)</span> is smooth and that for any <span class="math inline">\(a\)</span> in <span class="math inline">\(I,\)</span> it is equal to the sum of its (convergent) Taylor expansion on <span class="math inline">\(\left]a-r, a + r \right[\)</span> for some <span class="math inline">\(r&gt;0.\)</span> Then, the power series <span class="math display">\[z \mapsto \sum_{n=0}^{+\infty} \frac{f^{(n)}(a)}{n!} (z-a)^n\]</span> is convergent on <span class="math inline">\(D(a, r)\)</span> and its restriction to <span class="math display">\[I \cap D(a, r) = I \cap \left] a-r, a + r \right[\]</span> is equal to <span class="math inline">\(f.\)</span> Hence, <span class="math inline">\(f\)</span> is real analytic.</div>
+<p>Conversely, if <span class="math inline">\(f\)</span> is real analytic, let <span class="math inline">\(g\)</span> be one of its holomorphic extensions. At every <span class="math inline">\(x\)</span> in <span class="math inline">\(I,\)</span> <span class="math display">\[
+  f'(x) = 
+  \lim_{y \in I \to x} \frac{f(y) - f(x)}{y - x}
+  = \lim _{y \in I \to x} \frac{g(y) - g(x)}{y - x} = g'(x);
+  \]</span> the real derivative of <span class="math inline">\(f\)</span> exists and is equal to the complex derivative of <span class="math inline">\(g,\)</span> hence <span class="math inline">\(g'\)</span> is a holomorphic extension of <span class="math inline">\(f'.\)</span> By induction, at every order <span class="math inline">\(n,\)</span> <span class="math inline">\(f^{(n)}\)</span> exists and accepts <span class="math inline">\(g^{(n)}\)</span> as a holomorphic extension. Consequently, the local expansion of <span class="math inline">\(g\)</span> as a Taylor series provides a local expansion of <span class="math inline">\(f\)</span> as a (real) Taylor series. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+</section>
+<section id="analytic-continuation" class="level1">
+<h1><a href="#analytic-continuation">Analytic Continuation</a></h1>
+<p>The term “analytic continuation” refers to two related concepts; the first one is straightforward: “continuation” is simply used as a synonym of “function extension”.</p>
+<section id="definition--analytic-continuation-to-a-set." class="level3">
+
+<div class="p"><h3><a href="#definition--analytic-continuation-to-a-set.">Definition – Analytic Continuation to a Set.</a></h3>‌ Let <span class="math inline">\(\Omega\)</span> be an non-empty open subset of <span class="math inline">\(\mathbb{C},\)</span> <span class="math inline">\(f:\Omega \to \mathbb{C}\)</span> be a holomorphic function. An <em>analytic continuation</em> of <span class="math inline">\(f\)</span> on a superset <span class="math inline">\(\Sigma\)</span> of <span class="math inline">\(\Omega\)</span> which is open and connected is a holomorphic function <span class="math inline">\(g:\Sigma \to \mathbb{C}\)</span> such that the restriction of <span class="math inline">\(g\)</span> to <span class="math inline">\(\Omega\)</span> is <span class="math inline">\(f.\)</span></div>
+<p>We define the continuation for open and connected sets only so that:</p>
+</section>
+<section id="theorem--uniqueness-of-analytic-continuation-to-sets." class="level3">
+
+<div class="p"><h3><a href="#theorem--uniqueness-of-analytic-continuation-to-sets.">Theorem – Uniqueness of Analytic Continuation to Sets.</a></h3>‌ There is at most one analytic continuation of an analytic function to a given set.</div>
+</section>
+<section id="proof.-3" class="level3">
+
+<div class="p"><h3><a href="#proof.-3">Proof.</a></h3>‌It is a consequence of the isolated zeros theorem. Indeed, if there are two holomorphic extensions, they are identical on <span class="math inline">\(\Omega\)</span> which is open and non-empty. Every point of <span class="math inline">\(\Omega\)</span> is a limit point of the zeros of their difference; this difference is holomorphic and defined on a connected set, thus it is identically zero and the two holomorphic extensions are equal. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+
+</section><section><p>The second concept of continuation applies to holomorphic functions along paths. Although the concept may be defined for arbitrary paths, for the sake of simplicity we will only consider the case of regular analytic paths.</p></section>
+<section id="definition--regular-analytic-path." class="level3">
+
+<div class="p"><h3><a href="#definition--regular-analytic-path.">Definition – Regular Analytic Path.</a></h3>‌ A path <span class="math inline">\(\gamma: [0,1] \mapsto \mathbb{C}\)</span> is <em>analytic</em> if it is an analytic function. It is <em>regular</em> if <span class="math inline">\(\gamma'\)</span> has no zero on <span class="math inline">\([0,1].\)</span></div>
+</section>
+<section id="definition--analytic-continuation-along-a-path." class="level3">
+
+<div class="p"><h3><a href="#definition--analytic-continuation-along-a-path.">Definition – Analytic Continuation Along a Path.</a></h3>‌ Let <span class="math inline">\(\Omega\)</span> be an open subset of <span class="math inline">\(\mathbb{C},\)</span> <span class="math inline">\(f:\Omega \to \mathbb{C}\)</span> be a holomorphic function and <span class="math inline">\(\gamma:[0,1] \mapsto \mathbb{C}\)</span> be a regular analytic path such that <span class="math inline">\(\gamma(0) \in \Omega.\)</span> An <em>analytic continuation</em> of <span class="math inline">\(f\)</span> along <span class="math inline">\(\gamma\)</span> is an analytic function <span class="math inline">\(\phi:[0,1] \mapsto \mathbb{C}\)</span> such that for some <span class="math inline">\(0 &lt; \epsilon \leq 1,\)</span> <span class="math display">\[
+  \forall \, t \in \left[0, \epsilon\right[, \; 
+  \gamma(t) \in \Omega \; \mbox{ and } \; 
+  \phi(t) = f(\gamma(t)).
+  \]</span></div>
+</section>
+<section id="example--analytic-continuations-of-the-logarithm." class="level3">
+
+<div class="p"><h3><a href="#example--analytic-continuations-of-the-logarithm.">Example – Analytic Continuations of the Logarithm.</a></h3>‌ The principal value of the logarithm <span class="math display">\[
+  \log: \mathbb{C} \setminus \mathbb{R}_- \to \mathbb{C}
+  \]</span> is an analytic continuation of the function <span class="math inline">\(f: D(1,1) \mapsto \mathbb{C}\)</span> defined by <span class="math display">\[
+  f(z) = \sum_{n=1}^{+\infty} \frac{(-1)^{n+1}}{n} (z-1)^n.
+  \]</span> On the other hand, the function <span class="math display">\[\phi:t \in [0,1] \mapsto i2\pi t\]</span> is an analytic continuation of <span class="math inline">\(\log\)</span> along the regular analytic path <span class="math display">\[[\circlearrowleft]: t \in [0,1] \mapsto e^{i2\pi t}.\]</span> Indeed, the function <span class="math inline">\(\phi\)</span> is analytic – the holomorphic function <span class="math inline">\(z\in\mathbb{C} \mapsto i2\pi z\)</span> is an extension of it – and <span class="math display">\[
+  \forall \, t \in \left[0, 1/2\right[, \; 
+  [\circlearrowleft](t) = e^{i2\pi t} \in \mathbb{C} \setminus \mathbb{R}_- 
+  \; \mbox{ and } \;
+  \phi(t) = \log e^{i2\pi t} = \log ([\circlearrowleft](t)).
+  \]</span></div>
+<p>Like analytic continuations to sets, analytic continuations along paths are also unique whenever they exist:</p>
+</section>
+<section id="theorem--uniqueness-of-analytic-continuation-along-paths." class="level3">
+
+<div class="p"><h3><a href="#theorem--uniqueness-of-analytic-continuation-along-paths.">Theorem – Uniqueness of Analytic Continuation along Paths.</a></h3>‌ There is at most one analytic continuation of an analytic function along a given regular analytic path.</div>
+</section>
+<section id="proof.-4" class="level3">
+
+<div class="p"><h3><a href="#proof.-4">Proof.</a></h3>‌If <span class="math inline">\(\phi_1:[0,1] \to \mathbb{C}\)</span> and <span class="math inline">\(\phi_2:[0,1] \to \mathbb{C}\)</span> are two analytic continuations of the same holomorphic function along the same path, they have holomorphic extensions – still denoted <span class="math inline">\(\phi_1\)</span> and <span class="math inline">\(\phi_2\)</span> – defined on some shared open tubular neighbourhood of <span class="math inline">\([0,1]\)</span> <span class="math display">\[
+  \{z \in \mathbb{C} \; | \; d(z, [0,1]) &lt; \epsilon\},
+  \]</span> which is connected. The point <span class="math inline">\(0\)</span> is a limit point of the zeros of the holomorphic function <span class="math inline">\(\phi_1-\phi_2.\)</span> By the isolated zeros theorem, <span class="math inline">\(\phi_1\)</span> and <span class="math inline">\(\phi_2\)</span> are identical. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="remark--comparison-of-analytic-continuations-concepts." class="level3">
+
+<div class="p"><h3><a href="#remark--comparison-of-analytic-continuations-concepts.">Remark – Comparison of Analytic Continuations Concepts.</a></h3>‌ Continuation along paths is a more flexible tool than continuation to sets: if <span class="math inline">\(\phi: \Sigma \mapsto \mathbb{C}\)</span> is an analytic continuation of <span class="math inline">\(f:\Omega \mapsto \mathbb{C}\)</span> to the open connected set <span class="math inline">\(\Sigma\)</span> and <span class="math inline">\(\gamma\)</span> is a regular analytic path of <span class="math inline">\(\Sigma\)</span> whose initial point is in <span class="math inline">\(\Omega,\)</span> then <span class="math inline">\(\phi \circ \gamma\)</span> is always an analytic continuation of <span class="math inline">\(f\)</span> along <span class="math inline">\(\gamma.\)</span> However, on the other hand, there may exist an analytic continuation of <span class="math inline">\(f\)</span> along a path <span class="math inline">\(\gamma\)</span> but no analytic continuation <span class="math inline">\(\phi: \Sigma \mapsto \mathbb{C}\)</span> such that <span class="math inline">\(\gamma([0,1]) \subset \Sigma\)</span> (refer e.g.&nbsp;to the logarithm example).</div>
+</section>
+<section id="remark--values-of-analytic-continuations." class="level3">
+
+<div class="p"><h3><a href="#remark--values-of-analytic-continuations.">Remark – Values of Analytic Continuations.</a></h3>‌ The analytic continuation of a function <span class="math inline">\(f\)</span> to an open connected set <span class="math inline">\(\Sigma\)</span> provides a unique “natural” value of the function <span class="math inline">\(f\)</span> associated to a point <span class="math inline">\(z \in \Sigma\)</span> that may be outside of the original function domain. An analytic continuation along a path <span class="math inline">\(\phi\)</span> also provides a new value associated to the terminal point <span class="math inline">\(z=\gamma(1)\)</span>: the terminal value <span class="math inline">\(\phi(1)\)</span> of the continuation <span class="math inline">\(\phi.\)</span> However, several analytic continuations of <span class="math inline">\(f\)</span> along paths with the same initial and terminal points may have different terminal values; thus, analytic continuations along paths may define multi-valued functions.</div>
+</section>
+<section id="example--values-of-the-logarithm." class="level3">
+
+<div class="p"><h3><a href="#example--values-of-the-logarithm.">Example – Values of the Logarithm.</a></h3>‌ The analytic continuation of <span class="math inline">\(\log\)</span> along the path <span class="math inline">\([\circlearrowleft]\)</span> – whose initial and terminal point is <span class="math inline">\(z=1\)</span> – is the function <span class="math inline">\(t \in [0,1] \mapsto i2\pi t;\)</span> its terminal value is <span class="math inline">\(i2\pi.\)</span> On the other hand, the path <span class="math inline">\(\gamma = 2 - [\circlearrowleft]\)</span> has the same endpoints as <span class="math inline">\([\circlearrowleft],\)</span> but its image is included in <span class="math inline">\(\mathbb{C} \setminus \mathbb{R}_-.\)</span> Thus, the function <span class="math inline">\(t\in[0,1] \mapsto \log \gamma(t)\)</span> is the analytic continuation of <span class="math inline">\(\log\)</span> along <span class="math inline">\(\gamma\)</span> and its terminal value is <span class="math inline">\(\log 1 = 0\)</span>. Both paths have the same initial and terminal points but the terminal values of the corresponding continuations are different.</div>
+<p>Actually, an analytic continuation along a path carries more information than a simple value from the initial point to the terminal point of the path: it defines a new holomorphic function in the some open neighbourhood of the terminal point. To formalize this, we introduce a new definition.</p>
+</section>
+<section id="definition--germ-of-holomorphic-function." class="level3">
+
+<div class="p"><h3><a href="#definition--germ-of-holomorphic-function.">Definition – Germ of Holomorphic Function.</a></h3>‌ Two holomorphic functions <span class="math inline">\(f:\Omega \mapsto \mathbb{C}\)</span> and <span class="math inline">\(g:\Sigma \to \mathbb{C}\)</span> <em>define the same germ</em> at <span class="math inline">\(z \in \Omega \cap \Sigma\)</span> if the functions are identical in some neighbourghood of <span class="math inline">\(z.\)</span> We denote this relation <span class="math display">\[
+  f \sim_z g
+  \]</span> A <em>germ of holomorphic function</em> at <span class="math inline">\(z\)</span> is an equivalence class for this relation between holomorphic functions: <span class="math display">\[
+  [f]_z= \{g \; | \; f \sim_z g\}.
+  \]</span></div>
+</section>
+<section id="theorem--analytic-continuation-of-germs." class="level3">
+
+<div class="p"><h3><a href="#theorem--analytic-continuation-of-germs.">Theorem – Analytic Continuation of Germs.</a></h3>‌ The existence and definition of an analytic continuation of a holomorphic function <span class="math inline">\(f:\Omega \to \mathbb{C}\)</span> along the regular analytic path <span class="math inline">\(\gamma\)</span> depends only on the germ of <span class="math inline">\(f\)</span> at <span class="math inline">\(\gamma(0).\)</span></div>
+</section>
+<section id="proof.-5" class="level3">
+
+<div class="p"><h3><a href="#proof.-5">Proof.</a></h3>‌ Assume that <span class="math inline">\(g:\Sigma \to \mathbb{C}\)</span> defines the same germ as <span class="math inline">\(f\)</span> at <span class="math inline">\(\gamma(0);\)</span> let <span class="math inline">\(\Gamma \subset \Omega \cap \Sigma\)</span> be some open set that contains <span class="math inline">\(\gamma(0)\)</span> and where both functions are identical. Let <span class="math inline">\(\epsilon &gt; 0\)</span> be such that <span class="math display">\[
+  \forall \, t \in \left[0, \epsilon\right[, \; 
+  \gamma(t) \in \Omega \; \mbox{ and } \; 
+  \phi(t) = f(\gamma(t)).
+  \]</span> and <span class="math inline">\(\eta\)</span> be some positive number, smaller than <span class="math inline">\(\epsilon,\)</span> such that <span class="math display">\[
+  \forall \, t \in \left[0, \eta\right[, \; \gamma(t) \in \Gamma.
+  \]</span> Then, by construction of <span class="math inline">\(\Gamma,\)</span> it is plain that <span class="math display">\[
+  \forall \, t \in \left[0, \eta\right[, \; 
+  \gamma(t) \in \Sigma \; \mbox{ and } \; 
+  \phi(t) = g(\gamma(t)),
+  \]</span> thus <span class="math inline">\(\phi\)</span> is also a continuation of <span class="math inline">\(g.\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+
+</section><section><p>There is a converse statement that holds true: a candidate continuation function does determine uniquely the germ that it continues. We encapsulate that result in a definition:</p></section>
+<section id="definition--initial-germ." class="level3">
+
+<div class="p"><h3><a href="#definition--initial-germ.">Definition – Initial Germ.</a></h3>‌ If <span class="math inline">\(\gamma:[0,1] \mapsto \mathbb{C}\)</span> is a regular analytic path and <span class="math inline">\(\phi:[0,1] \mapsto \mathbb{C}\)</span> is an analytic function, there is a unique germ of holomorphic function at <span class="math inline">\(\gamma(0)\)</span> of which <span class="math inline">\(\phi\)</span> is an analytic continuation: the <em>initial germ</em> of the continuation.</div>
+</section>
+<section id="proof.-6" class="level3">
+
+<div class="p"><h3><a href="#proof.-6">Proof.</a></h3>‌ A function <span class="math inline">\(f:\Omega \mapsto\)</span> is an element of the germ of which <span class="math inline">\(\phi\)</span> is an analytic continuation along <span class="math inline">\(\gamma\)</span> if there is a <span class="math inline">\(\epsilon \in \left]0,1\right]\)</span> such that <span class="math display">\[
+  \forall \, t \in \left[0, \epsilon\right[, \; 
+  \gamma(t) \in \Omega \; \mbox{ and } \; 
+  \phi(t) = f(\gamma(t)).
+  \]</span> The uniqueness of such a germ is a consequence of the isolated zeros theorem; let’s prove its existence. The functions <span class="math inline">\(\phi\)</span> and <span class="math inline">\(\gamma\)</span> are analytic, therefore there are holomorphic functions, still denoted by the symbols <span class="math inline">\(\phi\)</span> and <span class="math inline">\(\gamma,\)</span> that extend the original functions to some non-empty open tubular neighbourhood <span class="math inline">\(\Sigma\)</span> of <span class="math inline">\([0,1]\)</span>: <span class="math display">\[
+  \Sigma = \{z \in \mathbb{C} \; | \; d(z,[0,1]) &lt; r\}.
+  \]</span> Since the path <span class="math inline">\(\gamma\)</span> is regular and analytic, the function <span class="math inline">\(\gamma:D(0,r) \mapsto \mathbb{C}\)</span> is continuously real-differentiable and its real-differential <span class="math inline">\(d\gamma\)</span> is invertible on some non-empty neighbourhood of <span class="math inline">\(0.\)</span> By the inverse function theorem, there is an open neighbourhood <span class="math inline">\(U\)</span> of <span class="math inline">\(0\)</span> included in <span class="math inline">\(D(0,r)\)</span> and an open neighbourhood <span class="math inline">\(V\)</span> of <span class="math inline">\(\gamma(0)\)</span> such that the restriction <span class="math inline">\(\gamma|_U\)</span> of <span class="math inline">\(\gamma\)</span> to <span class="math inline">\(U\)</span> is a <span class="math inline">\(C^1\)</span>-diffeomorphism. Its inverse satisfies <span class="math inline">\(d(\gamma|_{U}^{-1})_{\gamma(z)} = (d\gamma_z)^{-1};\)</span> this differential is complex-linear, therefore <span class="math inline">\(\gamma|_{U}^{-1}\)</span> is holomorphic. Thus we may define a holomorphic function <span class="math inline">\(f\)</span> on <span class="math inline">\(V\)</span> by <span class="math display">\[
+  \forall \, w \in V, \; f(w) = \phi(\gamma|_{U}^{-1}(w))
+  \]</span> Now let <span class="math inline">\(\epsilon \in \left]0,1 \right]\)</span> be such that <span class="math inline">\(\left[0,\epsilon\right[ \subset U.\)</span> For any value of <span class="math inline">\(t \in \left[0,\epsilon\right[,\)</span> the point <span class="math inline">\(w=\gamma(t)\)</span> belongs to <span class="math inline">\(V\)</span> and <span class="math inline">\(f(\gamma(t)) = \phi(t).\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="definition--terminal-germ." class="level3">
+
+<div class="p"><h3><a href="#definition--terminal-germ.">Definition – Terminal Germ.</a></h3>‌ Let <span class="math inline">\(\gamma\)</span> be a regular analytic path and let <span class="math inline">\(\phi:[0,1] \mapsto \mathbb{C}\)</span> be an analytic continuation of a germ of holomorphic function at <span class="math inline">\(\gamma(0).\)</span> The <em>terminal germ</em> of the continuation <span class="math inline">\(\phi\)</span> is the initial germ of the continuation <span class="math inline">\(\phi^{\leftarrow}: t \in [0,1] \mapsto \phi(1-t)\)</span> along <span class="math inline">\({\gamma}^{\leftarrow};\)</span> in other words, an holomorphic function <span class="math inline">\(f:\Omega \mapsto \mathbb{C}\)</span> belongs to the terminal germ if and only if, there is a <span class="math inline">\(\epsilon \in [0,1]\)</span> such that <span class="math display">\[
+  \forall \, t \in \left]1-\epsilon,1\right], \;
+  \gamma(t) \in \Omega \; \mbox{ and } \; \phi(t) = f(\gamma(t)).
+  \]</span></div>
+</section>
+<section id="theorem--monodromy-theorem-local." class="level3">
+
+<div class="p"><h3><a href="#theorem--monodromy-theorem-local.">Theorem – Monodromy Theorem (Local).</a></h3>‌ Let <span class="math inline">\(\Omega\)</span> be an open star-shaped subset of <span class="math inline">\(\mathbb{C}\)</span> that contains the non-empty open disk <span class="math inline">\(D(z_0,r)\)</span> and let <span class="math inline">\(f: D(z_0, r) \to \mathbb{C}\)</span> be a holomorphic function. If for any regular analytic path <span class="math inline">\(\gamma\)</span> of <span class="math inline">\(\Omega\)</span> whose initial point is <span class="math inline">\(z_0\)</span> an analytic continuation of <span class="math inline">\(f\)</span> along <span class="math inline">\(\gamma\)</span> exists, then there is an analytic continuation of <span class="math inline">\(f\)</span> on <span class="math inline">\(\Omega.\)</span></div>
+</section>
+<section id="proof.-7" class="level3">
+
+<div class="p"><h3><a href="#proof.-7">Proof.</a></h3>‌We will assume in the sequel that <span class="math inline">\(z_0\)</span> is a center <span class="math inline">\(c\)</span> of the star-shaped set <span class="math inline">\(\Omega\)</span>: if this is not true, consider a center <span class="math inline">\(c\)</span> of <span class="math inline">\(\Omega\)</span> and the germ <span class="math inline">\(f_c\)</span> of the holomorphic function defined at <span class="math inline">\(c\)</span> by the analytic continuation of <span class="math inline">\(f\)</span> along <span class="math inline">\([z_0,c].\)</span> A function defined on <span class="math inline">\(\Omega\)</span> is an analytic continuation of <span class="math inline">\(f_c\)</span> if and only if it is an analytic continuation of the original germ <span class="math inline">\(f.\)</span></div>
+<p>Let <span class="math inline">\(z \in \Omega\)</span> and let <span class="math inline">\(\phi_z\)</span> be the analytic continuation of <span class="math inline">\(f\)</span> along <span class="math inline">\([c \to z].\)</span> By construction, there is a <span class="math inline">\(\epsilon \in \left]0,1\right]\)</span> such that <span class="math inline">\(\phi_z(t) = f((1-t)c + tz)\)</span> for any <span class="math inline">\(0 \leq t &lt; \epsilon.\)</span> If we still denote <span class="math inline">\(\phi_z\)</span> the holomorphic extension of <span class="math inline">\(\phi_z\)</span> to some open neighbourghood <span class="math inline">\(\{w \in \mathbb{C} \;|\; d(w,[0,1])&lt; r\}\)</span> of <span class="math inline">\([0,1],\)</span> then for any complex number <span class="math inline">\(w\)</span> in some non-empty open disk centered at <span class="math inline">\(0,\)</span> we have <span class="math display">\[\phi_z(w) = f((1-w)c + wz).\]</span> Now, for any <span class="math inline">\(z \in \Omega \setminus D(z_0,r)\)</span> and any complex number <span class="math inline">\(h\)</span> such that <span class="math inline">\(|h| &lt; r |z-c|,\)</span> the function <span class="math display">\[
+  \psi_{z,h}: t \in [0,1] \mapsto \phi_z(w) 
+  \; \mbox{ with } \; 
+  w =  t \frac{z+h-c}{z-c}
+  \]</span> is defined, analytic and as <span class="math inline">\(w\)</span> satisfies <span class="math display">\[
+  (1 - t) c + t (z+h) = (1-w) c + wz,
+  \]</span> for small values of <span class="math inline">\(t,\)</span> we have <span class="math display">\[
+  \psi_{z,h}(t) = \phi_z(w)
+  = f((1-w)c + wz) = f((1-t)c + t(z+h)),
+  \]</span> therefore <span class="math inline">\(\psi_{z,h}\)</span> is the analytic continuation of <span class="math inline">\(f_c\)</span> along <span class="math inline">\([c \to z+h]\)</span>: <span class="math display">\[\psi_{z,h}=\phi_{z+h}.\]</span> This leads for small values of <span class="math inline">\(h\)</span> to the equality <span class="math display">\[
+  \phi_{z+h}(1) = \psi_{z,h}(1) = \phi_z\left(\frac{z+h-c}{z-c}\right).
+  \]</span> The function <span class="math inline">\(z \in \Omega \mapsto \phi_z(1)\)</span> is an extension of <span class="math inline">\(f\)</span> to <span class="math inline">\(\Omega;\)</span> by the above equality it is also holomorphic, thus it is the analytic extension of <span class="math inline">\(f\)</span> to <span class="math inline">\(\Omega.\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+</section>
+</main>
+
+
+</body></html>

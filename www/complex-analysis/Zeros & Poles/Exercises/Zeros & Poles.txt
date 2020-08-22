@@ -1,0 +1,709 @@
+% Zeros & Poles
+% [Sébastien Boisgérault][email], Mines ParisTech
+
+[email]: mailto: Sebastien.Boisgerault@mines-paristech.fr
+
+---
+license: "[CC BY-NC-SA 4.0](http://creativecommons.org/licenses/by-nc-sa/4.0/)"
+---
+
+Exercises
+================================================================================
+
+The Weierstrass-Casorati Theorem
+--------------------------------------------------------------------------------
+
+### Question
+
+Let $f: \Omega \to \mathbb{C}$ be a holomorphic function and
+let $a \in \mathbb{C}$ be an essential singularity of $f$. 
+Show that the image of $f$ is dense in $\mathbb{C}$:
+  $$
+  \forall \, w \in \mathbb{C}, \; 
+  \forall \, \epsilon > 0, \;
+  \exists \, z \in \Omega, \;
+  |f(z) - w| < \epsilon.
+  $$
+
+Hint: assume instead that some complex number $w$ is *not* in the closure of 
+the image of $f$; 
+study the function $z \mapsto 1/(f(z) - w)$ in a neighbourhood of $a$.
+
+### Answer
+
+Assume that the image of $f$ is not dense in $\mathbb{C}$;
+let then $w \in \mathbb{C}$ be such that
+  $$
+  \exists \, \epsilon > 0, \;
+  \forall \, z \in \Omega, \;
+  |f(z) - w| \geq \epsilon.
+  $$
+The function $z \in \Omega \mapsto 1/(f(z) - w)$ is defined and holomorphic.
+As it satisfies
+  $$
+  \forall \, z \in \Omega, \;
+  \left| \frac{1}{f(z) - w} \right| \leq \frac{1}{\epsilon},
+  $$
+it is also bounded.
+Thus, the point $a$ is a removable singularity of the function, 
+that can be extended as a holomorphic function $g$ on $\Omega \cup \{a\}$:
+  $$
+  \forall \, z \in \Omega, \; g(z) = \frac{1}{f(z) - w}
+  $$
+By construction, $g$ has no zero in $\Omega$, 
+thus $a$ is either not a zero of $g$, 
+or a zero of finite multiplicity. 
+Since
+  $$
+  \forall \, z \in \Omega, \;
+  f(z) = w + \frac{1}{g(z)}
+  $$
+in the first case $f(z) \to w + 1/g(a)$ when $z\to a$ thus
+$a$ is a removable singularity of $a$;
+in the second one, $|f(z)| \to +\infty$ when $z \to a$ thus
+$a$ is a pole of $f$.
+
+Note that either way, there is a non-negative integer $p$ and 
+a holomorphic function $h :\Omega \cup \{a\} \to \mathbb{C}$ such that
+$h(a) \neq 0$ and 
+  $$
+  \forall \, z \in \Omega \cup \{a\}, \; g(z) = h(z) (z-a)^p.
+  $$
+As the function $g$ has no zero on $\Omega$, the function $h$ has no zero
+on $\Omega \cup \{a\}$; the function $1/h$ is defined and holomorphic on
+$\Omega \cup \{a\}$, $1/h(a) \neq 0$ and
+  $$
+  \forall \, z \in \Omega, \;
+  f(z) = w + \frac{1}{g(z)} = w + \frac{1}{h(z)} \frac{1}{(z-a)^p}.
+  $$
+Therefore, the point $a$ is either a removable singularity of $f$
+(if $p=0$), or a pole of order $p$ (if $p\geq 1)$.
+
+
+
+
+The Maximum Principle
+--------------------------------------------------------------------------------
+
+### Question
+
+Let $\Omega$ be an open connected subset of the complex plane and 
+let $f: \Omega \to \mathbb{C}$ be a holomorphic function.
+Show that if $|f|$ has a local maximum at some $a \in \Omega$, 
+then $f$ is constant.
+
+### Answer
+For any holomorphic function $f: \Omega \to \mathbb{C}$ and $a \in \Omega$,
+the point $a$ is a zero of the holomorphic function 
+$z \mapsto f(z) - f(a)$.
+We will prove shortly that if $a$ is a zero of finite multiplicity of this 
+function, $|f|$ does not have a local maximum at $a$. 
+The conclusion of the proof follows by the Isolated Zeros Theorem.
+
+Suppose that there is a positive integer $p$ such that
+  $$
+  f(z) = f(a) + g(z) (z-a)^p
+  $$
+for some holomorphic function $g:\Omega \to \mathbb{C}$ such that $g(a) \neq 0$;
+there is a function $\epsilon_a : \Omega \to \mathbb{C}$ such that
+$\epsilon_a(z) \to 0$ when $z \to a$ and
+  $$
+  f(z) = f(a) + g(a) (z-a)^p + \epsilon_a(z)(z-a)^p 
+  $$
+
+Assume that $f(a) \neq 0$ 
+(if $f(a)=0$, it is plain that $|f(a)|=0$ cannot be a local maximum of $|f|$
+at $a$). 
+Let $\alpha$, $\beta$ and $\gamma$ be some real numbers such that
+  $$
+  f(a) = |f(a)| e^{i\alpha}, \;
+  g(a) = |g(a)|e^{i\beta}, \;
+  \gamma = \frac{\alpha - \beta}{p}.
+  $$
+For small enough values $r > 0$, we have
+  $$
+  |f(a + r e^{i \gamma}) - (|f(a)| + |g(a)|r^p) e^{i\alpha}| 
+  \leq |\epsilon_a(a + r e^{i\gamma})| r^p
+  \leq \frac{|g(a)|}{2} r^p, 
+  $$
+which yields
+  $$
+  |f(a + r e^{i \gamma})| 
+  \geq 
+  |f(a)| + |g(a)| r^p - \frac{|g(a)|}{2} r^p
+  >
+  |f(a)|.
+  $$
+Therefore $f$ has no maximum at $a$.
+
+
+The $\Pi$ Function
+--------------------------------------------------------------------------------
+
+We introduce the $\Pi$ function, a holomorphic extension of the factorial.
+
+### Questions
+
+  1. Find the domain in the complex plane of the function
+       $$
+       \Pi: z \mapsto \int_0^{+\infty} t^z e^{-t} \, dt
+       $$
+     and show that it is holomorphic.
+
+  2. Prove that whenever $\Pi(z)$ is defined,
+     $\Pi(z+1)$ is also defined and
+       $$
+       \Pi(z+1) = (z+1)\Pi(z).
+       $$
+     Compute $\Pi(n)$ for every $n \in \mathbb{N}.$
+
+ 3. Let $\Omega$ be an open connected subset of the complex plane that
+    contains the domain of $\Pi$ and such that $\Omega + 1 \subset \Omega$.
+    Prove that if $\Pi$ has a holomorphic extension on $\Omega$
+    (still denoted $\Pi$), it is unique and satisfies the functional equation
+      $$
+      \forall \, z \in \Omega, \; \Pi(z+1) = (z+1)\Pi(z).
+      $$
+ 4. Prove the existence of such an extension $\Pi$ on
+      $$
+      \Omega = \mathbb{C} \setminus \{k \in \mathbb{Z} \; | \; k < 0 \}.
+      $$
+
+ 5. Show that every negative integer is a simple pole of $\Pi$; 
+    compute the associated residue.
+
+### Answers
+
+ 1. The function $t \in \mathbb{R}_+^* \mapsto t^z e^{-t}$ is continuous and thus measurable. 
+    Additionally, for any $t > 0$,
+      $$
+      |t^z e^{-t}| = |e^{z \ln t} e^{-t}|
+      =
+      e^{(\mathrm{Re} \,z) \ln t}e^{-t}
+      =
+      t^{\mathrm{Re} \,z} e^{-t},
+      $$
+    hence it is integrable if and only if $\mathrm{Re} \,z > -1$:
+    the domain of $\Pi$ is
+      $$
+      \{z \in \mathbb{C} \; | \; \mathrm{Re} \,z > -1\}
+      $$
+    and it is open. 
+    Now, let $z$ and $h$ be complex numbers in this domain;
+    the associated difference quotient satisfies
+      $$
+      \begin{split}
+      \frac{\Pi(z+h) - \Pi(z)}{h}
+      &=
+      \int_0^{+\infty} \frac{t^{z+h} - t^z}{h} e^{-t} dt \\
+      &=
+      \int_0^{+\infty} \frac{t^h - 1}{h} t^z e^{-t} dt \\
+      &=
+      \int_0^{+\infty} \frac{e^{h \ln t} - 1}{h} t^z e^{-t} dt \\
+      &=
+      \int_0^{+\infty} \left[\frac{e^{h \ln t} - 1}{h \ln t}\right] t^z \ln t \, e^{-t} dt
+      \end{split}
+      $$
+    The integrand converges pointwise when $h\to 0$:
+      $$
+      \forall \, t > 0, \; 
+      \lim_{h \to 0} \left[\frac{e^{h \ln t} - 1}{h \ln t}\right] t^z \ln t \, e^{-t} 
+      = t^z \ln t \, e^{-t}.
+      $$
+    Additionally, we have
+      $$
+      \forall \, z \in \mathbb{C}^*, \;
+      \left|\frac{e^z - 1}{z}\right| \leq e^{|z|};
+      $$
+    indeed, for any nonzero complex number $z$, 
+    the Taylor expansion of $e^z$ at the origin provides
+      $$
+      \left|\frac{e^z - 1}{z}\right|
+      =
+      \left|\sum_{n=0}^{+\infty} \frac{1}{(n+1)!} z^n\right|
+      =
+      \sum_{n=0}^{+\infty} \frac{1}{(n+1)!} |z|^n
+      \leq
+      \sum_{n=0}^{+\infty} \frac{1}{n!} |z|^n.
+      $$
+    Hence, 
+      $$
+      \left| 
+      \frac{e^{h \ln t} - 1}{h \ln t} 
+      \right|
+      \leq 
+      e^{|h||\ln t|}
+      \leq \max(t^{|h|}, t^{-|h|})
+      $$
+    and our integrand is dominated by
+      $$
+      \max(t^{z+|h|}, t^{z-|h|}) \ln t \, e^{-t}
+      $$
+    which is integrable whenever $\mathrm{Re} (z - |h|) > -1$.
+    Finally, Lebesgue's dominated convergence theorem applies
+    and $\Pi$ is holomorphic.
+
+ 2. If $\mathrm{Re} \,z > -1$, then $\mathrm{Re} (z +1) > -1$ and
+      $$
+      \Pi(z+1) = \int_0^{+\infty} t^{z+1} e^{-t} \, dt.
+      $$
+    By integration by parts,
+      $$
+      \begin{split}
+      \Pi(z+1) 
+      &= 
+      [t^{z+1}(-e^{-t})]^{+\infty}_0
+      -
+      \int_0^{+\infty} (z+1) t^z (-e^{-t})\, dt \\
+      &= 
+      (z+1) \Pi(z).
+      \end{split}
+      $$
+
+    We have
+      $$
+      \Pi(0) = \int_0^{+\infty} e^{-t} \, dt = 
+      [-e^{-t}]_0^{+\infty} = 1
+      $$
+    and hence, by induction, $\Pi(n) = n!$ for any $n \in \mathbb{N}$.
+
+ 3. There is at most one holomorphic extension $\Pi$ of the 
+    original function to
+    the connected open set $\Omega$ by the isolated zeros theorem
+    (two extensions would be identical on the original domain of
+    $\Pi$, which is a non-empty open set: the set of zeros of
+    their difference would not be isolated).
+
+    It is plain that  the function $z \mapsto \Pi(z+1) - (z+1)\Pi(z)$
+    is defined and holomorphic on $\Omega$, a connected open set of the plane.
+    Similarly, by the isolated zeros theorem, it is identically zero
+    and hence the functional equation 
+    $\Pi(z+1) = (z+1)\Pi(z)$ holds on $\Omega$.
+
+ 4. We may define the extension $\Pi(z)$ as 
+      $$
+      \Pi(z) = \frac{\Pi(z+n)}{(z+1)(z+2)\cdots(z+n)}
+      $$
+    for any natural number $n$ such $\mathrm{Re} (z+n) > -1$.
+    This definition does not depend on the choice of $n$:
+    if $m > n$, we have $\mathrm{Re} (z+m) > -1$ and
+      $$
+      \Pi(z+m) = \Pi(z+n) \times (z+n+1) \cdots  (z+m) ,
+      $$
+    hence
+      $$
+      \frac{\Pi(z+m)}{(z+1)(z+2)\cdots(z+m)}
+      =
+      \frac{\Pi(z+n)}{(z+1)(z+2)\cdots(z+n)}.
+      $$
+  It is plain that this extension of the original function $\Pi$ is holomorphic.
+
+  5. Let $n$ be a positive integer.
+     Let $z$ be a complex number such that $|z-(-n)| < 1$; 
+     it satisfies $\mathrm{Re}(z + n) > -1$ and thus
+       $$
+       \Pi(z) = \frac{\Pi(z+n)}{(z+1)(z+2)\cdots(z+n)}.
+       $$
+     Consequently,
+       $$
+       (z - (-n)) \Pi(z) 
+       = 
+       \frac{\Pi(z+n)}{(z+1)(z+2)\cdots(z+n-1)}
+       $$
+     and 
+       $$
+       \lim_{z \to -n} (z - (-n)) \Pi(z)
+       = 
+       \frac{\Pi(0)}{(-n-1)(-n-2)\cdots(-1)}
+       =
+       \frac{(-1)^{n-1}}{(n-1)!}.
+       $$
+     As this number differ from zero, $z=-n$ is a simple pole of $\Pi$ and
+       $$
+       \mbox{res}(\Pi, -n) = \frac{(-1)^{n-1}}{(n-1)!}.
+       $$
+
+Singularities and Residues
+--------------------------------------------------------------------------------
+
+### Question
+
+Analyze the singularities (location, type, residues) of 
+  $$
+  z \mapsto \frac{\sin \pi z}{\pi z}, \;
+  z \mapsto \frac{1}{(\sin \pi z)^2}, \;
+  z \mapsto \sin \frac{\pi}{z}, \; 
+  z \mapsto \frac{1}{\sin \frac{\pi}{z}}.
+  $$
+
+### Answer
+
+The function $z \mapsto \sin \pi z$ is defined and holomorphic in
+$\mathbb{C}$. 
+Its Taylor expansion, valid for any $z \in \mathbb{C}$, is
+  $$
+  \sin \pi z = \sum_{n=0}^{+\infty} \frac{(-1)^{n}\pi^{2n+1}}{(2n+1)!}z^{2n+1}.
+  $$
+
+The function $z \mapsto \frac{\sin \pi z}{\pi z}$ is therefore
+defined and holomorphic in $\mathbb{C}^*$ where its Laurent expansion is
+  $$
+  \frac{\sin \pi z}{\pi z} 
+  = \sum_{n=0}^{+\infty} \frac{(-1)^{n}\pi^{2n}}{(2n+1)!}z^{2n}.
+  $$
+The series on the right-hand side of this equation has no negative power
+of $z$: it is a power series that converges for any $z \in \mathbb{C}^*$,
+thus its open disk of convergence is actually $\mathbb{C}$. 
+Its limit is a holomorphic function that extends 
+$z \mapsto \frac{\sin \pi z}{\pi z}$ to $\mathbb{C}$, 
+hence $0$ is a removable singularity of this function
+(and its residue is $0$).
+
+The singularities of $z \mapsto {1}/{(\sin \pi z)^2}$ are the
+zeros of $z \in \mathbb{C} \mapsto \sin \pi z$: the integers.
+The function is invariant if we substitute $z + k$ to $z$ for any
+$k \in \mathbb{Z}$, hence we may limit our analysis of the singularities
+to the origin. If $z$ is not an integer, we have
+  $$
+  \frac{1}{(\sin \pi z)^2} = \frac{1}{\pi^2z^2} \left(\frac{\pi z}{\sin \pi z}\right)^2.
+  $$
+The function $z \mapsto ({\pi z}/{\sin \pi z})^2$ has a removable
+singularity at the origin and the value of its holomorphic extension
+at the origin is nonzero (it is $1$), thus the origin is a double pole
+of the function. We have therefore
+  $$
+  \mathrm{res} \left(z \mapsto \frac{1}{(\sin \pi z)^2}, 0\right)
+  =
+  \lim_{z \to 0} \left[ {z^2}\frac{1}{(\sin \pi z)^2} \right]'.
+  $$
+We have
+  $$
+  \left[ {z^2} \frac{1}{(\sin \pi z)^2} \right]'
+  =
+  \frac{2}{\pi} \left(\frac{(\pi z)\sin \pi z - (\pi z)^2 \cos \pi z}{(\sin \pi z)^3} \right).
+  $$
+The Taylor expansions of the functions $\sin$ and $\cos$ on $\mathbb{C}$ provide 
+  $$
+  \sin w = w \left(\sum_{n=0}^{+\infty} \frac{(-1)^{n}}{(2n+1)!} w^{2n} \right)
+= w - \frac{w^3}{6} + w^5 \left(\sum_{n=2}^{+\infty} \frac{(-1)^{n}}{(2n+1)!} w^{2n-4}\right)
+  $$
+and
+  $$
+  \cos w = 1 - \frac{w^2}{2} + w^4 \left(\sum_{n=2}^{+\infty} \frac{(-1)^{n}}{(2n)!} w^{2n-4}\right),
+  $$
+thus there are entire functions $f$ and $g$ such that
+  $$
+  w \sin w - w^2 \cos w = \left(w^2 - \frac{1}{6} w^4\right) - \left(w^2 -\frac{1}{2} w^4\right) + w^6 f(w)
+  $$
+and
+  $$
+  (\sin w)^3 = w^3 g(w), \; g(0) = 1.
+  $$
+Consequently,
+  $$
+  \mathrm{res} \left(z \mapsto \frac{1}{(\sin \pi z)^2}, 0\right)
+  =
+  \lim_{w \to 0}
+  \frac{2}{\pi} \frac{w/3 + w^3 f(w)}{g(w)} = 0.
+  $$
+
+Alternatively, to compute the residue, we may notice that if $z$ is not an integer
+  $$
+  \frac{1}{(\sin \pi z)^2} = \frac{1}{(\sin \pi (-z))^2},
+  $$
+thus if $\sum_{n=-\infty}^{+\infty} a_n z^n$ is the Laurent expansion of the
+right-hand side in $D(0,1)\setminus\{0\}$, the Laurent expansion
+$\sum_{n=-\infty}^{+\infty} (-1)^n a_n z^n$ is also valid in the same annulus.
+The uniqueness of the Laurent expansion yields $a_{n} = 0$ for
+every odd $n$, thus the residue of the function at the origin 
+-- which is $a_{-1}$ -- is zero.
+
+The function $z \mapsto \sin \frac{\pi}{z}$ is defined and holomorphic
+on $\mathbb{C}^*$. It has a Laurent expansion in this annulus, which is
+  $$
+  \sin \frac{\pi}{z} 
+  = 
+  \sum_{n=0}^{+\infty} \frac{(-1)^{n} \pi^{2n+1}}{(2n+1)!} z^{-(2n+1)}.
+  $$
+There are an infinite number of nonzero coefficients associated with
+negative powers of $z$, thus $0$ is an essential singularity of this
+function. Its residue at $0$ is the coefficient of $z^{-1}$, which
+is $\pi$.
+
+The zeros of $z \in \mathbb{C} \mapsto \sin \pi z$ are the
+integers, thus $z  \mapsto {1}/{\sin \frac{\pi}{z}}$ is defined
+and holomorphic on the open set 
+$\Omega = \mathbb{C}^{*} \setminus \{1/k \; | \; k \in \mathbb{Z}^*\}$.
+We can write the function as the quotient of $f(z) = 1$ and 
+$g(z) = \sin \frac{\pi}{z}$.
+The functions $f$ and $g$ are defined and holomorphic in $\mathbb{C}^*$ 
+and $$g'(z) = \left(\cos \frac{\pi}{z}\right)\left(-\frac{\pi}{z^2}\right).$$
+Thus, for any $k \in \mathbb{Z}^*$, $1/k$ is a simple pole of 
+$z  \mapsto {1}/{\sin \frac{\pi}{z}}$ and
+  $$
+  \mathrm{res}
+  \left(
+  z \mapsto \frac{1}{\sin \frac{\pi}{z}}, \frac{1}{k} 
+  \right)
+  = \frac{1}{(\cos \frac{\pi}{k^{-1}})(-\frac{\pi}{{(k^{-1}})^2})}
+  = \frac{(-1)^{k+1}}{\pi k^2}.
+  $$
+The origin $z=0$ is also singularity of 
+$z  \mapsto {1}/{\sin \frac{\pi}{z}}$, 
+but it is not isolated, thus its residue is not defined.
+
+
+Integrals of Functions of a Real Variable
+--------------------------------------------------------------------------------
+
+See "Technologie de calcul des intégrales à l'aide de la formule des résidus"
+[@Dem09, chap. III, sec. 4] for a comprehensive analysis of the 
+computation of integrals with the the residue theorem.
+
+### Questions
+
+ 1. For any $n \geq 2$, compute
+    $$
+    \int_0^{+\infty} \frac{dx}{1 + x^n}.
+    $$
+
+ 2. Compute
+    $$
+    \int_0^{+\infty} \frac{\sqrt x}{1+x+x^2} \, dx.
+    $$
+
+### Answers
+
+ 1. Let $f$ be the function $z\mapsto {1}/{(1+z^n)}$, defined and
+    holomorphic on
+      $$
+      \Omega 
+      = 
+      \mathbb{C} 
+      \setminus 
+      \left\{ 
+      e^{\frac{i(2k+1)\pi}{n}} \; \left| \vphantom{e^{\frac{(2k+1)\pi}{n}}} \; k \in \{0, \dots, n-1\}\right. 
+      \right\}.
+      $$
+    Let $r>1$ and define the rectifiable paths $\gamma_1$, $\gamma_2$ 
+    and $\gamma_3$ as
+      $$
+      \gamma_1 = 
+      [0 \to r], \; 
+      \gamma_2 = 
+      r e^{i[0 \to 2\pi/n]}, \; 
+      \gamma_3 = [re^{i2\pi/n} \to 0],
+      $$
+    then set $\gamma = \gamma_1 \;| \; \gamma_2 \;|\; \gamma_3.$
+    It is plain that
+      $$
+      \lim_{r \to +\infty} \int_{\gamma_1}\frac{dz}{1+z^n}
+      =
+      \int_0^{+\infty} \frac{dx}{1 + x^n}.
+      $$
+    Similarly,
+      $$
+      \int_{\overleftarrow{\gamma_3}}\frac{dz}{1+z^n} 
+      = 
+      \int_0^1 \frac{re^{i\frac{2\pi}{n}}dt}{1 + (rt)^n (e^{i\frac{2\pi}{n}})^n} 
+      =
+      e^{i\frac{2\pi}{n}} \int_0^r \frac{dx}{1 + x^n},
+      $$
+    thus
+     $$
+      \lim_{r \to +\infty} \int_{\gamma_3}\frac{dz}{1+z^n}
+      =
+      -  e^{i\frac{2\pi}{n}} \int_0^{+\infty} \frac{dx}{1 + x^n}.
+      $$
+    Finally, by the M-L inequality,
+      $$
+      \left| \int_{\gamma_2}\frac{dz}{1+z^n} \right|
+      \leq \frac{1}{r^n - 1} \times  \left(\frac{2\pi}{n} r \right),
+      $$
+    hence
+     $$
+      \lim_{r \to +\infty} \int_{\gamma_2}\frac{dz}{1+z^n}
+      =
+      0.
+      $$
+    On the other hand, the complex number $e^{i\frac{\pi}{n}}$ is the 
+    unique singularity of $f$ in the interior of $\gamma$; 
+    more precisely, we have $\mathrm{ind}(\gamma, e^{i\frac{\pi}{n}})=1$.
+    The function $f$ is the quotient
+    of the holomorphic functions $p: z \in \mathbb{C} \mapsto 1$ and 
+    $q: z \in \mathbb{C} \mapsto 1+z^n$; the derivative of $q$
+    at this singularity is
+      $$
+      q'(e^{i\frac{\pi}{n}})
+      = n (e^{i\frac{\pi}{n}})^{n-1} 
+      = n (e^{i\frac{\pi}{n}})^{n} e^{-i\frac{\pi}{n}}
+      = -n e^{-i\frac{\pi}{n}},
+      $$
+    thus
+      $$
+      \mathrm{res}(f, e^{i\frac{\pi}{n}}) 
+      = \frac{p(e^{i\frac{\pi}{n}})}{q'(e^{i\frac{\pi}{n}})}
+      = -\frac{e^{i\frac{\pi}{n}}}{n}
+      $$
+    Given these results, the residue theorem provides
+      $$
+      \left(1 - e^{i\frac{2\pi}{n}}\right) 
+      \int_0^{+\infty} \frac{dx}{1 + x^n}
+      =
+      (i2\pi)  \times \left(-\frac{e^{i\frac{\pi}{n}}}{n}\right)
+      $$
+    or equivalently,
+      $$
+      \int_0^{+\infty} \frac{dx}{1 + x^n}
+      =
+      \frac{\pi}{n} \frac{2i}{e^{i\frac{\pi}{n}} - e^{-i\frac{\pi}{n}}}
+      =
+      \frac{\frac{\pi}{n}}{\sin \frac{\pi}{n}}.
+      $$
+      
+ 2. Let $\log_0$ be the function defined on 
+    $\mathbb{C} \setminus \mathbb{R}_+$ by
+      $$\log_0 z = \log (-z) + i\pi.$$
+    This function is an analytic choice of the logarithm on 
+    $\mathbb{C} \setminus \mathbb{R}_+$: it is holomorphic
+    and $\exp \circ \log_0$ is the identity. It also satisfies
+      $$
+      \log_0 r e^{i\theta} = (\ln r) + i\theta, \; 
+      r >0, \; \theta \in \left]0,2\pi\right[.
+      $$
+    We use this function to define
+      $$
+      f: 
+      z
+      \mapsto 
+      \frac{e^{\frac{1}{2}\log_0 z}}{1+z+z^2}.
+      $$
+    The roots of the polynomial $z\mapsto 1+z+z^2$ are $j$ and $j^2$,
+    where $j = e^{i\frac{2\pi}{3}}$, thus $f$ is defined and holomorphic
+    in $\Omega = \mathbb{C} \setminus \mathbb{R}_+ \setminus \{j,j^2\}$.
+
+
+    Now, let $r>1$ and $0 < \alpha < 2\pi/3$; we define four rectifiable 
+    paths that depend on $r$ and $\alpha$:
+      $$
+      \begin{split}
+      \gamma_1 &= [r^{-1} e^{i\alpha} \to r e^{i\alpha}], \\
+      \gamma_2 &= r e^{i[\alpha \to 2\pi-\alpha]},\\
+      \gamma_3 &= [re^{i(2\pi - \alpha)} \to r^{-1}e^{i(2\pi - \alpha)}],\\
+      \gamma_4 &= r^{-1} e^{i[2\pi -\alpha \to  \alpha]}.
+      \end{split}
+      $$
+    We also consider their concatenation 
+     $$
+     \gamma = \gamma_1 \; | \; \gamma_2 \; | \; \gamma_3 \; | \; \gamma_4.
+     $$
+
+    We have
+      $$
+      \begin{split}
+      \int_{\gamma_1} f(z) \, dz
+      &=
+      \int_{r^{-1}}^r 
+      \frac{e^{\frac{1}{2}((\ln x) + i \alpha)}}{1+x e^{i\alpha}+x^2 e^{i2\alpha}}\, 
+      e^{i\alpha}dx\\
+      &=
+      e^{i3{\alpha}/{2}} \int_{r^{-1}}^r \frac{\sqrt{x}}{1+x e^{i\alpha}+x^2 e^{i2\alpha}}\, dx
+      \end{split}
+      $$
+    and thus by the dominated convergence theorem[^details]
+      $$ 
+      \lim_{\alpha \to 0} \int_{\gamma_1} f(z) \, dz
+      =
+      \int_{r^{-1}}^{r} \frac{\sqrt{x}}{1+x+x^2} \, dx.
+      $$
+
+    [^details]: the function
+      $(\alpha,x)\mapsto \left|{\sqrt{x}}/{(1+x e^{i\alpha}+x^2 e^{i2\alpha})}\right|$
+    is defined and continuous in the compact set $[0,\pi/2] \times [r^{-1},r]$,
+    thus it has a finite upper bound.
+
+    Similarly,
+      $$
+      \begin{split}
+      \int_{\gamma_3^{\leftarrow}} f(z) \, dz
+      &=
+      \int_{r^{-1}}^r 
+      \frac{e^{\frac{1}{2}((\ln x) + i(2\pi-\alpha))}}{1+x e^{-i\alpha}+x^2 e^{-i2\alpha}}\, 
+      e^{-i\alpha}dx\\
+      &=
+      - e^{-i{3\alpha}/{2}} \int_{r^{-1}}^r \frac{\sqrt{x}}{1+x e^{-i\alpha}+x^2 e^{-i2\alpha}}\, dx
+      \end{split}
+      $$
+    and thus by the dominated convergence theorem
+      $$
+      \lim_{\alpha \to 0} \int_{\gamma_3} f(z) \, dz
+      =
+      \int_{r^{-1}}^{r} \frac{\sqrt{x}}{1+x+x^2} \, dx
+      $$
+    On the other hand,
+      $$
+      \left|e^{\frac{1}{2} \log_0 z}\right|
+      =
+      e^{\mathrm{Re}(\frac{1}{2} \log_0 z)}
+      = e^{\frac{1}{2} \ln |z|}
+      = {|z|}^{\frac{1}{2}};
+      $$
+    by the M-L inequality, this equality provides
+      $$
+      \left| \int_{\gamma_2} f(z) \, dz \right|
+      \leq \frac{{r}^{\frac{1}{2}}}{-1-r+r^2}\times 2(\pi-\alpha) r
+      $$
+    and
+      $$
+      \left| \int_{\gamma_4} f(z) \, dz \right|
+      \leq \frac{{r}^{-\frac{1}{2}}}{1-r^{-1}-r^{-2}}\times 2(\pi-\alpha) r^{-1},
+      $$
+    hence
+      $$
+      \lim_{r \to +\infty} \left(\lim_{\alpha \to 0} \int_{\gamma_2} f(z) \, dz\right)
+      =
+      \lim_{r \to +\infty} \left(\lim_{\alpha \to 0} \int_{\gamma_4} f(z) \, dz\right)
+      = 
+      0.
+      $$
+
+    Now the function $f$ is the quotient of the two functions 
+    $z \mapsto e^{\frac{1}{2} \log_0 z}$ and $z \mapsto 1+z+z^2$,
+    defined and holomorphic in a neighbourhood of the singularities
+    $j$ and $j^2$. The derivative of $z \mapsto 1 + z +z^2$ is
+    $z \mapsto 1+2z$, it is nonzero at $j$ and $j^2$.
+    Thus,
+      $$
+      \mathrm{res}(f, j) = 
+      \frac{e^{\frac{1}{2} \log_0 j}}
+      {1 + 2 j}
+      =
+      \frac{e^{i\frac{\pi}{3}}}{i\sqrt{3}}
+      $$
+    and
+      $$
+      \mathrm{res}(f, j^2) = 
+      \frac{e^{\frac{1}{2} \log_0 j^2}}
+      {1 + 2 j^2}
+      =
+      \frac{e^{i\frac{2\pi}{3}}}{-i\sqrt{3}}.
+      $$
+    The winding number of $\gamma$ around $j$ and $j^2$ is $1$;
+    by the residue theorem,
+      $$
+      2 \int_0^{+\infty} \frac{\sqrt x}{1+x+x^2} \, dx
+      =
+      (i2\pi) (\mathrm{res}(f, j) +  \mathrm{res}(f, j^2))
+      $$
+    or equivalently
+      $$
+      \int_0^{+\infty} \frac{\sqrt x}{1+x+x^2} \, dx
+      = \frac{\pi}{\sqrt{3}} (e^{i\frac{\pi}{3}} -e^{i\frac{2\pi}{3}})
+      = \frac{\pi}{\sqrt{3}}.
+      $$
+
+
+References
+================================================================================
+
+

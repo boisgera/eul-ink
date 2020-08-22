@@ -1,0 +1,660 @@
+% Power Series
+% [Sébastien Boisgérault][email], [Mines ParisTech]
+
+[email]: mailto:Sebastien.Boisgerault@mines-paristech.fr
+[Mines ParisTech]: http://www.mines-paristech.fr/
+
+---
+license: "[CC BY-NC-SA 4.0](http://creativecommons.org/licenses/by-nc-sa/4.0/)"
+---
+
+Convergence of Power Series
+================================================================================
+
+**Definition & Theorem -- Radius of Convergence.** 
+Let $c \in \mathbb{C}$ and $a_n \in \mathbb{C}$ for every $n \in \mathbb{N}$.
+The *radius of convergence* of the power series
+  $$
+  \sum_{n = 0}^{+\infty} a_{n} (z-c)^{n}
+  $$
+is the unique $r \in [0,+\infty]$ such that the series converges 
+if $|z - c|< r$ and diverges if $|z - c| > r.$ 
+The disk $D(c,r)$ -- 
+the largest open disk centered on $c$ where the series converges --
+is the *open disk of convergence* of the series. 
+
+The radius of convergence $r$ is the inverse of the *growth ratio* of 
+the sequence $a_n,$ defined as the infimum in $[0,+\infty]$ of the set of values 
+$\sigma \in [0,+\infty)$ such that $a_n$ is eventually dominated by $\sigma^n$:
+  $$
+  \exists \, m \in \mathbb{N}, \;
+  \forall \, n \in \mathbb{N}, \; 
+  (n \geq m) \, \Rightarrow \, |a_{n}| \leq \sigma^{n}.
+  $$
+(or equivalently, such that 
+$\exists \, \kappa > 0,$
+$\forall \, n \in \mathbb{N},$ 
+$|a_{n}| \leq \kappa \sigma^{n}.$)
+This growth ratio is equal to $\limsup_{{n} \to +\infty} |a_{n}|^{1/{n}},$ 
+which leads to the Cauchy-Hadamard formula[^limsup]:
+  $$
+  r = \frac{1}{\displaystyle \limsup_{n \to +\infty} |a_{n}|^{1/{n}}}.
+  $$
+By convention here, $1/0 = +\infty$ and $1/(+\infty) = 0.$
+
+[^limsup]: to compute the *limit superior* of a sequence of (extended) 
+real numbers, consider all subsequences that converge
+(as extended real numbers: in $[-\infty, +\infty]$) 
+and take the supremum of their limits.
+
+**Proof.** Let $\rho$ be the growth ratio of the sequence $a_n.$ 
+If a complex number $z$ satisfies $|z - c| < \rho^{-1},$ 
+$\rho$ is finite and there is a $\sigma > \rho$ such that 
+$|z-c| < \sigma^{-1}.$
+Eventually, we have $|a_n| \leq \sigma^n$ and thus
+  $$
+  |a_n (z - c)^n| \leq (\sigma |z-c|)^n.
+  $$
+As $\sigma |z-c| < 1,$ the series $\sum_{n=0}^{+\infty} a_n (z-c)^n$ is 
+convergent. 
+Conversely, if $|z - c| > \rho^{-1},$ $\rho > 0$ 
+and there is a $\sigma < \rho$ such that $|z-c| > \sigma^{-1}.$ 
+As $\sigma < \rho,$ there is a strictly increasing sequence of 
+$n \in \mathbb{N}$ such that $|a_n| > \sigma^n$ and thus 
+$|a_n (z - c)^n| > (\sigma \sigma^{-1})^n = 1.$
+Since its terms do not converge to zero,
+the series $\sum_{n=0}^{+\infty} a_n (z-c)^n$ is divergent.
+
+We now prove that the growth ratio of $|a_n|$ is equal $\limsup_n |a_n|^{1/n}.$ 
+Indeed, for any $\sigma$ greater than the growth ratio $\rho,$ 
+eventually $|a_n| \leq \sigma^n,$ 
+hence $|a_n|^{1/n} \leq \sigma$ and $\limsup_n |a_n|^{1/n} \leq \sigma,$ 
+therefore $\limsup_n |a_n|^{1/n} \leq \rho.$ 
+Conversely, if $\sigma$ is smaller than the growth ratio, 
+there is a strictly increasing sequence of $n \in \mathbb{N}$ such that
+$|a_n| > \sigma^n,$ hence $|a_n|^{1/n} > \sigma$ and
+$\limsup_n |a_n|^{1/n} \geq \sigma,$ 
+thus $\limsup_n |a_n|^{1/n} \geq \rho.$ \hfill $\blacksquare$
+
+**Example -- A Geometric Series.**
+Consider the power series
+  $$
+  \sum_{n=0}^{+\infty} (-1/2)^n z^n.
+  $$
+Since $|(-1/2)^n| = 1/2^n \leq \sigma^n$ eventually 
+if and only if $\sigma \geq 1/2,$
+the growth bound of the geometric sequence $(-1/2)^n$ is $1/2.$
+Thus the open disk of convergence of this power series is $D(0,2).$
+
+**Example -- A Lacunary Series.**
+Consider the power series:
+  $$
+  \sum_{n=0}^{+\infty} z^{2^n} = z + z^2 + z^4 + z^8 + \cdots.
+  $$
+The "lacunary" adjective refers to the large gaps between nonzero coefficients;
+These coefficients are defined by
+  $$
+  a_n = 
+  \left|
+  \begin{array}{ll}
+  1 & \mbox{ if } \; \exists \, p \in \mathbb{N}, \; n = 2^p, \\
+  0 & \mbox{ otherwise.}
+  \end{array}
+  \right.
+  $$
+It is plain that $|a_n| \leq \sigma^n$ eventually if and only if 
+$\sigma \geq 1.$ 
+Hence the growth bound of the sequence if $1$ and 
+the open disk of convergence of the power series is $D(0,1).$
+
+**Lemma -- Multiplication of Power Series Coefficients.**
+The radius of convergence of the power series
+$\sum_{n=0}^{+\infty} a_n b_n (z-c)^n$
+is at least the product of the radii of convergence of the series
+$\sum_{n=0}^{+\infty} a_n (z-c)^n$ and $\sum_{n=0}^{+\infty} b_n (z-c)^n$.
+In particular, for any nonzero polynomial sequence
+  $$
+  a_n = \alpha_0 + \alpha_1 n + \dots + \alpha_p n^p,
+  $$ 
+the radii of convergence of $\sum_{n=0}^{+\infty} a_n b_n (z-c)^n$ 
+and $\sum_{n=0}^{+\infty} b_n (z-c)^n$ are identical.
+
+**Proof.**
+Denote by $\rho_a$ and $\rho_b$ the respective growth bounds of the 
+sequences $a_n$ and $b_n$; 
+the growth bound of the product sequence $a_n b_n$ is at most $\rho_a \rho_b$:
+for any $\sigma > \rho_a \rho_b,$ we may find some $\sigma_a > \rho_a$
+and $\sigma_b > \rho_b$ such that $\sigma= \sigma_a  \sigma_b.$
+Since $|a_n| \leq (\sigma_a)^n$ and $|b_n| \leq (\sigma_b)^n$ eventually,
+$|a_n b_n| \leq \sigma^n$ eventually.
+
+The growth bound of any polynomial sequence $a_n$ is at most $1$:
+the inequality
+  $$|\alpha_0 + \alpha_1 n + \dots + \alpha_p n^p| \leq \rho^n$$
+holds for any $\rho > 1$ eventually.
+Now, for any nonzero polynomial sequence $a_n$ and any sequence $b_n$,
+eventually $|b_n|$ is dominated by a multiple of $|a_n b_n|$, thus the
+growth bound of $|b_n|$ is at most the growth bound of $|a_n b_n|$.
+Reciprocally, the growth bound of $|a_n b_n|$ is at most the product 
+of the growth bound of $|a_n|$ -- at most one -- and the growth bound 
+of $|b_n|$ and thus at most the growth bound of $|b_n|$.
+\hfill $\blacksquare$
+
+**Theorem -- Locally Normal Convergence.** 
+The convergence of the power series $\sum_{n=0}^{+\infty} a_n(z-c)^n$ in
+its open disk of convergence $D(c,r)$ is *locally normal*:
+for any $z \in D(c,r)$, there is an open neighbourghood $U$ of $z$ in
+$D(c,r)$ such that
+  $$
+  \exists \, \kappa > 0, \;
+  \forall \, z \in U, \;
+  \sum_{n=0}^{+\infty} |a_n(z-c)^n| \leq \kappa
+  $$
+or equivalently, for every compact subset $K$ of $D(c,r),$
+  $$
+  \exists \, \kappa > 0, \;
+  \forall \, z \in K, \;
+  \sum_{n=0}^{+\infty} |a_n(z-c)^n| \leq \kappa. 
+  $$
+
+**Proof.** 
+If $K$ is compact subset of $D(c,r)$ and 
+$\rho = \sup \, \{|z-c| \; | \; z \in K\},$
+  $$
+  \forall \, z \in K, \; 
+  \sum_{n=0}^{+\infty} |a_n(z-c)^n| \leq \sum_{n=0}^{+\infty} |a_n| \rho^n.
+  $$
+Since the growth bound of the sequence $a_n$ and $|a_n|$ are identical,
+the radius of convergence of the series $\sum_{n=0}^{+\infty} |a_n| z^n$ 
+is $r.$ 
+Given that $|\rho| < r,$ the series $\sum_{n=0}^{+\infty} |a_n| \rho^n$ is convergent;
+all its terms are non-negative real numbers, thus the sum is finite: 
+there is a $\kappa>0$ such that $\sum_{n=0}^{+\infty} |a_n| \rho^n \leq \kappa.$
+\hfill $\blacksquare$
+
+**Remark -- Other Types of Convergence.** 
+The locally normal convergence implies the
+*absolute convergence*:
+  $$
+  \forall \, z \in D(c, r), \;
+  \sum_{n=0}^{+\infty} |a_n(z-c)^n| < + \infty.
+  $$
+It also provides the *locally uniform convergence*:
+on any compact subset $K$  of $D(c,r),$ the partial sums 
+$\sum_{n=0}^p a_n(z-c)^n$ converge uniformly
+to the sum $\sum_{n=0}^{+\infty} a_n(z-c)^n$:
+  $$
+  \lim_{p\to +\infty}   
+  \sup_{z \in K} 
+  \left|\sum_{n=0}^p a_n(z-c)^n - \sum_{n=0}^{+\infty} a_n(z-c)^n \right|
+  = 0.
+  $$
+
+
+Power Series and Holomorphic Functions
+================================================================================
+
+**Theorem -- Power Series Derivative.**
+A power series and its *formal derivative*
+  $$
+  \sum_{n = 0}^{+\infty} a_{n} (z-c)^{n}
+  \; \mbox{ and } \;
+  \sum_{n = 1}^{+\infty} n a_{n} (z-c)^{n-1}.
+  $$
+have the same radius of convergence $r.$ 
+The sum $$f: z \in  D(c,r) \mapsto \sum_{n=0}^{+\infty} a_n (z-c)^n$$ 
+is holomorphic; its derivative is the sum of the formal derivative:
+  $$
+  \forall \, z \in  D(c,r), \; f'(z) = \sum_{n=1}^{+\infty} n a_{n} (z-c)^{n-1}.
+  $$
+More generally, the $p$-th order derivative of $f$ is defined for any 
+$p \in \mathbb{N}$ and
+  $$
+  \forall \, z \in  D(c,r), \; 
+  f^{(p)}(z) = \sum_{n=p}^{+\infty} n(n-1) \cdots (n-p+1) a_n (z-c)^{n-p}.
+  $$
+
+**Lemma.** For any $z \in \mathbb{C},$ $h \in \mathbb{C}^*$ and $n \geq 2,$
+  $$
+  \left| \frac{(z+h)^n - z^n}{h} - n z^{n-1} \right|
+  \leq 
+  \frac{n(n-1)}{2} (|z| +|h|)^{n-2} |h|.
+  $$
+
+**Proof -- Lemma.** Using the identity 
+$a^n - b^n = (a-b) \sum_{m=0}^{n-1} a^m b^{n-1-m}$ yields
+   $$
+   (z+h)^n - z^n = h \sum_{m=0}^{n-1} (z+h)^m z^{n-1-m},
+   $$
+hence
+   \begin{eqnarray*}
+   \frac{(z+h)^n - z^n}{h} - n z^{n-1}
+   &=&
+   \sum_{m=0}^{n-1} (z+h)^m z^{n-1-m}
+   -
+   \sum_{m=0}^{n-1} z^m z^{n-1-m} \\
+   &=&
+   \sum_{m=0}^{n-1} \left[(z+h)^m - z^m\right] z^{n-1-m}.
+   \end{eqnarray*}
+By the same identity, we also have
+   $$
+   \left| (z+h)^m - z^m \right|
+   =
+   \left| h \sum_{l=0}^{m-1} (z+h)^{l} z^{m-1-l} \right|
+   \leq
+   m (|z| + |h|)^{m - 1} |h|.
+   $$
+Therefore
+   \begin{eqnarray*}
+   \left| \frac{(z+h)^n - z^n}{h} - n z^{n-1} \right|
+   &\leq&
+   \left[
+     \sum_{m=0}^{n-1} m \ (|z| + |h|)^{m - 1} (|z| + |h|)^{n - 1 - m}
+   \right] |h| \\
+   &\leq&
+   \frac{n(n-1)}{2} (|z| + |h|)^{n - 2} |h|
+   \end{eqnarray*}
+as expected. \hfill $\blacksquare$
+
+**Proof -- Power Series Derivative.**
+Let $D(c,r)$ be the open disk of convergence of the series
+  $$
+  f(z) = \sum_{n = 0}^{+\infty} a_n (z-c)^{n}.
+  $$
+The radii of convergence of the series
+$$
+\sum_{n = 1}^{+\infty} na_n (z-c)^{n-1}
+\; \mbox{ and } \;
+\sum_{n = 0}^{+\infty} na_n (z-c)^{n}
+$$ 
+are equal.
+Since the coefficient sequence of the latter series is the product
+of $a_n$ and a nonzero polynomial sequence, the open
+radius of convergence of $f$ and of its the formal derivative are identical. 
+For any $z \in D(c,r)$ and $h \in \mathbb{C},$ define $e(z, h)$ as 
+  $$
+  e(z, h) = \frac{f(z+h) - f(z)}{h} - \sum_{n = 1}^{+\infty} n a_{n} (z-c)^{n-1}.
+  $$ 
+A straightforward calculation leads to
+  $$
+  e(z, h)
+  =
+  \sum_{n=1}^{+\infty} a_{n} \left[\frac{(z + h - c)^{n} - (z - c)^n}{h} - n(z-c)^{n-1} \right],
+  $$
+hence, using the lemma, we obtain
+  $$
+  \left| e(z,h) \right|
+  \leq
+  \left[\sum_{n = 2}^{+\infty} \frac{n(n - 1)}{2} |a_{n}| (|z - c| + |h|)^{n-2}\right] \times |h|.
+  $$
+The power series 
+  $$
+  \sum_{n = 2}^{+\infty} \frac{n(n - 1)}{2} |a_{n}| z^{n-2}
+  $$
+has the same radius of convergence than
+  $$
+  \sum_{n = 2}^{+\infty} \frac{n(n - 1)}{2} a_{n} (z - c)^{n-2}
+  $$
+which is the  the formal derivative of order 2 of the original series,
+hence the three series have the same radius of convergence $r.$ 
+Consequently, for any $h$ such that $|z-c| + |h| < r,$ 
+  $$
+  \sum_{n = 2}^{+\infty} \frac{n(n - 1)}{2} |a_{n}| (|z - c| + |h|)^{n-2} < + \infty
+  $$
+and therefore
+  $$
+  \lim_{h \to 0} \frac{f(z+h) - f(z)}{h} = \sum_{n = 1}^{+\infty} n a_{n} (z-c)^{n-1}.
+  $$
+The statement about the $p$-th order derivative of $f$ can be obtained by 
+a simple induction on $p.$ \hfill $\blacksquare$
+
+**Theorem & Definition -- Taylor Series.** 
+If the complex-valued function $f$ has a power series
+expansion centered at $c$ inside the non-empty open disk $D(c,r),$
+it is the *Taylor series* of $f$:
+  $$
+  \forall \, z \in D(c,r), \; 
+  f(z) = \sum_{n=0}^{+\infty} \frac{f^{(n)}(c)}{n!} (z-c)^n.
+  $$
+
+**Proof.** If $f(z) = \sum_{n=0}^{+\infty} a_n (z - c)^n,$
+then for any $p \in \mathbb{N},$ the $p$-th order derivative of $f$ inside 
+$D(c, r)$ is given by
+  $$
+  f^{(p)}(z) = \sum_{n=p}^{+\infty} n(n-1) \dots (n-p+1) a_n (z - c)^{n-p}
+  $$
+and consequently, $f^{(p)}(c) = p ! a_p.$ \hfill $\blacksquare$
+
+Note that the above theorem is only a uniqueness result; 
+it says nothing about the existence of the power series expansion.
+This is the role of the following theorem.
+
+**Theorem -- Power Series Expansion.**
+Let $\Omega$ be an open subset of $\mathbb{C},$ let $c \in \Omega$
+and $r \in \left]0,+\infty\right]$ such that the open disk $D(c, r)$ is included in $\Omega.$
+For any holomorphic function $f: \Omega \to \mathbb{C},$ 
+there is a power series with coefficients $a_n$ such that
+  $$
+  \forall \, z\in D(c,r), \; f(z) = \sum_{n=0}^{+\infty} a_n (z-c)^n.
+  $$
+Its coefficients are given by
+  $$
+  \forall \, \rho \in \left]0,r\right[, \;
+  a_n 
+  = 
+  \frac{1}{i2\pi} 
+  \int_{\gamma} 
+  \frac{f(z)}{(z-c)^{n+1}}
+  \, dz
+  \; \mbox{ with } \; 
+  \gamma = c + \rho[\circlearrowleft].
+  $$
+
+**Proof -- Power Series Expansion.**
+For any $n \in \mathbb{N},$ the complex number
+  $$
+  a_n = \frac{1}{i2\pi} \int_{\gamma} \frac{f(z)}{(z-c)^{n+1}}\, dz
+  \; \mbox{ with } \; 
+  \gamma = c + \rho[\circlearrowleft]
+  $$
+is independent of $\rho$ as long as $0 <\rho <r.$ 
+Indeed, if $\rho_1$ and $\rho_2$ are two such numbers,
+denote $\gamma_1 = c + \rho_1 [\circlearrowleft]$ 
+and $\gamma_2 = c + \rho_2 [\circlearrowleft].$
+The interior of the sequence of paths
+$\mu = \gamma_{1} \, | \, \gamma_2^{\leftarrow}$
+is included in $D(c, r) \setminus \{c\}$ where
+the function $z \mapsto {f(z)/}{(z-c)^{n+1}}$
+is holomorphic. Hence, by Cauchy's integral theorem,
+  $$
+  \int_{\mu} \frac{f(z)}{(z-c)^{n+1}}\, dz =
+  \int_{\gamma_1} 
+  \frac{f(z)}{(z-c)^{n+1}}\, dz
+  -
+  \int_{\gamma_2} 
+  \frac{f(z)}{(z-c)^{n+1}}\, dz
+  = 0.
+  $$
+
+Now, let $z \in D(c, r)$ and let $\rho \in \left]0,r \right[$ 
+such that $|z-c| < \rho.$ 
+Cauchy's integral formula provides
+  $$
+  f(z) = \frac{1}{i2\pi} \int_{\gamma} \frac{f(w)}{w-z} \, dw.
+  $$
+For any $w \in \gamma([0,1]),$ we have
+  $$
+  \frac{1}{w-z} 
+  = 
+  \frac{1}{(w-c) - (z-c)} 
+  = 
+  \frac{1}{w-c}\frac{1}{1 - \frac{z-c}{w-c}}.
+  $$
+Since
+  $$
+  \left|\frac{z-c}{w-c}\right| 
+  = 
+  \frac{|z-c|}{\rho} < 1,
+  $$
+we may expand $f(w)/(w-z)$ into
+  $$
+  \frac{f(w)}{w-z} 
+  =
+  \frac{f(w)}{w-c}\frac{1}{1 - \frac{z-c}{w-c}}
+  =
+  \sum_{n=0}^{+\infty} \frac{f(w)}{w-c} \left(\frac{z-c}{w-c}\right)^n.
+  $$
+The term of this series is dominated by 
+  $$
+  \frac{\sup_{|w-c|=\rho} |f(w)|}{\rho} \left(\frac{|z-c|}{\rho}\right)^n;
+  $$
+the convergence of the series is normal -- and thus uniform -- 
+with respect to the variable $w.$ Finally
+  $$
+  \begin{split}
+  f(z) &=
+  \int_{\gamma} 
+  \left[
+    \sum_{n=0}^{+\infty}\frac{f(w)}{(w-c)^{n+1}}(z-c)^n
+  \right] dw \\ 
+  &=
+  \sum_{n=0}^{+\infty}
+  \left[
+  \int_{\gamma}\frac{f(w)}{(w-c)^{n+1}}(z-c)^n \, dw
+  \right]\\
+  &=
+  \sum_{n=0}^{+\infty}
+  \left[
+  \int_{\gamma}\frac{f(w)}{(w-c)^{n+1}} \, dw
+  \right] (z-c)^n
+  \end{split}
+  $$
+which is the desired expansion. \hfill $\blacksquare$
+
+
+Laurent Series
+================================================================================
+
+**Definition -- Annulus.** 
+Let $c \in \mathbb{C}$ and $r_1, r_2 \in [0, +\infty].$
+We denote by
+  $$
+  A(c, r_1, r_2) 
+  = 
+  \{
+  z \in \mathbb{C} 
+  \; | \;
+  r_1 < |z-c| < r_2
+  \}
+  $$
+the *open annulus* with *center* $c,$ 
+*inner radius* $r_1$ and *outer radius* $r_2.$
+
+**Examples -- Annuli.** 
+
+ 1. The open annulus $A(0, 0, +\infty),$
+    centered on the origin, with inner radius $0$ and outer radius $+\infty,$
+    is the set $\mathbb{C}^*.$ 
+
+ 2. The sets $A(0,0,1),$ $A(0,1,2)$ and $A(0,2,+\infty)$ are three open 
+    annuli centered on the origin and included in the open set
+    $\Omega = \mathbb{C} \setminus \{i,2\}.$ 
+    They are maximal in $\Omega$ -- 
+    if we decrease their inner radius and/or increase their outer radius 
+    the resulting annulus is not a subset
+    of $\Omega$ anymore.
+
+**Definition -- Laurent Series.**
+The *Laurent series* centered on $c\in \mathbb{C}$ 
+with coefficients $a_n \in \mathbb{C}$ for every $n \in \mathbb{Z}$ is
+  $$
+  \sum_{n=-\infty}^{+\infty} a_n (z-c)^n.
+  $$
+It is *convergent* for some $z \in \mathbb{C} \setminus \{c\}$ if the series
+  $$
+  \sum_{n=0}^{+\infty} a_n(z-c)^n
+  \; \mbox{ and } \;
+  \sum_{n=1}^{+\infty} a_{-n}(z-c)^{-n}
+  $$
+are both convergent -- otherwise it is *divergent*. 
+When the Laurent series is convergent its *sum* is defined as
+  $$
+  \sum_{n=-\infty}^{+\infty} a_n (z-c)^n
+  =
+  \sum_{n=0}^{+\infty} a_n(z-c)^n
+  +
+  \sum_{n=1}^{+\infty} a_{-n}(z-c)^{-n}.
+  $$
+
+**Theorem -- Convergence of Laurent Series.**
+Let $c \in \mathbb{C}$ and let $a_n \in \mathbb{C}$ for $n \in \mathbb{Z}.$
+The *inner radius of convergence* $r_1 \in [0,+\infty]$ 
+and *outer radius of convergence* $r_2 \in [0,+\infty]$ 
+of the Laurent series $\sum_{n=-\infty}^{+\infty} a_n (z-c)^n$
+defined by
+  $$
+  r_1 = \limsup_{n\to+\infty} {|a_{-n}|^{1/n}} 
+  \; \mbox{ and } \; 
+  r_2 = \frac{1}{\displaystyle \limsup_{n\to+\infty}{|a_n|^{1/n}}}.
+  $$
+are such that the series converges in $A(c, r_1, r_2)$ and 
+diverges if $|z-c| < r_1$ or $|z-c| > r_2.$ 
+In this *open annulus of convergence*, 
+the convergence is locally normal.
+
+**Proof -- Convergence of Laurent Series.** 
+The first series converges if $|z-c|$ is smaller than the
+radius of convergence $r_2$ of this power series and diverges if it is greater.
+We may rewrite the second series as:
+  $$
+  \sum_{n=1}^{+\infty} a_{-n}(z-c)^{-n}
+  =
+  \sum_{n=1}^{+\infty} a_{-n}\left(\frac{1}{z-c}\right)^{n}.
+  $$
+Consequently, it converges if $|1/(z-c)|$ is smaller than
+the radius of convergence $1/r_1$ of the power series 
+$\sum_{n=1}^{+\infty} a_{-n} z^n,$ that is if $|z-c| > r_1,$ 
+and diverges if $|1/(z-c)|$ is greater than $1/r_1,$ that is
+$|z-c|$ is smaller than $r_1.$
+
+Now, for any $z \in A(c,r_1,r_2),$ there is an open 
+neighbourhood $U$ of $z$ 
+where $\sum_{n=0}^{+\infty} a_n (z-c)^n$ is normally convergent 
+and an open neighbourhood $V$ of $(z-c)^{-1}$ in $\mathbb{C}^*$ where 
+$\sum_{n=1}^{+\infty} a_{-n}w^{n}$ is normally convergent.
+The Laurent series $\sum_{n=-\infty}^{+\infty} a_n (z-c)^n$
+is normally convergent in the open neighbourhood 
+$U \cap \{w^{-1} + c \; | \; w \in V\}$ of $z.$
+\hfill $\blacksquare$
+
+<!--
+**Lemma -- Inner/Outer Decomposition.**
+Let $f: A(c,r_1, r_2) \to \mathbb{C}$ be a holomorphic function defined
+on some non-empty open annulus.
+There are holomorphic functions 
+$\phi:D(0,r_2) \mapsto \mathbb{C}$
+and $\psi: D(0,1/r_1) \mapsto \mathbb{C}$ such that $\psi(0) = 0$ and
+  $$
+  \forall \, z \in A(0,r_1,r_2), \; f(z) = \phi(z-c) + \psi((z-c)^{-1}). 
+  $$
+
+**Proof -- Inner/Outer Decomposition.**
+For the sake of simplicity we assume that $c=0.$
+Let $z \in A(0, r_1, r_2)$ and $\rho_1,\rho_2 \in \left]r_1,r_2\right[$
+such that $\rho_1 <|z| < \rho_2.$ 
+Cauchy's integral formula provides
+  $$
+  f(z) = 
+  \frac{1}{i2\pi} \int_{\rho_2[\circlearrowleft]} \frac{f(w)}{w-z} \, dw
+  -
+  \frac{1}{i2\pi} \int_{\rho_1[\circlearrowleft]} \frac{f(w)}{w-z} \, dw
+  $$
+The path $\rho_1[\circlearrowleft]$ is the image of the path
+$\rho_1^{-1} [\circlearrowleft]^{\leftarrow}$ by the holomorphic function
+ $z \in \mathbb{C}^* \mapsto 1/z,$ hence
+  $$
+  \begin{split}
+  -\frac{1}{i2\pi} \int_{\rho_1[\circlearrowleft]} \frac{f(w)}{w-z} \, dw
+  &= 
+  \frac{1}{i2\pi} 
+  \int_{\rho_1^{-1} [\circlearrowleft]}
+  \frac{f(1/v)}{1/v - z} \frac{-dv}{v^2} \\
+  &=
+  z^{-1}\frac{1}{i2\pi} 
+  \int_{\rho_1^{-1} [\circlearrowleft]}
+  \frac{f(1/v)/v}{v -z^{-1}} dv.
+  \end{split}
+  $$
+Define $\phi:D(0,r_2) \mapsto \mathbb{C}$ 
+and $\psi: D(0,1/r_1) \mapsto \mathbb{C}$ by
+  $$
+  \phi(z) = \frac{1}{i2\pi} \int_{\rho_2[\circlearrowleft]} \frac{f(w)}{w-z} \, dw
+  \; \mbox{ and } \;
+  \psi(\xi) = \xi \frac{1}{i2\pi} \int_{\rho_1^{-1}[\circlearrowleft]} \frac{f(1/v)/v}{v-\xi} \, dv
+  $$
+where $\rho_1$ and $\rho_2$ -- that depend on $z$ -- are selected such that 
+$|z| < \rho_2 < r_2$ and $|\xi| < \rho_1^{-1} < r_1^{-1};$ 
+by Cauchy's integral theorem, the two line integrals
+are independent of the selection of these radii as along as the inequalities 
+hold, thus the definition of $\phi$ and $\psi$ is unambiguous.
+Both integrals may expanded as convergent power series
+(refer to the proof of the power series expansion theorem),
+therefore both functions are holomorphic.
+It is also plain that for any $z\in A(0,\rho_1, \rho_2),$
+we have $f(z) = \phi(z) + \psi(z^{-1})$ and $\psi(0) = 0.$
+\hfill $\blacksquare$
+-->
+
+**Theorem -- Laurent Series Expansion.** 
+Let $\Omega$ be an open subset of $\mathbb{C},$ let $c \in \Omega$
+and $r_1, r_2 \in [0,+\infty]$ such that $r_1 < r_2$ and 
+the open annulus $A(c, r_1,r_2)$ is included in $\Omega.$
+For any holomorphic function $f: \Omega \to \mathbb{C},$ 
+there is a Laurent series with coefficients $a_n$ such that
+  $$
+  \forall \, z\in A(c, r_1, r_2), \; f(z) = \sum_{n=-\infty}^{+\infty} a_n (z-c)^n.
+  $$
+Its coefficients are given by
+  $$
+  \forall \, \rho \in \left]r_1,r_2\right[, \;
+  a_n 
+  = 
+  \frac{1}{i2\pi} 
+  \int_{\gamma} 
+  \frac{f(z)}{(z-c)^{n+1}}
+  \, dz
+  \; \mbox{ with } \; 
+  \gamma = c + \rho[\circlearrowleft].
+  $$
+
+**Proof -- Laurent Series Expansion.** 
+For any integer $n,$ the coefficient
+  $$
+  a_n = \frac{1}{i2\pi} \int_{\gamma} \frac{f(z)}{(z-c)^{n+1}}\, dz
+  \; \mbox{ with } \; 
+  \gamma = c + \rho[\circlearrowleft]
+  $$
+is independent of $\rho \in \left]r_1,r_2\right[$ -- refer to the proof of
+"Power Series Expansion" for a detailled argument.
+
+Let $z \in A(c, r_1, r_2)$ and $\rho_1,\rho_2 \in \left]r_1,r_2\right[$
+such that $\rho_1 <|z-c| < \rho_2.$ 
+Let $\gamma_1 = c + \rho_1 [\circlearrowleft]$ and 
+$\gamma_2 = c + \rho_2 [\circlearrowleft];$
+Cauchy's integral formula provides
+  $$
+  f(z) = 
+  \frac{1}{i2\pi} \int_{\gamma_2} \frac{f(w)}{w-z} \, dw
+  -
+  \frac{1}{i2\pi} \int_{\gamma_1} \frac{f(w)}{w-z} \, dw
+  $$
+As in the proof of "Power Series Expansion",
+we can establish that
+  $$
+  \frac{1}{i2\pi} \int_{\gamma_2} \frac{f(w)}{w-z} \, dw
+  =
+  \sum_{n=0}^{+\infty}
+  \left[
+  \frac{1}{i2\pi}\int_{\gamma_2}\frac{f(w)}{(w-c)^{n+1}} \, dw
+  \right] (z-c)^n.
+  $$
+A similar argument, based on a series expansion of
+  $$
+  \frac{1}{w-z} 
+  = 
+  -\frac{1}{(z-c) - (w-c)} 
+  = 
+  -\frac{1}{z-c}\frac{1}{1 - \frac{w-c}{z-c}}
+  $$
+yields
+  $$
+  \frac{1}{i2\pi} \int_{\gamma_1} \frac{f(w)}{w-z} \, dw
+  =
+  -\sum_{n=-1}^{-\infty}
+  \left[
+  \frac{1}{i2\pi}\int_{\gamma_1}\frac{f(w)}{(w-c)^{n+1}} \, dw
+  \right] (z-c)^n.
+  $$
+The combination of both expansions provides the expected result.
+\hfill $\blacksquare$
+

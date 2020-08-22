@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!-- Google Fonts -->
+    <link 
+      href='http://fonts.googleapis.com/css?family=Inconsolata:400,700&subset=latin,latin-ext'
+      rel='stylesheet' type='text/css'>
+    <link 
+      href='http://fonts.googleapis.com/css?family=PT+Serif:700' 
+      rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Alegreya:400,400italic,700,700italic,900,900italic|Alegreya+SC:400,400italic,700,700italic,900,900italic&subset=latin,latin-ext' 
+      rel='stylesheet' type='text/css'>
+    <!-- Mathjax -->
+    <script 
+      type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+      MathJax.Hub.Config({
+        "HTML-CSS": {scale: 90},
+        "TeX": {equationNumbers: {autoNumber: "AMS"}}
+      });
+    </script>
+    <title>Aware</title>
+  </head>
+  <body>
+
+    <section>
+<!----------------------------------------------------------------------------->
+
+<div class="header">
+<h1 class="title">Digital Audio Coding<br /> Lab Session 4 &mdash; Aware</h1>
+<h2 class="author"><a href="mailto:sebastien.boisgerault@mines-paristech.fr">Sébastien Boisgérault, Mines ParisTech</a></h2>
+<h3 class="date">Mar. 12, 2015</h3>
+</div>
+
+<p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/3.0">Creative Commons Attribution 3.0 Unported License (CC BY 3.0)</a>. You are free to <strong>share</strong> -- to copy, distribute and transmit the work -- and to <strong>remix</strong> -- to adapt the work -- under the condition that the work is properly attributed to its author.</p>
+<h1 id="preamble">Preamble</h1>
+<p>This lab session is dedicated to the implementation of a perceptual audio coder using filter banks, psychoacoustic models and vector quantization of subband data. For the sake of simplicity, we will only consider stationary sounds so that we may compute the psychoacoustic mask of the sound only once.</p>
+<p>In the sequel, the sampling frequency <span class="math inline">\(\Delta f\)</span> is <span class="math inline">\(44.1\)</span> kHz, spectral analysis is performed on frames of <span class="math inline">\(512\)</span> samples and vector quantization is applied on frames of 12 samples in each of the 32 subbands of the filter bank.</p>
+<p>You may skip the questions identified with a <span class="math inline">\(\star\)</span> symbol in a first pass.</p>
+<h1 id="filter-banks">Filter Banks</h1>
+<p>In the sequel, we assume that all symbols of <code>audio.filters</code> have been imported.</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Analysis Filter Bank.</strong> The code</p>
+<pre><code>&gt;&gt;&gt; A, dt = MPEG.A, MPEG.dt
+&gt;&gt;&gt; analyze = Analyzer(A, dt=dt)</code></pre>
+<p>creates an instance of an analysis filter bank based on of the pseudo-quadrature mirror filters (PQMF) of the MPEG standard. This polyphase implementation consumes frames of 32 consecutive samples and outputs an arrays of 32 values, one for each subband.</p>
+<pre><code>&gt;&gt;&gt; assert shape(frame) == (32,)
+&gt;&gt;&gt; subband_data = analyze(frame)</code></pre>
+<p>Use this filter bank to implement <code>display_subbands</code>, a function that displays graphically the subband decomposition of signals of audio data of arbitrary length. Test this function with the data:</p>
+<pre><code>data = square(f=1760.0, N=10000)</code></pre>
+<p>where the square signal is implemented with:</p>
+<pre><code>def square(f, N=512, df=44100):
+    n = int(round_(0.5 * (df / f)))
+    frame = n * [1.0] + n * [-1.0]
+    frames = (N // len(frame) + 1) * frame
+    return array(frames)[:N]</code></pre>
+<img src="images/equalizer.svg" alt="" /><br />
+</li>
+<li><p><strong>Synthesis Filter Bank.</strong> Symmetrically, a PQMF synthesis filter bank may be instantiated with:</p>
+<pre><code>&gt;&gt;&gt; S, dt, M = MPEG.S, MPEG.dt, MPEG.M
+&gt;&gt;&gt; synthesize = Synthesizer(S, dt=dt, gain=M)</code></pre>
+<p>The application of this instance to subband data generates an audio frame:</p>
+<pre><code>&gt;&gt;&gt; frame = synthesize(subband_data)</code></pre>
+<p>Implement a function <code>reconstruct</code> that takes a 1d array of samples for argument and returns a 1d array that has been analyzed and synthesized.</p>
+<p><span class="math inline">\(\star\)</span> Use a test function -- such as an impulse -- to determine how much delay the whole analysis and synthesis process induces. Modify <code>reconstruct</code> to compensate for that delay.</p>
+<p><span class="math inline">\(\star\)</span> Is the reconstruction perfect ? Determine experimentally the order of magnitude of the signal-to-noise of the reconstruction process (irrespective of the induced delay). Is it good enough ?</p></li>
+</ol>
+<h1 id="psychoacoustics-mask">Psychoacoustics Mask</h1>
+<p>Let <span class="math inline">\(P\)</span> be the (normalized) sound power of the frame <span class="math inline">\(x\)</span>: <span class="math display">\[
+  P = \left&lt; x^2(t)\right&gt; = \frac{1}{512} \sum_{n=0}^{511} x(n\Delta t)^2
+  = \frac{\Delta f}{512} \left[\Delta t \sum_{n=0}^{511} x(n\Delta t)^2 \right]
+  \]</span></p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Power Spectrum.</strong> In the frequency domain, we have: <span class="math display">\[
+P = 
+\frac{\Delta f}{512} \left[\int_{-\Delta f / 2}^{\Delta f/2} |x(f)|^2 \, df \right]
+=
+\frac{\Delta f}{512} \left[2 \int_{0}^{\Delta f/2} |x(f)|^2 \, df \right].
+\]</span></p>
+<p><strong>Fast Fourier Transform.</strong> We discretize the frequency range <span class="math inline">\([0, \Delta f/ 2]\)</span>: <span class="math display">\[
+f_k= \frac{ k\Delta f}{512}, \; k=0, ..., 256 \;  \mbox{ and } \; 
+\hat{x}_k = \Delta f \times x(f=f_k).
+\]</span> The <span class="math inline">\(\hat{x}_k\)</span> are (approx. half of) the Discrete Fourier Transform coefficients of the sequence <span class="math inline">\(x(t=n\Delta t)\)</span>, <span class="math inline">\(n=0, ..., 511\)</span>.</p>
+<p>Use the trapezoidal rule to compute an approximation of <span class="math inline">\(P\)</span> that instead of the integral over frequencies above relies on a finite sum that uses the <span class="math inline">\(\hat{x}_k\)</span>. What is the contribution <span class="math inline">\(P_k\)</span> of the frequency <span class="math inline">\(f_k\)</span> to this sum ?</p>
+<p>Use the Fast Fourier Transform to implement a function <code>P_k_from_frame</code> whose argument is a frame of 512 sample values and that computes the array of values <span class="math inline">\(P_k\)</span>.</p>
+<p><span class="math inline">\(\star\)</span> Use a random frame to compute the sum of the <span class="math inline">\(P_k\)</span> ; compare it to <span class="math inline">\(P\)</span>. Can you explain why the values are so close ?</p>
+<p><strong>Scaling.</strong> The power <span class="math inline">\(P\)</span> is normalized: it belongs to <span class="math inline">\([0,1]\)</span> if <span class="math inline">\(x(t) \in [-1,+1]\)</span>. Modify the code of <code>P_k_from_frame</code>: scale the returned array so that the sum of its values is in the <span class="math inline">\([0,10^{9.6}]\)</span> range instead.</p>
+<p>Introduce an optional boolean argument <code>dB</code> to <code>P_k</code> that allows to return the intensities as sound pressure levels (<code>dB</code> shall default to <code>False</code>: intensities are then computed as usual).</p>
+<p><strong>Power Spectrum.</strong> Display the power spectrum -- the power <span class="math inline">\(P_k\)</span> as a function of the frequency <span class="math inline">\(f_k\)</span> -- of the pure tone with unit amplitude A8 (frequency: 7040 Hz) in a linear scale, then in a dB scale.</p>
+<p><strong>Windows.</strong> Extend the function <code>P_k_from_frame</code> with an optional <code>window</code> argument, that will be applied to the array <code>frame</code> before the spectral analysis. As this process will likely alter the signal power, the array <code>frame</code> should also be scaled to attempt to restore the initial intensity level.</p>
+<p><span class="math inline">\(\star\)</span> Create a frame made of a pure tone with frequency 7040 Hz (<span class="math inline">\(\mbox{A}_8\)</span>) and another one with frequency 14080 Hz (<span class="math inline">\(\mbox{A}_9\)</span>) whose amplitude is one thousandth (1/1000) of the first. Display the power spectrum of this frame in a dB scale with and without a hanning window. What is the purpose of the window in this context ?</p></li>
+<li><p><strong>Tonal/Non-Tonal Classification.</strong> The component <span class="math inline">\(k \in \{3,...,249\}\)</span> of the array <span class="math inline">\(P_k\)</span> is considered tonal if <span class="math inline">\(P_k\)</span> is greater than or equal to <span class="math inline">\(P_{k-1}\)</span> and <span class="math inline">\(P_{k+1}\)</span> and <span class="math inline">\(P_k \geq P_{k+j} + 7.0 \mbox{ dB}\)</span> for every <span class="math inline">\(j \in J_k\)</span>.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><span class="math inline">\(k\)</span></th>
+<th align="center"><span class="math inline">\(J_k\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(003 \leq k &lt; 063\)</span></td>
+<td align="center"><span class="math inline">\(\{-2,+2\}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(063 \leq k &lt; 127\)</span></td>
+<td align="center"><span class="math inline">\(\{-3,-2,+2, +3\}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(127 \leq k &lt; 250\)</span></td>
+<td align="center"><span class="math inline">\(\{-6, -5, -4, -3, -2, +2, +3, +4, +5, +6\}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Implement a function <code>maskers</code> that given a frame of length 512 returns:</p>
+<ul>
+<li><p><code>(k_t, P_t)</code>: the index and power arrays of tonal components,</p></li>
+<li><p><code>(k_nt, P_nt)</code>: the index and power arrays of non-tonal components.</p></li>
+</ul></li>
+<li><strong>Masking Patterns.</strong> We assume that a single masker with frequency <span class="math inline">\(b_m\)</span> bark and sound pressure level <span class="math inline">\(I_m\)</span> (in dB) generates at the frequency <span class="math inline">\(b\)</span> bark a mask level of
+\begin{equation}
+\mbox{mask level [dB]} = m(b) + a(b)
+\; \mbox{ with } \;
+\Delta b = b - b_m
+\end{equation}
+<p>where the base mask level <span class="math inline">\(m(b)\)</span> is defined as <span class="math display">\[
+m(b) =
+\left|
+\begin{array}{lrcll}
+ &amp;(+ 11.0 - 0.40 \times I_m) &amp;\times&amp; (\Delta b + 1.0) &amp; \mbox{if } \; \Delta b &lt; -1.0\\
++&amp;(+  6.0 + 0.40 \times I_m) &amp;\times&amp; (\Delta b + 0.0) &amp; \mbox{if } \; \Delta b &lt; 0.0 \\
++&amp;(- 17.0         ) &amp;\times&amp; (\Delta b + 0.0     ) &amp; \mbox{if } \; 0.0 \leq \Delta b\\
++&amp;(         0.15 \times I_m) &amp;\times&amp; (\Delta b - 1.0) &amp; \mbox{if } \; 1.0 \leq \Delta b\\
+\end{array}
+\right.
+\]</span> and the attenuation <span class="math inline">\(a(b)\)</span> is given by <span class="math display">\[
+a(b) = 
+\left|
+\begin{array}{cl}
+-1.525 - 0.275 \times b - 4.5  &amp; \mbox{if the masker is tonal,} \\
+-1.525 - 0.175 \times b - 0.5  &amp; \mbox{otherwise.}
+\end{array}
+\right.
+\]</span></p>
+<p><img src="images/mask.svg" alt="" /><br />
+ <span class="math inline">\(\star\)</span> In this model, is the masking effect of tonal sounds stronger or weaker than the one of non-tonal sounds ? Is a loud voice with a high pitch more likely to to mask another loud voice with a low pitch or the opposite ?</p>
+<p>Implement a function <code>excitation_pattern</code> whose arguments are:</p>
+<ul>
+<li><p><code>b</code>: an array of frequencies in bark,</p></li>
+<li><p><code>b_m</code>: the frequency of the masker in bark,</p></li>
+<li><p><code>I_m</code>: the power of the masker in dB,</p></li>
+<li><p><code>tonal</code>: a boolean, <code>True</code> for tonal maskers, <code>False</code> otherwise,</p></li>
+</ul>
+<p>and that returns:</p>
+<ul>
+<li><code>mask</code>: an array of the mask levels at the frequencies <code>b</code>.</li>
+</ul></li>
+<li><p><strong>Composite Masks and Sampling.</strong> Develop a code that given a frame, computes its power spectrum at every frequency <span class="math inline">\(f_k\)</span>, then the mask associated to every spectral component and creates a global mask array from the addition of the all mask powers and the absolute threshold of hearing<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>.</p>
+<p>This implementation provides 257 mask levels, one for every <span class="math inline">\(f_k\)</span>. What we need is one mask level for every of the 32 subbands that split uniformly the frequency range <span class="math inline">\([0, \Delta f / 2]\)</span>. How should we select the subband mask level if we intend to be conservative ?</p>
+<p>Implement this strategy in a function <code>mask_from_frame</code> whose argument is a frame of 512 samples and that returns the 32 subband mask levels in dB.</p>
+<!--
+In the previous section, we have decomposed
+the sound data into 32 subbands of $[0, \Delta f/2]$ with the same width. 
+We will require in next section an estimation of the mask level in each subband. 
+
+$\star$ If we take for subband mask level the value of the mask level in 
+the middle of the band, and pick a pure tone in the subband with an intensity
+below that threshold, are we sure that the tone is not audible ?
+ --></li>
+<li><p><strong>Tests</strong>. Apply the previous computations with frames of stationary signals such as square signals, and display graphically the results in a function <code>display_mask</code>.</p>
+<p><img src="images/mask-full-display.svg" alt="" /><br />
+</p></li>
+</ol>
+<h1 id="subband-data-vector-quantization">Subband Data Vector Quantization</h1>
+<ol style="list-style-type: decimal">
+<li><p><strong>Scale Factors.</strong> The quantization of subband data is based on 32 vector quantizers: each of these quantizers is applied not to a single sample values, but to frames of 12 consecutive values. All values of such frames are divided by a scale factor to be mapped into <span class="math inline">\([-1,+1]\)</span> ; then, a uniform midtread quantizer on <span class="math inline">\([-1,+1]\)</span> is applied.</p>
+<p>The scale factor of a frame is determined -- among a finite list of candidate scale factors -- as the least value greater than all the absolute values in the frame, or the greatest candidate scale factor value if no scale factor that satisfies this condition exist.</p>
+<p>Define an increasing array of 64 scale factors with the following pattern:</p>
+<pre><code>&gt;&gt;&gt; scale_factors
+[..., 0.5, 0.62996, 0.79370, 1.0,  1.25992, 1.58740, 2.0]</code></pre></li>
+<li><p><strong>Bit Rate and Bit Pool Size.</strong> Consider a sequence of 32 frames of 12 values, one frame by subband. Assume that the uniform quantizer used in the subband <span class="math inline">\(i\)</span> can use <span class="math inline">\(b_i\)</span> bits for the quantization any scaled sample, with <span class="math inline">\(b_i \in \{0, 1, 2, ..., 15\}\)</span>.</p>
+<p>Compute the total number of bits required to describe in every subband:</p>
+<ul>
+<li>the scale factor selected,</li>
+<li>the number <span class="math inline">\(b_i\)</span> of bits allocated,</li>
+<li>the quantized values of the frame of 12 samples.</li>
+</ul>
+<p><span class="math inline">\(\star\)</span> At what frequency are produced batches of <span class="math inline">\(32 \times 12\)</span> sample values by the analysis filter bank ? What is the bit rate of the quantization, as a function of the total number of bits <span class="math inline">\(b = b_0 + b_1 + ... + b_{31}\)</span> allocated for a frame of 12 (scaled) values ? We select a target bit rate of 192 kb/s (for a single-channel data) ; what is the value of the bit pool size <span class="math inline">\(b\)</span> ?</p></li>
+<li><p><strong>Bit Allocation Algorithm.</strong> The bit allocation algorithm of the first psychoacoustics model of MPEG-1 is based on the comparison in each subband of the noise level due to the quantization and the mask level generated by the psychoacoustic analysis. The algorithm that we implement iteratively allocates bits to make the noise-to-mask ratio approximately equal in each subband.</p>
+<p>Consider a single scale factor quantizer <span class="math inline">\([\, \cdot \,]\)</span>, applied to a frame of 12 values, that has computed the scale factor <span class="math inline">\(A\)</span> and may use <span class="math inline">\(b\)</span> bits by sample. Compute the quantization noise level <span class="math display">\[
+\mbox{noise level [dB]} = 10 \log_{10}\left&lt;([x] - x)^2\right&gt;.
+\]</span> under the high resolution hypothesis.</p>
+<p>Implement a function <code>allocate_bits</code> with arguments <code>frames</code> and <code>mask</code>, where <code>frames</code> is an array of shape <code>(12, 32)</code> and <code>mask</code> a sequence of 32 mask levels in dB, that returns the array <code>[b_0, b_1, ..., b_31]</code>.</p>
+<p>The function shall implement the following algorithm:</p>
+<p>while the bitpool is not empty:</p>
+<ol style="list-style-type: lower-roman">
+<li><p>compute the noise-to-mask ratio in dB for each subband</p>
+<p><span class="math display">\[
+\mbox{NMR [dB]} = \mbox{noise level [dB]} - \mbox{mask level [dB]}
+\]</span></p></li>
+<li><p>find the subband with the worst (biggest) noise-to-mask ratio,</p></li>
+<li><p>allocate one extra bit from the bit pool to this subband, starting at 0.</p></li>
+</ol></li>
+</ol>
+<h1 id="integration----perceptual-compression">Integration -- Perceptual Compression</h1>
+<p>Implement a function <code>demo</code> that given a single-channel sound <code>data</code> will perform the compression and decompression by the methods of the previous section, display both signal and finally play both signals. Introduce an extra argument <code>bit_pool</code> that allows to compress with a bit rate different from the default.</p>
+<p><img src="images/compressed.svg" alt="" /><br />
+ Use this function to test the compression of stationary signals (pure tones, square signals, white noise) and study in each case how much the bit pool size can be decreased without too much quality loss.</p>
+<div class="references">
+
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><strong>Warning:</strong> the addition of powers should be performed in the original linear scale.<a href="#fnref1">↩</a></p></li>
+</ol>
+</div>
+
+
+<!----------------------------------------------------------------------------->
+    </section>
+  </body>
+</html>

@@ -1,0 +1,461 @@
+% Integral Representations
+% [Sébastien Boisgérault][email], [Mines ParisTech]
+
+[email]: mailto:Sebastien.Boisgerault@mines-paristech.fr
+[Mines ParisTech]: http://www.mines-paristech.fr/
+
+---
+license: "[CC BY-NC-SA 4.0](http://creativecommons.org/licenses/by-nc-sa/4.0/)"
+---
+
+
+
+Complex Differentiation of Integrals
+================================================================================
+
+**Theorem -- Complex-Differentiation under the Integral Sign.** 
+Let $\Omega$ be an open subset of $\mathbb{C}$ and 
+$(X, \mu)$ be a measurable space. 
+Let $f : \Omega \times X \to \mathbb{C}$ be a function such that:
+
+ 1. for every $z$ in $\Omega,$ $x \in X \mapsto f(z, x)$ is $\mu$-measurable,
+
+ 2. for any $z_0 \in \Omega,$ 
+    there is a neighborhood $V$ of $z_0$ in $\Omega$ 
+    and a $\mu$-integrable function $g: X \to \mathbb{R}_+$ 
+    such that
+       $$\forall \, z \in V, \;|f(z,x)| \leq g(x) \; \mbox{$\mu$-a.e.}$$
+
+ 3. for $\mu$-almost every $x \in X,$ the function $z \in \Omega \mapsto f(z, x)$ 
+    is holomorphic.
+
+Then the function $z \in \Omega \mapsto \int_X f(z, x) \, d\mu(x)$ is 
+holomorphic and its derivative at any order $n$ is
+  $$
+  \frac{\partial^n}{\partial z^n} \left[ \int_X f(z, x) \, d\mu(x) \right]
+  =
+  \int_X \partial_z^n
+  f(z, x) \, d\mu(x).
+  $$
+
+**Proof.** Let $z_0$ in $\Omega$ and $V$ be as in assumption 2; 
+let $r>0$ be a radius such that $\overline{D}(z_0,r) \subset V$ and
+let $\gamma= z_0 + r [\circlearrowleft].$ 
+The Cauchy formula, followed by an integration by parts,
+yields for $\mu$-almost every $x \in X$ and any $z \in D(z_0, r/2)$
+  $$
+  \partial_z f(z, x) 
+  = \frac{1}{i2\pi} \int_{\gamma} \frac{\partial_z f(w, x)}{w-z} \, dw
+  = \frac{1}{i2\pi} \int_{\gamma} \frac{f(w, x)}{(w-z)^2} \, dw,
+  $$
+which by the M-L estimation lemma provides the bound
+  $$
+  |\partial_z f(z, x)| \leq \frac{4|g(x)|}{r}.
+  $$
+
+The difference quotient of $z \mapsto \int_X f(z, x) \, d\mu(x)$
+at $z_0$ is equal to
+  $$
+  \int_X \frac{f(z_0+h, x) - f(z_0, x)}{h}\, d\mu(x).
+  $$
+Let $h$ be a complex number such that $|h|< r/2.$ 
+For $\mu$-almost every $x \in X,$ the function $\phi: t \in [0,1] \mapsto f(z_0 + t h, x)$ is 
+continuous on $[0,1],$ differentiable on $\left]0,1\right[$ and satisfies
+  $$
+  |\phi'(t)| = |\partial_z f(z_0+th, x)| |h| \leq \frac{g(x)}{r} |h|.
+  $$
+Hence, the mean value inequality yields
+  $$
+  \left| \frac{f(z_0+h, x) - f(z_0, x)}{h} \right|
+  =
+  \frac{|\phi(1) - \phi(0)|}{|h|}  \leq \frac{4g(x)}{r}.
+  $$
+Since
+  $$
+  \lim_{h \to 0} \frac{f(z_0+h, x) - f(z_0, x)}{h} = \partial_z f(z_0, x) 
+  \; \mbox{ $\mu$-a.e.},
+  $$
+Lebesgue's dominated convergence theorem provides the result for $n=1.$
+Now, the function $\partial_z f$ also satisfies the three assumptions 
+required by the theorem, hence by induction, 
+the theorem statement holds at any order $n.$
+\hfill $\blacksquare$
+
+**Corollary -- Complex-Differentiation of Line Integrals.**
+Let $f: \Omega \times \Lambda \to \mathbb{C}$ 
+where $\Omega$ and $\Lambda$ are two subsets of $\mathbb{C}$
+and $\Omega$ is open. 
+Assume that
+
+ 1. $f$ is a continuous function. 
+
+ 2. for any $w \in \Lambda,$ the function $z \in \Omega \mapsto f(z, w)$ 
+    is holomorphic.
+
+Then, for any sequence of rectifiable paths $\gamma$ of $\Lambda,$
+the function $z \in \Omega \mapsto \int_{\gamma} f(z, w) \, dw$ 
+is holomorphic and
+  $$
+  \frac{\partial}{\partial z} \left[ \int_{\gamma} f(z, w) \, dw \right]
+  =
+  \int_{\gamma} \partial_z
+  f(z, w) \, dw.
+  $$
+
+**Proof.** 
+We prove the result for any continuously differentiable path $\gamma$ of 
+$\Lambda$ (the case of a sequence of rectifiable paths is a simple corollary).
+By definition of the line integral,
+  $$
+  \int_{\gamma} f(z, w) \, dw 
+  = 
+  \int_{[0,1]} f(z, \gamma(t)) \gamma'(t) \, dt.
+  $$
+Now,
+
+ 1. For any $z \in \Omega,$ the function 
+    $t \in [0,1] \mapsto f(z, \gamma(t)) \gamma'(t)$ is continuous
+    and therefore Lebesgue measurable.
+
+ 2. Let $z_0 \in \Omega$ and let $r>0$ be such that 
+    $K = \overline{D}(z_0, r) \subset \Omega.$ 
+    The restriction of $f$ to the compact set $K \times \gamma([0,1])$ 
+    is bounded by some constant $\kappa.$ Therefore, for any 
+    $z \in D(z_0,r),$ the function $t \in [0,1] \mapsto f(z, \gamma(t)) \gamma'(t)$ 
+    is dominated by $t \in [0,1] \mapsto \kappa |\gamma'(t)|$ which is
+    Lebesgue integrable.
+
+ 3. For any $t \in [0,1],$ the function 
+    $z \in \Omega \mapsto f(z, \gamma(t)) \gamma'(t)$ 
+    is holomorphic; 
+    its derivative is $\partial_z f(z, \gamma(t))  \gamma'(t).$
+
+Consequently, the differentiation of Lebesgue integrals theorem provides the
+existence of $\partial_z\left[ \int_{\gamma} f(z, w) \, dw \right]$ and its
+value:
+  $$
+  \frac{\partial}{\partial z} \left[ \int_{\gamma} f(z, w) \, dw \right]
+  =
+  \int_{[0,1]} \partial_z f(z, \gamma(t)) \gamma'(t) \, dt.
+  $$
+The right-hand side is equal to $\int_{\gamma} \partial_z f(z, w) \, dw.$
+\hfill $\blacksquare$
+
+
+The Laplace Transform
+================================================================================
+
+**Definition -- The Laplace Transform.**
+Let $f: \mathbb{R}_+ \to \mathbb{C}$ be a Lebesgue measurable function.
+We denote by $\sigma$ the extended real number defined by
+  $$
+  \sigma \in [-\infty, +\infty] = \inf   
+  \left\{
+  \sigma^+ \in \mathbb{R} 
+  \; \left| \;
+  \int_{\mathbb{R}_+} |f(t)| e^{-\sigma^+ t} \, dt < +\infty
+  \right.
+  \right\}.
+  $$ 
+If $s \in \mathbb{C}$ and $\mathrm{Re}(s) > \sigma,$ 
+the function $t \in \mathbb{R}_+ \mapsto f(t) e^{-st}$ is Lebesgue integrable. 
+The *Laplace transform* of $f$ is the function
+  $$
+  \mathcal{L} [f]: \{s \in \mathbb{C} \; | \; \mathrm{Re}(s) > \sigma\} \to \mathbb{C}
+  $$
+defined by
+  $$
+  \mathcal{L} [f](s) = \int_{\mathbb{R}_+} f(t) e^{-st} \, dt.
+  $$
+
+**Proof -- Definition of the Laplace Transform.** 
+For any $s \in \mathbb{C},$
+the function $t \in \mathbb{R}_+ \mapsto f(t) e^{-s t}$ is Lebesgue measurable . 
+If additionally $\mathrm{Re}(s) > \sigma,$ then there is some $\sigma^+$ 
+such that $\sigma < \sigma^+ < \mathrm{Re}(s)$ and $t \mapsto |f(t)| e^{-\sigma^+ t}$
+is Lebesgue integrable. Thus,
+  $$
+  \int_{\mathbb{R}_+} |f(t) e^{-s t}| \, dt
+  = 
+  \int_{\mathbb{R}_+} |f(t)| e^{-\mathrm{Re}(s) t} \, dt \leq \int_{\mathbb{R}_+} |f(t)| e^{-\sigma^+ t} \, dt < + \infty.
+  $$
+and therefore $t \in \mathbb{R}_+ \mapsto f(t) e^{-s t}$ is Lebesgue integrable. \hfill $\blacksquare$
+
+**Example -- Laplace Transform of Exponential Functions.**
+For any $\lambda \in \mathbb{C},$ 
+the function $t \in \mathbb{R}_+ \mapsto e^{\lambda t}$ is Lebesgue measurable.
+Additionally,
+ $$
+ \forall \, t \geq 0, \;|f(t)| e^{-\sigma^+ t} = e^{-(\sigma^+ - \mathrm{Re}(\lambda)) t},
+ $$
+hence the function $t \in \mathbb{R}_+ \mapsto |f(t)|e^{-\sigma^+ t}$ is 
+Lebesgue integrable if and only if $\sigma^+ > \mathrm{Re}(\lambda).$ The infimum $\sigma$ of all such $\sigma^+$ is 
+therefore $\mathrm{Re}(\lambda).$ Now, if $\mathrm{Re}(s) > \mathrm{Re}(\lambda),$
+  $$
+  \mathcal{L} [f](s) 
+  = 
+  \int_{\mathbb{R}_+} e^{(\lambda-s)t} \, dt
+  = 
+  \left[ \frac{e^{(\lambda-s)t}}{\lambda - s}\right]_0^{+\infty}
+  =
+  \frac{1}{s-\lambda}.
+  $$
+
+**Theorem -- Derivative of the Laplace Transform.** 
+The Laplace transform of a Lebesgue measurable function 
+$f: \mathbb{R}_+ \to \mathbb{C}$ is holomorphic on 
+its domain of definition and
+  $$
+  (\mathcal{L} [f])'(s) = \mathcal{L} [t \mapsto -t f(t)](s).
+  $$
+
+**Proof.** 
+Let $\Omega = \{s \in \mathbb{C} \; | \; \mathrm{Re}(s) > \sigma\}.$
+
+ 1. For any $s \in \Omega,$ the function $t\mapsto f(t) e^{-st}$ is 
+    Lebesgue measurable.
+
+ 2. Let $s \in \Omega$ and let $r > 0$ be such that $\epsilon = \mathrm{Re}(s) - \sigma - r > 0.$ 
+    For any $w \in D(s, r),$ we have $\mathrm{Re}(w) > \mathrm{Re}(s) - r = \sigma + \epsilon,$ thus
+      $$
+      \int_{\mathbb{R}_+} |f(t) e^{-wt}| \, dt 
+      =
+      \int_{\mathbb{R}_+} |f(t)| e^{-\mathrm{Re}(w)t} \, dt 
+      \leq
+      \int_{\mathbb{R}_+} |f(t)| e^{-(\sigma + \epsilon)t} \, dt
+      < +\infty. 
+      $$
+
+ 3. For almost any $t \geq 0,$ $s \mapsto f(t) e^{-st}$ is holomorphic and
+    $$\partial_s [f(t) e^{-st}] = -t f(t) e^{-st}.$$
+
+We can therefore differentiate under the integral sign and obtain
+  $$
+  \frac{\partial}{\partial s}\int_0^{+\infty} f(t) e^{-st} \, dt
+  =
+  \int_0^{+\infty} -t f(t) e^{-st} \, dt
+  =
+  \mathcal{L} [t \mapsto -t f(t)](s)
+  $$
+as expected. \hfill $\blacksquare$
+
+**Example -- Laplace Transform of Polynomials.** 
+The constant function defined by $f(t) = 1$  for $t\geq 0$ 
+is an exponential function (as $1 = e^{0 \times t}$); 
+its Laplace transform is defined for $\mathrm{Re}(s) > 0$ and equal to $1/s.$
+Now, this Laplace transform has a derivative at every of order $n$
+which is
+  $$
+  \frac{(-1)^n n!}{s^{n+1}}.
+  $$
+It is also the Laplace transform of $t \in \mathbb{R}_+ \mapsto (-t)^n.$
+Thus, by linearity, the Laplace transform of the polynomial 
+$f(t) = \sum_{p=0}^n a_{p} t^p$ is
+  $$
+  \mathcal{L}[f](s) = \sum_{p=0}^{n} a_{p} p! \frac{1}{s^{p+1}}.
+  $$
+
+Cauchy’s Integral Theorem -- Dixon's Proof
+================================================================================
+
+In [@Dix71], John D. Dixon provides a short proof of the global version of
+Cauchy's Formula, using the local Cauchy theory. 
+The proof relies on the following key result: 
+
+**Lemma -- Integral of the Difference Quotient.**
+Let $\Omega$ be an open subset of the complex plane, 
+$f$ be a holomorphic function on $\Omega$ and
+$\gamma$ be a sequence of rectifiable closed paths of $\Omega.$
+The function 
+  $$
+  z \in \Omega \setminus \gamma([0,1]) \mapsto \int_{\gamma} \frac{f(z) - f(w)}{z - w}  dw
+  $$
+has a holomorphic extension on $\Omega.$
+
+**Proof.** We may define the function $g:\Omega \times \Omega \to \mathbb{C}$ by
+  $$
+  g(z, w) = 
+  \frac{f(z) - f(w)}{z - w} \; \mbox{ if }\; z \neq w 
+  \; \mbox{ and } \;
+  g(w, w) = f'(w).
+  $$
+The continuity and complex-differentiability of $g$ at any point 
+$(z, w) \in \Omega^2$ such that $z \neq w$ is plain. 
+Now, let $c \in \Omega$ and let $r>0$ be a radius such
+that the closure of the disk $D = D(c,r)$ is included in $\Omega.$ 
+Using the Taylor expansion of $f$ in this disk, we derive for any 
+$z \in D$ and $w \in D$:
+  $$
+  \begin{split}
+  \frac{f(z) - f(w)}{z-w} 
+  & = \frac{1}{z-w} \sum_{n=0}^{+\infty} a_n ((z-c)^n - (w-c)^n) \\
+  & = \sum_{n=1}^{+\infty} a_n \left[\sum_{p=0}^{n-1}(z-c)^{n-1-p} (w-c)^p\right]
+  \end{split}
+  $$
+The right-hand side of this equation is a uniformly convergent sum of
+continuous functions of $(w, z) \in D^2$ .
+Thus, its limit is a continuous function of $(w,z)$ and we have
+  $$
+  \lim_{(w,z) \to (c,c), w\neq z}  \frac{f(z) - f(w)}{z-w} 
+  =
+  \sum_{n=1}^{+\infty} n a_n (w-c)^{n-1}=f'(w) = g(w,w),
+  $$
+thus this continuous function is actually $g.$
+Additionally, for every $w \in D,$ every function of the sum is a 
+holomorphic function with respect to $z,$ hence its uniform limit 
+$z \in D \mapsto g(z,w)$ is also holomorphic.
+
+Now the function 
+  $$
+  z \in \Omega \mapsto \int_{\gamma} g(z, w)  dw
+  $$
+clearly extends the function of the lemma statement. 
+It also satisfies the assumptions of the complex-differentiation of line integrals 
+result, thus it is holomorphic.
+\hfill $\blacksquare$
+
+For completeness, here is Dixon's proof of Cauchy's formula:
+
+**Proof -- Cauchy's Integral Formula.**
+Let $\Omega$ be an open subset of $\mathbb{C}$ and 
+let $f:\Omega \mapsto \mathbb{C}$ be a holomorphic function. 
+Let $\gamma$ be a sequence of rectifiable closed paths of 
+$\Omega$  such that $\mathrm{Int} \, \gamma \subset \Omega.$
+
+Introduce the holomorphic extension $h$ to $\Omega$ of  
+  $$
+  z \in \Omega \setminus \gamma([0,1]) \mapsto \frac{1}{i2\pi}
+  \int_{\gamma} \frac{f(z) - f(w)}{z - w}  dw
+  $$ 
+and define the function $\phi: \mathbb{C} \mapsto \mathbb{C}$ by 
+  $$
+  \phi(z) = h(z) \; \mbox{ if } \, z \in \Omega, \;
+  \phi(z) = -\frac{1}{i2\pi} \int_{\gamma} \frac{f(w)}{w - z} \, dw
+  \; \mbox{ if } \; z\in \mathrm{Ext} \, \gamma.
+  $$
+This definition is unambiguous: if $z \in \Omega \cap \mathrm{Ext} \, \gamma,$
+then
+  $$
+  \begin{split}
+  h(z) 
+  &= \frac{1}{i2\pi} \int_{\gamma} \frac{f(z) - f(w)}{z - w}  dw \\
+  &= f(z) \mathrm{ind}(\gamma, z)
+  - \frac{1}{i2\pi}  \int_{\gamma} \frac{f(w)}{z - w}  dw \\
+  &=
+  - \frac{1}{i2\pi}  \int_{\gamma} \frac{f(w)}{z - w}  dw
+  \end{split}.
+  $$
+The function $\phi$ is holomorphic on $\Omega$ 
+and also on $\mathrm{Ext}\, \gamma$ by the complex-differentiation of line
+integrals theorem. Hence, it is holomorphic on $\mathbb{C}.$
+Additionally, if $|z|> r= \max \{|w| \; | \; w \in \gamma([0,1])\},$ 
+then $z \in \mathrm{Ext} \, \gamma,$ thus
+if $M$ is an upper bound of $f$ on the image of $\gamma,$
+  $$
+  |\phi(z)|
+  \leq \frac{1}{2\pi}\frac{M}{|z| - r} \times \ell(\gamma)
+  $$
+and $|\phi(z)| \to 0$ when $|z|\to +\infty.$ By Liouville's Theorem,
+$\phi$ is identically zero; hence, if $z\in\Omega,$
+  $$
+  \frac{1}{i2\pi} \int_{\gamma} \frac{f(w)}{z - w}  dw
+  =
+  \frac{1}{i2\pi} \int_{\gamma} \frac{f(z)}{z - w}  dw
+  =
+  \mathrm{ind}(\gamma, z)  f(z),
+  $$
+which is Cauchy's integral formula. \hfill $\blacksquare$
+
+<!--
+
+The Cauchy Transform
+================================================================================
+
+  - issue: what should I focus on ? Path case ? 
+    unit circle with measure/function ?
+    real line measure/function ? Connection with the Hilbert transform 
+    (see e.g. <http://www.math.caltech.edu/papers/bsimon/p325.pdf>)
+    ? See also remark <http://mathoverflow.net/questions/59544/hilbert-transforms-of-measures> 
+    for the link between the "classic" definition of Hilbert transform vs its
+    definition via the Cauchy transform.
+    General measure case (see the analytic capacity literature) ?
+    Nota: at least focus on complex-valued measure with finite
+    real and imaginary parts.
+
+Make real line & unit circle case 
+(see <https://facultystaff.richmond.edu/~wross/pdf/cauchy.pdf> for the latter) ?
+Nah, unit circle only but with fcts & measures versions ?
+Use path in general ?
+
+<http://mat.uab.es/~xtolsa/ecm.pdf>
+
+WTF no ref on real line ? Get rid of it or relate this to the Hilbert transform?
+(Probably not trivial ...). See <https://www.emis.de/journals/AASF/Vol29/jones.pdf>
+<http://www.math.uni.wroc.pl/~pms/files/26.1/Article/26.1.12.pdf>
+
+
+**Definition -- Cauchy Transform on the Unit Circle.** 
+The Cauchy transform of a complex-valued Borel measure $\mu$ defined on 
+the unit circle $\mathbb{U}$ is the function
+  $$
+  z \in \mathbb{C} \setminus \mathbb{U} 
+  \mapsto
+  \frac{1}{i2\pi} \int_{\mathbb{U}} \frac{1}{1 - \overline{w} z} d \mu(w).
+  $$
+
+**Definition -- Cauchy Transform on the Real Line.** 
+The Cauchy transform of a complex-valued Borel measure $\mu$ defined on 
+$\mathbb{R}$ is the function
+  $$
+  z \in \mathbb{C} \setminus \mathbb{R} 
+  \mapsto
+  \frac{1}{i2\pi} \int_{\mathbb{R}} \frac{1}{t - z} d \mu(t).
+  $$
+
+-->
+
+The $\Pi$ Function
+================================================================================
+
+**Definition -- $\Pi$ Function.**
+The $\Pi$ function is defined for all complex numbers $z$ such that $\mathrm{Re}(z) > -1$ 
+by 
+  $$
+  \Pi(z) = \int_0^{+\infty} t^{z} e^{-t} \, dt
+  $$
+It is a holomorphic function whose $n$-th order derivative is given by
+  $$
+  \Pi^{(n)}(z) = \int_0^{+\infty} (\ln t)^n t^{z} e^{-t} \, dt.
+  $$
+
+**Proof -- $\Pi$ Function.**
+For any $z \in \mathbb{C}$  and any $t>0,$
+  $$
+  t^{z} e^{-t} = e^{z\ln t - t}
+  \;\mbox{ and } \; |t^z e^{-t}|=e^{\mathrm{Re}(z) \ln t - t}
+  = t^{\mathrm{Re}(z)} e^{-t}. 
+  $$
+Thus, if $\mathrm{Re}(z) > -1,$ the function 
+$t \in \mathbb{R}_+^* \mapsto t^{z} e^{-t}$ is Lebesgue integrable.
+Let $z\in\mathbb{C}$ such that $\mathrm{Re}(z) > -1$ and 
+let $r = (\mathrm{Re}(z) + 1)/2 > 0.$
+For any $h \in \mathbb{C}$ such that $|h| < r$ and any $t>0,$
+  $$
+  |t^{(z+h)} e^{-t}| = t^{\mathrm{Re} (z+h)} e^{-t} < 
+  \max(t^{\mathrm{Re}(z)-r}, t^{\mathrm{Re}(z)+r}) e^{-t}
+  $$
+and the right-hand side of this inequality is a Lebesgue integrable function of $t.$
+Finally, for any $t>0,$ the function $z \mapsto t^z e^{-t}$ is holomorphic
+on the domain of the $\Pi$ function and at any order $n,$ 
+  $$
+  \partial_z^n t^{z} e^{-t}
+  = \partial_z^n e^{z\ln t - t}
+  = (\ln t)^n t^z e^{-t}.
+  $$
+The assumptions of differentiation under the integral sign are met
+and the application of this theorem provides the desired result.
+\hfill $\blacksquare$
+
+References
+================================================================================
+

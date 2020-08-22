@@ -1,0 +1,149 @@
+% Stage Ski-Maths -- Informations Pratiques 
+
+Contacts
+================================================================================
+
+  - Jean-Emmanuel Deschaud (Les Arcs):   
+    [`jean-emmanuel.deschaud@mines-paristech.fr`](mailto:jean-emmanuel.deschaud@mines-paristech.fr) 
+
+  - Sébastien Boisgérault (Paris):  
+    [`sebastien.boisgerault@mines-paristech.fr`](mailto:sebastien.boisgerault@mines-paristech.fr)
+
+
+A Paris
+================================================================================
+
+Le planning de la semaine vous sera communiqué par les voies habituelles.
+Le volume total et la composition des enseignements est identique à Paris
+et aux Arcs, mais pas les horaires.
+
+Examen 
+================================================================================
+
+L'évaluation est commune au groupes de Paris et des Arcs; 
+elle prend la forme d'un examen écrit de 2h30 où les documents 
+sont autorisés.
+
+
+A Emporter aux Arcs
+================================================================================
+
+  - Votre carte d’identité (ou passeport),
+
+  - Les cartes de réduction SNCF dont vous pourriez être titulaire,
+
+  - L'attestation d'assurance AVA souscrite à votre nom par l'École,
+
+  - Le polycopié "Mathématiques 3 -- Analyse Complexe et Applications",
+
+  - Vêtements de ski, protection solaire, 
+    petit sac à dos, bouteille d'eau ou gourde (cf. section [Ski]),
+
+  - Trousse de toilette et serviette de bain 
+    (mais pas de draps, qui sont fournis).
+
+
+A l'Aller / Au Retour
+================================================================================
+
+Voyage Individuel
+--------------------------------------------------------------------------------
+
+**Horaires d'Arrivée & de Départ.**
+Si vous vous rendez aux Arcs par vos propres moyens,
+il est impératif d'arriver le dimanche avant 15h00 
+pour être en mesure de de retirer matériel et forfait, 
+de s'inscrire aux groupes de ski, de prendre possession 
+des chambres et d'assister à la réunion d'information.
+
+Le séjour prend fin le samedi midi, après le déjeuner; 
+vous devrez libérer vos chambres et rendre votre matériel au plus tard 
+en fin de matinée, planifiez votre retour en conséquence.
+
+**Le Centre UCPA.** L'adresse du centre UCPA des Arcs est
+
+> Centre U.C.P.A.
+> 
+> Les Arcs 1600
+> 
+> 73700 Bourg-Saint-Maurice
+>
+> Tel: 04-79-07-07-50
+>
+> Email: arcs@ucpa.asso.fr
+>
+> Site Web: <http://www.ucpa-vacances.com/centre/france/les-arcs/>
+>
+
+Par Le Train
+--------------------------------------------------------------------------------
+
+Accès par la gare SNCF de Bourg-Saint-Maurice, puis au choix:
+
+  - Autocar Martin (04-79-07-04-49, 
+    [www.autocars-martin.com](http://www.autocars-martin.com/)).
+
+  - Funiculaire: acheter un aller simple et emprunter le funiculaire
+    à la gare de Bourg-Saint-Maurice; à l'arrivée du funiculaire, 
+    aux Arcs 1600, utiliser la navette de bus inter-station gratuite
+    vers les Arcs 2000, puis descendre à l'arrêt UCPA.
+
+  - Taxi Bimet (04-79-07-20-39).
+
+Par la Route
+--------------------------------------------------------------------------------
+
+Le centre UCPA se trouve à 19 km de Bourg-Saint-Maurice sur la route D119, 
+dans la direction des Arcs 2000. 
+Le centre se trouve à l’entrée du village des 2 Têtes. 
+Parking : à 100 mètres du centre, gratuit, non couvert, non gardé. 
+Il est recommandé d'avoir un véhicule muni de chaînes (ou pneus neige, etc.).
+
+
+Organisation des Journées 
+================================================================================
+
+Ski
+--------------------------------------------------------------------------------
+
+**Encadrement.** Entre les plages horaires consacrées aux [Mathématiques], 
+vous pourrez faire du ski sur le [domaine des Arcs](http://www.lesarcs.com/domaine-skiable.html), en autonomie. Des moniteurs de l'UCPA sont également mis à disposition du groupe
+(à temps partiel) et pourront vous proposez des sessions thématiques dans
+le cours de la semaine. En début de semaine, l'encadrement cible plus 
+particulièrement les débutants.
+
+**Repas Froid.** Si vous le souhaitez, il sera en général possible d'emporter 
+un repas froid fourni par l'UCPA pour déjeuner sur les pistes; 
+un petit sac à dos vous sera alors nécessaire.
+Les bouteilles d'eau ne sont pas fournies, prévoyez également 
+d'en amener une avec vous.
+
+**Matériel.** Le matériel de ski est fourni par l'UCPA (y compris les chaussures); 
+les casques ne sont pas fournis par défaut mais peuvent être loués pour 10 euros
+la semaine. 
+Cet équipement ne comporte pas les vêtements de ski. A titre
+indicatif: emportez un pantalon de ski et une veste (ou une combinaison), 
+des vêtements chauds adaptés pour mettre en dessous, un bonnet, des gants, etc.
+Pensez également à vous munir de lunettes de soleil et/ou 
+d'un masque de ski, de crème solaire et d'un stick lèvres. 
+Vous pouvez également apporter vos propres skis et chaussures de ski si 
+vous en possédez. 
+
+Mathématiques
+--------------------------------------------------------------------------------
+
+Sauf imprévu, le planning sera le suivant:
+
+Semaine                  Matin                    Après-Midi
+----------------------   ---------------------    ----------------------  
+Lundi                    8h-10h (Cours + PC)      17h-19h (Cours + PC)
+Mardi                    8h-10h (Cours + PC)      17h-19h (Cours + PC)
+Mercredi                 8h-10h (Cours + PC)      17h-19h (Cours + PC)
+Jeudi                    8h-10h (Cours + PC)      17h-19h (Cours + PC)
+Vendredi                 8h-10h (Cours + PC)      17h-19h (Ateliers)
+
+
+La présence à ces sessions est obligatoire. 
+Vous ne disposerez pas de tables, 
+un support rigide pour prendre des notes pourrait donc vous être utile.
+

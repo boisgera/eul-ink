@@ -1,0 +1,625 @@
+% Zeros & Poles
+% [Sébastien Boisgérault][email], Mines ParisTech
+
+[email]: mailto:Sebastien.Boisgerault@mines-paristech.fr
+
+---
+license: "[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0)"
+---
+
+Preamble
+================================================================================
+
+In this chapter, we study the behavior of any holomorphic functions in the 
+neighbourhood of a point that may or may not be in its domain of definition.
+When the function is not defined at the point of interest -- 
+in other words when it is a singularity -- 
+we only study the case where it is isolated.
+
+**Definition -- Isolated Point.**
+A point $c$ of a subset $C$ of $\mathbb{C}$ is *isolated* (in $C$) 
+if it is in some neighbourhood of $c$ the only point of $C$:
+  $$
+  \exists \, r > 0, \; 
+  \forall \, z \in C, \;
+  |z - c| < r \, \Rightarrow \, z = c.
+  $$
+
+**Remark -- Isolated Points in Closed Sets.** 
+Note that a point $c$ is isolated in the closed set $C$ if and only if
+$C \setminus \{c\}$ is still closed. 
+This is directly applicable to singularities of a function defined on
+an open set $\Omega$, which belongs by definition to the closed set
+$C = \mathbb{C} \setminus \Omega$.
+
+**Definition -- Isolated Singularity.** 
+A *singularity* of a function 
+$f:\Omega \to \mathbb{C}$ defined on an open subset $\Omega$ of $\mathbb{C}$
+is a point $c$ of $\mathbb{C} \setminus \Omega.$ 
+It is *isolated* if
+  $$
+  \exists \, r > 0, \;
+  \forall \, z \in \mathbb{C}, \;
+  (z\neq c \, \mbox{ and } \, |z - c| < r) \Rightarrow z \in \Omega,
+  $$
+in other words if there is a radius $r>0$ such that the annulus
+$A(c, 0, r)$ is a subset of $\Omega$.
+Alternatively, it is isolated if and only if 
+$\Omega \cup \{c\}$ is open.
+
+
+
+
+Zeros of Holomorphic Functions
+================================================================================
+
+**Definition -- Zero & Multiplicity.** 
+Let $\Omega$ be an open subset of the complex plane.
+A *zero* (or *root*) $c$ of a function $f:\Omega \to \mathbb{C}$ 
+is a point $c \in \Omega$ such that $f(c) = 0;$ 
+it is of *multiplicity* $p$ for some positive number $p$ if
+  $$
+  \exists \, a^* \in \mathbb{C}^*, \;
+  f(z) \underset{c}{\sim} a^* (z - c)^p \,
+  $$
+or equivalently
+  $$
+  \exists \, a^* \in \mathbb{C}^*, \;
+  \lim_{z \to c} \frac{f(z)}{(z-c)^p} = a^*.
+  $$
+A zero of multiplicity $1$ is *simple*; 
+zeros of higher multiplicity (*double*, *triple*, etc.) are *multiple*.
+
+
+
+**Example -- Simple Zero.** 
+Let $f:\Omega \to \mathbb{C}$ be a holomorphic function.
+If $c$ is a zero of $f$ but not of its derivative $f',$ 
+then
+  $$
+  \lim_{z \to c} \frac{f(z)}{(z - c)^1} 
+  = 
+  \lim_{z \to c}  \frac{f(z) - f(c)}{z-c} = f'(c) \neq 0,
+  $$
+thus $f(z) \underset{c}{\sim} f'(c) (z-c)^1$ and $c$ is a simple zero of $f.$
+
+**Theorem -- Characterization of Zero Multiplicity.**
+A zero $c$ of a holomorphic function $f:\Omega \to \mathbb{C}$ 
+is of multiplicity $p$ if and only if one of the equivalent
+condition holds:
+
+ 1. The function $f$ and exactly its first $p-1$ derivatives are zero at $c$:
+      $$
+      f(c) = 0, \; f'(c) = 0, \dots, \; f^{(p-1)}(c) = 0 
+      \; \mbox{ and } \;
+      f^{(p)}(c) \neq 0.
+      $$
+
+ 2. The Taylor expansion of $f$ at $c$ is
+      $$
+      f(z) = \sum_{n=p}^{+\infty} a_n (z-c)^n \; \mbox{ with } \; a_p \neq 0.
+      $$
+
+ 3. There is a holomorphic function $a:\Omega \to \mathbb{C}$ such that
+      $$
+      \forall \, z \in \Omega, \; f(z) = a(z) (z-c)^p
+      \; \mbox{ and } \;
+      a(c) \neq 0.
+      $$
+
+**Proof.** 
+The formula $n! a_n = f^{(n)}(c)$ holds for any $n \in \mathbb{N}$ hence
+condition 1 and 2 are equivalent. The theorem statement is otherwise
+a direct consequence of the [local behavior of holomorphic functions lemma
+(refer to the appendix)][Appendix -- Local Behavior of Holomorphic Functions].
+\hfill $\blacksquare$
+
+Zeros of a holomorphic functions have finite multiplicities, 
+except in very specific circumstances:
+
+**Lemma -- Zero With No (Finite) Multiplicity.** 
+Let $f:\Omega \to \mathbb{C}$ be a holomorphic function
+defined on a connected set $\Omega.$ 
+If $c$ is a zero of $f$ but has no finite multiplicity, 
+then $f$ is identically zero.
+
+**Proof.** By assumption, $f^{(n)}(c) = 0$ for every number $n.$
+Consider the function $\chi: \Omega \to \mathbb{C}$ defined by
+  $$
+  \chi(z) 
+  = 
+  \left|
+  \begin{array}{rl}
+  0 & \mbox{if } \; \forall \, n \in \mathbb{N}, \;f^{(n)}(z) = 0, \\
+  1 & \mbox{otherwise.}
+  \end{array}
+  \right.
+  $$
+
+We can prove that the function $\chi$ is locally constant.
+Indeed, if $\chi(z) = 1,$ there is a number $n$ such that $f^{(n)}(z) \neq 0;$
+by continuity, the function $f^{(n)}$ has no zero in some neighbourghood of $z;$
+thus the function $\chi$ is equal to $1$ in this neighbourghood.
+If instead $\chi(z) = 0,$ then the Taylor expansion of $f$ at $z$ 
+shows that $f$ is zero in a suitable neighbourhood of $z,$ 
+where $\chi$ is also zero.
+
+As the set $\Omega$ is connected, the function $\chi$ is actually constant.
+On the other hand, $\chi(c) = 0,$ hence the function $\chi$ is identically 
+zero on $\Omega,$ which means that the function $f$ is also identically 
+zero on $\Omega.$
+\hfill $\blacksquare$
+
+**Lemma -- Zeros of Finite Multiplicity are Isolated.**
+Let $f:\Omega \to \mathbb{C}$ be a holomorphic function. 
+If $c$ is a zero of multiplicity $p$ of $f,$ it is isolated:
+  $$
+  \exists \, r > 0, \; 
+  \forall \, z \in \Omega, \; 
+  (f(z) = 0 \; \mbox{ and } \; |z - c| < r) \, \Rightarrow \, z = c.
+  $$
+
+**Proof.** Let $c$ be a zero of multiplicity $p$ of $f$ for some positive number $p.$
+There is a holomorphic function $a: \Omega \to \mathbb{C}$ 
+such that $f(z) = a(z) (z-c)^p$ on $\Omega$ and $a(c) \neq 0.$
+By continuity of $a$ at $c,$ there is a $r>0$ 
+such that the disk $D(c,r)$ is a subset of $\Omega \cup \{c\}$ 
+on which $a$ has no zero. 
+The function $f$ therefore has no zero on $D(c, r) \setminus \{c\}$ either:
+the point $c$ is an isolated zero of $f.$
+\hfill $\blacksquare$
+
+**Theorem -- Isolated Zeros Theorem I.** 
+Let $f:\Omega \to \mathbb{C}$ be a holomorphic function
+defined on a connected open set $\Omega.$ 
+Unless $f$ is identically zero, each of its zeros is isolated.
+
+**Proof.** A direct consequence of the two above lemmas.
+\hfill $\blacksquare$
+
+**Remark.** More often than not, we leverage the isolated zeros theorem 
+to prove that some holomorphic function is identically zero. 
+In other words, we rely on the contraposition of the theorem. 
+The statement of this contraposition may be slightly rephrased 
+with the introduction of the concept of limit point.
+
+**Definition -- Limit Point.** 
+A point $c \in \mathbb{C}$ is a *limit point* of a set 
+$C \subset \mathbb{C}$ if every open annulus $A(c,0,r)$ intersects $C$:
+  $$
+  \forall \, r > 0, \; A(c,0,r) \cap C \neq \varnothing
+  $$
+or equivalently, if the distance between $c$ and $C \setminus \{c\}$ is zero.
+
+**Theorem -- Isolated Zeros Theorem II.** 
+Let $f:\Omega \to \mathbb{C}$ be a holomorphic function
+defined on a connected set $\Omega.$ 
+If the set of zeros of $f$ has a limit point in $\Omega,$ 
+then $f$ is identically zero.
+
+**Proof.** 
+If the set of zeros of $f$ has a limit point in $\Omega,$
+then by continuity of $f$ at this point, it is a zero of $f,$ 
+which is clearly not isolated; 
+thus, $f$ is identically zero.
+\hfill $\blacksquare$
+
+**Remark.** Despite its apparent simplicity, 
+the importance of the isolated zeros theorem is difficult to overestimate.
+However, it is a rather low-level tool; the corresponding high-level tool
+is a permanence principle for functional equations.
+
+**Theorem -- Principle of Permanence.** 
+Let $F$ be a complex-valued function of $n$ complex variables, 
+defined and complex-differentiable on some open subset of $\mathbb{C}^n.$
+Let $\Omega$ be an open connected subset of $\mathbb{C}$ and
+$(f_1, \dots, f_n) :\Omega \mapsto \mathbb{C}^n$ be a $n$-uple of 
+holomorphic functions whose image is included in the domain of definition of $F.$
+If the set of points $z \in \Omega$ such that $F(f_1(z),\dots, f_n(z))=0$ 
+has a limit point in $\Omega,$ then
+  $$
+  \forall \, z \in \Omega, \; F(f_1(z), \dots, f_n(z))=0.
+  $$
+
+**Proof.** Under the assumptions of the theorem, 
+the function $$z \in \Omega \mapsto F(f_1(z), \dots, f_n(z))$$ 
+is defined and holomorphic on $\Omega$ (it is complex-differentiable 
+as the composition of complex-differentiable functions) on $\Omega.$
+Its set of zeros has a limit point in $\Omega,$ which is connected, thus
+it is identically zero. 
+\hfill $\blacksquare$
+
+**Corollary -- Uniqueness Principle.**
+Two functions $f_1:\Omega \to \mathbb{C}$ and $f_2:\Omega \to \mathbb{C}$
+defined and holomorphic on some open connected subset of $\Omega$ with the
+same values on a set with a limit point in $\Omega$ are identical.
+
+**Proof.** 
+Set $F(w_1, w_2) = w_1 - w_2$ and apply the permanence principle.
+\hfill $\blacksquare$
+
+**Example -- A Trigonometric Identity.** The identity
+  $$
+  \sin^2 z + \cos^2 z = 1
+  $$
+holds for every $z \in \mathbb{C}.$ 
+Indeed, it is satisfied on the real line: 
+every real number is a zero of the holomorphic function 
+$f: z \in \mathbb{C} \mapsto \sin^2 z + \cos^2 z - 1.$
+Every real number is a limit point of $\mathbb{R}$ in $\mathbb{C},$
+hence $f$ is identically zero and the identity may be extended to 
+the whole complex plane. 
+Alternatively, apply the permanence principle with 
+$F(w_1, w_2) = w_1^2 + w_2^2 - 1,$ $f_1(z) = \sin z$ and
+$f_2(z) = \cos z.$
+
+Isolated Singularities of Holomorphic Functions
+================================================================================
+
+**Definition -- Typology of Isolated Singularities.** 
+Let $\Omega$ be an open subset of the complex plane and 
+$f:\Omega \to \mathbb{C}$ be a holomorphic function.
+An isolated singularity $c$ of $f$ is:
+
+  - a *removable singularity* if there is a holomorphic extension of $f$ 
+    over $c,$ that is, 
+    a holomorphic function $a: \Omega \cup \{c\} \to \mathbb{C}$ 
+    such that
+      $$
+      \forall \, z \in \Omega, \; f(z) = a(z).
+      $$
+
+
+  - a *pole of multiplicity $p$* for some $p \in \mathbb{N}^*$ 
+    if there is a $a^* \in \mathbb{C}^*$ such that
+      $$
+      f(z) \underset{c}{\sim} \frac{a^*}{(z-c)^p}
+      \; \mbox{ or equivalently } \;
+      \lim_{z \to c} f(z) (z-c)^p = a^*.
+      $$
+
+  - an *essential singularity* otherwise.
+
+<!--
+**Remark -- Extension of the Domain of a Holomorphic Function.** 
+A holomorphic function $f$ is defined on some open set $\Omega.$ 
+Thus, if $c$ is an isolated singularity of $f,$ 
+then the set $\Omega \cup \{c\}$ is still open 
+(cf. [Appendix -- Isolated & Limit Points]).
+-->
+
+**Theorem -- Characterization of Removable Singularities.**
+An isolated singularity $c$ of a holomorphic function $f:\Omega \to \mathbb{C}$ 
+is removable if and only if one of the following conditions holds:
+
+ 1. The Laurent expansion of $f$ in some non-empty open annulus $A(c,0,r)$ is a power 
+    series (its coefficients $a_n$ are zero if $n < 0$).
+
+ 2. The value $f(z)$ has a limit in $\mathbb{C}$ when $z \to c.$
+
+ 3. The function $f$ is bounded in some non-empty open annulus $A(c,0,r).$
+
+**Proof.** 
+The validity of the criteria 1 and 2 is a direct consequence 
+of the [local behavior of holomorphic functions lemma (refer to the appendix)][Appendix -- Local Behavior of Holomorphic Functions]. 
+It is also plain that condition 3 is a consequence of condition 2.
+Conversely, if condition 2 holds and 
+  $$|f(z)| \leq m \, \mbox{ whenever } \, 0 < |z-c| < r,$$ 
+define $\gamma = c + \rho[\circlearrowleft]$ for $0 < \rho < r.$
+For any $n<0,$
+  $$
+  |a_n| 
+  = 
+  \left| 
+    \frac{1}{i2\pi} \int_{\gamma} \frac{f(z)}{(z-c)^{n+1}} \, dz
+  \right|
+  \leq m \rho^{-n} \to 0 \; \mbox{ when } \; \rho \to 0
+  $$
+thus condition 1 holds.
+\hfill $\blacksquare$
+
+**Theorem -- Characterization of Pole Multiplicity.**
+An isolated singularity of a holomorphic function $f:\Omega \to \mathbb{C}$ 
+is a pole of multiplicity $p$ if and only if one of the equivalent
+condition holds:
+
+ 1. The Laurent expansion of $f$ in some non-empty open annulus $A(c,0,r)$ is
+      $$
+      f(z) = \sum_{n=-p}^{+\infty} a_n (z-c)^n \; \mbox{ with } \; a_{-p} \neq 0.
+      $$
+
+ 2. There is a holomorphic function $a:\Omega \to \mathbb{C}$ such that
+      $$
+      \forall \, z \in \Omega, \; f(z) = \frac{a(z)}{(z-c)^p}
+      \; \mbox{ and } \;
+      a(c) \neq 0.
+      $$
+
+**Proof.** A straightforward consequence of the 
+[local behavior of holomorphic functions lemma][Appendix -- Local Behavior of Holomorphic Functions]. 
+\hfill $\blacksquare$
+
+**Theorem -- Characterization of Poles.**
+An isolated singularity $c$ of a holomorphic function $f:\Omega \to \mathbb{C}$ 
+is a pole (of multiplicity $p$) if and only if the inverse $1/f$
+is defined in some open annulus $A(c,0,r),$
+has a holomorphic extension to $D(c,r)$
+and $c$ is a zero (of multiplicity $p$) of this extension.
+Alternatively, $c$ is a pole of $f$ if and only if
+  $$
+  |f(z)| \to + \infty \, \mbox{ when } \, z \to c.
+  $$
+
+**Proof.** 
+If the point $c$ is a pole of order $p$ of $f,$
+there is a holomorphic function $a:\Omega \to \mathbb{C}$ such that
+      $$
+      \forall \, z \in \Omega, \; f(z) = \frac{a(z)}{(z-c)^p}
+      \; \mbox{ and } \;
+      a(c) \neq 0.
+      $$
+Let $r>0$ be such that $a(z) \neq 0$ on $D(c, r).$ 
+The function $z  \mapsto {1}/{f(z)}$
+is holomorphic on $\in D(c,r) \setminus \{c\},$ 
+the function $b: z \mapsto 1/a(z)$ is holomorphic on $D(c,r),$
+$b(c) \neq 0$ and
+  $$
+  \forall \, z \in D(c,r) \setminus \{c\},\;
+  \frac{1}{f(z)}
+  =
+  b(z) (z-c)^p
+  $$
+Thus the point $c$ is a removable singularity of $1/f$ and a zero of order
+$p$ of its holomorphic extension over $c.$
+The converse statement may be proved by a similar method.
+
+The condition $|f(z)| \to + \infty$ when $z \to c$
+is equivalent to
+  $$
+  1/f(z) \to 0 \, \mbox{ when } \, z \to c.
+  $$
+This property holds if and only if $1/f$ has a holomorphic extension
+over $c$ and $c$ is a zero of this extension. As $1/f$ is not identically
+zero locally, this zero has a finite multiplicity $p$ and hence $c$ 
+is a pole of order $p$ of $f.$
+\hfill $\blacksquare$
+
+Computation of Residues
+================================================================================
+
+**Theorem -- Computation of Residues.**
+Let $\Omega$ be an open set of $\mathbb{C},$ $f:\Omega \to \mathbb{C}$
+be a holomorphic function and $c$ be an isolated singularity of $f.$ 
+If the Laurent series expansion of $f$ in some non-empty annulus 
+$A(c,0,r) \subset \Omega$ is
+  $$
+  f(z) = \sum_{n=-\infty}^{+\infty} a_n (z-c)^n
+  $$
+then 
+  $$
+  \mbox{res}(f, c) = a_{-1}.
+  $$
+
+**Proof.** By definition of the residue, for any $0 < \rho < r,$
+  $$
+  \mbox{res}(f, c)
+  =
+  \frac{1}{i2\pi}
+  \int_{\rho[\circlearrowleft]+c} f(z) dz
+  = 
+  \frac{1}{i2\pi}
+  \int_{\rho[\circlearrowleft]+c} \left[ \sum_{n=-\infty}^{+\infty} a_n (z-c)^n \right] dz.
+  $$
+The convergence of the Laurent series expansion is uniform on
+any compact subset of $A(c,0,r),$ hence
+  $$
+  \mbox{res}(f, c)
+  =
+  \sum_{n=-\infty}^{+\infty} \left[ a_n   \frac{1}{i2\pi} \int_{\rho[\circlearrowleft]+c}  (z-c)^n dz \right].
+  $$
+When $n\neq -1,$ the function $z \mapsto (z-c)^n$ has a primitive in $\mathbb{C}^*,$
+hence all the terms but one in the right-hand side of the equation are equal to zero.
+Finally,
+  $$
+  \mbox{res}(f, c)
+  =
+  a_{-1} \left[\frac{1}{i2\pi} \int_{\rho[\circlearrowleft]+c}  \frac{dz}{z-c} \right]
+  = 
+  a_{-1},
+  $$
+as expected.
+\hfill $\blacksquare$
+
+**Corollary -- Residue of Poles.**
+Let $\Omega$ be an open set of $\mathbb{C},$ $f:\Omega \to \mathbb{C}$
+be a holomorphic function and $c$ be an isolated singularity of $f.$ 
+If $c$ is a pole of $f$ whose multiplicity is at most $p$:
+  $$
+  \exists \, a \in \mathbb{C}, \; \lim_{z \to c}  f(z) (z-c)^p = a,
+  $$
+then
+  $$
+  \mathrm{res}(f, c) 
+  = 
+  \lim_{z \to c} \frac{1}{(p-1)!} \frac{d^{p-1}}{dz^{p-1}}
+  \left( f(z) (z-c)^p \right)
+  $$
+
+**Proof.** Given the assumption on the multiplicity of $c,$
+the Laurent series expansion of $f$ on $D(c,r) \setminus \{c\}$
+for $r$ small enough is
+  $$
+  f(z) = \sum_{n=-p}^{+\infty} a_n (z-c)^n, \; 0 < |z-c| <r
+  $$
+thus
+  $$
+  f(z) (z-c)^p = \sum_{m=0}^{+\infty} a_{m-p} (z-c)^m, \; 0 < |z-c| <r.
+  $$
+The right-hand side of this equation displays no negative power of $z;$ 
+this series is therefore convergent on the whole disk $D(c,r)$ 
+where the function $z \mapsto f(z) (z-p)^p$ can be 
+extended to a function $g$ which is holomorphic.
+As the residue $a_{-1}$ of $f$ at $c$ 
+is the coefficient of $(z-c)^{p-1}$ in this Taylor expansion, 
+we have
+  $$
+  a_{-1} = \frac{g^{(p-1)}(c)}{(p-1)!} = \lim_{z \to c} \frac{g^{(p-1)}(z)}{(p-1)!}
+  $$
+which provides the expected formula.
+\hfill $\blacksquare$
+
+**Corollary -- Residue of Simple Poles I.**
+Let $\Omega$ be an open set of $\mathbb{C},$ $f:\Omega \to \mathbb{C}$
+be a holomorphic function and $c$ be an isolated singularity of $f.$
+The point $c$ is a simple pole of $f$ if and only if
+  $$
+  \exists \, a \in \mathbb{C}^*, \; \lim_{z \to c}  f(z) (z-c) = a,
+  $$
+and then
+  $$
+  \mathrm{res}(f, c) 
+  = 
+  \lim_{z \to c} f(z) (z-c)
+  $$
+
+**Proof.** Trivial. \hfill $\blacksquare$
+
+**Corollary -- Residue of Simple Poles II.** 
+Let $f:\Omega \to \mathbb{C}$ be a holomorphic function 
+and let $c$ be an isolated singularity of $f.$
+If there are two holomorphic functions $g$ and $h$ on $\Omega$ such
+that
+  $$
+  f = \frac{g}{h} \;
+  \mbox{ where } \;
+  g(c) \neq 0, \;
+  h(c) = 0, \; 
+  h'(c) \neq 0,
+  $$
+then $c$ is a simple pole of $f$ and 
+  $$
+  \mathrm{res}(f,c) = \frac{g(c)}{h'(c)}.
+  $$
+
+**Proof.** Given the assumptions, we have
+  $$
+  \lim_{z \to c} (z - c)  f(z) 
+  = 
+  \lim_{z \to c}\frac{z-c}{h(z)-h(c)} g(z)
+  =
+  \frac{g(c)}{h'(c)} \neq 0,
+  $$
+hence $c$ is a simple pole of $f$ whose residue is $g(c) / h'(c).$
+\hfill $\blacksquare$
+
+Appendix -- Local Behavior of Holomorphic Functions
+================================================================================
+
+
+**Lemma -- Local Behavior of Holomorphic Functions.** 
+Let $f:\Omega \mapsto \mathbb{C}$ be a holomorphic function
+defined on some open subset $\Omega$ of $\mathbb{C}.$ 
+Let $c \in \mathbb{C}$ be a point which is either 
+in the domain of definition of $f$ or an isolated singularity of $f;$
+in any case, there is a $r>0$ such that $D(c, r) \subset \Omega \cup \{c\}.$ 
+
+For any $p \in \mathbb{Z}$ and $a^* \in\mathbb{C},$ 
+the following properties are equivalent:
+
+ 1. We have
+      $$
+      \lim_{z \to c} \frac{f(z)}{(z-c)^p} = a^*.
+      $$
+ 2. There is a function $a: \Omega \cup \{c\} \to \mathbb{C}$
+    such that
+      $$
+      \forall \, z \in \Omega, \; f(z) = a(z) (z-c)^p
+      \; \mbox{ and } \;
+      \lim_{z \to c} a(z) = a(c) = a^*.
+      $$
+
+ 3. There are some $a_n \in \mathbb{C}$ defined for $n\geq p$ such that
+      $$
+      \forall \, z \in \Omega \cap D(c, r), \;
+      f(z) = \sum_{n=p}^{+\infty} a_n (z-c)^n 
+      \; \mbox{ and } \;
+      a_p = a^*.
+      $$
+
+ 4. There is a holomorphic function $a: \Omega \cup \{c\} \to \mathbb{C},$
+    such that
+      $$
+      \forall \, z \in \Omega, \; f(z) = a(z) (z-c)^p
+      \; \mbox{ and } \;
+      a(c) = a^*.
+      $$
+
+**Proof.**
+If condition 1 holds, the function $a:\Omega \cup \{c\} \to \mathbb{C}$ defined
+by
+  $$
+  a(z) = \frac{f(z)}{(z-c)^p} \; \mbox{ if } \; z \in \Omega \setminus \{c\}
+  \; \mbox{ and } \;
+  a(c) = a^*
+  $$
+satisfies condition 2.
+
+If condition 2 holds, the function $a$ is continuous, 
+thus for any compact set $K \subset D(c,r),$ 
+there is a finite $m$ such that
+  $$
+  \forall \, z \in K \cap \Omega, \;
+  |a(z)| = \left|\frac{f(z)}{(z-c)^p}\right| \leq m.
+  $$
+Hence, if $0 < \rho < r$ and $\gamma = c + \rho[\circlearrowleft],$
+the $n$-th coefficient $a_n$ of the Laurent expansion of $f$ in 
+$D(c,r) \setminus \{c\}$ satisfies
+  $$
+  a_n
+  = 
+  \frac{1}{i2\pi} \int_{\gamma} \frac{f(z)}{(z-c)^{n+1}} \,dz
+  =
+  \frac{1}{i2\pi} \int_{\gamma} \frac{f(z)}{(z-c)^{p}} (z-c)^{p-n-1} \, dz
+  $$
+and by the M-L inequality,
+  $$
+  |a_n|
+  \leq \left[\sup_{|z| = \rho} \left|\frac{f(z)}{(z-c)^p}\right|\right] \rho^{p-n}.
+  $$
+If $n < p,$ the right-hand side of this inequality tends to zero
+when $\rho \to 0,$ therefore $a_n = 0.$ If $n=p$ on the other hand,
+  $$
+  a_p 
+  = 
+  \frac{1}{i2\pi} \int_{\gamma} \frac{f(z)}{(z-c)^{p+1}} \, dz
+  =
+  \int_0^1 a(c + \rho e^{i2\pi t}) \, dt
+  $$
+and hence 
+$a_p = \lim_{z \to c} a(z) = a^*.$
+Now if $c \in \Omega,$ the Taylor expansion of $f$
+in $D(c,r)$ provides a Laurent expansion of $f$ 
+in $D(c,r) \setminus \{c\};$ this expansion is unique, hence 
+the coefficient sequences are equal and the initial Laurent expansion 
+is valid in $D(c,r).$
+
+If condition 3 holds, the series
+  $$
+  \sum_{k=0}^{+\infty} a_{k + p} (z-c)^k
+  $$
+is convergent in $D(c, r) \setminus \{c\}$ and hence in $D(c,r).$
+Its sum $a_c(z)$ satisfies $f(z) = a_c(z) (z-c)^p$ in $\Omega \cap D(c,r).$
+Consequently, the function $a: \Omega \cup \{c\} \to \mathbb{C}$ may be
+defined unambiguously by
+  $$
+  a(z) = a_c(z) \, \mbox{ if } \, z \in D(c,r)
+  \; \mbox{ and } \;
+  a(z) = \frac{f(z)}{(z - c)^p} \, \mbox{ otherwise}
+  $$
+and it is holomorphic.
+
+Finally if condition 4 holds, it is plain that condition 1 holds.
+\hfill $\blacksquare$
+
+
+

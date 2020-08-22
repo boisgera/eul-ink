@@ -1,0 +1,128 @@
+---
+title: Open-Source Software
+author:  
+-  "[Sébastien Boisgérault](mailto:Sebastien.Boisgerault@mines-paristech.fr),
+   MINES ParisTech"
+---
+
+<style> 
+  .grid { 
+    margin-bottom: 1.5em;
+  }
+  .grid > * { /* row */
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin-bottom: 1.5em;
+  }
+  .grid > * > :last-child { /* item */
+    white-space: nowrap;
+  }
+  .grid * {
+    line-height: 1.5em;
+  }
+  .grid > * > *:not(:last-child) { /* item*/
+    margin: 0 1em 0 0;
+  }
+</style>
+
+
+
+Python
+================================================================================
+
+<div class="grid">
+<div>
+<div>**Wish**  
+Selectable Return Values.</div>
+<div>[<i class="fa fa-book"></i>](http://boisgera.github.io/wish/) / [<i class="fa fa-github"></i>](https://github.com/boisgera/wish)</div>
+</div>
+<div>
+<div>**Bitstream**  
+Binary Data for Humans.</div>
+<div> [<i class="fa fa-newspaper-o" aria-hidden="true"></i>](https://doi.org/10.21105/joss.00541) / [<i class="fa fa-book"></i>](http://boisgera.github.io/bitstream/) / [<i class="fa fa-github"></i>](https://github.com/boisgera/bitstream)</div>
+</div>
+<div>
+<div>**Pandoc**</div>
+<div>*coming soon*</div>
+</div>
+<div>
+<div>**Audio**</div>
+<div>*coming soon*</div>
+</div>
+<div>
+<div>**Numtest**</div>
+<div>*coming soon*</div>
+</div>
+<div>
+<div>**Docbench**</div>
+<div>*coming soon*</div>
+</div>
+<div>
+<div>**Breakpoint**</div>
+<div>*coming soon*</div>
+</div>
+<div>
+<div>**About**</div>
+<div>*coming soon*</div>
+</div>
+<div>
+<div>**...**</div>
+<div>*...*</div>
+</div>
+</div>
+
+Javascript
+================================================================================
+
+<div class="grid">
+<div>
+<div>**...**</div>
+<div>*...*</div>
+</div>
+</div>
+
+Lua
+================================================================================
+
+
+
+<div class="grid">
+<div>
+<div>**Lua Element Tree**</div>
+<div>*coming soon*</div>
+</div>
+</div>
+
+
+Java
+================================================================================
+
+I am a [Jython contributor](http://www.jython.org/acknowledgments.html).
+[Jython](http://www.jython.org/) a port of the Python interpreter on top 
+of the JVM. It gives you all the goodness of the Java libraries without 
+the pain of the Java language and of the compilation process.
+
+<div class="grid">
+<div>
+<div>**Jython ElementTree (deprecated[^dep])**  
+I am the  author of the first port of [ElementTree](https://docs.python.org/2/library/xml.etree.elementtree.html) to Jython.</div>
+<div>[<i class="fa fa-home"></i>](https://code.google.com/archive/p/jython-elementtree/)</div>
+</div>
+<div>
+<div>**EDONA/HMI**  
+A subproject of the [Systematic / FUI 3 EDONA](http://www.systematic-paris-region.org/en/projets/edona) project.</div>
+<div>[<i class="fa fa-home"></i>](https://code.google.com/archive/p/edona-hmi/source)</div>
+</div>
+<div>
+
+[^dep]: Since ElementTree is a part of the standard Python library,
+the code has been merged into the Jython trunk 
+(and totally rewritten since). 
+Still, this project was a ton of fun: since we wanted ElementTree 
+for Jython to work *without changing a single line of its code*, 
+it was necessary
+to provide an expat-compatible API (expat is the XML C parser used
+by CPython) for the Java `org.xml.sax` standard library.
+Not for the faint of heart!
+

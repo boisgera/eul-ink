@@ -1,0 +1,480 @@
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, Mines ParisTech">
+  <meta name="dcterms.date" content="2016-03-16">
+  <title>Examen Maths 3 (C1223 / S1224)</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+*, table {
+  padding: 0;
+}
+*, html body {
+  box-sizing: content-box;
+}
+html, body > header .author, body > header .date, body > .header .author, body > .header .date, body > #header .author, body > #header .date, h2 {
+  line-height: 36px;
+}
+html, body > header .author, body > header .date, body > .header .author, body > .header .date, body > #header .author, body > #header .date, h2, h3, h4, h5, h6, code {
+  font-size: 24px;
+}
+html {
+  font-style: normal;
+  font-family: Alegreya, serif;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html, body > header .author, body > header .date, body > .header .author, body > .header .date, body > #header .author, body > #header .date {
+  font-weight: normal;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote {
+  quotes: none;
+  border: thick solid #ebebeb;
+}
+blockquote, html body {
+  padding: 36px;
+}
+blockquote, html p, html section, body > header h1, body > .header h1, body > #header h1, pre, figure, .table {
+  margin-bottom: 36px;
+}
+blockquote:before, blockquote:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: medium solid black;
+}
+table, thead {
+  border-bottom: medium solid black;
+}
+html em, figcaption {
+  font-style: italic;
+}
+html strong, body > header h1, body > .header h1, body > #header h1, h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+}
+html p {
+  text-align: justify;
+  hyphens: auto;
+  -moz-hyphens: auto;
+}
+html body {
+  max-width: 32em;
+  margin: auto;
+}
+body > header, body > .header, body > #header, h1 {
+  margin-top: 72px;
+}
+body > header, body > .header, body > #header {
+  margin-bottom: 72px;
+}
+body > header h1, body > .header h1, body > #header h1 {
+  font-size: 48px;
+  line-height: 54px;
+  margin-top: 0px;
+}
+body > header .author, body > header .date, body > .header .author, body > .header .date, body > #header .author, body > #header .date, h2 {
+  margin-bottom: 18px;
+}
+body > header .date, body > .header .date, body > #header .date {
+  font-family: "Alegreya SC", serif;
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  line-height: 45px;
+  margin-bottom: 27px;
+}
+h3, h4, h5, h6 {
+  float: left;
+  margin-right: 1em;
+}
+a {
+  cursor: pointer;
+  outline: 0;
+}
+a, a:hover {
+  text-decoration: none;
+}
+a:link, a:visited {
+  color: black;
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li {
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  margin-left: 36px;
+  padding-left: 0.5em;
+}
+ul li {
+  list-style: disc;
+}
+ol li {
+  list-style: decimal;
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-family: Inconsolata;
+}
+pre, .table, .MJXc-display {
+  overflow-x: auto;
+}
+pre {
+  background-color: #ebebeb;
+  padding-left: 36px;
+  padding-right: 36px;
+  padding-top: 36px;
+  padding-bottom: 36;
+}
+img, .table, .MJXc-display {
+  width: 100%;
+}
+img {
+  height: auto;
+}
+figcaption {
+  text-align: center;
+}
+.table, .MJXc-display {
+  overflow-y: hidden;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+</style><link href="https://fonts.googleapis.com/css?family=Alegreya:400,400italic,700,700italic|Alegreya+SC:400,400italic,700,700italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({jax: ['output/CommonHTML'], 'CommonHTML': {scale: 90}});</script></head>
+<body>
+<header>
+<h1 class="title"><a href="#">Examen Maths 3 (C1223 / S1224)</a></h1>
+
+<h2 class="author">
+By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, Mines ParisTech
+</h2> 
+
+<h3 class="date">March 16, 2016</h3>
+</header>
+<section id="problème-l" class="level1">
+<h1><a href="#problème-l">Problème L</a></h1>
+<p>Soit <span class="math inline">\(f\)</span> une fonction holomorphe sur <span class="math inline">\(\mathbb{C} \setminus [0, \ell]\)</span> où <span class="math inline">\(\ell \geq 0\)</span>. Soit <span class="math inline">\(r &gt; \ell\)</span> ; on note <span class="math inline">\(\gamma_r\)</span> le lacet dont un représentant est <span class="math display">\[
+  t \in [0, 2\pi] \mapsto r e^{-it}.
+  \]</span></p>
+<ol type="1">
+<li><p>Montrer que pour tout <span class="math inline">\(s\in\mathbb{C}\)</span>, l’intégrale curviligne <span class="math display">\[
+  \mathrm{L}[f](s) = \int_{\gamma_r} f(z) e^{-sz} \, dz
+  \]</span> est bien définie et ne dépend pas du choix de <span class="math inline">\(r &gt; \ell\)</span>.</p></li>
+<li><p>Donner (sans justification) la valeur de l’indice <span class="math inline">\(j(0,\gamma_r)\)</span>. En déduire la valeur de <span class="math inline">\(j(a,\gamma_r)\)</span> pour tout <span class="math inline">\(a \in [0, \ell]\)</span>.</p></li>
+<li><p>Calculer <span class="math inline">\(\mathrm{L}[g](s)\)</span> pour tout <span class="math inline">\(s\in\mathbb{C}\)</span> lorsque <span class="math inline">\(\ell=0\)</span> et <span class="math display">\[
+  \forall \, z \in \mathbb{C}^*, \;
+  g(z) = -\frac{1}{i2\pi} \frac{1}{z}.
+  \]</span></p></li>
+<li><p>Déterminer pour <span class="math inline">\(s \in \mathbb{C}^*\)</span> la valeur de <span class="math inline">\(\mathrm{L}[f'](s)\)</span> en fonction de <span class="math inline">\(\mathrm{L}[f](s)\)</span> (indication: on pourra justifier l’existence et calculer la dérivée de <span class="math inline">\(z \mapsto f(z) e^{-sz}\)</span>).</p></li>
+<li><p>Soit <span class="math inline">\(f_{1}\)</span> la fonction holomorphe sur <span class="math inline">\(\mathbb{C} \setminus [0,\ell+1]\)</span> définie par <span class="math display">\[
+  f_{1}(z) = f(z-1).
+  \]</span> Déterminer <span class="math inline">\(\mathrm{L}[f_1](s)\)</span> pour tout <span class="math inline">\(s\in\mathbb{C}\)</span>.</p></li>
+<li><p>Montrer que la fonction <span class="math display">\[
+  h(z) = -\frac{1}{i2\pi} \log_{-\pi} \frac{z}{z-1}
+  \]</span> est définie et holomorphe sur <span class="math inline">\(\mathbb{C} \setminus [0, 1]\)</span>. Déterminer sa dérivée et en déduire la valeur de <span class="math inline">\(\mathrm{L}[h](s)\)</span> pour <span class="math inline">\(s \in \mathbb{C}^*\)</span>.</p></li>
+<li><p>Montrer que la fonction <span class="math display">\[s \in \mathbb{C} \mapsto \mathrm{L}[h](s)\]</span> est holomorphe (on pourra développer <span class="math inline">\(e^{-sz}\)</span> en série entière).</p></li>
+<li><p>Quelle est la valeur de <span class="math inline">\(\mathrm{L}[h](0)\)</span> ?</p></li>
+</ol>
+</section>
+<section id="problème-h" class="level1">
+<h1><a href="#problème-h">Problème H</a></h1>
+<p>On s’intéresse à l’ensemble des fonctions qui peuvent s’écrire comme la somme d’une fonction holomorphe et d’une fonction antiholomorphe (c’est-à-dire conjuguée d’une fonction holomorphe). Pour tout sous-ensemble ouvert <span class="math inline">\(\Omega\)</span> de <span class="math inline">\(\mathbb{C}\)</span>, on note <span class="math inline">\(\mathrm{Har}(\Omega)\)</span> l’ensemble des fonctions <span class="math inline">\(\phi :\Omega \to \mathbb{C}\)</span> telles que <span class="math display">\[
+  \exists \, f \in \mathcal{H}(\Omega), \;
+  \exists \, g \in \mathcal{H}(\Omega), \;
+  \phi = f + \overline{g}.
+  \]</span></p>
+<ol type="1">
+<li><ol type="1">
+<li><p>Montrer que la fonction <span class="math inline">\(\phi: (x, y) \in \mathbb{C} \mapsto x^2 - y^2\)</span> n’est pas holomorphe.</p></li>
+<li><p>Montrer qu’elle est par contre la partie réelle d’une fonction holomorphe que l’on déterminera.</p></li>
+<li><p>En déduire qu’elle appartient à <span class="math inline">\(\mathrm{Har}(\mathbb{C})\)</span>.</p></li>
+</ol></li>
+<li><ol type="1">
+<li><p>Montrer que si la fonction <span class="math inline">\(\phi = f + \overline{g} \in \mathrm{Har}(\Omega)\)</span>, alors elle est <span class="math inline">\(\mathbb{R}\)</span>-différentiable.</p></li>
+<li><p>Déterminer cette différentielle <span class="math inline">\(d\phi\)</span> en fonction de <span class="math inline">\(f'\)</span> et <span class="math inline">\(g'\)</span>.</p></li>
+<li><p>En déduire pour tout <span class="math inline">\(z = (x,y) \in \Omega\)</span> les relations <span class="math display">\[
+  f'(z) = \frac{1}{2} 
+          \left[
+          \frac{\partial \phi}{\partial x}(x,y) 
+          -       
+          i \frac{\partial \phi}{\partial y}(x,y) 
+          \right]
+  \]</span> et <span class="math display">\[
+  g'(z) = \overline{\frac{1}{2} 
+         \left[
+          \frac{\partial \phi}{\partial x}(x,y) 
+          +       
+          i \frac{\partial \phi}{\partial y}(x,y) 
+         \right]},
+  \]</span></p></li>
+<li><p>Est-ce que la fonction <span class="math inline">\(\phi:(x,y) \in\mathbb{C} \mapsto x^2 + y^2\)</span> appartient à <span class="math inline">\(\mathrm{Har}(\Omega)\)</span> ?</p></li>
+</ol></li>
+<li><ol type="1">
+<li><p>Montrer que si <span class="math inline">\(\phi = f + \overline{g}\)</span> où <span class="math inline">\(f\)</span> et <span class="math inline">\(g\)</span> sont holomorphes, alors pour tout <span class="math inline">\(\lambda \in \mathbb{C}\)</span>, on a également <span class="math inline">\(\phi = h + \overline{k}\)</span> avec les fonctions holomorphes <span class="math inline">\(h = f + \lambda\)</span> et <span class="math inline">\(k = g - \overline{\lambda}\)</span>.</p></li>
+<li><p>Réciproquement, prouver que si le domaine de définition de <span class="math inline">\(\phi\)</span> est connexe par arcs, toutes les décompositions possibles de <span class="math inline">\(\phi\)</span> comme somme d’une fonction holomorphe et antiholomorphe sont de cette forme.</p></li>
+<li><p>Supposons que la fonction <span class="math inline">\(\phi\)</span>, définie sur un ouvert connexe par arcs, admette une décomposition comme somme de fonction holomorphe et antiholomorphe. Montrer qu’il existe parmi ces décompositions possibles <span class="math inline">\(\phi = h + \overline{k}\)</span> une seule telle que <span class="math inline">\(h(0) = 0\)</span>.</p></li>
+</ol></li>
+<li><p>Soit <span class="math inline">\(\phi = f + \overline{g} \in \mathrm{Har}(\Delta(0,1))\)</span> avec <span class="math inline">\(g(0)=0\)</span>. Pour tout <span class="math inline">\(r &gt; 0\)</span>, <span class="math inline">\(\gamma_r\)</span> désigne l’arc dont un représentant est <span class="math inline">\(t \in [0,2\pi] \mapsto re^{it}\)</span>.</p>
+<ol type="1">
+<li><p>Soit <span class="math inline">\(p \in \mathbb{Z}\)</span> et <span class="math inline">\(r \in \, ]0,1[\)</span>. Montrer que <span class="math display">\[
+ \int_{\gamma_r} \overline{g(z)} z^p \, dz
+ = -r^{2(p+1)} \overline{\int_{\gamma_r} g(z) z^{-p-2} \, dz}.
+ \]</span></p></li>
+<li><p>On note <span class="math inline">\(\sum_{n \geq 0} a_n z^n\)</span> et <span class="math inline">\(\sum_{n\geq 1} b_n z^n\)</span> les développements respectifs de <span class="math inline">\(f\)</span> et <span class="math inline">\(g\)</span> en série de Taylor dans <span class="math inline">\(\Delta(0,1)\)</span>. Déduire de la question précédente la valeur de <span class="math display">\[
+\int_{\gamma_r} \phi(z) z^p \, dz
+ \]</span> en fonction des coefficients <span class="math inline">\((a_n)\)</span> et <span class="math inline">\((b_n)\)</span>.</p></li>
+<li><p>On suppose qu’il existe une fonction continue <span class="math inline">\(\psi : \overline{\Delta(0,1)} \to \mathbb{C}\)</span> dont la restriction à <span class="math inline">\(\Delta(0,1)\)</span> soit <span class="math inline">\(\phi\)</span>. Montrer que les valeurs de <span class="math inline">\(\psi\)</span> sur le cercle <span class="math inline">\(S(0,1)\)</span> déterminent de façon unique <span class="math inline">\(f\)</span> et <span class="math inline">\(g\)</span> (et par conséquent <span class="math inline">\(\phi\)</span>).</p></li>
+</ol></li>
+</ol>
+\newpage
+</section>
+<section id="problème-l-solution" class="level1">
+<h1><a href="#problème-l-solution">Problème L – Solution</a></h1>
+<p>Total: <strong>13.0pt</strong></p>
+<ol type="1">
+<li><h3 id="pt"><a href="#pt">(1pt)</a></h3>
+<p>‌Pour tout <span class="math inline">\(s \in \mathbb{C}\)</span>, la fonction <span class="math inline">\(z \mapsto f(z) e^{-sz}\)</span> est holomorphe (et donc continue) sur <span class="math inline">\(\mathbb{C} \setminus [0, \ell]\)</span>. Par ailleurs, la condition <span class="math inline">\(r &gt; \ell\)</span> nous garantit que l’intersection de l’image de <span class="math inline">\(\gamma_r\)</span> et de <span class="math inline">\([0,\ell]\)</span> soit vide ; <span class="math inline">\(\gamma_r\)</span> est donc un arc de <span class="math inline">\(\mathbb{C} \setminus [0,\ell]\)</span>. L’intégrale curviligne considérée est donc bien définie.</p>
+<p>Les arcs <span class="math inline">\(\gamma_r\)</span> associés à deux rayons distincts plus grand que <span class="math inline">\(\ell\)</span> sont homotopes dans <span class="math inline">\(\mathbb{C} \setminus [0,\ell]\)</span> (se baser par exemple sur une famille d’homothéties de centre <span class="math inline">\(0\)</span> et de rapport variable). Par le théorème de Cauchy homotopique, les intégrales curvilignes associées sont égales.</p></li>
+<li><h3 id="pt-1"><a href="#pt-1">(1pt)</a></h3>
+<p>‌On a <span class="math inline">\(j(0,\gamma_r)=-1\)</span>. On peut alors remarquer que tout <span class="math inline">\(a\in [0,\ell]\)</span> appartient à la même composante connexe par arcs de <span class="math inline">\(\mathbb{C} \setminus \mathrm{Im} \, \gamma_r\)</span> que <span class="math inline">\(0\)</span> et en conclure que <span class="math inline">\(j(a,\gamma_r)=-1\)</span>.</p></li>
+<li><h3 id="pt-2"><a href="#pt-2">(2pt)</a></h3>
+<p>‌La fonction <span class="math inline">\(z \mapsto -\frac{1}{i2\pi} \frac{1}{z} e^{-sz}\)</span> est holomorphe sur <span class="math inline">\(\mathbb{C}^*\)</span>. L’origine est donc sa seule singularité (isolée) ; le lacet <span class="math inline">\(\gamma_r\)</span> est homotope à zéro dans <span class="math inline">\(\mathbb{C}^* \cup \{0\}= \mathbb{C}\)</span> (qui est convexe) et <span class="math inline">\(j(0,\gamma_r)=-1\)</span>. Le théorème des résidus nous fournit donc <span class="math display">\[
+  \mathrm{L}[g](s) 
+    = - \frac{1}{i2\pi} \int_{\gamma_r} \frac{e^{-sz}}{z} \, dz
+    = \mathrm{Rés}\left(z\mapsto\frac{e^{-sz}}{z} , 0\right).
+  \]</span> Les fonctions <span class="math inline">\(F(z) = e^{-sz}\)</span> et <span class="math inline">\(G(z) = z\)</span> sont holomorphes sur <span class="math inline">\(\mathbb{C}\)</span>, <span class="math inline">\(F(0) = 1\)</span> et <span class="math inline">\(G'(0) = 1 \neq 0\)</span>, par conséquent <span class="math display">\[
+  \mathrm{L}[g](s) = 1.
+  \]</span></p></li>
+<li><h3 id="pt-3"><a href="#pt-3">(1pt)</a></h3>
+<p>‌Sur <span class="math inline">\(\mathbb{C} \setminus [0,\ell]\)</span>, les fonctions <span class="math inline">\(f\)</span> et <span class="math inline">\(z\mapsto e^{-sz}\)</span> sont holomorphes, et donc leur produit <span class="math inline">\(p: z \mapsto f(z) e^{-sz}\)</span>. La règle de dérivée d’un produit fournit <span class="math display">\[
+  p'(z) = f'(z) e^{-sz} - f(z) s e^{-sz},
+  \]</span> par conséquent, <span class="math display">\[
+  \mathrm{L}[f'](s) = s \mathrm{L}[f](s) + \int_{\gamma_r} p'(z) \, dz.
+  \]</span> L’intégrale de <span class="math inline">\(p'\)</span> – qui est une fonction holomorphe – le long d’un lacet étant nulle, on en conclut que <span class="math display">\[
+  \mathrm{L}[f'](s) = s \mathrm{L}[f](s).
+  \]</span></p></li>
+<li><h3 id="pt-4"><a href="#pt-4">(1.5pt)</a></h3>
+<p>‌Si <span class="math inline">\(f\)</span> est définie et holomorphe sur <span class="math inline">\(\mathbb{C} \setminus [0, \ell]\)</span>, <span class="math inline">\(f_1\)</span> est définie et holomorphe sur <span class="math inline">\(\mathbb{C} \setminus [0, \ell+1]\)</span>. Par conséquent, si <span class="math inline">\(\gamma_r\)</span> a pour représentant <span class="math inline">\(t \in [0, 2\pi] \mapsto (\ell+2) e^{-it}\)</span>, on a <span class="math display">\[
+  \mathrm{L}[f_1](s) 
+    = \int_{\gamma_r} f(z-1) e^{-sz} \, dz
+    = e^{-s}\left[\int_{\gamma_r} f(z-1) e^{-s(z-1)} (z-1)'\, dz\right] .
+  \]</span> Le changement de variable <span class="math inline">\(g(z) = z-1\)</span> fournit donc <span class="math display">\[
+  \mathrm{L}[f_1](s) = e^{-s}\left[
+    \int_{g(\gamma_r)} f(z) e^{-sz} \, dz \right] 
+  \]</span> et <span class="math inline">\(g(\gamma_r) = \gamma_r - 1\)</span> est homotope à <span class="math inline">\(\gamma_r\)</span> dans <span class="math inline">\(\mathbb{C} \setminus [0,\ell]\)</span> (une famille de translations horizontales bien choisie fournit un exemple d’homotopie de <span class="math inline">\(\gamma_r\)</span> sur <span class="math inline">\(\gamma_r - 1\)</span>.). Par conséquent <span class="math display">\[
+  \mathrm{L}[f_1](s) 
+    = e^{-s}\left[\int_{\gamma_r} f(z) e^{-sz} \, dz \right] 
+    = e^{-s} \times \mathrm{L}[f](s).
+  \]</span></p></li>
+<li><h3 id="pt-5"><a href="#pt-5">(2.5pt)</a></h3>
+<p>‌La fonction composée <span class="math display">\[
+  h(z) = -\frac{1}{i2\pi} \log_{-\pi} \frac{z}{z-1}
+  \]</span> est bien définie sur <span class="math inline">\(\mathbb{C} \setminus [0, 1]\)</span>. En effet, pour que l’expression du second membre ne soit pas définie il faut que <span class="math inline">\(z=1\)</span> – ce qui est exclu – ou que <span class="math inline">\(z/(z-1) \in \mathbb{R}_-\)</span>. Dans ce second cas, on aurait <span class="math inline">\(z/(z-1) = -\lambda\)</span> avec <span class="math inline">\(\lambda \geq 0\)</span> et donc <span class="math inline">\(z = \lambda/(1+\lambda) \in [0, 1[\,\)</span>, ce qui est également exclu. La fonction <span class="math inline">\(h\)</span> est par ailleurs holomorphe comme composée de fonctions holomorphes.</p>
+<p>La dérivée de <span class="math inline">\(h\)</span> en <span class="math inline">\(z\)</span> vaut <span class="math display">\[
+  h'(z) = -\frac{1}{i2\pi} \left[\frac{1}{z} - \frac{1}{z-1}\right].
+  \]</span> Par conséquent, les résultats des questions précédentes nous fournissent pour tout <span class="math inline">\(s\in \mathbb{C}\)</span> <span class="math display">\[
+  s \times \mathrm{L}[h](s) = 1 - e^{-s},
+  \]</span> soit pour tout <span class="math inline">\(s\in \mathbb{C}^*\)</span> <span class="math display">\[
+  \mathrm{L}[h](s) = \frac{1-e^{-s}}{s}.
+  \]</span></p></li>
+<li><h3 id="pt-6"><a href="#pt-6">(3pt)</a></h3>
+<p>‌Pour tout <span class="math inline">\(s, z \in \mathbb{C}\)</span>, on a <span class="math display">\[
+  e^{-sz} 
+  = \sum_{n=0}^{+\infty} \frac{1}{n!} (-sz)^n
+  = \sum_{n=0}^{+\infty} \frac{(-s)^n}{n!} z^n.
+  \]</span> Pour un <span class="math inline">\(s\in \mathbb{C}\)</span> fixé, ce développement converge, uniformément par rapport à la variable <span class="math inline">\(z\)</span> quand elle décrit un ensemble compact dans <span class="math inline">\(\mathbb{C}\)</span>. On a par conséquent <span class="math display">\[
+  \mathrm{L}[h](s) 
+    = \int_{\gamma_r} 
+      h(z) \left[ \sum_{n=0}^{+\infty} \frac{(-s)^n}{n!} z^n \right] 
+      \, dz
+    = \sum_{n=0}^{+\infty} 
+      \left[ \int_{\gamma_r} h(z) \frac{(-z)^n}{n!} \, dz\right] s^n,
+  \]</span> qui est un développement de Taylor de <span class="math inline">\(s\mapsto \mathrm{L}[h](s)\)</span> valable pour tout <span class="math inline">\(s\in \mathbb{C}\)</span>, cette fonction est donc holomorphe sur <span class="math inline">\(\mathbb{C}\)</span>.</p></li>
+<li><h3 id="pt-7"><a href="#pt-7">(1pt)</a></h3>
+<p>‌La fonction <span class="math inline">\(s \in \mathbb{C} \mapsto \mathrm{L}[h](s)\)</span> est holomorphe, elle est donc continue en <span class="math inline">\(0\)</span> et par conséquent <span class="math display">\[
+  \mathrm{L}[h](0) = 
+    \lim_{s \to 0} - \frac{e^{-s}-1}{s} = 
+    -(s \mapsto e^{-s})'(0) = 1.
+  \]</span></p></li>
+</ol>
+</section>
+<section id="problème-h-solution" class="level1">
+<h1><a href="#problème-h-solution">Problème H – Solution</a></h1>
+<p>Total: <strong>16.5pt</strong></p>
+<ol type="1">
+<li><ol type="1">
+<li><h3 id="pt-8"><a href="#pt-8">(1.0pt)</a></h3>
+<p>‌La function <span class="math inline">\(\phi: (x, y) \in \mathbb{C} \to x^2 - y^2\)</span> ne satisfait pas les conditions de Cauchy en tout point de <span class="math inline">\(\mathbb{C}\)</span> et n’y est donc pas holomorphe. En effet, la fonction <span class="math inline">\(\phi\)</span> est à valeurs réelles – c’est-à-dire que <span class="math inline">\(\Re \phi(x,y) = \phi(x,y)\)</span> et <span class="math inline">\(\Im \phi(x,y)=0\)</span>. Or <span class="math display">\[
+ \frac{\partial}{\partial x} \phi(x,y) = 2 x, \;
+ +\frac{\partial}{\partial y} 0 = 0, \;
+ \frac{\partial}{\partial y} \phi(x,y) = -2 y, \;
+ -\frac{\partial}{\partial x} 0 = 0;
+ \]</span> les conditions de Cauchy sont satisfaites si et seulement si <span class="math inline">\(2x =0\)</span> et <span class="math inline">\(2y=0\)</span>, c’est-à-dire à l’origine uniquement.</p></li>
+<li><h3 id="pt-9"><a href="#pt-9">(1.5pt)</a></h3>
+<p>‌La function <span class="math inline">\(\phi\)</span> est la partie réelle de la fonction <span class="math inline">\(h: z \in \mathbb{C} \mapsto z^2\)</span> qui est holomorphe en tant que polynôme. En effet, <span class="math display">\[
+ (x+iy) \times (x+iy) = (x^2 - y^2) + i(2xy).
+ \]</span> Si l’on n’a pas cette intuition, on peut progresser en raisonnant par conditions nécessaires: si <span class="math inline">\(f\)</span> est holomorphe de partie réelle <span class="math inline">\(\phi\)</span>, sa partie imaginaire <span class="math inline">\(\psi\)</span> satisfait nécessairement les conditions de Cauchy: <span class="math display">\[
+ \frac{\partial}{\partial x} \psi(x,y) 
+ = 
+ - \frac{\partial }{\partial y}  \phi(x,y) = 2y
+ \; \mbox{ et } \; 
+ \frac{\partial}{\partial y} \psi(x,y) 
+ = 
+ +\frac{\partial }{\partial x}  \phi(x,y) = 2x.
+ \]</span> Cela suggère de tester <span class="math inline">\(\psi(x,y) = 2xy\)</span> et donc de vérifier que la fonction <span class="math inline">\(h(x,y) = (x^2-y^2) +i(2xy)\)</span> répond bien au problème<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>.</p></li>
+</ol>
+<ol start="3" type="1">
+<li><h3 id="pt-10"><a href="#pt-10">(1pt)</a></h3>
+‌La function <span class="math inline">\(\phi\)</span> est la partie réelle de la fonction holomorphe <span class="math inline">\(h: z \in \mathbb{C} \mapsto z^2\)</span>, c’est-à-dire que <span class="math inline">\(\phi = (h + \overline{h}) / 2\)</span>, donc <span class="math inline">\(\phi = f + \overline{g}\)</span> avec <span class="math inline">\(f= g = h/2\)</span>, holomorphe sur <span class="math inline">\(\mathbb{C}\)</span>. Par conséquent, <span class="math inline">\(\phi \in \mathrm{Har}(\mathbb{C})\)</span>.</li>
+</ol></li>
+<li><ol type="1">
+<li><h3 id="pt-11"><a href="#pt-11">(1.5pt)</a></h3>
+<p>‌Soient <span class="math inline">\(f \in \mathcal{H}(\Omega)\)</span> et <span class="math inline">\(g \in \mathcal{H}(\Omega)\)</span>. La fonction <span class="math inline">\(f\)</span> est <span class="math inline">\(\mathbb{R}\)</span>-différentiable car <span class="math inline">\(\mathbb{C}\)</span>-différentiable et la fonction <span class="math inline">\(\overline{g}\)</span> est la composition de la fonction <span class="math inline">\(g\)</span>, <span class="math inline">\(\mathbb{R}\)</span>-différentiable car <span class="math inline">\(\mathbb{C}\)</span>-différentiable, et de la fonction de conjugaison <span class="math inline">\(c: z\mapsto \overline{z}\)</span>, <span class="math inline">\(\mathbb{R}\)</span>-differentiable car <span class="math inline">\(\mathbb{R}\)</span>-linéaire (et continue). Par conséquent, <span class="math inline">\(\phi = f + \overline{g}\)</span> est <span class="math inline">\(\mathbb{R}\)</span>-différentiable.</p></li>
+<li><h3 id="pt-12"><a href="#pt-12">(1.5pt)</a></h3>
+<p>‌Pour tout <span class="math inline">\(z \in \Omega\)</span>, la règle de différentiation de fonctions composées fournit la relation <span class="math inline">\(d\phi_z = df_z + dc_{g(z)} \circ dg_z\)</span>. Les fonctions <span class="math inline">\(f\)</span> et <span class="math inline">\(g\)</span> étant holomorphes, pour tout <span class="math inline">\(h \in \mathbb{C}\)</span>, <span class="math inline">\(df_z(h) = f'(z) \times h\)</span> et <span class="math inline">\(dg_z(h) = g'(z) \times h\)</span>. La function <span class="math inline">\(c\)</span> étant <span class="math inline">\(\mathbb{R}\)</span>-linéaire, <span class="math inline">\(dc_{g(z)} = c\)</span>. Par conséquent, <span class="math display">\[
+ d\phi_z (h) = f'(z) \times h + \overline{g'(z) \times h}.
+ \]</span></p></li>
+<li><h3 id="pt-13"><a href="#pt-13">(1.0pt)</a></h3>
+<p>‌L’utilisation pour <span class="math inline">\(z=(x,y)\)</span> des identités <span class="math display">\[
+ \frac{\partial \phi}{\partial x}(x,y) 
+ = 
+ d\phi_{(x,y)} (1) 
+ \; \mbox{ et } \;
+ \frac{\partial \phi}{\partial y}(x,y) 
+ = 
+ d\phi_{(x,y)}(i),
+ \]</span> fournit les relations <span class="math display">\[
+ \frac{\partial \phi}{\partial x}(x,y) 
+ = 
+ f'(z) + \overline{g'(z)}
+ \; \mbox{ et } \;
+ \frac{\partial \phi}{\partial y}(x,y) 
+ = 
+ i (f'(z) - \overline{g'(z)}).
+ \]</span> et leur combinaison mène à <span class="math display">\[
+ f'(z) = \frac{1}{2} 
+         \left[
+         \frac{\partial \phi}{\partial x}(x,y) 
+         -       
+         i \frac{\partial \phi}{\partial y}(x,y) 
+         \right]
+ \mbox{ et }
+ g'(z) = \overline{\frac{1}{2} 
+         \left[
+         \frac{\partial \phi}{\partial x}(x,y) 
+         +       
+         i \frac{\partial \phi}{\partial y}(x,y) 
+         \right]}.
+ \]</span></p></li>
+<li><h3 id="pt-14"><a href="#pt-14">(1.5pt)</a></h3>
+<p>‌La fonction <span class="math inline">\(\phi: (x,y) \in \mathbb{C} \mapsto x^2+y^2\)</span> n’appartient pas à <span class="math inline">\(\mathrm{Har}(\mathbb{C})\)</span>. En, effet, si l’on avait la décomposition <span class="math inline">\(\phi = f + \overline{g}\)</span>, les relations ci-dessus fourniraient l’expression de <span class="math inline">\(f'\)</span>: <span class="math display">\[
+  f'(z) = \frac{1}{2} 
+          \left[
+          \frac{\partial \phi}{\partial x}(x,y) 
+          -       
+          i \frac{\partial \phi}{\partial y}(x,y) 
+        \right]
+        = x - i y = \overline{z}.
+  \]</span> D’une part la fonction de conjugaison n’est pas holomorphe, d’autre part la fonction <span class="math inline">\(f'\)</span> est nécessairement holomorphe comme dérivée de fonction holomorphe: on aboutirait donc à une contradiction.</p></li>
+</ol></li>
+<li><ol type="1">
+<li><h3 id="pt-15"><a href="#pt-15">(0.5pt)</a></h3>
+<p>‌Soit <span class="math inline">\(\lambda \in \mathbb{C}\)</span>. Si <span class="math inline">\(\phi = f + \overline{g}\)</span> où <span class="math inline">\(f\)</span> et <span class="math inline">\(g\)</span> sont holomorphes, alors les fonctions <span class="math inline">\(f + \lambda\)</span> et <span class="math inline">\(g - \overline{\lambda}\)</span> le sont également et l’on a bien <span class="math display">\[
+ (f + \lambda) + \overline{(g - \overline{\lambda})} =  
+   f + \overline{g} = 
+   \phi.
+\]</span></p></li>
+<li><h3 id="pt-16"><a href="#pt-16">(1.5pt)</a></h3>
+<p>‌Réciproquement, si <span class="math inline">\(\phi \in \mathrm{Har}(\Omega)\)</span> admet les deux décompositions <span class="math inline">\(\phi = f + \overline{g} = h + \overline{k}\)</span>, d’après les résultats de la question précédente, on a <span class="math inline">\(h' = f'\)</span> et <span class="math inline">\(k' = g'\)</span>. L’ensemble <span class="math inline">\(\Omega\)</span> étant connexe, <span class="math inline">\(h\)</span> et <span class="math inline">\(f\)</span> diffèrent d’une constante <span class="math inline">\(\lambda \in \mathbb{C}\)</span> et <span class="math inline">\(k\)</span> et <span class="math inline">\(g\)</span> d’une constante <span class="math inline">\(\mu \in \mathbb{C}\)</span>. Comme <span class="math inline">\(\phi = f + \overline{g} = h + \overline{k} = f+\lambda + \overline{g + \mu} = \phi + (\lambda + \overline{\mu})\)</span>, il est nécessaire que l’on ait <span class="math inline">\(\mu = -\overline{\lambda}\)</span>, et donc <span class="math inline">\((h, k) = (f + \lambda, g -\overline{\lambda})\)</span>.</p></li>
+<li><h3 id="pt-17"><a href="#pt-17">(0.5pt)</a></h3>
+<p>‌Le domaine de définition de <span class="math inline">\(\phi\)</span> étant connexe, d’après le résultat de la question précédente, si <span class="math inline">\(\phi = f + \overline{g}\)</span> est une décomposition de <span class="math inline">\(\phi\)</span>, toutes les autres sont de la forme <span class="math inline">\(\phi = h + \overline{k}\)</span> où <span class="math inline">\(h = f + \lambda\)</span> et <span class="math inline">\(k = g - \overline{\lambda}\)</span>. Il est clair que le choix de <span class="math inline">\(\lambda = - f(0)\)</span> permet d’obtenir <span class="math inline">\(h(0) = 0\)</span> et que c’est le seul qui ait cette propriété.</p></li>
+</ol></li>
+<li><ol type="1">
+<li><h3 id="pt-18"><a href="#pt-18">(1.5pt)</a></h3>
+<p>‌On a <span class="math display">\[
+  I := \int_{\gamma_r} \overline{g(z)} z^p \, dz
+     = \int_0^{2\pi} \overline{g(re^{it})} (re^{it})^p (ire^{it} \, dt)
+  \]</span> et donc <span class="math display">\[
+  I
+  = \overline{\int_0^{2\pi} {g(re^{it})} (re^{-it})^p (-ire^{-it} \, dt)}
+  \]</span> ou encore <span class="math display">\[
+  I
+  = 
+  - r^{2(p+1)}\overline{\int_0^{2\pi} 
+    \frac{g(re^{it})}{(re^{it})^{p+2}} (ire^{it} \, dt)}
+  = 
+  - r^{2(p+1)} \overline{\int_{\gamma_r} g(z) z^{-p-2} dz}.
+  \]</span></p></li>
+<li><h3 id="pt-19"><a href="#pt-19">(1.5pt)</a></h3>
+<p>‌Comme <span class="math display">\[
+  \int_{\gamma_r} \phi(z) z^p \, dz
+  =
+  \int_{\gamma_r} 
+  f(z) z^p \, dz + \int_{\gamma_r} \overline{g(z)} z^p 
+  \, dz
+  \]</span> on déduit du résultat que l’on vient d’établir que <span class="math display">\[
+  \int_{\gamma_r} \phi(z) z^p \, dz
+  =
+  \int_{\gamma_r} f(z) z^p \, dz 
+  - r^{2(p+1)} \overline{\int_{\gamma_r} {g(z)} z^{-p-2} \, dz}.
+  \]</span> Si l’on note <span class="math inline">\((a_n)\)</span> et <span class="math inline">\((b_n)\)</span> les coefficients du développement en série de Laurent de <span class="math inline">\(f\)</span> et <span class="math inline">\(g\)</span> dans <span class="math inline">\(\Delta(0,1) \setminus \{0\}\)</span> (ce qui revient à poser <span class="math inline">\(a_n = 0\)</span> pour <span class="math inline">\(n &lt; 0\)</span> et <span class="math inline">\(b_n = 0\)</span> pour <span class="math inline">\(n \leq 0\)</span>), alors <span class="math display">\[
+  \int_{\gamma_r} \phi(z) z^p \, dz
+  = (i2\pi) [ a_{-p-1} + r^{2(p+1)} \overline{b_{p+1}}].
+  \]</span></p></li>
+<li><h3 id="pt-20"><a href="#pt-20">(2pt)</a></h3>
+<p>‌Si <span class="math inline">\(\phi\)</span> admet une extension continue <span class="math inline">\(\psi\)</span> sur l’adhérence de <span class="math inline">\(\Delta(0,1)\)</span>, alors en passant à la limite l’égalité précédente quand <span class="math inline">\(r \to 1^-\)</span>, on obtient<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> <span class="math display">\[
+  \int_{\gamma_1} \psi(z) z^p \, dz = 
+    (i2\pi) [a_{-p-1} + \overline{b_{p+1}}],
+  \]</span> autrement dit, pour <span class="math inline">\(n \geq 0\)</span>, <span class="math display">\[
+  a_n = \frac{1}{i2\pi} \int_{\gamma_1} \psi(z) z^{-n-1} \, dz,
+  \]</span> et pour <span class="math inline">\(n\geq 1\)</span>, <span class="math display">\[
+  b_n = \overline{\frac{1}{i2\pi} \int_{\gamma_1} \psi(z) z^{n-1} \, dz},
+  \]</span><br>
+les fonctions <span class="math inline">\(f\)</span> et <span class="math inline">\(g\)</span> sont donc déterminées de façon unique.</p></li>
+</ol></li>
+</ol>
+</section>
+<section class="footnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Si toutefois l’on n’a pas l’idée de tester <span class="math inline">\(\psi(x,y) = 2xy\)</span>, il est possible de pousser le raisonnement plus loin: la fonction <span class="math inline">\(t \in [0,1] \to \psi(tx,ty)\)</span> étant continuement différentiable, on a nécessairement <span class="math display">\[
+ \psi(x, y) = \psi(0,0) + \int_0^1 (d / dt) \psi(tx, ty) \, dt.
+ \]</span> La règle de dérivation d’une fonction composée fournit <span class="math display">\[ 
+ \frac{d}{d t} \psi(tx,ty) 
+ =   \frac{\partial \psi}{\partial x} (tx,ty) \times x 
+   + \frac{\partial \psi}{\partial x} (tx,ty) \times y 
+ = 4 xy,
+ \]</span> et par conséquent <span class="math inline">\(\psi(x, y) = \psi(0,0) + 2xy\)</span>. Cela réduit la recherche de candidats aux fonctions de la forme <span class="math inline">\(h(x,y) = (x^2 - y^2) + i(2xy + \lambda) = (x+iy)^2 +i\lambda\)</span> où <span class="math inline">\(\lambda \in \mathbb{R}\)</span>. On peut aisément vérifier qu’elle sont bien toutes des solutions à notre problème.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>pour justifier le passage à la limite dans le membre de gauche de l’équation, notons que <span class="math display">\[
+  \int_{\gamma_r} \phi(z) z^p \, dz 
+  = \int_0^{2\pi} \psi(re^{it}) (re^{it})^{p} ir e^{it} dt \; ;
+  \]</span> par continuité (uniforme) de <span class="math inline">\(\psi\)</span> sur <span class="math inline">\(\overline{\Delta(0,1)}\)</span>, l’intégrande tend vers <span class="math inline">\(\psi(e^{it}) (e^{it})^{p} ie^{it}\)</span> quand <span class="math inline">\(r\)</span> tend vers <span class="math inline">\(1^-\)</span>, uniformément par rapport à <span class="math inline">\(t\)</span>, ce qui justifie l’interversion des signes limite et intégrale et mène au résultat annoncé.<a href="#fnref2">↩</a></p></li>
+</ol>
+</section>
+
+
+</body></html>

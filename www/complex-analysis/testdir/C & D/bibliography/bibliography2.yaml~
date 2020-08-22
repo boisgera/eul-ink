@@ -1,0 +1,169 @@
+---
+references:
+- id: Rud87
+  type: book
+  author:
+  - family: Rudin
+    given: Walter
+  issued:
+  - year: '1987'
+  title: Real and complex analysis. 3rd ed.
+  publisher: 'McGraw-Hill'
+  page: xiv + 416
+  edition: 3rd ed.
+  ISBN: '0-07-054234-1'
+
+- id: Dem09
+  type: book
+  author:
+  - family: Demailly
+    given: Jean-Pierre
+  issued:
+  - year: '2009'
+  title: OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+  language: French
+  URL: "https://www-fourier.ujf-grenoble.fr/~demailly/manuscripts/variable_complexe.pdf"
+
+- id: GR84
+  type: book
+  author:
+  - family: Grauert
+    given: Hans
+  - family: Remmert
+    given: Reinhold
+  issued:
+  - year: '1984'
+  title: Coherent analytic sheaves.
+  container-title: Grundlehren der Mathematischen Wissenschaften
+  publisher: Springer-Verlag.
+    XVIII, 249 p. DM 118.00; \\\$ 46.30 (1984).'
+
+- id: Rem91
+  type: book
+  author:
+  - family: Remmert
+    given: Reinhold
+  issued:
+  - year: '1991'
+  title: Theory of complex functions. Translation from the German by Robert B. Burckel.
+  publisher: 'Springer-Verlag.'
+  page: xix + 453
+  ISBN: '0-387-97195-5'
+
+- id: BB75
+  type: book
+  author:
+  - family: Briot
+    given: Charles
+  - family: Bouquet
+    given: Jean-Claude
+  issued:
+  - year: '1875'
+  title: Théorie des fonctions elliptiques.
+  language: French
+  publisher: Gauthier-Villars, Paris
+  edition: 2nd ed.
+  URL: "http://gallica.bnf.fr/ark:/12148/bpt6k99571w"
+
+- id: Tit75
+  type: book
+  author:
+  - family: Titchmarsh
+    given: Edward Charles
+  issued:
+  - year: '1975'
+  title: The theory of functions. 
+  edition: 2nd ed.
+  publisher: 'Oxford University Press.'
+
+- id: Ahl79
+  type: book
+  author:
+  - family: Ahlfors
+    given: Lars Valerian
+  issued:
+  - year: '1979'
+  title: Complex analysis. An introduction to the theory of analytic functions of one complex variable.
+  publisher: 'International Series in Pure and Applied Mathematics, McGraw-Hill, New York-Auckland-Düsseldorf.'
+
+- id: Pri01
+  type: article-journal
+  author:
+  - family: Pringsheim
+    given: A.
+  issued:
+  - year: '1901'
+  title: Über die Anwendung der *Cauchy*schen Multiplikationsregel auf bedingt konvergente oder divergente Reihen.
+  container-title: Trans. Am. Math. Soc.
+  publisher: American Mathematical Society (AMS), Providence, RI
+  page: '404-412'
+  volume: '2'
+  DOI: 10.2307/1986253
+  ISSN: 0002-9947; 1088-6850/e
+
+- id: Hil73
+  type: book
+  author:
+  - family: Hille
+    given: Einar
+  issued:
+  - year: '1973'
+  title: Analytic function theory. Vol. I, II. 
+  edition: 2nd ed. corrected.
+  publisher: Chelsea Publishing Company.
+
+- id: Gou00
+  type: article-journal
+  author:
+  - family: Goursat
+    given: Edouard
+  issued:
+  - year: '1900'
+  title: Sur la définition générale des fonctions analytiques d’après Cauchy.
+  container-title: Transactions of the American Mathematical Society.
+  publisher: American Mathematical Society (AMS), Providence, RI.
+  page: '14-16'
+  volume: '1'
+  DOI: 10.2307/1986398
+  ISSN: 0002-9947; 1088-6850/e
+
+- id: Cau25
+  type: book
+  author:
+  - family: Cauchy
+    given: Augustin-Louis
+  issued:
+  - year: '1825'
+  title: Mémoire sur les intégrales définies, prise entre des limites imaginaires.
+  language: French
+  URL: "http://www.e-rara.ch/zut/doi/10.3931/e-rara-26300"
+  DOI: "10.3931/e-rara-26300"
+  publisher: "Chez de Bure Frères."
+
+- id: Fre99
+  type: article-journal
+  author:
+  - family: Freiling
+    given: Chris
+  issued:
+  - year: '1999'
+  title: On the problem of characterizing derivatives
+  container-title: Real Analysis Exchange
+  page: "805-812"
+  volume: "23(2)"
+  URL: http://projecteuclid.org/euclid.rae/1337001388
+
+- id: GRUHU
+  type: book
+  author:
+  - family: Grauert
+    given: Hans
+  - family: Remmert
+    given: Reinhold
+  issued:
+  - year: '1984'
+  title: Coherent analytic sheaves.
+  container-title: Grundlehren der Mathematischen Wissenschaften
+  publisher: Springer-Verlag.
+    XVIII, 249 p. DM 118.00; \\\$ 46.30 (1984).'
+---

@@ -1,0 +1,22 @@
+[
+  {
+    "URL": "https://www-fourier.ujf-grenoble.fr/~demailly/manuscripts/variable_complexe.pdf",
+    "author": [
+      {
+        "family": "Demailly",
+        "given": "Jean-Pierre"
+      }
+    ],
+    "id": "Dem09",
+    "issued": {
+      "date-parts": [
+        [
+          2009.0
+        ]
+      ]
+    },
+    "language": "French",
+    "title": "Fonctions holomorphes et surfaces de riemann.",
+    "type": "book"
+  }
+]

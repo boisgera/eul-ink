@@ -1,0 +1,990 @@
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, Mines ParisTech">
+  <meta name="dcterms.date" content="2019-09-30">
+  <title>Complex-Differentiability</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: content-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+html {
+  line-height: var(--base-line-height);
+  --base-font-size: 24px;
+  --base-line-height: 36px;
+  --scale-ratio: 1.4142135623730951;
+  --small: 17px;
+  --medium: 24px;
+  --large: 34px;
+  --x-large: 48px;
+  font-size: 24px;
+  font-family: 'Alegreya', serif;
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html em {
+  font-style: italic;
+}
+html strong {
+  font-weight: bold;
+}
+html p, html .p {
+  margin-bottom: var(--base-line-height);
+  text-align: justify;
+  hyphens: auto;
+  -moz-hyphens: auto;
+}
+html section {
+  margin-bottom: var(--base-line-height_px);
+}
+html main {
+  box-sizing: content-box;
+  max-width: 32em;
+  margin: auto;
+  padding: var(--base-line-height);
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, q:before {
+  content: none;
+}
+blockquote:after, q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: medium solid black;
+  border-bottom: medium solid black;
+}
+main > header, main > .header, main > #header {
+  margin-top: calc(2 * var(--base-line-height));
+  margin-bottom: calc(2 * var(--base-line-height));
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: calc(1.5 * var(--base-line-height));
+  margin-top: 0;
+  margin-bottom: var(--base-line-height);
+  font-weight: bold;
+}
+main > header .author, main > .header .author, main > #header .author {
+  font-size: 24px;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  font-weight: normal;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: 'Alegreya SC', serif;
+  line-height: calc(1 * var(--base-line-height));
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  font-weight: bold;
+  line-height: calc(1.25 * var(--base-line-height));
+  margin-top: calc(2.00 * var(--base-line-height));
+  margin-bottom: calc(0.75 * var(--base-line-height));
+}
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+}
+h3, h4, h5, h6 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 1em;
+  display: inline;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
+}
+a:hover {
+  text-decoration: none;
+}
+a:link {
+  color: var(--color);
+}
+a:visited {
+  color: var(--color);
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li {
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  margin-left: var(--base-line-height);
+  padding-left: 0.5em;
+}
+ul li {
+  list-style: disc;
+}
+ol li {
+  list-style: decimal;
+}
+blockquote {
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+  padding: var(--base-line-height);
+  margin-bottom: var(--base-line-height);
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-size: 24px;
+  font-family: Inconsolata;
+}
+pre {
+  overflow-x: auto;
+  background-color: #ebebeb;
+  margin-bottom: var(--base-line-height);
+  padding-left: var(--base-line-height);
+  padding-right: var(--base-line-height);
+  padding-top: var(--base-line-height);
+  padding-bottom: var(--base-line-height);
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: auto;
+}
+figure {
+  margin-bottom: var(--base-line-height);
+  text-align: center;
+}
+figcaption {
+  display: inline-block;
+  font-style: italic;
+  text-align: justify;
+}
+.table {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  margin-bottom: var(--base-line-height);
+}
+thead {
+  border-bottom: medium solid black;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+.MJXc-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+nav#TOC > ul {
+  position: relative;
+  font-weight: bold;
+}
+nav#TOC > ul > * {
+  margin-bottom: var(--base-line-height);
+}
+nav#TOC > ul li {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+nav#TOC > ul ul li {
+  margin-left: var(--base-line-height);
+  font-weight: normal;
+}
+nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+  padding-bottom: var(--base-line-height);
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+.badge {
+  position: relative;
+  bottom: 0.13em;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  font-weight: 300;
+  font-size: var(--small);
+  display: inline-block;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  vertical-align: baseline;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+  margin-right: 1em;
+}
+.section-flag {
+  line-height: var(--base-line-height);
+  font-size: var(--small);
+  font-weight: 300;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  margin-bottom: 0;
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya: 400,700,900,400italic,700italic,900italic|Alegreya+SC:400,700,900,400italic,700italic,900italic|Alegreya+Sans:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+Sans+SC:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var box, hide_proof, main, show_proof;
+
+  hide_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("expanded");
+    sectionWrapper.addClass("minimized");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "visible"
+    });
+    w$(".header-wrapper").css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().css({
+      visibility: "hidden",
+      height: "0px"
+    });
+    w$(".header-wrapper").attr({
+      id: w$("section").first().attr("id")
+    });
+    return w$("section").first().attr({
+      id: ""
+    });
+  };
+
+  show_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("minimized");
+    sectionWrapper.addClass("expanded");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "hidden"
+    });
+    w$(".header-wrapper").css({
+      visibility: "hidden",
+      height: "0"
+    });
+    w$("section").first().css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().attr({
+      id: w$(".header-wrapper").attr("id")
+    });
+    return w$(".header-wrapper").attr({
+      id: ""
+    });
+  };
+
+  box = function(section) {
+    var clone, expand, header, headerWrapper, tombstone, wrapper;
+    clone = section.clone(true);
+    clone.css({
+      marginBottom: "0"
+    });
+    clone.children().last().css({
+      marginBottom: "0"
+    });
+    tombstone = clone.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer",
+      position: "absolute",
+      bottom: "0.75rem",
+      right: "0.75rem"
+    });
+    wrapper = $("<div class='proof-wrapper expanded'></div>");
+    wrapper.css({
+      position: "relative",
+      margin: "-0.75rem -0.75rem 0.75rem -0.75rem",
+      padding: "0.75rem",
+      backgroundColor: "#f9f9f9"
+    });
+    header = clone.find("h3, h4, h5, h6").first().clone();
+    headerWrapper = $("<div class='p header-wrapper' style='margin-bottom:0; visibility:hidden; overflow:hidden; height:0;'> </div>");
+    headerWrapper.append(header);
+    expand = $("<i class='fa fa-caret-down expand' style='visibility:hidden; cursor:pointer; position:absolute; top:0.75rem; right:0.75rem;'> </i>");
+    wrapper.append(headerWrapper);
+    wrapper.append(expand);
+    wrapper.append(clone);
+    expand.on("click", function() {
+      return show_proof(wrapper);
+    });
+    tombstone.on("click", function() {
+      return hide_proof(wrapper);
+    });
+    section.replaceWith(wrapper);
+    return wrapper;
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, section, sections, text, wrapper;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      wrapper = box(section);
+      hide_proof(wrapper);
+    }
+    return $(document).keydown(function(event) {
+      var k, l, len2, len3, ref1, ref2, results, sectionWrapper;
+      console.log("***", event.keyCode);
+      if (event.keyCode === 88) {
+        ref1 = $(".proof-wrapper.minimized");
+        for (k = 0, len2 = ref1.length; k < len2; k++) {
+          sectionWrapper = ref1[k];
+          show_proof($(sectionWrapper));
+        }
+      }
+      if (event.keyCode === 77) {
+        ref2 = $(".proof-wrapper.expanded");
+        results = [];
+        for (l = 0, len3 = ref2.length; l < len3; l++) {
+          sectionWrapper = ref2[l];
+          results.push(hide_proof($(sectionWrapper)));
+        }
+        return results;
+      }
+    });
+  };
+
+  $(main);
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var make_preview, mathjaxDebug;
+
+  make_preview = function(elt) {
+    var card, hidden_css, hide_preview, id, ref, show_preview, url, visible_css;
+    ref = elt.attr("href").split("#"), url = ref[0], id = ref[1];
+    card = $("<div class='card'>\n  <div class='holder'>\n    <p>Placeholder</p>\n  </div>\n</div>");
+    card.css({
+      width: "35vw",
+      padding: "1.5rem",
+      position: "fixed",
+      top: "1.5rem",
+      right: "1.5rem",
+      boxSizing: "border-box",
+      maxHeight: "calc(100vh - 3rem)",
+      overflow: "hidden",
+      boxShadow: "0 0 1rem #e6e6e6",
+      backgroundColor: "white"
+    });
+    visible_css = {
+      visibility: "visible",
+      opacity: 1,
+      transform: "translateX(0em)",
+      transition: "all 0.3s linear"
+    };
+    hidden_css = {
+      visibility: "hidden",
+      opacity: 0,
+      transform: "translateX(1em)",
+      transition: "all 0.3s linear 0.5s"
+    };
+    card.css(hidden_css);
+    elt.css({
+      textDecoration: "underline solid #0a0a0a",
+      textDecorationSkip: "ink",
+      transition: "background-color 0.3s linear"
+    });
+    show_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d3"
+      });
+      return card.css(visible_css);
+    };
+    hide_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d300"
+      });
+      return card.css(hidden_css);
+    };
+    return card.find(".holder").load(url + (" [id='" + id + "']"), function(response, status, jxXHR) {
+      console.log("XHR status:", status, url, id);
+      if (status === "success" || status === "notmodified") {
+        console.log("success!");
+        console.log("elt:", $(elt));
+        $("body").append(card);
+        card.find("p, .p").css({
+          textAlign: "left"
+        });
+        card.find("section").css({
+          marginBottom: "0"
+        });
+        card.find("section").children().last().css({
+          marginBottom: "0"
+        });
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, card[0]]);
+        elt.on("mouseenter", show_preview);
+        return elt.on("mouseleave", hide_preview);
+      }
+    });
+  };
+
+  mathjaxDebug = function() {
+    MathJax.Hub.signal.Interest(function(message) {
+      return console.log("*", message);
+    });
+    return MathJax.Hub.Register.StartupHook("End Process", function() {
+      var i, jax, len, ref, results;
+      console.log("list of jaxes:");
+      ref = MathJax.Hub.getAllJax();
+      results = [];
+      for (i = 0, len = ref.length; i < len; i++) {
+        jax = ref[i];
+        results.push(console.log("jax:", jax));
+      }
+      return results;
+    });
+  };
+
+  $(function() {
+    var elt, i, len, ref, results;
+    ref = $("a.preview");
+    results = [];
+    for (i = 0, len = ref.length; i < len; i++) {
+      elt = ref[i];
+      results.push(make_preview($(elt)));
+    }
+    return results;
+  });
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">Complex-Differentiability</a></h1>
+
+<h2 class="author">
+By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, Mines ParisTech, under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>
+</h2> 
+
+<h3 class="date" style="margin-right: 0px;">September 30, 2019</h3>
+</header>
+<section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
+<ul>
+<li class="top-li"><p class="section-flag">section 1</p><a href="#core-definitions">Core Definitions</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--complex-differentiability--derivative.">Complex-Differentiability &amp; Derivative</a></li>
+<li><span class="badge">rem<span></span></span><a href="#remark--why-interior-points">Why Interior Points?</a></li>
+<li><span class="badge">def<span></span></span><a href="#definition--holomorphic-function.">Holomorphic Function</a></li>
+<li><span class="badge">exa<span></span></span><a href="#examples--elementary-functions.">Elementary Functions</a></li>
+<li><span class="badge">rem<span></span></span><a href="#remark--holomorphy--continuity.">Holomorphy &amp; Continuity</a></li>
+<li><span class="badge">rem<span></span></span><a href="#remark--historical-perspective.">Historical Perspective</a></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 2</p><a href="#derivative-and-complex-differential">Derivative and Complex-Differential</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--realcomplex-vector-space.">Real/Complex Vector Space</a></li>
+<li><span class="badge">rem<span></span></span><a href="#remark--complex-vector-spaces-are-real-vector-spaces.">Complex Vector Spaces are Real Vector Spaces</a></li>
+<li><span class="badge">exa<span></span></span><a href="#example--the-complex-plane.">The Complex Plane</a></li>
+<li><span class="badge">def<span></span></span><a href="#definition--complex-linearity.">Complex-Linearity</a></li>
+<li><span class="badge">def<span></span></span><a href="#definition--complex-differential.">Complex-Differential</a></li>
+<li><span class="badge">rem<span></span></span><a href="#remark--realcomplex-differentiability.">Real/Complex-Differentiability</a></li>
+<li></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--derivative-and-differential.">Derivative and Differential</a></li>
+<li></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 3</p><a href="#calculus">Calculus</a><ul>
+<li><span class="badge">the<span></span></span><a href="#theorem--sum-and-product-rules.">Sum and Product Rules</a></li>
+<li></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--chain-rule.">Chain Rule</a></li>
+<li></li>
+<li><span class="badge">cor<span></span></span><a href="#corollary--quotient-rule.">Quotient Rule</a></li>
+<li></li>
+<li><span class="badge">exa<span></span></span><a href="#examples--polynomials--rational-functions.">Polynomials &amp; Rational Functions</a></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 4</p><a href="#cauchy-riemann-equations">Cauchy-Riemann Equations</a><ul>
+<li><span class="badge">the<span></span></span><a href="#theorem--cauchy-riemann-equations.">Cauchy-Riemann Equations</a></li>
+<li><span class="badge">rem<span></span></span><a href="#remark--a-geometric-insight.">A Geometric Insight</a></li>
+<li></li>
+<li><span class="badge">cor<span></span></span><a href="#corollary--cauchy-riemann-equations-alternate-dagger.">Cauchy-Riemann Equations (Alternate) \([\dagger].\)</a></li>
+<li></li>
+<li><span class="badge">def<span></span></span><a href="#definition--example--exponential.">Exponential</a></li>
+<li><span class="badge">def<span></span></span><a href="#definition--example--logarithm.">Logarithm</a></li>
+<li><span class="badge">def<span></span></span><a href="#definition--example--power-functions.">Power Functions</a></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 5</p><a href="#appendix-terminology-and-notation">Appendix – Terminology and Notation</a></li>
+<li class="top-li"><p class="section-flag">section 6</p><a href="#references">References</a></li>
+<li class="top-li"><p class="section-flag">section 7</p><a href="#notes">Notes</a></li></ul>
+</nav></section>
+<section id="core-definitions" class="level1">
+<h1><a href="#core-definitions">Core Definitions</a></h1>
+<section id="definition--complex-differentiability--derivative." class="level3">
+
+<div class="p"><h3><a href="#definition--complex-differentiability--derivative.">Definition – Complex-Differentiability &amp; Derivative.</a></h3>‌ Let <span class="math inline">\(f:A \subset \mathbb{C} \to \mathbb{C}.\)</span> The function <span class="math inline">\(f\)</span> is <em>complex-differentiable</em> at an interior point <span class="math inline">\(z\)</span> of <span class="math inline">\(A\)</span> if the <em>derivative</em> of <span class="math inline">\(f\)</span> at <span class="math inline">\(z,\)</span> defined as the limit of the difference quotient <span class="math display">\[
+  f'(z) = \lim_{h \to 0} \frac{f(z+h) - f(z)}{h}
+  \]</span> exists in <span class="math inline">\(\mathbb{C}.\)</span></div>
+</section>
+<section id="remark--why-interior-points" class="level3">
+
+<div class="p"><h3><a href="#remark--why-interior-points">Remark – Why Interior Points?</a></h3>‌ The point <span class="math inline">\(z\)</span> is an interior point of <span class="math inline">\(A\)</span> if <span class="math display">\[
+  \exists \, r &gt; 0, \; \forall \, h \in \mathbb{C}, \;
+  |h| &lt; r \to z+h \in A.
+  \]</span> In the definition above, this assumption ensures that <span class="math inline">\(f(z+h)\)</span> – and therefore the difference quotient – are well defined when <span class="math inline">\(|h|\)</span> is (nonzero and) small enough. Therefore, the derivative of <span class="math inline">\(f\)</span> at <span class="math inline">\(z\)</span> is defined as the limit in “all directions at once” of the difference quotient of <span class="math inline">\(f\)</span> at <span class="math inline">\(z.\)</span> To question the existence of the derivative of <span class="math inline">\(f: A \subset \mathbb{C} \to \mathbb{C}\)</span> at every point of its domain, we therefore require that every point of <span class="math inline">\(A\)</span> is an interior point, or in other words, that <span class="math inline">\(A\)</span> is open.</div>
+</section>
+<section id="definition--holomorphic-function." class="level3">
+
+<div class="p"><h3><a href="#definition--holomorphic-function.">Definition – Holomorphic Function.</a></h3>‌ Let <span class="math inline">\(\Omega\)</span> be an open subset of <span class="math inline">\(\mathbb{C}.\)</span> A function <span class="math inline">\(f:\Omega \to \mathbb{C}\)</span> is <em>complex-differentiable</em> – or <em>holomorphic</em> – in <span class="math inline">\(\Omega\)</span> if it is complex-differentiable at every point <span class="math inline">\(z \in \Omega.\)</span> If additionally <span class="math inline">\(\Omega = \mathbb{C}\)</span>, the function is <em>entire</em>.</div>
+</section>
+<section id="examples--elementary-functions." class="level3">
+
+<div class="p"><h3><a href="#examples--elementary-functions.">Examples – Elementary Functions.</a></h3>‌</div>
+<ol type="1">
+<li><p>Every constant function <span class="math inline">\(f: z \in \mathbb{C} \mapsto \lambda \in \mathbb{C}\)</span> is holomorphic as <span class="math display">\[
+  \forall \, z \in \mathbb{C}, \,
+  f'(z) = \lim_{h \to 0} \frac{\lambda - \lambda}{h} = 0.
+  \]</span></p></li>
+<li><p>The identity function <span class="math inline">\(f: z \in \mathbb{C} \mapsto z\)</span> is holomorphic: <span class="math display">\[
+  \forall \, z \in \mathbb{C}, \,
+  f'(z) = \lim_{h \to 0} \frac{(z+h) - z}{h} = 1.
+  \]</span></p></li>
+<li><p>The inverse function <span class="math inline">\(f: z \in \mathbb{C}^* \to 1/z\)</span> is holomorphic: the set <span class="math inline">\(\mathbb{C}^*\)</span> is open and for any <span class="math inline">\(z \in \mathbb{C}^*\)</span> and any <span class="math inline">\(h \in \mathbb{C}\)</span> such that <span class="math inline">\(z+h \neq 0,\)</span> we have <span class="math display">\[
+  \frac{1/(z+h) - 1/z}{h}  = -\frac{1}{z(z+h)},
+  \]</span> hence <span class="math display">\[
+  f'(z) = \lim_{h \to 0} -\frac{1}{z(z+h)} = - \frac{1}{z^2}.
+  \]</span></p></li>
+<li><p>The complex conjugate function <span class="math inline">\(f: z\in\mathbb{C} \to \overline{z}\)</span> is nowhere complex-differentiable. Its difference quotient satisfies <span class="math display">\[
+  \frac{f(z+h)-f(z)}{h} =
+  \frac{\overline{z+h} - \overline{z}}{h}  = \frac{\overline{h}}{h},
+  \]</span> therefore when <span class="math inline">\(t \in \mathbb{R},\)</span> <span class="math display">\[
+  \lim_{t \to 0} \frac{f(z+t) - f(z)}{t} = +1,
+  \]</span> but <span class="math display">\[
+  \lim_{t \to 0} \frac{f(z+it) - f(z)}{it} = -1,
+  \]</span> hence the difference quotient has no limit when <span class="math inline">\(h \to 0.\)</span></p></li>
+</ol>
+</section>
+<section id="remark--holomorphy--continuity." class="level3">
+
+<div class="p"><h3><a href="#remark--holomorphy--continuity.">Remark – Holomorphy &amp; Continuity.</a></h3>‌ Holomorphic functions are continuous; this property is unsurprising and its proof is straightforward. But actually, derivatives of holomorphic functions are also continuous! This may come as a surprise since the corresponding statement doesn’t hold in the context of real analysis: there are some real-valued functions of a real variable that are differentiable and whose derivative is <em>not</em> continous<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>.</div>
+<p>We mention this property now because we will use it to simplify the statements of some results of the current and subsequent chapters. Unfortunately, we cannot prove it yet; it is a consequence of Cauchy’s integral theory which is far from being trivial. To make sure that we won’t develop a circular argument, we flag the results that use this property with the symbol <span class="math inline">\([\dagger],\)</span> until we can prove it.</p>
+</section>
+<section id="remark--historical-perspective." class="level3">
+
+<div class="p"><h3><a href="#remark--historical-perspective.">Remark – Historical Perspective.</a></h3>‌ We should not feel too bad about the (temporary) assumption that the derivative is continuous; after all, it was good enough for the best mathematicians of the 19th century.</div>
+<p>A major result of complex analysis, Cauchy’s integral theorem, was originally formulated under the assumption that the derivative exists and is continuous<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> <span class="citation" data-cites="Cau25">(Cauchy <a href="#ref-Cau25">1825</a>)</span>. We have to wait for the paper “Sur la définition générale des fonctions analytiques, d’après Cauchy” <span class="citation" data-cites="Gou00">(Goursat <a href="#ref-Gou00">1900</a>)</span> to officially get rid of this assumption:</p>
+<blockquote>
+<p>J’ai reconnu depuis longtemps que la démonstration du théorème de Cauchy, que j’ai donnée en 1883, ne supposait pas la continuité de la dérivée. Pour répondre au désir qui m’a été exprimé par M. le Professeur W. F. Osgood, je vais indiquer ici rapidement comment on peut faire cette extension.</p>
+</blockquote>
+<p>which means:</p>
+<blockquote>
+<p>I have long recognized that the proof of Cauchy’s theorem, that I have given in 1883, did not assume the continuity of the derivative. To meet the desire which was expressed to me by Professor W. F. Osgood, I’ll tell here quickly how we can make this extension.</p>
+</blockquote>
+<p>Because of this improvement, Cauchy’s integral theorem is also known as the “Cauchy-Goursat theorem”. Refer to <span class="citation" data-cites="Hil73">(Hille <a href="#ref-Hil73">1973</a>, footnote p.163)</span> for a broader historical perspective on this subject.</p>
+</section>
+</section>
+<section id="derivative-and-complex-differential" class="level1">
+<h1><a href="#derivative-and-complex-differential">Derivative and Complex-Differential</a></h1>
+<section id="definition--realcomplex-vector-space." class="level3">
+
+<div class="p"><h3><a href="#definition--realcomplex-vector-space.">Definition – Real/Complex Vector Space.</a></h3>‌ A vector space is <em>real</em> or <em>on <span class="math inline">\(\mathbb{R}\)</span></em> if its field of scalars is the real line; it is <em>complex</em> or <em>on <span class="math inline">\(\mathbb{C}\)</span></em> if its field of scalars is the complex plane.</div>
+</section>
+<section id="remark--complex-vector-spaces-are-real-vector-spaces." class="level3">
+
+<div class="p"><h3><a href="#remark--complex-vector-spaces-are-real-vector-spaces.">Remark – Complex Vector Spaces are Real Vector Spaces.</a></h3>‌ If the set <span class="math inline">\(E\)</span> is endowed with a structure of complex vector space, it is automatically endowed with a structure of real vector space. Because of this ambiguity, it may be necessary to qualify the usual concepts of linear algebra – for example to say that a function is <em>real-linear</em> or <em>complex-linear</em> instead of simply linear – to be totally explicit about the structure to which we refer.</div>
+</section>
+<section id="example--the-complex-plane." class="level3">
+
+<div class="p"><h3><a href="#example--the-complex-plane.">Example – The Complex Plane.</a></h3>‌ The set <span class="math inline">\(\mathbb{C}\)</span> is a complex vector space with the sum <span class="math display">\[
+  (x + iy) + (v + i w) = (x + v) + i(y + w)
+  \]</span> and scalar-vector multiplication <span class="math display">\[
+  (\mu + i \nu) (x + i y) = (\mu x - \nu y) + i (\mu y + \nu x) 
+  \]</span> It is of dimension <span class="math inline">\(1\)</span> with for example <span class="math inline">\(\{1\}\)</span> (the single vector <span class="math inline">\(1 \in \mathbb{C}\)</span>) as a basis; indeed every complex number <span class="math inline">\(z \in \mathbb{C}\)</span> is a linear combination of the vectors of <span class="math inline">\(\{1\}\)</span> (as <span class="math inline">\(z = z 1\)</span>), and the vectors of <span class="math inline">\(\{1\}\)</span> are linearly independent (the only scalar <span class="math inline">\(\lambda \in \mathbb{C}\)</span> such that <span class="math inline">\(\lambda 1 = 0\)</span> is <span class="math inline">\(\lambda = 0\)</span>).</div>
+<p>Note how things change if we consider the plane as a real vector space: it is of dimension 2 with for example <span class="math inline">\(\{1,i\}\)</span> as a basis. In particular, the vectors <span class="math inline">\(1\)</span> and <span class="math inline">\(i\)</span> which are complex-colinear are not real-colinear.</p>
+</section>
+<section id="definition--complex-linearity." class="level3">
+
+<div class="p"><h3><a href="#definition--complex-linearity.">Definition – Complex-Linearity.</a></h3>‌ Let <span class="math inline">\(E\)</span> and <span class="math inline">\(F\)</span> be complex normed vector spaces. A function <span class="math inline">\(\ell: E \to F\)</span> is <em>complex-linear</em> if it is additive and <em>complex-homogeneous</em>: <span class="math display">\[
+  \forall \, u \in E, \; \forall \, v \in E, \;
+  \ell (u + v) = \ell(u)+ \ell(v),
+  \]</span> <span class="math display">\[
+  \forall \, \lambda \in \mathbb{C}, \; \forall \, u \in E, \;
+  \ell (\lambda u) = \lambda \ell (u).
+  \]</span></div>
+</section>
+<section id="definition--complex-differential." class="level3">
+
+<div class="p"><h3><a href="#definition--complex-differential.">Definition – Complex-Differential.</a></h3>‌ Let <span class="math inline">\(f: A \subset E \to F\)</span> where <span class="math inline">\(E\)</span> and <span class="math inline">\(F\)</span> are complex normed vector spaces. Let <span class="math inline">\(z\)</span> be an interior point of <span class="math inline">\(A;\)</span> the <em>complex-differential</em> of <span class="math inline">\(f\)</span> at <span class="math inline">\(z\)</span> is a complex-linear continuous operator <span class="math inline">\(df_z: E \to F\)</span> such that <span class="math display">\[
+  \lim_{h\to 0} \frac{\|f(z+h) - f(z) - df_z(h)\|}{\|h\|} = 0,
+  \]</span> or equivalently in expanded form <span class="math display">\[
+  f(z+h) =  f(z) + df_z (h) + \epsilon_z(h) \|h\|
+  \; \mbox{ with } \; 
+  \lim_{h \to 0} \epsilon_z(h) = \epsilon_z(0) = 0.
+  \]</span> If such an operator exists, it is unique.</div>
+</section>
+<section id="remark--realcomplex-differentiability." class="level3">
+
+<div class="p"><h3><a href="#remark--realcomplex-differentiability.">Remark – Real/Complex-Differentiability.</a></h3>‌ Since the complex vector spaces <span class="math inline">\(E\)</span> and <span class="math inline">\(F\)</span> are real vector spaces, we may also use the classic concept of differential from Real Analysis for the function <span class="math inline">\(f: E \to F.\)</span> We call this operator <em>real-differential</em> to avoid any ambiguity with the complex-differential. The definitions of both operators are identical, except that the complex-differential is required to be a complex-linear operator when the real-differential is only required to be real-linear.</div>
+</section>
+<section id="proof--uniqueness." class="level3">
+
+<div class="p"><h3><a href="#proof--uniqueness.">Proof – Uniqueness.</a></h3>‌If for small values of <span class="math inline">\(h\)</span> the function <span class="math inline">\(f\)</span> satisfies <span class="math display">\[
+  f(z+h) 
+  = f(z) + \ell^1_z (h) + \epsilon^1_z(h) \|h\| 
+  = f(z) + \ell^2_z(h) + \epsilon^2_z(h) \|h\|
+ \]</span> with continuous linear operators <span class="math inline">\(\ell^1_z\)</span> and <span class="math inline">\(\ell^2_z\)</span> and functions <span class="math inline">\(\epsilon^1_z\)</span> and <span class="math inline">\(\epsilon^2_z\)</span> such that <span class="math display">\[
+  \lim_{h \to 0} \epsilon^1_z(h) = \epsilon^1_z(0) = 0 
+  \; \mbox{ and } \;
+  \lim_{h \to 0} \epsilon^2_z(h) = \epsilon^2_z(0) = 0,
+  \]</span> then for any <span class="math inline">\(u \in E\)</span> <span class="math display">\[
+  (\ell^1_z - \ell^2_z)(u) = 
+  \lim_{t \to 0} \frac{(\ell^1_z - \ell^2_z)(tu)}{t}  
+  = \lim_{t \to 0} (\epsilon_z^2(tu) - \epsilon_z^1(tu)) \|u\| = 0
+  \]</span> and consequently <span class="math inline">\(\ell^1_z = \ell^2_z.\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+<!--
+**Remark -- Complex-Differentiability.** 
+At this stage, we would like to say that a function is 
+complex-differentiable if its complex-differential exists,
+but we have already used this term to mean that the derivative exists.
+Luckily, this ambiguity is only apparent[^more-ambiguous]:
+
+[^more-ambiguous]: Some authors even use the notation $f'(z)$ instead of
+$df_z$ for the differential of $f$ at $z.$ Again, this ambiguity is (mostly) 
+harmless.
+-->
+</section>
+<section id="theorem--derivative-and-differential." class="level3">
+
+<div class="p"><h3><a href="#theorem--derivative-and-differential.">Theorem – Derivative and Differential.</a></h3>‌ Let <span class="math inline">\(f:A \to \mathbb{C}\)</span> with <span class="math inline">\(A \subset \mathbb{C}\)</span> and let <span class="math inline">\(z\)</span> be an interior point of <span class="math inline">\(A.\)</span> The complex-differential <span class="math inline">\(df_z\)</span> exists if and only if the derivative <span class="math inline">\(f'(z)\)</span> exists. In this case, we have <span class="math display">\[
+  \forall \, h \in \mathbb{C}, \, df_z(h) = f'(z) h.
+  \]</span></div>
+</section>
+<section id="proof." class="level3">
+
+<div class="p"><h3><a href="#proof.">Proof.</a></h3>‌ If <span class="math inline">\(f'(z)\)</span> exists, the mapping <span class="math inline">\(h \in \mathbb{C} \mapsto f'(z) h\)</span> is complex-linear and <span class="math display">\[
+  \lim_{h \to 0}\frac{|f(z+h) - f(z) - f'(z) h|}{|h|}
+  = \lim_{h \to 0} \left|\frac{f(z+h) - f(z)}{h} - f'(z) \right| = 0,
+  \]</span> hence, it is the differential of <span class="math inline">\(f\)</span> at <span class="math inline">\(z.\)</span> Conversely, if <span class="math inline">\(df_z\)</span> exists, its complex-linearity yields <span class="math inline">\(df_z(h) = df_z(1) h.\)</span> Therefore, <span class="math display">\[
+  \lim_{h \to 0} \left| \frac{f(z+h) - f(z)}{h} - df_z(1) \right|
+  = \lim_{h \to 0}\frac{|f(z+h) - f(z) - df_z (h)|}{|h|}
+  = 0
+  \]</span> thus <span class="math inline">\(f'(z)\)</span> exists and is equal to <span class="math inline">\(df_z(1).\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+</section>
+<section id="calculus" class="level1">
+<h1><a href="#calculus">Calculus</a></h1>
+<section id="theorem--sum-and-product-rules." class="level3">
+
+<div class="p"><h3><a href="#theorem--sum-and-product-rules.">Theorem – Sum and Product Rules.</a></h3>‌ Let <span class="math inline">\(f: A \to \mathbb{C}\)</span> and <span class="math inline">\(g: A \to \mathbb{C}\)</span> with <span class="math inline">\(A \subset \mathbb{C}\)</span> and let <span class="math inline">\(z\)</span> an interior point of <span class="math inline">\(A.\)</span> If <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> are complex-differentiable at <span class="math inline">\(z,\)</span> the derivative of <span class="math inline">\(f+g\)</span> at <span class="math inline">\(z\)</span> exists and <span class="math display">\[
+  (f + g)'(z) = f'(z) + g'(z),
+  \]</span> the derivative of <span class="math inline">\(f \times g\)</span> at <span class="math inline">\(z\)</span> exists and <span class="math display">\[
+  (f \times g)'(z) = f'(z) \times g(z) + f(z) \times g'(z).
+  \]</span></div>
+</section>
+<section id="proof.-1" class="level3">
+<h3><a href="#proof.-1">Proof.</a></h3>
+‌For any <span class="math inline">\(h \in \mathbb{C}\)</span> such that <span class="math inline">\(z+h \in A,\)</span> we have <span class="math display">\[
+  \frac{(f+g)(z+h) - (f+g)(z)}{h}
+  =
+  \frac{f(z+h) - f(z)}{h} + \frac{g(z+h) - g(z)}{h},
+  \]</span> hence the derivative of <span class="math inline">\(f+g\)</span> at <span class="math inline">\(z\)</span> exists and satisfies the sum rule. On the other hand,
+\begin{multline*}
+  \frac{(f \times g)(z+h) - (f \times g)(z)}{h}
+  = \\
+  \frac{f(z+h) - f(z)}{h} g(z) 
+  +
+  f(z+h)\frac{g(z+h) - g(z)}{h},
+  \end{multline*}
+<p>hence the derivative of <span class="math inline">\(f \times g\)</span> exists and satisfies the product rule. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+<section id="theorem--chain-rule." class="level3">
+
+<div class="p"><h3><a href="#theorem--chain-rule.">Theorem – Chain Rule.</a></h3>‌ Let <span class="math inline">\(f: A \to \mathbb{C},\)</span> <span class="math inline">\(g: B \to \mathbb{C}\)</span> with <span class="math inline">\(A, B\)</span> two subsets of <span class="math inline">\(\mathbb{C}.\)</span> If <span class="math inline">\(z\)</span> is an interior point of <span class="math inline">\(A,\)</span> <span class="math inline">\(f\)</span> is complex-differentiable at <span class="math inline">\(z,\)</span> <span class="math inline">\(f(z)\)</span> is an interior point of <span class="math inline">\(B\)</span> and <span class="math inline">\(g\)</span> is complex-differentiable at <span class="math inline">\(f(z),\)</span> then <span class="math inline">\(g \circ f\)</span> is complex-differentiable at <span class="math inline">\(z\)</span> and <span class="math display">\[
+  (g \circ f)'(z) = g'(f(z)) \times f'(z).
+  \]</span></div>
+</section>
+<section id="proof.-2" class="level3">
+
+<div class="p"><h3><a href="#proof.-2">Proof.</a></h3>‌Given the assumption, we have for <span class="math inline">\(h\)</span> small enough <span class="math display">\[
+  f(z+h) - f(z) = f'(z) h+ \epsilon^1_z(h) |h|
+  \]</span> and <span class="math display">\[
+  g(f(z)+h) - g(f(z)) = g'(f(z)) h + \epsilon^2_{f(z)}(h) |h|
+  \]</span> with <span class="math display">\[
+  \lim_{h \to 0} \epsilon_z^1(h) = \epsilon_z^1(0)= 0
+  \; \mbox{ and } \; 
+  \lim_{h \to 0} \epsilon_{f(z)}^2(h) = \epsilon_{f(z)}^2(0) = 0.
+  \]</span> Consequently, <span class="math display">\[
+  \begin{split}
+  g(f(z+h)) - g(f(z))
+  = &amp; \; 
+  g'(f(z))(f(z+h) - f(z)) \\ 
+  &amp;+ \epsilon^2_{f(z)}(f(z+h) - f(z)) |f(z+h) - f(z)|,
+  \end{split}
+  \]</span> which can be expanded into <span class="math display">\[
+  g(f(z+h)) - g(f(z))
+  =
+  g'(f(z)) f'(z) h + \epsilon^{3}_z(h) |h|,
+  \]</span> where <span class="math display">\[
+  \epsilon^3_z(h) 
+  = g'(f(z)) \epsilon_z^1(h) 
+  + \epsilon^2_{f(z)}(f(z+h) - f(z)) \left| f'(z) \frac{h}{|h|} + \epsilon^1_z(h) \right|
+  \]</span> and satisfies <span class="math display">\[
+  \lim_{h \to 0} \epsilon^3_z(h) = \epsilon^3_z(0) = 0.
+  \]</span> This decomposition proves the existence of the complex-differential of <span class="math inline">\(g\circ f\)</span> at <span class="math inline">\(z\)</span> as well as the equality <span class="math inline">\((g \circ f)'(z) = g'(f(z)) f'(z).\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="corollary--quotient-rule." class="level3">
+
+<div class="p"><h3><a href="#corollary--quotient-rule.">Corollary – Quotient Rule.</a></h3>‌ Let <span class="math inline">\(f: A \to \mathbb{C}\)</span> and <span class="math inline">\(g: A \to \mathbb{C}\)</span> with <span class="math inline">\(A \subset \mathbb{C}\)</span> and let <span class="math inline">\(z\)</span> be an interior point of <span class="math inline">\(A\)</span> such that <span class="math inline">\(g(z) \neq 0.\)</span> If <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> are complex-differentiable at <span class="math inline">\(z,\)</span> then <span class="math inline">\(f/g\)</span> is complex-differentiable at <span class="math inline">\(z\)</span> and <span class="math display">\[
+  \left(\frac{f}{g}\right)'(z) = \frac{f'(z)g(z) - f(z)g'(z)}{g(z)^2}.
+  \]</span></div>
+</section>
+<section id="proof.-3" class="level3">
+
+<div class="p"><h3><a href="#proof.-3">Proof.</a></h3>‌ By the <a href="#theorem--chain-rule." class="preview">chain rule</a> applied to the function <span class="math inline">\(g\)</span> and <span class="math inline">\(z \mapsto 1/z,\)</span> the derivative of <span class="math inline">\(1/g\)</span> is <span class="math inline">\(-g'/g^2.\)</span> The desired result then follows from the product rule. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="examples--polynomials--rational-functions." class="level3">
+
+<div class="p"><h3><a href="#examples--polynomials--rational-functions.">Examples – Polynomials &amp; Rational Functions.</a></h3>‌ Any polynomial <span class="math inline">\(p\)</span> with complex coefficients <span class="math display">\[
+   p: z \in \mathbb{C} \mapsto a_0 + a_1 z + \dots + a_n z^n
+   \]</span> is holomorphic on <span class="math inline">\(\mathbb{C}\)</span> since it is the <a href="#theorem--sum-and-product-rules." class="preview">sum of products of holomorphic functions</a>. By the <a href="#corollary--quotient-rule." class="preview">quotient rule</a>, the quotient of two polynomials <span class="math inline">\(p\)</span> and <span class="math inline">\(q\)</span> – with a non-zero <span class="math inline">\(q\)</span> – is also holomorphic on the open set <span class="math inline">\(\{z \in \mathbb{C} \; | \; q(z) \neq 0 \}.\)</span></div>
+</section>
+</section>
+<section id="cauchy-riemann-equations" class="level1">
+<h1><a href="#cauchy-riemann-equations">Cauchy-Riemann Equations</a></h1>
+<p>It is sometimes convenient to remember that the set <span class="math inline">\(\mathbb{C}\)</span> is only <span class="math inline">\(\mathbb{R}^2,\)</span> or in other words that we can always identify the complex number <span class="math inline">\(z=x+iy\)</span> with the pair of real numbers <span class="math inline">\((x,y).\)</span></p>
+<p>For complex-valued functions of a complex variable, we can perform this identification for the variables <span class="math inline">\(z = x+ iy\)</span> and/or for the values <span class="math inline">\(f = u+ iv.\)</span> Both options are actually interesting and lead to slightly different characterizations of holomorphic functions.</p>
+<section id="theorem--cauchy-riemann-equations." class="level3">
+
+<div class="p"><h3><a href="#theorem--cauchy-riemann-equations.">Theorem – Cauchy-Riemann Equations.</a></h3>‌ Let <span class="math inline">\(\Omega\)</span> be an open subset of <span class="math inline">\(\mathbb{C}.\)</span> The function <span class="math inline">\(f = u + iv :\Omega \to \mathbb{C}\)</span> is complex-differentiable on <span class="math inline">\(\Omega\)</span> if and only if:</div>
+<ul>
+<li><p>it is real-differentiable on <span class="math inline">\(\Omega\)</span> and</p></li>
+<li><p>for every <span class="math inline">\(z\)</span> in <span class="math inline">\(\Omega,\)</span> <span class="math inline">\(df_z\)</span> is complex-linear.</p></li>
+</ul>
+<p>The second clause may be replaced by any of the following:</p>
+<ol type="1">
+<li><p>the function <span class="math inline">\(f\)</span> satisfies</p>
+<p><span class="math display">\[\forall\, z \in \Omega, \; df_z(i) = idf_z(1),\]</span></p></li>
+<li><p>the function <span class="math inline">\(f\)</span> satisfies the <em>(complex) Cauchy-Riemann equation</em>:</p>
+<p><span class="math display">\[
+\frac{\partial f}{\partial x} = \frac{1}{i}\frac{\partial f}{\partial y},
+\]</span></p></li>
+<li><p>the functions <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span> satisfy the <em>(scalar) Cauchy-Riemann equations</em>:</p>
+<p><span class="math display">\[
+\frac{\partial u}{\partial x}
+= 
++\frac{\partial v}{\partial y}
+\; \mbox{ and } \;
+\frac{\partial u}{\partial y} 
+= 
+-\frac{\partial v}{\partial x}.
+\]</span></p></li>
+</ol>
+<p>If the complex-differentiability holds, we have <span class="math display">\[
+  \begin{split}
+  f' 
+  =
+  (z \mapsto d_z f(1))
+  &amp;=
+  \frac{\partial f}{\partial x} = \frac{1}{i}\frac{\partial f}{\partial y} \\
+  &amp;= \frac{\partial u}{\partial x} + i \frac{\partial v}{\partial x} =
+   \frac{\partial v}{\partial y} - i \frac{\partial u}{\partial y} \\
+  &amp;= \frac{\partial u}{\partial x} - i \frac{\partial u}{\partial y} =
+   \frac{\partial v}{\partial y} + i \frac{\partial v}{\partial x}
+  \end{split}
+  \]</span></p>
+</section>
+<section id="remark--a-geometric-insight." class="level3">
+
+<div class="p"><h3><a href="#remark--a-geometric-insight.">Remark – A Geometric Insight.</a></h3>‌ We may rewrite the scalar Cauchy-Riemann equations as <span class="math display">\[
+    \left[ 
+    \begin{array}{c}
+    \partial v / \partial x \\
+    \partial v / \partial y
+    \end{array}
+  \right]  = 
+  \left[\begin{array}{rr} 0 &amp; -1  \\ +1 &amp; 0 \end{array} \right]
+    \left[ 
+    \begin{array}{c}
+    \partial u / \partial x \\
+    \partial u / \partial y
+    \end{array}
+  \right].
+  \]</span> This formula provides the following insight: the gradient of the imaginary part of a holomorphic function is obtained by a rotation of <span class="math inline">\(\pi/2\)</span> of the gradient of its real part.</div>
+</section>
+<section id="proof.-4" class="level3">
+
+<div class="p"><h3><a href="#proof.-4">Proof.</a></h3>‌By <a href="#definition--complex-differential." class="preview">definition</a>, <span class="math inline">\(f\)</span> is complex-differentiable if and only if it is real-differentiable and its differential is complex-linear.</div>
+<p>Assume that <span class="math inline">\(f\)</span> is real-differentiable; the real-differential <span class="math inline">\(\ell = df_z\)</span> is real-linear, that is, additive and real-homogeneous. If additionally <span class="math inline">\(\ell(i) = i \ell(1),\)</span> then we have for any real numbers <span class="math inline">\(\mu,\)</span> <span class="math inline">\(\nu,\)</span> <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span></p>
+<ul>
+<li><p><span class="math inline">\(\ell(\mu x) = \mu\ell(x),\)</span></p></li>
+<li><p><span class="math inline">\(\ell(i\nu x) = \nu x \ell(i) = \nu x i \ell(1) = i \nu \ell(x),\)</span></p></li>
+<li><p><span class="math inline">\(\ell(i\mu y) = \mu\ell(iy),\)</span></p></li>
+<li><p><span class="math inline">\(\ell(-\nu y) = - \nu y \ell(1) = i^2 \nu y \ell(1) = i \nu y \ell(i) = i \nu \ell(iy).\)</span></p></li>
+</ul>
+<p>The function <span class="math inline">\(\ell\)</span> is additive, hence <span class="math inline">\(\ell((\mu+i\nu)(x+iy)) = (\mu+i\nu) \ell(x+iy)\)</span>: the function <span class="math inline">\(\ell\)</span> is complex-homogeneous and therefore complex-linear. Hence, property 1 yields the complex-linearity of the differential.</p>
+<p>As additionally <span class="math display">\[
+  \frac{\partial f}{\partial x}(z) = df_z(1), \;
+  \frac{\partial f}{\partial y}(z) = df_z(i),
+  \]</span> properties 1 and 2 are equivalent.</p>
+<p>The function <span class="math inline">\(f=(u,v)=u+iv\)</span> is real-differentiable if and only if <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span> are real-differentiable. In this case, <span class="math inline">\(df = (du, dv) = du + idv,\)</span> hence <span class="math display">\[
+  \frac{\partial f}{\partial x} = \frac{\partial u}{\partial x} + i \frac{\partial v}{\partial x}
+  , \;
+  \frac{\partial f}{\partial y} = \frac{\partial u}{\partial y} + i \frac{\partial v}{\partial y}
+  \]</span> which yields the equivalence between properties 2 and 3. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+
+</section><section><p>There is a variant of this theorem that does not require to check explicitly for the existence of the real-differential:</p></section>
+<section id="corollary--cauchy-riemann-equations-alternate-dagger." class="level3">
+
+<div class="p"><h3><a href="#corollary--cauchy-riemann-equations-alternate-dagger.">Corollary – Cauchy-Riemann Equations (Alternate) <span class="math inline">\([\dagger].\)</span></a></h3>‌ Let <span class="math inline">\(\Omega\)</span> be an open subset of <span class="math inline">\(\mathbb{C}.\)</span> The function <span class="math inline">\(f = u + iv :\Omega \to \mathbb{C}\)</span> is complex-differentiable in <span class="math inline">\(\Omega\)</span> if and only if any of the following conditions holds:</div>
+<ol type="1">
+<li><p>The partial derivatives <span class="math inline">\(\partial f/\partial x\)</span> and <span class="math inline">\(\partial f/\partial y\)</span> exist, are continuous and</p>
+<p><span class="math display">\[
+\frac{\partial f}{\partial x} = \frac{1}{i}\frac{\partial f}{\partial y}.
+\]</span></p></li>
+<li><p>The partial derivatives <span class="math inline">\(\partial u / \partial x,\)</span> <span class="math inline">\(\partial u / \partial y,\)</span> <span class="math inline">\(\partial v / \partial x\)</span> and <span class="math inline">\(\partial v / \partial y\)</span> exist, are continuous and <span class="math display">\[
+\frac{\partial u}{\partial x}
+= 
++\frac{\partial v}{\partial y}
+\; \mbox{ and } \;
+\frac{\partial u}{\partial y} 
+= 
+-\frac{\partial v}{\partial x}.
+\]</span></p></li>
+</ol>
+</section>
+<section id="proof.-5" class="level3">
+
+<div class="p"><h3><a href="#proof.-5">Proof.</a></h3>‌ If the partial derivatives of <span class="math inline">\(f\)</span> exist and are continous, or equivalently the partial derivatives of <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span> exist and are continuous, then <span class="math inline">\(f\)</span> is continuously real-differentiable and we can apply <a href="#theorem--cauchy-riemann-equations." class="preview">the previous theorem</a> to get our conclusion.</div>
+<p>Reciprocally, if the derivative of <span class="math inline">\(f\)</span> exist, then it is continuous, hence the partial derivatives of <span class="math inline">\(f\)</span> (or of <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span>) are continous. <a href="#theorem--cauchy-riemann-equations." class="preview">The previous theorem</a> also shows that the Cauchy-Riemann equations are satisfied. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+<section id="definition--example--exponential." class="level3">
+
+<div class="p"><h3><a href="#definition--example--exponential.">Definition &amp; Example – Exponential.</a></h3>‌ The <em>exponential</em> of a complex number <span class="math inline">\(z=x + iy\)</span> is the complex number denoted <span class="math inline">\(e^z\)</span> or <span class="math inline">\(\exp z\)</span> defined by</div>
+<p><span class="math display">\[
+  e^z = e^x \times (\cos y + i \sin y).
+  \]</span> The exponential function <span class="math inline">\(\exp: \mathbb{C} \to \mathbb{C}\)</span> satisfies <span class="math display">\[
+  \frac{\partial e^{x+iy}}{\partial x}
+  = 
+  e^x \times (\cos y + i \sin y) = e^{x+iy}
+  \]</span> and <span class="math display">\[
+  \frac{1}{i}
+  \frac{\partial e^{x+iy}}{\partial y}
+  =
+  \frac{1}{i}
+  e^x \times (-\sin y + i \cos y) 
+  = 
+  e^{x+iy}.
+  \]</span> Both partial derivatives exist and are continuous. Since they also satisfy <a href="#corollary--cauchy-riemann-equations-alternate-dagger." class="preview">the Cauchy-Riemann equations</a>, the exponential function is complex-differentiable and <span class="math display">\[
+  \frac{d e^z}{dz} = e^z.
+  \]</span></p>
+</section>
+<section id="definition--example--logarithm." class="level3">
+
+<div class="p"><h3><a href="#definition--example--logarithm.">Definition &amp; Example – Logarithm.</a></h3>‌ The <em>principal value of the logarithm</em> is the function <span class="math inline">\(\log: \mathbb{C} \setminus \mathbb{R}_- \to \mathbb{C}\)</span> defined by <span class="math display">\[
+  \log re^{i\theta} = (\ln r) + i \theta,
+  \; r &gt; 0,
+  \; \theta \in \left]-\pi,\pi\right[.
+  \]</span></div>
+<p>It is a bijection from <span class="math inline">\(\mathbb{C} \setminus \mathbb{R}_-\)</span> into <span class="math inline">\(\mathbb{R} \times \left]-\pi, +\pi \right[\)</span> and for every <span class="math inline">\(z \in \mathbb{C} \setminus \mathbb{R}_-\)</span> <span class="math display">\[
+  e^{\log z} = \exp \circ \log (z) = z.
+  \]</span> The exponential function is continuously real-differentiable and <span class="math display">\[d\exp_z (h) = (\exp z) \times h\]</span> hence its differential <span class="math inline">\(d \exp_z\)</span> is invertible. By the inverse function theorem, <span class="math inline">\(\log\)</span> is real-differentiable on <span class="math inline">\(\mathbb{C} \setminus \mathbb{R}_-\)</span> and <span class="math display">\[
+  d \exp_{\log z} \circ \, d\log_z (h) = z \times d \log_z (h) = h.
+  \]</span> Consequently, <span class="math inline">\(d \log_z(h) = h/z,\)</span> which is a complex-linear function of <span class="math inline">\(h.\)</span> Hence, <span class="math inline">\(\log\)</span> is complex-differentiable and <span class="math display">\[
+  \log'(z) 
+  = \frac{1}{z}.
+  \]</span></p>
+</section>
+<section id="definition--example--power-functions." class="level3">
+
+<div class="p"><h3><a href="#definition--example--power-functions.">Definition &amp; Example – Power Functions.</a></h3>‌ The <em>principal value of the power with exponent <span class="math inline">\(\alpha\)</span></em> – where <span class="math inline">\(\alpha \in \mathbb{C}\)</span> – is the function <span class="math inline">\(z \in \mathbb{C} \setminus \mathbb{R}_- \mapsto z^{\alpha} \in \mathbb{C}\)</span> defined by <span class="math display">\[
+  z^{\alpha} = e^{\alpha \log z}.
+  \]</span> <a href="#theorem--chain-rule." class="preview">By the chain rule</a>, it is holomorphic and <span class="math display">\[
+  \begin{split}
+  \frac{dz^{\alpha}}{dz} 
+    &amp; = e^{\alpha \log z} \times \frac{d \alpha \log z}{dz} \\
+    &amp; = \alpha e^{\alpha \log z} e^{-\log z} \\
+    &amp; = \alpha z^{\alpha - 1}
+  \end{split} 
+  \]</span></div>
+</section>
+</section>
+<section id="appendix-terminology-and-notation" class="level1">
+<h1><a href="#appendix-terminology-and-notation">Appendix – Terminology and Notation</a></h1>
+<p>It is common to use of the word “holomorphic” and the notation <span class="math inline">\(\mathcal{H}(\Omega)\)</span> to refer to functions that are complex-differentiable on some open set <span class="math inline">\(\Omega;\)</span> it is for example the convention of the classic “Real and Complex Analysis” book <span class="citation" data-cites="Rud87">(Rudin <a href="#ref-Rud87">1987</a>)</span>.</p>
+<p>The term “holomorphic” appears in “Théorie des fonctions elliptiques” <span class="citation" data-cites="BB75">(<a href="#ref-BB75">1875</a>)</span>, by Charles Briot &amp; Claude Bouquet, two students of Augustin-Louis Cauchy:</p>
+<blockquote>
+<p>Lorsqu’une fonction est continue, monotrope, et a une dérivée, quand la variable se meut dans une certaine partie du plan, nous dirons qu’elle est <em>holomorphe</em> dans cette partie du plan. Nous indiquons par cette dénomination qu’elle est semblable aux fonctions entières qui jouissent de cette propriété dans toute l’étendue du plan.</p>
+</blockquote>
+<p>In essence, a function is holomorphic if it is continuous, single-valued and differentiable in a subset of the complex plane. The prefix “holo” (from ancient Greek) means “entire”; it makes sense because such a function is similar to polynomials, which have these properties in the full complex plane and were called “entire functions” in the 19th century<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>.</p>
+<p>The most common alternate notations and terms used in the literature to refer to holomorphic functions probably are:</p>
+<ul>
+<li><p><span class="math inline">\(\mathcal{A}(\Omega).\)</span> The symbol “A” refers to the term “analytic”; it is often used interchangeably with the term “holomorphic”. Originally, “analytic” means “locally defined as a power series”, but both concepts actually refer to the same class of functions. This is a classic – but not trivial – result of complex analysis.</p></li>
+<li><p><span class="math inline">\(C^{\omega}(\Omega).\)</span> Another result of the theory of analytic functions: analytic functions are “more than smooth”: they all belong to the set <span class="math inline">\(C^{\infty}(\Omega)\)</span> of smooth functions, but not every smooth function is analytic. Hence, it makes sense to use the symbol <span class="math inline">\(\omega\)</span> – that denotes the smallest infinite ordinal number – as an exponent.</p></li>
+<li><p><span class="math inline">\(\mathcal{O}(\Omega)\)</span> (used e.g.&nbsp;in “Theory of Complex Functions” by <span class="citation" data-cites="Rem91">Remmert (<a href="#ref-Rem91">1991</a>)</span>). <a href="https://www-fourier.ujf-grenoble.fr/~demailly/">Jean-Pierre Demailly</a> <span class="citation" data-cites="Dem09">(<a href="#ref-Dem09">2009</a>)</span> traces the origin of this notation to the word “olomorfico” (“holomorphic” in Italian), but Hans Grauert and Reinhold Remmert <span class="citation" data-cites="GR84">(<a href="#ref-GR84">1984</a>)</span> have a different analysis: the symbol “O” may have been chosen by <a href="https://fr.wikipedia.org/wiki/Henri_Cartan">Henri Cartan</a>, which is quoted saying (in French) that:</p>
+<blockquote>
+<p>Je m’étais simplement inspiré d’une notation utilisée par van der Waerden dans son classique traité “Moderne Algebra” (cf.&nbsp;par exemple §16 de la 2e édition allemande, p.52)</p>
+</blockquote>
+<p>which means</p>
+<blockquote>
+<p>I simply took inspiration from a notation used by van der Waerden in his classic treatise “Modern Algebra” (see e.g. §16 of the 2nd german edition, p.52)</p>
+</blockquote>
+<p>If this interpretation is correct, then the symbol “O” <a href="http://math.stackexchange.com/questions/436078/where-does-the-symbol-mathcal-o-for-sheaves-come-from">probably comes from</a> the word “ordnüng” (“order” in German).</p></li>
+</ul>
+<!--
+It's also worth mentioning that several classic Complex Analysis books -- 
+such as "The Theory of Functions" [@Tit75] and "Complex Analysis" [@Ahl79] --
+don't need any notation for the set of holomorphic functions; 
+they use words instead.
+-->
+</section>
+<section id="references" class="level1 unnumbered">
+<h1><a href="#references">References</a></h1>
+<div id="refs" class="references"><ol><li id="ref-BB75" style="margin-bottom:0.75em"><em>Théorie des Fonctions Elliptiques</em><br>Charles Briot and Jean-Claude Bouquet, 1875.<br>JSON: <a href="data:application/json;charset=utf-8;fontSize64,ewogICJVUkwiOiAiaHR0cDovL2dhbGxpY2EuYm5mLmZyL2FyazovMTIxNDgvYnB0Nms5OTU3MXciLAogICJhdXRob3IiOiBbCiAgICB7CiAgICAgICJmYW1pbHkiOiAiQnJpb3QiLAogICAgICAiZ2l2ZW4iOiAiQ2hhcmxlcyIKICAgIH0sCiAgICB7CiAgICAgICJmYW1pbHkiOiAiQm91cXVldCIsCiAgICAgICJnaXZlbiI6ICJKZWFuLUNsYXVkZSIKICAgIH0KICBdLAogICJlZGl0aW9uIjogIjJuZCBlZC4iLAogICJpZCI6ICJCQjc1IiwKICAiaXNzdWVkIjogewogICAgImRhdGUtcGFydHMiOiBbCiAgICAgIFsKICAgICAgICAxODc1CiAgICAgIF0KICAgIF0KICB9LAogICJsYW5ndWFnZSI6ICJGcmVuY2giLAogICJwdWJsaXNoZXIiOiAiR2F1dGhpZXItVmlsbGFycywgUGFyaXMiLAogICJ0aXRsZSI6ICJUaMOpb3JpZSBkZXMgZm9uY3Rpb25zIGVsbGlwdGlxdWVzLiIsCiAgInR5cGUiOiAiYm9vayIKfQ=="><i style="font-size:18px;position:relative;bottom:0.05em;" class="fa fa-file-text-o"></i></a>&nbsp; / URL: <a href="http://gallica.bnf.fr/ark:/12148/bpt6k99571w"><i style="font-size:18px" class="fa fa-link"></i></a></li><li id="ref-Cau25" style="margin-bottom:0.75em"><em>Mémoire sur les Intégrales Définies, Prise entre des Limites Imaginaires</em><br>Augustin-Louis Cauchy, 1825.<br>JSON: <a href="data:application/json;charset=utf-8;fontSize64,ewogICJET0kiOiAiMTAuMzkzMS9lLXJhcmEtMjYzMDAiLAogICJVUkwiOiAiaHR0cDovL3d3dy5lLXJhcmEuY2gvenV0L2RvaS8xMC4zOTMxL2UtcmFyYS0yNjMwMCIsCiAgImF1dGhvciI6IFsKICAgIHsKICAgICAgImZhbWlseSI6ICJDYXVjaHkiLAogICAgICAiZ2l2ZW4iOiAiQXVndXN0aW4tTG91aXMiCiAgICB9CiAgXSwKICAiaWQiOiAiQ2F1MjUiLAogICJpc3N1ZWQiOiB7CiAgICAiZGF0ZS1wYXJ0cyI6IFsKICAgICAgWwogICAgICAgIDE4MjUKICAgICAgXQogICAgXQogIH0sCiAgImxhbmd1YWdlIjogIkZyZW5jaCIsCiAgInB1Ymxpc2hlciI6ICJDaGV6IGRlIEJ1cmUgRnLDqHJlcy4iLAogICJ0aXRsZSI6ICJNw6ltb2lyZSBzdXIgbGVzIGludMOpZ3JhbGVzIGTDqWZpbmllcywgcHJpc2UgZW50cmUgZGVzIGxpbWl0ZXMgaW1hZ2luYWlyZXMuIiwKICAidHlwZSI6ICJib29rIgp9"><i style="font-size:18px;position:relative;bottom:0.05em;" class="fa fa-file-text-o"></i></a>&nbsp; / URL: <a href="http://www.e-rara.ch/zut/doi/10.3931/e-rara-26300"><i style="font-size:18px" class="fa fa-link"></i></a>  / DOI: <a href="https://doi.org/10.3931/e-rara-26300"><i style="font-size:18px" class="fa fa-link"></i></a></li><li id="ref-Dem09" style="margin-bottom:0.75em"><em>Fonctions Holomorphes et Surfaces de Riemann</em><br>Jean-Pierre Demailly, 2009.<br>JSON: <a href="data:application/json;charset=utf-8;fontSize64,ewogICJVUkwiOiAiaHR0cHM6Ly93d3ctZm91cmllci51amYtZ3Jlbm9ibGUuZnIvfmRlbWFpbGx5L21hbnVzY3JpcHRzL3ZhcmlhYmxlX2NvbXBsZXhlLnBkZiIsCiAgImF1dGhvciI6IFsKICAgIHsKICAgICAgImZhbWlseSI6ICJEZW1haWxseSIsCiAgICAgICJnaXZlbiI6ICJKZWFuLVBpZXJyZSIKICAgIH0KICBdLAogICJpZCI6ICJEZW0wOSIsCiAgImlzc3VlZCI6IHsKICAgICJkYXRlLXBhcnRzIjogWwogICAgICBbCiAgICAgICAgMjAwOQogICAgICBdCiAgICBdCiAgfSwKICAibGFuZ3VhZ2UiOiAiRnJlbmNoIiwKICAidGl0bGUiOiAiRm9uY3Rpb25zIGhvbG9tb3JwaGVzIGV0IHN1cmZhY2VzIGRlIHJpZW1hbm4uIiwKICAidHlwZSI6ICJib29rIgp9"><i style="font-size:18px;position:relative;bottom:0.05em;" class="fa fa-file-text-o"></i></a>&nbsp; / URL: <a href="https://www-fourier.ujf-grenoble.fr/~demailly/manuscripts/variable_complexe.pdf"><i style="font-size:18px" class="fa fa-link"></i></a></li><li id="ref-Fre99" style="margin-bottom:0.75em"><em>On the Problem of Characterizing Derivatives</em><br>Chris Freiling, 1999.<br>JSON: <a href="data:application/json;charset=utf-8;fontSize64,ewogICJVUkwiOiAiaHR0cDovL3Byb2plY3RldWNsaWQub3JnL2V1Y2xpZC5yYWUvMTMzNzAwMTM4OCIsCiAgImF1dGhvciI6IFsKICAgIHsKICAgICAgImZhbWlseSI6ICJGcmVpbGluZyIsCiAgICAgICJnaXZlbiI6ICJDaHJpcyIKICAgIH0KICBdLAogICJjb250YWluZXItdGl0bGUiOiAiUmVhbCBBbmFseXNpcyBFeGNoYW5nZSIsCiAgImlkIjogIkZyZTk5IiwKICAiaXNzdWVkIjogewogICAgImRhdGUtcGFydHMiOiBbCiAgICAgIFsKICAgICAgICAxOTk5CiAgICAgIF0KICAgIF0KICB9LAogICJwYWdlIjogIjgwNS04MTIiLAogICJ0aXRsZSI6ICJPbiB0aGUgcHJvYmxlbSBvZiBjaGFyYWN0ZXJpemluZyBkZXJpdmF0aXZlcyIsCiAgInR5cGUiOiAiYXJ0aWNsZS1qb3VybmFsIiwKICAidm9sdW1lIjogIjIzKDIpIgp9"><i style="font-size:18px;position:relative;bottom:0.05em;" class="fa fa-file-text-o"></i></a>&nbsp; / URL: <a href="http://projecteuclid.org/euclid.rae/1337001388"><i style="font-size:18px" class="fa fa-link"></i></a></li><li id="ref-Gou00" style="margin-bottom:0.75em"><em>Sur la Définition Générale des Fonctions Analytiques d’Après Cauchy</em><br>Edouard Goursat, 1900.<br>JSON: <a href="data:application/json;charset=utf-8;fontSize64,ewogICJET0kiOiAiMTAuMjMwNy8xOTg2Mzk4IiwKICAiSVNTTiI6ICIwMDAyLTk5NDc7IDEwODgtNjg1MC9lIiwKICAiYXV0aG9yIjogWwogICAgewogICAgICAiZmFtaWx5IjogIkdvdXJzYXQiLAogICAgICAiZ2l2ZW4iOiAiRWRvdWFyZCIKICAgIH0KICBdLAogICJjb250YWluZXItdGl0bGUiOiAiVHJhbnNhY3Rpb25zIG9mIHRoZSBBbWVyaWNhbiBNYXRoZW1hdGljYWwgU29jaWV0eS4iLAogICJpZCI6ICJHb3UwMCIsCiAgImlzc3VlZCI6IHsKICAgICJkYXRlLXBhcnRzIjogWwogICAgICBbCiAgICAgICAgMTkwMAogICAgICBdCiAgICBdCiAgfSwKICAicGFnZSI6ICIxNC0xNiIsCiAgInB1Ymxpc2hlciI6ICJBbWVyaWNhbiBNYXRoZW1hdGljYWwgU29jaWV0eSAoQU1TKSwgUHJvdmlkZW5jZSwgUkkuIiwKICAidGl0bGUiOiAiU3VyIGxhIGTDqWZpbml0aW9uIGfDqW7DqXJhbGUgZGVzIGZvbmN0aW9ucyBhbmFseXRpcXVlcyBk4oCZYXByw6hzIENhdWNoeS4iLAogICJ0eXBlIjogImFydGljbGUtam91cm5hbCIsCiAgInZvbHVtZSI6ICIxIgp9"><i style="font-size:18px;position:relative;bottom:0.05em;" class="fa fa-file-text-o"></i></a>&nbsp;  / DOI: <a href="https://doi.org/10.2307/1986398"><i style="font-size:18px" class="fa fa-link"></i></a></li><li id="ref-GR84" style="margin-bottom:0.75em"><em>Coherent Analytic Sheaves</em><br>Hans Grauert and Reinhold Remmert, 1984.<br>JSON: <a href="data:application/json;charset=utf-8;fontSize64,ewogICJhdXRob3IiOiBbCiAgICB7CiAgICAgICJmYW1pbHkiOiAiR3JhdWVydCIsCiAgICAgICJnaXZlbiI6ICJIYW5zIgogICAgfSwKICAgIHsKICAgICAgImZhbWlseSI6ICJSZW1tZXJ0IiwKICAgICAgImdpdmVuIjogIlJlaW5ob2xkIgogICAgfQogIF0sCiAgImNvbnRhaW5lci10aXRsZSI6ICJHcnVuZGxlaHJlbiBkZXIgTWF0aGVtYXRpc2NoZW4gV2lzc2Vuc2NoYWZ0ZW4iLAogICJpZCI6ICJHUjg0IiwKICAiaXNzdWVkIjogewogICAgImRhdGUtcGFydHMiOiBbCiAgICAgIFsKICAgICAgICAxOTg0CiAgICAgIF0KICAgIF0KICB9LAogICJwdWJsaXNoZXIiOiAiU3ByaW5nZXItVmVybGFnLiBYVklJSSwgMjQ5IHAuIERNIDExOC4wMDsgXFxcXFxcJCA0Ni4zMCAoMTk4NCkuJyIsCiAgInRpdGxlIjogIkNvaGVyZW50IGFuYWx5dGljIHNoZWF2ZXMuIiwKICAidHlwZSI6ICJib29rIgp9"><i style="font-size:18px;position:relative;bottom:0.05em;" class="fa fa-file-text-o"></i></a>&nbsp;</li><li id="ref-Hil73" style="margin-bottom:0.75em"><em>Analytic Function Theory</em><br>Einar Hille, 1973.<br>JSON: <a href="data:application/json;charset=utf-8;fontSize64,ewogICJhdXRob3IiOiBbCiAgICB7CiAgICAgICJmYW1pbHkiOiAiSGlsbGUiLAogICAgICAiZ2l2ZW4iOiAiRWluYXIiCiAgICB9CiAgXSwKICAiZWRpdGlvbiI6ICIybmQgZWQuIGNvcnJlY3RlZC4iLAogICJpZCI6ICJIaWw3MyIsCiAgImlzc3VlZCI6IHsKICAgICJkYXRlLXBhcnRzIjogWwogICAgICBbCiAgICAgICAgMTk3MwogICAgICBdCiAgICBdCiAgfSwKICAicHVibGlzaGVyIjogIkNoZWxzZWEgUHVibGlzaGluZyBDb21wYW55LiIsCiAgInRpdGxlIjogIkFuYWx5dGljIGZ1bmN0aW9uIHRoZW9yeS4gVm9sLiBJLCBJSS4iLAogICJ0eXBlIjogImJvb2siCn0="><i style="font-size:18px;position:relative;bottom:0.05em;" class="fa fa-file-text-o"></i></a>&nbsp;</li><li id="ref-Rem91" style="margin-bottom:0.75em"><em>Theory of Complex Functions</em><br>Reinhold Remmert, 1991.<br>JSON: <a href="data:application/json;charset=utf-8;fontSize64,ewogICJJU0JOIjogIjAtMzg3LTk3MTk1LTUiLAogICJhdXRob3IiOiBbCiAgICB7CiAgICAgICJmYW1pbHkiOiAiUmVtbWVydCIsCiAgICAgICJnaXZlbiI6ICJSZWluaG9sZCIKICAgIH0KICBdLAogICJpZCI6ICJSZW05MSIsCiAgImlzc3VlZCI6IHsKICAgICJkYXRlLXBhcnRzIjogWwogICAgICBbCiAgICAgICAgMTk5MQogICAgICBdCiAgICBdCiAgfSwKICAicGFnZSI6ICJ4aXggKyA0NTMiLAogICJwdWJsaXNoZXIiOiAiU3ByaW5nZXItVmVybGFnLiIsCiAgInRpdGxlIjogIlRoZW9yeSBvZiBjb21wbGV4IGZ1bmN0aW9ucy4gVHJhbnNsYXRpb24gZnJvbSB0aGUgR2VybWFuIGJ5IFJvYmVydCBCLiBCdXJja2VsLiIsCiAgInR5cGUiOiAiYm9vayIKfQ=="><i style="font-size:18px;position:relative;bottom:0.05em;" class="fa fa-file-text-o"></i></a>&nbsp;</li><li id="ref-Rud87" style="margin-bottom:0.75em"><em>Real and Complex Analysis</em><br>Walter Rudin, 1987.<br>JSON: <a href="data:application/json;charset=utf-8;fontSize64,ewogICJJU0JOIjogIjAtMDctMDU0MjM0LTEiLAogICJhdXRob3IiOiBbCiAgICB7CiAgICAgICJmYW1pbHkiOiAiUnVkaW4iLAogICAgICAiZ2l2ZW4iOiAiV2FsdGVyIgogICAgfQogIF0sCiAgImVkaXRpb24iOiAiM3JkIGVkLiIsCiAgImlkIjogIlJ1ZDg3IiwKICAiaXNzdWVkIjogewogICAgImRhdGUtcGFydHMiOiBbCiAgICAgIFsKICAgICAgICAxOTg3CiAgICAgIF0KICAgIF0KICB9LAogICJwYWdlIjogInhpdiArIDQxNiIsCiAgInB1Ymxpc2hlciI6ICJNY0dyYXctSGlsbCIsCiAgInRpdGxlIjogIlJlYWwgYW5kIGNvbXBsZXggYW5hbHlzaXMuIDNyZCBlZC4iLAogICJ0eXBlIjogImJvb2siCn0="><i style="font-size:18px;position:relative;bottom:0.05em;" class="fa fa-file-text-o"></i></a>&nbsp;</li></ol></div>
+</section>
+<section class="footnotes" id="notes"><h1><a href="#notes">Notes</a></h1>
+<hr>
+<ol>
+<li id="fn1"><p>In the context of real analysis, derivatives can’t be totally arbitrary either. They satisfy for example the intermediate value theorem (a property which is weaker than continuity). Refer to <span class="citation" data-cites="Fre99">(Freiling <a href="#ref-Fre99">1999</a>)</span> for a complete characterization.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>To be honest, this assumption is only implicit, but you can’t really blame Cauchy for this lack of precision. The standards of quality for Mathematics in the 19th century were quite different from the present ones.<a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>Nowadays, a function is entire if is defined and holomorphic on <span class="math inline">\(\mathbb{C},\)</span> which is a more consistent definition. Polynomials are still entire functions, but they are not the only ones.<a href="#fnref3">↩</a></p></li>
+</ol>
+</section>
+</main>
+
+
+</body></html>

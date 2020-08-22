@@ -1,0 +1,627 @@
+% Poisson Image Editing
+% [Sébastien Boisgérault][email], Mines ParisTech
+
+[email]: mailto:Sebastien.Boisgerault@mines-paristech.fr
+
+---
+license: "[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0)"
+---
+
+
+Introduction
+================================================================================
+
+Poisson Image Editing refers to a family of methods introduced in [@PGB03] 
+that rely on the resolution of the Poisson equation to perform seamless editing 
+of images. Typical use cases include:
+healing of images from damaged or missing data, 
+image enhancements, e.g. the removal of skin blemishes in portraits,
+heavy image editing, for example the concealement of objects.
+
+The [GNU Image Manipulation Program][GIMP] (GIMP) "Heal tool" implements a
+Poisson Image Editing method[^implementation], described in the [documentation] 
+as "a smart clone tool on steroids", because:
+
+  > Pixels are not simply copied from source to destination, 
+  > but the area around the destination is taken into account 
+  > before cloning is applied.
+
+[^implementation]: the GIMP developers state 
+that they use the method described in [@GEO05], a variant of the 
+original design that is invariant under relighting, but a closer examination of
+the [source code](https://git.gnome.org/browse/gimp/tree/app/paint/gimpheal.c)
+shows that they actually use the original method.
+
+![GIMP Toolbox -- The Heal tool is featured by the band-aid icon.](images/GIMP-toolbox.png)
+
+[GIMP]: http://www.gimp.org/
+[documentation]: http://docs.gimp.org/en/gimp-tool-heal.html
+
+Let's demonstrate Poisson image editing with GIMP. Say that we want to hide 
+the watch in the image below, in a way one cannot guess that there was an 
+item to begin with.
+
+![[Photograph by Vadim Sherbakov](https://unsplash.com/photos/tCICLJ5ktBE), licensed under [Unsplash Creative Commons Zero License](https://unsplash.com/license).](images/objects.jpg)
+
+We first select a disk in a region of the image where there is no object, 
+to capture the texture of the background behind the objects. 
+GIMP displays this region with a dashed line (see "GIMP Heal tool in action" 
+figure). We make sure that the disk is big enough to cover a significant part 
+of the watch, and small enough to avoid the objects that are close to it.
+Then we graft this heal source on top of the lower part of the watch,
+then on its upper part. The final result is a seamless removal of the
+watch from the picture.
+
+![The GIMP Heal tool in action.](images/desktop.jpg)
+
+![Work in progress (zoom in)](images/objects-in-progress-small-wide.jpg)
+
+![The Poisson edited image](images/objects-final.jpg)
+
+
+Modelling the Problem
+================================================================================
+
+Consider a circular image fragment $\phi$ that requires some editing. 
+If the image resolution is good enough, it is sensible to model this fragment
+as a function $\phi$ of two continuous variables $x$ and $y,$ 
+defined inside the unit disk 
+  $$
+  D = \{(x,y) \in \mathbb{R}^2 \, | \, x^2 + y^2 < 1\}
+  $$
+and on its boundary $\partial D.$
+
+If we deal with grayscale images, we can assume that $\phi$ is real-valued,
+even with values in $[0,1]$ after a suitable normalization of the image intensity.
+Color images can easily be modelled too, for example as triples of real-valued 
+functions, one for each channel in a RGB decomposition.
+
+We search for a new image fragment $\psi,$ that matches *exactly* the original
+fragment $\phi$ on the boundary $\partial D$ and whose texture 
+matches *approximately* the texture of a third image fragment $\chi$ in $D.$ 
+We assume that the texture of an image fragment is essentially captured by its gradient field;
+for the sake of simplicity, we  measure the dissimilarity of two 
+gradients with the quadratic mean of their difference.
+
+To summarize, we are trying to solve:
+  $$
+  \min_{\psi} \int_{D} \|\nabla (\psi - \chi)\|^2
+  \; \mbox{ with } \;
+  \psi|_{\partial D} = \phi|_{\partial D}.
+  $$
+
+If we set $u = \psi - \chi$ and $f = (\phi - \chi)|_{\partial D},$
+we end up with a function $u$ that solves the *variational Dirichlet problem*: 
+the minimization of the *Dirichlet energy* of $u,$
+subject to the *Dirichlet boundary condition* $f$:
+    $$
+    \min_{u} \int_{D} \| \nabla u \|^2
+    \; \mbox{ with } \;
+    u|_{\partial D} = f.
+    $$
+We may also search $u$ as a solution of the *Dirichlet problem*:
+  $$
+  \Delta u  = 0 \, \mbox{ on } \, D
+  \; \mbox{ with } \;
+  u|_{\partial D} = f  
+  $$
+as both problems are -- at least informally -- equivalent. 
+Indeed, given two candidate solutions $u$ and $u+\epsilon$ to the variational 
+problem, we have
+  $$
+  \int_{D} \|\nabla (u + \epsilon) \|^2
+    =
+    \int_{D} \|\nabla u \|^2
+    +
+      2 \int_{D} \nabla u \cdot \nabla \epsilon 
+    + \int_{D} \| \epsilon \|^2,
+  $$
+hence $u$ is a minimizer if and only if
+  $$ 
+  \forall \, \epsilon \, \mbox{ such that} \ \epsilon|_{\partial D}=0, \,
+  \int_{D} \nabla u \cdot \nabla \epsilon 
+  = 0
+  $$
+Given Green's first identity, this condition holds if and only if
+$\Delta u = 0$ on $D.$
+
+In the sequel we study the Dirichlet problem in the classic setting:
+
+**Definition -- Dirichlet Problem.** Given a continuous function
+$f: \partial D \to  \mathbb{R},$ a *classic* solution of the 
+Dirichlet problem is a function $u: \overline{D} \to \mathbb{R}$ 
+which is continuous in $\overline{D},$ twice continously 
+differentiable in $D,$ and such that
+  $$
+  \Delta u  = 0 \, \mbox{ on } \, D
+  \; \mbox{ with } \;
+  u|_{\partial D} = f.
+  $$
+
+
+Harmonic Functions
+================================================================================
+
+**Definition -- Harmonic functions.** A function $u:\Omega \to \mathbb{R}$ 
+defined in an open subset $\Omega$ of $\mathbb{C}$ is *harmonic* 
+if it is twice continuously differentiable and $\Delta u = 0$ on $\Omega.$
+
+**Theorem -- The real part of a holomorphic function is harmonic.**
+
+**Proof.** 
+First we prove that $u = \mathrm{Re} \,f$ is twice continuously differentiable 
+when $f:\Omega \to \mathbb{C}$ is holomorphic.
+The operator $\mathrm{Re}$ is real-linear and continuous hence it is
+real-differentiable and $d\mathrm{Re}_{z} = \mathrm{Re}$ 
+for any $z\in\mathbb{C}.$
+On the other hand, $f$ is real-differentiable and $df_z(h) = f'(z) \times h.$
+Therefore, $u$ is real-differentiable and 
+$du_z(h) = \mathrm{Re} (f'(z) \times h).$
+Consequently, 
+  $$
+  \frac{\partial u}{\partial x}(x,y) 
+  = \mathrm{Re} ( f'(z) \times 1 )
+  \; \mbox{ and } \;
+  \frac{\partial u}{\partial y}(x,y) 
+  = \mathrm{Re} (f'(z) \times i).
+  $$
+The partial derivatives of first order of $u$ are continuous. They also appear
+as real parts of holomorphic functions, hence we can repeat the computation of 
+partial derivatives with the same scheme to prove that $u$ is twice continuously 
+differentiable. 
+
+Now, for any function $u$ that is twice continuously differentiable, we have
+  $$
+  \Delta u = 
+  \left(\frac{\partial }{\partial x} + i \frac{\partial }{\partial y} \right) 
+  \left(\frac{\partial u}{\partial x} - i \frac{\partial u}{\partial y} \right).
+  $$
+If $u = \mathrm{Re} \,f$ and $v=\mathrm{Im} \, f$ where $f$ is holomorphic, then
+  $$
+  f' = \frac{\partial u}{\partial x} + i \frac{\partial v}{\partial x} 
+     =  \frac{\partial u}{\partial x} - i \frac{\partial u}{\partial y},
+  $$
+hence
+  $$
+  \Delta u = \frac{\partial f'}{\partial x} + i \frac{\partial f'}{\partial y} = 0
+  $$
+by the complex form of the Cauchy-Riemann equation for $f'.$
+\hfill $\blacksquare$
+
+There is a partial converse theorem:
+
+**Theorem -- A harmonic function is *locally* the real part of a holomorphic function.**
+If $u:\Omega \to \mathbb{R}$ is harmonic, for any 
+$z \in \Omega,$ there is an open neighbourhood $V$ of $z$
+and a holomorphic function $f:V\to\mathbb{C}$ such that $u|_{V} = \mathrm{Re} \,f.$
+
+Actually, we will show a stronger result: the *global* existence of a
+holomorphic function if the domain of definition of the harmonic function is 
+simply connected. But first, we need the following lemma:
+
+**Lemma.** If $u:\Omega \to \mathbb{R}$ is harmonic, the function $f:\Omega \to \mathbb{C}$
+defined by
+  $$
+  f(x+iy)=\frac{\partial u}{\partial x}(x,y) - i \frac{\partial u}{\partial y}(x,y)
+  $$
+is holomorphic.
+
+**Proof.** As $u$ is twice continuously differentiable, $f$ is continuously differentiable and
+its partial derivatives are given by
+  $$
+  \frac{\partial f}{\partial x}
+    = \frac{\partial^2 u}{\partial x^2} 
+    - i \frac{\partial^2 u}{\partial x\partial y}, \;
+  \frac{\partial f}{\partial y} 
+    = \frac{\partial^2 u}{\partial y \partial x} 
+    - i \frac{\partial^2 u}{\partial y^2}.
+  $$
+Consequently, the complex form of the Cauchy-Riemann equation holds: 
+  $$
+  \frac{\partial f}{\partial y} - i \frac{\partial f}{\partial x} = 
+  \left(
+    \frac{\partial^2 u}{\partial y \partial x} 
+  - \frac{\partial^2 u}{\partial x\partial y} 
+  \right) 
+  - i \Delta u 
+  = 0.
+  $$
+It follows that the function $f$ is holomorphic. \hfill $\blacksquare$
+
+Now, we may prove the converse theorem.
+
+**Proof.** 
+Assume that $u: \Omega \to \mathbb{R}$ is harmonic and 
+that $\Omega$ is simply connected. 
+By Cauchy's integral theorem, the integral along any closed rectifiable path
+of $\Omega$ of the holomorphic function $f$ of the lemma is zero, 
+thus it has a primitive. Any such primitive $g$ satisfies:
+  $$
+  g'(x+iy) = f(x+iy)
+  = \frac{\partial u}{\partial x}(x,y) - i \frac{\partial u}{\partial y}(x,y).
+  $$
+Let $\tilde{u} = \mathrm{Re} \,g$ and $\tilde{v} = \mathrm{Im} \, g;$ we have 
+  $$
+  g'(x+iy) 
+  = \frac{\partial \tilde{u}}{\partial x}(x,y) + i \frac{\partial \tilde{v}}{\partial x}(x,y)
+  = \frac{\partial \tilde{u}}{\partial x}(x,y) - i \frac{\partial \tilde{u}}{\partial y}(x,y),
+  $$
+hence $d\tilde{u} = du.$ Up to the correction of $f$ by a constant value in each connected
+component of $\Omega,$ this result yields $\tilde{u} = u.$ \hfill $\blacksquare$
+
+A consequence of the converse theorem:
+
+**Theorem -- Harmonic functions are smooth (of class $C^{\infty}$).** 
+
+**Proof.** Every harmonic function is locally the real part of a holomorphic
+function. The same method that we used to prove that such a function is twice 
+continuously differentiable can actually be used to prove that it is of class 
+$C^{\infty}.$
+
+**Theorem -- The Maximum Principle.** 
+Let $\Omega$ be an open connected subset of $\mathbb{C}$ 
+and $u:\Omega \to \mathbb{R}$ be an harmonic function. 
+If $u$ has a maximum or a minimum on $\Omega,$ then $u$ is constant.
+
+**Proof.** 
+We use the maximum principle that holds for the modulus of
+holomorphic functions, first in a special case. 
+Assume that $u$ has a maximum 
+on $\Omega$ and additionally that $\Omega$ is simply connected.
+There is a holomorphic function $f$ on $\Omega$ such that $\mathrm{Re} \,f = u.$ 
+The function $g = \exp f$ is holomorphic on $\Omega$ and 
+$|g| = \exp \mathrm{Re} (f) = \exp u,$ hence $|g|$ has a maximum in $\Omega,$ 
+therefore $g$ is a constant $\lambda \in \mathbb{C}^*$. 
+Let $\mu$ be a complex number such that $e^{\mu} = \lambda$;
+the image of $\Omega$
+by $f$ is necessarily a subset of $\{\mu\} + i2\pi \mathbb{Z}$.
+Since $f(\Omega)$ is the image of a connected set by a continuous function,
+it is connected and thus, it is a singleton. Finally, $f$ 
+-- and therefore $u$ -- are constant.
+
+We now consider the general case: we only assume that $u$ has a maximum 
+on $\Omega$ at some point $z_0.$ 
+Let $z \in \Omega;$ we can find some
+connected and simply connected open subset $V$ of $\Omega$ that contains
+$z_0$ and $z$([^sc]). 
+Using the result obtained in the special case proves that the function
+$u$ is constant on $V$ and in particular $u(z) = u(z_0).$ 
+As $z$ is arbitrary, that proves that $u$ is constant on $\Omega.$
+
+If $u$ has a minimum instead of a maximum, we may apply the previous result to
+to the function $-u$ that is also harmonic and has a maximum. \hfill $\blacksquare$
+
+[^sc]: for example, consider a polyline 
+  $\gamma = [z_0 \to z_1 \to \cdots \to z_{n-1} \to z_n]$
+  of $\Omega$ that joins $z_0$ and $z_{n}=z$;
+  we may assume that it is simple
+  (that the function $\gamma$ is injective).
+  If $r>0$ is small enough, the open connected set 
+  $V= \gamma([0,1]) + D(0,r)$
+  is included in $\Omega$, connected and simply connected.
+  
+
+The Dirichlet Problem
+================================================================================
+
+We will prove soon that the Dirichlet problem has a unique solution; what we
+can already prove is the:
+
+**Lemma -- Uniqueness of the Solution.** 
+There is at most one classic solution $u$ to the Dirichlet problem 
+with continuous boundary condition $f.$ 
+
+**Proof.** The Dirichlet problem is linear, hence we only need to prove 
+that if $u=0$ on the boundary of $D,$ then $u=0$ in $D.$
+The function $u$ is continous on $\overline{D},$ therefore it has a maximum
+and a minimum. By the maximum principle for harmonic functions, if the maximum
+or the minimum is attained in $D,$ then $u$ is constant in $D,$ 
+and by continuity on the boundary, $u=0$ on $D.$ 
+Otherwise, the minimum and maximum of $u$ are both attained on $\partial D$ and 
+therefore they are both $0;$ we also conclude in this case that $u=0$ on $D.$
+\hfill $\blacksquare$
+
+
+Harmonic/Fourier Analysis
+--------------------------------------------------------------------------------
+
+**Lemma -- Elementary Solutions.** Let $n \in \mathbb{N}.$
+If $f(e^{i\theta}) = \cos (n \theta + \phi),$ then
+  $$
+  u(r e^{i\theta}) = r^n \cos (n\theta + \phi)
+  $$
+solves the Dirichlet problem with boundary condition $f.$
+
+**Proof.** The function $u$ is continuous and its restriction on $\partial D$
+is $f.$
+Moreover, if $|z| < 1,$ $u(z) = \mathrm{Re} (e^{i\phi} z^n);$ as the function 
+$z \mapsto e^{i\phi} z^n$ is holomorphic in $D,$
+the function $u$ is harmonic in $D.$
+\hfill $\blacksquare$
+
+![On the left, a greyscale representation of the function $r e^{i\theta} \mapsto \cos 3\theta.$
+On the right, the uniform image used as a source for the Poisson editing.
+](images/dirichlet-original-and-source-3.png)
+
+![On the left, in the circle, (boundary) values extracted from the original image; 
+in the disk, the solution ($re^{i\theta} \mapsto r^3 \cos 3\theta$) 
+to the corresponding Dirichlet problem. 
+On the right, the original image edited with this solution.](images/dirichlet-solution-and-healed-3.png)
+
+This result can be readily extended to finite trigonometric series: 
+if for some finite sequence of real-valued coefficients $(a_n)$ and $(\phi_n),$
+$f: \partial D \to \mathbb{R}$ can be decomposed as 
+  $$
+  f(\theta) = \sum_n a_n \cos (n\theta + \phi_n)
+  $$
+then by linearity, the function
+  $$
+  u(re^{i\theta}) = \sum_n a_n r^n \cos (n\theta + \phi_n)
+  $$
+is a solution of the corresponding Dirichlet problem. Now, if $f^{*}$ is merely
+continuous but can be uniformly approximated to the precision $\epsilon$ by
+the finite trigonometric series $f$:
+  $$
+  \sup_{\theta} |f^*(e^{i\theta}) - f(e^{i\theta})| \leq \epsilon
+  $$
+and if $u^*$ is a solution to the Dirichlet problem with boundary condition
+$f^*,$ then by linearity, $u^* - u$ is a solution to the Dirichlet problem 
+with boundary condition $f^* - f;$ the maximum principle then provides
+  $$
+  \sup_{|z| \leq 1} |u^*(z) - u(z)| \leq \epsilon.
+  $$
+Now, [Fejér's theorem] ensures that the approximation of $f^*$ by finite 
+trigonometric series can be achieved with an arbitrary small precision $\epsilon> 0.$
+Hence, we can build an abritrarily precise uniform approximation of the 
+solution to the Dirichlet problem.
+
+![Approximations of the solution of the Dirichlet problem with boundary condition
+$f(e^{i\theta}) = 0.25 + 0.75 / (5 - 4 \cos \theta)$ based on Fourier series
+expansions of length 1 to 6. Refer to
+the [appendix][Analytic Boundary Condition] for details.](images/dirichlet-analytic-all.png) 
+
+[Fejér's theorem]: http://en.wikipedia.org/wiki/Fej%C3%A9r%27s_theorem
+
+
+The Poisson Kernel
+--------------------------------------------------------------------------------
+
+The main result of this section:
+
+**Theorem -- Solution of the Dirichlet Problem.** The Dirichlet problem 
+with a continuous boundary condition $f$ has a unique classic solution $u,$ 
+given in the unit disk by the Poisson integral
+  $$
+  u(r e^{i\theta}) 
+    = \frac{1}{2\pi} \int_{-\pi}^{\pi} 
+        \frac{1 - r^2}{1 -2r \cos (\theta - \alpha) + r^2} f(e^{i\alpha}) \, d\alpha.
+  $$
+
+Let's start with some definitions:
+
+**Definition -- Poisson Kernel.** The Poisson kernel is the function $P$ defined in the 
+unit disk by
+  $$
+  P(r e^{i\theta}) = \frac{1-r^2}{1 - 2r\cos \theta + r^2}.
+  $$
+
+![Poisson Kernel -- Graphs of $[\theta \mapsto P(r e^{i\theta})]$](images/poisson-kernel.pdf)
+
+**Definition -- Poisson Integral Operator.** The Poisson integral operator $\mathcal{P}$
+maps a continuous function $f$ defined on the boundary of the unit disk
+to the the function $\mathcal{P}[f]$ defined inside the unit disk by 
+  $$
+  \mathcal{P}[f](r e^{i\theta}) = 
+  \frac{1}{2\pi} \int_{-\pi}^{\pi} P(r e^{i(\theta - \alpha)}) f(e^{i\alpha}) \, d\alpha.
+  $$
+
+Accordingly, the main result of this section may be restated as:
+
+**Theorem -- Solution of the Dirichlet Problem.**
+Let $f: \partial D \to \mathbb{R}$ be continuous. 
+The function $u:\overline{D} \mapsto \mathbb{R}$ defined as
+$u|_{D} = \mathcal{P}[f]$ and $u|_{\partial D} = f$ is the unique classic 
+solution of the Dirichlet problem with boundary condition $f.$
+
+The proof of this fundamental result requires several lemmas.
+
+**Lemma -- Poisson Kernel, Alternate Representations.** The Poisson kernel satisfies:
+  $$
+  P(z) = \frac{1}{1-z} - \frac{1}{1 - 1/\overline{z}}
+  = \mathrm{Re} \left[ \frac{1+z}{1-z} \right].
+  $$
+Hence, it is harmonic.
+
+**Proof.** Start with the formula of the first alternate representation and write
+  $$
+  \frac{1}{1-z} - \frac{1}{1 - 1/\overline{z}}
+  = \left[\frac{1}{1-z} - \frac{1}{2} \right] + \left[ \frac{1}{2} - 
+    \frac{\overline{z}}{\overline{z} - 1}  \right].
+  $$
+This expression can be simplified into
+  $$
+  \frac{1}{2}\left[\frac{2}{1-z} - \frac{1-z}{1-z} \right] + 
+  \frac{1}{2}\left[ \frac{\overline{z}-1}{\overline{z}-1} - \frac{2 \overline{z}}{\overline{z}-1}  \right]
+  = \frac{1}{2} \left[ \frac{1+z}{1-z} + \frac{1+\overline{z}}{1-\overline{z}}\right],
+  $$
+which is the second alternate representation. On the other hand, the identity
+  $$
+  \frac{1+z}{1-z} = \frac{(1+z)(1-\overline{z})}{(1-z)(1-\overline{z})} 
+  $$
+leads to the equation
+  $$
+  \mathrm{Re} \left[ \frac{1+z}{1-z} \right] = \frac{1-|z|^2}{1 - 2\mathrm{Re} \,z + |z|^2}
+  $$
+which is equivalent to the original definition of the Poisson kernel. \hfill $\blacksquare$
+
+**Lemma -- Poisson Kernel, Fourier Series.**
+The Poisson kernel has the following (locally uniformly convergent) Fourier expansion
+  $$
+  P(r e^{i\theta}) = \sum_{n=-\infty}^{+\infty} r^{|n|} e^{in\theta}.
+  $$
+
+**Proof.** Rewrite the first alternate representation of the Poisson kernel as
+  $$
+  P(z)
+  =
+  \frac{1}{1-z} - \frac{1}{1 - 1/\overline{z}} 
+  =
+ \frac{1}{1-z} + \overline{z}\frac{1}{1 - \overline{z}}.
+  $$
+The two terms of the right-hand side are sums of geometric series with ratio
+$z$ and $\overline{z}$ respectively and can be expanded accordingly. This
+process yields the Fourier expansion formula.
+Both power series are locally uniformly convergent, 
+hence the Fourier expansion also has this property.
+\hfill $\blacksquare$
+
+**Lemma -- Poisson Integral, Harmonicity.**
+Let $f: \partial D \to \mathbb{R}$ be continuous. 
+The function $\mathcal{P}[f]$ is harmonic in $D.$
+
+**Proof.** The definition of the Poisson integral operator and
+the second alternate representation of the Poisson kernel yield
+  $$
+  \mathcal{P}[f](z) = 
+  \frac{1}{2\pi} \int_{-\pi}^{\pi}  \mathrm{Re} \left[ \frac{1+ze^{-i\alpha}}{1-ze^{-i\alpha}} \right] f(e^{i\alpha}) \, d\alpha
+  = \mathrm{Re} \left[ \frac{1}{2\pi} \int_{-\pi}^{\pi} \frac{1+ze^{-i\alpha}}{1-ze^{-i\alpha}} f(e^{i\alpha}) \, d\alpha \right].
+  $$
+The function
+  $$
+  \left[z \mapsto \frac{1}{2\pi} \int_{-\pi}^{\pi} \frac{1+ze^{-i\alpha}}{1-ze^{-i\alpha}} f(e^{i\alpha}) \, d\alpha \right]
+  $$
+is holomorphic by differentiation under the integral sign, hence $\mathcal{P}[f]$
+is harmonic as the real part of a holomorphic function. \hfill $\blacksquare$
+
+<!--
+[^dutis]: **Differentiation Under the Integral Sign.** Let $\Omega$ be an open subset of $\mathbb{C}$ and $f: \Omega \times \mathbb{R} \to \mathbb{C}$ a function that satisfies:
+
+    - for every $z \in \Omega,$ $x \in \mathbb{R} \mapsto f(z, x)$ is measurable,
+
+    - for almost every $x \in \mathbb{R},$ $z \in \Omega \mapsto f(z, x)$ is holomorphic
+      (and the derivative is noted $\partial_z f(z, x)$)
+
+    - for any $z_0 \in \Omega,$ there is an open neighbourghood $V$ of $z_0$ in $\Omega$
+      and an integrable function $g:\mathbb{R} \to \mathbb{R}$ such that
+      $\forall \, z \in V,  \; |f(z, x)| \leq g(x),$
+
+    then the function  $e:\Omega \to \mathbb{C}$ defined by
+      $$
+      e(z) = \int_{\mathbb{R}} f(z, x)\, \, dx
+      $$
+    is holomorphic and
+      $$
+      e'(z) = 
+      \int_{\mathbb{R}} \partial_z f(z, x) \, dx.
+      $$
+-->
+
+**Lemma -- Poisson Integral, Boundary Values.** For any continuous 
+function $f: \partial D \to \mathbb{R},$ the function
+$u:\overline{D} \mapsto \mathbb{R}$ defined as
+  $$
+  u|_{D} = \mathcal{P}[f] 
+  \; \mbox{ and } \;
+  u|_{\partial D} = f
+  $$
+is continous on $\overline{D}.$
+
+**Proof (see e.g. @RUD87).**
+We denote $\overline{\mathcal{P}}[f]$ the function defined in
+$D$ as $\mathcal{P}[f]$ and on $\partial D$ as $f.$
+The formula that defines the Poisson kernel shows that it is positive 
+everywhere in $D.$ 
+Moreover, the expansion of the Poisson kernel as a Fourier series yields 
+that for any $r< 1,$
+  $$
+  \frac{1}{2\pi}\int_{-\pi}^{\pi} P(r e^{i\theta}) \, d\theta = 1.
+  $$
+Given these two properties, it is clear that for any 
+$f \in C^0(\partial D, \mathbb{R}),$ 
+  $$
+  \sup_{\overline{D}} | \overline{\mathcal{P}}[f] |
+  \leq 
+  \sup_{\partial D} |f|.
+  $$ 
+Let $(f_p)$ be a sequence of real-valued finite trigonometric sums that
+converges to $f$ uniformly (see section [Harmonic/Fourier Analysis]); 
+for any $p \in \mathbb{N},$ we can write
+  $$
+  f_p(e^{i\theta}) = \sum_m c_{mp} e^{i n \theta}, \; \overline{c_{mp}} = c_{(-m)p},
+  $$
+hence
+  $$
+  \mathcal{P}[f_p](re^{i\theta})
+  =
+  \frac{1}{2\pi} \int_{-\pi}^{\pi}
+  \left[\sum_n r^{|n|} e^{i n(\theta - \alpha)} \right]
+  \left[\sum_m c_{mp} e^{i m\alpha}\right] 
+  \, d\alpha,
+  $$
+which yields
+  $$
+  \mathcal{P}[f_p](re^{i\theta})
+  =
+  \sum_{n} \sum_m r^{|n|} c_{np} e^{i n\theta}
+  \left[ \frac{1}{2\pi} 
+  \int_{-\pi}^{\pi}
+  e^{i(m-n)\alpha}
+  \, d\alpha
+  \right]
+  =
+  \sum_{m} r^{|m|} c_{mp} e^{i m\theta}.
+  $$
+Consequently, for any $p \in \mathbb{N},$ $\overline{\mathcal{P}}[f_p]$ belongs 
+to $C^0(\overline{D},\mathbb{R}).$ Moreover,
+  $$
+  \sup_{\overline{D}} |\overline{\mathcal{P}}[f] - \overline{\mathcal{P}}[f_p]|
+  =
+  \sup_{\overline{D}} |\overline{\mathcal{P}}[f-f_p]|
+  \leq
+  \sup_{\overline{D}} |f-f_p| \to 0 \mbox{ when } p \to +\infty,
+  $$
+hence $\overline{\mathcal{P}}[f]$ can be uniformly approximated 
+by a sequence of functions that are continuous on $\overline{D},$
+therefore it is continuous. \hfill $\blacksquare$
+
+
+Appendix
+================================================================================
+
+Linear Gradient
+--------------------------------------------------------------------------------
+
+What happens if you heal a region in the left of the image below with a 
+source taken from the right of the image?
+
+![On the left, a linear gradient image; on the right, a uniform image.](images/gradient.png)
+
+Analytic Boundary Condition
+--------------------------------------------------------------------------------
+
+We search for approximate solutions to the Dirichlet problem associated with
+  $$
+  f(e^{i\theta}) = \frac{1}{4} \left[ 1 + \frac{3}{5 - 4 \cos \theta} \right].
+  $$
+
+  1. Check that $f$ is defined and continuous in $\partial D;$ compute its range.
+
+  2. Find a holomorphic function, defined in $\mathbb{C}^*,$ that extends $f$ 
+     and show that it is unique; we also denote $f$ this extension.
+
+  3. Show that 
+     $$
+     f(z) = \frac{1}{2} \left[\frac{1}{2 - z} + \frac{1}{2 - z^{-1}} \right];
+     $$
+     determine the Laurent series expansion of $f$ in
+     a neighbourghood of $\partial D.$
+
+  4. Find a finite trigonometric series that approximates $f$ with the precision
+     $\epsilon = 10^{-2};$ provide an approximate solution of the Dirichlet
+     problem associated to $f$ with the same precision.
+
+
+References
+================================================================================
+
+

@@ -1,0 +1,195 @@
+% Connected Sets
+% [Sébastien Boisgérault][email], Mines ParisTech
+
+[email]: mailto:Sebastien.Boisgerault@mines-paristech.fr
+
+---
+license: "[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0)"
+---
+
+Exercises
+================================================================================
+
+Image of Path-Connected/Connected Sets
+--------------------------------------------------------------------------------
+
+Let $f: A \subset \mathbb{C} \to \mathbb{C}$ be a continuous function.
+
+### Question
+
+Show that if $A$ is path-connected/connected, 
+its image $f(A)$ is path-connected/connected.
+
+### Answer
+
+Suppose that $A$ is path-connected. 
+Let $a, b \in f(A)$; there are some $c, d \in A$ such that 
+$f(c) = a$ and $f(d) = b$. 
+As $A$ is path-connected, there is a path $\gamma$ that joins
+$c$ and $d$ in $A$. 
+By continuity of $f$, it is plain that its image $f \circ \gamma$ 
+is a path of $f(A)$ that joins $a$ and $b$. 
+Consequently, $f(A)$ is path-connected.
+
+Now suppose that $A$ is connected. 
+Let $g$ be a locally constant function defined on $f(A)$. 
+The function $g \circ f$ is locally constant on $A$: 
+if $a \in A$, there is a radius $r>0$ such that $g$ is constant on
+$D(f(a), r) \cap f(A)$; 
+by continuity of $f$, there is a $\epsilon>0$ such
+that if $b \in D(a, \epsilon) \cap A$, 
+$f(b) \in D(f(a),\epsilon) \cap f(A)$, 
+thus $g \circ f$ is constant on $D(a, \epsilon) \cap A$
+and finally, $g \circ f$ is locally constant.
+Since $A$ is connected, $g \circ f$ is actually constant
+and $g$ itself is constant: $f(A)$ is connected. 
+
+
+Complement of a Compact Set
+--------------------------------------------------------------------------------
+
+### Question
+
+Prove that the complement $\mathbb{C} \setminus K$ of a compact subset $K$ of
+the complex plane has a single unbounded component.
+
+### Answer
+
+The compact set $K$ is closed, hence its complement is open.
+Therefore, the connected and path-connected components of 
+$\mathbb{C} \setminus K$ are the same.
+The compact set $K$ is also bounded, hence there is a $r>0$ such that
+the annulus
+  $$
+  A = \{z \in \mathbb{C} \; | \; |z|> r\}
+  $$
+is included in $\mathbb{C} \setminus K$. 
+The annulus $A$ is path-connected:
+if $z_1 = r_1 e^{i\theta_1}$ and $z_2 = r_2 e^{i\theta_2}$ are in $A$,
+the path $\gamma= [r_1 \to r_2] e^{i[\theta_1 \to \theta_2]}$, 
+which is defined by
+  $$
+  \gamma(t) = ((1-t) r_1 + t r_2) e^{i((1-t)\theta_1 + t\theta_2)}
+  $$
+belongs to $A$ and joins $z_1$ and $z_2$. Hence, $A$ is included in some
+path-connected component of $\mathbb{C} \setminus K$. 
+The collection of these path-connected components are a partition of 
+$\mathbb{C} \setminus K$, hence every other component $C$ is a subset
+of $\mathbb{C} \setminus A = \overline{D}(0,r)$: it is bounded.
+
+
+Union of Separated Sets
+--------------------------------------------------------------------------------
+
+Source: "Sur les ensembles connexes" [@KK21]
+
+### Questions
+
+Let $A$ and $B$ be two non-empty subsets of the complex plane.
+
+ 1. If  $A \cap B = \varnothing$, is $A \cup B$ always disconnected ?
+
+ 2. Assume that $d(A, B) > 0$; show that $A \cup B$ is not connected.
+
+ 3. Assume that $\overline{A} \cap B = \varnothing$ and 
+    $A \cap \overline{B} = \varnothing$;
+    show that $A \cup B$ is not connected.
+
+### Answers
+
+ 1. No. 
+    For example, the sets $A = \{z \in \mathbb{C} \; | \; \Re (z) < 0\}$
+    and $B = \mathbb{C} \setminus A$ are disjoints,
+    but their union is $\mathbb{C}$, which is connected.
+
+ 2. Let $r = d(A, B) / 2$. 
+    Under the assumption, the sets
+     $$
+     A' = \cup_{a \in A} D(a, r), \; B' = \cup_{b \in B} D(b, r),
+     $$
+    which are both open sets, are disjoints, hence their union is 
+    not path-connected. However $A' \cup B'$ is a dilation of $A \cup B$,
+    hence $A \cup B$ is not connected.
+
+    Alternatively, consider the function $f$ equal to $1$ on $A$ and
+    $0$ on $B$.
+    It is locally constant -- 
+    if $z \in A \cup B$, f is constant on 
+    $(A\cup B)\cap D(z, r)$ with $r=d(A, B)$ for example -- 
+    but not constant, hence $A \cup B$ is not connected.
+
+ 3. Consider again the function $f$ introduced in the previous answer.
+    The assumption yields $A \cap B = \varnothing$; as $A$ and $B$ are 
+    non-empty, $f$ is not constant.
+    If this function was not locally constant around some $a \in A$, 
+    we could find a sequence of $b_n \in (A \cup B) \setminus A = B$ such that
+    $b_n \to a$. But that would imply that $a \in A \cap \overline{B}$ and would
+    lead to a contradiction. 
+    Similarly, if it was not constant around some $b \in B$, that would lead
+    to $b \in \overline{A} \cap B$, another contradiction.
+    Hence, it is locally constant and $A \cup B$ is not connected.
+
+
+Anchor Set
+--------------------------------------------------------------------------------
+
+### Questions
+
+ 1. Prove that if $\mathcal{A}$ is a collection of 
+    path-connected/connected sets and 
+    there is a set $A^* \in \mathcal{A}$ such that 
+    $\forall \, A \in \mathcal{A}$, $A \cap A^*\neq \varnothing$, 
+    then the union $\cup \mathcal{A}$ is path-connected/connected.
+
+ 2. A *deformation retraction* of a subset $A$ of the complex plane onto
+    a subset $B$ of $A$ is a "continuous shrinking process" of
+    $A$ into $B$; formally, it is a collection of paths
+    $\gamma_a$ of $A$, indexed by $a \in A$, such that:
+
+      - $\forall \, a \in A, \; \gamma_a(0) = a \, \mbox{ and } \, \gamma_a(1) \in B$,
+
+      - $\forall \, a \in B, \; \forall \, t \in [0,1], \; \gamma_a(t) = a$,
+
+      - the function $(t, a) \in [0,1] \times A \mapsto \gamma_a(t)$ is continuous.
+
+    (see e.g. [@Hat02]).
+    Show that if there is a deformation retraction of $A$ onto $B$
+    and $B$ is path-connected/connected, then $A$ is also 
+    path-connected/connected.
+
+
+### Answers
+
+ 1. Let $\mathcal{A}'$ be the collection of all the sets $A^* \cup A$ 
+    for $A \in \mathcal{A}$. 
+    For any $A \in \mathcal{A}$,
+    the collection $\{A, A^{*}\}$ is composed of two
+    path-connected/connected sets with a non-empty intersection; 
+    hence all the sets of $\mathcal{A}'$ in path-connected/connected.
+    Moreover, the unions $\cup \mathcal{A}$ and $\cup \mathcal{A}'$ 
+    are identical. 
+    By assumption, unless $\mathcal{A}$ is empty, $A^{*}$ is not empty; 
+    hence the intersection $\cap \mathcal{A}'$ that contains $A^*$ is not empty. 
+    Therefore, $\cup \mathcal{A} = \cup \mathcal {A}'$ is 
+    path-connected/connected.
+
+ 2. For any $a \in A$, $\gamma_a(0) = a$ and $\gamma_a([0,1]) \subset A$, hence
+      $$
+      A = \bigcup_{a \in A} \gamma_a([0,1]).
+      $$
+    For any $a \in A$, the set $\gamma_a([0,1])$ is path-connected 
+    (as the image of a path-connected set by a continuous function),
+    and $\gamma_a([0,1]) \cap B$ is non-empty (it contains $\gamma_a(1)$).
+    Consequently, the collection
+      $$
+      \mathcal{A} = \{B\} \cup \{\gamma_a([0,1]) \, | \, a \in A\}
+      $$
+    satisfies the assumption of the previous question with $A^* = B$.
+    Consequently, $A = \cup \mathcal{A}$ is path-connected/connected.
+
+
+
+
+References
+================================================================================
+

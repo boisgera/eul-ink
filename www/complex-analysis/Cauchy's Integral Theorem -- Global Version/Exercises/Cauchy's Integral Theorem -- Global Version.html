@@ -1,0 +1,740 @@
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, Mines ParisTech">
+  <meta name="dcterms.date" content="2019-09-30">
+  <title>Cauchy’s Integral Theorem – Global Version</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: content-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+html {
+  line-height: var(--base-line-height);
+  --base-font-size: 24px;
+  --base-line-height: 36px;
+  --scale-ratio: 1.4142135623730951;
+  --small: 17px;
+  --medium: 24px;
+  --large: 34px;
+  --x-large: 48px;
+  font-size: 24px;
+  font-family: 'Alegreya', serif;
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html em {
+  font-style: italic;
+}
+html strong {
+  font-weight: bold;
+}
+html p, html .p {
+  margin-bottom: var(--base-line-height);
+  text-align: justify;
+  hyphens: auto;
+  -moz-hyphens: auto;
+}
+html section {
+  margin-bottom: var(--base-line-height_px);
+}
+html main {
+  box-sizing: content-box;
+  max-width: 32em;
+  margin: auto;
+  padding: var(--base-line-height);
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, q:before {
+  content: none;
+}
+blockquote:after, q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: medium solid black;
+  border-bottom: medium solid black;
+}
+main > header, main > .header, main > #header {
+  margin-top: calc(2 * var(--base-line-height));
+  margin-bottom: calc(2 * var(--base-line-height));
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: calc(1.5 * var(--base-line-height));
+  margin-top: 0;
+  margin-bottom: var(--base-line-height);
+  font-weight: bold;
+}
+main > header .author, main > .header .author, main > #header .author {
+  font-size: 24px;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  font-weight: normal;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: 'Alegreya SC', serif;
+  line-height: calc(1 * var(--base-line-height));
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  font-weight: bold;
+  line-height: calc(1.25 * var(--base-line-height));
+  margin-top: calc(2.00 * var(--base-line-height));
+  margin-bottom: calc(0.75 * var(--base-line-height));
+}
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+}
+h3, h4, h5, h6 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 1em;
+  display: inline;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
+}
+a:hover {
+  text-decoration: none;
+}
+a:link {
+  color: var(--color);
+}
+a:visited {
+  color: var(--color);
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li {
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  margin-left: var(--base-line-height);
+  padding-left: 0.5em;
+}
+ul li {
+  list-style: disc;
+}
+ol li {
+  list-style: decimal;
+}
+blockquote {
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+  padding: var(--base-line-height);
+  margin-bottom: var(--base-line-height);
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-size: 24px;
+  font-family: Inconsolata;
+}
+pre {
+  overflow-x: auto;
+  background-color: #ebebeb;
+  margin-bottom: var(--base-line-height);
+  padding-left: var(--base-line-height);
+  padding-right: var(--base-line-height);
+  padding-top: var(--base-line-height);
+  padding-bottom: var(--base-line-height);
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: auto;
+}
+figure {
+  margin-bottom: var(--base-line-height);
+  text-align: center;
+}
+figcaption {
+  display: inline-block;
+  font-style: italic;
+  text-align: justify;
+}
+.table {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  margin-bottom: var(--base-line-height);
+}
+thead {
+  border-bottom: medium solid black;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+.MJXc-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+nav#TOC > ul {
+  position: relative;
+  font-weight: bold;
+}
+nav#TOC > ul > * {
+  margin-bottom: var(--base-line-height);
+}
+nav#TOC > ul li {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+nav#TOC > ul ul li {
+  margin-left: var(--base-line-height);
+  font-weight: normal;
+}
+nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+  padding-bottom: var(--base-line-height);
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+.badge {
+  position: relative;
+  bottom: 0.13em;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  font-weight: 300;
+  font-size: var(--small);
+  display: inline-block;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  vertical-align: baseline;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+  margin-right: 1em;
+}
+.section-flag {
+  line-height: var(--base-line-height);
+  font-size: var(--small);
+  font-weight: 300;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  margin-bottom: 0;
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya: 400,700,900,400italic,700italic,900italic|Alegreya+SC:400,700,900,400italic,700italic,900italic|Alegreya+Sans:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+Sans+SC:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var box, hide_proof, main, show_proof;
+
+  hide_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("expanded");
+    sectionWrapper.addClass("minimized");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "visible"
+    });
+    w$(".header-wrapper").css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().css({
+      visibility: "hidden",
+      height: "0px"
+    });
+    w$(".header-wrapper").attr({
+      id: w$("section").first().attr("id")
+    });
+    return w$("section").first().attr({
+      id: ""
+    });
+  };
+
+  show_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("minimized");
+    sectionWrapper.addClass("expanded");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "hidden"
+    });
+    w$(".header-wrapper").css({
+      visibility: "hidden",
+      height: "0"
+    });
+    w$("section").first().css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().attr({
+      id: w$(".header-wrapper").attr("id")
+    });
+    return w$(".header-wrapper").attr({
+      id: ""
+    });
+  };
+
+  box = function(section) {
+    var clone, expand, header, headerWrapper, tombstone, wrapper;
+    clone = section.clone(true);
+    clone.css({
+      marginBottom: "0"
+    });
+    clone.children().last().css({
+      marginBottom: "0"
+    });
+    tombstone = clone.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer",
+      position: "absolute",
+      bottom: "0.75rem",
+      right: "0.75rem"
+    });
+    wrapper = $("<div class='proof-wrapper expanded'></div>");
+    wrapper.css({
+      position: "relative",
+      margin: "-0.75rem -0.75rem 0.75rem -0.75rem",
+      padding: "0.75rem",
+      backgroundColor: "#f9f9f9"
+    });
+    header = clone.find("h3, h4, h5, h6").first().clone();
+    headerWrapper = $("<div class='p header-wrapper' style='margin-bottom:0; visibility:hidden; overflow:hidden; height:0;'> </div>");
+    headerWrapper.append(header);
+    expand = $("<i class='fa fa-caret-down expand' style='visibility:hidden; cursor:pointer; position:absolute; top:0.75rem; right:0.75rem;'> </i>");
+    wrapper.append(headerWrapper);
+    wrapper.append(expand);
+    wrapper.append(clone);
+    expand.on("click", function() {
+      return show_proof(wrapper);
+    });
+    tombstone.on("click", function() {
+      return hide_proof(wrapper);
+    });
+    section.replaceWith(wrapper);
+    return wrapper;
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, section, sections, text, wrapper;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      wrapper = box(section);
+      hide_proof(wrapper);
+    }
+    return $(document).keydown(function(event) {
+      var k, l, len2, len3, ref1, ref2, results, sectionWrapper;
+      console.log("***", event.keyCode);
+      if (event.keyCode === 88) {
+        ref1 = $(".proof-wrapper.minimized");
+        for (k = 0, len2 = ref1.length; k < len2; k++) {
+          sectionWrapper = ref1[k];
+          show_proof($(sectionWrapper));
+        }
+      }
+      if (event.keyCode === 77) {
+        ref2 = $(".proof-wrapper.expanded");
+        results = [];
+        for (l = 0, len3 = ref2.length; l < len3; l++) {
+          sectionWrapper = ref2[l];
+          results.push(hide_proof($(sectionWrapper)));
+        }
+        return results;
+      }
+    });
+  };
+
+  $(main);
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var make_preview, mathjaxDebug;
+
+  make_preview = function(elt) {
+    var card, hidden_css, hide_preview, id, ref, show_preview, url, visible_css;
+    ref = elt.attr("href").split("#"), url = ref[0], id = ref[1];
+    card = $("<div class='card'>\n  <div class='holder'>\n    <p>Placeholder</p>\n  </div>\n</div>");
+    card.css({
+      width: "35vw",
+      padding: "1.5rem",
+      position: "fixed",
+      top: "1.5rem",
+      right: "1.5rem",
+      boxSizing: "border-box",
+      maxHeight: "calc(100vh - 3rem)",
+      overflow: "hidden",
+      boxShadow: "0 0 1rem #e6e6e6",
+      backgroundColor: "white"
+    });
+    visible_css = {
+      visibility: "visible",
+      opacity: 1,
+      transform: "translateX(0em)",
+      transition: "all 0.3s linear"
+    };
+    hidden_css = {
+      visibility: "hidden",
+      opacity: 0,
+      transform: "translateX(1em)",
+      transition: "all 0.3s linear 0.5s"
+    };
+    card.css(hidden_css);
+    elt.css({
+      textDecoration: "underline solid #0a0a0a",
+      textDecorationSkip: "ink",
+      transition: "background-color 0.3s linear"
+    });
+    show_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d3"
+      });
+      return card.css(visible_css);
+    };
+    hide_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d300"
+      });
+      return card.css(hidden_css);
+    };
+    return card.find(".holder").load(url + (" [id='" + id + "']"), function(response, status, jxXHR) {
+      console.log("XHR status:", status, url, id);
+      if (status === "success" || status === "notmodified") {
+        console.log("success!");
+        console.log("elt:", $(elt));
+        $("body").append(card);
+        card.find("p, .p").css({
+          textAlign: "left"
+        });
+        card.find("section").css({
+          marginBottom: "0"
+        });
+        card.find("section").children().last().css({
+          marginBottom: "0"
+        });
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, card[0]]);
+        elt.on("mouseenter", show_preview);
+        return elt.on("mouseleave", hide_preview);
+      }
+    });
+  };
+
+  mathjaxDebug = function() {
+    MathJax.Hub.signal.Interest(function(message) {
+      return console.log("*", message);
+    });
+    return MathJax.Hub.Register.StartupHook("End Process", function() {
+      var i, jax, len, ref, results;
+      console.log("list of jaxes:");
+      ref = MathJax.Hub.getAllJax();
+      results = [];
+      for (i = 0, len = ref.length; i < len; i++) {
+        jax = ref[i];
+        results.push(console.log("jax:", jax));
+      }
+      return results;
+    });
+  };
+
+  $(function() {
+    var elt, i, len, ref, results;
+    ref = $("a.preview");
+    results = [];
+    for (i = 0, len = ref.length; i < len; i++) {
+      elt = ref[i];
+      results.push(make_preview($(elt)));
+    }
+    return results;
+  });
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">Cauchy’s Integral Theorem – Global Version</a></h1>
+
+<h2 class="author">
+By <a href="mailto:%20Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, Mines ParisTech, under <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+</h2> 
+
+<h3 class="date" style="margin-right: 0px;">September 30, 2019</h3>
+</header>
+<section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
+<ul>
+<li class="top-li"><p class="section-flag">section 1</p><a href="#exercises">Exercises</a><ul>
+<li><a href="#cauchys-converse-integral-theorem">Cauchy’s Converse Integral Theorem</a><ul>
+<li><span class="badge">que<span></span></span><a href="#question">Question</a></li>
+<li><span class="badge">ans<span></span></span><a href="#answer">Answer</a></li>
+</ul></li>
+<li><a href="#cauchy-transform-of-power-functions">Cauchy Transform of Power Functions</a><ul>
+<li><span class="badge">que<span></span></span><a href="#question-1">Question</a></li>
+<li><span class="badge">ans<span></span></span><a href="#answer-1">Answer</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav></section>
+<section id="exercises" class="level1">
+<h1><a href="#exercises">Exercises</a></h1>
+<section id="cauchys-converse-integral-theorem" class="level2">
+<h2><a href="#cauchys-converse-integral-theorem">Cauchy’s Converse Integral Theorem</a></h2>
+<section id="question" class="level3">
+
+<div class="p"><h3><a href="#question">Question</a></h3>Let <span class="math inline">\(\Omega\)</span> be an open subset of <span class="math inline">\(\mathbb{C}\)</span>.</div>
+<p>Suppose that for every holomorphic function <span class="math inline">\(f: \Omega \to \mathbb{C},\)</span> <span class="math display">\[
+  \int_{\gamma} f(z) \, dz = 0
+  \]</span> for some sequence <span class="math inline">\(\gamma\)</span> of closed rectifiable paths of <span class="math inline">\(\Omega.\)</span> What conclusion can we draw? What if the property holds for every sequence <span class="math inline">\(\gamma\)</span> of closed rectifiable paths of <span class="math inline">\(\Omega?\)</span></p>
+</section>
+<section id="answer" class="level3">
+
+<div class="p"><h3><a href="#answer">Answer</a></h3>For any <span class="math inline">\(w \in \mathbb{C} \setminus \Omega\)</span>, the function <span class="math inline">\(f: z \in \Omega \mapsto 1/(z-w)\)</span> is defined and holomorphic, thus <span class="math display">\[
+  \mathrm{ind}(\gamma, w) = 
+  \frac{1}{i2\pi} \int_{\gamma} \frac{dz}{z-w} = 0
+  \]</span> and therefore <span class="math inline">\(\mathrm{Int} \, \gamma \subset \Omega\)</span>. Now, suppose that this conclusion holds for any sequence <span class="math inline">\(\gamma\)</span> of closed rectifiable paths of <span class="math inline">\(\Omega.\)</span> Since the winding number is locally constant and since for any closed path <span class="math inline">\(\mu\)</span> of <span class="math inline">\(\Omega\)</span> and any <span class="math inline">\(\epsilon &gt; 0\)</span>, there is a closed rectifiable path <span class="math inline">\(\gamma\)</span> of <span class="math inline">\(\Omega\)</span> such that <span class="math display">\[
+  \forall \, t \in [0,1], \; |\gamma(t) - \mu(t)| &lt; \epsilon,
+  \]</span> we also have <span class="math inline">\(\mathrm{ind}(\mu, w) = \mathrm{ind}(\gamma, w) = 0\)</span>. Therefore <span class="math inline">\(\mathrm{Int} \, \mu \subset \Omega\)</span>: the set <span class="math inline">\(\Omega\)</span> is simply connected.</div>
+</section>
+</section>
+<section id="cauchy-transform-of-power-functions" class="level2">
+<h2><a href="#cauchy-transform-of-power-functions">Cauchy Transform of Power Functions</a></h2>
+<section id="question-1" class="level3">
+
+<div class="p"><h3><a href="#question-1">Question</a></h3>Compute for any <span class="math inline">\(n \in \mathbb{Z}\)</span> and any <span class="math inline">\(z \in \mathbb{C}\)</span> such that <span class="math inline">\(|z| \neq 1\)</span> the line integral <span class="math display">\[
+  \phi(z) = \frac{1}{i2\pi} \int_{[\circlearrowleft]} \frac{w^n}{w - z} dw.
+  \]</span></div>
+</section>
+<section id="answer-1" class="level3">
+
+<div class="p"><h3><a href="#answer-1">Answer</a></h3>For any <span class="math inline">\(z \in \mathbb{C}\)</span> such that <span class="math inline">\(|z| \neq 1\)</span>, the function <span class="math display">\[
+  \psi_z: w \mapsto \frac{w^n}{w - z}
+  \]</span> is defined and holomorphic on <span class="math inline">\(\Omega = \mathbb{C} \setminus \{z\}\)</span> if <span class="math inline">\(n \geq 0\)</span>; it is defined and holomorphic on <span class="math inline">\(\Omega = \mathbb{C} \setminus \{0, z\}\)</span> if <span class="math inline">\(n &lt; 0\)</span>. The interior of <span class="math inline">\([\circlearrowleft]\)</span> is the open unit disk.</div>
+<p>We now study separately four configurations.</p>
+<ol type="1">
+<li><p>Assume that <span class="math inline">\(n \geq 0\)</span> and <span class="math inline">\(|z| &gt; 1\)</span>. The interior of <span class="math inline">\([\circlearrowleft]\)</span> is included in <span class="math inline">\(\Omega\)</span>, hence by Cauchy’s integral theorem, <span class="math inline">\(\phi(z) = 0\)</span>.</p>
+<p>Alternatively, Cauchy’s formula was also applicable.</p></li>
+<li><p>Assume that <span class="math inline">\(n \geq 0\)</span> and <span class="math inline">\(|z| &lt; 1\)</span>. The unique singularity of <span class="math inline">\(\psi_z\)</span> is <span class="math inline">\(w=z\)</span>; it satisfies <span class="math inline">\(\mathrm{ind} ([\circlearrowleft], z) = 1\)</span>. Let <span class="math inline">\(\gamma(r) = z + r [\circlearrowleft]\)</span>; we have <span class="math display">\[
+  \mathrm{res}(\psi_z, z) = \lim_{r \to 0} \frac{1}{i 2 \pi} 
+  \int_{\gamma(r)} \frac{w^n}{w - z} dw =
+  \lim_{r \to 0} \int_0^1 (z + r e^{i2\pi t})^n dt
+  = z^n,
+  \]</span> hence by the residues theorem, <span class="math inline">\(\phi(z) = z^n\)</span>.</p>
+<p>Alternatively, Cauchy’s formula was also applicable.</p></li>
+<li><p>Assume that <span class="math inline">\(n &lt; 0\)</span> and <span class="math inline">\(|z| &gt; 1\)</span>. We have <span class="math display">\[
+  \phi(z) =  
+  \frac{1}{i2\pi}
+  \int_{[\circlearrowleft]} \frac{1}{w^{|n|}(w-z)} \, dw.
+  \]</span> If <span class="math inline">\(n=-1\)</span>, Cauchy’s formula provides the answer: <span class="math display">\[
+  \phi(z) = \frac{1}{0-z} = - z^{-1}. 
+  \]</span> Otherwise <span class="math inline">\(n &lt; -1\)</span>, we may use integration by parts (several times): <span class="math display">\[
+  \begin{split}
+  \phi(z)
+  = &amp;\,
+  \frac{1}{i 2 \pi} \int_{[\circlearrowleft]} \frac{1}{w^{|n|}(w-z)} \, dw \\
+  = &amp;\, 
+  - \frac{1}{i 2 \pi} \int_{[\circlearrowleft]} 
+  \frac{-1}{|n| - 1} \frac{1}{w^{|n|-1}} \frac{-1}{(w - z)^2}\, dw \\
+  = &amp;\, \dots \\
+  = &amp;\, 
+  (-1)^{|n|-1}\frac{1}{i 2 \pi} \int_{[\circlearrowleft]} 
+  \frac{1}{(|n| - 1)!} \frac{1}{w} \frac{(|n|-1)!}{(w - z)^{|n|}} \, dw \\
+  = &amp;\, 
+  - \frac{1}{i 2 \pi} \int_{[\circlearrowleft]} 
+  \frac{1}{w} \frac{1}{(z - w)^{|n|}} \, dw.
+  \end{split}
+  \]</span> At this point, Cauchy’s formula may be used again and we obtain <span class="math display">\[
+  \phi(z) = - z^{n}.
+  \]</span></p>
+<p>Alternatively, we may perform the change of variable <span class="math inline">\(w = 1/\xi:\)</span> <span class="math display">\[
+  \begin{split}
+  \phi(z) = &amp;\, \frac{1}{i2\pi} \int_{[\circlearrowleft]} \frac{w^n}{w - z} dw \\
+          = &amp;\, - \frac{1}{i2\pi} \int_{[\circlearrowleft]} 
+               \frac{\xi^{-n} }{\xi^{-1} - z} \left(-\frac{d\xi}{\xi^2}\right) \\
+          = &amp;\, - \frac{1}{z} \frac{1}{i2\pi} \int_{[\circlearrowleft]} 
+                \frac{\xi^{-n-1}}{\xi - z^{-1}}d\xi.
+  \end{split}
+  \]</span> As <span class="math inline">\(-n-1 \geq 0\)</span> and <span class="math inline">\(|z^{-1}| &lt; 1\)</span>, we may invoke the result obtained for the first configuration: it provides <span class="math inline">\(\phi(z) = -z^n\)</span>.</p>
+<p>Alternatively, we may perform a partial fraction decomposition of <span class="math inline">\(w \mapsto 1/(w^{|n|}(w-z))\)</span>. Since <span class="math display">\[
+  1 - \left( \frac{w}{z} \right)^{|n|}
+  =
+  \left(1 - \frac{w}{z} \right)
+  \left(1 + \frac{w}{z} +  \dots + \left(\frac{w}{z}\right)^{|n| -1} \right),
+  \]</span> we have <span class="math display">\[
+  \frac{1}{w-z}
+  = 
+  -\frac{1}{z} 
+  \left(1 + \frac{w}{z} +  \dots + \left(\frac{w}{z}\right)^{|n| -1} \right)
+  + \frac{w^{|n|}/z^{|n|}}{w-z}
+  \]</span> and therefore <span class="math display">\[
+  \frac{1}{w^{|n|}(w-z)}
+  = 
+  - 
+  \left(
+    \frac{z}{w^{|n|}} 
+    + \frac{1/z^2}{w^{|n|-1}} 
+    + \dots  
+    + \frac{1/z^{|n|}}{w^{-1}}
+  \right)
+  + \frac{1/z^{|n|}}{w-z}.
+  \]</span> The integral along <span class="math inline">\(\gamma\)</span> of <span class="math inline">\(w \in \mathbb{C} \mapsto 1/w^p\)</span> is zero for <span class="math inline">\(p&gt;1\)</span> since this function has a primitive. The integral of <span class="math inline">\(w \mapsto 1/(w-z)\)</span> is also zero since <span class="math inline">\(|z|&gt;1\)</span>. Finally, <span class="math display">\[
+  \phi(z)
+  =
+  \frac{1}{i2\pi} \int_{\gamma} -\frac{1/z^{|n|}}{w^{-1}} dw
+  = -z^n.
+  \]</span></p></li>
+<li><p>Assume that <span class="math inline">\(n &lt; 0\)</span> and <span class="math inline">\(|z| &lt; 1\)</span>. There are two singularities of <span class="math inline">\(\psi_z\)</span> in the interior of <span class="math inline">\([\circlearrowleft]\)</span>, <span class="math inline">\(w=0\)</span> and <span class="math inline">\(w=z\)</span>, unless of course if <span class="math inline">\(z=0\)</span>.</p>
+<p>If <span class="math inline">\(z=0\)</span>, we have <span class="math display">\[
+    \phi(z) 
+    = \frac{1}{i2\pi} \int_{[\circlearrowleft]} w^{n-1} dw
+    = 0
+    \]</span> because <span class="math inline">\(w \in \mathbb{C}^* \mapsto w^{n}/n\)</span> is a primitive of <span class="math inline">\(w \in \mathbb{C}^* \mapsto w^{n-1}\)</span>.</p>
+<p>We now assume that <span class="math inline">\(z \neq 0\)</span>. The residue associated to <span class="math inline">\(w=z\)</span> can be computed directly with Cauchy’s formula; with <span class="math inline">\(\gamma(r) = z + r[\circlearrowleft]\)</span>, we have <span class="math display">\[
+  \mathrm{res}(\psi_z, z) 
+  = \lim_{r \to 0} \frac{1}{i2\pi} \int_{\gamma(r)} \frac{w^n}{(w-z)} dw
+  = z^n.
+  \]</span> On the other hand, using computations similar to those of the previous question, we can derive <span class="math display">\[
+  \mathrm{res}(\psi_z, 0) 
+  = \lim_{r \to 0} \frac{1}{i2\pi} \int_{r[\circlearrowleft]} \frac{w^n}{(w-z)} dw
+  = - z^n.
+  \]</span> Consequently, <span class="math inline">\(\phi(z) = 0\)</span>.</p>
+<p>In the case <span class="math inline">\(z \neq 0\)</span>, we may perform again the change of variable <span class="math inline">\(w = 1/\xi\)</span> that provides <span class="math display">\[
+  \phi(z)= - \frac{1}{z} \frac{1}{i2\pi} \int_{[\circlearrowleft]} 
+            \frac{\xi^{-n-1}}{\xi - z^{-1}}d\xi.
+  \]</span> As <span class="math inline">\(-n-1 \geq 0\)</span> and <span class="math inline">\(|z^{-1}| &gt; 1\)</span>, we may invoke the result obtained for the first configuration: it yields <span class="math inline">\(\phi(z) = 0\)</span>.</p>
+<p>There is yet another method: we can notice that for <span class="math inline">\(r&gt;1\)</span>, the interior of the path sequence <span class="math inline">\((r [\circlearrowleft], [\circlearrowleft]^{\leftarrow})\)</span>, which is the annulus <span class="math inline">\(\{z \in \mathbb{C} \; | \; 1 &lt; |z| &lt; r\},\)</span> is included in <span class="math inline">\(\Omega\)</span>. Cauchy’s integral theorem provides <span class="math display">\[
+  \forall \, r &gt; 1, \; 
+  \phi(z) =
+  \frac{1}{i2\pi} \int_{r[\circlearrowleft]} \frac{w^n}{w - z} dw.  
+  \]</span> and the M-L estimation lemma <span class="math display">\[
+  \forall \, r &gt; 1, \; 
+  |\phi(z)| \leq \frac{1}{r^{|n|-1}(r - |z|)}. 
+  \]</span> The limit of the right-hand side when <span class="math inline">\(r \to +\infty\)</span> yields <span class="math inline">\(\phi(z) = 0\)</span>.</p>
+<p>Finally, we may use again the partial fraction decomposition of <span class="math inline">\(w \mapsto 1/(w^{|n|}(w-z))\)</span>: <span class="math display">\[
+  \frac{1}{w^{|n|}(w-z)}
+  = 
+  - 
+  \left(
+    \frac{z}{w^{|n|}} 
+    + \frac{1/z^2}{w^{|n|-1}} 
+    + \dots  
+    + \frac{1/z^{|n|}}{w^{-1}}
+  \right)
+  + \frac{1/z^{|n|}}{w-z}.
+  \]</span> The integral along <span class="math inline">\(\gamma\)</span> of <span class="math inline">\(w \in \mathbb{C} \mapsto 1/w^p\)</span> is zero for <span class="math inline">\(p&gt;1\)</span> since this function has a primitive. Therefore <span class="math display">\[
+  \phi(z)
+  = \frac{1}{i2\pi} \int_{\gamma} -\frac{1/z^{|n|}}{w^{-1}} dw
+  + \frac{1}{i2\pi} \int_{\gamma} \frac{1/z^{|n|}}{w-z} dw = 0.
+  \]</span></p></li>
+</ol>
+<!--
+Cauchy's Integral Theorem -- Homotopic Version
+--------------------------------------------------------------------------------
+
+Let $\Omega$ be an open subset of $\mathbb{C}$.
+An *homotopy* of $\Omega$
+is a "continuous deformation" of closed paths of $\Omega$,
+or more formally,
+a family $\gamma_s$ of closed paths of $\Omega$, 
+indexed by $s \in[0,1]$, 
+such that the application 
+  $$
+  s\in [0,1] \mapsto \gamma_s \in C^0([0,1],\Omega)
+  $$
+is continuous.
+Two paths $\mu$ and $\nu$ are *homotopic* in $\Omega$ if there is such a 
+homotopy with $\gamma_0 = \mu$ and $\gamma_1 = \nu$.
+
+### Question
+
+Prove that for any holomorphic function $f:\Omega \to \mathbb {C}$
+and any pair $\mu$ and $\nu$ of closed rectifiable paths 
+which are homotopic in $\Omega$,
+  $$
+  \int_{\mu} f(z) \, dz = \int_{\nu} f(z) \, dz.
+  $$
+
+### Answer
+
+Consider the sequence of closed rectifiable path 
+$\lambda = (\mu, \nu^{\leftarrow})$ of $\Omega$. 
+We intend to prove that $\mathrm{Int} \, \lambda$ is a subset of $\Omega$
+(or rather than $\mathbb{C} \setminus \Omega$ is a subset of 
+$\mathrm{Ext} \, \lambda$, which is equivalent);
+given this property,
+Cauchy's Integral Theorem is applicable and provides
+  $$
+  \int_{\lambda} f(z) \, dz = \int_{\mu} f(z) \, dz - \int_{\nu} f(z) \, dz = 0
+  $$
+which is the desired result.
+
+Let $z \in \mathbb{C} \setminus \Omega$. We know that the function
+  $$
+  \gamma \in C^0([0,1], \Omega) \mapsto \mathrm{ind}(\gamma, z)
+  $$
+is locally constant, or equivalently, constant in each connected component
+of $X = C^0([0,1], \Omega)$. 
+If the paths $\mu$ and $\nu$ are homotopic in $\Omega$,
+the associated homotopy $s \in [0,1] \mapsto \gamma_s$ is a path of
+$X$ that joins $\mu$ and $\nu$, hence these two paths
+belong to the same (path-)connected component of $X$. 
+Consequently, $\mathrm{ind}(\mu,z) = \mathrm{ind}(\nu,z)$, hence
+$\mathrm{ind}(\lambda, z) = 0$: the point $z$ belongs to the exterior of
+$\lambda$ and as $z$ is arbitrary in $\mathbb{C} \setminus \Omega$,
+we have $\mathbb{C} \setminus \Omega \subset \mathrm{Ext} \, \lambda$.
+
+-->
+</section>
+</section>
+</section>
+</main>
+
+
+</body></html>

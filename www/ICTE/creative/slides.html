@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Sébastien Boisgérault, MINES ParisTech">
+  <title>Web Tech &amp; Teaching – An Experience</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js-3.5.0/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="reveal.js-3.5.0/css/theme/white.css" id="theme">
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js-3.5.0/css/print/pdf.css' : 'reveal.js-3.5.0/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js-3.5.0/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title">Web Tech &amp; Teaching – An Experience</h1>
+  <p class="author">Sébastien Boisgérault, MINES ParisTech</p>
+  <p class="date">16/10/2017, Mini-Séminaire Créative</p>
+</section>
+
+<section><section id="introduction" class="titleslide slide level1"><h1>Introduction</h1></section><section id="sébastien-boisgérault-who-am-i" class="slide level2">
+<h2><img src="images/photo.png" alt="Sébastien Boisgérault" class="icon" /> Who Am I?</h2>
+<ul>
+<li><p>Lecturer / Researcher</p></li>
+<li><p>MINES Paristech Center for Robotics</p></li>
+<li><p>Mathematics / Control / Signal Processing / …</p></li>
+</ul>
+</section><section id="this-set-of-slides" class="slide level2">
+<h2>This Set of Slides</h2>
+<p>In the context of Web Tech &amp; Teaching:</p>
+<p>experience feedback / thoughts / tech. watch</p>
+<ul>
+<li><p>collection of use cases (some tiny ones)</p></li>
+<li><p>pedagogy / implementation / publishing</p></li>
+</ul>
+</section></section>
+<section><section id="cauchy-riemann-equations" class="titleslide slide level1"><h1>Cauchy-Riemann Equations</h1></section><section id="context" class="slide level2">
+<h2>Context</h2>
+<h3 id="complex-analysis">Complex Analysis</h3>
+<p>Complex-valued functions of a complex variable</p>
+<ul>
+<li><p>visualisation?</p></li>
+<li><p>differentiability?</p></li>
+<li><p>holomorphy?</p></li>
+</ul>
+</section><section class="slide level2">
+
+<p><a href="http://eul.ink/complex-analysis/mathbox/"><img src="images/Cauchy-Riemann.png" alt="Cauchy-Riemann Equations" /></a></p>
+</section><section id="stack" class="slide level2">
+<h2>Stack</h2>
+<ul>
+<li><p>Classic browser tech: HTML / CSS / JS</p></li>
+<li><p>3D in the browser: <a href="https://en.wikipedia.org/wiki/WebGL">WebGL</a> / <a href="https://threejs.org">Three.js</a> / <a href="https://github.com/unconed/MathBox.js">MathBox</a></p></li>
+<li><p>Examples (Steve Wittens):</p>
+<ul>
+<li><p><a href="http://acko.net/">acko.net</a></p></li>
+<li><p><a href="https://acko.net/tv/pixelfactory/">The Pixel Factory</a></p></li>
+<li><p><a href="https://acko.net/blog/mathbox2/">“PowerPoint Must Die”</a></p></li>
+</ul></li>
+<li><p><a href="https://github.com/unconed/mathbox">MathBox 2?</a> …</p></li>
+</ul>
+</section></section>
+<section><section id="poisson-image-editing" class="titleslide slide level1"><h1>Poisson Image Editing</h1></section><section id="context-1" class="slide level2">
+<h2>Context</h2>
+<h3 id="complex-analysis-1">Complex Analysis</h3>
+<ul>
+<li><p>Solution of the Laplace equation in 2D</p></li>
+<li><p>Modern Applications?</p>
+<ul>
+<li><p>Heat equation?</p></li>
+<li><p>Fluid Mechanics?</p></li>
+<li><p>…</p></li>
+</ul></li>
+</ul>
+</section><section id="use-gimp-gimp" class="slide level2">
+<h2>Use <a href="https://www.gimp.org/"><img src="images/GIMP.svg" class="icon" /></a> GIMP</h2>
+<p>GNU Image Manipulation Program</p>
+</section><section id="whats-missing" class="slide level2">
+<h2>What’s missing?</h2>
+<figure>
+<img src="images/objects-final.jpg" />
+</figure>
+</section><section id="a-watch" class="slide level2">
+<h2>A watch …</h2>
+<figure>
+<img src="images/objects.jpg" />
+</figure>
+</section><section id="gimp-healing-tool" class="slide level2">
+<h2>GIMP Healing Tool</h2>
+<figure>
+<img src="images/desktop.jpg" />
+</figure>
+</section><section id="more-details" class="slide level2">
+<h2>More Details …</h2>
+<p><a href="https://eul.ink/complex-analysis/Poisson%20Image%20Editing/">Poisson Image Editing</a></p>
+</section></section>
+<section><section id="complex-step-differentiation" class="titleslide slide level1"><h1>Complex-Step Differentiation</h1></section><section id="context-2" class="slide level2">
+<h2>Context</h2>
+<h4 id="numerical-analysis">Numerical Analysis</h4>
+<p>Compute the derivative of <code>f(x)</code>.</p>
+<pre><code>def FD(f, x, h):
+    return (f(x+h) - f(x)) / h</code></pre>
+<p>The step <code>h</code> may be either too large or too small.</p>
+</section><section class="slide level2">
+
+<p>Some other difference schemes perform better.</p>
+<ul>
+<li><p>Demonstrate the problems with <code>FD</code></p></li>
+<li><p>Show the improvement</p></li>
+<li><p>Not the solution / explanation yet (teaser)</p></li>
+</ul>
+<p>Video / Screencast?</p>
+</section><section id="use-asciinema-asciinema" class="slide level2">
+<h2>Use <a href="https://asciinema.org/"><img src="images/asciinema.svg" class="icon" /></a> ASCIINEMA</h2>
+</section><section id="asciicast" class="slide level2">
+<h2>Asciicast</h2>
+<p><a href="https://asciinema.org/a/39379"><img src="images/asciinema-screenshot.png" /></a></p>
+</section><section id="tech-stack" class="slide level2">
+<h2>Tech Stack</h2>
+<ul>
+<li><p>desktop app: record &amp; upload</p></li>
+<li><p>lightweight data: asciicast is just <a href="http://www.json.org/">JSON</a></p></li>
+<li><p><a href="https://clojurescript.org/">ClojureScript</a> project</p></li>
+<li><p>embed in HTML or host in the cloud</p></li>
+</ul>
+</section></section>
+<section><section id="robotics" class="titleslide slide level1"><h1>Robotics</h1></section><section id="context-3" class="slide level2">
+<h2>Context</h2>
+<h3 id="wheeled-robots-kinematics">Wheeled Robots Kinematics</h3>
+<p>Some wheels yield no kinematic constraint.</p>
+<p>Example: caster wheels, swedish wheels, etc.</p>
+<p>So we remove them from the model.</p>
+<p>Not convinced?</p>
+</section><section id="show" class="slide level2">
+<h2>Show</h2>
+<iframe width="700" height="394" src="https://www.youtube.com/embed/wECcwlY0hOs?rel=0" frameborder="0" allowfullscreen>
+</iframe>
+</section><section id="prove" class="slide level2">
+<h2>Prove</h2>
+<p><a href="https://eul.ink/robotics/Kinematics%20of%20Caster%20Wheels/index.html"><img src="images/caster-wheel-equations.png" alt="Caster Wheel Equations" /></a></p>
+</section><section id="demo" class="slide level2">
+<h2>Demo</h2>
+<p><a href="https://eul.ink/robotics/caster-wheel-demo/index.html"><img src="images/caster-wheel.png" alt="Caster Wheel Demo" /></a></p>
+</section><section id="demo-tech-stack" class="slide level2">
+<h2>Demo Tech Stack</h2>
+<ul>
+<li><p><img src="images/SVG.svg" class="icon" /> <a href="https://www.w3.org/TR/SVG/">Scalable Vector Graphics</a></p></li>
+<li><p><img src="images/coffeescript.svg" class="icon" /> <a href="http://coffeescript.org/">Coffeescript</a></p></li>
+<li><p><img src="images/vue.js.png" class="icon" /> <a href="https://vuejs.org/">Vue.js</a></p></li>
+</ul>
+</section><section id="more-details-1" class="slide level2">
+<h2>More Details …</h2>
+<p><a href="https://eul.ink/robotics/">Robotics</a></p>
+</section></section>
+<section><section id="digital-audio-coding" class="titleslide slide level1"><h1>Digital Audio Coding</h1></section><section id="context-4" class="slide level2">
+<h2>Context</h2>
+<ul>
+<li><p>experiment / design / build 4 audio codecs:</p>
+<p>Lossless codec, voice codec, AU-like, MP3-like</p></li>
+<li><p>10 contact hours (50% lectures / 50% lab sessions)</p></li>
+<li><p>no prerequisite (programming, signal processing)</p></li>
+</ul>
+<p>Very tight time budget. Can software help?</p>
+</section><section id="audio-coding-for-humans" class="slide level2">
+<h2>Audio Coding “for Humans”</h2>
+<p>Python <a href="https://pypi.python.org/pypi/audio"><code>audio</code></a> package</p>
+<ul>
+<li><p>focus on the API (few new features)</p></li>
+<li><p>match the domain abstractions (several layers)</p></li>
+<li><p>suitable for live demos &amp; pseudo-code</p></li>
+</ul>
+</section><section id="software-for-humans" class="slide level2">
+<h2>Software “for Humans”</h2>
+<ul>
+<li><p>expression <a href="https://www.kennethreitz.org/python-for-humans">coined by Kenneth Reitz</a></p></li>
+<li><p>started with “HTTP for Humans”: Python library <a href="http://docs.python-requests.org/en/master">Requests</a>, a better, higher-level <a href="https://docs.python.org/2/library/httplib.html">httplib</a></p></li>
+</ul>
+</section><section id="the-zen-of-python" class="slide level2">
+<h2>The Zen of Python</h2>
+<p>The Python language is already made for humans:<br />
+<a href="https://www.python.org/dev/peps/pep-0020/" class="uri">https://www.python.org/dev/peps/pep-0020/</a></p>
+<ul>
+<li><p>Beautiful is better than ugly.</p></li>
+<li><p>Explicit is better than implicit.</p></li>
+<li><p>Simple is better than complex.</p></li>
+<li><p>etc.</p></li>
+</ul>
+</section><section id="make-play-save-a-pure-tone" class="slide level2">
+<h2>Make / Play / Save a Pure Tone</h2>
+<h3 id="high-level-api">High-level API</h3>
+<audio controls="controls">
+Your browser does not support the <code>audio</code> element. <source src="sound/A4.wav" type="audio/wav">
+</audio>
+<pre><code>&gt;&gt;&gt; f = 440.0
+&gt;&gt;&gt; x = cos(2 * pi * f * t)
+&gt;&gt;&gt; x
+array([ 1.        ,  0.99803566,  0.99215037, ...,  ,  0.99803566])
+&gt;&gt;&gt; audio.io.play(x)
+&gt;&gt;&gt; audio.wave.write(x, &quot;A4.wav&quot;)</code></pre>
+</section><section id="experience-quantization" class="slide level2">
+<h2>Experience Quantization</h2>
+<h3 id="mid-level-api">Mid-level API</h3>
+<pre><code>&gt;&gt;&gt; audio.wave.read(&quot;A4.wav&quot;)
+array([[ 0.99996948,  0.99804688,  0.99215698, ...,  0.98236084,
+         0.99215698,  0.99804688]])
+&gt;&gt;&gt; audio.wave.read(&quot;A4.wav&quot;, scale=False)
+array([[32767, 32704, 32511, ..., 32190, 32511, 32704]], dtype=int16)</code></pre>
+</section><section id="read-raw-binary-data-metadata" class="slide level2">
+<h2>Read Raw Binary Data / Metadata</h2>
+<h3 id="low-level-api">Low-level API</h3>
+<pre><code>&gt;&gt;&gt; bytes = open(&quot;A4.wav&quot;).read()
+&gt;&gt;&gt; from audio.bitstream import BitStream
+&gt;&gt;&gt; bits = BitStream(bytes).read(8 * 16)
+&gt;&gt;&gt; bits
+01010010010010010100011001000110101111000000100100000100000000000101011101000001010101100100010101100110011011010111010000100000
+&gt;&gt;&gt; bits.read(str)
+&#39;RIFF\xbc\t\x04\x00WAVEfmt &#39;</code></pre>
+</section><section id="specific-needs" class="slide level2">
+<h2>Specific Needs</h2>
+<p>It now works on my machine! But …</p>
+<ul>
+<li><p>non-standard software</p></li>
+<li><p>system/platform dependencies</p></li>
+<li><p>need a custom student experience</p></li>
+</ul>
+</section><section id="platform-architecture" class="slide level2">
+<h2>Platform Architecture</h2>
+<ol type="1">
+<li><p>Real Machines: <a href="https://www.ubuntu.com/"><img src="images/ubuntu.png" class="icon" /></a> / <i class="fa fa-desktop"></i></p></li>
+<li><p>Virtual Machines: <a href="https://www.ubuntu.com/"><img src="images/ubuntu.png" class="icon" /></a> / <a href="https://www.virtualbox.org/"><img src="images/virtualbox.png" class="icon" /></a> / <a href="https://www.microsoft.com/en-us/windows"><img src="images/windows.png" class="icon" /></a> / <i class="fa fa-desktop"></i></p></li>
+<li><p>Cloud-based VM: <a href="https://www.ubuntu.com/"><img src="images/ubuntu.png" class="icon" /></a> / <a href="https://www.docker.com/"><img src="images/docker.png" class="icon" /></a> / <a href="https://www.microsoft.com/en-us/windows"><img src="images/windows.png" class="icon" /></a> / <i class="fa fa-desktop"></i> / <a href="https://azure.microsoft.com/"><i class="fa fa-cloud"></i></a></p></li>
+</ol>
+</section><section id="spyder-spyder-ide" class="slide level2">
+<h2>Spyder <a href="https://github.com/spyder-ide/spyder"><img src="images/spyder-logo.png" class="icon" /></a> IDE</h2>
+<p>“Matlab-like” experience</p>
+<p><img src="images/spyder-screenshot.png" alt="Spyder IDE" /> </p>
+</section><section id="jupyter-jupyter-notebook" class="slide level2">
+<h2>Jupyter <a href="http://jupyter.org/"><img src="images/jupyter.png" class="icon" /></a> Notebook</h2>
+<p>Notebook experience</p>
+<p><img src="images/jupyter-screenshot.png" alt="Jupyter screenshot" />  </p>
+</section><section id="jupyter" class="slide level2">
+<h2>Jupyter</h2>
+<ul>
+<li><p>Executable Notebook: notes, code, graphs, etc.</p></li>
+<li><p>In the browser (with local or remote code execution)</p></li>
+<li><p>Support for several languages (including Python)</p></li>
+</ul>
+</section><section id="jupyter-in-the-cloud" class="slide level2">
+<h2>Jupyter in the Cloud</h2>
+<ul>
+<li><p>Execution model is cloud-friendly</p></li>
+<li><p>Get the benefits of virtual machines</p></li>
+<li><p>dependencies/deployement</p></li>
+</ul>
+<p>Free (as in beer): <a href="https://notebooks.azure.com/">Microsoft Azure Notebooks</a></p>
+</section><section id="demo-1" class="slide level2">
+<h2>Demo</h2>
+<p><a href="https://notebooks.azure.com/boisgera/libraries/audio"><img src="images/wave-notebook.png" /></a></p>
+</section></section>
+<section><section id="publishing-courses" class="titleslide slide level1"><h1>Publishing Courses</h1></section><section id="example" class="slide level2">
+<h2>Example</h2>
+<h3 id="probabilités-et-statistiques">“Probabilités et Statistiques”</h3>
+<h4 id="by-jacques-harthong">by Jacques Harthong</h4>
+<ul>
+<li><p><i class="fa fa-check" style="color: green"></i> renowned (if controversial) scientist<br />
+(see e.g. <a href="https://mathinfo.unistra.fr/fileadmin/upload/IREM/Publications/L_Ouvert/n077Reeb/o_77reeb_42-77.pdf">Intuitionisme 84</a> with G. Reeb)</p></li>
+<li><p><i class="fa fa-check" style="color: green"></i> clear pro-sharing stance (cf “<a href="https://github.com/boisgera/harthong-prob/blob/master/Le%20Photocopillage.md">Le Photocopillage</a>”)</p></li>
+<li><p><i class="fa fa-check" style="color: green"></i> book published (Diderot Editeur Arts Sciences)</p></li>
+<li><p><i class="fa fa-check" style="color: green"></i> sources published online (Strasbourg University)</p></li>
+</ul>
+</section><section class="slide level2">
+
+<ul>
+<li><p><i class="fa fa-times" style="color: red"></i> edition out of print</p></li>
+<li><p><i class="fa fa-times" style="color: red"></i> sources not available anymore</p></li>
+<li><p><i class="fa fa-times" style="color: red"></i> old tech, sources only (no build)</p></li>
+<li><p><i class="fa fa-times" style="color: red"></i> build does not succeed</p></li>
+</ul>
+<div class="fragment">
+<h4 id="can-we-do-better">Can we do better?</h4>
+<p>The example of <a href="https://doi.org/10.23646/oer.000001">Complex Analysis and Applications</a></p>
+</div>
+</section><section id="hosting" class="slide level2">
+<h2>Hosting</h2>
+<p>Sources / Documents</p>
+<ul>
+<li><p>Self-hosting?</p></li>
+<li><p>External Provider (ex: GitHub/BitBucket, etc.)</p></li>
+<li><p>Institution (role of <a href="https://www.doi.org/">DOI</a>), <a href="https://zenodo.org/">Zenodo</a>, HAL (<a href="https://cel.archives-ouvertes.fr/">CEL</a>), etc.</p></li>
+</ul>
+</section><section id="self-hosted" class="slide level2">
+<h2>Self-Hosted</h2>
+<p><a href="https://eul.ink/complex-analysis/"><img src="images/eul.ink-complex-analysis.png" /></a></p>
+</section><section id="external-hosting-sources" class="slide level2">
+<h2>External Hosting (Sources)</h2>
+<p><a href="https://bitbucket.org/boisgera/complex-differentiability/src"><img src="images/bitbucket-complex-differentiability.png" /></a></p>
+</section><section id="mines-paristech-doi" class="slide level2">
+<h2>MINES ParisTech / DOI</h2>
+<p>DOI: 10.23646/oer.000001</p>
+<p><a href="https://doi.org/10.23646/oer.000001"><img src="images/Complex%20Analysis%20and%20Applications.png" /></a></p>
+</section><section id="document-format-tools" class="slide level2">
+<h2>Document Format &amp; Tools</h2>
+<ul>
+<li><p>Document Output Format?</p></li>
+<li><p>Process / Tooling?</p></li>
+<li><p>Document Input Format?</p></li>
+</ul>
+</section><section id="html5-the-open-web" class="slide level2">
+<h2><img src="images/html5.png" alt="HTML5" class="icon" /> The Open Web</h2>
+<p>Old strengths and <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5">growing set of technologies</a></p>
+<p>Semantics / Connectivity / Offline and storage / Multimedia / 2D/3D graphics / Performance and integration / Device access / Styling</p>
+</section><section id="examples" class="slide level2">
+<h2>Examples</h2>
+<ul>
+<li><p><a href="https://fonts.google.com/specimen/Alegreya">WebFonts</a></p></li>
+<li><p><a href="https://eul.ink/complex-analysis/Cauchy&#39;s%20Integral%20Theorem%20--%20Global%20Version/#theorem--cauchys-residue-theorem.">Math Support</a></p></li>
+<li><p><a href="https://eul.ink/complex-analysis/Complex-Differentiability/#references">References</a></p></li>
+<li><p><a href="https://eul.ink/complex-analysis/The%20Winding%20Number/#definition--variation-of-the-argument.">Unobtrusive Proofs</a></p></li>
+<li><p><a href="http://eul.ink/complex-analysis/Complex-Step%20Differentiation/#appendix">Code Integration</a></p></li>
+<li><p><a href="https://eul.ink/complex-analysis/Cauchy&#39;s%20Integral%20Theorem%20--%20Global%20Version/#the-proof">SVG Images</a></p></li>
+<li><p>…</p></li>
+</ul>
+</section><section id="web-first-vs-hybrid-models" class="slide level2">
+<h2>Web-First vs Hybrid Models</h2>
+<h4 id="still-need-pdfprint">Still Need PDF/Print ?</h4>
+<p><strong>Simple format + document model + “converters”</strong></p>
+<p>I have been happy with:</p>
+<ul>
+<li><p><a href="https://daringfireball.net/projects/markdown/">Markdown</a>, a plain text format for the Web<br />
+(try online <a href="https://dillinger.io/"><i class="fa fa-pencil"></i></a>)</p></li>
+<li><p><a href="https://hackage.haskell.org/package/pandoc-types-1.19/docs/Text-Pandoc-Definition.html">Text.Pandoc.Definition</a> a Haskell type hierarchy</p></li>
+<li><p><a href="https://pandoc.org/">Pandoc</a> a “universal document converter”</p></li>
+</ul>
+</section><section id="benefits-of-a-generic-document-model" class="slide level2">
+<h2>Benefits of a Generic Document Model</h2>
+<ul>
+<li><p>Multiple output targets (Web, PDF, E-PUB, etc.)</p></li>
+<li><p>Transform your documents</p>
+<p>(e.g. create <a href="https://eul.ink/complex-analysis/Complex%20Analysis%20and%20Applications%20(a4).pdf">a book</a> from several smaller documents)</p></li>
+<li><p>Migration / Future-proof</p></li>
+</ul>
+</section><section id="building" class="slide level2">
+<h2>Building</h2>
+<p>Make it easy to build the document<br />
+(<em>You are probably the one doing it anyway!</em>)</p>
+<ul>
+<li><p>Setup (instructions / script) &amp; Build (script)</p></li>
+<li><p>Provide build platforms (<a href="https://bitbucket.org/boisgera/complex-differentiability/src">containers</a> or VMs)</p></li>
+<li><p>Continuous integration: <a href="https://github.com/boisgera/reveal-js-demo"><i class="fa fa-github"></i></a> / <a href="https://travis-ci.org/boisgera/reveal-js-demo"><img src="images/travis-CI.svg" class="icon" /></a></p></li>
+</ul>
+<!--
+
+Misc. / Sandbox
+================================================================================
+
+Search
+--------------------------------------------------------------------------------
+
+-->
+<!-- Vue App and (large) index loaded at the bottom of the page -->
+<!--
+<div id="app" style="min-height: 80vh;">
+<search></search>
+</div>
+-->
+<!--
+
+--------------------------------------------------------------------------------
+
+Open Dvlpt & Share (Why?)
+
+The easy part
+
+The hard part: modifications / repurposed content, etc.
+
+BUILDING the stuff / platform.
+
+Solutions:
+
+  - deal with it
+
+  - vms / containers
+
+  - cloud. Free solution: repurpose CI engines, 
+
+-->
+<style>
+
+.reveal section img {
+  border:0;
+  max-width:80vh;
+}
+
+.reveal section img.medium {
+  border:0;
+  max-width:50vh;
+}
+
+.reveal section img.icon {
+  display:inline;
+  border:0;
+  width:1em;
+  margin:0em;
+  box-shadow:none;
+  vertical-align:-10%;
+}
+
+.reveal code {
+  font-family: Inconsolata, monospace;
+}
+
+.reveal pre code {
+  font-size: 1.5em;
+  line-height: 1.5em;
+}
+
+input {
+  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  font-size: 42px;
+  line-height: 54.6px;
+}
+
+</style>
+<p><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet"></p>
+<!-- Document Index & Vue App -->
+<script src="https://use.fontawesome.com/9ad4d58b37.js"></script>
+<script src="js/index.js"></script>
+<script src="https://unpkg.com/vue"></script>
+<script src="js/search.js"></script>
+</section></section>
+    </div>
+  </div>
+
+  <script src="reveal.js-3.5.0/lib/js/head.min.js"></script>
+  <script src="reveal.js-3.5.0/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js-3.5.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js-3.5.0/plugin/zoom-js/zoom.js', async: true },
+              { src: 'reveal.js-3.5.0/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>

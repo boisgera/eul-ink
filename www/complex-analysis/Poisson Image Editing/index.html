@@ -1,0 +1,955 @@
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, Mines ParisTech">
+  <meta name="dcterms.date" content="2019-09-30">
+  <title>Poisson Image Editing</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: content-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+html {
+  line-height: var(--base-line-height);
+  --base-font-size: 24px;
+  --base-line-height: 36px;
+  --scale-ratio: 1.4142135623730951;
+  --small: 17px;
+  --medium: 24px;
+  --large: 34px;
+  --x-large: 48px;
+  font-size: 24px;
+  font-family: 'Alegreya', serif;
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html em {
+  font-style: italic;
+}
+html strong {
+  font-weight: bold;
+}
+html p, html .p {
+  margin-bottom: var(--base-line-height);
+  text-align: justify;
+  hyphens: auto;
+  -moz-hyphens: auto;
+}
+html section {
+  margin-bottom: var(--base-line-height_px);
+}
+html main {
+  box-sizing: content-box;
+  max-width: 32em;
+  margin: auto;
+  padding: var(--base-line-height);
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, q:before {
+  content: none;
+}
+blockquote:after, q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: medium solid black;
+  border-bottom: medium solid black;
+}
+main > header, main > .header, main > #header {
+  margin-top: calc(2 * var(--base-line-height));
+  margin-bottom: calc(2 * var(--base-line-height));
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: calc(1.5 * var(--base-line-height));
+  margin-top: 0;
+  margin-bottom: var(--base-line-height);
+  font-weight: bold;
+}
+main > header .author, main > .header .author, main > #header .author {
+  font-size: 24px;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  font-weight: normal;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: 'Alegreya SC', serif;
+  line-height: calc(1 * var(--base-line-height));
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  font-weight: bold;
+  line-height: calc(1.25 * var(--base-line-height));
+  margin-top: calc(2.00 * var(--base-line-height));
+  margin-bottom: calc(0.75 * var(--base-line-height));
+}
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+}
+h3, h4, h5, h6 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 1em;
+  display: inline;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
+}
+a:hover {
+  text-decoration: none;
+}
+a:link {
+  color: var(--color);
+}
+a:visited {
+  color: var(--color);
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li {
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  margin-left: var(--base-line-height);
+  padding-left: 0.5em;
+}
+ul li {
+  list-style: disc;
+}
+ol li {
+  list-style: decimal;
+}
+blockquote {
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+  padding: var(--base-line-height);
+  margin-bottom: var(--base-line-height);
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-size: 24px;
+  font-family: Inconsolata;
+}
+pre {
+  overflow-x: auto;
+  background-color: #ebebeb;
+  margin-bottom: var(--base-line-height);
+  padding-left: var(--base-line-height);
+  padding-right: var(--base-line-height);
+  padding-top: var(--base-line-height);
+  padding-bottom: var(--base-line-height);
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: auto;
+}
+figure {
+  margin-bottom: var(--base-line-height);
+  text-align: center;
+}
+figcaption {
+  display: inline-block;
+  font-style: italic;
+  text-align: justify;
+}
+.table {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  margin-bottom: var(--base-line-height);
+}
+thead {
+  border-bottom: medium solid black;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+.MJXc-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+nav#TOC > ul {
+  position: relative;
+  font-weight: bold;
+}
+nav#TOC > ul > * {
+  margin-bottom: var(--base-line-height);
+}
+nav#TOC > ul li {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+nav#TOC > ul ul li {
+  margin-left: var(--base-line-height);
+  font-weight: normal;
+}
+nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+  padding-bottom: var(--base-line-height);
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+.badge {
+  position: relative;
+  bottom: 0.13em;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  font-weight: 300;
+  font-size: var(--small);
+  display: inline-block;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  vertical-align: baseline;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+  margin-right: 1em;
+}
+.section-flag {
+  line-height: var(--base-line-height);
+  font-size: var(--small);
+  font-weight: 300;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  margin-bottom: 0;
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya: 400,700,900,400italic,700italic,900italic|Alegreya+SC:400,700,900,400italic,700italic,900italic|Alegreya+Sans:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+Sans+SC:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var box, hide_proof, main, show_proof;
+
+  hide_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("expanded");
+    sectionWrapper.addClass("minimized");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "visible"
+    });
+    w$(".header-wrapper").css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().css({
+      visibility: "hidden",
+      height: "0px"
+    });
+    w$(".header-wrapper").attr({
+      id: w$("section").first().attr("id")
+    });
+    return w$("section").first().attr({
+      id: ""
+    });
+  };
+
+  show_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("minimized");
+    sectionWrapper.addClass("expanded");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "hidden"
+    });
+    w$(".header-wrapper").css({
+      visibility: "hidden",
+      height: "0"
+    });
+    w$("section").first().css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().attr({
+      id: w$(".header-wrapper").attr("id")
+    });
+    return w$(".header-wrapper").attr({
+      id: ""
+    });
+  };
+
+  box = function(section) {
+    var clone, expand, header, headerWrapper, tombstone, wrapper;
+    clone = section.clone(true);
+    clone.css({
+      marginBottom: "0"
+    });
+    clone.children().last().css({
+      marginBottom: "0"
+    });
+    tombstone = clone.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer",
+      position: "absolute",
+      bottom: "0.75rem",
+      right: "0.75rem"
+    });
+    wrapper = $("<div class='proof-wrapper expanded'></div>");
+    wrapper.css({
+      position: "relative",
+      margin: "-0.75rem -0.75rem 0.75rem -0.75rem",
+      padding: "0.75rem",
+      backgroundColor: "#f9f9f9"
+    });
+    header = clone.find("h3, h4, h5, h6").first().clone();
+    headerWrapper = $("<div class='p header-wrapper' style='margin-bottom:0; visibility:hidden; overflow:hidden; height:0;'> </div>");
+    headerWrapper.append(header);
+    expand = $("<i class='fa fa-caret-down expand' style='visibility:hidden; cursor:pointer; position:absolute; top:0.75rem; right:0.75rem;'> </i>");
+    wrapper.append(headerWrapper);
+    wrapper.append(expand);
+    wrapper.append(clone);
+    expand.on("click", function() {
+      return show_proof(wrapper);
+    });
+    tombstone.on("click", function() {
+      return hide_proof(wrapper);
+    });
+    section.replaceWith(wrapper);
+    return wrapper;
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, section, sections, text, wrapper;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      wrapper = box(section);
+      hide_proof(wrapper);
+    }
+    return $(document).keydown(function(event) {
+      var k, l, len2, len3, ref1, ref2, results, sectionWrapper;
+      console.log("***", event.keyCode);
+      if (event.keyCode === 88) {
+        ref1 = $(".proof-wrapper.minimized");
+        for (k = 0, len2 = ref1.length; k < len2; k++) {
+          sectionWrapper = ref1[k];
+          show_proof($(sectionWrapper));
+        }
+      }
+      if (event.keyCode === 77) {
+        ref2 = $(".proof-wrapper.expanded");
+        results = [];
+        for (l = 0, len3 = ref2.length; l < len3; l++) {
+          sectionWrapper = ref2[l];
+          results.push(hide_proof($(sectionWrapper)));
+        }
+        return results;
+      }
+    });
+  };
+
+  $(main);
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var make_preview, mathjaxDebug;
+
+  make_preview = function(elt) {
+    var card, hidden_css, hide_preview, id, ref, show_preview, url, visible_css;
+    ref = elt.attr("href").split("#"), url = ref[0], id = ref[1];
+    card = $("<div class='card'>\n  <div class='holder'>\n    <p>Placeholder</p>\n  </div>\n</div>");
+    card.css({
+      width: "35vw",
+      padding: "1.5rem",
+      position: "fixed",
+      top: "1.5rem",
+      right: "1.5rem",
+      boxSizing: "border-box",
+      maxHeight: "calc(100vh - 3rem)",
+      overflow: "hidden",
+      boxShadow: "0 0 1rem #e6e6e6",
+      backgroundColor: "white"
+    });
+    visible_css = {
+      visibility: "visible",
+      opacity: 1,
+      transform: "translateX(0em)",
+      transition: "all 0.3s linear"
+    };
+    hidden_css = {
+      visibility: "hidden",
+      opacity: 0,
+      transform: "translateX(1em)",
+      transition: "all 0.3s linear 0.5s"
+    };
+    card.css(hidden_css);
+    elt.css({
+      textDecoration: "underline solid #0a0a0a",
+      textDecorationSkip: "ink",
+      transition: "background-color 0.3s linear"
+    });
+    show_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d3"
+      });
+      return card.css(visible_css);
+    };
+    hide_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d300"
+      });
+      return card.css(hidden_css);
+    };
+    return card.find(".holder").load(url + (" [id='" + id + "']"), function(response, status, jxXHR) {
+      console.log("XHR status:", status, url, id);
+      if (status === "success" || status === "notmodified") {
+        console.log("success!");
+        console.log("elt:", $(elt));
+        $("body").append(card);
+        card.find("p, .p").css({
+          textAlign: "left"
+        });
+        card.find("section").css({
+          marginBottom: "0"
+        });
+        card.find("section").children().last().css({
+          marginBottom: "0"
+        });
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, card[0]]);
+        elt.on("mouseenter", show_preview);
+        return elt.on("mouseleave", hide_preview);
+      }
+    });
+  };
+
+  mathjaxDebug = function() {
+    MathJax.Hub.signal.Interest(function(message) {
+      return console.log("*", message);
+    });
+    return MathJax.Hub.Register.StartupHook("End Process", function() {
+      var i, jax, len, ref, results;
+      console.log("list of jaxes:");
+      ref = MathJax.Hub.getAllJax();
+      results = [];
+      for (i = 0, len = ref.length; i < len; i++) {
+        jax = ref[i];
+        results.push(console.log("jax:", jax));
+      }
+      return results;
+    });
+  };
+
+  $(function() {
+    var elt, i, len, ref, results;
+    ref = $("a.preview");
+    results = [];
+    for (i = 0, len = ref.length; i < len; i++) {
+      elt = ref[i];
+      results.push(make_preview($(elt)));
+    }
+    return results;
+  });
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">Poisson Image Editing</a></h1>
+
+<h2 class="author">
+By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, Mines ParisTech, under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>
+</h2> 
+
+<h3 class="date" style="margin-right: 0px;">September 30, 2019</h3>
+</header>
+<section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
+<ul>
+<li class="top-li"><p class="section-flag">section 1</p><a href="#introduction">Introduction</a></li>
+<li class="top-li"><p class="section-flag">section 2</p><a href="#modelling-the-problem">Modelling the Problem</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--dirichlet-problem.">Dirichlet Problem</a></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 3</p><a href="#harmonic-functions">Harmonic Functions</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--harmonic-functions.">Harmonic functions</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--the-real-part-of-a-holomorphic-function-is-harmonic.">The real part of a holomorphic function is harmonic</a></li>
+<li></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--a-harmonic-function-is-locally-the-real-part-of-a-holomorphic-function.">A harmonic function is locally the real part of a holomorphic function</a></li>
+<li><span class="badge">lem<span></span></span><a href="#lemma.">Lemma</a></li>
+<li></li>
+<li></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--harmonic-functions-are-smooth-of-class-cinfty.">Harmonic functions are smooth (of class \(C^{\infty}\))</a></li>
+<li></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--the-maximum-principle.">The Maximum Principle</a></li>
+<li></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 4</p><a href="#the-dirichlet-problem">The Dirichlet Problem</a><ul>
+<li><span class="badge">lem<span></span></span><a href="#lemma--uniqueness-of-the-solution.">Uniqueness of the Solution</a></li>
+<li></li>
+<li><a href="#harmonicfourier-analysis">Harmonic/Fourier Analysis</a><ul>
+<li><span class="badge">lem<span></span></span><a href="#lemma--elementary-solutions.">Elementary Solutions</a></li>
+<li></li>
+</ul></li>
+<li><a href="#the-poisson-kernel">The Poisson Kernel</a><ul>
+<li><span class="badge">the<span></span></span><a href="#theorem--solution-of-the-dirichlet-problem.">Solution of the Dirichlet Problem</a></li>
+<li><span class="badge">def<span></span></span><a href="#definition--poisson-kernel.">Poisson Kernel</a></li>
+<li><span class="badge">def<span></span></span><a href="#definition--poisson-integral-operator.">Poisson Integral Operator</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--solution-of-the-dirichlet-problem.-1">Solution of the Dirichlet Problem</a></li>
+<li><span class="badge">lem<span></span></span><a href="#lemma--poisson-kernel-alternate-representations.">Poisson Kernel, Alternate Representations</a></li>
+<li></li>
+<li><span class="badge">lem<span></span></span><a href="#lemma--poisson-kernel-fourier-series.">Poisson Kernel, Fourier Series</a></li>
+<li></li>
+<li><span class="badge">lem<span></span></span><a href="#lemma--poisson-integral-harmonicity.">Poisson Integral, Harmonicity</a></li>
+<li></li>
+<li><span class="badge">lem<span></span></span><a href="#lemma--poisson-integral-boundary-values.">Poisson Integral, Boundary Values</a></li>
+<li><a href="#ref-RUD87">1987</a>)).</li>
+</ul></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 5</p><a href="#appendix">Appendix</a><ul>
+<li><a href="#linear-gradient">Linear Gradient</a></li>
+<li><a href="#analytic-boundary-condition">Analytic Boundary Condition</a></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 6</p><a href="#references">References</a></li>
+<li class="top-li"><p class="section-flag">section 7</p><a href="#notes">Notes</a></li></ul>
+</nav></section>
+<section id="introduction" class="level1">
+<h1><a href="#introduction">Introduction</a></h1>
+<p>Poisson Image Editing refers to a family of methods introduced in <span class="citation" data-cites="PGB03">(Pérez, Gangnet, and Blake <a href="#ref-PGB03">2003</a>)</span> that rely on the resolution of the Poisson equation to perform seamless editing of images. Typical use cases include: healing of images from damaged or missing data, image enhancements, e.g.&nbsp;the removal of skin blemishes in portraits, heavy image editing, for example the concealement of objects.</p>
+<p>The <a href="http://www.gimp.org/">GNU Image Manipulation Program</a> (GIMP) “Heal tool” implements a Poisson Image Editing method<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>, described in the <a href="http://docs.gimp.org/en/gimp-tool-heal.html">documentation</a> as “a smart clone tool on steroids”, because:</p>
+<blockquote>
+<p>Pixels are not simply copied from source to destination, but the area around the destination is taken into account before cloning is applied.</p>
+</blockquote>
+<figure>
+<img src="images/GIMP-toolbox.png" alt="GIMP Toolbox – The Heal tool is featured by the band-aid icon." style="width: 74.1809447732077%;"><figcaption>GIMP Toolbox – The Heal tool is featured by the band-aid icon.</figcaption>
+</figure>
+<p>Let’s demonstrate Poisson image editing with GIMP. Say that we want to hide the watch in the image below, in a way one cannot guess that there was an item to begin with.</p>
+<figure>
+<img src="images/objects.jpg" alt="Photograph by Vadim Sherbakov, licensed under Unsplash Creative Commons Zero License." style="width: 100%;"><figcaption><a href="https://unsplash.com/photos/tCICLJ5ktBE">Photograph by Vadim Sherbakov</a>, licensed under <a href="https://unsplash.com/license">Unsplash Creative Commons Zero License</a>.</figcaption>
+</figure>
+<p>We first select a disk in a region of the image where there is no object, to capture the texture of the background behind the objects. GIMP displays this region with a dashed line (see “GIMP Heal tool in action” figure). We make sure that the disk is big enough to cover a significant part of the watch, and small enough to avoid the objects that are close to it. Then we graft this heal source on top of the lower part of the watch, then on its upper part. The final result is a seamless removal of the watch from the picture.</p>
+<figure>
+<img src="images/desktop.jpg" alt="The GIMP Heal tool in action." style="width: 100%;"><figcaption>The GIMP Heal tool in action.</figcaption>
+</figure>
+<figure>
+<img src="images/objects-in-progress-small-wide.jpg" alt="Work in progress (zoom in)" style="width: 100%;"><figcaption>Work in progress (zoom in)</figcaption>
+</figure>
+<figure>
+<img src="images/objects-final.jpg" alt="The Poisson edited image" style="width: 100%;"><figcaption>The Poisson edited image</figcaption>
+</figure>
+</section>
+<section id="modelling-the-problem" class="level1">
+<h1><a href="#modelling-the-problem">Modelling the Problem</a></h1>
+<p>Consider a circular image fragment <span class="math inline">\(\phi\)</span> that requires some editing. If the image resolution is good enough, it is sensible to model this fragment as a function <span class="math inline">\(\phi\)</span> of two continuous variables <span class="math inline">\(x\)</span> and <span class="math inline">\(y,\)</span> defined inside the unit disk <span class="math display">\[
+  D = \{(x,y) \in \mathbb{R}^2 \, | \, x^2 + y^2 &lt; 1\}
+  \]</span> and on its boundary <span class="math inline">\(\partial D.\)</span></p>
+<p>If we deal with grayscale images, we can assume that <span class="math inline">\(\phi\)</span> is real-valued, even with values in <span class="math inline">\([0,1]\)</span> after a suitable normalization of the image intensity. Color images can easily be modelled too, for example as triples of real-valued functions, one for each channel in a RGB decomposition.</p>
+<p>We search for a new image fragment <span class="math inline">\(\psi,\)</span> that matches <em>exactly</em> the original fragment <span class="math inline">\(\phi\)</span> on the boundary <span class="math inline">\(\partial D\)</span> and whose texture matches <em>approximately</em> the texture of a third image fragment <span class="math inline">\(\chi\)</span> in <span class="math inline">\(D.\)</span> We assume that the texture of an image fragment is essentially captured by its gradient field; for the sake of simplicity, we measure the dissimilarity of two gradients with the quadratic mean of their difference.</p>
+<p>To summarize, we are trying to solve: <span class="math display">\[
+  \min_{\psi} \int_{D} \|\nabla (\psi - \chi)\|^2
+  \; \mbox{ with } \;
+  \psi|_{\partial D} = \phi|_{\partial D}.
+  \]</span></p>
+<p>If we set <span class="math inline">\(u = \psi - \chi\)</span> and <span class="math inline">\(f = (\phi - \chi)|_{\partial D},\)</span> we end up with a function <span class="math inline">\(u\)</span> that solves the <em>variational Dirichlet problem</em>: the minimization of the <em>Dirichlet energy</em> of <span class="math inline">\(u,\)</span> subject to the <em>Dirichlet boundary condition</em> <span class="math inline">\(f\)</span>: <span class="math display">\[
+    \min_{u} \int_{D} \| \nabla u \|^2
+    \; \mbox{ with } \;
+    u|_{\partial D} = f.
+    \]</span> We may also search <span class="math inline">\(u\)</span> as a solution of the <em>Dirichlet problem</em>: <span class="math display">\[
+  \Delta u  = 0 \, \mbox{ on } \, D
+  \; \mbox{ with } \;
+  u|_{\partial D} = f  
+  \]</span> as both problems are – at least informally – equivalent. Indeed, given two candidate solutions <span class="math inline">\(u\)</span> and <span class="math inline">\(u+\epsilon\)</span> to the variational problem, we have <span class="math display">\[
+  \int_{D} \|\nabla (u + \epsilon) \|^2
+    =
+    \int_{D} \|\nabla u \|^2
+    +
+      2 \int_{D} \nabla u \cdot \nabla \epsilon 
+    + \int_{D} \| \epsilon \|^2,
+  \]</span> hence <span class="math inline">\(u\)</span> is a minimizer if and only if <span class="math display">\[ 
+  \forall \, \epsilon \, \mbox{ such that} \ \epsilon|_{\partial D}=0, \,
+  \int_{D} \nabla u \cdot \nabla \epsilon 
+  = 0
+  \]</span> Given Green’s first identity, this condition holds if and only if <span class="math inline">\(\Delta u = 0\)</span> on <span class="math inline">\(D.\)</span></p>
+<p>In the sequel we study the Dirichlet problem in the classic setting:</p>
+<section id="definition--dirichlet-problem." class="level3">
+
+<div class="p"><h3><a href="#definition--dirichlet-problem.">Definition – Dirichlet Problem.</a></h3>‌Given a continuous function <span class="math inline">\(f: \partial D \to \mathbb{R},\)</span> a <em>classic</em> solution of the Dirichlet problem is a function <span class="math inline">\(u: \overline{D} \to \mathbb{R}\)</span> which is continuous in <span class="math inline">\(\overline{D},\)</span> twice continously differentiable in <span class="math inline">\(D,\)</span> and such that <span class="math display">\[
+  \Delta u  = 0 \, \mbox{ on } \, D
+  \; \mbox{ with } \;
+  u|_{\partial D} = f.
+  \]</span></div>
+</section>
+</section>
+<section id="harmonic-functions" class="level1">
+<h1><a href="#harmonic-functions">Harmonic Functions</a></h1>
+<section id="definition--harmonic-functions." class="level3">
+
+<div class="p"><h3><a href="#definition--harmonic-functions.">Definition – Harmonic functions.</a></h3>‌A function <span class="math inline">\(u:\Omega \to \mathbb{R}\)</span> defined in an open subset <span class="math inline">\(\Omega\)</span> of <span class="math inline">\(\mathbb{C}\)</span> is <em>harmonic</em> if it is twice continuously differentiable and <span class="math inline">\(\Delta u = 0\)</span> on <span class="math inline">\(\Omega.\)</span></div>
+</section>
+<section id="theorem--the-real-part-of-a-holomorphic-function-is-harmonic." class="level3">
+
+<div class="p"><h3><a href="#theorem--the-real-part-of-a-holomorphic-function-is-harmonic.">Theorem – The real part of a holomorphic function is harmonic.</a></h3>‌</div>
+</section>
+<section id="proof." class="level3">
+
+<div class="p"><h3><a href="#proof.">Proof.</a></h3>‌ First we prove that <span class="math inline">\(u = \mathrm{Re} \,f\)</span> is twice continuously differentiable when <span class="math inline">\(f:\Omega \to \mathbb{C}\)</span> is holomorphic. The operator <span class="math inline">\(\mathrm{Re}\)</span> is real-linear and continuous hence it is real-differentiable and <span class="math inline">\(d\mathrm{Re}_{z} = \mathrm{Re}\)</span> for any <span class="math inline">\(z\in\mathbb{C}.\)</span> On the other hand, <span class="math inline">\(f\)</span> is real-differentiable and <span class="math inline">\(df_z(h) = f'(z) \times h.\)</span> Therefore, <span class="math inline">\(u\)</span> is real-differentiable and <span class="math inline">\(du_z(h) = \mathrm{Re} (f'(z) \times h).\)</span> Consequently, <span class="math display">\[
+  \frac{\partial u}{\partial x}(x,y) 
+  = \mathrm{Re} ( f'(z) \times 1 )
+  \; \mbox{ and } \;
+  \frac{\partial u}{\partial y}(x,y) 
+  = \mathrm{Re} (f'(z) \times i).
+  \]</span> The partial derivatives of first order of <span class="math inline">\(u\)</span> are continuous. They also appear as real parts of holomorphic functions, hence we can repeat the computation of partial derivatives with the same scheme to prove that <span class="math inline">\(u\)</span> is twice continuously differentiable.</div>
+<p>Now, for any function <span class="math inline">\(u\)</span> that is twice continuously differentiable, we have <span class="math display">\[
+  \Delta u = 
+  \left(\frac{\partial }{\partial x} + i \frac{\partial }{\partial y} \right) 
+  \left(\frac{\partial u}{\partial x} - i \frac{\partial u}{\partial y} \right).
+  \]</span> If <span class="math inline">\(u = \mathrm{Re} \,f\)</span> and <span class="math inline">\(v=\mathrm{Im} \, f\)</span> where <span class="math inline">\(f\)</span> is holomorphic, then <span class="math display">\[
+  f' = \frac{\partial u}{\partial x} + i \frac{\partial v}{\partial x} 
+     =  \frac{\partial u}{\partial x} - i \frac{\partial u}{\partial y},
+  \]</span> hence <span class="math display">\[
+  \Delta u = \frac{\partial f'}{\partial x} + i \frac{\partial f'}{\partial y} = 0
+  \]</span> by the complex form of the Cauchy-Riemann equation for <span class="math inline">\(f'.\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+
+</section><section><p>There is a partial converse theorem:</p></section>
+<section id="theorem--a-harmonic-function-is-locally-the-real-part-of-a-holomorphic-function." class="level3">
+
+<div class="p"><h3><a href="#theorem--a-harmonic-function-is-locally-the-real-part-of-a-holomorphic-function.">Theorem – A harmonic function is <em>locally</em> the real part of a holomorphic function.</a></h3>‌ If <span class="math inline">\(u:\Omega \to \mathbb{R}\)</span> is harmonic, for any <span class="math inline">\(z \in \Omega,\)</span> there is an open neighbourhood <span class="math inline">\(V\)</span> of <span class="math inline">\(z\)</span> and a holomorphic function <span class="math inline">\(f:V\to\mathbb{C}\)</span> such that <span class="math inline">\(u|_{V} = \mathrm{Re} \,f.\)</span></div>
+<p>Actually, we will show a stronger result: the <em>global</em> existence of a holomorphic function if the domain of definition of the harmonic function is simply connected. But first, we need the following lemma:</p>
+</section>
+<section id="lemma." class="level3">
+
+<div class="p"><h3><a href="#lemma.">Lemma.</a></h3>‌If <span class="math inline">\(u:\Omega \to \mathbb{R}\)</span> is harmonic, the function <span class="math inline">\(f:\Omega \to \mathbb{C}\)</span> defined by <span class="math display">\[
+  f(x+iy)=\frac{\partial u}{\partial x}(x,y) - i \frac{\partial u}{\partial y}(x,y)
+  \]</span> is holomorphic.</div>
+</section>
+<section id="proof.-1" class="level3">
+
+<div class="p"><h3><a href="#proof.-1">Proof.</a></h3>‌As <span class="math inline">\(u\)</span> is twice continuously differentiable, <span class="math inline">\(f\)</span> is continuously differentiable and its partial derivatives are given by <span class="math display">\[
+  \frac{\partial f}{\partial x}
+    = \frac{\partial^2 u}{\partial x^2} 
+    - i \frac{\partial^2 u}{\partial x\partial y}, \;
+  \frac{\partial f}{\partial y} 
+    = \frac{\partial^2 u}{\partial y \partial x} 
+    - i \frac{\partial^2 u}{\partial y^2}.
+  \]</span> Consequently, the complex form of the Cauchy-Riemann equation holds: <span class="math display">\[
+  \frac{\partial f}{\partial y} - i \frac{\partial f}{\partial x} = 
+  \left(
+    \frac{\partial^2 u}{\partial y \partial x} 
+  - \frac{\partial^2 u}{\partial x\partial y} 
+  \right) 
+  - i \Delta u 
+  = 0.
+  \]</span> It follows that the function <span class="math inline">\(f\)</span> is holomorphic. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+
+</section><section><p>Now, we may prove the converse theorem.</p></section>
+<section id="proof.-2" class="level3">
+
+<div class="p"><h3><a href="#proof.-2">Proof.</a></h3>‌ Assume that <span class="math inline">\(u: \Omega \to \mathbb{R}\)</span> is harmonic and that <span class="math inline">\(\Omega\)</span> is simply connected. By Cauchy’s integral theorem, the integral along any closed rectifiable path of <span class="math inline">\(\Omega\)</span> of the holomorphic function <span class="math inline">\(f\)</span> of the lemma is zero, thus it has a primitive. Any such primitive <span class="math inline">\(g\)</span> satisfies: <span class="math display">\[
+  g'(x+iy) = f(x+iy)
+  = \frac{\partial u}{\partial x}(x,y) - i \frac{\partial u}{\partial y}(x,y).
+  \]</span> Let <span class="math inline">\(\tilde{u} = \mathrm{Re} \,g\)</span> and <span class="math inline">\(\tilde{v} = \mathrm{Im} \, g;\)</span> we have <span class="math display">\[
+  g'(x+iy) 
+  = \frac{\partial \tilde{u}}{\partial x}(x,y) + i \frac{\partial \tilde{v}}{\partial x}(x,y)
+  = \frac{\partial \tilde{u}}{\partial x}(x,y) - i \frac{\partial \tilde{u}}{\partial y}(x,y),
+  \]</span> hence <span class="math inline">\(d\tilde{u} = du.\)</span> Up to the correction of <span class="math inline">\(f\)</span> by a constant value in each connected component of <span class="math inline">\(\Omega,\)</span> this result yields <span class="math inline">\(\tilde{u} = u.\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+
+</section><section><p>A consequence of the converse theorem:</p></section>
+<section id="theorem--harmonic-functions-are-smooth-of-class-cinfty." class="level3">
+
+<div class="p"><h3><a href="#theorem--harmonic-functions-are-smooth-of-class-cinfty.">Theorem – Harmonic functions are smooth (of class <span class="math inline">\(C^{\infty}\)</span>).</a></h3>‌</div>
+</section>
+<section id="proof.-3" class="level3">
+
+<div class="p"><h3><a href="#proof.-3">Proof.</a></h3>‌Every harmonic function is locally the real part of a holomorphic function. The same method that we used to prove that such a function is twice continuously differentiable can actually be used to prove that it is of class <span class="math inline">\(C^{\infty}.\)</span></div>
+</section>
+<section id="theorem--the-maximum-principle." class="level3">
+
+<div class="p"><h3><a href="#theorem--the-maximum-principle.">Theorem – The Maximum Principle.</a></h3>‌ Let <span class="math inline">\(\Omega\)</span> be an open connected subset of <span class="math inline">\(\mathbb{C}\)</span> and <span class="math inline">\(u:\Omega \to \mathbb{R}\)</span> be an harmonic function. If <span class="math inline">\(u\)</span> has a maximum or a minimum on <span class="math inline">\(\Omega,\)</span> then <span class="math inline">\(u\)</span> is constant.</div>
+</section>
+<section id="proof.-4" class="level3">
+
+<div class="p"><h3><a href="#proof.-4">Proof.</a></h3>‌ We use the maximum principle that holds for the modulus of holomorphic functions, first in a special case. Assume that <span class="math inline">\(u\)</span> has a maximum on <span class="math inline">\(\Omega\)</span> and additionally that <span class="math inline">\(\Omega\)</span> is simply connected. There is a holomorphic function <span class="math inline">\(f\)</span> on <span class="math inline">\(\Omega\)</span> such that <span class="math inline">\(\mathrm{Re} \,f = u.\)</span> The function <span class="math inline">\(g = \exp f\)</span> is holomorphic on <span class="math inline">\(\Omega\)</span> and <span class="math inline">\(|g| = \exp \mathrm{Re} (f) = \exp u,\)</span> hence <span class="math inline">\(|g|\)</span> has a maximum in <span class="math inline">\(\Omega,\)</span> therefore <span class="math inline">\(g\)</span> is a constant <span class="math inline">\(\lambda \in \mathbb{C}^*\)</span>. Let <span class="math inline">\(\mu\)</span> be a complex number such that <span class="math inline">\(e^{\mu} = \lambda\)</span>; the image of <span class="math inline">\(\Omega\)</span> by <span class="math inline">\(f\)</span> is necessarily a subset of <span class="math inline">\(\{\mu\} + i2\pi \mathbb{Z}\)</span>. Since <span class="math inline">\(f(\Omega)\)</span> is the image of a connected set by a continuous function, it is connected and thus, it is a singleton. Finally, <span class="math inline">\(f\)</span> – and therefore <span class="math inline">\(u\)</span> – are constant.</div>
+<p>We now consider the general case: we only assume that <span class="math inline">\(u\)</span> has a maximum on <span class="math inline">\(\Omega\)</span> at some point <span class="math inline">\(z_0.\)</span> Let <span class="math inline">\(z \in \Omega;\)</span> we can find some connected and simply connected open subset <span class="math inline">\(V\)</span> of <span class="math inline">\(\Omega\)</span> that contains <span class="math inline">\(z_0\)</span> and <span class="math inline">\(z\)</span>(<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>). Using the result obtained in the special case proves that the function <span class="math inline">\(u\)</span> is constant on <span class="math inline">\(V\)</span> and in particular <span class="math inline">\(u(z) = u(z_0).\)</span> As <span class="math inline">\(z\)</span> is arbitrary, that proves that <span class="math inline">\(u\)</span> is constant on <span class="math inline">\(\Omega.\)</span></p>
+<p>If <span class="math inline">\(u\)</span> has a minimum instead of a maximum, we may apply the previous result to to the function <span class="math inline">\(-u\)</span> that is also harmonic and has a maximum. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+</section>
+<section id="the-dirichlet-problem" class="level1">
+<h1><a href="#the-dirichlet-problem">The Dirichlet Problem</a></h1>
+<p>We will prove soon that the Dirichlet problem has a unique solution; what we can already prove is the:</p>
+<section id="lemma--uniqueness-of-the-solution." class="level3">
+
+<div class="p"><h3><a href="#lemma--uniqueness-of-the-solution.">Lemma – Uniqueness of the Solution.</a></h3>‌ There is at most one classic solution <span class="math inline">\(u\)</span> to the Dirichlet problem with continuous boundary condition <span class="math inline">\(f.\)</span></div>
+</section>
+<section id="proof.-5" class="level3">
+
+<div class="p"><h3><a href="#proof.-5">Proof.</a></h3>‌The Dirichlet problem is linear, hence we only need to prove that if <span class="math inline">\(u=0\)</span> on the boundary of <span class="math inline">\(D,\)</span> then <span class="math inline">\(u=0\)</span> in <span class="math inline">\(D.\)</span> The function <span class="math inline">\(u\)</span> is continous on <span class="math inline">\(\overline{D},\)</span> therefore it has a maximum and a minimum. By the maximum principle for harmonic functions, if the maximum or the minimum is attained in <span class="math inline">\(D,\)</span> then <span class="math inline">\(u\)</span> is constant in <span class="math inline">\(D,\)</span> and by continuity on the boundary, <span class="math inline">\(u=0\)</span> on <span class="math inline">\(D.\)</span> Otherwise, the minimum and maximum of <span class="math inline">\(u\)</span> are both attained on <span class="math inline">\(\partial D\)</span> and therefore they are both <span class="math inline">\(0;\)</span> we also conclude in this case that <span class="math inline">\(u=0\)</span> on <span class="math inline">\(D.\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="harmonicfourier-analysis" class="level2">
+<h2><a href="#harmonicfourier-analysis">Harmonic/Fourier Analysis</a></h2>
+<section id="lemma--elementary-solutions." class="level3">
+
+<div class="p"><h3><a href="#lemma--elementary-solutions.">Lemma – Elementary Solutions.</a></h3>‌Let <span class="math inline">\(n \in \mathbb{N}.\)</span> If <span class="math inline">\(f(e^{i\theta}) = \cos (n \theta + \phi),\)</span> then <span class="math display">\[
+  u(r e^{i\theta}) = r^n \cos (n\theta + \phi)
+  \]</span> solves the Dirichlet problem with boundary condition <span class="math inline">\(f.\)</span></div>
+</section>
+<section id="proof.-6" class="level3">
+
+<div class="p"><h3><a href="#proof.-6">Proof.</a></h3>‌The function <span class="math inline">\(u\)</span> is continuous and its restriction on <span class="math inline">\(\partial D\)</span> is <span class="math inline">\(f.\)</span> Moreover, if <span class="math inline">\(|z| &lt; 1,\)</span> <span class="math inline">\(u(z) = \mathrm{Re} (e^{i\phi} z^n);\)</span> as the function <span class="math inline">\(z \mapsto e^{i\phi} z^n\)</span> is holomorphic in <span class="math inline">\(D,\)</span> the function <span class="math inline">\(u\)</span> is harmonic in <span class="math inline">\(D.\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+
+
+
+
+</section><section><figure>
+<img src="images/dirichlet-original-and-source-3.png" alt="On the left, a greyscale representation of the function r e^{i\theta} \mapsto \cos 3\theta. On the right, the uniform image used as a source for the Poisson editing." style="width: 100%;"><figcaption>On the left, a greyscale representation of the function <span class="math inline">\(r e^{i\theta} \mapsto \cos 3\theta.\)</span> On the right, the uniform image used as a source for the Poisson editing.</figcaption>
+</figure><figure>
+<img src="images/dirichlet-solution-and-healed-3.png" alt="On the left, in the circle, (boundary) values extracted from the original image; in the disk, the solution (re^{i\theta} \mapsto r^3 \cos 3\theta) to the corresponding Dirichlet problem. On the right, the original image edited with this solution." style="width: 100%;"><figcaption>On the left, in the circle, (boundary) values extracted from the original image; in the disk, the solution (<span class="math inline">\(re^{i\theta} \mapsto r^3 \cos 3\theta\)</span>) to the corresponding Dirichlet problem. On the right, the original image edited with this solution.</figcaption>
+</figure><p>This result can be readily extended to finite trigonometric series: if for some finite sequence of real-valued coefficients <span class="math inline">\((a_n)\)</span> and <span class="math inline">\((\phi_n),\)</span> <span class="math inline">\(f: \partial D \to \mathbb{R}\)</span> can be decomposed as <span class="math display">\[
+  f(\theta) = \sum_n a_n \cos (n\theta + \phi_n)
+  \]</span> then by linearity, the function <span class="math display">\[
+  u(re^{i\theta}) = \sum_n a_n r^n \cos (n\theta + \phi_n)
+  \]</span> is a solution of the corresponding Dirichlet problem. Now, if <span class="math inline">\(f^{*}\)</span> is merely continuous but can be uniformly approximated to the precision <span class="math inline">\(\epsilon\)</span> by the finite trigonometric series <span class="math inline">\(f\)</span>: <span class="math display">\[
+  \sup_{\theta} |f^*(e^{i\theta}) - f(e^{i\theta})| \leq \epsilon
+  \]</span> and if <span class="math inline">\(u^*\)</span> is a solution to the Dirichlet problem with boundary condition <span class="math inline">\(f^*,\)</span> then by linearity, <span class="math inline">\(u^* - u\)</span> is a solution to the Dirichlet problem with boundary condition <span class="math inline">\(f^* - f;\)</span> the maximum principle then provides <span class="math display">\[
+  \sup_{|z| \leq 1} |u^*(z) - u(z)| \leq \epsilon.
+  \]</span> Now, <a href="http://en.wikipedia.org/wiki/Fej%C3%A9r%27s_theorem">Fejér’s theorem</a> ensures that the approximation of <span class="math inline">\(f^*\)</span> by finite trigonometric series can be achieved with an arbitrary small precision <span class="math inline">\(\epsilon&gt; 0.\)</span> Hence, we can build an abritrarily precise uniform approximation of the solution to the Dirichlet problem.</p><figure>
+<img src="images/dirichlet-analytic-all.png" alt="Approximations of the solution of the Dirichlet problem with boundary condition f(e^{i\theta}) = 0.25 + 0.75 / (5 - 4 \cos \theta) based on Fourier series expansions of length 1 to 6. Refer to the appendix for details." style="width: 100%;"><figcaption>Approximations of the solution of the Dirichlet problem with boundary condition <span class="math inline">\(f(e^{i\theta}) = 0.25 + 0.75 / (5 - 4 \cos \theta)\)</span> based on Fourier series expansions of length 1 to 6. Refer to the <a href="#analytic-boundary-condition">appendix</a> for details.</figcaption>
+</figure></section>
+</section>
+<section id="the-poisson-kernel" class="level2">
+<h2><a href="#the-poisson-kernel">The Poisson Kernel</a></h2>
+<p>The main result of this section:</p>
+<section id="theorem--solution-of-the-dirichlet-problem." class="level3">
+
+<div class="p"><h3><a href="#theorem--solution-of-the-dirichlet-problem.">Theorem – Solution of the Dirichlet Problem.</a></h3>‌The Dirichlet problem with a continuous boundary condition <span class="math inline">\(f\)</span> has a unique classic solution <span class="math inline">\(u,\)</span> given in the unit disk by the Poisson integral <span class="math display">\[
+  u(r e^{i\theta}) 
+    = \frac{1}{2\pi} \int_{-\pi}^{\pi} 
+        \frac{1 - r^2}{1 -2r \cos (\theta - \alpha) + r^2} f(e^{i\alpha}) \, d\alpha.
+  \]</span></div>
+<p>Let’s start with some definitions:</p>
+</section>
+<section id="definition--poisson-kernel." class="level3">
+
+<div class="p"><h3><a href="#definition--poisson-kernel.">Definition – Poisson Kernel.</a></h3>‌The Poisson kernel is the function <span class="math inline">\(P\)</span> defined in the unit disk by <span class="math display">\[
+  P(r e^{i\theta}) = \frac{1-r^2}{1 - 2r\cos \theta + r^2}.
+  \]</span></div>
+<figure>
+<img src="images/poisson-kernel.svg" alt="Poisson Kernel – Graphs of [\theta \mapsto P(r e^{i\theta})]"><figcaption>Poisson Kernel – Graphs of <span class="math inline">\([\theta \mapsto P(r e^{i\theta})]\)</span></figcaption>
+</figure>
+</section>
+<section id="definition--poisson-integral-operator." class="level3">
+
+<div class="p"><h3><a href="#definition--poisson-integral-operator.">Definition – Poisson Integral Operator.</a></h3>‌The Poisson integral operator <span class="math inline">\(\mathcal{P}\)</span> maps a continuous function <span class="math inline">\(f\)</span> defined on the boundary of the unit disk to the the function <span class="math inline">\(\mathcal{P}[f]\)</span> defined inside the unit disk by <span class="math display">\[
+  \mathcal{P}[f](r e^{i\theta}) = 
+  \frac{1}{2\pi} \int_{-\pi}^{\pi} P(r e^{i(\theta - \alpha)}) f(e^{i\alpha}) \, d\alpha.
+  \]</span></div>
+<p>Accordingly, the main result of this section may be restated as:</p>
+</section>
+<section id="theorem--solution-of-the-dirichlet-problem.-1" class="level3">
+
+<div class="p"><h3><a href="#theorem--solution-of-the-dirichlet-problem.-1">Theorem – Solution of the Dirichlet Problem.</a></h3>‌ Let <span class="math inline">\(f: \partial D \to \mathbb{R}\)</span> be continuous. The function <span class="math inline">\(u:\overline{D} \mapsto \mathbb{R}\)</span> defined as <span class="math inline">\(u|_{D} = \mathcal{P}[f]\)</span> and <span class="math inline">\(u|_{\partial D} = f\)</span> is the unique classic solution of the Dirichlet problem with boundary condition <span class="math inline">\(f.\)</span></div>
+<p>The proof of this fundamental result requires several lemmas.</p>
+</section>
+<section id="lemma--poisson-kernel-alternate-representations." class="level3">
+
+<div class="p"><h3><a href="#lemma--poisson-kernel-alternate-representations.">Lemma – Poisson Kernel, Alternate Representations.</a></h3>‌The Poisson kernel satisfies: <span class="math display">\[
+  P(z) = \frac{1}{1-z} - \frac{1}{1 - 1/\overline{z}}
+  = \mathrm{Re} \left[ \frac{1+z}{1-z} \right].
+  \]</span> Hence, it is harmonic.</div>
+</section>
+<section id="proof.-7" class="level3">
+
+<div class="p"><h3><a href="#proof.-7">Proof.</a></h3>‌Start with the formula of the first alternate representation and write <span class="math display">\[
+  \frac{1}{1-z} - \frac{1}{1 - 1/\overline{z}}
+  = \left[\frac{1}{1-z} - \frac{1}{2} \right] + \left[ \frac{1}{2} - 
+    \frac{\overline{z}}{\overline{z} - 1}  \right].
+  \]</span> This expression can be simplified into <span class="math display">\[
+  \frac{1}{2}\left[\frac{2}{1-z} - \frac{1-z}{1-z} \right] + 
+  \frac{1}{2}\left[ \frac{\overline{z}-1}{\overline{z}-1} - \frac{2 \overline{z}}{\overline{z}-1}  \right]
+  = \frac{1}{2} \left[ \frac{1+z}{1-z} + \frac{1+\overline{z}}{1-\overline{z}}\right],
+  \]</span> which is the second alternate representation. On the other hand, the identity <span class="math display">\[
+  \frac{1+z}{1-z} = \frac{(1+z)(1-\overline{z})}{(1-z)(1-\overline{z})} 
+  \]</span> leads to the equation <span class="math display">\[
+  \mathrm{Re} \left[ \frac{1+z}{1-z} \right] = \frac{1-|z|^2}{1 - 2\mathrm{Re} \,z + |z|^2}
+  \]</span> which is equivalent to the original definition of the Poisson kernel. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="lemma--poisson-kernel-fourier-series." class="level3">
+
+<div class="p"><h3><a href="#lemma--poisson-kernel-fourier-series.">Lemma – Poisson Kernel, Fourier Series.</a></h3>‌ The Poisson kernel has the following (locally uniformly convergent) Fourier expansion <span class="math display">\[
+  P(r e^{i\theta}) = \sum_{n=-\infty}^{+\infty} r^{|n|} e^{in\theta}.
+  \]</span></div>
+</section>
+<section id="proof.-8" class="level3">
+
+<div class="p"><h3><a href="#proof.-8">Proof.</a></h3>‌Rewrite the first alternate representation of the Poisson kernel as <span class="math display">\[
+  P(z)
+  =
+  \frac{1}{1-z} - \frac{1}{1 - 1/\overline{z}} 
+  =
+ \frac{1}{1-z} + \overline{z}\frac{1}{1 - \overline{z}}.
+  \]</span> The two terms of the right-hand side are sums of geometric series with ratio <span class="math inline">\(z\)</span> and <span class="math inline">\(\overline{z}\)</span> respectively and can be expanded accordingly. This process yields the Fourier expansion formula. Both power series are locally uniformly convergent, hence the Fourier expansion also has this property. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="lemma--poisson-integral-harmonicity." class="level3">
+
+<div class="p"><h3><a href="#lemma--poisson-integral-harmonicity.">Lemma – Poisson Integral, Harmonicity.</a></h3>‌ Let <span class="math inline">\(f: \partial D \to \mathbb{R}\)</span> be continuous. The function <span class="math inline">\(\mathcal{P}[f]\)</span> is harmonic in <span class="math inline">\(D.\)</span></div>
+</section>
+<section id="proof.-9" class="level3">
+
+<div class="p"><h3><a href="#proof.-9">Proof.</a></h3>‌The definition of the Poisson integral operator and the second alternate representation of the Poisson kernel yield <span class="math display">\[
+  \mathcal{P}[f](z) = 
+  \frac{1}{2\pi} \int_{-\pi}^{\pi}  \mathrm{Re} \left[ \frac{1+ze^{-i\alpha}}{1-ze^{-i\alpha}} \right] f(e^{i\alpha}) \, d\alpha
+  = \mathrm{Re} \left[ \frac{1}{2\pi} \int_{-\pi}^{\pi} \frac{1+ze^{-i\alpha}}{1-ze^{-i\alpha}} f(e^{i\alpha}) \, d\alpha \right].
+  \]</span> The function <span class="math display">\[
+  \left[z \mapsto \frac{1}{2\pi} \int_{-\pi}^{\pi} \frac{1+ze^{-i\alpha}}{1-ze^{-i\alpha}} f(e^{i\alpha}) \, d\alpha \right]
+  \]</span> is holomorphic by differentiation under the integral sign, hence <span class="math inline">\(\mathcal{P}[f]\)</span> is harmonic as the real part of a holomorphic function. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+<!--
+[^dutis]: **Differentiation Under the Integral Sign.** Let $\Omega$ be an open subset of $\mathbb{C}$ and $f: \Omega \times \mathbb{R} \to \mathbb{C}$ a function that satisfies:
+
+    - for every $z \in \Omega,$ $x \in \mathbb{R} \mapsto f(z, x)$ is measurable,
+
+    - for almost every $x \in \mathbb{R},$ $z \in \Omega \mapsto f(z, x)$ is holomorphic
+      (and the derivative is noted $\partial_z f(z, x)$)
+
+    - for any $z_0 \in \Omega,$ there is an open neighbourghood $V$ of $z_0$ in $\Omega$
+      and an integrable function $g:\mathbb{R} \to \mathbb{R}$ such that
+      $\forall \, z \in V,  \; |f(z, x)| \leq g(x),$
+
+    then the function  $e:\Omega \to \mathbb{C}$ defined by
+      $$
+      e(z) = \int_{\mathbb{R}} f(z, x)\, \, dx
+      $$
+    is holomorphic and
+      $$
+      e'(z) = 
+      \int_{\mathbb{R}} \partial_z f(z, x) \, dx.
+      $$
+-->
+</section>
+<section id="lemma--poisson-integral-boundary-values." class="level3">
+
+<div class="p"><h3><a href="#lemma--poisson-integral-boundary-values.">Lemma – Poisson Integral, Boundary Values.</a></h3>‌For any continuous function <span class="math inline">\(f: \partial D \to \mathbb{R},\)</span> the function <span class="math inline">\(u:\overline{D} \mapsto \mathbb{R}\)</span> defined as <span class="math display">\[
+  u|_{D} = \mathcal{P}[f] 
+  \; \mbox{ and } \;
+  u|_{\partial D} = f
+  \]</span> is continous on <span class="math inline">\(\overline{D}.\)</span></div>
+</section>
+<section id="proof-see-e.g.-rudin-section." class="level3">
+
+<div class="p"><h3>Proof (see e.g. <span class="citation" data-cites="RUD87">Rudin (<a href="#ref-RUD87">1987</a>)</span>).</h3>‌ We denote <span class="math inline">\(\overline{\mathcal{P}}[f]\)</span> the function defined in <span class="math inline">\(D\)</span> as <span class="math inline">\(\mathcal{P}[f]\)</span> and on <span class="math inline">\(\partial D\)</span> as <span class="math inline">\(f.\)</span> The formula that defines the Poisson kernel shows that it is positive everywhere in <span class="math inline">\(D.\)</span> Moreover, the expansion of the Poisson kernel as a Fourier series yields that for any <span class="math inline">\(r&lt; 1,\)</span> <span class="math display">\[
+  \frac{1}{2\pi}\int_{-\pi}^{\pi} P(r e^{i\theta}) \, d\theta = 1.
+  \]</span> Given these two properties, it is clear that for any <span class="math inline">\(f \in C^0(\partial D, \mathbb{R}),\)</span> <span class="math display">\[
+  \sup_{\overline{D}} | \overline{\mathcal{P}}[f] |
+  \leq 
+  \sup_{\partial D} |f|.
+  \]</span> Let <span class="math inline">\((f_p)\)</span> be a sequence of real-valued finite trigonometric sums that converges to <span class="math inline">\(f\)</span> uniformly (see section <a href="#harmonicfourier-analysis">Harmonic/Fourier Analysis</a>); for any <span class="math inline">\(p \in \mathbb{N},\)</span> we can write <span class="math display">\[
+  f_p(e^{i\theta}) = \sum_m c_{mp} e^{i n \theta}, \; \overline{c_{mp}} = c_{(-m)p},
+  \]</span> hence <span class="math display">\[
+  \mathcal{P}[f_p](re^{i\theta})
+  =
+  \frac{1}{2\pi} \int_{-\pi}^{\pi}
+  \left[\sum_n r^{|n|} e^{i n(\theta - \alpha)} \right]
+  \left[\sum_m c_{mp} e^{i m\alpha}\right] 
+  \, d\alpha,
+  \]</span> which yields <span class="math display">\[
+  \mathcal{P}[f_p](re^{i\theta})
+  =
+  \sum_{n} \sum_m r^{|n|} c_{np} e^{i n\theta}
+  \left[ \frac{1}{2\pi} 
+  \int_{-\pi}^{\pi}
+  e^{i(m-n)\alpha}
+  \, d\alpha
+  \right]
+  =
+  \sum_{m} r^{|m|} c_{mp} e^{i m\theta}.
+  \]</span> Consequently, for any <span class="math inline">\(p \in \mathbb{N},\)</span> <span class="math inline">\(\overline{\mathcal{P}}[f_p]\)</span> belongs to <span class="math inline">\(C^0(\overline{D},\mathbb{R}).\)</span> Moreover, <span class="math display">\[
+  \sup_{\overline{D}} |\overline{\mathcal{P}}[f] - \overline{\mathcal{P}}[f_p]|
+  =
+  \sup_{\overline{D}} |\overline{\mathcal{P}}[f-f_p]|
+  \leq
+  \sup_{\overline{D}} |f-f_p| \to 0 \mbox{ when } p \to +\infty,
+  \]</span> hence <span class="math inline">\(\overline{\mathcal{P}}[f]\)</span> can be uniformly approximated by a sequence of functions that are continuous on <span class="math inline">\(\overline{D},\)</span> therefore it is continuous. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+</section>
+</section>
+<section id="appendix" class="level1">
+<h1><a href="#appendix">Appendix</a></h1>
+<section id="linear-gradient" class="level2">
+<h2><a href="#linear-gradient">Linear Gradient</a></h2>
+<p>What happens if you heal a region in the left of the image below with a source taken from the right of the image?</p>
+<figure>
+<img src="images/gradient.png" alt="On the left, a linear gradient image; on the right, a uniform image." style="width: 100%;"><figcaption>On the left, a linear gradient image; on the right, a uniform image.</figcaption>
+</figure>
+</section>
+<section id="analytic-boundary-condition" class="level2">
+<h2><a href="#analytic-boundary-condition">Analytic Boundary Condition</a></h2>
+<p>We search for approximate solutions to the Dirichlet problem associated with <span class="math display">\[
+  f(e^{i\theta}) = \frac{1}{4} \left[ 1 + \frac{3}{5 - 4 \cos \theta} \right].
+  \]</span></p>
+<ol type="1">
+<li><p>Check that <span class="math inline">\(f\)</span> is defined and continuous in <span class="math inline">\(\partial D;\)</span> compute its range.</p></li>
+<li><p>Find a holomorphic function, defined in <span class="math inline">\(\mathbb{C}^*,\)</span> that extends <span class="math inline">\(f\)</span> and show that it is unique; we also denote <span class="math inline">\(f\)</span> this extension.</p></li>
+<li><p>Show that <span class="math display">\[
+ f(z) = \frac{1}{2} \left[\frac{1}{2 - z} + \frac{1}{2 - z^{-1}} \right];
+ \]</span> determine the Laurent series expansion of <span class="math inline">\(f\)</span> in a neighbourghood of <span class="math inline">\(\partial D.\)</span></p></li>
+<li><p>Find a finite trigonometric series that approximates <span class="math inline">\(f\)</span> with the precision <span class="math inline">\(\epsilon = 10^{-2};\)</span> provide an approximate solution of the Dirichlet problem associated to <span class="math inline">\(f\)</span> with the same precision.</p></li>
+</ol>
+</section>
+</section>
+<section id="references" class="level1 unnumbered">
+<h1><a href="#references">References</a></h1>
+<div id="refs" class="references"><ol><li id="ref-GEO05" style="margin-bottom:0.75em"><em>Image Reconstruction Invariant to Relighting</em><br>Todor Georgiev, 2005.<br>JSON: <a href="data:application/json;charset=utf-8;fontSize64,ewogICJVUkwiOiAiaHR0cDovL3d3dy50Z2VvcmdpZXYubmV0L0ludmFyaWFudC5wZGYiLAogICJhdXRob3IiOiBbCiAgICB7CiAgICAgICJmYW1pbHkiOiAiR2VvcmdpZXYiLAogICAgICAiZ2l2ZW4iOiAiVG9kb3IiCiAgICB9CiAgXSwKICAiY29udGFpbmVyLXRpdGxlIjogImh0dHA6Ly93d3cudGdlb3JnaWV2Lm5ldC9JbnZhcmlhbnQucGRmIiwKICAiaWQiOiAiR0VPMDUiLAogICJpc3N1ZWQiOiB7CiAgICAiZGF0ZS1wYXJ0cyI6IFsKICAgICAgWwogICAgICAgIDIwMDUKICAgICAgXQogICAgXQogIH0sCiAgInBhZ2UiOiAiNjEtNjQiLAogICJ0aXRsZSI6ICJJbWFnZSByZWNvbnN0cnVjdGlvbiBpbnZhcmlhbnQgdG8gcmVsaWdodGluZyIsCiAgInR5cGUiOiAiYXJ0aWNsZS1qb3VybmFsIgp9"><i style="font-size:18px;position:relative;bottom:0.05em;" class="fa fa-file-text-o"></i></a>&nbsp; / URL: <a href="http://www.tgeorgiev.net/Invariant.pdf"><i style="font-size:18px" class="fa fa-link"></i></a></li><li id="ref-PGB03" style="margin-bottom:0.75em"><em>Poisson Image Editing</em><br>Patrick Pérez,  and Michel Gangnet and Andrew Blake, 2003.<br>JSON: <a href="data:application/json;charset=utf-8;fontSize64,ewogICJVUkwiOiAiaHR0cDovL3d3dy5pcmlzYS5mci92aXN0YS9QYXBlcnMvMjAwM19zaWdncmFwaF9wZXJlei5wZGYiLAogICJhdXRob3IiOiBbCiAgICB7CiAgICAgICJmYW1pbHkiOiAiUMOpcmV6IiwKICAgICAgImdpdmVuIjogIlBhdHJpY2siCiAgICB9LAogICAgewogICAgICAiZmFtaWx5IjogIkdhbmduZXQiLAogICAgICAiZ2l2ZW4iOiAiTWljaGVsIgogICAgfSwKICAgIHsKICAgICAgImZhbWlseSI6ICJCbGFrZSIsCiAgICAgICJnaXZlbiI6ICJBbmRyZXciCiAgICB9CiAgXSwKICAiY29udGFpbmVyLXRpdGxlIjogIkFDTSBUcmFuc2FjdGlvbnMgb24gR3JhcGhpY3MgKFNJR0dSQVBIJzAzKSIsCiAgImlkIjogIlBHQjAzIiwKICAiaXNzdWVkIjogewogICAgImRhdGUtcGFydHMiOiBbCiAgICAgIFsKICAgICAgICAyMDAzCiAgICAgIF0KICAgIF0KICB9LAogICJwYWdlIjogIjMxMy0zMTgiLAogICJ0aXRsZSI6ICJQb2lzc29uIGltYWdlIGVkaXRpbmciLAogICJ0eXBlIjogImFydGljbGUtam91cm5hbCIsCiAgInZvbHVtZSI6ICIyMigzKSIKfQ=="><i style="font-size:18px;position:relative;bottom:0.05em;" class="fa fa-file-text-o"></i></a>&nbsp; / URL: <a href="http://www.irisa.fr/vista/Papers/2003_siggraph_perez.pdf"><i style="font-size:18px" class="fa fa-link"></i></a></li><li id="ref-RUD87" style="margin-bottom:0.75em"><em>Real and Complex Analysis</em><br>Walter Rudin, 1987.<br>JSON: <a href="data:application/json;charset=utf-8;fontSize64,ewogICJJU0JOIjogIjAtMDctMDU0MjM0LTEiLAogICJhdXRob3IiOiBbCiAgICB7CiAgICAgICJmYW1pbHkiOiAiUnVkaW4iLAogICAgICAiZ2l2ZW4iOiAiV2FsdGVyIgogICAgfQogIF0sCiAgImVkaXRpb24iOiAiM3JkIGVkLiIsCiAgImlkIjogIlJVRDg3IiwKICAiaXNzdWVkIjogewogICAgImRhdGUtcGFydHMiOiBbCiAgICAgIFsKICAgICAgICAxOTg3CiAgICAgIF0KICAgIF0KICB9LAogICJwYWdlIjogInhpdiArIDQxNiIsCiAgInB1Ymxpc2hlciI6ICJNY0dyYXctSGlsbCIsCiAgInRpdGxlIjogIlJlYWwgYW5kIGNvbXBsZXggYW5hbHlzaXMuIDNyZCBlZC4iLAogICJ0eXBlIjogImJvb2siCn0="><i style="font-size:18px;position:relative;bottom:0.05em;" class="fa fa-file-text-o"></i></a>&nbsp;</li></ol></div>
+</section>
+<section class="footnotes" id="notes"><h1><a href="#notes">Notes</a></h1>
+<hr>
+<ol>
+<li id="fn1"><p>the GIMP developers state that they use the method described in <span class="citation" data-cites="GEO05">(Georgiev <a href="#ref-GEO05">2005</a>)</span>, a variant of the original design that is invariant under relighting, but a closer examination of the <a href="https://git.gnome.org/browse/gimp/tree/app/paint/gimpheal.c">source code</a> shows that they actually use the original method.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>for example, consider a polyline <span class="math inline">\(\gamma = [z_0 \to z_1 \to \cdots \to z_{n-1} \to z_n]\)</span> of <span class="math inline">\(\Omega\)</span> that joins <span class="math inline">\(z_0\)</span> and <span class="math inline">\(z_{n}=z\)</span>; we may assume that it is simple (that the function <span class="math inline">\(\gamma\)</span> is injective). If <span class="math inline">\(r&gt;0\)</span> is small enough, the open connected set <span class="math inline">\(V= \gamma([0,1]) + D(0,r)\)</span> is included in <span class="math inline">\(\Omega\)</span>, connected and simply connected.<a href="#fnref2">↩</a></p></li>
+</ol>
+</section>
+</main>
+
+
+</body></html>

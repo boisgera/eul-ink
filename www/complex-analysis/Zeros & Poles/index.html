@@ -1,0 +1,962 @@
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, Mines ParisTech">
+  <meta name="dcterms.date" content="2019-09-30">
+  <title>Zeros &amp; Poles</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: content-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+html {
+  line-height: var(--base-line-height);
+  --base-font-size: 24px;
+  --base-line-height: 36px;
+  --scale-ratio: 1.4142135623730951;
+  --small: 17px;
+  --medium: 24px;
+  --large: 34px;
+  --x-large: 48px;
+  font-size: 24px;
+  font-family: 'Alegreya', serif;
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html em {
+  font-style: italic;
+}
+html strong {
+  font-weight: bold;
+}
+html p, html .p {
+  margin-bottom: var(--base-line-height);
+  text-align: justify;
+  hyphens: auto;
+  -moz-hyphens: auto;
+}
+html section {
+  margin-bottom: var(--base-line-height_px);
+}
+html main {
+  box-sizing: content-box;
+  max-width: 32em;
+  margin: auto;
+  padding: var(--base-line-height);
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, q:before {
+  content: none;
+}
+blockquote:after, q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: medium solid black;
+  border-bottom: medium solid black;
+}
+main > header, main > .header, main > #header {
+  margin-top: calc(2 * var(--base-line-height));
+  margin-bottom: calc(2 * var(--base-line-height));
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: calc(1.5 * var(--base-line-height));
+  margin-top: 0;
+  margin-bottom: var(--base-line-height);
+  font-weight: bold;
+}
+main > header .author, main > .header .author, main > #header .author {
+  font-size: 24px;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  font-weight: normal;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: 'Alegreya SC', serif;
+  line-height: calc(1 * var(--base-line-height));
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  font-weight: bold;
+  line-height: calc(1.25 * var(--base-line-height));
+  margin-top: calc(2.00 * var(--base-line-height));
+  margin-bottom: calc(0.75 * var(--base-line-height));
+}
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+}
+h3, h4, h5, h6 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 1em;
+  display: inline;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
+}
+a:hover {
+  text-decoration: none;
+}
+a:link {
+  color: var(--color);
+}
+a:visited {
+  color: var(--color);
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li {
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  margin-left: var(--base-line-height);
+  padding-left: 0.5em;
+}
+ul li {
+  list-style: disc;
+}
+ol li {
+  list-style: decimal;
+}
+blockquote {
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+  padding: var(--base-line-height);
+  margin-bottom: var(--base-line-height);
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-size: 24px;
+  font-family: Inconsolata;
+}
+pre {
+  overflow-x: auto;
+  background-color: #ebebeb;
+  margin-bottom: var(--base-line-height);
+  padding-left: var(--base-line-height);
+  padding-right: var(--base-line-height);
+  padding-top: var(--base-line-height);
+  padding-bottom: var(--base-line-height);
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: auto;
+}
+figure {
+  margin-bottom: var(--base-line-height);
+  text-align: center;
+}
+figcaption {
+  display: inline-block;
+  font-style: italic;
+  text-align: justify;
+}
+.table {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  margin-bottom: var(--base-line-height);
+}
+thead {
+  border-bottom: medium solid black;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+.MJXc-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+nav#TOC > ul {
+  position: relative;
+  font-weight: bold;
+}
+nav#TOC > ul > * {
+  margin-bottom: var(--base-line-height);
+}
+nav#TOC > ul li {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+nav#TOC > ul ul li {
+  margin-left: var(--base-line-height);
+  font-weight: normal;
+}
+nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+  padding-bottom: var(--base-line-height);
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+.badge {
+  position: relative;
+  bottom: 0.13em;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  font-weight: 300;
+  font-size: var(--small);
+  display: inline-block;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  vertical-align: baseline;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+  margin-right: 1em;
+}
+.section-flag {
+  line-height: var(--base-line-height);
+  font-size: var(--small);
+  font-weight: 300;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  margin-bottom: 0;
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya: 400,700,900,400italic,700italic,900italic|Alegreya+SC:400,700,900,400italic,700italic,900italic|Alegreya+Sans:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+Sans+SC:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var box, hide_proof, main, show_proof;
+
+  hide_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("expanded");
+    sectionWrapper.addClass("minimized");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "visible"
+    });
+    w$(".header-wrapper").css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().css({
+      visibility: "hidden",
+      height: "0px"
+    });
+    w$(".header-wrapper").attr({
+      id: w$("section").first().attr("id")
+    });
+    return w$("section").first().attr({
+      id: ""
+    });
+  };
+
+  show_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("minimized");
+    sectionWrapper.addClass("expanded");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "hidden"
+    });
+    w$(".header-wrapper").css({
+      visibility: "hidden",
+      height: "0"
+    });
+    w$("section").first().css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().attr({
+      id: w$(".header-wrapper").attr("id")
+    });
+    return w$(".header-wrapper").attr({
+      id: ""
+    });
+  };
+
+  box = function(section) {
+    var clone, expand, header, headerWrapper, tombstone, wrapper;
+    clone = section.clone(true);
+    clone.css({
+      marginBottom: "0"
+    });
+    clone.children().last().css({
+      marginBottom: "0"
+    });
+    tombstone = clone.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer",
+      position: "absolute",
+      bottom: "0.75rem",
+      right: "0.75rem"
+    });
+    wrapper = $("<div class='proof-wrapper expanded'></div>");
+    wrapper.css({
+      position: "relative",
+      margin: "-0.75rem -0.75rem 0.75rem -0.75rem",
+      padding: "0.75rem",
+      backgroundColor: "#f9f9f9"
+    });
+    header = clone.find("h3, h4, h5, h6").first().clone();
+    headerWrapper = $("<div class='p header-wrapper' style='margin-bottom:0; visibility:hidden; overflow:hidden; height:0;'> </div>");
+    headerWrapper.append(header);
+    expand = $("<i class='fa fa-caret-down expand' style='visibility:hidden; cursor:pointer; position:absolute; top:0.75rem; right:0.75rem;'> </i>");
+    wrapper.append(headerWrapper);
+    wrapper.append(expand);
+    wrapper.append(clone);
+    expand.on("click", function() {
+      return show_proof(wrapper);
+    });
+    tombstone.on("click", function() {
+      return hide_proof(wrapper);
+    });
+    section.replaceWith(wrapper);
+    return wrapper;
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, section, sections, text, wrapper;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      wrapper = box(section);
+      hide_proof(wrapper);
+    }
+    return $(document).keydown(function(event) {
+      var k, l, len2, len3, ref1, ref2, results, sectionWrapper;
+      console.log("***", event.keyCode);
+      if (event.keyCode === 88) {
+        ref1 = $(".proof-wrapper.minimized");
+        for (k = 0, len2 = ref1.length; k < len2; k++) {
+          sectionWrapper = ref1[k];
+          show_proof($(sectionWrapper));
+        }
+      }
+      if (event.keyCode === 77) {
+        ref2 = $(".proof-wrapper.expanded");
+        results = [];
+        for (l = 0, len3 = ref2.length; l < len3; l++) {
+          sectionWrapper = ref2[l];
+          results.push(hide_proof($(sectionWrapper)));
+        }
+        return results;
+      }
+    });
+  };
+
+  $(main);
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var make_preview, mathjaxDebug;
+
+  make_preview = function(elt) {
+    var card, hidden_css, hide_preview, id, ref, show_preview, url, visible_css;
+    ref = elt.attr("href").split("#"), url = ref[0], id = ref[1];
+    card = $("<div class='card'>\n  <div class='holder'>\n    <p>Placeholder</p>\n  </div>\n</div>");
+    card.css({
+      width: "35vw",
+      padding: "1.5rem",
+      position: "fixed",
+      top: "1.5rem",
+      right: "1.5rem",
+      boxSizing: "border-box",
+      maxHeight: "calc(100vh - 3rem)",
+      overflow: "hidden",
+      boxShadow: "0 0 1rem #e6e6e6",
+      backgroundColor: "white"
+    });
+    visible_css = {
+      visibility: "visible",
+      opacity: 1,
+      transform: "translateX(0em)",
+      transition: "all 0.3s linear"
+    };
+    hidden_css = {
+      visibility: "hidden",
+      opacity: 0,
+      transform: "translateX(1em)",
+      transition: "all 0.3s linear 0.5s"
+    };
+    card.css(hidden_css);
+    elt.css({
+      textDecoration: "underline solid #0a0a0a",
+      textDecorationSkip: "ink",
+      transition: "background-color 0.3s linear"
+    });
+    show_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d3"
+      });
+      return card.css(visible_css);
+    };
+    hide_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d300"
+      });
+      return card.css(hidden_css);
+    };
+    return card.find(".holder").load(url + (" [id='" + id + "']"), function(response, status, jxXHR) {
+      console.log("XHR status:", status, url, id);
+      if (status === "success" || status === "notmodified") {
+        console.log("success!");
+        console.log("elt:", $(elt));
+        $("body").append(card);
+        card.find("p, .p").css({
+          textAlign: "left"
+        });
+        card.find("section").css({
+          marginBottom: "0"
+        });
+        card.find("section").children().last().css({
+          marginBottom: "0"
+        });
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, card[0]]);
+        elt.on("mouseenter", show_preview);
+        return elt.on("mouseleave", hide_preview);
+      }
+    });
+  };
+
+  mathjaxDebug = function() {
+    MathJax.Hub.signal.Interest(function(message) {
+      return console.log("*", message);
+    });
+    return MathJax.Hub.Register.StartupHook("End Process", function() {
+      var i, jax, len, ref, results;
+      console.log("list of jaxes:");
+      ref = MathJax.Hub.getAllJax();
+      results = [];
+      for (i = 0, len = ref.length; i < len; i++) {
+        jax = ref[i];
+        results.push(console.log("jax:", jax));
+      }
+      return results;
+    });
+  };
+
+  $(function() {
+    var elt, i, len, ref, results;
+    ref = $("a.preview");
+    results = [];
+    for (i = 0, len = ref.length; i < len; i++) {
+      elt = ref[i];
+      results.push(make_preview($(elt)));
+    }
+    return results;
+  });
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">Zeros &amp; Poles</a></h1>
+
+<h2 class="author">
+By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, Mines ParisTech, under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>
+</h2> 
+
+<h3 class="date" style="margin-right: 0px;">September 30, 2019</h3>
+</header>
+<section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
+<ul>
+<li class="top-li"><p class="section-flag">section 1</p><a href="#preamble">Preamble</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--isolated-point.">Isolated Point</a></li>
+<li><span class="badge">rem<span></span></span><a href="#remark--isolated-points-in-closed-sets.">Isolated Points in Closed Sets</a></li>
+<li><span class="badge">def<span></span></span><a href="#definition--isolated-singularity.">Isolated Singularity</a></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 2</p><a href="#zeros-of-holomorphic-functions">Zeros of Holomorphic Functions</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--zero--multiplicity.">Zero &amp; Multiplicity</a></li>
+<li><span class="badge">exa<span></span></span><a href="#example--simple-zero.">Simple Zero</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--characterization-of-zero-multiplicity.">Characterization of Zero Multiplicity</a></li>
+<li></li>
+<li><span class="badge">lem<span></span></span><a href="#lemma--zero-with-no-finite-multiplicity.">Zero With No (Finite) Multiplicity</a></li>
+<li></li>
+<li><span class="badge">lem<span></span></span><a href="#lemma--zeros-of-finite-multiplicity-are-isolated.">Zeros of Finite Multiplicity are Isolated</a></li>
+<li></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--isolated-zeros-theorem-i.">Isolated Zeros Theorem I</a></li>
+<li></li>
+<li><span class="badge">rem<span></span></span><a href="#remark.">Remark</a></li>
+<li><span class="badge">def<span></span></span><a href="#definition--limit-point.">Limit Point</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--isolated-zeros-theorem-ii.">Isolated Zeros Theorem II</a></li>
+<li></li>
+<li><span class="badge">rem<span></span></span><a href="#remark.-1">Remark</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--principle-of-permanence.">Principle of Permanence</a></li>
+<li></li>
+<li><span class="badge">cor<span></span></span><a href="#corollary--uniqueness-principle.">Uniqueness Principle</a></li>
+<li></li>
+<li><span class="badge">exa<span></span></span><a href="#example--a-trigonometric-identity.">A Trigonometric Identity</a></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 3</p><a href="#isolated-singularities-of-holomorphic-functions">Isolated Singularities of Holomorphic Functions</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--typology-of-isolated-singularities.">Typology of Isolated Singularities</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--characterization-of-removable-singularities.">Characterization of Removable Singularities</a></li>
+<li></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--characterization-of-pole-multiplicity.">Characterization of Pole Multiplicity</a></li>
+<li></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--characterization-of-poles.">Characterization of Poles</a></li>
+<li></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 4</p><a href="#computation-of-residues">Computation of Residues</a><ul>
+<li><span class="badge">the<span></span></span><a href="#theorem--computation-of-residues.">Computation of Residues</a></li>
+<li></li>
+<li><span class="badge">cor<span></span></span><a href="#corollary--residue-of-poles.">Residue of Poles</a></li>
+<li></li>
+<li><span class="badge">cor<span></span></span><a href="#corollary--residue-of-simple-poles-i.">Residue of Simple Poles I</a></li>
+<li></li>
+<li><span class="badge">cor<span></span></span><a href="#corollary--residue-of-simple-poles-ii.">Residue of Simple Poles II</a></li>
+<li></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 5</p><a href="#appendix-local-behavior-of-holomorphic-functions">Appendix – Local Behavior of Holomorphic Functions</a><ul>
+<li><span class="badge">lem<span></span></span><a href="#lemma--local-behavior-of-holomorphic-functions.">Local Behavior of Holomorphic Functions</a></li>
+<li></li>
+</ul></li>
+</ul>
+</nav></section>
+<section id="preamble" class="level1">
+<h1><a href="#preamble">Preamble</a></h1>
+<p>In this chapter, we study the behavior of any holomorphic functions in the neighbourhood of a point that may or may not be in its domain of definition. When the function is not defined at the point of interest – in other words when it is a singularity – we only study the case where it is isolated.</p>
+<section id="definition--isolated-point." class="level3">
+
+<div class="p"><h3><a href="#definition--isolated-point.">Definition – Isolated Point.</a></h3>‌ A point <span class="math inline">\(c\)</span> of a subset <span class="math inline">\(C\)</span> of <span class="math inline">\(\mathbb{C}\)</span> is <em>isolated</em> (in <span class="math inline">\(C\)</span>) if it is in some neighbourhood of <span class="math inline">\(c\)</span> the only point of <span class="math inline">\(C\)</span>: <span class="math display">\[
+  \exists \, r &gt; 0, \; 
+  \forall \, z \in C, \;
+  |z - c| &lt; r \, \Rightarrow \, z = c.
+  \]</span></div>
+</section>
+<section id="remark--isolated-points-in-closed-sets." class="level3">
+
+<div class="p"><h3><a href="#remark--isolated-points-in-closed-sets.">Remark – Isolated Points in Closed Sets.</a></h3>‌ Note that a point <span class="math inline">\(c\)</span> is isolated in the closed set <span class="math inline">\(C\)</span> if and only if <span class="math inline">\(C \setminus \{c\}\)</span> is still closed. This is directly applicable to singularities of a function defined on an open set <span class="math inline">\(\Omega\)</span>, which belongs by definition to the closed set <span class="math inline">\(C = \mathbb{C} \setminus \Omega\)</span>.</div>
+</section>
+<section id="definition--isolated-singularity." class="level3">
+
+<div class="p"><h3><a href="#definition--isolated-singularity.">Definition – Isolated Singularity.</a></h3>‌ A <em>singularity</em> of a function <span class="math inline">\(f:\Omega \to \mathbb{C}\)</span> defined on an open subset <span class="math inline">\(\Omega\)</span> of <span class="math inline">\(\mathbb{C}\)</span> is a point <span class="math inline">\(c\)</span> of <span class="math inline">\(\mathbb{C} \setminus \Omega.\)</span> It is <em>isolated</em> if <span class="math display">\[
+  \exists \, r &gt; 0, \;
+  \forall \, z \in \mathbb{C}, \;
+  (z\neq c \, \mbox{ and } \, |z - c| &lt; r) \Rightarrow z \in \Omega,
+  \]</span> in other words if there is a radius <span class="math inline">\(r&gt;0\)</span> such that the annulus <span class="math inline">\(A(c, 0, r)\)</span> is a subset of <span class="math inline">\(\Omega\)</span>. Alternatively, it is isolated if and only if <span class="math inline">\(\Omega \cup \{c\}\)</span> is open.</div>
+</section>
+</section>
+<section id="zeros-of-holomorphic-functions" class="level1">
+<h1><a href="#zeros-of-holomorphic-functions">Zeros of Holomorphic Functions</a></h1>
+<section id="definition--zero--multiplicity." class="level3">
+
+<div class="p"><h3><a href="#definition--zero--multiplicity.">Definition – Zero &amp; Multiplicity.</a></h3>‌ Let <span class="math inline">\(\Omega\)</span> be an open subset of the complex plane. A <em>zero</em> (or <em>root</em>) <span class="math inline">\(c\)</span> of a function <span class="math inline">\(f:\Omega \to \mathbb{C}\)</span> is a point <span class="math inline">\(c \in \Omega\)</span> such that <span class="math inline">\(f(c) = 0;\)</span> it is of <em>multiplicity</em> <span class="math inline">\(p\)</span> for some positive number <span class="math inline">\(p\)</span> if <span class="math display">\[
+  \exists \, a^* \in \mathbb{C}^*, \;
+  f(z) \underset{c}{\sim} a^* (z - c)^p \,
+  \]</span> or equivalently <span class="math display">\[
+  \exists \, a^* \in \mathbb{C}^*, \;
+  \lim_{z \to c} \frac{f(z)}{(z-c)^p} = a^*.
+  \]</span> A zero of multiplicity <span class="math inline">\(1\)</span> is <em>simple</em>; zeros of higher multiplicity (<em>double</em>, <em>triple</em>, etc.) are <em>multiple</em>.</div>
+</section>
+<section id="example--simple-zero." class="level3">
+
+<div class="p"><h3><a href="#example--simple-zero.">Example – Simple Zero.</a></h3>‌ Let <span class="math inline">\(f:\Omega \to \mathbb{C}\)</span> be a holomorphic function. If <span class="math inline">\(c\)</span> is a zero of <span class="math inline">\(f\)</span> but not of its derivative <span class="math inline">\(f',\)</span> then <span class="math display">\[
+  \lim_{z \to c} \frac{f(z)}{(z - c)^1} 
+  = 
+  \lim_{z \to c}  \frac{f(z) - f(c)}{z-c} = f'(c) \neq 0,
+  \]</span> thus <span class="math inline">\(f(z) \underset{c}{\sim} f'(c) (z-c)^1\)</span> and <span class="math inline">\(c\)</span> is a simple zero of <span class="math inline">\(f.\)</span></div>
+</section>
+<section id="theorem--characterization-of-zero-multiplicity." class="level3">
+
+<div class="p"><h3><a href="#theorem--characterization-of-zero-multiplicity.">Theorem – Characterization of Zero Multiplicity.</a></h3>‌ A zero <span class="math inline">\(c\)</span> of a holomorphic function <span class="math inline">\(f:\Omega \to \mathbb{C}\)</span> is of multiplicity <span class="math inline">\(p\)</span> if and only if one of the equivalent condition holds:</div>
+<ol type="1">
+<li><p>The function <span class="math inline">\(f\)</span> and exactly its first <span class="math inline">\(p-1\)</span> derivatives are zero at <span class="math inline">\(c\)</span>: <span class="math display">\[
+  f(c) = 0, \; f'(c) = 0, \dots, \; f^{(p-1)}(c) = 0 
+  \; \mbox{ and } \;
+  f^{(p)}(c) \neq 0.
+  \]</span></p></li>
+<li><p>The Taylor expansion of <span class="math inline">\(f\)</span> at <span class="math inline">\(c\)</span> is <span class="math display">\[
+  f(z) = \sum_{n=p}^{+\infty} a_n (z-c)^n \; \mbox{ with } \; a_p \neq 0.
+  \]</span></p></li>
+<li><p>There is a holomorphic function <span class="math inline">\(a:\Omega \to \mathbb{C}\)</span> such that <span class="math display">\[
+  \forall \, z \in \Omega, \; f(z) = a(z) (z-c)^p
+  \; \mbox{ and } \;
+  a(c) \neq 0.
+  \]</span></p></li>
+</ol>
+</section>
+<section id="proof." class="level3">
+
+<div class="p"><h3><a href="#proof.">Proof.</a></h3>‌ The formula <span class="math inline">\(n! a_n = f^{(n)}(c)\)</span> holds for any <span class="math inline">\(n \in \mathbb{N}\)</span> hence condition 1 and 2 are equivalent. The theorem statement is otherwise a direct consequence of the <a href="#appendix-local-behavior-of-holomorphic-functions">local behavior of holomorphic functions lemma (refer to the appendix)</a>. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+
+</section><section><p>Zeros of a holomorphic functions have finite multiplicities, except in very specific circumstances:</p></section>
+<section id="lemma--zero-with-no-finite-multiplicity." class="level3">
+
+<div class="p"><h3><a href="#lemma--zero-with-no-finite-multiplicity.">Lemma – Zero With No (Finite) Multiplicity.</a></h3>‌ Let <span class="math inline">\(f:\Omega \to \mathbb{C}\)</span> be a holomorphic function defined on a connected set <span class="math inline">\(\Omega.\)</span> If <span class="math inline">\(c\)</span> is a zero of <span class="math inline">\(f\)</span> but has no finite multiplicity, then <span class="math inline">\(f\)</span> is identically zero.</div>
+</section>
+<section id="proof.-1" class="level3">
+
+<div class="p"><h3><a href="#proof.-1">Proof.</a></h3>‌By assumption, <span class="math inline">\(f^{(n)}(c) = 0\)</span> for every number <span class="math inline">\(n.\)</span> Consider the function <span class="math inline">\(\chi: \Omega \to \mathbb{C}\)</span> defined by <span class="math display">\[
+  \chi(z) 
+  = 
+  \left|
+  \begin{array}{rl}
+  0 &amp; \mbox{if } \; \forall \, n \in \mathbb{N}, \;f^{(n)}(z) = 0, \\
+  1 &amp; \mbox{otherwise.}
+  \end{array}
+  \right.
+  \]</span></div>
+<p>We can prove that the function <span class="math inline">\(\chi\)</span> is locally constant. Indeed, if <span class="math inline">\(\chi(z) = 1,\)</span> there is a number <span class="math inline">\(n\)</span> such that <span class="math inline">\(f^{(n)}(z) \neq 0;\)</span> by continuity, the function <span class="math inline">\(f^{(n)}\)</span> has no zero in some neighbourghood of <span class="math inline">\(z;\)</span> thus the function <span class="math inline">\(\chi\)</span> is equal to <span class="math inline">\(1\)</span> in this neighbourghood. If instead <span class="math inline">\(\chi(z) = 0,\)</span> then the Taylor expansion of <span class="math inline">\(f\)</span> at <span class="math inline">\(z\)</span> shows that <span class="math inline">\(f\)</span> is zero in a suitable neighbourhood of <span class="math inline">\(z,\)</span> where <span class="math inline">\(\chi\)</span> is also zero.</p>
+<p>As the set <span class="math inline">\(\Omega\)</span> is connected, the function <span class="math inline">\(\chi\)</span> is actually constant. On the other hand, <span class="math inline">\(\chi(c) = 0,\)</span> hence the function <span class="math inline">\(\chi\)</span> is identically zero on <span class="math inline">\(\Omega,\)</span> which means that the function <span class="math inline">\(f\)</span> is also identically zero on <span class="math inline">\(\Omega.\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+<section id="lemma--zeros-of-finite-multiplicity-are-isolated." class="level3">
+
+<div class="p"><h3><a href="#lemma--zeros-of-finite-multiplicity-are-isolated.">Lemma – Zeros of Finite Multiplicity are Isolated.</a></h3>‌ Let <span class="math inline">\(f:\Omega \to \mathbb{C}\)</span> be a holomorphic function. If <span class="math inline">\(c\)</span> is a zero of multiplicity <span class="math inline">\(p\)</span> of <span class="math inline">\(f,\)</span> it is isolated: <span class="math display">\[
+  \exists \, r &gt; 0, \; 
+  \forall \, z \in \Omega, \; 
+  (f(z) = 0 \; \mbox{ and } \; |z - c| &lt; r) \, \Rightarrow \, z = c.
+  \]</span></div>
+</section>
+<section id="proof.-2" class="level3">
+
+<div class="p"><h3><a href="#proof.-2">Proof.</a></h3>‌Let <span class="math inline">\(c\)</span> be a zero of multiplicity <span class="math inline">\(p\)</span> of <span class="math inline">\(f\)</span> for some positive number <span class="math inline">\(p.\)</span> There is a holomorphic function <span class="math inline">\(a: \Omega \to \mathbb{C}\)</span> such that <span class="math inline">\(f(z) = a(z) (z-c)^p\)</span> on <span class="math inline">\(\Omega\)</span> and <span class="math inline">\(a(c) \neq 0.\)</span> By continuity of <span class="math inline">\(a\)</span> at <span class="math inline">\(c,\)</span> there is a <span class="math inline">\(r&gt;0\)</span> such that the disk <span class="math inline">\(D(c,r)\)</span> is a subset of <span class="math inline">\(\Omega \cup \{c\}\)</span> on which <span class="math inline">\(a\)</span> has no zero. The function <span class="math inline">\(f\)</span> therefore has no zero on <span class="math inline">\(D(c, r) \setminus \{c\}\)</span> either: the point <span class="math inline">\(c\)</span> is an isolated zero of <span class="math inline">\(f.\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="theorem--isolated-zeros-theorem-i." class="level3">
+
+<div class="p"><h3><a href="#theorem--isolated-zeros-theorem-i.">Theorem – Isolated Zeros Theorem I.</a></h3>‌ Let <span class="math inline">\(f:\Omega \to \mathbb{C}\)</span> be a holomorphic function defined on a connected open set <span class="math inline">\(\Omega.\)</span> Unless <span class="math inline">\(f\)</span> is identically zero, each of its zeros is isolated.</div>
+</section>
+<section id="proof.-3" class="level3">
+
+<div class="p"><h3><a href="#proof.-3">Proof.</a></h3>‌A direct consequence of the two above lemmas. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="remark." class="level3">
+
+<div class="p"><h3><a href="#remark.">Remark.</a></h3>‌More often than not, we leverage the isolated zeros theorem to prove that some holomorphic function is identically zero. In other words, we rely on the contraposition of the theorem. The statement of this contraposition may be slightly rephrased with the introduction of the concept of limit point.</div>
+</section>
+<section id="definition--limit-point." class="level3">
+
+<div class="p"><h3><a href="#definition--limit-point.">Definition – Limit Point.</a></h3>‌ A point <span class="math inline">\(c \in \mathbb{C}\)</span> is a <em>limit point</em> of a set <span class="math inline">\(C \subset \mathbb{C}\)</span> if every open annulus <span class="math inline">\(A(c,0,r)\)</span> intersects <span class="math inline">\(C\)</span>: <span class="math display">\[
+  \forall \, r &gt; 0, \; A(c,0,r) \cap C \neq \varnothing
+  \]</span> or equivalently, if the distance between <span class="math inline">\(c\)</span> and <span class="math inline">\(C \setminus \{c\}\)</span> is zero.</div>
+</section>
+<section id="theorem--isolated-zeros-theorem-ii." class="level3">
+
+<div class="p"><h3><a href="#theorem--isolated-zeros-theorem-ii.">Theorem – Isolated Zeros Theorem II.</a></h3>‌ Let <span class="math inline">\(f:\Omega \to \mathbb{C}\)</span> be a holomorphic function defined on a connected set <span class="math inline">\(\Omega.\)</span> If the set of zeros of <span class="math inline">\(f\)</span> has a limit point in <span class="math inline">\(\Omega,\)</span> then <span class="math inline">\(f\)</span> is identically zero.</div>
+</section>
+<section id="proof.-4" class="level3">
+
+<div class="p"><h3><a href="#proof.-4">Proof.</a></h3>‌ If the set of zeros of <span class="math inline">\(f\)</span> has a limit point in <span class="math inline">\(\Omega,\)</span> then by continuity of <span class="math inline">\(f\)</span> at this point, it is a zero of <span class="math inline">\(f,\)</span> which is clearly not isolated; thus, <span class="math inline">\(f\)</span> is identically zero. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="remark.-1" class="level3">
+
+<div class="p"><h3><a href="#remark.-1">Remark.</a></h3>‌Despite its apparent simplicity, the importance of the isolated zeros theorem is difficult to overestimate. However, it is a rather low-level tool; the corresponding high-level tool is a permanence principle for functional equations.</div>
+</section>
+<section id="theorem--principle-of-permanence." class="level3">
+
+<div class="p"><h3><a href="#theorem--principle-of-permanence.">Theorem – Principle of Permanence.</a></h3>‌ Let <span class="math inline">\(F\)</span> be a complex-valued function of <span class="math inline">\(n\)</span> complex variables, defined and complex-differentiable on some open subset of <span class="math inline">\(\mathbb{C}^n.\)</span> Let <span class="math inline">\(\Omega\)</span> be an open connected subset of <span class="math inline">\(\mathbb{C}\)</span> and <span class="math inline">\((f_1, \dots, f_n) :\Omega \mapsto \mathbb{C}^n\)</span> be a <span class="math inline">\(n\)</span>-uple of holomorphic functions whose image is included in the domain of definition of <span class="math inline">\(F.\)</span> If the set of points <span class="math inline">\(z \in \Omega\)</span> such that <span class="math inline">\(F(f_1(z),\dots, f_n(z))=0\)</span> has a limit point in <span class="math inline">\(\Omega,\)</span> then <span class="math display">\[
+  \forall \, z \in \Omega, \; F(f_1(z), \dots, f_n(z))=0.
+  \]</span></div>
+</section>
+<section id="proof.-5" class="level3">
+
+<div class="p"><h3><a href="#proof.-5">Proof.</a></h3>‌Under the assumptions of the theorem, the function <span class="math display">\[z \in \Omega \mapsto F(f_1(z), \dots, f_n(z))\]</span> is defined and holomorphic on <span class="math inline">\(\Omega\)</span> (it is complex-differentiable as the composition of complex-differentiable functions) on <span class="math inline">\(\Omega.\)</span> Its set of zeros has a limit point in <span class="math inline">\(\Omega,\)</span> which is connected, thus it is identically zero. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="corollary--uniqueness-principle." class="level3">
+
+<div class="p"><h3><a href="#corollary--uniqueness-principle.">Corollary – Uniqueness Principle.</a></h3>‌ Two functions <span class="math inline">\(f_1:\Omega \to \mathbb{C}\)</span> and <span class="math inline">\(f_2:\Omega \to \mathbb{C}\)</span> defined and holomorphic on some open connected subset of <span class="math inline">\(\Omega\)</span> with the same values on a set with a limit point in <span class="math inline">\(\Omega\)</span> are identical.</div>
+</section>
+<section id="proof.-6" class="level3">
+
+<div class="p"><h3><a href="#proof.-6">Proof.</a></h3>‌ Set <span class="math inline">\(F(w_1, w_2) = w_1 - w_2\)</span> and apply the permanence principle. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="example--a-trigonometric-identity." class="level3">
+
+<div class="p"><h3><a href="#example--a-trigonometric-identity.">Example – A Trigonometric Identity.</a></h3>‌The identity <span class="math display">\[
+  \sin^2 z + \cos^2 z = 1
+  \]</span> holds for every <span class="math inline">\(z \in \mathbb{C}.\)</span> Indeed, it is satisfied on the real line: every real number is a zero of the holomorphic function <span class="math inline">\(f: z \in \mathbb{C} \mapsto \sin^2 z + \cos^2 z - 1.\)</span> Every real number is a limit point of <span class="math inline">\(\mathbb{R}\)</span> in <span class="math inline">\(\mathbb{C},\)</span> hence <span class="math inline">\(f\)</span> is identically zero and the identity may be extended to the whole complex plane. Alternatively, apply the permanence principle with <span class="math inline">\(F(w_1, w_2) = w_1^2 + w_2^2 - 1,\)</span> <span class="math inline">\(f_1(z) = \sin z\)</span> and <span class="math inline">\(f_2(z) = \cos z.\)</span></div>
+</section>
+</section>
+<section id="isolated-singularities-of-holomorphic-functions" class="level1">
+<h1><a href="#isolated-singularities-of-holomorphic-functions">Isolated Singularities of Holomorphic Functions</a></h1>
+<section id="definition--typology-of-isolated-singularities." class="level3">
+
+<div class="p"><h3><a href="#definition--typology-of-isolated-singularities.">Definition – Typology of Isolated Singularities.</a></h3>‌ Let <span class="math inline">\(\Omega\)</span> be an open subset of the complex plane and <span class="math inline">\(f:\Omega \to \mathbb{C}\)</span> be a holomorphic function. An isolated singularity <span class="math inline">\(c\)</span> of <span class="math inline">\(f\)</span> is:</div>
+<ul>
+<li><p>a <em>removable singularity</em> if there is a holomorphic extension of <span class="math inline">\(f\)</span> over <span class="math inline">\(c,\)</span> that is, a holomorphic function <span class="math inline">\(a: \Omega \cup \{c\} \to \mathbb{C}\)</span> such that <span class="math display">\[
+  \forall \, z \in \Omega, \; f(z) = a(z).
+  \]</span></p></li>
+<li><p>a <em>pole of multiplicity <span class="math inline">\(p\)</span></em> for some <span class="math inline">\(p \in \mathbb{N}^*\)</span> if there is a <span class="math inline">\(a^* \in \mathbb{C}^*\)</span> such that <span class="math display">\[
+  f(z) \underset{c}{\sim} \frac{a^*}{(z-c)^p}
+  \; \mbox{ or equivalently } \;
+  \lim_{z \to c} f(z) (z-c)^p = a^*.
+  \]</span></p></li>
+<li><p>an <em>essential singularity</em> otherwise.</p></li>
+</ul>
+<!--
+**Remark -- Extension of the Domain of a Holomorphic Function.** 
+A holomorphic function $f$ is defined on some open set $\Omega.$ 
+Thus, if $c$ is an isolated singularity of $f,$ 
+then the set $\Omega \cup \{c\}$ is still open 
+(cf. [Appendix -- Isolated & Limit Points]).
+-->
+</section>
+<section id="theorem--characterization-of-removable-singularities." class="level3">
+
+<div class="p"><h3><a href="#theorem--characterization-of-removable-singularities.">Theorem – Characterization of Removable Singularities.</a></h3>‌ An isolated singularity <span class="math inline">\(c\)</span> of a holomorphic function <span class="math inline">\(f:\Omega \to \mathbb{C}\)</span> is removable if and only if one of the following conditions holds:</div>
+<ol type="1">
+<li><p>The Laurent expansion of <span class="math inline">\(f\)</span> in some non-empty open annulus <span class="math inline">\(A(c,0,r)\)</span> is a power series (its coefficients <span class="math inline">\(a_n\)</span> are zero if <span class="math inline">\(n &lt; 0\)</span>).</p></li>
+<li><p>The value <span class="math inline">\(f(z)\)</span> has a limit in <span class="math inline">\(\mathbb{C}\)</span> when <span class="math inline">\(z \to c.\)</span></p></li>
+<li><p>The function <span class="math inline">\(f\)</span> is bounded in some non-empty open annulus <span class="math inline">\(A(c,0,r).\)</span></p></li>
+</ol>
+</section>
+<section id="proof.-7" class="level3">
+
+<div class="p"><h3><a href="#proof.-7">Proof.</a></h3>‌ The validity of the criteria 1 and 2 is a direct consequence of the <a href="#appendix-local-behavior-of-holomorphic-functions">local behavior of holomorphic functions lemma (refer to the appendix)</a>. It is also plain that condition 3 is a consequence of condition 2. Conversely, if condition 2 holds and <span class="math display">\[|f(z)| \leq m \, \mbox{ whenever } \, 0 &lt; |z-c| &lt; r,\]</span> define <span class="math inline">\(\gamma = c + \rho[\circlearrowleft]\)</span> for <span class="math inline">\(0 &lt; \rho &lt; r.\)</span> For any <span class="math inline">\(n&lt;0,\)</span> <span class="math display">\[
+  |a_n| 
+  = 
+  \left| 
+    \frac{1}{i2\pi} \int_{\gamma} \frac{f(z)}{(z-c)^{n+1}} \, dz
+  \right|
+  \leq m \rho^{-n} \to 0 \; \mbox{ when } \; \rho \to 0
+  \]</span> thus condition 1 holds. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="theorem--characterization-of-pole-multiplicity." class="level3">
+
+<div class="p"><h3><a href="#theorem--characterization-of-pole-multiplicity.">Theorem – Characterization of Pole Multiplicity.</a></h3>‌ An isolated singularity of a holomorphic function <span class="math inline">\(f:\Omega \to \mathbb{C}\)</span> is a pole of multiplicity <span class="math inline">\(p\)</span> if and only if one of the equivalent condition holds:</div>
+<ol type="1">
+<li><p>The Laurent expansion of <span class="math inline">\(f\)</span> in some non-empty open annulus <span class="math inline">\(A(c,0,r)\)</span> is <span class="math display">\[
+  f(z) = \sum_{n=-p}^{+\infty} a_n (z-c)^n \; \mbox{ with } \; a_{-p} \neq 0.
+  \]</span></p></li>
+<li><p>There is a holomorphic function <span class="math inline">\(a:\Omega \to \mathbb{C}\)</span> such that <span class="math display">\[
+  \forall \, z \in \Omega, \; f(z) = \frac{a(z)}{(z-c)^p}
+  \; \mbox{ and } \;
+  a(c) \neq 0.
+  \]</span></p></li>
+</ol>
+</section>
+<section id="proof.-8" class="level3">
+
+<div class="p"><h3><a href="#proof.-8">Proof.</a></h3>‌A straightforward consequence of the <a href="#appendix-local-behavior-of-holomorphic-functions">local behavior of holomorphic functions lemma</a>. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="theorem--characterization-of-poles." class="level3">
+
+<div class="p"><h3><a href="#theorem--characterization-of-poles.">Theorem – Characterization of Poles.</a></h3>‌ An isolated singularity <span class="math inline">\(c\)</span> of a holomorphic function <span class="math inline">\(f:\Omega \to \mathbb{C}\)</span> is a pole (of multiplicity <span class="math inline">\(p\)</span>) if and only if the inverse <span class="math inline">\(1/f\)</span> is defined in some open annulus <span class="math inline">\(A(c,0,r),\)</span> has a holomorphic extension to <span class="math inline">\(D(c,r)\)</span> and <span class="math inline">\(c\)</span> is a zero (of multiplicity <span class="math inline">\(p\)</span>) of this extension. Alternatively, <span class="math inline">\(c\)</span> is a pole of <span class="math inline">\(f\)</span> if and only if <span class="math display">\[
+  |f(z)| \to + \infty \, \mbox{ when } \, z \to c.
+  \]</span></div>
+</section>
+<section id="proof.-9" class="level3">
+
+<div class="p"><h3><a href="#proof.-9">Proof.</a></h3>‌ If the point <span class="math inline">\(c\)</span> is a pole of order <span class="math inline">\(p\)</span> of <span class="math inline">\(f,\)</span> there is a holomorphic function <span class="math inline">\(a:\Omega \to \mathbb{C}\)</span> such that <span class="math display">\[
+      \forall \, z \in \Omega, \; f(z) = \frac{a(z)}{(z-c)^p}
+      \; \mbox{ and } \;
+      a(c) \neq 0.
+      \]</span> Let <span class="math inline">\(r&gt;0\)</span> be such that <span class="math inline">\(a(z) \neq 0\)</span> on <span class="math inline">\(D(c, r).\)</span> The function <span class="math inline">\(z \mapsto {1}/{f(z)}\)</span> is holomorphic on <span class="math inline">\(\in D(c,r) \setminus \{c\},\)</span> the function <span class="math inline">\(b: z \mapsto 1/a(z)\)</span> is holomorphic on <span class="math inline">\(D(c,r),\)</span> <span class="math inline">\(b(c) \neq 0\)</span> and <span class="math display">\[
+  \forall \, z \in D(c,r) \setminus \{c\},\;
+  \frac{1}{f(z)}
+  =
+  b(z) (z-c)^p
+  \]</span> Thus the point <span class="math inline">\(c\)</span> is a removable singularity of <span class="math inline">\(1/f\)</span> and a zero of order <span class="math inline">\(p\)</span> of its holomorphic extension over <span class="math inline">\(c.\)</span> The converse statement may be proved by a similar method.</div>
+<p>The condition <span class="math inline">\(|f(z)| \to + \infty\)</span> when <span class="math inline">\(z \to c\)</span> is equivalent to <span class="math display">\[
+  1/f(z) \to 0 \, \mbox{ when } \, z \to c.
+  \]</span> This property holds if and only if <span class="math inline">\(1/f\)</span> has a holomorphic extension over <span class="math inline">\(c\)</span> and <span class="math inline">\(c\)</span> is a zero of this extension. As <span class="math inline">\(1/f\)</span> is not identically zero locally, this zero has a finite multiplicity <span class="math inline">\(p\)</span> and hence <span class="math inline">\(c\)</span> is a pole of order <span class="math inline">\(p\)</span> of <span class="math inline">\(f.\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+</section>
+<section id="computation-of-residues" class="level1">
+<h1><a href="#computation-of-residues">Computation of Residues</a></h1>
+<section id="theorem--computation-of-residues." class="level3">
+
+<div class="p"><h3><a href="#theorem--computation-of-residues.">Theorem – Computation of Residues.</a></h3>‌ Let <span class="math inline">\(\Omega\)</span> be an open set of <span class="math inline">\(\mathbb{C},\)</span> <span class="math inline">\(f:\Omega \to \mathbb{C}\)</span> be a holomorphic function and <span class="math inline">\(c\)</span> be an isolated singularity of <span class="math inline">\(f.\)</span> If the Laurent series expansion of <span class="math inline">\(f\)</span> in some non-empty annulus <span class="math inline">\(A(c,0,r) \subset \Omega\)</span> is <span class="math display">\[
+  f(z) = \sum_{n=-\infty}^{+\infty} a_n (z-c)^n
+  \]</span> then <span class="math display">\[
+  \mbox{res}(f, c) = a_{-1}.
+  \]</span></div>
+</section>
+<section id="proof.-10" class="level3">
+
+<div class="p"><h3><a href="#proof.-10">Proof.</a></h3>‌By definition of the residue, for any <span class="math inline">\(0 &lt; \rho &lt; r,\)</span> <span class="math display">\[
+  \mbox{res}(f, c)
+  =
+  \frac{1}{i2\pi}
+  \int_{\rho[\circlearrowleft]+c} f(z) dz
+  = 
+  \frac{1}{i2\pi}
+  \int_{\rho[\circlearrowleft]+c} \left[ \sum_{n=-\infty}^{+\infty} a_n (z-c)^n \right] dz.
+  \]</span> The convergence of the Laurent series expansion is uniform on any compact subset of <span class="math inline">\(A(c,0,r),\)</span> hence <span class="math display">\[
+  \mbox{res}(f, c)
+  =
+  \sum_{n=-\infty}^{+\infty} \left[ a_n   \frac{1}{i2\pi} \int_{\rho[\circlearrowleft]+c}  (z-c)^n dz \right].
+  \]</span> When <span class="math inline">\(n\neq -1,\)</span> the function <span class="math inline">\(z \mapsto (z-c)^n\)</span> has a primitive in <span class="math inline">\(\mathbb{C}^*,\)</span> hence all the terms but one in the right-hand side of the equation are equal to zero. Finally, <span class="math display">\[
+  \mbox{res}(f, c)
+  =
+  a_{-1} \left[\frac{1}{i2\pi} \int_{\rho[\circlearrowleft]+c}  \frac{dz}{z-c} \right]
+  = 
+  a_{-1},
+  \]</span> as expected. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="corollary--residue-of-poles." class="level3">
+
+<div class="p"><h3><a href="#corollary--residue-of-poles.">Corollary – Residue of Poles.</a></h3>‌ Let <span class="math inline">\(\Omega\)</span> be an open set of <span class="math inline">\(\mathbb{C},\)</span> <span class="math inline">\(f:\Omega \to \mathbb{C}\)</span> be a holomorphic function and <span class="math inline">\(c\)</span> be an isolated singularity of <span class="math inline">\(f.\)</span> If <span class="math inline">\(c\)</span> is a pole of <span class="math inline">\(f\)</span> whose multiplicity is at most <span class="math inline">\(p\)</span>: <span class="math display">\[
+  \exists \, a \in \mathbb{C}, \; \lim_{z \to c}  f(z) (z-c)^p = a,
+  \]</span> then <span class="math display">\[
+  \mathrm{res}(f, c) 
+  = 
+  \lim_{z \to c} \frac{1}{(p-1)!} \frac{d^{p-1}}{dz^{p-1}}
+  \left( f(z) (z-c)^p \right)
+  \]</span></div>
+</section>
+<section id="proof.-11" class="level3">
+
+<div class="p"><h3><a href="#proof.-11">Proof.</a></h3>‌Given the assumption on the multiplicity of <span class="math inline">\(c,\)</span> the Laurent series expansion of <span class="math inline">\(f\)</span> on <span class="math inline">\(D(c,r) \setminus \{c\}\)</span> for <span class="math inline">\(r\)</span> small enough is <span class="math display">\[
+  f(z) = \sum_{n=-p}^{+\infty} a_n (z-c)^n, \; 0 &lt; |z-c| &lt;r
+  \]</span> thus <span class="math display">\[
+  f(z) (z-c)^p = \sum_{m=0}^{+\infty} a_{m-p} (z-c)^m, \; 0 &lt; |z-c| &lt;r.
+  \]</span> The right-hand side of this equation displays no negative power of <span class="math inline">\(z;\)</span> this series is therefore convergent on the whole disk <span class="math inline">\(D(c,r)\)</span> where the function <span class="math inline">\(z \mapsto f(z) (z-p)^p\)</span> can be extended to a function <span class="math inline">\(g\)</span> which is holomorphic. As the residue <span class="math inline">\(a_{-1}\)</span> of <span class="math inline">\(f\)</span> at <span class="math inline">\(c\)</span> is the coefficient of <span class="math inline">\((z-c)^{p-1}\)</span> in this Taylor expansion, we have <span class="math display">\[
+  a_{-1} = \frac{g^{(p-1)}(c)}{(p-1)!} = \lim_{z \to c} \frac{g^{(p-1)}(z)}{(p-1)!}
+  \]</span> which provides the expected formula. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="corollary--residue-of-simple-poles-i." class="level3">
+
+<div class="p"><h3><a href="#corollary--residue-of-simple-poles-i.">Corollary – Residue of Simple Poles I.</a></h3>‌ Let <span class="math inline">\(\Omega\)</span> be an open set of <span class="math inline">\(\mathbb{C},\)</span> <span class="math inline">\(f:\Omega \to \mathbb{C}\)</span> be a holomorphic function and <span class="math inline">\(c\)</span> be an isolated singularity of <span class="math inline">\(f.\)</span> The point <span class="math inline">\(c\)</span> is a simple pole of <span class="math inline">\(f\)</span> if and only if <span class="math display">\[
+  \exists \, a \in \mathbb{C}^*, \; \lim_{z \to c}  f(z) (z-c) = a,
+  \]</span> and then <span class="math display">\[
+  \mathrm{res}(f, c) 
+  = 
+  \lim_{z \to c} f(z) (z-c)
+  \]</span></div>
+</section>
+<section id="proof.-12" class="level3">
+
+<div class="p"><h3><a href="#proof.-12">Proof.</a></h3>‌Trivial. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="corollary--residue-of-simple-poles-ii." class="level3">
+
+<div class="p"><h3><a href="#corollary--residue-of-simple-poles-ii.">Corollary – Residue of Simple Poles II.</a></h3>‌ Let <span class="math inline">\(f:\Omega \to \mathbb{C}\)</span> be a holomorphic function and let <span class="math inline">\(c\)</span> be an isolated singularity of <span class="math inline">\(f.\)</span> If there are two holomorphic functions <span class="math inline">\(g\)</span> and <span class="math inline">\(h\)</span> on <span class="math inline">\(\Omega\)</span> such that <span class="math display">\[
+  f = \frac{g}{h} \;
+  \mbox{ where } \;
+  g(c) \neq 0, \;
+  h(c) = 0, \; 
+  h'(c) \neq 0,
+  \]</span> then <span class="math inline">\(c\)</span> is a simple pole of <span class="math inline">\(f\)</span> and <span class="math display">\[
+  \mathrm{res}(f,c) = \frac{g(c)}{h'(c)}.
+  \]</span></div>
+</section>
+<section id="proof.-13" class="level3">
+
+<div class="p"><h3><a href="#proof.-13">Proof.</a></h3>‌Given the assumptions, we have <span class="math display">\[
+  \lim_{z \to c} (z - c)  f(z) 
+  = 
+  \lim_{z \to c}\frac{z-c}{h(z)-h(c)} g(z)
+  =
+  \frac{g(c)}{h'(c)} \neq 0,
+  \]</span> hence <span class="math inline">\(c\)</span> is a simple pole of <span class="math inline">\(f\)</span> whose residue is <span class="math inline">\(g(c) / h'(c).\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+</section>
+<section id="appendix-local-behavior-of-holomorphic-functions" class="level1">
+<h1><a href="#appendix-local-behavior-of-holomorphic-functions">Appendix – Local Behavior of Holomorphic Functions</a></h1>
+<section id="lemma--local-behavior-of-holomorphic-functions." class="level3">
+
+<div class="p"><h3><a href="#lemma--local-behavior-of-holomorphic-functions.">Lemma – Local Behavior of Holomorphic Functions.</a></h3>‌ Let <span class="math inline">\(f:\Omega \mapsto \mathbb{C}\)</span> be a holomorphic function defined on some open subset <span class="math inline">\(\Omega\)</span> of <span class="math inline">\(\mathbb{C}.\)</span> Let <span class="math inline">\(c \in \mathbb{C}\)</span> be a point which is either in the domain of definition of <span class="math inline">\(f\)</span> or an isolated singularity of <span class="math inline">\(f;\)</span> in any case, there is a <span class="math inline">\(r&gt;0\)</span> such that <span class="math inline">\(D(c, r) \subset \Omega \cup \{c\}.\)</span></div>
+<p>For any <span class="math inline">\(p \in \mathbb{Z}\)</span> and <span class="math inline">\(a^* \in\mathbb{C},\)</span> the following properties are equivalent:</p>
+<ol type="1">
+<li>We have <span class="math display">\[
+  \lim_{z \to c} \frac{f(z)}{(z-c)^p} = a^*.
+  \]</span></li>
+<li><p>There is a function <span class="math inline">\(a: \Omega \cup \{c\} \to \mathbb{C}\)</span> such that <span class="math display">\[
+  \forall \, z \in \Omega, \; f(z) = a(z) (z-c)^p
+  \; \mbox{ and } \;
+  \lim_{z \to c} a(z) = a(c) = a^*.
+  \]</span></p></li>
+<li><p>There are some <span class="math inline">\(a_n \in \mathbb{C}\)</span> defined for <span class="math inline">\(n\geq p\)</span> such that <span class="math display">\[
+  \forall \, z \in \Omega \cap D(c, r), \;
+  f(z) = \sum_{n=p}^{+\infty} a_n (z-c)^n 
+  \; \mbox{ and } \;
+  a_p = a^*.
+  \]</span></p></li>
+<li><p>There is a holomorphic function <span class="math inline">\(a: \Omega \cup \{c\} \to \mathbb{C},\)</span> such that <span class="math display">\[
+  \forall \, z \in \Omega, \; f(z) = a(z) (z-c)^p
+  \; \mbox{ and } \;
+  a(c) = a^*.
+  \]</span></p></li>
+</ol>
+</section>
+<section id="proof.-14" class="level3">
+
+<div class="p"><h3><a href="#proof.-14">Proof.</a></h3>‌ If condition 1 holds, the function <span class="math inline">\(a:\Omega \cup \{c\} \to \mathbb{C}\)</span> defined by <span class="math display">\[
+  a(z) = \frac{f(z)}{(z-c)^p} \; \mbox{ if } \; z \in \Omega \setminus \{c\}
+  \; \mbox{ and } \;
+  a(c) = a^*
+  \]</span> satisfies condition 2.</div>
+<p>If condition 2 holds, the function <span class="math inline">\(a\)</span> is continuous, thus for any compact set <span class="math inline">\(K \subset D(c,r),\)</span> there is a finite <span class="math inline">\(m\)</span> such that <span class="math display">\[
+  \forall \, z \in K \cap \Omega, \;
+  |a(z)| = \left|\frac{f(z)}{(z-c)^p}\right| \leq m.
+  \]</span> Hence, if <span class="math inline">\(0 &lt; \rho &lt; r\)</span> and <span class="math inline">\(\gamma = c + \rho[\circlearrowleft],\)</span> the <span class="math inline">\(n\)</span>-th coefficient <span class="math inline">\(a_n\)</span> of the Laurent expansion of <span class="math inline">\(f\)</span> in <span class="math inline">\(D(c,r) \setminus \{c\}\)</span> satisfies <span class="math display">\[
+  a_n
+  = 
+  \frac{1}{i2\pi} \int_{\gamma} \frac{f(z)}{(z-c)^{n+1}} \,dz
+  =
+  \frac{1}{i2\pi} \int_{\gamma} \frac{f(z)}{(z-c)^{p}} (z-c)^{p-n-1} \, dz
+  \]</span> and by the M-L inequality, <span class="math display">\[
+  |a_n|
+  \leq \left[\sup_{|z| = \rho} \left|\frac{f(z)}{(z-c)^p}\right|\right] \rho^{p-n}.
+  \]</span> If <span class="math inline">\(n &lt; p,\)</span> the right-hand side of this inequality tends to zero when <span class="math inline">\(\rho \to 0,\)</span> therefore <span class="math inline">\(a_n = 0.\)</span> If <span class="math inline">\(n=p\)</span> on the other hand, <span class="math display">\[
+  a_p 
+  = 
+  \frac{1}{i2\pi} \int_{\gamma} \frac{f(z)}{(z-c)^{p+1}} \, dz
+  =
+  \int_0^1 a(c + \rho e^{i2\pi t}) \, dt
+  \]</span> and hence <span class="math inline">\(a_p = \lim_{z \to c} a(z) = a^*.\)</span> Now if <span class="math inline">\(c \in \Omega,\)</span> the Taylor expansion of <span class="math inline">\(f\)</span> in <span class="math inline">\(D(c,r)\)</span> provides a Laurent expansion of <span class="math inline">\(f\)</span> in <span class="math inline">\(D(c,r) \setminus \{c\};\)</span> this expansion is unique, hence the coefficient sequences are equal and the initial Laurent expansion is valid in <span class="math inline">\(D(c,r).\)</span></p>
+<p>If condition 3 holds, the series <span class="math display">\[
+  \sum_{k=0}^{+\infty} a_{k + p} (z-c)^k
+  \]</span> is convergent in <span class="math inline">\(D(c, r) \setminus \{c\}\)</span> and hence in <span class="math inline">\(D(c,r).\)</span> Its sum <span class="math inline">\(a_c(z)\)</span> satisfies <span class="math inline">\(f(z) = a_c(z) (z-c)^p\)</span> in <span class="math inline">\(\Omega \cap D(c,r).\)</span> Consequently, the function <span class="math inline">\(a: \Omega \cup \{c\} \to \mathbb{C}\)</span> may be defined unambiguously by <span class="math display">\[
+  a(z) = a_c(z) \, \mbox{ if } \, z \in D(c,r)
+  \; \mbox{ and } \;
+  a(z) = \frac{f(z)}{(z - c)^p} \, \mbox{ otherwise}
+  \]</span> and it is holomorphic.</p>
+<p>Finally if condition 4 holds, it is plain that condition 1 holds. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+</section>
+</main>
+
+
+</body></html>

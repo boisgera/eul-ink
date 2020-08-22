@@ -1,0 +1,379 @@
+% Cauchy's Integral Theorem -- Local Version
+% [Sébastien Boisgérault][email], Mines ParisTech
+
+[email]: mailto: Sebastien.Boisgerault@mines-paristech.fr
+
+---
+license: "[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0)"
+---
+
+Exercises
+================================================================================
+
+A Fourier Transform
+--------------------------------------------------------------------------------
+
+We wish to compute for any real number $\omega$ the value of the integral
+  $$
+  \hat{x}(\omega) = \int_{-\infty}^{+\infty} x(t) e^{-i \omega t}\, dt
+  $$
+when $x: \mathbb{R} \to \mathbb{R}$ is the Gaussian function defined by
+  $$
+  \forall \, t \in \mathbb{R}, \; x(t) = e^{-t^2/2}.
+  $$
+
+We remind you of the value of the *Gaussian integral*
+(see e.g. [Wikipedia](https://en.wikipedia.org/wiki/Gaussian_integral)):
+  $$
+  \hat{x}(0) =
+  \int_{-\infty}^{+\infty} e^{-t^2/2} \, dt = \sqrt{2\pi}
+  $$
+
+
+### Questions
+
+ 1. Show that for any pair of real numbers $\tau$ and $\omega$, 
+    we can compute
+      $$
+      \int_{-\tau}^{\tau} x(t) e^{-i \omega t}\, dt
+      $$
+    from the line integral of a fixed holomorphic function 
+    on a path $\gamma$ that depends on $\tau$ and $\omega$. 
+    
+ 2. Use Cauchy's integral theorem to evaluate $\hat{x}(\omega)$.
+
+### Answers
+
+ 1. We may denote $x$ the extension to the complex plane 
+    of the original Gaussian function $x$, defined by:
+     $$
+     \forall \, z\in \mathbb{C}, \; x(z) = e^{-z^2/2}.
+     $$
+    It is holomorphic as a composition of holomorphic functions.
+    Let $\gamma = [-\tau \to \tau] + i\omega$.
+    The line integral of $x$ along $\gamma$ satisfies
+      $$
+      \int_{\gamma} x(z) \, dz 
+        = \int_{0}^1 x(-\tau (1-s) + \tau s + i \omega) \, (2\tau ds)
+      $$
+    or, using the change of variable $t = -\tau (1-s) + \tau s$,
+      $$
+      \int_{\gamma} x(z) \, dz 
+        = \int_{-\tau}^{\tau} x(t + i\omega) \, dt.
+      $$
+    Since
+      $$
+      x(t + i \omega) 
+      = 
+      e^{-{(t + i\omega)^2}/{2}}
+      =
+      e^{-t^2/2} e^{-i\omega t} e^{\omega^2/2},
+      $$
+      we end up with
+      $$
+      \int_{\gamma} x(z) \, dz
+      =
+      e^{\omega^2/2} \int_{-\tau}^{\tau} x(t) e^{-i2\pi f t}\, dt
+      $$
+
+ 2. Let $\nu = \tau + [0 \to i \omega]$; on the image of this path, we have 
+      $$
+      \forall \, s \in [0,1], \;
+      |x(\nu(s))|  =
+      \left| e^{-(\tau + i \omega s)^2/2} \right|
+      = 
+      e^{-\tau^2/2} e^{(\omega s)^2/2}
+      \leq
+      e^{-\tau^2/2} e^{\omega^2/2},
+      $$
+    hence the M-L inequality provides
+      $$
+      \left| \int_{\mu} x(z) \, dz \right|
+      \leq
+      (|\omega| e^{\omega^2/2} )e^{-\tau^2/2} 
+      $$
+    and thus,
+      $$
+      \forall \, \omega \in \mathbb{R}, \;
+      \lim_{|\tau| \to +\infty} \int_{\mu} x(z) \, dz = 0.
+      $$
+
+    We may apply Cauchy's integral theorem to the function $x$ on the
+    closed polyline
+      $$
+      [-\tau + i \omega \, \to \,  \tau + i\omega \, \to \, \tau \, \to \, -\tau \, \to \, -\tau + i \omega].
+      $$
+    It is the 
+    concatenation of $\gamma = [-\tau \to \tau] + i\omega$, 
+    the reverse of $\mu_+ = \tau + [0 \to i \omega]$, 
+    the reverse of $\gamma_0 = [-\tau \to \tau]$ and finally 
+    $\mu_- = -\tau + [0 \to i \omega]$.
+
+    ![The closed path used in the application of Cauchy's integral theorem](images/fourier.pdf)
+
+    The theorem provides
+      $$
+      \begin{split}
+      e^{\omega^2/2} \int_{-\tau}^{\tau} x(t) e^{-i \omega t}\, dt
+      - \int_{\mu_+} x(z) \, dz \\
+      - \int_{-\tau}^{\tau} x(t) \, dt
+      + \int_{\mu_-} x(z) \, dz
+      = 0.
+      \end{split}
+      $$
+    When $\tau \to +\infty$, this equality yields
+      $$
+      \int_{-\infty}^{\infty} x(t) e^{-i2\pi f t}\, dt
+      = 
+      \sqrt{2\pi} e^{-\omega^2/2}.
+      $$
+
+
+Cauchy's Integral Formula for Disks
+--------------------------------------------------------------------------------
+
+Let $\Omega$ be an open subset of the complex plane and
+$\gamma = c + r[\circlearrowleft]$.
+We assume that the closed disk $\overline{D}(c, r)$ is included in $\Omega$
+(this is stronger than the requirement that $\gamma$ is a path of $\Omega$).
+
+![Geometry of Cauchy's integral formula for disks.](images/cauchy_formula_sets.pdf)
+
+We wish to prove that for any holomorphic function $f:\Omega \to \mathbb{C}$,
+  $$
+  \forall \, z \in \Omega, \;
+  |z - c| < r \, \Rightarrow \,  
+  f(z) = \frac{1}{i2\pi} \int_{\gamma} \frac{f(w)}{w-z} dw.
+  $$
+
+
+### Questions
+
+ 1. What is the value of the line integral above when $|z - c| > r$?
+
+ 2. Compute the line integral above when $z=c$ as an integral with respect
+    to a real variable. 
+    When happens in this case when $r \to 0$ ?
+
+ 3. Let $\epsilon>0$ be such that $|z| + \epsilon < r$ and let 
+    $\lambda =  z + \epsilon[\circlearrowleft]$.
+    Provide two paths $\mu$ and $\nu$ whose images
+    belong to (different) star-shaped subsets of 
+    $\Omega \setminus \{z\}$
+    and such that for any continuous function $g:\Omega \setminus \{z\}\to \mathbb{C},$
+      $$
+      \int_{\gamma} g(w) \, dw = \int_{\lambda} g(w) dw
+      +
+      \int_{\mu} g(w) \, dw + \int_{\nu} g(w) dw.
+      $$
+
+ 4. Prove Cauchy's integral formula for disks.
+
+ 5. Show that $f'(z)$ can be computed as a line integral on $\gamma$ of an
+    expression that depends on $f(w)$ and not on $f'(w)$.
+    What property of $f'$ does this expression shows?
+
+### Answers
+
+ 1. If $|z - c| > r$, the function $w \mapsto {f(w)} / (w-z)$
+    is defined and holomorphic in $\Omega \setminus \{z\}$.
+    Let $\rho$ be the minimum between $|z-c|$ and the distance between
+    $c$ and $\mathbb{C} \setminus \Omega$. 
+    By construction,
+    the open disk $D(c, \rho)$ is a star-shaped subset of 
+    $\Omega \setminus \{z\}$
+    and it contains the image of $\gamma$.
+    Thus, Cauchy's integral theorem provides
+      $$
+      \frac{1}{i2\pi} \int_{\gamma} \frac{f(w)}{w-z} dw = 0.
+      $$
+
+ 2. When $z=c$, we have
+      $$
+      \begin{split}
+      \frac{1}{i2\pi} \int_{\gamma} \frac{f(w)}{w-z} dw
+      =&\,
+      \frac{1}{i2\pi} \int_0^1 \frac{f(c+re^{i2\pi t})}{c+re^{i2\pi t} - c} (i2\pi re^{i2\pi t}dt) \\
+      =&\,
+      \int_0^1 f(c+re^{i2\pi t}) dt.
+      \end{split}
+      $$
+   By continuity of $f$ at $c$, 
+   the limit of this integral when $r \to 0$ is $f(c)$.
+
+ 3. Assume for the sake of simplicity that $z = c + x$ for some real number
+    $x \in \left[0,r \right[$. 
+    Let $\alpha = \arccos x/r$; define $\mu$ as the concatenation
+      $$
+      \begin{array}{lll}
+      \mu \; = & c+ [x + i\epsilon \to re^{i\alpha}] &\, | \\
+               & c + r e^{i[\alpha \to 2\pi-\alpha]} &\, | \\
+               & c + [re^{-i\alpha} \to x - i\epsilon] &\, | \\
+               & c + x + \epsilon e^{i [-\pi/2 \to -3\pi/2]} & \, .
+      \end{array}
+      $$
+    and $\nu$ as the concatenation
+      $$
+      \begin{array}{lll}
+      \nu \; = & c+ [x - i\epsilon \to re^{-i\alpha}] &\, | \\
+               & c + r e^{i[-\alpha \to \alpha]} &\, | \\
+               & c + [re^{i \alpha} \to x + i\epsilon] &\, | \\
+               & c + x + \epsilon e^{i [\pi/2 \to -\pi/2]} & \, .
+      \end{array}
+      $$
+
+    ![Cauchy's Integral Formula for Disks](images/cauchy_formula.pdf)
+
+    Since the closure of $D(c,r)$ is included in $\Omega$, 
+    there is a $\rho > r$ such that $D(c,\rho) \subset \Omega$.
+    The image of $\mu$ belongs to the set 
+      $$D(c, \rho) \setminus \{z + t \;|\; t \geq 0\}$$
+    while the image of $\nu$ belongs to the set
+      $$D(c, \rho) \setminus \{z + t \;|\; t \leq 0\}.$$
+    Both sets are star-shaped and included in $\Omega$.
+
+    Additionally, for any continuous function $g:\Omega \setminus \{z\}\to \mathbb{C}$
+
+      - the integral of $g$ on $c+ [x + i\epsilon \to re^{i\alpha}]$
+        and its reverse path on one hand, 
+        the integral of $g$ on $c+[re^{-i\alpha} \to x - i\epsilon]$ 
+        and its reverse path on
+        the other hand are opposite numbers.
+
+     - the sum of the integral of $g$ on 
+       $c + r e^{i[\alpha \to 2\pi-\alpha]}$ and
+       $c + r e^{i [-\alpha \to \alpha]}$ is equal to 
+       its integral on $\gamma = c + r [\circlearrowleft]$.
+
+     - the sum of the integral of $g$ on 
+       $c + x + \epsilon e^{i [-\pi/2 \to -3\pi/2]}$ and
+       $c + x + \epsilon e^{i [\pi/2 \to -\pi/2]}$ is equal 
+       to the opposite of its integral on 
+       $\lambda = c + x + \epsilon[\circlearrowleft]$.
+
+    Therefore, the equality
+      $$
+      \int_{\gamma} g(w) \, dw = \int_{\lambda} g(w) dw
+      +
+      \int_{\mu} g(w) \, dw + \int_{\nu} g(w) dw.
+      $$
+    holds.
+
+
+ 4. We may apply the result of the previous question to the function
+    $w \mapsto f(w)/(w-z)$. As it is holomorphic on $\Omega \setminus \{z\}$,
+    the star-shaped version of Cauchy's integral theorem provides
+      $$
+      \int_{\mu} \frac{f(w)}{w-z} dw = \int_{\nu} \frac{f(w)}{w-z} dw = 0,
+      $$
+    hence
+      $$
+      \frac{1}{i2\pi} \int_{\gamma} \frac{f(w)}{w-z} dw 
+      = 
+      \frac{1}{i2\pi} \int_{\lambda} \frac{f(w)}{w-z} dw.
+      $$
+    We proved in question 2. that the right-hand side of this equation tends 
+    to $f(z)$ when $\epsilon \to 0$, thus
+      $$
+      \frac{1}{i2\pi} \int_{\gamma} \frac{f(w)}{w-z} dw 
+      = 
+      f(z),
+      $$
+    which is Cauchy's integral formula for disks.
+
+ 5. Let $z \in \Omega$. 
+    There are some $c\in \Omega$ and $r> 0$ such that 
+    $z \in  D(c, r)$ and
+    $\overline{D}(z,r) \subset \Omega$;
+    let $\gamma = c + r[\circlearrowleft]$.
+    For any complex number $h$ such that $|z+h - c| < r$, 
+    we have by Cauchy's formula
+      $$
+      \begin{split}
+      \frac{f(z+h) - f(z)}{h}
+      = &\,
+      \frac{1}{i2\pi} 
+      \int_{\gamma} \frac{1}{h} \left(\frac{1}{w - z - h} -\frac{1}{w - z} \right) f(w) \, dw \\
+       = &\,
+      \frac{1}{i2\pi} 
+      \int_{\gamma} \frac{f(w)}{(w-z-h)(w-z)}  \, dw 
+      \end{split}
+      $$
+    To met the condition on $h$, assume that $|h| \leq \epsilon$ where
+     $$
+     0 < \epsilon < \min_{t \in [0,1]} |z - \gamma(t)|.
+     $$
+    Write the line integral above as an integral with respect to the real
+    parameter $t \in [0,1]$; its integrand is dominated by a constant:
+      $$
+      \forall \, t \in [0,1], \;
+      \left| \frac{1}{i2\pi}\frac{f(\gamma(t))}{(\gamma(t)-z-h)(\gamma(t)-z)}  \gamma'(t) \right|
+      \leq 
+      \frac{1}{\epsilon^2} \max_{t \in [0,1]} |f(\gamma(t))|.
+      $$
+   Thus, Lebesgue's dominated convergence theorem provides the existence of
+   the derivative of $f$ at $z$ as well at its value:
+     $$
+     f'(z) 
+     = \lim_{h \to 0} \frac{f(z+h) - f(z)}{h}
+     = \frac{1}{i2\pi} 
+      \int_{\gamma} \frac{f(w)}{(w-z)^2}  \, dw.
+     $$
+   Now it's pretty clear that we can iterate the previous argument: 
+   consider the right-hand side of the above equations as a function
+   of $z$, build its difference quotient and pass to the limit.
+   The process provides
+     $$
+     f''(z) 
+     = \lim_{h \to 0} \frac{f'(z+h) - f'(z)}{h}
+     = \frac{1}{i2\pi} 
+      \int_{\gamma} \frac{2f(w)}{(w-z)^3}  \, dw.
+     $$
+   The argument is valid for any $z \in \Omega$: 
+   the function $f'$ is also holomorphic.
+
+
+The Fundamental Theorem of Algebra
+--------------------------------------------------------------------------------
+
+### Question
+
+Prove that every non-constant single-variable polynomial with complex
+coefficients has at least one complex root.
+
+### Answer
+
+Let $p: \mathbb{C} \to \mathbb{C}$ be a polynomial with no complex root. 
+The function $f= 1/p$ is defined and holomorphic on $\mathbb{C}$.
+Additionally, as $|p(z)| \to +\infty$ when $|z| \to + \infty$, 
+the modulus of $f$ is bounded. 
+By Liouville's theorem, $f$ is constant, hence $p$ is constant too.
+
+
+Image of Entire Functions
+--------------------------------------------------------------------------------
+
+### Question
+
+Show that any non-constant holomorphic function $f:\mathbb{C} \to \mathbb{C}$ 
+has an image which is dense in $\mathbb{C}$:
+  $$
+  \forall \, w \in \mathbb{C}, \;
+  \forall \, \epsilon > 0, \;
+  \exists \, z \in \mathbb{C}, \;
+  |f(z) - w| < \epsilon.
+  $$
+
+### Answer
+
+Assume that the image of $f$ is not dense in $\mathbb{C}$: there is a 
+$w\in\mathbb{C}$ and a $\epsilon > 0$ such that for any $z\in \mathbb{C}$,
+$|f(z) - w| \geq \epsilon$. Now consider the function $z \mapsto 1/(f(z) - w)$;
+it is defined and holomorphic in $\mathbb{C}$. Additionally,
+  $$
+  \forall \, z \in \mathbb{C},\; \left| \frac{1}{f(z) - w}\right| \leq \frac{1}{\epsilon}.
+  $$
+By Liouville's theorem, this function is constant, hence $f$ is constant too.
+
+
+

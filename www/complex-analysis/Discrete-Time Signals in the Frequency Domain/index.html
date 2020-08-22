@@ -1,0 +1,1591 @@
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, Mines ParisTech">
+  <meta name="dcterms.date" content="2019-09-30">
+  <title>Discrete-Time Signals in the Frequency Domain</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: content-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+html {
+  line-height: var(--base-line-height);
+  --base-font-size: 24px;
+  --base-line-height: 36px;
+  --scale-ratio: 1.4142135623730951;
+  --small: 17px;
+  --medium: 24px;
+  --large: 34px;
+  --x-large: 48px;
+  font-size: 24px;
+  font-family: 'Alegreya', serif;
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html em {
+  font-style: italic;
+}
+html strong {
+  font-weight: bold;
+}
+html p, html .p {
+  margin-bottom: var(--base-line-height);
+  text-align: justify;
+  hyphens: auto;
+  -moz-hyphens: auto;
+}
+html section {
+  margin-bottom: var(--base-line-height_px);
+}
+html main {
+  box-sizing: content-box;
+  max-width: 32em;
+  margin: auto;
+  padding: var(--base-line-height);
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, q:before {
+  content: none;
+}
+blockquote:after, q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: medium solid black;
+  border-bottom: medium solid black;
+}
+main > header, main > .header, main > #header {
+  margin-top: calc(2 * var(--base-line-height));
+  margin-bottom: calc(2 * var(--base-line-height));
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: calc(1.5 * var(--base-line-height));
+  margin-top: 0;
+  margin-bottom: var(--base-line-height);
+  font-weight: bold;
+}
+main > header .author, main > .header .author, main > #header .author {
+  font-size: 24px;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  font-weight: normal;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: 'Alegreya SC', serif;
+  line-height: calc(1 * var(--base-line-height));
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  font-weight: bold;
+  line-height: calc(1.25 * var(--base-line-height));
+  margin-top: calc(2.00 * var(--base-line-height));
+  margin-bottom: calc(0.75 * var(--base-line-height));
+}
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+}
+h3, h4, h5, h6 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 1em;
+  display: inline;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
+}
+a:hover {
+  text-decoration: none;
+}
+a:link {
+  color: var(--color);
+}
+a:visited {
+  color: var(--color);
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li {
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  margin-left: var(--base-line-height);
+  padding-left: 0.5em;
+}
+ul li {
+  list-style: disc;
+}
+ol li {
+  list-style: decimal;
+}
+blockquote {
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+  padding: var(--base-line-height);
+  margin-bottom: var(--base-line-height);
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-size: 24px;
+  font-family: Inconsolata;
+}
+pre {
+  overflow-x: auto;
+  background-color: #ebebeb;
+  margin-bottom: var(--base-line-height);
+  padding-left: var(--base-line-height);
+  padding-right: var(--base-line-height);
+  padding-top: var(--base-line-height);
+  padding-bottom: var(--base-line-height);
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: auto;
+}
+figure {
+  margin-bottom: var(--base-line-height);
+  text-align: center;
+}
+figcaption {
+  display: inline-block;
+  font-style: italic;
+  text-align: justify;
+}
+.table {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  margin-bottom: var(--base-line-height);
+}
+thead {
+  border-bottom: medium solid black;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+.MJXc-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+nav#TOC > ul {
+  position: relative;
+  font-weight: bold;
+}
+nav#TOC > ul > * {
+  margin-bottom: var(--base-line-height);
+}
+nav#TOC > ul li {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+nav#TOC > ul ul li {
+  margin-left: var(--base-line-height);
+  font-weight: normal;
+}
+nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+  padding-bottom: var(--base-line-height);
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+.badge {
+  position: relative;
+  bottom: 0.13em;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  font-weight: 300;
+  font-size: var(--small);
+  display: inline-block;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  vertical-align: baseline;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+  margin-right: 1em;
+}
+.section-flag {
+  line-height: var(--base-line-height);
+  font-size: var(--small);
+  font-weight: 300;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  margin-bottom: 0;
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya: 400,700,900,400italic,700italic,900italic|Alegreya+SC:400,700,900,400italic,700italic,900italic|Alegreya+Sans:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+Sans+SC:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var box, hide_proof, main, show_proof;
+
+  hide_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("expanded");
+    sectionWrapper.addClass("minimized");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "visible"
+    });
+    w$(".header-wrapper").css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().css({
+      visibility: "hidden",
+      height: "0px"
+    });
+    w$(".header-wrapper").attr({
+      id: w$("section").first().attr("id")
+    });
+    return w$("section").first().attr({
+      id: ""
+    });
+  };
+
+  show_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("minimized");
+    sectionWrapper.addClass("expanded");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "hidden"
+    });
+    w$(".header-wrapper").css({
+      visibility: "hidden",
+      height: "0"
+    });
+    w$("section").first().css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().attr({
+      id: w$(".header-wrapper").attr("id")
+    });
+    return w$(".header-wrapper").attr({
+      id: ""
+    });
+  };
+
+  box = function(section) {
+    var clone, expand, header, headerWrapper, tombstone, wrapper;
+    clone = section.clone(true);
+    clone.css({
+      marginBottom: "0"
+    });
+    clone.children().last().css({
+      marginBottom: "0"
+    });
+    tombstone = clone.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer",
+      position: "absolute",
+      bottom: "0.75rem",
+      right: "0.75rem"
+    });
+    wrapper = $("<div class='proof-wrapper expanded'></div>");
+    wrapper.css({
+      position: "relative",
+      margin: "-0.75rem -0.75rem 0.75rem -0.75rem",
+      padding: "0.75rem",
+      backgroundColor: "#f9f9f9"
+    });
+    header = clone.find("h3, h4, h5, h6").first().clone();
+    headerWrapper = $("<div class='p header-wrapper' style='margin-bottom:0; visibility:hidden; overflow:hidden; height:0;'> </div>");
+    headerWrapper.append(header);
+    expand = $("<i class='fa fa-caret-down expand' style='visibility:hidden; cursor:pointer; position:absolute; top:0.75rem; right:0.75rem;'> </i>");
+    wrapper.append(headerWrapper);
+    wrapper.append(expand);
+    wrapper.append(clone);
+    expand.on("click", function() {
+      return show_proof(wrapper);
+    });
+    tombstone.on("click", function() {
+      return hide_proof(wrapper);
+    });
+    section.replaceWith(wrapper);
+    return wrapper;
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, section, sections, text, wrapper;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      wrapper = box(section);
+      hide_proof(wrapper);
+    }
+    return $(document).keydown(function(event) {
+      var k, l, len2, len3, ref1, ref2, results, sectionWrapper;
+      console.log("***", event.keyCode);
+      if (event.keyCode === 88) {
+        ref1 = $(".proof-wrapper.minimized");
+        for (k = 0, len2 = ref1.length; k < len2; k++) {
+          sectionWrapper = ref1[k];
+          show_proof($(sectionWrapper));
+        }
+      }
+      if (event.keyCode === 77) {
+        ref2 = $(".proof-wrapper.expanded");
+        results = [];
+        for (l = 0, len3 = ref2.length; l < len3; l++) {
+          sectionWrapper = ref2[l];
+          results.push(hide_proof($(sectionWrapper)));
+        }
+        return results;
+      }
+    });
+  };
+
+  $(main);
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var make_preview, mathjaxDebug;
+
+  make_preview = function(elt) {
+    var card, hidden_css, hide_preview, id, ref, show_preview, url, visible_css;
+    ref = elt.attr("href").split("#"), url = ref[0], id = ref[1];
+    card = $("<div class='card'>\n  <div class='holder'>\n    <p>Placeholder</p>\n  </div>\n</div>");
+    card.css({
+      width: "35vw",
+      padding: "1.5rem",
+      position: "fixed",
+      top: "1.5rem",
+      right: "1.5rem",
+      boxSizing: "border-box",
+      maxHeight: "calc(100vh - 3rem)",
+      overflow: "hidden",
+      boxShadow: "0 0 1rem #e6e6e6",
+      backgroundColor: "white"
+    });
+    visible_css = {
+      visibility: "visible",
+      opacity: 1,
+      transform: "translateX(0em)",
+      transition: "all 0.3s linear"
+    };
+    hidden_css = {
+      visibility: "hidden",
+      opacity: 0,
+      transform: "translateX(1em)",
+      transition: "all 0.3s linear 0.5s"
+    };
+    card.css(hidden_css);
+    elt.css({
+      textDecoration: "underline solid #0a0a0a",
+      textDecorationSkip: "ink",
+      transition: "background-color 0.3s linear"
+    });
+    show_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d3"
+      });
+      return card.css(visible_css);
+    };
+    hide_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d300"
+      });
+      return card.css(hidden_css);
+    };
+    return card.find(".holder").load(url + (" [id='" + id + "']"), function(response, status, jxXHR) {
+      console.log("XHR status:", status, url, id);
+      if (status === "success" || status === "notmodified") {
+        console.log("success!");
+        console.log("elt:", $(elt));
+        $("body").append(card);
+        card.find("p, .p").css({
+          textAlign: "left"
+        });
+        card.find("section").css({
+          marginBottom: "0"
+        });
+        card.find("section").children().last().css({
+          marginBottom: "0"
+        });
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, card[0]]);
+        elt.on("mouseenter", show_preview);
+        return elt.on("mouseleave", hide_preview);
+      }
+    });
+  };
+
+  mathjaxDebug = function() {
+    MathJax.Hub.signal.Interest(function(message) {
+      return console.log("*", message);
+    });
+    return MathJax.Hub.Register.StartupHook("End Process", function() {
+      var i, jax, len, ref, results;
+      console.log("list of jaxes:");
+      ref = MathJax.Hub.getAllJax();
+      results = [];
+      for (i = 0, len = ref.length; i < len; i++) {
+        jax = ref[i];
+        results.push(console.log("jax:", jax));
+      }
+      return results;
+    });
+  };
+
+  $(function() {
+    var elt, i, len, ref, results;
+    ref = $("a.preview");
+    results = [];
+    for (i = 0, len = ref.length; i < len; i++) {
+      elt = ref[i];
+      results.push(make_preview($(elt)));
+    }
+    return results;
+  });
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">Discrete-Time Signals in the Frequency Domain</a></h1>
+
+<h2 class="author">
+By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, Mines ParisTech, under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>
+</h2> 
+
+<h3 class="date" style="margin-right: 0px;">September 30, 2019</h3>
+</header>
+<section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
+<ul>
+<li class="top-li"><p class="section-flag">section 1</p><a href="#introduction">Introduction</a></li>
+<li class="top-li"><p class="section-flag">section 2</p><a href="#terminology-notation">Terminology &amp; Notation</a><ul>
+<li><a href="#signals-and-domains">Signals and Domains</a></li>
+<li><a href="#sets-and-functions">Sets and Functions</a></li>
+<li><a href="#iverson-bracket">Iverson Bracket</a></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 3</p><a href="#finite-signals">Finite Signals</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--signal-time-domain-sampling-periodrate">Signal (Time Domain), Sampling Period/Rate</a></li>
+<li><span class="badge">def<span></span></span><a href="#definition--finite-signal.">Finite Signal</a></li>
+<li><a href="#fourier-transform">Fourier Transform</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--signal-in-the-frequency-domain-fourier-transform.">Signal in the Frequency Domain, Fourier Transform</a></li>
+<li><span class="badge">rem<span></span></span><a href="#remark--frequency-domain.">Frequency Domain</a></li>
+<li><span class="badge">rem<span></span></span><a href="#remark--fourier-transform-of-continuous-time-signals.">Fourier Transform of Continuous-Time Signals</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--inversion-formula.">Inversion Formula</a></li>
+<li><span class="badge">rem<span></span></span><a href="#remark--continuous-time-signals-inverse-fourier-transform.">Continuous-Time Signals (Inverse Fourier Transform)</a></li>
+<li></li>
+</ul></li>
+<li><a href="#z-transform"><span class="math inline">\(z\)</span>-Transform</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--signal-in-the-complex-domain-z-transform.">Signal in the Complex Domain, \(z\)-Transform</a></li>
+<li><span class="badge">rem<span></span></span><a href="#remark--z-transform-domain-for-finite-signals.">\(z\)-Transform Domain for Finite Signals</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--z-transform-to-fourier-transform.">\(z\)-Transform to Fourier Transform</a></li>
+<li><span class="badge">exa<span></span></span><a href="#example--unit-impulse.">Unit Impulse</a></li>
+</ul></li>
+<li><a href="#convolution-and-filters">Convolution and Filters</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--convolution.">Convolution</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--representation-of-the-convolution-in-the-frequency-domain.">Representation of the Convolution in the Frequency Domain</a></li>
+<li></li>
+<li><span class="badge">exa<span></span></span><a href="#example--unit-impulse.-1">Unit Impulse</a></li>
+<li><span class="badge">def<span></span></span><a href="#definition--filter-impulse-response-frequency-response-transfer-function.">Filter, Impulse Response, Frequency Response, Transfer Function</a></li>
+<li><span class="badge">rem<span></span></span><a href="#remark--impulse-response.">Impulse Response</a></li>
+</ul></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 4</p><a href="#quickly-decreasing-signals">Quickly Decreasing Signals</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--quickly-decreasing-signal.">Quickly Decreasing Signal</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--quickly-decreasing-signal.">Quickly Decreasing Signal</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--inversion-formulas.">Inversion Formulas</a></li>
+<li></li>
+<li><span class="badge">exa<span></span></span><a href="#example--auto-regressive-filter.">Auto-Regressive Filter</a></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 5</p><a href="#slowly-increasing-signals">Slowly Increasing Signals</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--slowly-increasing-signal.">Slowly Increasing Signal</a></li>
+<li><span class="badge">rem<span></span></span><a href="#remark.">Remark</a></li>
+<li><span class="badge">rem<span></span></span><a href="#remark.-1">Remark</a></li>
+<li><a href="#fourier-transform-1">Fourier Transform</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--abel-poisson-windowing.">Abel-Poisson Windowing</a></li>
+<li><span class="badge">rem<span></span></span><a href="#remark.-2">Remark</a></li>
+<li><span class="badge">rem<span></span></span><a href="#remark.-3">Remark</a></li>
+<li><span class="badge">def<span></span></span><a href="#definition--signal-in-the-frequency-domain-fourier-transform.-1">Signal in the Frequency Domain, Fourier Transform</a></li>
+<li><span class="badge">def<span></span></span><a href="#definition--periodic-hyperfunction.">Periodic Hyperfunction</a></li>
+<li><span class="badge">rem<span></span></span><a href="#remark--multiple-representations-in-the-frequency-domain.">Multiple Representations in the Frequency Domain</a></li>
+<li><span class="badge">rem<span></span></span><a href="#remark--hyperfunctions-as-limits.">Hyperfunctions as Limits</a></li>
+<li><span class="badge">exa<span></span></span><a href="#example--fourier-transform-of-a-constant-signal.">Fourier Transform of a Constant Signal</a></li>
+</ul></li>
+<li><a href="#standard-defining-function">Standard Defining Function</a><ul>
+<li><span class="badge">the<span></span></span><a href="#theorem--definition--standard-defining-function.">Standard Defining Function</a></li>
+<li></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--inversion-formula.-1">Inversion Formula</a></li>
+<li></li>
+<li><span class="badge">exa<span></span></span><a href="#example--inversion-formula.">Inversion Formula</a></li>
+</ul></li>
+<li><a href="#non-standard-defining-functions">Non-Standard Defining Functions</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--defining-function.">Defining Function</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--inversion-formula.-2">Inversion Formula</a></li>
+<li><span class="badge">rem<span></span></span><a href="#remark.-4">Remark</a></li>
+<li></li>
+<li><span class="badge">exa<span></span></span><a href="#example--quickly-decreasing-signals.">Quickly Decreasing Signals</a></li>
+</ul></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 6</p><a href="#ordinary-functions-as-hyperfunctions">Ordinary Functions as Hyperfunctions</a><ul>
+<li><span class="badge">the<span></span></span><a href="#theorem--hyperfunction-representation-of-an-ordinary-function.">Hyperfunction Representation of an Ordinary Function</a></li>
+<li></li>
+<li><span class="badge">exa<span></span></span><a href="#example--constant-frequency-domain-representation.">Constant Frequency-Domain Representation</a></li>
+<li><span class="badge">exa<span></span></span><a href="#example--defining-function-of-a-low-pass-filter.">Defining Function of a Low-Pass Filter</a></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 7</p><a href="#calculus">Calculus</a><ul>
+<li><a href="#linear-combination">Linear Combination</a></li>
+<li><a href="#modulation">Modulation</a><ul>
+<li><span class="badge">exa<span></span></span><a href="#example--fourier-transform-of-sine--cosine.">Fourier Transform of Sine &amp; Cosine</a></li>
+</ul></li>
+<li><a href="#integration-frequency-domain">Integration (Frequency Domain)</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--theorem--integration-in-the-frequency-domain.">Integration in the Frequency Domain</a></li>
+<li></li>
+<li><span class="badge">exa<span></span></span><a href="#example--constant-signal.-">Constant Signal.</a></li>
+</ul></li>
+<li><a href="#differentiation-frequency-domain">Differentiation (Frequency Domain)</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--theorem--differentiation-in-the-frequency-domain.">Differentiation in the Frequency Domain</a></li>
+<li></li>
+<li><span class="badge">exa<span></span></span><a href="#example--integral-of-a-derivative.">Integral of a Derivative</a></li>
+</ul></li>
+<li><a href="#convolution-time-domain-product-frequency-domain">Convolution (Time Domain), Product (Frequency Domain)</a><ul>
+<li><span class="badge">the<span></span></span><a href="#theorem--convolution.">Convolution</a></li>
+<li></li>
+<li><span class="badge">def<span></span></span><a href="#definition--product.">Product</a></li>
+<li><span class="badge">rem<span></span></span><a href="#remark.-5">Remark</a></li>
+<li><span class="badge">rem<span></span></span><a href="#remark--product-soundness.">Product Soundness</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem.">Theorem</a></li>
+<li></li>
+<li><span class="badge">exa<span></span></span><a href="#example--filtering-a-pure-frequency.">Filtering a Pure Frequency</a></li>
+</ul></li>
+<li><a href="#fourier-inversion-formula">Fourier Inversion Formula</a><ul>
+<li><span class="badge">the<span></span></span><a href="#theorem--fourier-inversion-formula">Fourier Inversion Formula</a></li>
+<li><span class="badge">rem<span></span></span><a href="#remark.-6">Remark</a></li>
+<li></li>
+</ul></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 8</p><a href="#bibliography">Bibliography</a></li>
+<li class="top-li"><p class="section-flag">section 9</p><a href="#notes">Notes</a></li></ul>
+</nav></section>
+<section id="introduction" class="level1">
+<h1><a href="#introduction">Introduction</a></h1>
+<p>Discrete-time signals are obtained by the sampling of continous-time signals – real-valued functions of a real-valued time – at a constant rate (see e.g. <span class="citation" data-cites="Str00">Strang (<a href="#ref-Str00">2000</a>)</span>). The analysis of many of their properties are simpler to carry out “in the frequency domain”, once a Fourier transform has been applied to the original data (also called representation in the signal “in the time domain”).</p>
+<p>In the classical setting, the Fourier transform generates <em>functions</em> of the frequency. However, the signals with arguably the simplest frequency content, sinusoidal signals, then cannot be represented in the frequency domain. Hence, this theory should be considered a partial failure, or at least incomplete.</p>
+<p>Extensions of the classical approach uses <em>generalized functions</em> of the frequency to represent discrete-time signals in the frequency domain. We introduce in this document a type of generalized functions called <em>hyperfunctions</em> <span class="citation" data-cites="Sat59 Kan88">(Sato <a href="#ref-Sat59">1959</a>; Kaneko <a href="#ref-Kan88">1988</a>)</span>, whose foundation is complex analysis, that fits perfectly the needs of discrete-time signal processing.</p>
+</section>
+<section id="terminology-notation" class="level1">
+<h1><a href="#terminology-notation">Terminology &amp; Notation</a></h1>
+<section id="signals-and-domains" class="level2">
+<h2><a href="#signals-and-domains">Signals and Domains</a></h2>
+<p>We use in this document a convenient convention that is more popular among physicists than it is among mathematicians. In a given application domain – for us, that is digital signal processing – when an object has several equivalent representations as functions, we use the same name for the object, and distinguish the representations by (a superset of the) domain of definition of the function. To every such domain we also associate fixed variable names.</p>
+<p>In this document, we are dealing with discrete-time signals with a sample period <span class="math inline">\(\Delta t\)</span> (or sample rate <span class="math inline">\(\Delta f = 1 / \Delta t\)</span>). A signal <span class="math inline">\(x\)</span> is is represented <em>in the time domain</em> as a function <span class="math inline">\(x(t)\)</span> where <span class="math inline">\(t \in \mathbb{Z}\Delta t,\)</span> <em>in the frequency (or Fourier) domain</em> as the function <span class="math inline">\(x(f)\)</span> where <span class="math inline">\(f \in \mathbb{R}/{\Delta f},\)</span> and <em>in the complex (or Laplace) domain</em> as a function <span class="math inline">\(x(z)\)</span> where <span class="math inline">\(z \in \mathbb{C}.\)</span> We often implicitly favor some representation and refer for example to <span class="math inline">\(x(t)\)</span> as “the signal” instead of “the representation of the signal <span class="math inline">\(x\)</span> in the time domain”.</p>
+<p>If <span class="math inline">\(t\)</span> is a free variable, <span class="math inline">\(x(t)\)</span> denotes a function of the time <span class="math inline">\(t,\)</span> if it is bound to some value, the value of the function. If there is some ambiguity in the choice of the representation, we use an assignment syntax, for example <span class="math inline">\(x(t=0)\)</span> instead of <span class="math inline">\(x(0),\)</span> because it could be mistaken as <span class="math inline">\(x(f=0).\)</span></p>
+</section>
+<section id="sets-and-functions" class="level2">
+<h2><a href="#sets-and-functions">Sets and Functions</a></h2>
+<p>The set of functions from <span class="math inline">\(A\)</span> to <span class="math inline">\(B\)</span> is denoted <span class="math inline">\(A \to B.\)</span></p>
+<p>The set <span class="math inline">\(\mathbb{C}\)</span> is the complex plane; <span class="math inline">\(\mathbb{U}\)</span> refers to the unit circle centered on the origin: <span class="math display">\[
+  \mathbb{U} = \{z \in \mathbb{C} \, , \, |z|=1 \}.
+  \]</span> The symbol <span class="math inline">\(\partial \mathbb{U}\)</span> denotes the boundary of <span class="math inline">\(\mathbb{U}.\)</span> Its positively oriented boundary, the closed path <span class="math inline">\(t \in [0,1] \mapsto e^{i2\pi t}\)</span>, is denoted <span class="math inline">\([\circlearrowleft]\)</span>.</p>
+<p>For any <span class="math inline">\(r&gt;0,\)</span> <span class="math inline">\(D_r\)</span> is the open disk with radius <span class="math inline">\(r\)</span> centered on the origin: <span class="math display">\[
+  D_r = \{z \in \mathbb{C} \, , \, |z| &lt; r\}
+  \]</span> and for any <span class="math inline">\(r \in \left[0,1\right[,\)</span> <span class="math inline">\(A_r\)</span> is the open annulus with internal radius <span class="math inline">\(r\)</span> and external radius <span class="math inline">\(1/r\)</span>: <span class="math display">\[
+  A_r= \{z \in \mathbb{C} \, , \, r &lt; |z| &lt; 1/r \}.
+  \]</span></p>
+</section>
+<section id="iverson-bracket" class="level2">
+<h2><a href="#iverson-bracket">Iverson Bracket</a></h2>
+<p>We<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> denote <span class="math inline">\(\{\,\cdot \,\}\)</span> the function defined by: <span class="math display">\[
+  \{b\}
+  = \left|
+    \begin{array}{ll}
+    1 &amp; \mbox{if $b$ is true,} \\
+    0 &amp; \mbox{if $b$ is false.}
+    \end{array} 
+    \right.
+  \]</span></p>
+<p>This elementary notation supercedes many other ones. For example, we can use <span class="math inline">\(\{x \in A\}\)</span> instead of <span class="math inline">\(\chi_A(x)\)</span> to denote the characteristic function of the set <span class="math inline">\(A,\)</span> <span class="math inline">\(\{i=j\}\)</span> instead of <span class="math inline">\(\delta_{ij}\)</span> to denote the Kronecker delta, <span class="math inline">\(\{t \geq 0\}\)</span> instead of <span class="math inline">\(H(t)\)</span> to denote the Heaviside function.</p>
+</section>
+</section>
+<section id="finite-signals" class="level1">
+<h1><a href="#finite-signals">Finite Signals</a></h1>
+<section id="definition--signal-time-domain-sampling-periodrate" class="level3">
+
+<div class="p"><h3><a href="#definition--signal-time-domain-sampling-periodrate">Definition – Signal (Time Domain), Sampling Period/Rate</a></h3>‌ A <em>discrete-time signal</em> <span class="math inline">\(x(t)\)</span> is a real or complex-valued function defined on <span class="math inline">\(\mathbb{Z}\Delta t\)</span> for some <span class="math inline">\(\Delta t &gt; 0,\)</span> the signal <em>sampling period</em> (or <em>sampling time</em>); the number <span class="math inline">\(\Delta f = 1/\Delta t\)</span> is the signal <em>sampling rate</em> (or <em>sampling frequency</em>).</div>
+<p>In the sequel, all signals are discrete-time, hence we often drop this qualifier. Also, in this introductory section, although many definitions and results are valid in a more general setting, for the sake of simplicity, we always assume that signals are finite:</p>
+</section>
+<section id="definition--finite-signal." class="level3">
+
+<div class="p"><h3><a href="#definition--finite-signal.">Definition – Finite Signal.</a></h3>‌ A discrete-time signal <span class="math inline">\(x(t)\)</span> is <em>of finite support</em> – or simply <em>finite</em> – if <span class="math inline">\(x(t) = 0\)</span> except for a finite set of times <span class="math inline">\(t.\)</span></div>
+</section>
+<section id="fourier-transform" class="level2">
+<h2><a href="#fourier-transform">Fourier Transform</a></h2>
+<section id="definition--signal-in-the-frequency-domain-fourier-transform." class="level3">
+
+<div class="p"><h3><a href="#definition--signal-in-the-frequency-domain-fourier-transform.">Definition – Signal in the Frequency Domain, Fourier Transform.</a></h3>‌ A signal <span class="math inline">\(x(t)\)</span> is represented in the frequency domain as <span class="math inline">\(x(f),\)</span> the <em>(discrete-time) Fourier transform</em> of <span class="math inline">\(x(t),\)</span> defined for <span class="math inline">\(f\in \mathbb{R}\)</span> by: <span class="math display">\[
+  x(f) = \Delta t \sum_{t \in \mathbb{Z}\Delta t} x(t) e^{-i 2 \pi f t}.
+  \]</span></div>
+</section>
+<section id="remark--frequency-domain." class="level3">
+
+<div class="p"><h3><a href="#remark--frequency-domain.">Remark – Frequency Domain.</a></h3>‌ Note that <span class="math inline">\(x(f)\)</span> is <span class="math inline">\(\Delta f\)</span>-periodic. Indeed, for any <span class="math inline">\(f\in \mathbb{R}\)</span> and <span class="math inline">\(t = n \Delta t\)</span> with <span class="math inline">\(n \in \mathbb{Z},\)</span> <span class="math display">\[
+  e^{-i 2 \pi (f+ \Delta f) t} = e^{-i 2 \pi f t} (e^{-i 2 \pi})^n
+  =
+  e^{-i 2 \pi f t}
+  \]</span> and therefore <span class="math display">\[
+  x(f + \Delta f) 
+  = \Delta t \sum_{t \in \mathbb{Z}\Delta t} x(t) e^{-i 2 \pi (f+ \Delta f) t}
+  = x(f).
+  \]</span> As <span class="math inline">\(x(f)\)</span> does not really depend directly of the value of <span class="math inline">\(f \in \mathbb{R},\)</span> but only on the value of <span class="math inline">\(f \in \mathbb{R}\)</span> <em>modulo some multiple of <span class="math inline">\(\Delta f\)</span></em>, we may alternatively define <span class="math inline">\(x(f)\)</span> as a function defined on the frequency domain <span class="math inline">\(\mathbb{R} / \Delta f,\)</span> and totally forget about the periodicity, because it is now captured by the domain definition. An alternate – arguably less contrived – way to deal with the periodicity is to consider only the values of <span class="math inline">\(x(f)\)</span> on one period, for example in the interval <span class="math inline">\(\left[-\Delta f/2, \Delta f/2\right[.\)</span></div>
+</section>
+<section id="remark--fourier-transform-of-continuous-time-signals." class="level3">
+
+<div class="p"><h3><a href="#remark--fourier-transform-of-continuous-time-signals.">Remark – Fourier Transform of Continuous-Time Signals.</a></h3>‌ The discrete-time Fourier transform formula is similar to the continous-time Fourier transform formula <span class="math display">\[
+  x(f) = \int_{-\infty}^{+\infty} x(t) e^{-i 2 \pi f t} \, dt.
+  \]</span> Actually, if <span class="math inline">\(x(t)\)</span> if defined for every <span class="math inline">\(t \in \mathbb{R}\)</span> and not only <span class="math inline">\(t \in \mathbb{Z}\Delta t\)</span> – if our discrete-time signal samples the continuous-time signal <span class="math inline">\(x(t)\)</span> – the discrete-time Fourier transform is the continuous one with the integral replaced by its Riemann sum. In many respects, the operator <span class="math inline">\(\Delta t \sum_{t \in \mathbb{Z} \Delta t}\)</span> plays the same role for discrete-time signals than the integral with respect to the time <span class="math inline">\(t\)</span> plays for continous-time signal.</div>
+</section>
+<section id="theorem--inversion-formula." class="level3">
+
+<div class="p"><h3><a href="#theorem--inversion-formula.">Theorem – Inversion Formula.</a></h3>‌ If <span class="math inline">\(x(t)\)</span> is a finite signal, represented in the frequency domain as <span class="math inline">\(x(f),\)</span> we have <span class="math display">\[
+  x(t) = \int_{-\Delta f/2}^{+\Delta f/2} x(f) e^{i2\pi f t} \, df.
+  \]</span></div>
+</section>
+<section id="remark--continuous-time-signals-inverse-fourier-transform." class="level3">
+
+<div class="p"><h3><a href="#remark--continuous-time-signals-inverse-fourier-transform.">Remark – Continuous-Time Signals (Inverse Fourier Transform).</a></h3>‌ The Fourier inversion formula for discrete-time signals is also very similar to its counterpart for continuous-time signals, that is: <span class="math display">\[
+  x(t) = \int_{-\infty}^{+\infty} x(f) e^{i2\pi f t} \, df.
+  \]</span> Two differences are obvious: for continous-time time signals, the formula is meaningful for any <span class="math inline">\(t \in \mathbb{R}\)</span> while in discrete-time, it is only meaningful for <span class="math inline">\(t \in \mathbb{Z} \Delta t;\)</span> for continous-time signals, the integral with respect to the frequency <span class="math inline">\(f\)</span> ranges over <span class="math inline">\(\mathbb{R}\)</span> while for discrete-time signals, it ranges over <span class="math inline">\(\left[-\Delta f/2, \Delta f/2\right[.\)</span> Unlike continous-time signals, the information contained in discrete-time signals is structurally contained in a bounded frequency band of width <span class="math inline">\(\Delta f.\)</span></div>
+</section>
+<section id="proof--inversion-formula." class="level3">
+
+<div class="p"><h3><a href="#proof--inversion-formula.">Proof – Inversion Formula.</a></h3>‌ The right-hand side of the Fourier inversion formula is equal to <span class="math display">\[
+  \int_{-\Delta f/2}^{+\Delta f/2} 
+    \left[
+      \Delta t \sum_{\tau \in \mathbb{Z}\Delta t} x(t=\tau) e^{-i 2 \pi f \tau} 
+\right]
+    e^{i2\pi f t} \, df.
+  \]</span> With the integral and sum symbols swapped, <span class="math inline">\(t=n\Delta t\)</span> and <span class="math inline">\(\tau = m\Delta t,\)</span> we get <span class="math display">\[
+  \sum_{m \in \mathbb{Z}}
+  x(t = m \Delta t)
+  \left[
+  \frac{1}{\Delta f}
+  \int_{-\Delta f/2}^{+\Delta f/2} 
+      e^{i 2 \pi f (n - m) \Delta t} 
+   \, df
+\right].
+  \]</span> A straightforward computation yields <span class="math display">\[
+  \frac{1}{\Delta f}
+  \int_{-\Delta f/2}^{+\Delta f/2} 
+      e^{i 2 \pi f (n - m) \Delta t} 
+   \, df
+  = \{n = m\},
+  \]</span> hence we have <span class="math display">\[
+  \int_{-\Delta f/2}^{+\Delta f/2} x(f) e^{i2\pi f n \Delta t} \, df
+  =
+  \sum_{m \in \mathbb{Z}}
+    x(t = m \Delta t)
+    \times \{n = m\}
+  = x(t = n \Delta t)
+  \]</span> which is the desired result. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+</section>
+<section id="z-transform" class="level2">
+<h2><a href="#z-transform"><span class="math inline">\(z\)</span>-Transform</a></h2>
+<p>There is yet another useful representation of a finite signal – this time as a function of a complex variable <span class="math inline">\(z\)</span> – and it is closely related to the frequency-domain representation.</p>
+<section id="definition--signal-in-the-complex-domain-z-transform." class="level3">
+
+<div class="p"><h3><a href="#definition--signal-in-the-complex-domain-z-transform.">Definition – Signal in the Complex Domain, <span class="math inline">\(z\)</span>-Transform.</a></h3>‌A signal <span class="math inline">\(x(t)\)</span> is <em>represented in the complex domain</em> as <span class="math inline">\(x(z),\)</span> the <em><span class="math inline">\(z\)</span>-transform</em> of <span class="math inline">\(x(t),\)</span> defined for some <span class="math inline">\(z \in \mathbb{C}\)</span> by: <span class="math display">\[
+  x(z) 
+  = 
+  \Delta t \sum_{t \in \mathbb{Z}\Delta t} x(t) z^{-t/\Delta t} 
+  =
+  \Delta t \sum_{n \in \mathbb{Z}} x(t=n\Delta t) z^{-n}.
+  \]</span></div>
+</section>
+<section id="remark--z-transform-domain-for-finite-signals." class="level3">
+
+<div class="p"><h3><a href="#remark--z-transform-domain-for-finite-signals.">Remark – <span class="math inline">\(z\)</span>-Transform Domain for Finite Signals.</a></h3>‌ When <span class="math inline">\(x(t)\)</span> is finite, the <span class="math inline">\(z\)</span>-transform <span class="math inline">\(x(z)\)</span> is defined for any <span class="math inline">\(z \in \mathbb{C}^{*}\)</span> ; it can be extended to <span class="math inline">\(\mathbb{C}\)</span> if <span class="math inline">\(x(t)=0\)</span> when <span class="math inline">\(t &gt; 0.\)</span></div>
+<p>We have the straightforward, but nevertheless very useful:</p>
+</section>
+<section id="theorem--z-transform-to-fourier-transform." class="level3">
+
+<div class="p"><h3><a href="#theorem--z-transform-to-fourier-transform.">Theorem – <span class="math inline">\(z\)</span>-Transform to Fourier Transform.</a></h3>‌ The frequency domain representation of a signal <span class="math inline">\(x(f)\)</span> is related to the complex domain representation <span class="math inline">\(x(z)\)</span> by: <span class="math display">\[
+  x(f) = x(z = e^{i2\pi f\Delta t}).
+  \]</span></div>
+</section>
+<section id="example--unit-impulse." class="level3">
+
+<div class="p"><h3><a href="#example--unit-impulse.">Example – Unit Impulse.</a></h3>‌ The unit impulse signal <span class="math inline">\(\mathbf{1}\)</span> is defined in the time domain as <span class="math display">\[
+  \mathbf{1}(t) = (1 / \Delta t) \times \{ t = 0 \}.
+  \]</span> It is equal to zero outside <span class="math inline">\(t=0\)</span> and satisfies <span class="math display">\[
+  \Delta t \sum_{t \in \mathbb{Z}\Delta} \mathbf{1}(t) 
+  =
+  1.
+  \]</span></div>
+</section>
+</section>
+<section id="convolution-and-filters" class="level2">
+<h2><a href="#convolution-and-filters">Convolution and Filters</a></h2>
+<section id="definition--convolution." class="level3">
+
+<div class="p"><h3><a href="#definition--convolution.">Definition – Convolution.</a></h3>‌The <em>convolution</em> of the signals <span class="math inline">\(x(t)\)</span> and <span class="math inline">\(y(t)\)</span> is the signal <span class="math inline">\((x \ast y)(t)\)</span> defined by: <span class="math display">\[
+  (x \ast y)(t) = \Delta t \sum_{\tau \in \mathbb{Z}\Delta t} x(\tau) y(t-\tau).
+  \]</span></div>
+</section>
+<section id="theorem--representation-of-the-convolution-in-the-frequency-domain." class="level3">
+
+<div class="p"><h3><a href="#theorem--representation-of-the-convolution-in-the-frequency-domain.">Theorem – Representation of the Convolution in the Frequency Domain.</a></h3>‌ For finite signals, we have <span class="math display">\[
+  (x \ast y)(f) = x(f) \times y(f).
+  \]</span></div>
+</section>
+<section id="proof." class="level3">
+
+<div class="p"><h3><a href="#proof.">Proof.</a></h3>‌ The definition of the convolution yields <span class="math display">\[
+  (x \ast y)(f)
+  = \Delta t \sum_{t \in \mathbb{Z}\Delta t} 
+  \left[
+  \Delta t \sum_{\tau \in \mathbb{Z}\Delta t} x(\tau) y(t-\tau)
+\right] e^{-i 2 \pi  f t}.
+  \]</span> We may write the exponential <span class="math inline">\(e^{-i 2 \pi f t}\)</span> as <span class="math inline">\(e^{-i 2 \pi f \tau} \times e^{-i 2 \pi f (t - \tau)}.\)</span> Using the change of variable <span class="math inline">\(t' = t - \tau\)</span> then leads to <span class="math display">\[
+  (x \ast y)(f)
+  = 
+  \left[\Delta t \sum_{\tau \in \mathbb{Z}\Delta t} x(\tau) e^{-i 2 \pi  f \tau} 
+\right]
+  \times 
+  \left[\Delta t \sum_{t' \in \mathbb{Z}\Delta t} y(t') e^{-i 2 \pi  f t'} 
+\right]
+  \]</span> which is the desired result. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="example--unit-impulse.-1" class="level3">
+
+<div class="p"><h3><a href="#example--unit-impulse.-1">Example – Unit Impulse.</a></h3>‌ For any finite signal <span class="math inline">\(x,\)</span> the definition of convolution yields <span class="math display">\[
+  (\mathbf{1} \ast x) = x(t) = (x \ast \mathbf{1})(t).
+  \]</span> In other words, the signal <span class="math inline">\(\mathbf{1}\)</span> is a unit for the convolution. This also also clear from its frequency domain representation: indeed, we have <span class="math inline">\(\mathbf{1}(z)=1\)</span> and <span class="math inline">\(\mathbf{1}(f)=1,\)</span> and therefore <span class="math display">\[
+  (\mathbf{1} \ast x)(f) = \mathbf{1}(f) \times x(f) = x(f) =
+  x(f) \times \mathbf{1}(f) = (x \ast \mathbf{1})(f).
+  \]</span></div>
+</section>
+<section id="definition--filter-impulse-response-frequency-response-transfer-function." class="level3">
+
+<div class="p"><h3><a href="#definition--filter-impulse-response-frequency-response-transfer-function.">Definition – Filter, Impulse Response, Frequency Response, Transfer Function.</a></h3>‌ A <em>filter</em> is an operator mapping an input signal <span class="math inline">\(x(t)\)</span> to an output signal <span class="math inline">\(y(t)\)</span> related by the operation <span class="math display">\[
+  y(t) = (h \ast u)(t)
+  \]</span> where <span class="math inline">\(h(t)\)</span> is a signal called the filter <em>impulse response</em>. The filter <em>frequency response</em> is <span class="math inline">\(h(f)\)</span> and its <em>transfer function</em> is <span class="math inline">\(h(z).\)</span></div>
+</section>
+<section id="remark--impulse-response." class="level3">
+
+<div class="p"><h3><a href="#remark--impulse-response.">Remark – Impulse Response.</a></h3>‌The “impulse response” terminology is justified by the fact that if <span class="math inline">\(u(t) = \mathbf{1}(t),\)</span> then <span class="math inline">\(y(t) = h(t)\)</span>: the impulse response is the filter output when the filter input is the unit impulse. For obvious reasons, the filters we have introduced so far are called finite impulse response (FIR) filters.</div>
+</section>
+</section>
+</section>
+<section id="quickly-decreasing-signals" class="level1">
+<h1><a href="#quickly-decreasing-signals">Quickly Decreasing Signals</a></h1>
+<p>The assumption that <span class="math inline">\(x(t)\)</span> is finite simplifies the theory of frequency domain representation of signals, but it is also very restrictive. For example, in speech analysis, we routinely use auto-regressive filters; their impulse responses are are not finite, and yet their frequency representation is needed, for example to analyze the acoustic resonances of the vocal tract (or <a href="http://en.wikipedia.org/wiki/Formant">“formants”</a>).</p>
+<p>Fortunately, the theory can be extended beyond finite signals. The extension is quite straightforward if <span class="math inline">\(x(t)\)</span> decrease quickly when <span class="math inline">\(t \to \pm \infty,\)</span> where by “quickly decreasing” we mean that it has a sub-exponential decay:</p>
+<section id="definition--quickly-decreasing-signal." class="level3">
+
+<div class="p"><h3><a href="#definition--quickly-decreasing-signal.">Definition – Quickly Decreasing Signal.</a></h3>‌A signal <span class="math inline">\(x(t)\)</span> with sample period <span class="math inline">\(\Delta t\)</span> is <em>quickly decreasing</em> if <span class="math display">\[
+  \exists \, \sigma &gt; 0, \; 
+  \exists \, \kappa &gt; 0, \; 
+  \forall \, t \in \mathbb{Z}\Delta t, \;
+  |x(t)| \leq \kappa e^{-\sigma |t|}.
+  \]</span></div>
+<p>Given a quickly decreasing signal <span class="math inline">\(x(t)\)</span> in the time domain, as in the finite signal case, its representation in the frequency domain is <span class="math display">\[
+  x(f) = \Delta t \sum_{t \in \mathbb{Z}\Delta t} x(t) e^{i 2 \pi f t}
+  \]</span> and in the complex domain <span class="math display">\[
+  x(z) = \Delta t \sum_{n \in \mathbb{Z}} x(t = n \Delta t) z^{-n}.
+  \]</span> However, the sums are not finite anymore; we consider that the values of the functions <span class="math inline">\(x(f)\)</span> and <span class="math inline">\(x(z)\)</span> are well defined when the sums are absolutely summable.</p>
+</section>
+<section id="theorem--quickly-decreasing-signal." class="level3">
+
+<div class="p"><h3><a href="#theorem--quickly-decreasing-signal.">Theorem – Quickly Decreasing Signal.</a></h3>‌ Any quickly decreasing signal <span class="math inline">\(x\)</span> can be equivalently represented as:</div>
+<ol type="1">
+<li><p>a quickly decreasing function <span class="math inline">\(x(t),\)</span></p></li>
+<li><p>a holomorphic function <span class="math inline">\(x(z)\)</span> defined on some neighbourhood of <span class="math inline">\(\mathbb{U},\)</span></p></li>
+<li><p>a <span class="math inline">\(\Delta f\)</span>-periodic and analytic function <span class="math inline">\(x(f)\)</span> on <span class="math inline">\(\mathbb{R}.\)</span></p></li>
+</ol>
+</section>
+<section id="theorem--inversion-formulas." class="level3">
+
+<div class="p"><h3><a href="#theorem--inversion-formulas.">Theorem – Inversion Formulas.</a></h3>‌ Let <span class="math inline">\(x(t)\)</span> be quickly decreasing signal and <span class="math inline">\(x(z)\)</span> be its representation in the complex domain, defined in the annulus <span class="math inline">\(A_{\rho}\)</span> for some <span class="math inline">\(\rho \in \left[0,1\right[.\)</span> For any <span class="math inline">\(r &gt; 0\)</span> such that <span class="math inline">\(r \partial \mathbb{U} \subset A_{\rho},\)</span> we have <span class="math display">\[
+  x(t = n \Delta t) = 
+    \frac{1}{i 2 \pi} 
+    \int_{r [\circlearrowleft]}
+    \frac{x(z)}{\Delta t} z^{n-1}
+    \, dz.
+  \]</span> As a special case, we have <span class="math display">\[
+  x(t) = \int_{-\Delta f / 2}^{+\Delta f / 2} x(f) e^{i2\pi f t} \, df.
+  \]</span></div>
+</section>
+<section id="proof.-1" class="level3">
+
+<div class="p"><h3><a href="#proof.-1">Proof.</a></h3>‌If <span class="math inline">\(x(t) \leq \kappa e^{-\sigma |t|}\)</span> with <span class="math inline">\(\kappa&gt;0\)</span> and <span class="math inline">\(\sigma&gt;0,\)</span> then <span class="math display">\[
+  \limsup_{n \to +\infty} \sqrt[n]{|\Delta t \times x(t=-n\Delta t)|} \leq e^{-\sigma \Delta t},
+  \]</span> hence <span class="math inline">\(\Delta t \sum_{n \in -\mathbb{N}} x(t=n\Delta t) z^{-n}\)</span> is defined and holomorphic in the disk <span class="math inline">\(\{z\in \mathbb{C} \, , \, |z| &lt; e^{\sigma \Delta t}\}.\)</span> Similarly, <span class="math display">\[
+  \limsup_{n \to +\infty} \sqrt[n]{|\Delta t \times x(t=n\Delta t)|} \leq e^{-\sigma \Delta t},
+  \]</span> hence <span class="math inline">\(\Delta t \sum_{n \in \mathbb{N}^*} x(t=n\Delta t) z^{-n}\)</span> is defined and holomorphic in the annulus <span class="math inline">\(\{z\in \mathbb{C} \, , \, |z| &gt; e^{-\sigma \Delta t}\}.\)</span> Finally <span class="math inline">\(x(z) = \Delta t \sum_{n \in \mathbb{Z}} x(t=n\Delta t) z^{-n}\)</span> is defined and holomorphic in <span class="math inline">\(A_{\rho}\)</span> with <span class="math inline">\(\rho = e^{-\sigma \Delta t}.\)</span> The Cauchy formula for the computation of the coefficient of a Laurent series expansion yields for any <span class="math inline">\(r \in \left]\rho, 1/\rho\right[\)</span> <span class="math display">\[
+  \Delta t \times x(t=-n\Delta t) 
+    = \frac{1}{i 2 \pi} 
+      \int_{r [\circlearrowleft]}
+      \frac{x(z)}{z^{n+1}}
+      \, dz,
+  \]</span> which is equivalent to the <span class="math inline">\(z\)</span>-domain inversion formula. This formula yields <span class="math display">\[
+  |x(t=n\Delta t)| \leq \kappa_r r^n 
+  \]</span> with <span class="math display">\[ 
+  \kappa_r = \sup_{|z| = r} \frac{|x(z)|}{\Delta t}.
+  \]</span> for any <span class="math inline">\(r \in \left]\rho, 1/\rho\right[.\)</span> Hence for any <span class="math inline">\(r \in \left]\rho, 1\right[\)</span> <span class="math display">\[
+  |x(t=n\Delta t)| \leq \kappa_r \exp \left({\frac{\log r}{\Delta t} n\Delta t}\right), 
+  \]</span> and as <span class="math inline">\(1/r \in \left]1,1/\rho\right[,\)</span> we also have <span class="math display">\[
+  |x(t=n\Delta t)| \leq \kappa_{1/r} \exp \left(-{\frac{\log r}{\Delta t} n\Delta t}\right).
+  \]</span> Consequently, for any <span class="math inline">\(r \in \left]\rho, 1\right[,\)</span> <span class="math inline">\(|x(t)| \leq \kappa e^{-\sigma |t|}\)</span> with <span class="math inline">\(\kappa = \max (\kappa_r, \kappa_{1/r})\)</span> and <span class="math inline">\(\sigma = -(\log r)/\Delta t.\)</span></div>
+<p>If <span class="math inline">\(x(z)\)</span> is holomorphic in a neighbourhood of the unit circle, then <span class="math inline">\(x(f) = x(z=e^{i 2 \pi f \Delta t})\)</span> is <span class="math inline">\(\Delta f\)</span>-periodic and analytic. Conversely, if <span class="math inline">\(x(f)\)</span> analytic and <span class="math inline">\(\Delta f\)</span>-periodic, it has a holomorphic extension, that we still denote <span class="math inline">\(x(f),\)</span> in some open neighbourhood <span class="math inline">\(V\)</span> of <span class="math inline">\(\mathbb{R}\)</span> in <span class="math inline">\(\mathbb{C}.\)</span> We can always ensure that <span class="math inline">\(x(f)\)</span> is actually defined on as a tubular neighbourhood <span class="math inline">\(V_{\epsilon}\)</span> of <span class="math inline">\(\mathbb{R}\)</span> for some <span class="math inline">\(\epsilon &gt;0,\)</span> where <span class="math display">\[
+  V_{\epsilon} = \mathbb{R} + D_{\epsilon} 
+  = 
+  \{ f\in \mathbb{C} \, , \, |\mathrm{Im} \, f| &lt; \epsilon\}.
+  \]</span> Indeed, we can select <span class="math inline">\(\epsilon &gt; 0\)</span> such that <span class="math inline">\(U_{\epsilon} = [-\Delta f/2, +\Delta f/2] + D_{\epsilon}\)</span> is included in <span class="math inline">\(V,\)</span> and define a new analytic extension <span class="math inline">\(x'(f)\)</span> on <span class="math inline">\(V_{\epsilon}\)</span> by <span class="math inline">\(x'(f) = x(f - k\Delta f)\)</span> where <span class="math inline">\(k \in \mathbb{Z}\)</span> is such that <span class="math inline">\(f - k\Delta f \in U_{\epsilon}\)</span> (by the isolated zeros theorem, this definition is unambigous). Let <span class="math inline">\(\sigma = 2 \pi \epsilon;\)</span> for any <span class="math inline">\(z \in A_{\rho}\)</span> with <span class="math inline">\(\rho = e^{-\sigma \Delta t},\)</span> <span class="math inline">\(\phi(z) = x(f = (\log z) / i2\pi\Delta t)\)</span> is independent of the determination of <span class="math inline">\(\log z\)</span> ; it is holomorphic and <span class="math inline">\(x(f) = \phi(z=e^{i2\pi f \Delta t}).\)</span></p>
+<p>Finally, starting from <span class="math display">\[
+  x(t = n \Delta t) = 
+    \frac{1}{i 2 \pi} 
+    \int_{[\circlearrowleft]}
+    \frac{x(z)}{\Delta t} z^{n-1}
+    \, dz,
+  \]</span> we may introduce the path <span class="math inline">\(f \mapsto e^{i2 \pi f \Delta t}\)</span> for <span class="math inline">\(f \in [-\Delta f/2, \Delta f /2],\)</span> and we get <span class="math display">\[
+  x(t = n \Delta t) = 
+    \frac{1}{i 2 \pi} 
+    \int_{-\Delta f/2}^{+\Delta f/2}
+    \frac{x(z=e^{i 2 \pi f \Delta t})}{\Delta t} e^{i 2\pi f(n-1)\Delta t}
+    (i 2 \pi \Delta t e^{i 2 \pi f\Delta t}) df,
+  \]</span> which after simplifications, yields for any <span class="math inline">\(t \in \mathbb{Z}\Delta t,\)</span> <span class="math display">\[
+  x(t) = \int_{-\Delta f/2}^{+\Delta f/2} x(f) e^{i 2\pi f t}df,
+  \]</span> the expected result. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+<section id="example--auto-regressive-filter." class="level3">
+
+<div class="p"><h3><a href="#example--auto-regressive-filter.">Example – Auto-Regressive Filter.</a></h3>‌The filter whose impulse response <span class="math inline">\(h(t)\)</span> is given by <span class="math display">\[
+  h(t=n\Delta t) = (1/ \Delta t) \times 2^{-n} \times \{n \geq 0 \}
+  \]</span> is an auto-regressive filter, ruled for finite inputs <span class="math inline">\(u(t)\)</span> by the dynamics <span class="math display">\[
+  y(t) = 1/2 \times y(t-\Delta t) + u(t).
+  \]</span> The transfer function <span class="math inline">\(h(z)\)</span> of this filter is <span class="math display">\[
+  h(z) 
+    = \Delta t \sum_{n \in \mathbb{Z}} h(t=n\Delta t) z^{-n}
+    = \sum_{n \in \mathbb{N}} (1/2z)^{n}.
+  \]</span> This sum is absolutely convergent when <span class="math inline">\(|1/2z| &lt; 1,\)</span> that is <span class="math inline">\(|z|&gt;1/2,\)</span> and <span class="math display">\[
+  h(z) = \frac{1}{1 - 1/2z} = \frac{z}{z - 1/2}.
+  \]</span> Consequently, <span class="math display">\[
+  h(f) = \frac{e^{i2\pi f \Delta t}}{e^{i2\pi f \Delta t} - 1/2}.
+  \]</span> The modulus and argument of this complex-valued function are called the filter frequency response <em>magnitude</em> and <em>phase</em>. They are usually displayed on separate graphs. We know that <span class="math inline">\(h(f)\)</span> is <span class="math inline">\(\Delta f\)</span>-periodic. Moreover, here <span class="math inline">\(h(t)\)</span> is real-valued, hence for any <span class="math inline">\(f\in \mathbb{R},\)</span> <span class="math inline">\(h(-f) = \overline{h(f)}.\)</span> We can therefore plot the graphs for <span class="math inline">\(f \in [0, +\Delta f/2]\)</span> because all the information stored in the frequency response is available in this interval. The Python code below can be used to generate the graph data for <span class="math inline">\(\Delta f = 8000\)</span> Hz.</div>
+<pre><code>from numpy import *
+
+df = 8000.0
+dt = 1.0 / df
+N = 1000
+f = linspace(0.0, 0.5 * df, N)
+z_f = exp(1j * 2 * pi * f * dt)
+h_f = z_f / (z_f - 0.5)</code></pre>
+<p><img src="images/amplitude.svg" alt="Frequency Reponse Magnitude"><br>
+<img src="images/phase.svg" alt="Frequency Reponse Phase">&nbsp;</p>
+</section>
+</section>
+<section id="slowly-increasing-signals" class="level1">
+<h1><a href="#slowly-increasing-signals">Slowly Increasing Signals</a></h1>
+<p>Once again the theory of representation of signals in the frequency domain can be extended, this time beyond quickly increasing signals. However, we will have to abandon the representation of <span class="math inline">\(x(f)\)</span> as a function, to adopt instead the representation of <span class="math inline">\(x(f)\)</span> as a <em>hyperfunction</em>.</p>
+<p>The extension will be valid as long as <span class="math inline">\(x(t)\)</span> “increases slowly” when <span class="math inline">\(t \to \pm \infty,\)</span> or more precisely, has an infra-exponential growth:</p>
+<section id="definition--slowly-increasing-signal." class="level3">
+
+<div class="p"><h3><a href="#definition--slowly-increasing-signal.">Definition – Slowly Increasing Signal.</a></h3>‌A signal <span class="math inline">\(x(t)\)</span> with sample period <span class="math inline">\(\Delta t\)</span> is <em>slowly increasing</em> if <span class="math display">\[
+  \forall \, \sigma &gt; 0, \; 
+  \exists \, \kappa &gt; 0, 
+  \; \forall \, t \in \mathbb{Z}\Delta t, \;
+  |x(t)| \leq \kappa e^{\sigma |t|}.
+  \]</span></div>
+</section>
+<section id="remark." class="level3">
+
+<div class="p"><h3><a href="#remark.">Remark.</a></h3>‌ Quicky decreasing signals are obviously slowly increasing, but this class also include all bounded signals, and even all signals that are dominated by polynomials.</div>
+</section>
+<section id="remark.-1" class="level3">
+
+<div class="p"><h3><a href="#remark.-1">Remark.</a></h3>‌There is a way to get rid of the factor <span class="math inline">\(\kappa\)</span> in the definition of slowly increasing signal. Instead, we can check that the signal is <em>eventually</em> dominated by every increasing exponential function of <span class="math inline">\(|t|\)</span>: <span class="math display">\[
+  \forall \, \sigma &gt; 0, \; 
+  \exists \, \tau \in \mathbb{N} \Delta t, \,  
+  \forall \, t \in \mathbb{Z}\Delta t, \; 
+  |t| &gt; \tau \, 
+  \Rightarrow \,
+  |x(t)| \leq e^{\sigma |t|}.
+  \]</span></div>
+</section>
+<section id="fourier-transform-1" class="level2">
+<h2><a href="#fourier-transform-1">Fourier Transform</a></h2>
+<section id="definition--abel-poisson-windowing." class="level3">
+
+<div class="p"><h3><a href="#definition--abel-poisson-windowing.">Definition – Abel-Poisson Windowing.</a></h3>‌ Let <span class="math inline">\(r \in \left[0,1\right[.\)</span> We denote <span class="math inline">\(x_r(t)\)</span> the signal derived from <span class="math inline">\(x(t)\)</span> by <span class="math display">\[
+  x_r(t) = r^{|t/\Delta t|} x(t),
+  \]</span> the application of the Abel-Poisson window <span class="math inline">\(r^{|t/\Delta t|}\)</span> to the original signal <span class="math inline">\(x(t).\)</span></div>
+</section>
+<section id="remark.-2" class="level3">
+
+<div class="p"><h3><a href="#remark.-2">Remark.</a></h3>‌The family of signals <span class="math inline">\(x_r(t)\)</span> indexed by <span class="math inline">\(r,\)</span> approximates <span class="math inline">\(x(t)\)</span>: for any <span class="math inline">\(t \in \mathbb{Z}\Delta t,\)</span> <span class="math inline">\(x_r(t) \to x(t)\)</span> when <span class="math inline">\(r \uparrow 1.\)</span></div>
+</section>
+<section id="remark.-3" class="level3">
+
+<div class="p"><h3><a href="#remark.-3">Remark.</a></h3>‌If <span class="math inline">\(x(t)\)</span> is only known to be slowly increasing, we cannot define its Fourier transform classically. However, for any <span class="math inline">\(r \in \left[0,1\right[,\)</span> the signal <span class="math inline">\(x_r(t)\)</span> is quickly decreasing and we may therefore compute its Fourier transform <span class="math inline">\(x_r(f);\)</span> we then leverage this property to define the Fourier transform <span class="math inline">\(x(f)\)</span> of <span class="math inline">\(x(t)\)</span> as the family of functions <span class="math inline">\(x_r(f)\)</span> indexed by <span class="math inline">\(r\)</span>:</div>
+</section>
+<section id="definition--signal-in-the-frequency-domain-fourier-transform.-1" class="level3">
+
+<div class="p"><h3><a href="#definition--signal-in-the-frequency-domain-fourier-transform.-1">Definition – Signal in the Frequency Domain, Fourier Transform.</a></h3>‌ The representation <span class="math inline">\(x(f)\)</span> in the frequency domain of a slowly increasing signal <span class="math inline">\(x(t)\)</span> is the <span class="math inline">\(\Delta f\)</span>-periodic function with values in <span class="math inline">\(\left[0,1\right[ \to \mathbb{C}\)</span> defined by: <span class="math display">\[
+  x(f) = r\in \left[0,1\right[ \mapsto x_r(f) \in \mathbb{C}.
+  \]</span></div>
+<p>The periodic hyperfunctions are then simply defined as the images of slowly increasing signals by the Fourier transform:</p>
+</section>
+<section id="definition--periodic-hyperfunction." class="level3">
+
+<div class="p"><h3><a href="#definition--periodic-hyperfunction.">Definition – Periodic Hyperfunction.</a></h3>‌A <em><span class="math inline">\(\Delta f\)</span>-periodic hyperfunction</em> is a function <span class="math display">\[
+  \phi : \mathbb{R} \to \left[0,1\right[ \to \mathbb{C}
+  \]</span> such that there is a slowly increasing signal <span class="math inline">\(x(t)\)</span> with sample rate <span class="math inline">\(\Delta f\)</span> satisfying <span class="math display">\[
+  \phi(f)(r) = x_r(f).
+  \]</span></div>
+</section>
+<section id="remark--multiple-representations-in-the-frequency-domain." class="level3">
+
+<div class="p"><h3><a href="#remark--multiple-representations-in-the-frequency-domain.">Remark – Multiple Representations in the Frequency Domain.</a></h3>‌ A signal <span class="math inline">\(x(t)\)</span> that is quickly decreasing is also slowly increasing; therefore it has two distincts representations in the frequency domain: a periodic function <span class="math display">\[f \in \mathbb{R} \mapsto x(f) \in \mathbb{C},\]</span> and a periodic hyperfunction <span class="math display">\[f \in \mathbb{R} \mapsto  x(f) \in \left[0,1\right[ \to \mathbb{C}.\]</span> Here, the Fourier-transform-as-a-function <span class="math inline">\(x(f)\)</span> is the uniform limit of the Fourier-transform-as-a-hyperfunction <span class="math inline">\(x_r(f)\)</span> when <span class="math inline">\(r \uparrow 1,\)</span> hence we can easily recover the function representation of <span class="math inline">\(x(f)\)</span> from its hyperfunction representation.</div>
+</section>
+<section id="remark--hyperfunctions-as-limits." class="level3">
+
+<div class="p"><h3><a href="#remark--hyperfunctions-as-limits.">Remark – Hyperfunctions as Limits.</a></h3>‌Is <span class="math inline">\(x(f)\)</span> the limit of <span class="math inline">\(x_r(f)\)</span> when <span class="math inline">\(r \uparrow 1\)</span>? The short answer is “yes”, but only when the question is framed appropriately, and we still lack of few tools to do it now. At this stage, it is probably more fruitful to think of <span class="math inline">\(x(f)\)</span> as the approximation process <span class="math inline">\(r \mapsto x_r(f)\)</span> itself than of its limit<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>.</div>
+</section>
+<section id="example--fourier-transform-of-a-constant-signal." class="level3">
+
+<div class="p"><h3><a href="#example--fourier-transform-of-a-constant-signal.">Example – Fourier Transform of a Constant Signal.</a></h3>‌ Let <span class="math inline">\(x(t)=1\)</span> for every <span class="math inline">\(t \in \mathbb{Z}\Delta t.\)</span> This signal is not quickly decreasing, but it is slowly increasing, hence we may compute its Fourier transform as a periodic hyperfunction. By definition, <span class="math inline">\(x_r(t) = r^{|t/\Delta t|} x(t) = r^{|t/\Delta t|},\)</span> hence <span class="math display">\[
+  x_r(f) = \Delta t \sum_{n \in \mathbb{Z}} r^{|n|} e^{-i2\pi f n\Delta t}.
+  \]</span> We may split the sum in two: <span class="math display">\[
+  x_r(f) = \Delta t \sum_{n \leq 0} (r e^{i2\pi f \Delta t})^{-n} 
+           + \Delta t \sum_{n &gt; 0} (r e^{-i2\pi f \Delta t})^{n}.
+  \]</span> Both terms in the right-hand side are sums of geometric series, which yields <span class="math display">\[
+  \Delta t \sum_{n \leq 0} (r e^{i2\pi f \Delta t})^{-n}  = \frac{\Delta t}{1 - r e^{i2\pi f \Delta t} }, 
+  \]</span> <span class="math display">\[
+  \Delta t \sum_{n &gt; 0} (r e^{-i2\pi f \Delta t})^{n}
+  =
+  \frac{\Delta t \times r e^{-i2\pi f \Delta t}}{1 - r e^{-i2\pi f \Delta t} } 
+  =
+  - \frac{\Delta t}{1 - r^{-1} e^{i2\pi f \Delta t}}. 
+  \]</span> Hence, if we define <span class="math display">\[
+  x_{\pm}(z) = \frac{\Delta t}{1-z},
+  \]</span> we can write <span class="math inline">\(x_r(f)\)</span> as<br>
+<span class="math display">\[
+  x_r(f) = x_{\pm}(z=r e^{i2\pi f\Delta t}) - x_{\pm}(z=r^{-1} e^{i2\pi f\Delta t}).
+  \]</span> We may compute another useful expression of <span class="math inline">\(x_r(f)\)</span> <span class="math display">\[
+  x_r(f) = \frac{\Delta t}{1 - r e^{i2\pi f \Delta t}} 
+           - \frac{\Delta t \times r e^{-i2\pi f \Delta t}}{1 - r e^{-i2\pi f \Delta t} } 
+         = \frac{\Delta t(1-r^2)}{1-2r\cos 2\pi f\Delta t+r^2}
+  \]</span> The representation of the functions <span class="math inline">\(x_r(f)\)</span> for several values of <span class="math inline">\(r\)</span> clearly demonstrates how the energy of the signals concentrates around <span class="math inline">\(f=0\)</span> when <span class="math inline">\(r \uparrow 1.\)</span></div>
+<p><img src="images/poisson-kernel-2.svg" alt="Poisson Kernel">&nbsp;</p>
+</section>
+</section>
+<section id="standard-defining-function" class="level2">
+<h2><a href="#standard-defining-function">Standard Defining Function</a></h2>
+<p>The example of Fourier transform <span class="math inline">\(x(f)\)</span> computed in the previous section exhibited a very specific structure that is actually shared by all periodic hyperfunctions:</p>
+<section id="theorem--definition--standard-defining-function." class="level3">
+
+<div class="p"><h3><a href="#theorem--definition--standard-defining-function.">Theorem &amp; Definition – Standard Defining Function.</a></h3>‌ For every slowly increasing signal <span class="math inline">\(x(t),\)</span> there is a unique function <span class="math inline">\(x_{\pm}(z)\)</span> – called <em>standard defining function</em> of <span class="math inline">\(x(f)\)</span> – holomorphic in <span class="math inline">\(\mathbb{C} \setminus \mathbb{U},\)</span> with <span class="math inline">\(x_{\pm}(z=\infty) = \lim_{|z| \to +\infty} x(z)=0,\)</span> such that for any <span class="math inline">\(r\in \left[0,1\right[\)</span>: <span class="math display">\[
+  x_r(f) = x_{\pm}(r e^{i2\pi f\Delta t}) - x_{\pm}(r^{-1} e^{i2\pi f\Delta t}).
+  \]</span> This function is defined by: <span class="math display">\[
+  x_{\pm}(z) = \left|
+  \begin{array}{ll}
+  x_{+}(z) = +\Delta t \sum_{n \leq 0} x(t=n\Delta t) z^{-n} &amp; \mbox{if } |z|&lt;1, \\
+  x_{-}(z) = -\Delta t \sum_{n &gt; 0} x(t=n\Delta t) z^{-n} &amp; \mbox{if } |z|&gt;1,
+  \end{array}
+  \right.
+  \]</span></div>
+</section>
+<section id="proof--standard-defining-function." class="level3">
+
+<div class="p"><h3><a href="#proof--standard-defining-function.">Proof – Standard Defining Function.</a></h3>‌ The definition <span class="math inline">\(x_r(t) = r^{|t/\Delta t|} x(t)\)</span> yields <span class="math display">\[
+  x_r(f) = \Delta t \sum_{n \in \mathbb{Z}} r^{|n|} x(t=n\Delta t) e^{-i2\pi f n\Delta t}.
+  \]</span> We split the right-hand side in two sums: <span class="math display">\[
+  \begin{split}
+  x_r(f) = &amp;  \phantom{+} \Delta t \sum_{n \leq 0} x(t=n\Delta t) (r e^{i2\pi f \Delta t})^{-n} \\ 
+           &amp;  + \Delta t \sum_{n &gt; 0} x(t=n\Delta t) (r^{-1} e^{i2\pi f \Delta t})^{-n} 
+  \end{split}
+  \]</span></div>
+<p>To prove the expansion of <span class="math inline">\(x_{\pm}\)</span> properly defines a (holomorphic) function on <span class="math inline">\(\mathbb{C} \setminus \mathbb{U},\)</span> we have to demonstrate that the power series in the right-hand side of this definition are absolutely convergent on the suitable domains. We only do it for the first expansion (the method for the second one is similar). Let <span class="math inline">\(|z|&lt; 1;\)</span> as <span class="math inline">\(x(t)\)</span> is slowly increasing, for any <span class="math inline">\(\sigma &gt; 0,\)</span> there is a <span class="math inline">\(\kappa &gt; 0\)</span> such that for any <span class="math inline">\(t \leq 0,\)</span> <span class="math inline">\(|x(t)| \leq \kappa e^{\sigma |t|} = \kappa e^{-\sigma t}.\)</span> Hence, for any nonnegative integer <span class="math inline">\(n,\)</span> we have <span class="math inline">\(|x(t=n\Delta t) z^{-n}| \leq \kappa |e^{\sigma \Delta t} z|^{-n}.\)</span> We may select a <span class="math inline">\(\sigma&gt;0\)</span> such that <span class="math inline">\(|e^{\sigma \Delta t} z| = r &lt; 1.\)</span> The general term of the series is then dominated by <span class="math inline">\(\Delta t \cdot \kappa r^{-n}\)</span> which establishes the absolute convergence. Note that as only negative powers of <span class="math inline">\(z\)</span> are used in the expansion of <span class="math inline">\(x_{-}(z),\)</span> we have <span class="math inline">\(x_{\pm}(\infty) = 0.\)</span></p>
+<p>If we set <span class="math inline">\(z = r e^{i2\pi\Delta t},\)</span> we can write <span class="math inline">\(x_r(f) = x_{\pm}(z) - x_{\pm}(1/\overline{z}).\)</span> Hence, if two functions <span class="math inline">\(\phi\)</span> and <span class="math inline">\(\psi\)</span> were suitable standard defining functions for <span class="math inline">\(x(f),\)</span> for any <span class="math inline">\(z\)</span> such that <span class="math inline">\(|z| &lt; 1,\)</span> we would have <span class="math inline">\(\phi(z) - \phi(1/\overline{z}) = \psi(z) - \psi(1/\overline{z}),\)</span> or <span class="math inline">\(\phi(z) - \psi(z) = \psi(1/\overline{z}) - \phi(1/\overline{z}).\)</span> The right-hand side <span class="math inline">\(\chi(z)\)</span> of this equation is antiholomorphic: <span class="math inline">\(\overline{\chi}\)</span> is holomorphic, hence <span class="math inline">\(\phi-\psi\)</span> is holomorphic and anti-holomorphic at the same time on the open unit disk, therefore it is constant. As <span class="math inline">\(\phi(0) - \psi(0) = \psi(\infty) - \phi(\infty) = 0,\)</span> <span class="math inline">\(\phi\)</span> and <span class="math inline">\(\psi\)</span> are identical on the open unit disk and consequently on <span class="math inline">\(\mathbb{C} \setminus \mathbb{U}.\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+<section id="theorem--inversion-formula.-1" class="level3">
+
+<div class="p"><h3><a href="#theorem--inversion-formula.-1">Theorem – Inversion Formula.</a></h3>‌ Any holomorphic function defined on <span class="math inline">\(\mathbb{C} \setminus \mathbb{U}\)</span> and equal to <span class="math inline">\(0\)</span> at <span class="math inline">\(z=\infty\)</span> is the standard defining function <span class="math inline">\(x_{\pm}(z)\)</span> of a unique slowly increasing signal <span class="math inline">\(x(t),\)</span> defined for any <span class="math inline">\(r \in \left]0,1\right[\)</span> by <span class="math display">\[
+  x(t = n \Delta t) = 
+    \frac{1}{i2\pi}
+    \left[ 
+    \int_{r[\circlearrowleft]} 
+    - 
+    \int_{r^{-1} [\circlearrowleft]}
+    \right]
+    \frac{x_{\pm}(z)}{\Delta t} z^{n-1}\, dz.
+  \]</span></div>
+</section>
+<section id="proof--inversion-formula.-1" class="level3">
+
+<div class="p"><h3><a href="#proof--inversion-formula.-1">Proof – Inversion Formula.</a></h3>‌ As <span class="math inline">\(x_{\pm}(z)=x_+(z) = \Delta t \sum_{n \leq 0} x(t=n\Delta t) z^{-n}\)</span> inside the unit circle, when <span class="math inline">\(n \leq 0,\)</span> <span class="math inline">\(\Delta t \times x(t=n\Delta t)\)</span> is the <span class="math inline">\((-n)\)</span>-th coefficient of the Taylor expansion of <span class="math inline">\(x_+(z).\)</span> Hence, when <span class="math inline">\(t \leq 0,\)</span> for all <span class="math inline">\(r \in \left]0,1\right[,\)</span> <span class="math display">\[
+  \Delta t \times x(t=n\Delta t) 
+    = 
+    \frac{1}{i2\pi} \int_{r[\circlearrowleft]} x_{\pm}(z) z^{n-1}\, dz.
+  \]</span> Outside the unit circle, the line integral <span class="math display">\[
+  \int_{r^{-1}[\circlearrowleft]} x_{\pm}(z) z^{n-1}\, dz
+  \]</span> is independent of <span class="math inline">\(r \in \left]0,1\right[,\)</span> equal to its limit value when <span class="math inline">\(r \uparrow 1.\)</span> When <span class="math inline">\(n \leq 0,\)</span> as <span class="math inline">\(x_{\pm}(z=\infty)=0,\)</span> <span class="math inline">\(|z \times x_{\pm}(z) z^{n-1}| \to 0\)</span> when <span class="math inline">\(|z| \to \infty.\)</span> Consequently, by Jordan’s lemma, this line integral is zero and the inversion formula holds for <span class="math inline">\(t\leq 0.\)</span></div>
+<p>If <span class="math inline">\(t = n \Delta t &gt; 0,\)</span> <span class="math inline">\(x_{\pm}(z) z^{n-1} = x_+(z) z^{n-1}\)</span> inside the unit circle and has a Taylor series expansion. Hence it is holomorphic in the unit disk and for any <span class="math inline">\(r \in \left]0,1\right[,\)</span> <span class="math display">\[
+  \int_{r[\circlearrowleft]} 
+    x_{\pm}(z) z^{n-1}\, dz = 0.
+  \]</span> Outside the unit circle <span class="math inline">\(x_{\pm}(z) = x_-(z) = -\Delta t\sum_{n &gt; 0} x(t=n\Delta t) z^{-n}.\)</span> The <span class="math inline">\(n\)</span>-th coefficient of this Laurent series expansion is <span class="math inline">\(\Delta t \times x(t=n\Delta t),\)</span> hence for any <span class="math inline">\(r \in \left]0,1\right[,\)</span> <span class="math display">\[
+  \Delta t \times x(t=n\Delta t)
+    =
+    \frac{1}{i2\pi} \int_{r^{-1}[\circlearrowleft]} x_{\pm}(z) z^{n-1}\, dz,
+  \]</span> and the inversion formula holds for <span class="math inline">\(t&lt;0.\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+<section id="example--inversion-formula." class="level3">
+
+<div class="p"><h3><a href="#example--inversion-formula.">Example – Inversion Formula.</a></h3>‌Consider the signal whose Fourier transform has for standard defining function <span class="math display">\[
+  x_{\pm}(z) = \frac{\Delta t}{1-z}.
+  \]</span> The inversion formula provides <span class="math display">\[
+    x(t=n\Delta t) = 
+    \frac{1}{i2\pi} 
+    \left[
+    \int_{r[\circlearrowleft]} 
+    -
+    \int_{r^{-1} [\circlearrowleft]}
+    \right]
+    \frac{z^{n-1}}{1-z} \, dz.
+    \]</span> The right-hand side is a line integral over the sequence of paths <span class="math inline">\(\gamma\)</span> made of <span class="math inline">\(r[\circlearrowleft]\)</span> (oriented counter-clockwise) and <span class="math inline">\(r^{-1}[\circlearrowleft]\)</span> (oriented clockwise). We have <span class="math inline">\(\mathrm{ind}(\gamma, 0) = 0\)</span> and <span class="math inline">\(\mathrm{ind}(\gamma, 1) = -1,\)</span> hence the residues theorem yields <span class="math display">\[
+    x(t = n\Delta t) =     
+    \frac{1}{i2\pi} 
+    \int_{\gamma} \frac{z^{n-1}}{1-z} \, dz
+    = - \mathrm{res} \left( \frac{z^{n-1}}{1-z}, z=1\right)
+    = 1.
+    \]</span></div>
+</section>
+</section>
+<section id="non-standard-defining-functions" class="level2">
+<h2><a href="#non-standard-defining-functions">Non-Standard Defining Functions</a></h2>
+<section id="definition--defining-function." class="level3">
+
+<div class="p"><h3><a href="#definition--defining-function.">Definition – Defining Function.</a></h3>‌Let <span class="math inline">\(x(f)\)</span> be a <span class="math inline">\(\Delta f\)</span>-periodic hyperfunction with standard defining function <span class="math inline">\(x_{\pm}(z).\)</span> A holomorphic function <span class="math inline">\(\phi(z)\)</span> defined on <span class="math inline">\(V \setminus \mathbb{U}\)</span> where <span class="math inline">\(V\)</span> is an open neighbourghood of <span class="math inline">\(\mathbb{U}\)</span> is a <em>defining function</em> of <span class="math inline">\(x(f)\)</span> if <span class="math inline">\(\phi(z) - x_{\pm}(z)\)</span> has an holomorphic extension to <span class="math inline">\(V.\)</span> In the sequel, unless we use the “standard” qualifier, the notation <span class="math inline">\(x_{\pm}(z)\)</span> will be used to denote any of the defining function of a signal <span class="math inline">\(x(t).\)</span></div>
+</section>
+<section id="theorem--inversion-formula.-2" class="level3">
+
+<div class="p"><h3><a href="#theorem--inversion-formula.-2">Theorem – Inversion Formula.</a></h3>‌ Any holomorphic function defined on <span class="math inline">\(A_{\rho} \setminus \mathbb{U}\)</span> for some <span class="math inline">\(\rho \in \left[0,1\right[\)</span> is a defining function <span class="math inline">\(x_{\pm}(z)\)</span> of a unique slowly increasing signal <span class="math inline">\(x(t),\)</span> defined for any <span class="math inline">\(r \in \left]\rho,1\right[\)</span> by <span class="math display">\[
+  x(t) = 
+    \frac{1}{i2\pi}
+    \left[ 
+    \int_{r[\circlearrowleft]} 
+    - 
+    \int_{r^{-1} [\circlearrowleft]}
+    \right]
+    \frac{x_{\pm}(z)}{\Delta t} z^{n-1}\, dz.
+  \]</span></div>
+</section>
+<section id="remark.-4" class="level3">
+
+<div class="p"><h3><a href="#remark.-4">Remark.</a></h3>‌The domain of definition of a defining function <span class="math inline">\(x_{\pm}(z)\)</span> always contains a subset <span class="math inline">\(A_{\rho} \setminus \mathbb{U}\)</span> for some <span class="math inline">\(\rho \in \left[0,1\right[.\)</span> As this restriction conveys enough information to described the signal <span class="math inline">\(x(t),\)</span> it is harmless and the assumption made in the theorem that the defining function is actually defined on such set is not overly restrictive.</div>
+</section>
+<section id="proof--inversion-formula.-2" class="level3">
+
+<div class="p"><h3><a href="#proof--inversion-formula.-2">Proof – Inversion Formula.</a></h3>‌The inversion formula holds for the standard defining function. Hence, if <span class="math inline">\(x_{\pm}(z)\)</span> is a defining function defined on <span class="math inline">\(A_{\rho}\)</span> for some <span class="math inline">\(\rho \in \left[0,1\right[\)</span> and <span class="math inline">\(\phi(z)\)</span> denotes the difference between it and the standard one, the inversion formula is also valid for <span class="math inline">\(x_{\pm}(z)\)</span> if for any <span class="math inline">\(r \in \left]\rho,1\right[,\)</span> we have <span class="math display">\[
+    \frac{1}{i2\pi}
+    \left[ 
+    \int_{r[\circlearrowleft]} 
+    - 
+    \int_{r^{-1} [\circlearrowleft]}
+    \right]
+    \frac{\phi(z)}{\Delta t} z^{n-1}\, dz
+    = 0.
+  \]</span> As <span class="math inline">\(\phi(z)\)</span> can be extended analytically to <span class="math inline">\(A_{\rho},\)</span> by the Cauchy integral theorem, this equality holds. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="example--quickly-decreasing-signals." class="level3">
+
+<div class="p"><h3><a href="#example--quickly-decreasing-signals.">Example – Quickly Decreasing Signals.</a></h3>‌If <span class="math inline">\(x(t)\)</span> is a quickly decreasing signal, its <span class="math inline">\(z\)</span>-transform <span class="math inline">\(x(z)\)</span> is defined in some open neighbourhood of <span class="math inline">\(\mathbb{U}\)</span> by <span class="math display">\[
+  x(z) = \Delta t \sum_{n \in \mathbb{Z}} x(t=n\Delta t) z^{-n}
+  \]</span> (see section <a href="#quickly-decreasing-signals">Quickly Decreasing Signals</a>); on the other hand its standard defining function <span class="math inline">\(x_{\pm}(z)\)</span> is given by <span class="math display">\[
+  x_{\pm}(z) = \left|
+  \begin{array}{ll}
+  x_{+}(z) =  +\Delta t \sum_{n \leq 0} x(t=n\Delta t) z^{-n} &amp; \mbox{if } |z|&lt;1, \\
+  x_{-}(z) = -\Delta t \sum_{n &gt; 0} x(t=n\Delta t) z^{-n} &amp; \mbox{if } |z|&gt;1.
+  \end{array}
+  \right.
+  \]</span> As <span class="math inline">\(x(z)\)</span> is defined and holomorphic on some open neighbourhood of <span class="math inline">\(\mathbb{U},\)</span> <span class="math inline">\(x_-(z)\)</span> and <span class="math inline">\(x_+(z)\)</span> can be extended as holomorphic functions to such a domain ; if we still denote <span class="math inline">\(x_{-}(z)\)</span> and <span class="math inline">\(x_+(z)\)</span> these extensions, we can write <span class="math inline">\(x(z) = x_{+}(z) - x_{-}(z).\)</span> Hence, the difference between <span class="math display">\[
+  x_{\pm}(z) = +x(z) \times \{|z| &lt; 1\},
+  \]</span> and the standard defining function has an analytic extension – that is <span class="math inline">\(x_-(z)\)</span> – in a neighbourhood of <span class="math inline">\(\mathbb{U}\)</span> and <span class="math inline">\(x_{\pm}(z)\)</span> qualifies as a defining function. The function <span class="math display">\[
+  x_{\pm}(z) = -x(z) \times \{|z| &gt; 1\},
+  \]</span> for similar reasons, also does.</div>
+</section>
+</section>
+</section>
+<section id="ordinary-functions-as-hyperfunctions" class="level1">
+<h1><a href="#ordinary-functions-as-hyperfunctions">Ordinary Functions as Hyperfunctions</a></h1>
+<p>We still need to make our frequency-domain representations as hyperfunctions consistent with the classical framework. If a signal has a classical frequency-domain representation, as a complex-valued, locally integrable, <span class="math inline">\(\Delta f\)</span>-periodic function <span class="math inline">\(x(f)\)</span> – or “ordinary function” representation – what is its frequency-domain representation as a hyperfunction?</p>
+<p>The answer is – at least conceptually – pretty straightforward: if <span class="math inline">\(x(f)\)</span> is an ordinary function, the classic time-domain representation of <span class="math inline">\(x(t)\)</span> is given by <span class="math display">\[
+  x(t) = \int_{-\Delta f/2}^{+\Delta f/2} x(f) e^{i2\pi f t} \, df.
+  \]</span> In particular, <span class="math inline">\(x(t)\)</span> is a bounded signal, hence it is slowly increasing signal, and we may define its frequency-domain representation as a hyperfunction: this is the representation of <span class="math inline">\(x(f)\)</span> as a hyperfunction.</p>
+<section id="theorem--hyperfunction-representation-of-an-ordinary-function." class="level3">
+
+<div class="p"><h3><a href="#theorem--hyperfunction-representation-of-an-ordinary-function.">Theorem – Hyperfunction Representation of an Ordinary Function.</a></h3>‌ If <span class="math inline">\(x(f)\)</span> is an ordinary function, the standard defining function <span class="math inline">\(x_{\pm}(z)\)</span> of its representation as a hyperfunction is defined by: <span class="math display">\[
+  x_{\pm}(z) = 
+    \int_{-\Delta f / 2}^{+\Delta f / 2} x(f) 
+      \frac{\Delta t}{1 - z e^{-i2\pi f\Delta t}} 
+    \, df.
+  \]</span></div>
+</section>
+<section id="proof.-2" class="level3">
+
+<div class="p"><h3><a href="#proof.-2">Proof.</a></h3>‌According to our construction of the representation of <span class="math inline">\(x(f)\)</span> as a hyperfunction, for any complex number <span class="math inline">\(z\)</span> such that <span class="math inline">\(|z| &lt; 1,\)</span> we have <span class="math display">\[
+  x_+(z) = 
+    \Delta t \sum_{n \leq 0}  
+      \left[ 
+        \int_{-\Delta f / 2}^{+\Delta f / 2} 
+          x(f) e^{i 2 \pi f n \Delta t} 
+        \, df 
+\right] 
+      z^{-n}.
+  \]</span> The series <span class="math display">\[
+  \Delta t \sum_{n \leq 0} x(f) e^{i 2 \pi f n \Delta t} z^{-n}
+  = x(f) \Delta t \sum_{m \geq 0} (z e^{-i 2 \pi f m \Delta t})^m
+  \]</span> converges as a locally integrable function of <span class="math inline">\(f\)</span> to <span class="math inline">\(x(f) \Delta t / (1 - z e^{-i 2 \pi f \Delta t}),\)</span> hence the formula for <span class="math inline">\(x_{\pm}(z)\)</span> of the theorem holds for <span class="math inline">\(|z| &lt; 1.\)</span></div>
+<p>If the complex number <span class="math inline">\(z\)</span> satisfies <span class="math inline">\(|z|&gt;1,\)</span> we have <span class="math display">\[
+  x_-(z) = 
+    - \Delta t \sum_{n &gt; 0}  
+      \left[ 
+        \int_{-\Delta f / 2}^{+\Delta f / 2} 
+          x(f) e^{i 2 \pi f n \Delta t} 
+        \, df 
+\right] 
+      z^{-n},
+  \]</span> and the series <span class="math display">\[-\Delta t \sum_{n &gt; 0} x(f) e^{i 2 \pi f n \Delta t} z^{-n}
+= -x(f) \Delta t \sum_{n &gt;0} (z^{-1} e^{i 2 \pi f m \Delta t})^n\]</span> converges as a locally integrable function of <span class="math inline">\(f\)</span> to <span class="math display">\[-x(f) \Delta t (z^{-1} e^{i 2 \pi f  \Delta t}) / (1 - z^{-1} e^{i 2 \pi f \Delta t})
+= x(f) \Delta t / (1 - z e^{-i 2 \pi f \Delta t}),\]</span> hence the formula for <span class="math inline">\(x_{\pm}(z)\)</span> of the theorem also holds for <span class="math inline">\(|z| &gt; 1.\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+<section id="example--constant-frequency-domain-representation." class="level3">
+
+<div class="p"><h3><a href="#example--constant-frequency-domain-representation.">Example – Constant Frequency-Domain Representation.</a></h3>‌The ordinary function <span class="math inline">\(x(f)=1\)</span> has a temporal representation given by <span class="math display">\[
+  x(t) = \int_{-\Delta f/2}^{+\Delta f/2} e^{i2\pi f t} \, df.
+  \]</span> If <span class="math inline">\(t = 0,\)</span> <span class="math inline">\(x(t) = \Delta f\)</span> ; otherwise, <span class="math inline">\(t=n\Delta t\)</span> for some <span class="math inline">\(n\neq 0\)</span> and <span class="math display">\[
+  x(t) = 
+    \left[ 
+      \frac
+        {e^{i2\pi f n\Delta t}}
+        {i2\pi n\Delta t} 
+\right]_{-\Delta f/2}^{+\Delta f/2}
+  =
+    \frac
+      {(-1)^n - (-1)^{-n}}
+      {i2\pi n\Delta t} 
+  =
+    0.
+  \]</span> Hence, <span class="math inline">\(x(t) = \mathbf{1}(t)\)</span>: the signal is the unit impulse. At this stage, it is easy to use the definition of the standard defining function to derive that <span class="math inline">\(x_{\pm}(z) = \{|z|&lt;1\}.\)</span> With the above theorem, we can also compute <span class="math inline">\(x_{\pm}(z)\)</span> directly from the definition <span class="math inline">\(x(f)=1.\)</span> Indeed, we have <span class="math display">\[
+  x_{\pm}(z) = 
+    \int_{-\Delta f / 2}^{+\Delta f / 2}
+      \frac{\Delta t}{1 - z e^{-i2\pi f\Delta t}} 
+    \, df
+    =
+    \int_{-\Delta f / 2}^{+\Delta f / 2}
+      \frac{\Delta t}{1 - z e^{-i2\pi f\Delta t}} 
+      \frac{d e^{i2\pi f\Delta t}}{i 2 \pi \Delta te^{i2\pi f\Delta t}},
+  \]</span> hence <span class="math display">\[
+  x_{\pm}(z) = 
+    \frac{1}{i2\pi} 
+    \int_{[\circlearrowleft]}
+      \frac{\xi^{-1}}{1 - z\xi^{-1}}
+    \, d\xi
+    =
+    \frac{1}{i2\pi} 
+    \int_{[\circlearrowleft]}
+      \frac{1}{\xi - z}
+    \, d\xi,
+  \]</span> which yields <span class="math inline">\(x_{\pm}(z) = \{|z| &lt; 1\}\)</span> as expected.</div>
+</section>
+<section id="example--defining-function-of-a-low-pass-filter." class="level3">
+
+<div class="p"><h3><a href="#example--defining-function-of-a-low-pass-filter.">Example – Defining Function of a Low-Pass Filter.</a></h3>‌ The impulse response <span class="math inline">\(x(t)\)</span> of a perfect low-pass filter whose cutoff frequency is <span class="math inline">\(f_c = \Delta f/4\)</span> – a filter whose passband and stopband have equal size – is defined in the frequency domain by <span class="math display">\[
+  x(f)= \{|f| &lt; \Delta f/4\}, \; f \in \left[-\Delta f/2, \Delta f/2\right[.
+  \]</span> The same kind of computations that we have made when we had <span class="math inline">\(x(f)=1\)</span> yield <span class="math display">\[
+  x_{\pm}(z) = \frac{1}{i2\pi} \int_{\gamma} \frac{1}{\xi - z} \, d\xi
+  \]</span> where <span class="math inline">\(\gamma: f \in [-1/4, 1/4] \to e^{i2\pi f}.\)</span> Inside or outside of the unit circle, if we differentiate under the integral sign and an integrate by parts the result, we end up with: <span class="math display">\[
+  \frac{d x_{\pm}(z)}{dz} = 
+    \frac{1}{i2\pi} 
+    \left[ 
+      \frac{1}{z-i} - \frac{1}{z+i}
+\right].
+  \]</span> Let <span class="math inline">\(\log\)</span> denote the principal value of the logarithm. Inside the unit circle, the function <span class="math display">\[
+  \left[ z \mapsto  \frac{1}{i2\pi} [\log (z-i) - \log (z+i) ]
+\right].
+  \]</span> is defined and holomorphic and its derivative matches the derivative of <span class="math inline">\(x_{\pm}(z).\)</span> As a direct computation shows that <span class="math inline">\(x_{\pm}(z=0) = 1/2,\)</span> but <span class="math inline">\(-1/2\)</span> for this function, we have <span class="math display">\[
+  x_{+}(z) = \frac{1}{i2\pi} [\log (z-i) - \log (z+i)] + 1.
+  \]</span> Outside the unit circle, the function <span class="math display">\[
+  \left[ z \mapsto  \frac{1}{i2\pi} \log \frac{z-i}{z+i}
+\right]
+  \]</span> is defined, holomorphic, and has the same derivative as <span class="math inline">\(x_{\pm}(z).\)</span> Moreover, it has the same limit when <span class="math inline">\(|z| \to +\infty,\)</span> hence <span class="math display">\[
+  x_{-}(z) = \frac{1}{i2\pi} \log \frac{z-i}{z+i}.
+  \]</span></div>
+<p><img src="images/low-pass-filter.svg" alt="Poisson Kernel"><br>
+The time-domain representation of this filter is easy to determine: we have</p>
+<p><span class="math display">\[
+ x(t) 
+   = \int_{-\Delta f / 2}^{+\Delta f / 2} x(f) e^{i 2\pi f t} \, df
+   = \int_{-\Delta f / 4}^{+\Delta f / 4} e^{i 2\pi f t} \, df
+ \]</span> hence <span class="math display">\[
+ x(t = n \Delta t)
+   = \left[ \frac{e^{i 2\pi f n \Delta t}}{i 2\pi n \Delta t}
+\right]_{-\Delta f / 4}^{+ \Delta f / 4}
+   = \mathrm{sinc} \, \frac{\pi n}{2}.
+ \]</span></p>
+</section>
+</section>
+<section id="calculus" class="level1">
+<h1><a href="#calculus">Calculus</a></h1>
+<p>The representation of signals in the frequency domain as hyperfunctions allows us to consider a large class of signals – the slowly increasing ones – but we now have to get familiar with the operations that we can perform with these mathematical objects. Some operations that are straightforward with functions cannot be carried to hyperfunctions – for example we cannot in general define the value of a hyperfunction <span class="math inline">\(x(f)\)</span> at a given frequency <span class="math inline">\(f\)</span> – some will be equally easy to perform and finally some – such as derivation with respect to <span class="math inline">\(f\)</span> – will be much easier to deal with in this new setting.</p>
+<section id="linear-combination" class="level2">
+<h2><a href="#linear-combination">Linear Combination</a></h2>
+<p>As the Fourier transform and the <span class="math inline">\(z\)</span>-transforms are linear operators, the multiplication of signals by a complex scalar and sum of signals can be defined in the time domain, by <span class="math display">\[
+  (\lambda x)(t) = \lambda x(t), \; (x + y)(t) = x(t) + y(t),
+  \]</span> or equivalently in the frequency domain <span class="math display">\[
+  (\lambda x)_r(f) = \lambda x_r(f), \; (x + y)_r(f) = x_r(f) + y_r(f),
+  \]</span> as well as in the complex domain <span class="math display">\[
+  (\lambda x)_{\pm}(z) = \lambda x_{\pm}(z), \; (x + y)_{\pm}(z) = x_{\pm}(z) + y_{\pm}(z).
+  \]</span></p>
+</section>
+<section id="modulation" class="level2">
+<h2><a href="#modulation">Modulation</a></h2>
+<p>Let <span class="math inline">\(x(t)\)</span> be a signal, <span class="math inline">\(f_0 \in \mathbb{R}\)</span> and <span class="math display">\[
+  y(t) = x(t) e^{i2\pi f_0 t}.
+  \]</span> Straighforward computations show that <span class="math display">\[
+  y_r(f) = x_r(f - f_0)
+  \]</span> and <span class="math display">\[
+  y_{\pm}(z) = x_{\pm}(z e^{-i2\pi f_0 \Delta t})
+  \]</span></p>
+<section id="example--fourier-transform-of-sine--cosine." class="level3">
+
+<div class="p"><h3><a href="#example--fourier-transform-of-sine--cosine.">Example – Fourier Transform of Sine &amp; Cosine.</a></h3>‌Let <span class="math inline">\(a&gt;0,\)</span> <span class="math inline">\(\phi \in \mathbb{R},\)</span> <span class="math inline">\(f_{0} &gt; 0\)</span> and let <span class="math inline">\(x(t)\)</span> be the signal defined by <span class="math display">\[
+   x(t) = a \cos (2\pi f_0 t + \phi).
+   \]</span> We can decompose <span class="math inline">\(x(t)\)</span> using complex exponentials: <span class="math display">\[
+   x(t) 
+     = \frac{a e^{+i\phi}}{2} 
+        e^{i2\pi f_0 t} \times 1
+       +
+       \frac{a e^{-i\phi}}{2} 
+        e^{-i2\pi f_0 t} \times 1
+   \]</span> As we know the standard defining function of <span class="math inline">\(t \mapsto 1\)</span> is <span class="math inline">\(\Delta t / (1-z),\)</span> given the properties of linear combination and modulation in the complex domain, we have <span class="math display">\[
+  x_{\pm}(z) = 
+    \frac{a e^{+i\phi}}{2} 
+     \frac{\Delta t}{1 - z e^{-i2\pi f_0 \Delta t}}
+    +
+    \frac{a e^{-i\phi}}{2} 
+    \frac{\Delta t}{1 - z e^{+i2\pi f_0 \Delta t}}.
+  \]</span></div>
+</section>
+</section>
+<section id="integration-frequency-domain" class="level2">
+<h2><a href="#integration-frequency-domain">Integration (Frequency Domain)</a></h2>
+<p>Let <span class="math inline">\(x(f)\)</span> be a <span class="math inline">\(\Delta f\)</span>-periodic hyperfunction. It would be natural to define the integral of <span class="math inline">\(x(f)\)</span> over one period as the limit when <span class="math inline">\(r\uparrow 1\)</span> of <span class="math display">\[
+  \int_{-\Delta f/2}^{+\Delta f/2} x(f) \, df 
+    = \lim_{r \uparrow 1} \int_{-\Delta f/2}^{+\Delta f/2} x_r(f) \, df
+  \]</span> but does this definition make sense? Are we sure that the limit always exists to begin with? Actually, it does and in a quite spectacular way: the integral under limit is eventually independent of <span class="math inline">\(r\)</span>:</p>
+<section id="definition--theorem--integration-in-the-frequency-domain." class="level3">
+
+<div class="p"><h3><a href="#definition--theorem--integration-in-the-frequency-domain.">Definition &amp; Theorem – Integration in the Frequency Domain.</a></h3>‌ The integral over one period of a <span class="math inline">\(\Delta f\)</span>-periodic hyperfunction <span class="math inline">\(x(f)\)</span> with defining function <span class="math inline">\(x_{\pm}(z)\)</span> is defined as <span class="math display">\[
+  \int_{-\Delta f/2}^{+\Delta f/2} x(f) \, df 
+    = \int_{-\Delta f/2}^{+\Delta f/2} x_r(f) \, df
+     =   \frac{1}{i2\pi } \left[ \int_{r[\circlearrowleft]} -
+  \int_{r^{-1}[\circlearrowleft]} 
+\right] 
+          \frac{x_{\pm}(z)}{z\Delta t}  \, d z
+  \]</span> for any <span class="math inline">\(r \in \left]\rho,1\right[\)</span> if the domain of definition of <span class="math inline">\(x_{\pm}(z)\)</span> contains <span class="math inline">\(A_{\rho} \setminus \mathbb{U}.\)</span> This definition is sound: the right-hand sides of this formula are independent of the choice of <span class="math inline">\(r;\)</span> they are also independent of the choice of the defining function.</div>
+</section>
+<section id="proof.-3" class="level3">
+
+<div class="p"><h3><a href="#proof.-3">Proof.</a></h3>‌ Let <span class="math inline">\(x_{\pm}(z)\)</span> be the standard defining function of <span class="math inline">\(x(f).\)</span> For any <span class="math inline">\(r \in \left]0,1\right[,\)</span> we have <span class="math display">\[
+  \int_{-\Delta f/2}^{+\Delta f/2} x_r(f) \, df
+    = \int_{-\Delta f/2}^{+\Delta f/2} 
+          \left[ x_{\pm}(z=re^{i2\pi f\Delta t})
+          -
+          x_{\pm}(z=r^{-1}e^{i2\pi f\Delta t})\right] \, df.
+  \]</span> If we rewrite the first term in the right-hand side as <span class="math display">\[
+  \int_{-\Delta f/2}^{+\Delta f/2} 
+          x_{\pm}(z=re^{i2\pi f\Delta t}) \, df
+    = \frac{1}{i2\pi } \int_{-\Delta f/2}^{+\Delta f/2} 
+          \frac{x_{\pm}(z=re^{i2\pi f\Delta t})}{re^{i2\pi f\Delta t}\Delta t} 
+       \, d (re^{i2\pi f\Delta t}),
+  \]</span> we see that it can be computed as a line integral: <span class="math display">\[
+  \int_{-\Delta f/2}^{+\Delta f/2} 
+          x_{\pm}(z=re^{i2\pi f\Delta t}) \, df
+    = \frac{1}{i2\pi } \int_{r[\circlearrowleft]} 
+          \frac{x_{\pm}(z)}{z\Delta t}  \, d z.
+  \]</span> The second integral can be computed similarly; we end up with <span class="math display">\[
+  \int_{-\Delta f/2}^{\Delta f/2} x_r(f) \, df
+  = 
+\frac{1}{i2\pi } \left[ \int_{r[\circlearrowleft]} -
+  \int_{r^{-1}[\circlearrowleft]} 
+\right] 
+          \frac{x_{\pm}(z)}{z\Delta t}  \, d z
+  \]</span> By the Cauchy integral theorem, each integral in the right-hand side is independent of the choice of <span class="math inline">\(r \in \left]0,1\right[.\)</span></div>
+<p>Now, if <span class="math inline">\(x_{\pm}(z)\)</span> is any defining function whose domain contains <span class="math inline">\(A_{\rho} \setminus \mathbb{U}\)</span> and if <span class="math inline">\(r \in \left]\rho, 1\right[,\)</span> let <span class="math inline">\(\phi(z)\)</span> be the extension to <span class="math inline">\(A_{\rho}\)</span> of the difference between <span class="math inline">\(x_{\pm}(z)\)</span> and the standard defining function. The difference of the integral formula based on <span class="math inline">\(x_{\pm}(z)\)</span> and the one based on the standard defining function is equal to <span class="math display">\[
+  \frac{1}{i2\pi } \left[ \int_{r[\circlearrowleft]} -
+  \int_{r^{-1}[\circlearrowleft]} 
+\right] 
+          \frac{\phi(z)}{z\Delta t}  \, d z.
+  \]</span> The Cauchy integral theorem implies that this integral is equal to zero. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+<section id="example--constant-signal.-" class="level3">
+
+<div class="p"><h3><a href="#example--constant-signal.-">Example – Constant Signal. </a></h3>‌Let <span class="math inline">\(x(t)=1\)</span> for every <span class="math inline">\(t \in \mathbb{Z}\Delta t.\)</span> As the standard definition function of <span class="math inline">\(x(f)\)</span> is <span class="math inline">\(x_{\pm}(z) = \Delta t/ (1-z),\)</span> <span class="math display">\[
+  \int_{-\Delta f/2}^{\Delta f/2} x(f) \, df 
+    =
+  \frac{1}{i2\pi } \int_{r[\circlearrowleft]} 
+          \frac{1}{z(1-z)}  \, d z
+  -
+  \frac{1}{i2\pi } \int_{r^{-1}[\circlearrowleft]} 
+          \frac{1}{z(1-z)}  \, d z.  
+  \]</span> The pair of paths <span class="math inline">\(\gamma\)</span> made of <span class="math inline">\(r\mathbb{U}\)</span> (oriented counter-clockwise) and <span class="math inline">\(r^{-1}\mathbb{U}\)</span> (oriented clockwise) satisfies <span class="math inline">\(\mathrm{ind}(\gamma,0)=0\)</span> and <span class="math inline">\(\mathrm{ind}(\gamma,1)=-1,\)</span> hence <span class="math display">\[
+  \int_{-\Delta f/2}^{\Delta f/2} x(f) \, df 
+  = (-1) \times \mathrm{res}\left[\frac{1}{z(1-z)}, z=1
+\right] = 1.
+  \]</span></div>
+</section>
+</section>
+<section id="differentiation-frequency-domain" class="level2">
+<h2><a href="#differentiation-frequency-domain">Differentiation (Frequency Domain)</a></h2>
+<p>Let <span class="math inline">\(x(f)\)</span> be a <span class="math inline">\(\Delta f\)</span>-periodic hyperfunction. For every <span class="math inline">\(r \in \left[0,1\right[,\)</span> the function <span class="math inline">\(x_r(f)\)</span> is differentiable with respect to <span class="math inline">\(f.\)</span> It would be natural to define the derivative of <span class="math inline">\(x(f)\)</span> with respect to <span class="math inline">\(f\)</span> by <span class="math display">\[
+  \frac{dx(f)}{df} = \frac{\partial x_r(f)}{\partial f}.
+  \]</span> and then every periodic hyperfunction would be differentiable. But does this definition make sense? Is <span class="math inline">\(dx(f)/df\)</span> well-defined as a hyperfunction?</p>
+<section id="definition--theorem--differentiation-in-the-frequency-domain." class="level3">
+
+<div class="p"><h3><a href="#definition--theorem--differentiation-in-the-frequency-domain.">Definition &amp; Theorem – Differentiation in the Frequency Domain.</a></h3>‌ Let <span class="math inline">\(x(f)\)</span> be a <span class="math inline">\(\Delta f\)</span>-periodic hyperfunction with standard defining function <span class="math inline">\(x_{\pm}(z).\)</span> The derivative of <span class="math inline">\(x(f)\)</span> with respect to <span class="math inline">\(f\)</span> is the <span class="math inline">\(\Delta f\)</span>-hyperfunction defined as <span class="math display">\[
+  \frac{d x(f)}{df} = \frac{\partial x_r(f)}{\partial f} 
+ \]</span> and its standard defining function is <span class="math display">\[
+  (i2\pi\Delta t) z \frac{dx_{\pm}(z)}{dz}.
+  \]</span></div>
+</section>
+<section id="proof.-4" class="level3">
+
+<div class="p"><h3><a href="#proof.-4">Proof.</a></h3>‌We start from the equation <span class="math display">\[
+  x_r(f) = x_{\pm}(z=re^{i2\pi f\Delta t}) -  x_{\pm}(z=r^{-1}e^{i2\pi f\Delta t}).
+  \]</span> The application of the chain rule to the right-hand side yields <span class="math display">\[
+  \frac{\partial}{\partial f}x_{\pm}(z=re^{i2\pi f\Delta t})
+    = (i2\pi \Delta t) (r e^{i2\pi f\Delta t}) \frac{d x_{\pm}}{dz}(z=re^{i2\pi f\Delta t})
+  \]</span> and <span class="math display">\[
+  \frac{\partial}{\partial f}x_{\pm}(z=r^{-1}e^{i2\pi f\Delta t})
+    = (i2\pi \Delta t) (r^{-1} e^{i2\pi f\Delta t}) \frac{d x_{\pm}}{dz}(z=r^{-1}e^{i2\pi f\Delta t}). 
+  \]</span> If we define <span class="math display">\[
+  y_{\pm}(z) = (i2\pi\Delta t) z \frac{dx_{\pm}(z)}{dz},
+  \]</span> we clearly have <span class="math display">\[
+  \frac{dx_r(f)}{df} = y_{\pm}(re^{i2\pi f\Delta t}) - y_{\pm}(r^{-1} e^{i2\pi f\Delta t}).
+  \]</span> The function <span class="math inline">\(y_{\pm}(z)\)</span> is defined and holomorphic on <span class="math inline">\(\mathbb{C} \setminus \mathbb{U}.\)</span> Moreover, as <span class="math inline">\(x_{\pm}(z=\infty)=0,\)</span> the Laurent series expansion of <span class="math inline">\(x_{\pm}(z)\)</span> in a neighbourhood of <span class="math inline">\(\infty\)</span> has only negative powers of <span class="math inline">\(z\)</span> ; hence the expansion for <span class="math inline">\({dx_{\pm}(z)}/ {dz}\)</span> has only powers of <span class="math inline">\(z\)</span> less than <span class="math inline">\(-2,\)</span> and the one of <span class="math inline">\(y_{\pm}(z) = (i2\pi\Delta t) z {dx_{\pm}(z)}/{dz}\)</span> only negative powers of <span class="math inline">\(z.\)</span> Therefore, <span class="math inline">\(y_{\pm}(z=\infty)=0\)</span> and <span class="math inline">\(y_{\pm}(z)\)</span> is an admissible standard defining function. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="example--integral-of-a-derivative." class="level3">
+
+<div class="p"><h3><a href="#example--integral-of-a-derivative.">Example – Integral of a Derivative.</a></h3>‌Let <span class="math inline">\(x(f)\)</span> be a periodic hyperfunction. We know that the standard defining function of <span class="math inline">\(dx(f)/df\)</span> is <span class="math inline">\((i2\pi\Delta t) z dx_{\pm}(z)/dz.\)</span> Hence, the integral <span class="math display">\[
+  \int_{-\Delta f/2}^{+\Delta f/2} \frac{dx(f)}{df} \, df,
+  \]</span> is equal to <span class="math display">\[
+  \frac{1}{i2\pi } \left[ \int_{r[\circlearrowleft]} - \int_{r^{-1}[\circlearrowleft]} 
+\right] 
+          \frac{(i2\pi\Delta t) z dx_{\pm}(z)/dz}{z\Delta t}  \, d z
+  \]</span> and after obvious simplifications, to <span class="math display">\[
+  \int_{-\Delta f/2}^{+\Delta f/2} \frac{dx(f)}{df} \, df
+  = 
+  \left[ \int_{r[\circlearrowleft]} - \int_{r^{-1}[\circlearrowleft]} 
+\right] 
+          \frac{dx_{\pm}(z)}{dz}  \, d z = 0.
+  \]</span></div>
+</section>
+</section>
+<section id="convolution-time-domain-product-frequency-domain" class="level2">
+<h2><a href="#convolution-time-domain-product-frequency-domain">Convolution (Time Domain), Product (Frequency Domain)</a></h2>
+<section id="theorem--convolution." class="level3">
+
+<div class="p"><h3><a href="#theorem--convolution.">Theorem – Convolution.</a></h3>‌The convolution <span class="math inline">\((x \ast y)(t)\)</span> between a slowly increasing signal <span class="math inline">\(x(t)\)</span> and a quickly decreasing signal <span class="math inline">\(y(t)\)</span> is a slowly increasing signal.</div>
+</section>
+<section id="proof--convolution." class="level3">
+
+<div class="p"><h3><a href="#proof--convolution.">Proof – Convolution.</a></h3>‌Assume that <span class="math inline">\(\kappa&gt;0,\)</span> <span class="math inline">\(\kappa'&gt;0,\)</span> <span class="math inline">\(\sigma&gt;0\)</span> and <span class="math inline">\(\sigma'&gt;0\)</span> are such that <span class="math display">\[
+  |x(t)| \leq \kappa e^{\sigma |t|}
+  \]</span> and <span class="math display">\[
+  |y(t)| \leq \kappa' e^{-\sigma'|t|}.
+  \]</span> We have <span class="math display">\[
+  |(x \ast y)(t)| 
+  \leq \Delta t \sum_{\tau \in \mathbb{Z}\Delta t} |x(\tau)| |y(t-\tau)|
+  \leq \Delta t \kappa \kappa' \sum_{\tau \in \mathbb{Z}\Delta t}
+  e^{\sigma |\tau|} e^{-\sigma' |t - \tau|}.
+  \]</span> Using <span class="math inline">\(|\tau| \leq |t| + |t-\tau|,\)</span> we get <span class="math display">\[
+  e^{\sigma |\tau|} e^{\sigma' |t - \tau|}
+  \leq 
+  e^{\sigma |t|} e^{-(\sigma' - \sigma)|t-\tau|}.
+  \]</span> As long as <span class="math inline">\(\sigma &lt; \sigma',\)</span> <span class="math display">\[
+  \kappa'' = \sum_{\tau \in \mathbb{Z}\Delta t} e^{-(\sigma'-\sigma) |t - \tau|}
+  \]</span> is finite and independent of <span class="math inline">\(t,\)</span> hence <span class="math display">\[
+  |(x \ast y)(t)| \leq \Delta t \kappa \kappa' \kappa'' e^{\sigma|t|}. 
+  \]</span> and <span class="math inline">\(x \ast y\)</span> is a slowly increasing signal. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="definition--product." class="level3">
+
+<div class="p"><h3><a href="#definition--product.">Definition – Product.</a></h3>‌The product <span class="math inline">\(w(f) = x(f) \times y(f)\)</span> of a <span class="math inline">\(\Delta f\)</span>-periodic hyperfunction <span class="math inline">\(x(f)\)</span> and a <span class="math inline">\(\Delta f\)</span>-periodic analytic function <span class="math inline">\(y(f)\)</span> is the hyperfunction defined by <span class="math display">\[
+  w_{\pm}(z) = x_{\pm}(z) \times y(z).
+  \]</span></div>
+</section>
+<section id="remark.-5" class="level3">
+
+<div class="p"><h3><a href="#remark.-5">Remark.</a></h3>‌The product between arbitrary hyperfunctions is not defined in general.</div>
+</section>
+<section id="remark--product-soundness." class="level3">
+
+<div class="p"><h3><a href="#remark--product-soundness.">Remark – Product Soundness.</a></h3>‌The definition of the product above is independent of the choice of the defining function for <span class="math inline">\(x(f).\)</span></div>
+</section>
+<section id="theorem." class="level3">
+
+<div class="p"><h3><a href="#theorem.">Theorem.</a></h3>‌The convolution <span class="math inline">\((x\ast y)(t)\)</span> of a slowly increasing signal <span class="math inline">\(x(t)\)</span> and a quickly decreasing signal <span class="math inline">\(y(t)\)</span> is represented in the frequency domain as <span class="math display">\[
+  (x \ast y)(f) = x(f) \times y(f). 
+  \]</span></div>
+</section>
+<section id="proof.-5" class="level3">
+
+<div class="p"><h3><a href="#proof.-5">Proof.</a></h3>‌Let <span class="math inline">\(w(t) = (x \ast y)(t).\)</span> For some <span class="math inline">\(\rho \in \left]0,1\right[\)</span> and any <span class="math inline">\(z\)</span> such that <span class="math inline">\(\rho &lt; |z| &lt; 1,\)</span> we have <span class="math display">\[
+  w_{+}(z) = \Delta t \sum_{n \leq 0} \left[
+              \Delta \sum_{m \in \mathbb{Z}} 
+              x(t=m\Delta t) y(t=(n-m)\Delta t)
+              \right]
+               z^{-n},
+  \]</span> hence <span class="math display">\[
+  w_{+}(z) = \sum_{n \leq 0} 
+               \sum_{m \in \mathbb{Z}} 
+               a_{mn} 
+               z^{-n}
+  \]</span> with <span class="math display">\[
+  a_{mn} = (\Delta t)^2  x(t=m\Delta t) y(t=(n-m)\Delta t),
+  \]</span> and on the other hand <span class="math display">\[
+  x_+(z) y(z)
+  =
+  \left[ \Delta t \sum_{m \leq 0} x(t=m\Delta t) z^{-n} \right] 
+  \left[ \vphantom{\sum_{m \leq 0}} \Delta t \sum_{\ell \in \mathbb{Z}} y(t=\ell\Delta t) z^{-\ell} \right],
+  \]</span> hence <span class="math display">\[
+  x_+(z) y(z) = \sum_{m \leq 0} \sum_{\ell \in \mathbb{Z}} a_{m(m+\ell)} z^{-m-\ell}
+  = \sum_{m \leq 0} \sum_{n \in \mathbb{Z}} a_{mn} z^{-n}.
+  \]</span> Consequently, <span class="math display">\[
+  \phi(z) = w_{+}(z) - x_+(z) y(z) = \sum_{n \in \mathbb{Z}} \left[ \sum_{m \in \mathbb{Z}}(\{n \leq 0\}- \{m \leq 0\}) a_{mn} \right] z^{-n}.
+  \]</span> Similarly, for some <span class="math inline">\(\rho \in \left]0,1\right[\)</span> and any <span class="math inline">\(z\)</span> such that <span class="math inline">\(1 &lt; |z| &lt; 1/\rho,\)</span> we have <span class="math display">\[
+  w_-(z) = - \sum_{n &gt; 0} 
+               \sum_{m \in \mathbb{Z}} 
+               a_{mn} 
+               z^{-n}
+  \]</span> and <span class="math display">\[
+  x_-(z) y(z) = -\sum_{m &gt; 0} \sum_{\ell \in \mathbb{Z}} a_{m(m+\ell)} z^{-m-\ell}
+  = -\sum_{m &gt; 0} \sum_{n \in \mathbb{Z}} a_{mn} z^{-n},
+  \]</span> hence <span class="math display">\[
+  \psi(z) = w_{-}(z) - x_-(z) y(z) = \sum_{n \in \mathbb{Z}} \left[ \sum_{m \in \mathbb{Z}}(-\{n &gt; 0\}+ \{m &gt; 0\}) a_{mn} \right] z^{-n}.
+  \]</span> As <span class="math inline">\(\{n &gt; 0\} + \{n \leq 0\} = 1\)</span> and <span class="math inline">\(\{m &gt; 0\} + \{m \leq 0\} = 1,\)</span> this expression can be rewritten as <span class="math display">\[
+  \psi(z) = w_{-}(z) - x_-(z) y(z) = \sum_{n \in \mathbb{Z}} \left[ \sum_{m \in \mathbb{Z}}(\{n \leq 0\} - \{m \leq 0\}) a_{mn} \right] z^{-n}.
+  \]</span> The functions <span class="math inline">\(\phi(z)\)</span> and <span class="math inline">\(\psi(z)\)</span> are defined in an non-empty annulus centered on the origin, inside and outside <span class="math inline">\(\mathbb{U}\)</span> respectively, and have the same Laurent series expansion. Consequently, they share a common holomorphic extension in a neighbourhood of <span class="math inline">\(\mathbb{U}.\)</span> Hence, <span class="math inline">\(x_{\pm}(z) y(z)\)</span> is a defining function of <span class="math inline">\((x \ast y)(f).\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="example--filtering-a-pure-frequency." class="level3">
+
+<div class="p"><h3><a href="#example--filtering-a-pure-frequency.">Example – Filtering a Pure Frequency.</a></h3>‌ Let <span class="math inline">\(h(t)\)</span> be a quickly decreasing signal and consider the filter that associates to the slowly increasing input <span class="math inline">\(u(t)\)</span> the slowly increasing output <span class="math inline">\(y(t) = (h \ast u)(t).\)</span> The transfer function <span class="math inline">\(h(z)\)</span> of this filter is holomorphic in a neighbourghood of <span class="math inline">\(\mathbb{U}.\)</span> Let <span class="math inline">\(f_0 &gt; 0;\)</span> if <span class="math inline">\(u(t) = e^{i 2\pi f_0 t},\)</span> we have <span class="math display">\[
+  y_{\pm}(z) = h(z) \times \frac{\Delta t}{1 - z e^{-i2\pi f_0 \Delta t}}.
+  \]</span> It is clear that the difference between this defining function and <span class="math display">\[
+  \phi(z) = h(z=e^{i2\pi f_0 t}) \times \frac{\Delta t}{1 - z e^{-i2\pi f_0 \Delta t}}
+  \]</span> can be extended to a holomorphic function in a neighbourghood of <span class="math inline">\(\mathbb{U}.\)</span> Hence, <span class="math inline">\(\phi(z)\)</span> is also defining function for <span class="math inline">\(y(f)\)</span> (moreover, it is standard). From this defining function, the results of section <a href="#modulation">Modulation</a> show that <span class="math display">\[
+  y(t) = h(f=f_0) \times e^{i 2\pi f_0 t}.
+  \]</span></div>
+</section>
+</section>
+<section id="fourier-inversion-formula" class="level2">
+<h2><a href="#fourier-inversion-formula">Fourier Inversion Formula</a></h2>
+<p>We already know enough about operational calculus of hyperfunctions to prove some interesting results. For example, we may now deal with the extension of the Fourier Inversion Formula to slowly increasing signals (in the time domain) or hyperfunctions (in the frequency domain).</p>
+<section id="theorem--fourier-inversion-formula" class="level3">
+
+<div class="p"><h3><a href="#theorem--fourier-inversion-formula">Theorem – Fourier Inversion Formula</a></h3>‌. Let <span class="math inline">\(x(t)\)</span> be a slowly increasing signal and <span class="math inline">\(x(f)\)</span> its Fourier transform. We have <span class="math display">\[
+  x(t) = \int_{-\Delta f/2}^{+\Delta f / 2} x(f) e^{i2\pi f t} \, df.
+  \]</span></div>
+</section>
+<section id="remark.-6" class="level3">
+
+<div class="p"><h3><a href="#remark.-6">Remark.</a></h3>‌The first step is obviously to check that the right-hand side means something, before that we prove that its is equal to <span class="math inline">\(x(t).\)</span> The Fourier transform <span class="math inline">\(x(f)\)</span> is defined as a <span class="math inline">\(\Delta f\)</span>-periodic hyperfunction. For any time <span class="math inline">\(t \in \mathbb{Z} \Delta t,\)</span> the function <span class="math inline">\(f \mapsto e^{i2\pi f t}\)</span> is analytic and <span class="math inline">\(\Delta f\)</span>-periodic, hence <span class="math inline">\(x(f) e^{i2\pi f t}\)</span> is defined as a <span class="math inline">\(\Delta f\)</span>-periodic hyperfunction. Therefore its integral over one period is well defined.</div>
+</section>
+<section id="proof.-6" class="level3">
+
+<div class="p"><h3><a href="#proof.-6">Proof.</a></h3>‌If <span class="math inline">\(t = n \Delta t,\)</span> <span class="math inline">\(e^{i 2 \pi f t} = (e^{i 2 \pi f \Delta t})^n,\)</span> hence the product <span class="math inline">\(y(f) = x(f) e^{i2\pi f t}\)</span> is defined by <span class="math inline">\(y_{\pm}(z) = x_{\pm}(z) z^n.\)</span> The integral with respect to <span class="math inline">\(f\)</span> of <span class="math inline">\(y(f)\)</span> is then given for any <span class="math inline">\(r \in \left]0,1\right[\)</span> by <span class="math display">\[
+  \frac{1}{i2\pi} 
+  \left[   \int_{r[\circlearrowleft]} 
+         - \int_{r^{-1}[\circlearrowleft]} 
+  \right]
+    \frac{y_{\pm}(z)}{z\Delta t} 
+  \, d z
+  \]</span> or after obvious simplifications <span class="math display">\[
+  \frac{1}{i2\pi} 
+  \left[   \int_{r[\circlearrowleft]} 
+         - \int_{r^{-1}[\circlearrowleft]} 
+  \right]
+    \frac{x_{\pm}(z)}{\Delta t} z^{n-1}  \, d z
+  \]</span> and we have already established in the “Inversion Formula” theorem of the <a href="#standard-defining-function">Standard Defining Function</a> section that this expression is equal to <span class="math inline">\(x(t).\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+</section>
+</section>
+<section id="bibliography" class="level1 unnumbered">
+<h1><a href="#bibliography">Bibliography</a></h1>
+<div id="refs" class="references"><ol><li id="ref-Kan88" style="margin-bottom:0.75em"><em>Introduction to Hyperfunctions</em><br>Akira Kaneko, 1988.<br>JSON: <a href="data:application/json;charset=utf-8;fontSize64,ewogICJJU0JOIjogIjkwLTI3Ny0yODM3LTIiLAogICJhdXRob3IiOiBbCiAgICB7CiAgICAgICJmYW1pbHkiOiAiS2FuZWtvIiwKICAgICAgImdpdmVuIjogIkFraXJhIgogICAgfQogIF0sCiAgImlkIjogIkthbjg4IiwKICAiaXNzdWVkIjogewogICAgImRhdGUtcGFydHMiOiBbCiAgICAgIFsKICAgICAgICAxOTg4CiAgICAgIF0KICAgIF0KICB9LAogICJwdWJsaXNoZXIiOiAiS2x1d2VyIEFjYWRlbWljIFB1Ymxpc2hlcnMiLAogICJ0aXRsZSI6ICJJbnRyb2R1Y3Rpb24gdG8gaHlwZXJmdW5jdGlvbnMiLAogICJ0eXBlIjogImJvb2siCn0="><i style="font-size:18px;position:relative;bottom:0.05em;" class="fa fa-file-text-o"></i></a>&nbsp;</li><li id="ref-Knu92" style="margin-bottom:0.75em"><em>Two Notes on Notation</em><br>Donald Ervin Knuth, 1992.<br>JSON: <a href="data:application/json;charset=utf-8;fontSize64,ewogICJET0kiOiAiMTAuMjMwNy8yMzI1MDg1IiwKICAiVVJMIjogImh0dHA6Ly93d3cubWFhLm9yZy9zaXRlcy9kZWZhdWx0L2ZpbGVzL2ltYWdlcy9pbWFnZXMvdXBsb2FkX2xpYnJhcnkvMjIvRm9yZC9rbnV0aDQwMy00MjIucGRmIiwKICAiYXV0aG9yIjogWwogICAgewogICAgICAiZmFtaWx5IjogIktudXRoIiwKICAgICAgImdpdmVuIjogIkRvbmFsZCBFcnZpbiIKICAgIH0KICBdLAogICJjb250YWluZXItdGl0bGUiOiAiQW1lcmljYW4gTWF0aGVtYXRpY2FsIE1vbnRobHkiLAogICJpZCI6ICJLbnU5MiIsCiAgImlzc3VlZCI6IHsKICAgICJkYXRlLXBhcnRzIjogWwogICAgICBbCiAgICAgICAgMTk5MgogICAgICBdCiAgICBdCiAgfSwKICAidGl0bGUiOiAiVHdvIG5vdGVzIG9uIG5vdGF0aW9uIiwKICAidHlwZSI6ICJhcnRpY2xlLWpvdXJuYWwiLAogICJ2b2x1bWUiOiAiOTkoNSkiCn0="><i style="font-size:18px;position:relative;bottom:0.05em;" class="fa fa-file-text-o"></i></a>&nbsp; / URL: <a href="http://www.maa.org/sites/default/files/images/images/upload_library/22/Ford/knuth403-422.pdf"><i style="font-size:18px" class="fa fa-link"></i></a>  / DOI: <a href="https://doi.org/10.2307/2325085"><i style="font-size:18px" class="fa fa-link"></i></a></li><li id="ref-Sat59" style="margin-bottom:0.75em"><em>Theory of Hyperfunctions I</em><br>Mikio Sato, 1959.<br>JSON: <a href="data:application/json;charset=utf-8;fontSize64,ewogICJVUkwiOiAiaHR0cDovL3JlcG9zaXRvcnkuZGwuaXRjLnUtdG9reW8uYWMuanAvZHNwYWNlL2JpdHN0cmVhbS8yMjYxLzYwMjcvMS9qZnMwODAxMDQucGRmIiwKICAiYXV0aG9yIjogWwogICAgewogICAgICAiZmFtaWx5IjogIlNhdG8iLAogICAgICAiZ2l2ZW4iOiAiTWlraW8iCiAgICB9CiAgXSwKICAiY29udGFpbmVyLXRpdGxlIjogIkpvdXJuYWwgb2YgdGhlIEZhY3VsdHkgb2YgU2NpZW5jZSwgdGhlIFVuaXZlcnNpdHkgb2YgVG9reW8uIFNlY3QuIDEgQSwgTWF0aGVtYXRpY3MiLAogICJpZCI6ICJTYXQ1OSIsCiAgImlzc3VlZCI6IHsKICAgICJkYXRlLXBhcnRzIjogWwogICAgICBbCiAgICAgICAgMTk1OQogICAgICBdCiAgICBdCiAgfSwKICAidGl0bGUiOiAiVGhlb3J5IG9mIGh5cGVyZnVuY3Rpb25zIEkiLAogICJ0eXBlIjogImFydGljbGUtam91cm5hbCIsCiAgInZvbHVtZSI6ICI4Igp9"><i style="font-size:18px;position:relative;bottom:0.05em;" class="fa fa-file-text-o"></i></a>&nbsp; / URL: <a href="http://repository.dl.itc.u-tokyo.ac.jp/dspace/bitstream/2261/6027/1/jfs080104.pdf"><i style="font-size:18px" class="fa fa-link"></i></a></li><li id="ref-Str00" style="margin-bottom:0.75em"><em>Signal Processing for Everyone</em><br>Gilbert Strang, 2000.<br>JSON: <a href="data:application/json;charset=utf-8;fontSize64,ewogICJET0kiOiAiMTAuMTAwNy9CRmIwMTAzOTI0IiwKICAiSVNCTiI6ICI5NzgtMy01NDAtNjc3ODItNiIsCiAgIlVSTCI6ICJodHRwOi8vd3d3LW1hdGgubWl0LmVkdS9+Z3MvcGFwZXJzL25ld3NpZ3Byb2MucGRmIiwKICAiYXV0aG9yIjogWwogICAgewogICAgICAiZmFtaWx5IjogIlN0cmFuZyIsCiAgICAgICJnaXZlbiI6ICJHaWxiZXJ0IgogICAgfQogIF0sCiAgImNvbGxlY3Rpb24tdGl0bGUiOiAiTGVjdHVyZSBOb3RlcyBpbiBNYXRoZW1hdGljcywiLAogICJjb250YWluZXItdGl0bGUiOiAiQ29tcHV0YXRpb25hbCBNYXRoZW1hdGljcyBEcml2ZW4gYnkgSW5kdXN0cmlhbCBQcm9ibGVtcyIsCiAgImVkaXRvciI6IFsKICAgIHsKICAgICAgImZhbWlseSI6ICJCdXJrYXJkIiwKICAgICAgImdpdmVuIjogIlJhaW5lciIKICAgIH0sCiAgICB7CiAgICAgICJmYW1pbHkiOiAiSmFtZXNvbiIsCiAgICAgICJnaXZlbiI6ICJBbnRob255IgogICAgfSwKICAgIHsKICAgICAgImZhbWlseSI6ICJTdHJhbmciLAogICAgICAiZ2l2ZW4iOiAiR2lsYmVydCIKICAgIH0sCiAgICB7CiAgICAgICJmYW1pbHkiOiAiRGV1ZmxoYXJkIiwKICAgICAgImdpdmVuIjogIlBldGVyIgogICAgfSwKICAgIHsKICAgICAgImZhbWlseSI6ICJMaW9ucyIsCiAgICAgICJnaXZlbiI6ICJKYWNxdWVzLUxvdWlzIgogICAgfSwKICAgIHsKICAgICAgImZhbWlseSI6ICJDYXBhc3NvIiwKICAgICAgImdpdmVuIjogIlZpbmNlbnpvIgogICAgfSwKICAgIHsKICAgICAgImZhbWlseSI6ICJQZXJpYXV4IiwKICAgICAgImdpdmVuIjogIkphY3F1ZXMiCiAgICB9LAogICAgewogICAgICAiZmFtaWx5IjogIkVuZ2wiLAogICAgICAiZ2l2ZW4iOiAiSGVpbnoiCiAgICB9CiAgXSwKICAiaWQiOiAiU3RyMDAiLAogICJpc3N1ZWQiOiB7CiAgICAiZGF0ZS1wYXJ0cyI6IFsKICAgICAgWwogICAgICAgIDIwMDAKICAgICAgXQogICAgXQogIH0sCiAgInBhZ2UiOiAiMzY2LTQxMiIsCiAgInRpdGxlIjogIlNpZ25hbCBwcm9jZXNzaW5nIGZvciBldmVyeW9uZSIsCiAgInR5cGUiOiAiY2hhcHRlciIsCiAgInZvbHVtZSI6ICIxNzM5Igp9"><i style="font-size:18px;position:relative;bottom:0.05em;" class="fa fa-file-text-o"></i></a>&nbsp; / URL: <a href="http://www-math.mit.edu/~gs/papers/newsigproc.pdf"><i style="font-size:18px" class="fa fa-link"></i></a>  / DOI: <a href="https://doi.org/10.1007/BFb0103924"><i style="font-size:18px" class="fa fa-link"></i></a></li></ol></div>
+</section>
+<section class="footnotes" id="notes"><h1><a href="#notes">Notes</a></h1>
+<hr>
+<ol>
+<li id="fn1"><p>Actually, Kenneth Iverson originally used the syntax <span class="math inline">\((\, \cdot \,)\)</span> while Donald Knuth prefers <span class="math inline">\([\, \cdot \,]\)</span> <span class="citation" data-cites="Knu92">(see Knuth <a href="#ref-Knu92">1992</a>)</span>.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>A similar situation happens in the construction of real numbers, at the stage where the rational numbers are available, but not yet the real numbers. You can then think of “<span class="math inline">\(\pi\)</span>” as the sequence of decimal approximations <span class="math inline">\(3,\)</span> <span class="math inline">\(31/10,\)</span> <span class="math inline">\(314/100,\)</span> etc., but the question “Is <span class="math inline">\(\pi\)</span> the limit of this sequence?” is meaningless. It only starts to make sense when you have constructed the set of real numbers, embedded the rational numbers in it and defined a topology on the real numbers. Then, finally, the answer is “yes”!<a href="#fnref2">↩</a></p></li>
+</ol>
+</section>
+</main>
+
+
+</body></html>

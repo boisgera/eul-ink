@@ -1,0 +1,24 @@
+#!/bin/bash
+set -euo pipefail
+
+DOC="Analytic Functions"
+DIR="/www/complex-analysis"
+HOST=www.eul.ink
+LOGIN=boisgera
+
+# Helpers
+# ------------------------------------------------------------------------------
+escape () {
+  echo $(printf %q "$1")
+}
+
+me="$LOGIN@$HOST"
+target="$DIR"/$(escape "$DOC")
+
+# Main
+# ------------------------------------------------------------------------------
+ssh "$me" mkdir -p "$target"
+images=$(ls -d images 2>/dev/null || true)
+cp "$DOC".html "index.html"
+rsync -av "$DOC".{txt,html,pdf,zip} index.html "$images" "$me:$target"
+

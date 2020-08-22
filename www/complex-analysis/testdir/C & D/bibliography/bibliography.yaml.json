@@ -1,0 +1,266 @@
+[
+  {
+    "ISBN": "0-07-054234-1",
+    "author": [
+      {
+        "family": "Rudin",
+        "given": "Walter"
+      }
+    ],
+    "edition": "3rd ed.",
+    "id": "Rud87",
+    "issued": {
+      "date-parts": [
+        [
+          1987.0
+        ]
+      ]
+    },
+    "page": "xiv + 416",
+    "publisher": "McGraw-Hill",
+    "title": "Real and complex analysis. 3rd ed.",
+    "type": "book"
+  },
+  {
+    "URL": "https://www-fourier.ujf-grenoble.fr/~demailly/manuscripts/variable_complexe.pdf",
+    "author": [
+      {
+        "family": "Demailly",
+        "given": "Jean-Pierre"
+      }
+    ],
+    "id": "Dem09",
+    "issued": {
+      "date-parts": [
+        [
+          2009.0
+        ]
+      ]
+    },
+    "language": "French",
+    "title": "Fonctions holomorphes et surfaces de riemann.",
+    "type": "book"
+  },
+  {
+    "author": [
+      {
+        "family": "Grauert",
+        "given": "Hans"
+      },
+      {
+        "family": "Remmert",
+        "given": "Reinhold"
+      }
+    ],
+    "container-title": "Grundlehren der Mathematischen Wissenschaften",
+    "id": "GR84",
+    "issued": {
+      "date-parts": [
+        [
+          1984.0
+        ]
+      ]
+    },
+    "publisher": "Springer-Verlag. XVIII, 249 p. DM 118.00; \\\\\\$ 46.30 (1984).'",
+    "title": "Coherent analytic sheaves.",
+    "type": "book"
+  },
+  {
+    "ISBN": "0-387-97195-5",
+    "author": [
+      {
+        "family": "Remmert",
+        "given": "Reinhold"
+      }
+    ],
+    "id": "Rem91",
+    "issued": {
+      "date-parts": [
+        [
+          1991.0
+        ]
+      ]
+    },
+    "page": "xix + 453",
+    "publisher": "Springer-Verlag.",
+    "title": "Theory of complex functions. Translation from the German by Robert B. Burckel.",
+    "type": "book"
+  },
+  {
+    "URL": "http://gallica.bnf.fr/ark:/12148/bpt6k99571w",
+    "author": [
+      {
+        "family": "Briot",
+        "given": "Charles"
+      },
+      {
+        "family": "Bouquet",
+        "given": "Jean-Claude"
+      }
+    ],
+    "edition": "2nd ed.",
+    "id": "BB75",
+    "issued": {
+      "date-parts": [
+        [
+          1875.0
+        ]
+      ]
+    },
+    "language": "French",
+    "publisher": "Gauthier-Villars, Paris",
+    "title": "Théorie des fonctions elliptiques.",
+    "type": "book"
+  },
+  {
+    "author": [
+      {
+        "family": "Titchmarsh",
+        "given": "Edward Charles"
+      }
+    ],
+    "edition": "2nd ed.",
+    "id": "Tit75",
+    "issued": {
+      "date-parts": [
+        [
+          1975.0
+        ]
+      ]
+    },
+    "publisher": "Oxford University Press.",
+    "title": "The theory of functions.",
+    "type": "book"
+  },
+  {
+    "author": [
+      {
+        "family": "Ahlfors",
+        "given": "Lars Valerian"
+      }
+    ],
+    "id": "Ahl79",
+    "issued": {
+      "date-parts": [
+        [
+          1979.0
+        ]
+      ]
+    },
+    "publisher": "International Series in Pure and Applied Mathematics, McGraw-Hill, New York-Auckland-Düsseldorf.",
+    "title": "Complex analysis. An introduction to the theory of analytic functions of one complex variable.",
+    "type": "book"
+  },
+  {
+    "DOI": "10.2307/1986253",
+    "ISSN": "0002-9947; 1088-6850/e",
+    "author": [
+      {
+        "family": "Pringsheim",
+        "given": "A."
+      }
+    ],
+    "container-title": "Trans. Am. Math. Soc.",
+    "id": "Pri01",
+    "issued": {
+      "date-parts": [
+        [
+          1901.0
+        ]
+      ]
+    },
+    "page": "404-412",
+    "publisher": "American Mathematical Society (AMS), Providence, RI",
+    "title": "Über die Anwendung der <i>Cauchy</i>schen Multiplikationsregel auf bedingt konvergente oder divergente Reihen.",
+    "type": "article-journal",
+    "volume": "2"
+  },
+  {
+    "author": [
+      {
+        "family": "Hille",
+        "given": "Einar"
+      }
+    ],
+    "edition": "2nd ed. corrected.",
+    "id": "Hil73",
+    "issued": {
+      "date-parts": [
+        [
+          1973.0
+        ]
+      ]
+    },
+    "publisher": "Chelsea Publishing Company.",
+    "title": "Analytic function theory. Vol. I, II.",
+    "type": "book"
+  },
+  {
+    "DOI": "10.2307/1986398",
+    "ISSN": "0002-9947; 1088-6850/e",
+    "author": [
+      {
+        "family": "Goursat",
+        "given": "Edouard"
+      }
+    ],
+    "container-title": "Transactions of the American Mathematical Society.",
+    "id": "Gou00",
+    "issued": {
+      "date-parts": [
+        [
+          1900.0
+        ]
+      ]
+    },
+    "page": "14-16",
+    "publisher": "American Mathematical Society (AMS), Providence, RI.",
+    "title": "Sur la définition générale des fonctions analytiques d’après Cauchy.",
+    "type": "article-journal",
+    "volume": "1"
+  },
+  {
+    "DOI": "10.3931/e-rara-26300",
+    "URL": "http://www.e-rara.ch/zut/doi/10.3931/e-rara-26300",
+    "author": [
+      {
+        "family": "Cauchy",
+        "given": "Augustin-Louis"
+      }
+    ],
+    "id": "Cau25",
+    "issued": {
+      "date-parts": [
+        [
+          1825.0
+        ]
+      ]
+    },
+    "language": "French",
+    "publisher": "Chez de Bure Frères.",
+    "title": "Mémoire sur les intégrales définies, prise entre des limites imaginaires.",
+    "type": "book"
+  },
+  {
+    "URL": "http://projecteuclid.org/euclid.rae/1337001388",
+    "author": [
+      {
+        "family": "Freiling",
+        "given": "Chris"
+      }
+    ],
+    "container-title": "Real Analysis Exchange",
+    "id": "Fre99",
+    "issued": {
+      "date-parts": [
+        [
+          1999.0
+        ]
+      ]
+    },
+    "page": "805-812",
+    "title": "On the problem of characterizing derivatives",
+    "type": "article-journal",
+    "volume": "23(2)"
+  }
+]

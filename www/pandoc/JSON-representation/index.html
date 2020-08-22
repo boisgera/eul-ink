@@ -1,0 +1,174 @@
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, Mines ParisTech">
+  <meta name="dcterms.date" content="2016-02-14">
+  <title>Pandoc – JSON Representation</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<link href="css/style.css" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Alegreya:400,400italic,700,700italic|Alegreya+SC:400,400italic,700,700italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"></head>
+<body>
+<header>
+<h1 class="title">Pandoc – JSON Representation</h1>
+
+<h2 class="author">
+By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, Mines ParisTech, under <a href="http://creativecommons.org/licenses/by/4.0/">CC-BY-4.0</a>
+</h2> 
+
+<h3 class="date">February 14, 2016</h3>
+</header>
+<p><a href="http://pandoc.org/">Pandoc</a> provides a very handy document model; it can be used systematically to generate, analyze and transform pandoc documents. However, it is available as a collection of <a href="https://www.haskell.org/">Haskell</a> types and maybe, <em>you don’t want to learn Haskell!</em></p>
+<p>You know what? This is fine. Even if pandoc is a <a href="http://johnmacfarlane.net/BayHac2014/#/i-created-a-virus">virus that spreads Haskell</a> according to its author, you have other options. The standard advice (see “<a href="http://pandoc.org/scripting.html">Scripting with pandoc</a>”) is to rely on JSON import/export features and then to use your preferred dynamic language – Python, Javascript, etc. – to perform your task.</p>
+<p>This article documents the pandoc JSON conversion rules. Read it if you intend to work directly with the JSON data produced by pandoc or to better understand the inner workings and limitations of the pandoc tools that are not based on Haskell, such as <a href="https://pypi.python.org/pypi/pandocfilters">pandocfilters</a>.</p>
+<section id="getting-started" class="level1">
+<h1>Getting Started</h1>
+<p>If you have not done so already, it’s probably a good idea to have a look at <a href="../document-structure/index.html">“Pandoc – Document Structure”</a> for an introduction to the pandoc document model. At the very least, install GHC &amp; the pandoc library, start GHCi and import the following modules:</p>
+<pre><code>&gt; import Data.Map (Map, fromList, empty)
+&gt; import Text.Pandoc.Definition</code></pre>
+<p>Now, we consider specifically the representation of data as JSON strings; pandoc doesn’t reinvent the wheel but instead leverages the <a href="https://hackage.haskell.org/package/aeson">aeson</a> package. The function <code>js</code> below displays the JSON representation of pandoc data:</p>
+<pre><code>&gt; import Data.Aeson (encode, ToJSON)
+&gt; import qualified Data.ByteString.Lazy.Char8 as BS
+&gt; let js x = (BS.putStrLn . encode) x</code></pre>
+</section>
+<section id="the-rules" class="level1">
+<h1>The Rules</h1>
+<p>The set of rules used to convert pandoc document data to JSON are described in this section. A few exceptions to these rules are the topic of <a href="#the-exceptions">the next one</a>.</p>
+<section id="primitive-types" class="level2">
+<h2>Primitive Types</h2>
+<p>Let’s start with the basic types used in the pandoc document model: booleans, integers, doubles and strings:</p>
+<pre><code>&gt; js True
+true
+&gt; js 42
+42
+&gt; js 3.14
+3.14
+&gt; js "text"
+"text"</code></pre>
+<p>Nothing too surprising so far.</p>
+</section>
+<section id="standard-containers" class="level2">
+<h2>Standard Containers</h2>
+<p>Consider the standard containers used in Haskell: lists, tuples and maps.</p>
+<pre><code>&gt; js ["a", "b", "c"]
+["a","b","c"]
+&gt; js (True, 1, "text")
+[true,42,"text"]
+&gt; let map = fromList [("a", 1), ("b", 2)]
+&gt; js map
+{"a":1,"b":2}</code></pre>
+<p>To summarize:</p>
+<ul>
+<li><p>Haskell lists and tuples are converted to javascript lists – there is no tuple type in javascript – and maps to javascript objects.</p></li>
+<li><p>These conversion rules are applied recursively to container items.</p></li>
+</ul>
+<p>So we have for example:</p>
+<pre><code>&gt; js ("a", ["b"], [("c", "d")])
+["a",["b"],[["c","d"]]]</code></pre>
+</section>
+<section id="pandoc-types" class="level2">
+<h2>Pandoc Types</h2>
+<p>The value of a pandoc type is converted to a javascript object with:</p>
+<ul>
+<li><p>a <em>type (constructor)</em> property – key <code>t</code> – for the constructor name,</p></li>
+<li><p>a <em>contents</em> property – key <code>c</code> – for the list of (converted) arguments.</p></li>
+</ul>
+<p>Consider for example <code>MathType</code>; both its constructors take no argument:</p>
+<pre><code>&gt; :info MathType
+data MathType = DisplayMath | InlineMath</code></pre>
+<p>Hence, the value <code>InlineMath</code> gets converted as:</p>
+<pre><code>&gt; js InlineMath
+{"t":"InlineMath","c":[]}</code></pre>
+<p>Now, the <code>Math</code> (<code>Inline</code>) constructor has math type and string arguments:</p>
+<pre><code>&gt; :info Math
+data Inline = ... | Math MathType String | ...</code></pre>
+<p>Therefore, it is converted as:</p>
+<pre><code>&gt; js (Math InlineMath "a=1")
+{"t":"Math","c":[{"t":"InlineMath","c":[]},"a=1"]}</code></pre>
+</section>
+<section id="pandoc-records" class="level2">
+<h2>Pandoc Records</h2>
+<p>Records are converted to javascript objects with:</p>
+<ul>
+<li><p>a <em>type</em> property – key <code>t</code> – for the constructor name,</p></li>
+<li><p>a property for each record field (the value is converted).</p></li>
+</ul>
+<p>For example:</p>
+<pre><code>&gt; :info Citation
+data Citation
+  = Citation {citationId :: String,
+              citationPrefix :: [Inline],
+              citationSuffix :: [Inline],
+              citationMode :: CitationMode,
+              citationNoteNum :: Int,
+              citationHash :: Int}</code></pre>
+<p>Hence, we should have:</p>
+<pre><code>&gt; js (Citation "" [] [] NormalCitation 0 0)
+{"t":"Citation",
+ "citationSuffix":[],
+ "citationNoteNum":0,
+ "citationMode":{"t":"NormalCitation","c":[]},
+ "citationPrefix":[],
+ "citationId":"",
+ "citationHash":0}</code></pre>
+<p>Actually this is not <em>exactly</em> what happens because citations fall into the scope of the “single constructor” exception explained in the next section. I would happily show you an example of a pandoc record that is converted according to the general rule … but the only other one is <code>Meta</code> and it’s also an exception!</p>
+</section>
+</section>
+<section id="the-exceptions" class="level1">
+<h1>The Exceptions</h1>
+<p>There are some exceptions to the general rules above. You may also use a less negative wording and call them <em>optimizations</em>; indeed, they always reduce the length of JSON representations.</p>
+<section id="single-constructor-argument" class="level2">
+<h2>Single Constructor Argument</h2>
+<p>Consider for example</p>
+<pre><code>&gt; :info Str
+data Inline = Str String | ...</code></pre>
+<p>Obviously, <code>Str "text"</code> should be converted as <code>{"t":"Str","c":["text"]}</code>, right ? Think again:</p>
+<pre><code>&gt; js (Str "text")
+{"t":"Str","c":"text"}</code></pre>
+<p>When constructors have a single argument, the list associated to the <code>c</code> key is unwrapped. Be careful: only one list level is removed; for example, for the emphasis</p>
+<pre><code>&gt; :info Emph
+data Inline = ... | Emph [Inline] | ...</code></pre>
+<p>we have</p>
+<pre><code>&gt; js (Emph [Str "text"])
+{"t":"Emph","c":[{"t":"Str","c":"text"}]}</code></pre>
+<p>instead of <code>{"t":"Emph","c":[[{"t":"Str","c":"text"}]]}</code>.</p>
+</section>
+<section id="single-type-constructor" class="level2">
+<h2>Single Type Constructor</h2>
+<p>If a value has a type with a single constructor and you know this type, then the type constructor property of the JSON data is redundant and pandoc gets rid of it.</p>
+<p>For example, consider</p>
+<pre><code>&gt; :info Meta
+newtype Meta
+  = Meta {unMeta :: Map String MetaValue}
+...</code></pre>
+<p>The JSON representation of the empty metadata <code>nullMeta</code> should be <code>{"t":Meta,"unMeta":{}}</code>. But if you know that you deal with a value of type <code>Meta</code>, given that there is a single constructor (also called <code>Meta</code>) for this type, pandoc does not need the type constructor information to interpret the JSON data, and hence, it does not include it. You have instead:</p>
+<pre><code>&gt; js nullMeta
+{"unMeta":{}}</code></pre>
+<p>Similarly, consider the <code>Format</code> type:</p>
+<pre><code>&gt; :info Format
+newtype Format = Format String
+...</code></pre>
+<p>For <code>Format "html"</code>, instead of <code>{"t":"Format","c":"html"}</code>, we can get rid of the <code>"t"</code> key and now, the whole javascript object becomes unnecessary, and only the value of the contents property remains:</p>
+<pre><code>&gt; js (Format "html")
+"html"</code></pre>
+</section>
+</section>
+<section id="does-it-work" class="level1">
+<h1>Does it Work?</h1>
+<p>Well sure, it works. I mean, pandoc can generate JSON data for a document and read it back unambiguously, so it works. Despite the optimizations performed by the exceptional rules and other sources of ambiguities. It works because at any depth of the interpretation of the JSON data, Haskell has access to the type hierarchy, and therefore knows the type of the data to be evaluated.</p>
+<p>But the situation is typically different in a dynamic language, where your code probably knows very little about the pandoc types and expects to read this information at runtime, directly in the JSON data, alongside the values.</p>
+<p>If you don’t know the type of the data, you face the following ambiguities:</p>
+<ul>
+<li><p>tuples vs lists (both are JSON lists),</p></li>
+<li><p>maps vs pandoc types &amp; records (all of them are JSON objects),</p></li>
+<li><p>single constructor argument (list of argument vs single list argument),</p></li>
+<li><p>single type constructor (the type information stripped).</p></li>
+</ul>
+<p>The conclusion ? The optimizations – or exceptional rules – used by pandoc in the generation of JSON data are not such a great idea. They may save a few bytes here and there, but they also make JSON much more difficult to use as an exchange format.</p>
+<p>What is the solution ? Short of changing the pandoc JSON representation, if we want the same versatility in the processing of documents in Haskell and say in Python, it is to import and use the information about the pandoc document model in Python.</p>
+</section>
+
+
+</body></html>

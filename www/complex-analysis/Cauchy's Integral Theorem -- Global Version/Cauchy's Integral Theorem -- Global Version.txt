@@ -1,0 +1,693 @@
+% Cauchy's Integral Theorem -- Global Version
+% [Sébastien Boisgérault][email], Mines ParisTech
+
+[email]: mailto: Sebastien.Boisgerault@mines-paristech.fr
+
+---
+license: "[CC BY-NC-SA 4.0](http://creativecommons.org/licenses/by-nc-sa/4.0/)"
+---
+
+Path Sequences
+================================================================================
+
+It is convenient to state Cauchy's integral theorem for finite sequences of 
+paths instead of paths. 
+To this end, we generalize some of the concepts initially 
+defined for paths.
+
+**Definition -- Opposite & Concatenation.**
+The opposite of the path sequence 
+$\gamma = (\gamma_1, \dots,\gamma_n)$ is the path sequence
+  $$
+  \gamma^{\leftarrow} = (\gamma_n^{\leftarrow}, \dots, \gamma_1^{\leftarrow}).
+  $$
+The concatenation of the path sequences
+  $$
+  \alpha = (\alpha_1,\dots,\alpha_{k}) 
+  \; \mbox{ and } \;
+  \beta = (\beta_1,\dots,\beta_{l})
+  $$
+is the path sequence
+  $$
+  \alpha \, | \, \beta 
+  = 
+  (\alpha_1, \dots, \alpha_k, \beta_1, \dots, \beta_l).
+  $$
+
+**Definition -- Image.** 
+The image of the path sequence $\gamma=(\gamma_1,\dots,\gamma_n)$ is the set
+  $$
+  \gamma([0,1]) = \bigcup_{k=1}^n \gamma_k([0,1]).
+  $$ 
+
+**Definition -- Winding Number, Exterior, Interior.**
+If $\gamma=(\gamma_1, \dots,\gamma_n)$ is a sequence of closed paths 
+and $a \in \mathbb{C}$ is not on its image, 
+the winding number of $\gamma$ around $a$ is defined by
+  $$
+  \mathrm{ind}(\gamma, a)
+  = \sum_{k=1}^n \mathrm{ind}(\gamma_k, a).
+  $$
+The exterior of $\gamma$ is the set
+  $$
+  \mathrm{Ext} \, \gamma 
+  = 
+  \{
+    z \in \mathbb{C} \setminus \gamma([0,1]) 
+    \; | \;
+    \mathrm{ind}(\gamma, z) = 0
+  \}
+  $$
+and its interior is the set
+  $$
+  \mathrm{Int} \, \gamma 
+  =
+  \{
+    z \in \mathbb{C} \setminus \gamma([0,1]) 
+    \; | \;
+    \mathrm{ind}(\gamma, z) \neq 0
+  \}
+  $$
+or equivalently
+  $$
+  \mathrm{Int} \, \gamma 
+  =
+  \mathbb{C} \setminus (\gamma([0,1]) \cup \mathrm{Ext} \, \gamma).
+  $$
+
+![A pair $\gamma$ of two rectifiable closed paths in an 
+open set $\Omega$ represented in light grey. Both paths are concatenations of
+quadratic [Bézier curves.](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)](images/Q1.pdf)
+
+![This path sequence forms the [outline](https://en.wikipedia.org/wiki/Computer_font#Outline_fonts) of the capital "Q" letter in the 
+[League Spartan typeface](https://www.theleagueofmoveabletype.com/league-spartan).
+The interior of the path sequence is represented in dark grey; 
+as the two paths are oriented in opposite directions, 
+the interior of the path sequence is included in $\Omega.$ 
+The interior of the inner path does *not* belong 
+to the interior of the path sequence;
+a typographist would say that it is 
+[*a closed counter*](https://en.wikipedia.org/wiki/Counter_(typography)) of the letter.](images/Q2.pdf)
+
+**Definition -- Length & Line Integral.**
+Let $\gamma=(\gamma_1,\dots,\gamma_n)$ be a sequence of rectifiable paths.
+The length of $\gamma$ is defined as
+  $$
+  \ell(\gamma) = \sum_{k=1}^n \ell(\gamma_k).
+  $$
+The integral along $\gamma$ of a complex-valued function $f$ 
+which is defined and continuous on the image of $\gamma$ is
+  $$
+  \int_{\gamma} f(z) \, dz = \sum_{k=1}^n \int_{\gamma_k} f(z) \, dz.
+  $$
+
+
+Cauchy's Theorem & Corollaries
+================================================================================
+
+For the global version of Cauchy's integral theorem, 
+the star-shaped assumption is replaced by a weaker 
+geometric requirement:
+
+**Theorem -- Cauchy's Integral Theorem (Global Version).**
+Let $\Omega$ be an open subset of $\mathbb{C}$ and 
+let $f:\Omega \to \mathbb{C}$ be a holomorphic function. 
+Let $\gamma$ be a sequence of rectifiable closed paths of $\Omega.$
+If $\mathrm{Int} \, \gamma \subset \Omega$ then
+  $$
+  \int_{\gamma} f(z) \, dz = 0.
+  $$ 
+
+**Remark -- One or Two Paths.**
+This version of Cauchy's integral theorem is clearly applicable for a 
+single path $\gamma$ instead of a path sequence. 
+Now, the next common use case involves two rectifiable closed paths 
+$\gamma$ and $\mu$ of $\Omega$. 
+If they have the same winding number with respect to 
+any point which is not in $\Omega$:
+  $$
+  \forall \, z \in \mathbb{C} \setminus \Omega, \;
+  \mathrm{ind}(\gamma, z) = \mathrm{ind}(\mu, z),
+  $$
+then the interior of the path sequence $(\gamma, \mu^{\leftarrow})$ is
+included in $\Omega$ and Cauchy's integral theorem is applicable.
+Its conclusion provides
+  $$
+  \int_{\gamma} f(z) \, dz = \int_{\mu} f(z) \, dz.
+  $$
+
+**Remark -- Simply Connected Sets.** 
+If $\Omega$ is simply connected, 
+Cauchy's theorem is applicable for any sequence of 
+rectifiable closed paths $\gamma$ of $\Omega.$
+Indeed in any such set $\Omega,$
+for any path $\gamma$ 
+-- and thus for any sequence of paths $\gamma$ --
+we have $\mathrm{Int} \, \gamma \subset \Omega.$
+Since [any star-shaped set is simply connected][star-shaped], 
+the [local version of Cauchy's theorem][local Cauchy] is a special 
+case of the [global version][global Cauchy].
+
+[star-shaped]: ../The Winding Number/Exercises/#question {.preview}
+[local Cauchy]: ../Cauchy's Integral Theorem -- Local Version/#theorem--cauchys-integral-theorem-star-shaped-version. {.preview}
+[global Cauchy]: #theorem--cauchys-integral-theorem-global-version. {.preview}
+
+-----
+
+Cauchy's residue theorem is a generalization of his integral theorem.
+It covers the case where the interior of the path sequence $\gamma$
+is included in the domain $\Omega$ of the holomorphic function $f,$ 
+except for a set of *isolated singularities*.
+The integral of $f$ along $\gamma$ in this case 
+can be computed in terms of the *residues* of the function 
+at these singularities.
+
+**Definition -- Singularity.** 
+Let $\Omega$ be an open subset of $\mathbb{C}$.
+A *singularity* of a function $f:\Omega \to \mathbb{C}$ 
+is a point $a$ of $\mathbb{C} \setminus \Omega.$ 
+It is *isolated* if its distance to the other singularities of $f$
+is positive:
+  $$
+  \exists \, \epsilon > 0, \;
+  \forall \, z \in \mathbb{C}, \;
+  (|z - a| < \epsilon \, \mbox{ and } z\neq a\,)\, \Rightarrow \, z \in \Omega.
+  $$
+
+
+
+**Definition -- Residue.** 
+Let $a$ be an isolated singularity of the holomorphic function
+$f:\Omega \to \mathbb{C}.$
+Let $d$ be the distance between $a$ and the other singularities of
+$f$ ($+\infty$ if $a$ is the only singularity of $f$).
+The integral of $f$ along $\gamma = a + r [\circlearrowleft]$ 
+is defined and independent of $r$ as long as $0 < r < d.$ 
+We define the *residue* of $f$ at $a$ as
+  $$
+  \mathrm{res}(f,a) = \frac{1}{i2\pi}\int_{\gamma} f(z) \, dz
+  $$
+for any such $r.$
+
+**Examples -- Singularity & Residue.** 
+Let $a\in\mathbb{C}$ and 
+  $$
+  f: z \in \mathbb{C} \setminus \{a\} \mapsto \frac{1}{z-a}.
+  $$
+The point $a$ is the only singularity of $f;$ it is clearly isolated.
+For any $r >0$ and $\gamma = a + r[\circlearrowleft]$
+we have
+  $$
+  \int_{\gamma} f(z) \, dz
+  =
+  \int_{\gamma} \frac{dz}{z-a}
+  = 
+  i2\pi \times \mathrm{ind}(\gamma, a) = i2\pi,
+  $$
+thus $\mathrm{res}(f,a) = 1.$ Now, let $a\in\mathbb{C}$ and let
+  $$
+  f: z \in \mathbb{C} \setminus \{a\} \mapsto (z - a)^n
+  \; \mbox{ where } \; n\in \mathbb{Z} \setminus \{-1\}.
+  $$
+Since $z \in \mathbb{C} \setminus \{a\} \mapsto (z-a)^{n+1}/(n+1)$ 
+is a primitive of $f,$
+  $$
+  \int_{\gamma} f(z) \, dz
+  =
+  \int_{\gamma} (z-a)^n \, dz
+  = 0,
+  $$
+thus $\mathrm{res}(f,a) = 0.$
+  
+**Proof -- Residue: independence with respect to the radius.** 
+Let $r_1$ and $r_2$ be two real numbers in $\left]0,d\right[$
+and 
+let $\gamma_1 = z + r_1 [\circlearrowleft]$ and 
+$\gamma_2 = z + r_2 [\circlearrowleft].$
+If $z \in \mathbb{C} \setminus \Omega$, either $z=a$ and
+  $$
+  \mathrm{ind}(\gamma_1,z) = \mathrm{ind}(\gamma_2, z) = 1,
+  $$
+or $|z-a| \geq d$ and
+  $$
+  \mathrm{ind}(\gamma_1,z) = \mathrm{ind}(\gamma_2, z) = 0.
+  $$
+In any case the winding numbers are equal. 
+The ["One or Two Paths" remark] therefore provides
+  $$
+  \int_{\gamma_{1}} f(z) \, dz =
+  \int_{\gamma_{2}} f(z) \, dz
+  $$
+which concludes the proof. \hfill $\blacksquare$
+
+["One or Two Paths" remark]: #remark--one-or-two-paths. {.preview}
+
+**Theorem -- Cauchy's Residue Theorem.**
+Let $\Omega$ be an open subset of $\mathbb{C}$ and
+let $f: \Omega \to \mathbb{C}$ be a holomorphic function.
+Let $\gamma$ be a sequence of rectifiable closed paths of $\Omega.$ 
+If $A$ is a finite set of isolated singularities of $f$ such that
+  $$
+  \mathrm{Int} \, \gamma \subset \Omega \cup A
+  $$
+then
+  $$
+  \int_{\gamma} f(z) \, dz 
+  = 
+  i 2 \pi \sum_{a \in A} \mathrm{ind}(\gamma, a) \times \mathrm{res}(f, a).
+  $$ 
+
+<!--
+**Remark -- About Infinite Sets of Singularities.** 
+Cauchy's residue theorem is still applicable if 
+The set of isolated singularities of $f$ may be infinite and therefore we could
+theoretically select a set $A$ which is also infinite. 
+However, as the set $\gamma([0,1]) \cup \mathrm{int} \, \gamma$ is compact, 
+there are only a finite number of the isolated singularities $a$ of $f$ 
+such that $\mathrm{ind}(\gamma, a) \neq 0.$ 
+Hence, if there is an infinite set $A$ set such that
+$\mathrm{Int} \, \gamma \subset \Omega \cup A,$ there is also a finite
+one that satisfies this assumption.
+Anyway, even if we work with an infinite set $A,$
+the sum in the right-hand side of the theorem equation 
+has only a finite number of nonzero terms.
+-->
+
+**Remark -- Infinite Set of Singularities.**
+Note that if we drop the assumption that $A$ is finite, 
+the conclusion of the theorem still holds since only a finite number
+of singularities of $A$ may be in the interior of $\gamma$([^finite]);
+the sum in the right-hand side of the theorem equation 
+may then have an infinite number of terms, 
+but only a finite number of them are non-zero.
+
+[^finite]: Indeed, 
+  assume instead that there is a infinite sequence of distincts points 
+  of $A$ in $\mathrm{Int} \, \gamma;$ 
+  by compactness a subsequence of it converges to some point $a$ in its closure. 
+  The singularities of $f$ are a closed set, 
+  thus $a$ is itself a singularity. 
+  Since the boundary of
+  $\mathrm{Int} \, \gamma$ is included in the image of $\gamma$ and hence
+  in $\Omega,$ the point $a$ actually belongs to $\mathrm{Int} \, \gamma.$ 
+  Now $\mathrm{Int} \, \gamma \subset \Omega \cup A,$ therefore 
+  $a\in A,$ but by construction it is not isolated, which is a contradiction.
+
+**Proof -- Cauchy's Residue Theorem.** 
+We may assume that the set $A$ is included in $\mathrm{Int} \, \gamma$.
+If this assumption is not satisfied, replace $A$ with 
+$A \cap \mathrm{Int} \, \gamma$; this new set $A$ still satisfies
+$\mathrm{Int} \, \gamma \subset \Omega \cup A$ and the conclusion of
+the theorem for the new set does provide the result for the original set.
+
+Let $\epsilon > 0$ be such that for any $a \in A,$ 
+$D(a, \epsilon) \subset \Omega \cup \{a\}$ and let $0 < r < \epsilon.$
+Define for every $a$ in $A$ the path $\gamma_a$ by
+  $$
+  \gamma_{a}(t) = a + r [\circlearrowleft]^{-\mathrm{ind}(\gamma, a)}.
+  $$
+We clearly have $\mathrm{ind}(\gamma_a,a) = - \mathrm{ind}(\gamma, a).$
+
+Let $\lambda$ be the concatenation of $\gamma$ and 
+the sequence of all $\gamma_a$ for $a \in A.$
+We now prove that $\mathrm{Int} \, \lambda \subset \Omega;$ 
+we need to establish that $\mathrm{ind}(\lambda, z)=0$ for every
+$z \in \mathbb{C} \setminus \Omega.$ For such a point $z,$ either
+
+ 1. $z \in A.$  
+    In this case, $\mathrm{ind}(\gamma_z, a)=0$ for any other singularity 
+    $a \in A.$ Therefore,
+      $$
+      \mathrm{ind}(\lambda, z) 
+      = 
+      \mathrm{ind}(\gamma, z) + \mathrm{ind}(\gamma_z,z)=0. 
+      $$
+
+ 2. $z \not \in \Omega \cup A.$  
+    We have $\mathrm{ind}(\gamma_a, z)=0$ for any $a \in A.$
+    Additionally, as $\mathrm{Int} \, \gamma \subset \Omega \cup A,$
+    $\mathrm{ind}(\gamma, z) = 0.$ 
+    Finally,
+    $\mathrm{ind}(\lambda, z) = 0.$
+
+
+[Cauchy's integral theorem][global Cauchy] then provides
+  $$
+  \int_{\lambda} f(z) dz 
+  = 
+  \int_{\gamma} f(z) \, dz 
+  + 
+  \sum_{a \in A} \int_{\gamma_a} f(z) \, dz =0,
+  $$
+By construction of the $\gamma_a$ and the [definition of residues], 
+we have
+  $$
+  \int_{\gamma_a} f(z) \, dz 
+  =  
+  -\mathrm{ind}(\gamma, a)  \times i2\pi \, \mathrm{res}(f, a).
+  $$
+\hfill $\blacksquare$
+
+[definition of residues]: #definition--residue. {.preview}
+
+There is a third equivalent form of Cauchy's integral theorem: 
+Cauchy's integral formula[^power].
+It gives the value of $f$ at any point of the interior
+of $\gamma$ as a function of its values on the image of $\gamma.$
+
+[^power]: The integral theorem implies the residue theorem which in turn
+implies the integral formula. Finally, the proof of the integral theorem
+is straightforward if we assume that the integral formula holds.
+
+**Theorem -- Cauchy's Integral Formula.**
+Let $\Omega$ be an open subset of $\mathbb{C}$ and 
+let $f:\Omega \to \mathbb{C}$ be a holomorphic function. 
+Let $\gamma$ be a sequence of rectifiable closed paths of 
+$\Omega$ and $a \in \Omega \setminus \gamma([0,1]).$
+If $\mathrm{Int} \, \gamma \subset \Omega,$ then
+  $$
+  \int_{\gamma} \frac{f(z)}{z-a} \, dz =
+  i2\pi \times \mathrm{ind}(\gamma, a) \times f(a).
+  $$ 
+
+**Proof.** The function 
+  $$
+  g: z \in \Omega \setminus \{a\} \mapsto \frac{f(z)}{z-a}
+  $$
+is holomorphic. The point $a$ is one of its isolated singularities.
+For $A = \{a\}$, we have
+  $$
+  \mathrm{Int} \, \gamma \subset (\Omega \setminus \{a\}) \cup A = \Omega.
+  $$
+Additionally, if $\mu = a + r [\circlearrowleft],$ 
+  $$
+  \mathrm{res}(g, a) =
+  \lim_{r \to 0}\frac{1}{i2\pi} \int_{\mu} g(z) \, dz
+  =
+  \lim_{r \to 0}
+  \int_0^1 f(a + r e^{i2\pi t}) \, dt = f(a).
+  $$
+Therefore, [Cauchy's residue theorem] provides
+  $$
+  \int_{\gamma} \frac{f(z)}{z - a} \, dz 
+  = 
+  i 2 \pi \times \mathrm{ind}(\gamma, a) \times f(a)
+  $$
+which is Cauchy's integral formula.
+\hfill $\blacksquare$
+
+[Cauchy's residue theorem]: #theorem--cauchys-residue-theorem. {.preview}
+
+The Proof
+================================================================================
+
+![A path sequence made of arrows whose interior is included in $\Omega.$](images/Q5.pdf)
+
+![We can apply the local version of Cauchy's integral
+theorem "cell-by-cell" to such a path 
+to prove the global version of the theorem.](images/Q6.pdf)
+
+![The path sequence made of arrows (in grey) is a suitable approximation 
+of the original outline: the integral on both path sequence of holomorphic 
+functions defined in $\Omega$ are equal.](images/Q3.pdf)
+
+![Indeed, the integral on the "difference" between the two paths sequence
+(the concatenation of the original and the opposite of the grid approximation)
+is an integral on a collection of "small" closed paths for which the 
+local version of Cauchy's integral theorem can be applied: 
+all these integrals are equal to zero.](images/Q4.pdf)
+
+**Definition -- Path Sequence Decomposition.**
+A *decomposition* of a sequence of rectifiable paths 
+$\gamma = (\gamma_1, \dots, \gamma_n)$
+is a sequence of rectifiable paths
+  $$
+  \gamma^{\ast} = 
+  (\gamma^{\ast}_1, \dots, \gamma^{\ast}_{p_1}, \gamma^{\ast}_{p_1+1}, \dots,
+  \gamma^{\ast}_{p_n},  \gamma^{\ast}_{p_n+1}, \dots, \gamma^{\ast}_p)
+  $$ 
+such that for a suitable set of partitions of the unity
+  $$
+  \begin{array}{lcl}
+  \gamma_1 &=& \gamma^{\ast}_1 \, |_{t^1_1} \, \cdots \, |_{t^1_{p_1-1}} \, \gamma^{\ast}_{p_1} \\
+  \gamma_2 &=& \gamma^{\ast}_{p_1+1} \, |_{t^2_1} \, \cdots \, |_{t^2_{p_2-p_1-1}} \, \gamma^{\ast}_{p_2} \\
+  &\vdots& \\
+  \gamma_p &=& \gamma^{\ast}_{p_n+1} \, |_{t^n_1} \, \cdots \, |_{t^n_{p-p_n-1}} \, \gamma^{\ast}_{p}
+  \end{array}
+  $$
+
+<!--
+  $$
+  \gamma^{\ast} = (\gamma_1 \, |_{t^1_1} \, \cdots \, |_{t^1_{n_1-1}} \, \gamma_{n_1}) \, | \,
+        (\gamma_{n_1+1} \, |_{t^2_1} \, \cdots \, |_{t^2_{n_2-1}} \, \gamma_{n_2}) \, | \,
+        \cdots \, | \,
+        (\gamma_{n_p+1} \, |_{t^p_1} \, \cdots \, |_{t^p_{n-1}} \, \gamma_{n}).
+  $$
+-->
+
+**Definition -- Equivalent Path Sequences.**
+Let $n_{\gamma}(\mu)$ be the number of occurences of the path $\mu$
+in the path sequence $\gamma.$
+Two sequences of rectifiable paths $\gamma$ and $\lambda$ are *equivalent* 
+<!-- -- denoted by $\gamma \sim \lambda$ -- -->
+if they have decompositions $\gamma^{\ast}$ and $\lambda^{\ast}$ such that
+for any path $\mu$
+  $$
+  n_{\gamma^{\ast}} (\mu) - n_{\gamma^{\ast}} (\mu^{\leftarrow}) = 
+  n_{\lambda^{\ast}} (\mu) - n_{\lambda^{\ast}} (\mu^{\leftarrow}).
+  $$
+
+**Remark -- Integral along Equivalent Paths.** 
+If the sequence of rectifiable paths
+$\gamma$ has a decomposition into a sequence of rectifiable paths $\gamma^{\ast},$ 
+then for every continuous and
+complex-valued function $f$ defined on the image of $\gamma,$
+  $$
+  \int_{\gamma} f(z) \, dz 
+  = 
+  \frac{1}{2}\sum_{\mu} 
+   (n_{\gamma^{\ast}}(\mu) -  n_{\gamma^{\ast}}(\mu^{\leftarrow}))
+    \times \left(\int_{\mu} f(z) \,dz\right)
+  $$
+where the sum is taken over the paths $\mu$ such that $\mu$ or
+$\mu^{\leftarrow}$ 
+has at least one occurrence in $\gamma^{\ast}.$ 
+Consequently, if $\gamma$
+and $\lambda$ are equivalent and $f$ is
+defined and continuous on the images of $\gamma$ and $\lambda,$
+  $$
+  \int_{\gamma} f(z) \, dz = \int_{\lambda} f(z) \, dz.
+  $$
+
+**Definition -- Path Diameter.**
+The *diameter* of a path $\gamma:[0,1] \to \mathbb{C}$ is defined
+as the diameter of its image: it is the nonnegative real number
+  $$
+  \mathrm{diam}(\gamma)
+  =
+  \mathrm{diam}(\gamma([0,1]))
+  =
+  \max \, \{|z-w| \; | \; z\in\gamma([0,1]), \, w\in\gamma([0,1])\}.
+  $$
+
+**Theorem -- Small Closed Paths Theorem.**
+Let $\Omega$ be an open subset of $\mathbb{C}$ and $\gamma$ be a sequence
+of rectifiable closed paths of $\Omega$ such that 
+$\mathrm{Int} \, \gamma \subset \Omega.$ 
+There is a sequence of rectifiable closed paths $\mu$ of $\Omega$ of 
+arbitrarily small diameter which is equivalent to $\gamma.$
+
+This geometric result and the local Cauchy theory yield 
+the global version of Cauchy's integral theorem:
+
+**Proof -- Cauchy's Integral Theorem.** 
+<!--
+Let $\Omega$ be an open subset of $\mathbb{C}$ and let 
+$f:\Omega \to \mathbb{C}$ be a holomorphic function.
+Let $\gamma$ be a sequence of rectifiable closed path of 
+$\Omega.$ -->
+Assume that $\Omega$, $f$ and $\gamma$ satisfy the assumptions 
+of Cauchy's integral theorem.
+Since the union of the image of $\gamma$ and its interior is a compact set,
+there is a $\epsilon>0$ such that the open set
+  $$
+  \Omega' = \{z \in \Omega \; | \; d(z,\mathbb{C}\setminus \Omega) > \epsilon\}
+  $$
+contains the image of $\gamma$ and its interior.
+By the small closed paths theorem, there is a sequence 
+of rectifiable closed paths 
+$\mu=(\mu_1, \dots, \mu_n)$ of $\Omega'$ of diameter less than $\epsilon$ 
+which is equivalent to $\gamma,$ and therefore such that
+  $$
+  \int_{\gamma} f(z) \, dz = \int_{\mu} f(z) \, dz.
+  $$
+The image of every path $\mu_k$ of diameter less than $\epsilon$ 
+is included in the disk centered on $\mu_k(0)$ and of radius $\epsilon.$
+This disk belongs to $\Omega$ by construction and thus the local
+version of Cauchy's theorem is applicable.
+Finally,
+  $$
+  \int_{\mu} f(z) \, dz = \sum_{k=1}^n \int_{\mu_k} f(z) \, dz = 0.
+  $$
+\hfill $\blacksquare$
+
+The proof of the small closed paths theorem itself requires
+several lemmas.
+
+**Definition -- Arrow.** 
+An *arrow* is an oriented line segment
+  $$
+  [(k + il)2^{-n} \to (k'+il') 2^{-n}]
+  $$
+for some $n \in \mathbb{N}$ and $k,\, l,\, k',\, l' \in \mathbb{Z}$ such that 
+  $$
+  |k'-k| + |l'-l| = 1.
+  $$
+
+
+**Lemma -- Small Paths & Path of Arrows.**
+Let $\Omega$ be an open subset of $\mathbb{C}$ and $\gamma$ be a sequence
+of rectifiable closed paths of $\Omega.$
+For any $\epsilon > 0,$ 
+there are two sequences $\lambda_1$ and $\lambda_2$ of rectifiable closed paths
+of $\Omega$ such that
+
+ 1. the path sequences $\gamma$ and $\lambda_1 \, | \, \lambda_2$ are equivalent.
+
+ 2. the diameter of every path of $\lambda_1$ is smaller than $\epsilon.$
+
+ 3. $\lambda_2$ has a decomposition into arrows.
+
+**Proof.** 
+We prove the result for a rectifiable closed path $\gamma;$
+the result for path sequences is a simple corollary.
+Let $n$ be a natural number and
+let $(\gamma_1, \dots, \gamma_m)$ be a sequence of rectifiable paths
+such that $\gamma = \gamma_1 \, | \, \cdots \, | \, \gamma_m$ and
+$\ell(\gamma_k) < 2^{-n}$ for any $k \in \{1,\dots, m\}.$
+Denote $\pi_n$ the function defined on $\mathbb{C}$ by
+  $$
+  \pi_n(z) = [\mathrm{Re}(2^n z)]2^{-n} + i [\mathrm{Im}(2^n z)]2^{-n};
+  $$
+where the function $[\,\cdot\,]$ rounds a real number to (one of) 
+the nearest integer(s).
+For any $z \in \mathbb{C},$ $|\pi_n(z) - z| < 2^{-n}.$
+The points $\pi_n(\gamma_k(0))$ and $\pi_n(\gamma_k(1))$ are distant 
+by less than $3 \times 2^{-n}$ and thus may always be joined by a path 
+$\lambda_{2,k}$ which is the concatenation of at most four consecutive 
+arrows of length $2^{-n}.$
+
+Define the rectifiable closed path $\lambda_{1,k}$ as the concatenation:
+  $$
+  \lambda_{1,k} = \gamma_k \, | \, [\gamma_k(1) \to \pi_n(\gamma_k(1))] \, | \,
+                \lambda_{2,k}^{\leftarrow} \, | \, [\pi_n(\gamma_k(0)) \to \gamma_k(0)]
+  $$
+
+The length of the closed path $\lambda_{1,k}$
+is smaller than $7 \times 2^{-n},$ hence its diameter 
+is smaller than $7/2 \times 2^{-n}.$ 
+A suitable choice of $n$ provides $\mathrm{diam}(\lambda_{1,k}) < \epsilon.$
+The paths $\lambda_1 = (\lambda_{1,1}, \dots, \lambda_{1,m})$ and
+$\lambda_2 = (\lambda_{2,1}, \dots, \lambda_{2,m})$ satisfy the statement 
+of the lemma.
+\hfill $\blacksquare$
+
+
+**Lemma -- Small Closed Paths Theorem (Arrow Version).**
+Let $\Omega$ be an open subset of $\mathbb{C}$ and let $\gamma$ be a sequence
+of rectifiable closed paths of $\Omega$ *with a decomposition into arrows*
+and such that $\mathrm{Int} \, \gamma \subset \Omega.$ 
+There is a sequence of rectifiable closed paths $\mu$ of $\Omega$ of 
+arbitrarily small diameter which is equivalent to $\gamma.$
+
+**Proof -- Small Closed Paths Theorem (Arrow Version).**
+Any sequence $\gamma$ of rectifiable closed paths made of arrows may be
+decomposed further into a sequence $\gamma^{\ast}$ of arrows of the same
+length $2^{-n}$ for an arbitrary large $n.$
+Now, we may associate to this level of decomposition a family
+indexed by integers $k$ and $l$ of square cells
+  $$
+  C_{k,l} = \{(k+ i l + s + i t)2^{-n} \; | \; (s,t) \in [0,1]^2\}.
+  $$
+with centers
+  $$
+  c_{k,l} = k + 0.5 + i (l+0.5).
+  $$
+For every arrow $\mu$ of length $2^{-n},$ the number
+$n_{\gamma^{\ast}}(\mu) - n_{\gamma^{\ast}}(\mu^{\leftarrow})$ 
+only depends on the numbers $\mathrm{ind}(\gamma, c)$ where $c$ 
+is the center of a cell 
+(or actually with respect to any other point of the cell -- 
+the index is constant in each cell) and thus, 
+two path sequences with the same set of winding numbers are equivalent.
+Consider for example the vertical arrow 
+  $$
+  \mu = [(k+il)2^{-n} \to (k+i(l+1))2^{-n}]
+  $$
+and the associated left cell $C_{k-1,l}$ and $C_{k,l}.$
+If we edit $\gamma^*$ to replace every occurence of $\mu$ with
+the polyline
+  \begin{multline*}
+  \mu_2 = [(k+il)2^{-n} \to (k+1+il)2^{-n} \to \\
+           (k+1+i(l+1))2^{-n} \to (k+i(l+1))2^{-n}]
+  \end{multline*}
+and every occurence of $\mu^{\leftarrow}$ by $\mu_2^{\leftarrow},$
+we have increased the index of the right cell (with center $c_{k,l}$) by 
+$n_{\gamma^{\ast}}(\mu) - n_{\gamma^{\ast}}(\mu^{\leftarrow})$ 
+and the index of every other cell remains the same.
+By construction, for this new path sequence $\gamma_2,$ we have
+$n_{\gamma_2^{\ast}}(\mu) = 0$ and $n_{\gamma_2}^{\ast}(\mu^{\leftarrow}) = 0;$
+the left and right cells belongs to the same component of 
+$\mathbb{C} \setminus \gamma_2([0,1]).$ 
+Therefore the index of $\gamma_2$ around both cells is the same 
+which means that
+  $$
+  \mathrm{ind}(\gamma, c_{k-1,l}) 
+  = 
+  \mathrm{ind}(\gamma, c_{k,l}) + n_{\gamma^{\ast}}(\mu) - n_{\gamma^{\ast}}(\mu^{\leftarrow}).
+  $$
+The treatment of horizontal arrows is similar.
+
+Now, consider the sequence of centers $(c_1,\dots, c_m)$ such that
+$\mathrm{ind}(\gamma, c_p) \neq 0$ and the path sequence 
+$\lambda = (\lambda_1, \dots, \lambda_m)$
+where $\lambda_p$ is either the concatenation of $\mathrm{ind}(\gamma, c_p)$ 
+times the boundary of the cell with center $c_p$ oriented counterclockwise if
+this winding number is positive, or the concatenation of 
+$-\mathrm{ind}(\gamma, c_p)$ times the boundary of the cell of center $c_p$ 
+oriented clockwise if it is negative.
+Every path $\lambda_p$ is rectifiable; the corresponding cell with center
+$c_p$ is included in $\mathrm{Int} \, \gamma$ and therefore $\lambda_p([0,1])$
+is included in $\Omega.$ 
+Additionally, by construction, for every cell center $c,$ 
+$\mathrm{ind}(\gamma, c) = \mathrm{ind}(\lambda, c)$ and therefore
+$\gamma$ and $\lambda$ are equivalent. 
+The diameter of $\lambda_p$ is smaller than $2^{-n};$
+a suitably large choice of $n$ makes the diameter as small as required
+and this concludes the proof.
+\hfill $\blacksquare$
+
+**Proof -- Small Closed Paths Theorem.** 
+Let $\epsilon>0$ such that that the open set
+  $$
+  \Omega' = \{z \in \Omega \; | \; d(z,\mathbb{C}\setminus \Omega) > \epsilon\}
+  $$
+contains the image of $\gamma$ and its interior. 
+Let $\lambda_1$ and $\lambda_2$ be the path sequences provided
+by the small paths & path of arrows lemma
+with $\Omega = \Omega'.$
+
+The image of every path $\mu$ of the sequence $\lambda_1$ is included in the disk 
+centered on $\mu(0)$ of radius $\epsilon$ which is itself included in $\Omega.$
+Any point $z\in \mathbb{C} \setminus \Omega$ belongs to the unbounded
+component of $\mathbb{C} \setminus \mu([0,1]),$ thus
+$\mathrm{ind}(\mu, z) = 0.$ 
+Consequently, for any such $z,$
+  $$
+  \mathrm{ind}(\lambda_{2}, z) = \mathrm{ind}(\gamma, z)
+  $$
+and thus $\mathrm{Int} \, \lambda_{2} \subset \Omega.$
+The conclusion of the theorem then follows from the application of
+the arrow version of the small closed paths theorem
+to the sequence of paths $\lambda_2.$
+\hfill $\blacksquare$

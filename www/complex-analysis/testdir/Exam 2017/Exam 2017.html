@@ -1,0 +1,1157 @@
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, Mines ParisTech">
+  <meta name="dcterms.date" content="2017-02-22">
+  <title>C1223 &amp; S1224 – Complex Analysis Final Examination</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+}
+*, table {
+  padding: 0;
+}
+*, html main {
+  box-sizing: content-box;
+}
+*, nav#TOC .badge {
+  vertical-align: baseline;
+}
+html, main > header .author, main > header .date, main > .header .author, main > .header .date, main > #header .author, main > #header .date, h2, .section-flag {
+  line-height: 36px;
+}
+html, main > header .author, main > header .date, main > .header .author, main > .header .date, main > #header .author, main > #header .date, h2, h3, h4, h5, h6, code {
+  font-size: 24px;
+}
+html {
+  font-style: normal;
+  font-family: Alegreya, serif;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html, main > header .author, main > header .date, main > .header .author, main > .header .date, main > #header .author, main > #header .date, nav#TOC > ul ul li {
+  font-weight: normal;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote {
+  quotes: none;
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+}
+blockquote, html main {
+  padding: 36px;
+}
+blockquote, html p, html .p, html section, main > header h1, main > .header h1, main > #header h1, pre, figure, .table, nav#TOC > ul > * {
+  margin-bottom: 36px;
+}
+blockquote:before, blockquote:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  border-top: medium solid black;
+}
+table, img {
+  margin-left: auto;
+  margin-right: auto;
+}
+table, thead {
+  border-bottom: medium solid black;
+}
+html em, figcaption {
+  font-style: italic;
+}
+html strong, main > header h1, main > .header h1, main > #header h1, h1, h2, h3, h4, h5, h6, nav#TOC > ul {
+  font-weight: bold;
+}
+html p, html .p, figcaption {
+  text-align: justify;
+}
+html p, html .p {
+  hyphens: auto;
+  -moz-hyphens: auto;
+}
+html main {
+  max-width: 32em;
+  margin: auto;
+}
+main > header, main > .header, main > #header, h1 {
+  margin-top: 72px;
+}
+main > header, main > .header, main > #header {
+  margin-bottom: 72px;
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: 54px;
+  margin-top: 0px;
+}
+main > header .author, main > header .date, main > .header .author, main > .header .date, main > #header .author, main > #header .date, h2 {
+  margin-bottom: 18px;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: "Alegreya SC", serif;
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  line-height: 45px;
+  margin-bottom: 27px;
+}
+h3, h4, h5, h6, nav#TOC .badge {
+  margin-right: 1em;
+}
+h3, h4, h5, h6 {
+  display: inline;
+}
+a {
+  cursor: pointer;
+  outline: 0;
+}
+a, a:hover {
+  text-decoration: none;
+}
+a:link, a:visited {
+  color: black;
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li, nav#TOC > ul li {
+  list-style-type: none;
+}
+li {
+  list-style-image: none;
+  list-style-position: outside;
+  padding-left: 0.5em;
+}
+li, nav#TOC > ul ul li {
+  margin-left: 36px;
+}
+ul li {
+  list-style: disc;
+}
+ol li {
+  list-style: decimal;
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-family: Inconsolata;
+}
+pre, .table, .MJXc-display {
+  overflow-x: auto;
+}
+pre {
+  background-color: #ebebeb;
+  padding-left: 36px;
+  padding-right: 36px;
+  padding-top: 36px;
+}
+pre, nav#TOC > ul > li.top-li {
+  padding-bottom: 36;
+}
+img {
+  display: block;
+  height: auto;
+}
+img, .table, .MJXc-display {
+  width: 100%;
+}
+figure, nav#TOC .badge {
+  text-align: center;
+}
+figcaption, nav#TOC .badge {
+  display: inline-block;
+}
+.table, .MJXc-display {
+  overflow-y: hidden;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+nav#TOC > ul, nav#TOC .badge {
+  position: relative;
+}
+nav#TOC > ul li {
+  margin-left: 0;
+  padding-left: 0;
+}
+.section-flag, nav#TOC .badge {
+  font-size: 17px;
+  font-weight: 300;
+  font-family: Alegreya Sans SC;
+}
+.section-flag, nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+}
+nav#TOC > ul > li.top-li {
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+nav#TOC .badge {
+  bottom: 0.13em;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+}
+</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,800,800italic,900,900italic|Alegreya+Sans+SC:400,100,300,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+SC:400,400italic,700,700italic,900,900italic|Alegreya:400,700,900,400italic,700italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.11.1
+(function() {
+  $(function() {
+    return console.log("HELLO FROM DEMO!");
+  });
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.11.1
+(function() {
+  var hide_proof, main, show_proof;
+
+  hide_proof = function(section) {
+    var clone, div, header, id, new_paragraph;
+    clone = section.clone();
+    id = section.attr("id");
+    clone.attr({
+      id: id + "---"
+    });
+    div = $("<div></div>");
+    div.css({
+      display: "none"
+    });
+    div.append(clone);
+    header = section.find("h3, h4, h5, h6").first().clone();
+    new_paragraph = $("<div class='p'></div>").append(header);
+    new_paragraph.append("<i class='fa fa-caret-down expand' style='float:right;cursor:pointer;'></i>");
+    section.empty();
+    section.append(new_paragraph);
+    section.append(div);
+    return section.find("i.expand").on("click", (function(section) {
+      return function() {
+        return show_proof(section);
+      };
+    })(section));
+  };
+
+  show_proof = function(section) {
+    var tombstone;
+    section.children().first().remove();
+    section.html(section.children().first().html());
+    tombstone = section.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer"
+    });
+    return tombstone.on("click", (function(section) {
+      return function() {
+        return hide_proof(section);
+      };
+    })(section));
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, results, section, sections, text;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    results = [];
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      results.push(hide_proof(section));
+    }
+    return results;
+  };
+
+  $(main);
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">C1223 &amp; S1224 – Complex Analysis<br>
+Final Examination</a></h1>
+
+<h2 class="author">
+By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, Mines ParisTech, under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>
+</h2> 
+
+<h3 class="date">February 22, 2017</h3>
+</header>
+<section id="problem-s" class="level1">
+<h1><a href="#problem-s">Problem S</a></h1>
+<p>A function <span class="math inline">\(F: \Omega \mapsto \mathbb{C}^{m \times n}\)</span> where <span class="math inline">\(\Omega\)</span> is an open subset of <span class="math inline">\(\mathbb{C}\)</span> and <span class="math inline">\(m\)</span>, <span class="math inline">\(n\)</span> are positive integers is a <em>matrix-valued</em> function of a complex variable. It is characterized by the collection of its element functions <span class="math inline">\(f_{kl}: \Omega \mapsto \mathbb{C}\)</span>: <span class="math display">\[
+  \forall \, z \in \Omega, \; F(z) = 
+  \left[ 
+  \begin{array}{cccc}
+  f_{11}(z) &amp; f_{12}(z) &amp; \cdots &amp; f_{1n}(z) \\
+  \vdots &amp; \vdots &amp; \cdots &amp; \vdots \\
+  f_{m1}(z) &amp; f_{12}(z) &amp; \cdots &amp; f_{mn}(z)
+  \end{array}
+  \right]
+  \]</span></p>
+<p>Using element functions, we can readily adapt the tools of Complex Analysis:</p>
+<ul>
+<li><p><span class="math inline">\(F\)</span> is holomorphic if all its element functions are holomorphic; its derivative <span class="math inline">\(F'\)</span> is defined element-wise: <span class="math display">\[
+  \forall \, z \in \Omega, \; F'(z) = 
+  \left[ 
+  \begin{array}{cccc}
+  f'_{11}(z) &amp; f'_{12}(z) &amp; \cdots &amp; f'_{1n}(z) \\
+  \vdots &amp; \vdots &amp; \cdots &amp; \vdots \\
+  f'_{m1}(z) &amp; f'_{12}(z) &amp; \cdots &amp; f'_{mn}(z)
+  \end{array}
+  \right]
+  \]</span></p></li>
+<li><p>the integral of <span class="math inline">\(F\)</span> along some path (or path sequence) <span class="math inline">\(\gamma\)</span> is defined – if and only if it is defined for all its element functions – by <span class="math display">\[
+  \forall \, z \in \Omega, \; \int_{\gamma} F(z) \, dz = 
+  \left[ 
+  \begin{array}{cccc}
+  \int_{\gamma} f_{11}(z) \,dz&amp; \int_{\gamma} f_{12}(z) \,dz &amp; \cdots &amp; \int_{\gamma}f_{1n}(z)\,dz \\
+  \vdots &amp; \vdots &amp; \cdots &amp; \vdots \\
+  \int_{\gamma}f_{m1}(z) \, dz&amp; \int_{\gamma}f_{12}(z) \, dz&amp; \cdots &amp; \int_{\gamma}f_{mn}(z) \, dz
+  \end{array}
+  \right].
+  \]</span></p></li>
+</ul>
+<section id="linear-algebra-reminder." class="level3">
+
+<div class="p"><h3><a href="#linear-algebra-reminder.">Linear algebra reminder.</a></h3>‌ The spectrum of a square matrix <span class="math inline">\(A\)</span> is the set <span class="math inline">\(\sigma(A) = \{z \in \mathbb{C} \; | \; \det(zI - A) = 0\}\)</span>. The inverse matrix <span class="math inline">\(A^{-1}\)</span> of an invertible matrix <span class="math inline">\(A\)</span> depends continuously on the elements of <span class="math inline">\(A\)</span> (as long as <span class="math inline">\(A\)</span> stays invertible). Polynomials of a square matrix <span class="math inline">\(A\)</span> (e.g. <span class="math inline">\(I + 2A + A^2\)</span>) commute with each other; rational functions of <span class="math inline">\(A\)</span> (e.g. <span class="math inline">\((I + A)(I - A)^{-1}\)</span>) also commute with each other whenever they are defined.</div>
+</section>
+<section id="questions" class="level2">
+<h2><a href="#questions">Questions</a></h2>
+<ol start="0" type="1">
+<li>Prove that for any holomorphic functions <span class="math inline">\(F: \Omega \to \mathbb{C}^{m\times n}\)</span> and <span class="math inline">\(G:\Omega \to \mathbb{C}^{n \times p}\)</span>, the matrix function product <span class="math display">\[FG:z \in \Omega \mapsto F(z) G(z) \in \mathbb{C}^{m \times p}\]</span> is holomorphic and <span class="math inline">\((FG)' = F' G + F G'\)</span>.</li>
+</ol>
+<p>Let <span class="math inline">\(p \in \mathbb{N}^*\)</span> and <span class="math inline">\(A \in \mathbb{C}^{p \times p}\)</span>. We denote <span class="math inline">\(\Omega\)</span> the set of complex numbers <span class="math inline">\(z\)</span> such that the matrix <span class="math inline">\(I - zA\)</span> is invertible and <span class="math inline">\(F\)</span> the matrix-valued function defined by <span class="math display">\[
+  F: z \in \Omega \mapsto [I - zA]^{-1}.
+  \]</span></p>
+<ol type="1">
+<li><p>Show that <span class="math inline">\(\Omega\)</span> is open. Relate the set <span class="math inline">\(\mathbb{C} \setminus \Omega\)</span> of singularities of <span class="math inline">\(F\)</span> and the spectrum of <span class="math inline">\(A\)</span>.</p></li>
+<li><p>Show that the function <span class="math inline">\(F\)</span> is holomorphic and compute its derivative.</p>
+<p>Hint: define the difference quotient <span class="math display">\[
+  \epsilon(z, h) = \frac{F(z+h) - F(z)}{h}
+  \]</span> then compute <span class="math inline">\(\epsilon(z,h) [I - z A] [I - (z+h) A]\)</span> (optionally, consider first the case with <span class="math inline">\(p=1\)</span> and <span class="math inline">\(A = [a]\)</span> for some <span class="math inline">\(a \in \mathbb{C}\)</span> to guess the expression of the derivative in the general case).</p></li>
+<li><p>Prove that the <span class="math inline">\(n\)</span>-th order derivative <span class="math inline">\(F^{(n)}\)</span> of <span class="math inline">\(F\)</span> exists for every natural number <span class="math inline">\(n\)</span> and satisfies <span class="math display">\[
+  \forall \, z \in \Omega, \;
+  F^{(n)}(z) = n! A^n [I-zA]^{-n-1}. 
+  \]</span> Hint: prove the result by induction on <span class="math inline">\(n\)</span>.</p></li>
+<li><p>What is the (possibly infinite) radius <span class="math inline">\(r(A)\)</span> of the largest open disk centered on the origin and included in <span class="math inline">\(\Omega\)</span> ? Relate <span class="math inline">\(r(A)\)</span> and the spectral radius of <span class="math inline">\(A\)</span>, defined as <span class="math display">\[
+  \rho(A) = \max \, \{|\lambda| \; | \; \lambda \in \sigma(A)\}.
+  \]</span> Find a sequence of matrices <span class="math inline">\(A_n \in \mathbb{C}^{p \times p}\)</span> such that <span class="math display">\[
+  \forall \, z \in D(0,r(A)), \; F(z) = [I - zA]^{-1} = \sum_{n=0}^{+\infty} A_n z^n.
+  \]</span> (the convergence of this matrix series should be interpreted element-wise).</p></li>
+<li><p>Let <span class="math inline">\(n \in \mathbb{N}\)</span>. Let <span class="math inline">\(z \in \mathbb{C} \setminus \sigma(A)\)</span> such that <span class="math inline">\(z \neq 0\)</span>; write <span class="math inline">\(z^n[z I - A]^{-1}\)</span> as a function of <span class="math inline">\(z\)</span> and <span class="math inline">\(F(z^{-1})\)</span>. Show that the function <span class="math display">\[z \in \mathbb{C} \setminus \sigma(A)\mapsto z^n [zI - A]^{-1}\]</span> is complex-differentiable.</p></li>
+<li><p>Compute the line integral <span class="math display">\[
+   \frac{1}{i2\pi}\int_{\gamma} z^n [zI - A]^{-1} dz
+   \]</span> first when <span class="math inline">\(\gamma = r[\circlearrowleft]\)</span> with <span class="math inline">\(r &gt; \rho(A)\)</span>, then more generally for any sequence of rectifiable closed paths <span class="math inline">\(\gamma\)</span> of <span class="math inline">\(\mathbb{C} \setminus \sigma(A)\)</span> such that <span class="math inline">\(\forall \, \lambda \in \sigma(A)\)</span>, <span class="math inline">\(\mathrm{ind}(\gamma, \lambda) = 1\)</span>.</p></li>
+<li><p>Let <span class="math display">\[
+  A = 
+  \left[
+  \begin{array}{rr}
+  0 &amp; -1 \\
+  1 &amp; 0
+  \end{array} 
+  \right]
+  \]</span> and let <span class="math inline">\(\gamma\)</span> be a sequence of rectifiable closed paths of <span class="math inline">\(\mathbb{C} \setminus \mathbb{R}_-\)</span> such that <span class="math inline">\(\forall \, \lambda \in \sigma(A)\)</span>, <span class="math inline">\(\mathrm{ind}(\gamma, \lambda) = 1\)</span>. Compute <span class="math inline">\([zI - A]^{-1}\)</span> and then the matrix <span class="math inline">\(\log A\)</span>, defined as <span class="math display">\[
+  \log A = \frac{1}{i2\pi} \int_{\gamma} (\log z) [z I - A]^{-1} \, dz.
+  \]</span></p></li>
+</ol>
+</section>
+<section id="answers" class="level2">
+<h2><a href="#answers">Answers</a></h2>
+<ol start="0" type="1">
+<li>For any <span class="math inline">\(z \in \Omega\)</span>, <span class="math inline">\(j \in \{1,\dots,m\}\)</span> and <span class="math inline">\(l \in \{1,\dots, p\}\)</span>, <span class="math display">\[
+  FG(z)_{jl} 
+  = \sum_{k=1}^{n} F(z)_{jk} G(z)_{kl}
+  = \sum_{k=1}^n f_{jk}(z) g_{kl}(z).
+  \]</span> By the sum and product rules for complex-valued holomorphic functions, every element of <span class="math inline">\(FG\)</span> is holomorphic and <span class="math display">\[
+  \begin{split}
+  (FG)'(z)_{jl} 
+  &amp;= \sum_{k=1}^n f'_{jk}(z) g_{kl}(z) +  \sum_{k=1}^n f_{jk}(z) g'_{kl}(z) \\
+  &amp;= F'G(z)_{jl} + F G'(z)_{jl}.
+  \end{split}
+  \]</span></li>
+<li><p>The function <span class="math inline">\(d: z \in \mathbb{C} \mapsto \det (I - zA)\)</span> is a polynomial, thus it is continuous; the matrix <span class="math inline">\(I - z A\)</span> is invertible if and only if <span class="math inline">\(d(z) \neq 0\)</span>, hence <span class="math inline">\(\Omega = d^{-1}(\mathbb{C}^*)\)</span> is open as the preimage of an open set by a continuous function. <!--
+    The complement of $\Omega$ in $\mathbb{C}$ satisfies
+      $$
+      \mathbb{C} \setminus \Omega = \{z \in \mathbb{C} \; | \; \det (zI - A) = 0\}.
+      $$
+    The function $f: z \in \mathbb{C} \mapsto \det (zI - A)$ is a polynomial;
+    it is nonzero (for example, $f(0) = \det I = 1$), thus it has a finite
+    number of roots.
+    They also form a closed set; its complement in $\mathbb{C}$, 
+    which is $\Omega$, is open.
+    --></p>
+<p>Since the matrix <span class="math inline">\(I - z A\)</span> is invertible for <span class="math inline">\(z=0\)</span>, we have <span class="math inline">\(0 \in \Omega\)</span>; if <span class="math inline">\(z\neq 0\)</span>, <span class="math display">\[I - z A = z (z^{-1}I - A)\]</span> and it is invertible if and only if <span class="math inline">\(z^{-1}\)</span> is not an eigenvalue of <span class="math inline">\(A\)</span>. Finally, <span class="math display">\[
+  \mathbb{C} \setminus \Omega 
+  = 
+  \{\lambda^{-1} \; | \; \lambda \in \sigma(A) \setminus \{0\}\}.
+  \]</span></p></li>
+<li><p>For any pair <span class="math inline">\((k,l) \in \{1,\dots,p\}^2\)</span>, any <span class="math inline">\(z\in\Omega\)</span> and <span class="math inline">\(h \in \mathbb{C}\)</span> small enough, <span class="math display">\[
+  \epsilon(z,h)_{kl} = \frac{f_{kl}(z+h) - f_{kl}(z)}{h}
+  \]</span> is the difference quotient of <span class="math inline">\(f_{kl}\)</span> at <span class="math inline">\(z\)</span>. Therefore, <span class="math inline">\(F\)</span> is complex-differentiable at <span class="math inline">\(z\)</span> if (and only if) <span class="math inline">\(\epsilon(z, h)\)</span> has a limit element-wise when <span class="math inline">\(h \to 0\)</span> and <span class="math inline">\(F'(z)\)</span> is this limit. Now, we have <span class="math display">\[
+  \begin{split}
+  \epsilon(z,h)
+  &amp; = \frac{[I - (z+h) A]^{-1} - [I - zA]^{-1}}{h}\\
+  \end{split}
+  \]</span> The matrices <span class="math inline">\(I - (z+h)A\)</span> and <span class="math inline">\(I - zA\)</span> commute, hence <span class="math display">\[
+  \epsilon(z,h) [I -(z+h) A][I - zA]
+  = 
+  \frac{[I - zA] - [I - (z+h)A]}{h}
+  = A,
+  \]</span> thus <span class="math inline">\(\epsilon(z, h) = A [I - z A]^{-1} [I - (z+h)A]^{-1}\)</span>. Since matrix inversion is continuous <span class="math display">\[
+  F'(z) = \lim_{h \to 0} \epsilon(z,h) = A [I - z A]^{-2}. 
+  \]</span></p></li>
+<li><p>The function <span class="math inline">\(F\)</span> is holomorphic; all of its elements are holomorphic, thus they have derivatives at all orders and so does <span class="math inline">\(F\)</span>. Assume that the <span class="math inline">\(n+1\)</span>-th order derivative of <span class="math inline">\(F\)</span> satisfies <span class="math display">\[
+  F^{(n+1)}(z) = n A [I-zA]^{-1} F^{(n)}(z).
+  \]</span> This property certainly holds for <span class="math inline">\(n=0\)</span>, as <span class="math inline">\(F'(z) = A [I-zA]^{-1} F(z)\)</span>. Now, by the product rule, as <span class="math inline">\(A\)</span> and <span class="math inline">\(F(z) = [I - zA]^{-1}\)</span> commute, <span class="math display">\[
+  \begin{split}
+  F^{(n+2)}(z) 
+  &amp;= n A F'(z) F^{(n)}(z) + n A F(z) F^{(n+1)}(z) \\
+  &amp;= A F(z) (n A F(z) F^{(n)}(z)) + n A F(z) F^{(n+1)}(z) \\
+  &amp;= A F(z) F^{(n+1)}(z) + n A F(z) F^{(n+1)}(z) \\
+  &amp;= (n+1) A F(z) F^{(n+1)}(z) \\
+  \end{split}
+  \]</span> Consequently, the formula holds for all <span class="math inline">\(n\)</span>, which leads to <span class="math display">\[
+  F^{(n)}(z) = n! A^n [I-zA]^{-n-1}.
+  \]</span></p></li>
+<li><p>The radius <span class="math inline">\(r(A)\)</span> of the largest disk centered on the origin and included in <span class="math inline">\(\Omega\)</span> is <span class="math display">\[
+  r(A) = \min \{|\lambda^{-1}| \; | \; \lambda \in \sigma(A) \setminus \{0\}\} \\
+  \]</span> if <span class="math inline">\(\sigma(A) \setminus \{0\}\)</span> is non-empty and <span class="math inline">\(r(A) = +\infty\)</span> otherwise. If we adopt the convention <span class="math inline">\(0^{-1} = +\infty\)</span>, we can rewrite this as <span class="math display">\[
+  r(A) = (\max \{|\lambda| \; | \; \lambda \in \sigma(A)\})^{-1} = \rho(A)^{-1}.
+  \]</span> The function <span class="math inline">\(F\)</span> is holomorphic in <span class="math inline">\(\Omega\)</span>, thus every element <span class="math inline">\(f_{kl}\)</span> is holomorphic in <span class="math inline">\(\Omega\)</span>, which has a Taylor series expansion in <span class="math inline">\(D(0,r)\)</span>: <span class="math display">\[
+  \forall \, z \in D(0,r), \; f_{kl}(z) 
+  = 
+  \sum_{n=0}^{+\infty} \frac{f^{(n)}_{kl}(0)}{n!} z^n.
+  \]</span> Consequently, <span class="math display">\[
+  \forall \, z \in D(0,r), \; F(z) 
+  = \sum_{n=0}^{+\infty} \frac{F^{(n)}(0)}{n!} z^n
+  = \sum_{n=0}^{+\infty} A^n z^n.
+  \]</span></p></li>
+<li><p>If <span class="math inline">\(z \in \mathbb{C} \setminus \sigma(A)\)</span> and <span class="math inline">\(z\neq 0\)</span>, then <span class="math display">\[
+  z^n[z I - A]^{-1} = z^{n-1}[I - z^{-1}A]^{-1} = z^{n-1} F(z^{-1}).
+  \]</span> Consequently, <span class="math inline">\(z \in \mathbb{C} \setminus \sigma(A) \mapsto z^n[z I - A]^{-1}\)</span> is complex-differentiable at <span class="math inline">\(z\)</span> – by the product and chain rules – if <span class="math inline">\(z\neq 0\)</span>, which is all we need unless <span class="math inline">\(0 \not \in \sigma(A)\)</span>. In this case, <span class="math inline">\(A\)</span> is invertible and by continuity of the matrix inversion, the function <span class="math inline">\(z\mapsto z^n[zI-A]^{-1}\)</span> is continuous at <span class="math inline">\(z=0\)</span>. Hence, <span class="math inline">\(0\)</span> is a removable singularity of <span class="math inline">\(z\mapsto z^{n-1}F(z^{-1})\)</span> and the function <span class="math inline">\(z \in \mathbb{C} \setminus \sigma(A) \mapsto z^n[zI-A]^{-1}\)</span> is also complex-differentiable at <span class="math inline">\(z=0\)</span>.</p></li>
+<li><p>If <span class="math inline">\(|z|&gt;\rho(A)\)</span>, <span class="math inline">\(z \in \mathbb{C} \setminus \sigma(A)\)</span>, <span class="math inline">\(|z^{-1}| &lt; r(A)\)</span> and <span class="math display">\[
+  z^n[z I - A]^{-1} = z^{n-1}[I - z^{-1}A]^{-1}
+  = z^{n-1} \sum_{l=0}^{+\infty} A^{l} z^{-l}
+  = \sum_{l=0}^{+\infty} A^{l} z^{n-1-l}.
+  \]</span> This convergence if uniform (element-wise) on compact subsets of the annulus, therefore <span class="math display">\[
+  \begin{split}
+  \frac{1}{i2\pi} \int_{r[\circlearrowleft]} z^n [zI - A]^{-1} dz
+  &amp;=
+  \frac{1}{i2\pi} \int_{r[\circlearrowleft]} \sum_{l=0}^{+\infty} A^{l} z^{n-1-l} dz \\
+  &amp;=
+  \sum_{l=0}^{+\infty} A^{l}
+  \left[\frac{1}{i2\pi} \int_{r[\circlearrowleft]} z^{n-1-l} dz\right] \\
+  \end{split}
+  \]</span> The integral <span class="math inline">\(\int_{r[\circlearrowleft]} z^{p} \, dz\)</span> is zero unless the integer <span class="math inline">\(p\)</span> is <span class="math inline">\(-1\)</span>, in which case it is equal to <span class="math inline">\(i2\pi\)</span>, hence <span class="math display">\[
+  \frac{1}{i2\pi} \int_{r[\circlearrowleft]} z^n [zI - A]^{-1} dz
+  =
+  A^{n}
+  \]</span></p>
+<p>Now, If <span class="math inline">\(\gamma\)</span> is a sequence of rectifiable closed paths of <span class="math inline">\(\mathbb{C} \setminus \sigma(A)\)</span> such that <span class="math inline">\(\forall \, \lambda \in \sigma(A)\)</span>, <span class="math inline">\(\mathrm{ind}(\gamma, \lambda) = 1\)</span> and <span class="math inline">\(r &gt; \rho(A)\)</span>, the sequence of paths <span class="math inline">\(\mu =r[\circlearrowleft] \, | \, \gamma^{\leftarrow}\)</span> satisfies <span class="math inline">\(\forall \, z \in \sigma(A)\)</span>, <span class="math inline">\(\mathrm{ind}(\mu,z) = 0\)</span>. Cauchy’s integral theorem provides <span class="math inline">\(\int_{\mu} z^n[zI-A]^{-1} \, dz = 0\)</span>, or equivalently, <span class="math display">\[
+  \frac{1}{i2\pi}  \int_{\gamma} z^n[zI-A]^{-1} \, dz = 
+  \frac{1}{i2\pi}  \int_{r[\circlearrowleft]} z^n[zI-A]^{-1} \, dz =
+  A^n. 
+  \]</span></p></li>
+<li><p>We have <span class="math display">\[
+  z I - A = 
+  \left[
+  \begin{array}{rr}
+  z &amp; +1 \\
+  -1 &amp; z
+  \end{array} 
+  \right]
+  \]</span> hence <span class="math inline">\(\det (zI -A)= z^2 +1\)</span>. The spectrum of <span class="math inline">\(A\)</span> is <span class="math inline">\(\sigma(A) = \{-i, +i\}\)</span> and <span class="math display">\[
+  [zI - A]^{-1} = 
+  \frac{1}{z^2+1}
+  \left[
+  \begin{array}{rr}
+  z &amp; -1 \\
+  +1 &amp; z
+  \end{array} 
+  \right].
+  \]</span> Consequently, <span class="math display">\[
+  \frac{1}{i2\pi} \int_{\gamma} (\log z) [z I - A]^{-1} \, dz
+  =
+  \frac{1}{i2\pi} \int_{\gamma}   
+  \left[
+  \begin{array}{rr}
+  f(z) &amp; -g(z) \\
+  g(z) &amp; f(z)
+  \end{array} 
+  \right]\, dz
+  \]</span> with <span class="math display">\[
+  f(z) = \frac{z\log z}{z^2+1}, \;
+  g(z) = \frac{\log z}{z^2+1}.
+  \]</span> Let <span class="math inline">\(\Omega = \mathbb{C} \setminus \mathbb{R}_- \setminus \sigma(A)\)</span>; this set is open. Both functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> are holomorphic on <span class="math inline">\(\Omega\)</span>, have isolated singularities in <span class="math inline">\(\sigma(A)\)</span> and are the quotient of holomorphic functions <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> defined on <span class="math inline">\(\Omega \cup \sigma(A)\)</span> such that when <span class="math inline">\(\lambda \in \sigma(A)\)</span>, <span class="math inline">\(a(\lambda) \neq 0\)</span>, <span class="math inline">\(b(\lambda) = 0\)</span> and <span class="math inline">\(b'(\lambda) \neq 0\)</span>. Thus, we have <span class="math display">\[
+  \sum_{z \in \sigma(A)} \mathrm{ind}(\gamma, z) \mathrm{res}(f, z)
+  =
+  \frac{(-i)\log (-i)}{2(-i)} + \frac{i\log i}{2i}
+  = 
+  0
+  \]</span> and <span class="math display">\[
+  \sum_{z \in \sigma(A)} \mathrm{ind}(\gamma, z) \mathrm{res}(g, z)
+  =
+  \frac{\log (-i)}{2(-i)} + \frac{\log i}{2i}
+  = 
+  \frac{\pi}{2}.
+  \]</span> Since the open set <span class="math display">\[
+  \Omega \cup \sigma(A) = \mathbb{C} \setminus \mathbb{R}_-
+  \]</span> is simply connected (it is star-shaped), <span class="math inline">\(\mathrm{Int} \, \gamma \subset \Omega \cup \sigma(A)\)</span>. Finally, the residue theorem provides <span class="math display">\[
+  \log A 
+  = \frac{1}{i2\pi} \int_{\gamma} (\log z) [z I - A]^{-1}  \, dz
+  = 
+  \frac{\pi}{2}
+  \left[
+  \begin{array}{rr}
+  0 &amp; -1 \\
+  +1 &amp; 0
+  \end{array} 
+  \right]
+  \]</span></p></li>
+</ol>
+</section>
+</section>
+<section id="problem-l" class="level1">
+<h1><a href="#problem-l">Problem L</a></h1>
+<p>A function <span class="math inline">\(f: \mathbb{C} \to \mathbb{C}\)</span> is <em>of exponential type</em> if <span class="math display">\[
+  \exists \, \sigma \in \mathbb{R}, 
+  \; \exists \, \kappa &gt; 0, \forall \, z \in \mathbb{C}, \;
+  |f(z)| \leq \kappa e^{\sigma |z|}.
+  \]</span> We define <span class="math inline">\(\sigma(f)\)</span> as the infimum of the exponential bounds <span class="math inline">\(\sigma\)</span>: <span class="math display">\[
+  \sigma(f) 
+  = 
+  \inf \,
+  \{
+  \sigma \in \mathbb{R}
+  \; | \; 
+  \exists \, \kappa &gt; 0, \forall \, z \in \mathbb{C}, \;
+  |f(z)| \leq \kappa e^{\sigma |z|}
+  \}.
+  \]</span></p>
+<section id="questions-1" class="level2">
+<h2><a href="#questions-1">Questions</a></h2>
+<p>We suppose that <span class="math inline">\(f\)</span> is complex-differentiable on <span class="math inline">\(\mathbb{C}\)</span> and denote <span class="math display">\[
+  f(z) = \sum_{n=0}^{+\infty} a_n z^n
+  \]</span> its Taylor expansion at <span class="math inline">\(0\)</span>.</p>
+<ol type="1">
+<li><p>Show that if <span class="math inline">\(f\)</span> is of exponential type, <span class="math inline">\(\sigma(f) \geq 0\)</span> unless <span class="math inline">\(f\)</span> is identically zero.</p></li>
+<li><p>Show that the function <span class="math display">\[
+  f_0: z \in \mathbb{C} \to e^{-z}
+  \]</span> is of exponential type and compute <span class="math inline">\(\sigma(f_0)\)</span>.</p></li>
+<li><p>Prove that if for some <span class="math inline">\(\kappa &gt; 0\)</span> and <span class="math inline">\(\sigma \geq 0\)</span>, <span class="math inline">\(\forall \, n \in \mathbb{N}\)</span>, <span class="math inline">\(|n! a_n| \leq \kappa \sigma^n\)</span>, then <span class="math inline">\(f\)</span> is of exponential type and <span class="math inline">\(\sigma(f) \leq \sigma\)</span>.</p></li>
+<li><p>Prove that if <span class="math inline">\(\forall \, z \in \mathbb{C}, \; |f(z)| \leq \kappa e^{\sigma |z|}\)</span> then <span class="math display">\[
+  \forall \, n \in \mathbb{N}, \;
+  \forall \, r &gt; 0, \; |a_n| \leq \kappa \frac{e^{\sigma r}}{r^n}.
+  \]</span> Let <span class="math inline">\(n \in \mathbb{N}\)</span>; what is the value of <span class="math inline">\(r\)</span> that provides the tightest upper bound on <span class="math inline">\(|a_n|\)</span>? Compute this bound.</p></li>
+<li><p>Prove that if <span class="math inline">\(f\)</span> is of exponential type and <span class="math inline">\(\sigma &gt; \sigma(f)\)</span>, there is a <span class="math inline">\(\kappa &gt; 0\)</span> such that <span class="math inline">\(\forall \, n \in \mathbb{N}\)</span>, <span class="math inline">\(|n! a_n| \leq \kappa \sigma^n\)</span>. Reminder – Stirling’s formula: <span class="math display">\[
+  n! \sim \sqrt{2\pi n} \left(\frac{n}{e}\right)^n, 
+  \; \mbox{ that is } \;
+  \lim_{n \to + \infty} \frac{n!e^n}{\sqrt{2\pi n} n^n} = 1.
+  \]</span></p></li>
+<li><p>Suppose that <span class="math inline">\(f\)</span> is of exponential type; show that the function <span class="math inline">\(g:\mathbb{C} \to \mathbb{C}\)</span> defined by <span class="math display">\[
+  g(z) = \sum_{n=0}^{+\infty} |a_n| z^n
+  \]</span> is of exponential type and <span class="math inline">\(\sigma(g) = \sigma(f)\)</span>.</p></li>
+<li><p>What is the domain of the Laplace transform of the function <span class="math inline">\(f_0\)</span>? Compute <span class="math inline">\(\mathcal{L}[f_0](s)\)</span> for any <span class="math inline">\(s\)</span> in this domain. Prove that in general the domain of the Laplace transform of a function of exponential type <span class="math inline">\(f\)</span> contains the set <span class="math inline">\(\{s \in \mathbb{C} \; | \; \mathrm{Re} \, \, s &gt; \sigma(f)\}\)</span>.</p></li>
+<li><p>Show that whenever <span class="math inline">\(\mathrm{Re} \, \, s &gt;\sigma(f)\)</span>, <span class="math display">\[
+  \mathcal{L}[f](s) = \int_{\mathbb{R}_+} f(t) e^{-st} \, dt = \sum_{n=0}^{+\infty}  \frac{n! a_n}{s^{n+1}}.
+  \]</span> Prove that <span class="math inline">\(\mathcal{L}[f]\)</span> has a unique holomorphic extension to the open set <span class="math display">\[\Omega = \mathrm{dom} \, \mathcal{L}[f] \cup \{s\in \mathbb{C} \; | \; |s| &gt; \sigma(f)\}.\]</span> We denote <span class="math inline">\(\overline{\mathcal{L}}[f]\)</span> this extension. Compute <span class="math inline">\(\overline{\mathcal{L}}[f_0]\)</span>.</p></li>
+<li><p>Compute for any <span class="math inline">\(t\geq 0\)</span> and any <span class="math inline">\(r&gt; \sigma(f)\)</span> the line integral <span class="math display">\[
+  \frac{1}{i2\pi}\int_{r[\circlearrowleft]} \overline{\mathcal{L}}[f] e^{st} \, ds.
+  \]</span></p></li>
+</ol>
+</section>
+<section id="answers-1" class="level2">
+<h2><a href="#answers-1">Answers</a></h2>
+<ol type="1">
+<li><p>If <span class="math inline">\(\sigma(f) &lt; 0\)</span> then <span class="math inline">\(\sigma = 0\)</span> is an exponential bound of <span class="math inline">\(f\)</span>: there is a <span class="math inline">\(\kappa &gt; 0\)</span> such that <span class="math inline">\(\forall\, z \in \mathbb{C}\)</span>, <span class="math inline">\(|f(z)| \leq \kappa\)</span>. The function <span class="math inline">\(f\)</span> is entire and bounded, thus by Liouville’s theorem, it is identically zero.</p></li>
+<li><p>For any complex number <span class="math inline">\(z\)</span>, <span class="math display">\[
+  |f_0(z)| = |e^{-z}| = e^{-\mathrm{Re}(z)} \leq e^{|z|}
+  \]</span> hence <span class="math inline">\(\sigma = 1\)</span> is an exponential bound of <span class="math inline">\(f_0\)</span>. Conversely, if <span class="math inline">\(|f_0(z)| \leq \kappa e^{\sigma|z|}\)</span> holds for any complex number <span class="math inline">\(z\)</span>, then <span class="math display">\[
+  \forall \, x \geq 0, \; f_0(-x)=e^{x} \leq \kappa e^{\sigma |-x|} = \kappa e^{\sigma x},
+  \]</span> thus <span class="math inline">\(\sigma \geq 1\)</span>. Finally, <span class="math inline">\(\sigma(f_0) = 1\)</span>.</p></li>
+<li><p>If for some <span class="math inline">\(\kappa &gt; 0\)</span> and <span class="math inline">\(\sigma \geq 0\)</span>, <span class="math inline">\(\forall \, n \in \mathbb{N}\)</span>, <span class="math inline">\(|n! a_n| \leq \kappa \sigma^n\)</span>, then <span class="math display">\[
+  |f(z)| \leq \kappa \sum_{n=0}^{+\infty} \frac{(\sigma |z|)^n}{n!} =
+  \kappa e^{\sigma |z|}
+  \]</span> hence <span class="math inline">\(f\)</span> is of exponential type and <span class="math inline">\(\sigma(f) \leq \sigma\)</span>.</p></li>
+<li><p>For any <span class="math inline">\(n \in \mathbb{N}\)</span> and <span class="math inline">\(r&gt;0\)</span>, <span class="math display">\[
+  a_n = \frac{1}{i2\pi} \int_{r[\circlearrowleft]}\frac{f(z)}{z^{n+1}},
+  \]</span> hence if <span class="math inline">\(\forall \, z \in \mathbb{C}\)</span>, <span class="math inline">\(|f(z)| \leq \kappa e^{\sigma |z|}\)</span>, by the M-L inequality, <span class="math display">\[
+  |a_n| 
+  \leq \frac{1}{2\pi} \kappa \frac{e^{\sigma r}}{r^{n+1}}\times 2\pi r 
+  = \kappa \frac{e^{\sigma r}}{r^n}.
+  \]</span> If <span class="math inline">\(n=0\)</span>, the infimum of the right-hand side with respect to <span class="math inline">\(r&gt;0\)</span> is <span class="math inline">\(\kappa\)</span>. Otherwise, the right-hand side is a differentiable function of <span class="math inline">\(r&gt;0\)</span> that tends to <span class="math inline">\(+\infty\)</span> when <span class="math inline">\(r\to 0\)</span> or <span class="math inline">\(r\to +\infty\)</span>. Therefore, it has a minimum at a <span class="math inline">\(r&gt;0\)</span> that satisfies <span class="math display">\[
+  \frac{d}{dr} \ln \left(\kappa \frac{e^{\sigma r}}{r^n}\right) = 0.
+  \]</span> Given that <span class="math display">\[
+  \frac{d}{dr} \ln \left(\kappa \frac{e^{\sigma r}}{r^n}\right) 
+  = \frac{d}{dr} \left(\ln \kappa + \sigma r - n \ln r\right)
+  =\sigma - \frac{n}{r},
+  \]</span> we have <span class="math display">\[
+  |a_n| \leq
+  \min_{r&gt;0} \kappa \frac{e^{\sigma r}}{r^n}
+  = \kappa \left(\frac{e \sigma}{n}\right)^n.
+  \]</span></p></li>
+<li><p>Let <span class="math inline">\(\sigma &gt; \sigma(f)\)</span>. Let <span class="math inline">\(\lambda &lt; 1\)</span> such that <span class="math inline">\(\lambda \sigma &gt; \sigma(f)\)</span>; there is a <span class="math inline">\(\kappa &gt; 0\)</span> such that <span class="math display">\[
+  \forall \, z \in \mathbb{C}, \; |f(z)| \leq \kappa e^{\lambda\sigma|z|}.
+  \]</span> The result of the previous question yields for any <span class="math inline">\(n&gt;0\)</span> <span class="math display">\[
+  |a_n| \leq \kappa \left(\frac{e \lambda \sigma}{n}\right)^n
+  \]</span> and <span class="math inline">\(|a_0| \leq \kappa\)</span>, therefore <span class="math display">\[
+  \forall \, n \in \mathbb{N}^*, \;
+  |n ! a_n| \leq \kappa \left[ {\sqrt{2\pi n}} 
+  \lambda^n(1+\epsilon_n)
+  \right] \sigma^n 
+  \; \; \mathrm{ with } \lim_{n \to +\infty} \epsilon_n = 1.
+  \]</span> The sequence <span class="math display">\[
+  \left|\kappa \left[ {\sqrt{2\pi n}} 
+  \lambda^n(1+\epsilon_n)
+  \right] \right|,
+  \; n \in \mathbb{N}^*
+  \]</span> converges to <span class="math inline">\(0\)</span> when <span class="math inline">\(n\)</span> tends to <span class="math inline">\(+\infty\)</span> and thus has some upper bound <span class="math inline">\(\kappa'\)</span> that we may select greater than <span class="math inline">\(\kappa\)</span>. Finally, <span class="math inline">\(|n! a_n| \leq \kappa' \sigma^n\)</span> for any <span class="math inline">\(n\in \mathbb{N}\)</span>.</p></li>
+<li><p>The sum <span class="math inline">\(\sum_{n=0}^{+\infty} |a_n| z^n\)</span> is convergent for any <span class="math inline">\(z \in \mathbb{C}\)</span> because the Taylor expansion of <span class="math inline">\(f\)</span> is absolutely convergent on the whole complex plane; the function <span class="math display">\[
+   g: z \in \mathbb{C} \mapsto \sum_{n=0}^{+\infty} |a_n| z^n
+   \]</span> is actually an entire function.</p>
+<p>For any <span class="math inline">\(\sigma\)</span> such that <span class="math inline">\(\sigma(f) &lt; \sigma\)</span>, by question 5, there is a <span class="math inline">\(\kappa &gt; 0\)</span> such that <span class="math inline">\(|n! a_n| \leq \kappa \sigma^n\)</span> and thus <span class="math inline">\(|n! |a_n|| \leq \kappa \sigma^n\)</span>. By question 3, the function <span class="math inline">\(g\)</span> is of exponential type and <span class="math inline">\(\sigma(g) \leq \sigma\)</span>; thus <span class="math inline">\(\sigma(g) \leq \sigma(f)\)</span>. The converse inequality may be proved by the same kind of argument (or directly as <span class="math inline">\(|f(z)| \leq g(|z|)\)</span>).</p></li>
+<li><p>For any <span class="math inline">\(\sigma \in \mathbb{R}\)</span>, <span class="math inline">\(e^{-\sigma t} f_0(t) = e^{-(\sigma + 1)t},\)</span> hence the function <span class="math inline">\(t \in \mathbb{R}_+ \mapsto e^{-\sigma t} f_0(t)\)</span> is integrable if and only if <span class="math inline">\(\sigma &gt; -1\)</span>. Therefore, the Laplace transform of the function <span class="math inline">\(f_0\)</span> is defined exactly on <span class="math inline">\(\{s \in \mathbb{C} \; | \; \mathrm{Re} \, \, s &gt; -1\}.\)</span> For any such <span class="math inline">\(s\)</span>, we have <span class="math display">\[
+   \mathcal{L}[f_0](s) = 
+   \int_{0}^{+\infty} e^{-t} e^{-st} \, dt
+   =
+   \left[-\frac{e^{-(s+1)t}}{s+1}\right]^{+\infty}_0
+   =
+   \frac{1}{s+1}.
+   \]</span> In general, if <span class="math inline">\(f\)</span> is an entire function of exponential type, then for any complex number <span class="math inline">\(s\)</span> such that <span class="math inline">\(\sigma = \mathrm{Re}(s) &gt; \sigma(f)\)</span>, there is a <span class="math inline">\(\epsilon &gt; 0\)</span> such that <span class="math inline">\(\sigma - \epsilon &gt; \sigma(f)\)</span>, hence there is some <span class="math inline">\(\kappa &gt;0\)</span> such that <span class="math display">\[
+   \forall \,t &gt; 0, \; |f(t) e^{-s t}| = |f(t)|e^{-\sigma t} \leq \kappa e^{-\epsilon t},
+   \]</span> thus the function <span class="math inline">\(t \in \mathbb{R}_+ \mapsto f(t) e^{-st}\)</span> is integrable.</p></li>
+<li><p>If <span class="math inline">\(\mathrm{Re}(s) &gt; \sigma(f)\)</span>, we have <span class="math display">\[
+   \mathcal{L}[f](s) 
+   = 
+   \int_{\mathbb{R}_+} 
+     \left[
+       \sum_{n=0}^{+\infty} a_n t^n
+     \right] 
+     e^{-st}
+   \, dt.
+   \]</span> For any <span class="math inline">\(m \in \mathbb{N}\)</span>, <span class="math display">\[
+   \left|
+     \left[
+       \sum_{n=0}^{m} a_n t^n 
+     \right] e^{-st} 
+   \right|
+   \leq 
+   \left[
+     \sum_{n=0}^{+\infty} |a_n| t^n 
+   \right] 
+   e^{-(\mathrm{Re}(s)) t}
+   = g(t) e^{-(\mathrm{Re}(s)) t}.
+   \]</span> Therefore, as <span class="math inline">\(\sigma(g) = \sigma(f)\)</span>, for any <span class="math inline">\(\sigma&gt;0\)</span> such that <span class="math inline">\(\sigma(f) &lt; \sigma &lt; \mathrm{Re}(s)\)</span>, there is a <span class="math inline">\(\kappa &gt; 0\)</span> such that <span class="math display">\[
+   \left|
+     \left[
+       \sum_{n=0}^{m} |a_n| t^n
+     \right] 
+     e^{-st}
+   \right|
+   \leq
+   \kappa e^{\sigma t} e^{-(\mathrm{Re}(s))t} 
+   = 
+   \kappa e^{-(\mathrm{Re}(s) - \sigma) t}.
+   \]</span> The right-hand side of this inequality is an integrable function of <span class="math inline">\(t\)</span>; by the dominated convergence theorem <span class="math display">\[
+   \mathcal{L}[f](s) 
+   = 
+   \int_{\mathbb{R}_+} 
+     \left[
+       \sum_{n=0}^{+\infty} a_n t^n
+     \right] 
+     e^{-st}
+   \, dt
+   =
+   \sum_{n=0}^{+\infty} 
+     a_n 
+     \left[
+       \int_{\mathbb{R}_+}
+         t^n e^{-st}
+       \, dt
+     \right].
+   \]</span> For any natural number <span class="math inline">\(n\)</span>, we have <span class="math display">\[
+   \int_{\mathbb{R}_+}
+     t^n e^{-st}
+   \, dt
+   = 
+   \mathcal{L}[t\mapsto t^n](s)
+   = \frac{n!}{s^{n+1}}
+   \]</span> and therefore <span class="math display">\[
+   \mathcal{L}[f](s) 
+   = 
+   \sum_{n=0}^{+\infty} \frac{n! a_n}{s^{n+1}}.
+   \]</span></p>
+<p>Now, the right-hand side of this equation is a Laurent series centered on the origin which is convergent whenever <span class="math inline">\(\mathrm{Re}(s) &gt; \sigma(f)\)</span>. Consequently, the sum <span class="math inline">\(g(s)\)</span> is actually convergent and holomorphic in the annulus <span class="math inline">\(A(0, \sigma(f), +\infty)\)</span>.</p>
+<p>Now, the set <span class="math display">\[
+  \Omega = \mathrm{dom} \, \mathcal{L}[f] \cup A(0,\sigma(f), +\infty).
+  \]</span> is open and connected as the union of two connected sets with a non-empty intersection. We may define on <span class="math inline">\(\Omega\)</span> the function <span class="math display">\[
+  \overline{\mathcal{L}}[f](s) = 
+  \left|
+  \begin{array}{cl}
+  \mathcal{L}[f](s) &amp; \mbox{ if } \, s\in \mathrm{dom} \, \mathcal{L}[f], \\
+  g(s)              &amp; \mbox{ if } |s| &gt; \sigma(f).
+  \end{array} 
+  \right.
+  \]</span> This definition is non-ambiguous: since <span class="math inline">\(\mathcal{L}[f](s)\)</span> and <span class="math inline">\(g\)</span> are holomorphic and identical on the non-empty set <span class="math inline">\(\{s \in \mathbb{C} \; | \; \mathrm{Re} \, s &gt; \sigma(f)\}\)</span>, by the isolated zeros theorem, they have the same values on the connected open set <span class="math display">\[\mathrm{dom} \, \mathcal{L}[f] \cap A(0,\sigma(f), +\infty).\]</span></p>
+<p>The function <span class="math inline">\(\overline{\mathcal{L}}[f]\)</span> clearly is a holomorphic extension of <span class="math inline">\(\mathcal{L}[f]\)</span> to <span class="math inline">\(\Omega\)</span>. This extension is unique: the set <span class="math inline">\(\Omega\)</span> is connected as the union of two connected sets with a non-empty intersection, therefore the isolated zeros theorem also applies.</p>
+<p>For <span class="math inline">\(f=f_0\)</span>, we have <span class="math display">\[
+  \mathrm{dom} \, \mathcal{L}[f] = 
+  \{
+  s \in \mathbb{C} \; | \; \mathrm{Re}(s) &gt; -1
+  \}
+  \]</span> and as <span class="math inline">\(\sigma(f_0) = 1\)</span>, <span class="math display">\[
+  A(0, \sigma(f_0), +\infty) = \{s \in \mathbb{C} \; | \; |s| &gt; 1\},
+  \]</span> thus <span class="math inline">\(\Omega = \mathbb{C} \setminus \{-1\}\)</span>. The function <span class="math display">\[
+  s \in \mathbb{C} \setminus \{-1\}
+  \mapsto 
+  \frac{1}{s+1}
+  \]</span> is holomorphic. As it extends the original Laplace transform of <span class="math inline">\(f_0\)</span>, this is the extended Laplace transform of <span class="math inline">\(f_0\)</span>.</p></li>
+<li><p>For any <span class="math inline">\(t\geq 0\)</span> and any <span class="math inline">\(r&gt; \sigma(f)\)</span>, <span class="math display">\[
+  \frac{1}{i2\pi}\int_{r[\circlearrowleft]} \overline{\mathcal{L}}[f] e^{st} \, ds
+  =
+  \frac{1}{i2\pi}\int_{r[\circlearrowleft]} 
+  \left[
+    \sum_{n=0}^{+\infty} \frac{n! a_n}{s^{n+1}}
+  \right] e^{st} \, ds.
+  \]</span> The series <span class="math inline">\(\sum_{n=0}^{+\infty} {n! a_n}/{s^{n+1}}\)</span> is convergent, uniformly with respect to <span class="math inline">\(s\)</span> on the circle of radius <span class="math inline">\(r\)</span> centered on the origin, hence <span class="math display">\[
+  \frac{1}{i2\pi}\int_{r[\circlearrowleft]} \overline{\mathcal{L}}[f] e^{st} \, ds
+  =
+  \sum_{n=0}^{+\infty} n! a_n
+  \left[
+  \frac{1}{i2\pi}\int_{r[\circlearrowleft]} 
+  \frac{e^{st}}{s^{n+1}} \, ds
+  \right].
+  \]</span> The function <span class="math inline">\(s \in \mathbb{C}^* \mapsto {e^{st}}/{s^{n+1}}\)</span> is complex-differentiable, therefore <span class="math display">\[
+  \frac{1}{i2\pi}\int_{r[\circlearrowleft]} 
+  \frac{e^{st}}{s^{n+1}} \, ds
+  = 
+  \mathrm{res} \left(s \mapsto \frac{e^{st}}{s^{n+1}}, 0\right).
+  \]</span> Since <span class="math display">\[
+  \lim_{s \to 0} s^{n+1} \frac{e^{st}}{s^{n+1}} = 1,
+  \]</span> the origin is a pole of order <span class="math inline">\(n+1\)</span> of this function and <span class="math display">\[
+  \mathrm{res} \left(s \mapsto \frac{e^{st}}{s^{n+1}}, 0\right)
+  = \lim_{s \to 0} \frac{1}{n!}\frac{d^n}{ds^n}e^{st}
+  = \frac{t^n}{n!}.
+  \]</span> Finally, <span class="math display">\[
+  \frac{1}{i2\pi}\int_{r[\circlearrowleft]} \overline{\mathcal{L}}[f] e^{st} \, ds
+  =
+  \sum_{n=0}^{+\infty} n! a_n
+  \frac{t^n}{n!}
+  =
+  \sum_{n=0}^{+\infty} a_n t^n = f(t).
+  \]</span></p></li>
+</ol>
+<!--
+\newpage
+
+  $$
+  L[f](s) = \int_{0}^{+\infty} f(t) e^{-st}\, dt
+  $$
+
+
+**We may** start with "normal" Laplace computation, see if there are extensions
+(on an example), then tackle the general problem of a priori existence of the
+analytic extensions.
+
+**TODO:** start with uniqueness of the holomorphic extension on some half-plane
+if we can prove existence (pro: start with simple geometry of the planes,
+before getting our hands dirty).
+
+**TODO:** then, use the derivative approach to show that $L_{\beta}$ is locally
+independent of $\beta$; conclude that both transforms are identical in the
+intersection of their domains. **ISSUE:** naturally, we would diff wrt $\beta$,
+but I'd rather not use real-analysis. Can we diff wrt $u = e^{i\beta}$?
+
+**AT THE END.** handle the case "multi-valued" when angles are large? Do
+we actually have examples of that or do we always have something that is
+def in a neighborhood of $+\infty$?
+
+**NOTA:** I probably could work with $L^1$ bounds instead of 
+exponential bounds but is it wise ? The problem with exponential
+bounds is that we can't deal with stuff with mild singularities
+such as the inverse of $\sqrt{t}$ ...
+
+**Consider inversion formula?** or part of it ? (cauchy-like part ?)
+
+**Try on stuff like:** $(e^t - e^{-t})/t$ ? (Hopefully, get some log and
+exhibit multi-valued behavior in the Laplace domain?). MMm won't do.
+Try $\sqrt{t}$ and $1/2s \times \sqrt{\pi/s}$ ? Or $t^{-1/2}$ and 
+$\sqrt{\pi/s}$ ? Is $s\mapsto \sqrt{\pi/s}$ multi-valued ? (yes it is)
+
+
+**TODO:** 
+
+  - first Laplace transforms of entire function of exponential type.
+
+  - then Cauchy-like estimate in $t$-space ? No, do that later ?
+
+  - extension of the Laplace transform in $s$-space.
+
+  - bounds and inversion formula ?
+
+**NOTA:** **DELAY** the extension part until we tackle the inversion
+formula ? GRPMH, no we need the existence of a global Taylor expansion
+at $0$ and an exponential bound for $t>0$. Does
+
+
+Questions
+--------------------------------------------------------------------------------
+
+**TODO:** still manage to make Laplace along a ray as an intermediate step?
+(no initial focus on the Taylor expansion of the function ?)
+
+
+**NEW:** start with a function defined on $\mathbb{R}_+$ that has a global
+Taylor expansion and an exponential bound (or maybe even only a weigthed
+integral bound). Show that it has a holomorphic
+extension of exponential type ?
+
+An *entire function of exponential type* is a holomorphic function 
+$f:\mathbb{C} \to \mathbb{C}$ such that
+  $$
+  \exists \, \sigma > 0, \; \exists \, \kappa > 0, \;
+  \forall \, z \in \mathbb{C}, \;
+  |f(z)| \leq \kappa e^{\sigma|z|}.
+  $$
+
+ 1. Let $f: \mathbb{R}_+ \to \mathbb{C}$ be a locally integrable function
+    which has an extension which is an entire function of exponential type.
+    Show that this extension is unique. 
+    In the sequel use the symbol $f$ to denote both functions.
+
+ 2. Prove that the Laplace transform $\mathcal{L}[f]$ of $f$ is
+    defined on $$\Omega = \{s \in \mathbb{C} \; | \; \mathrm{Re}(s) > \sigma\}.$$
+
+ 3. Show that for any $s\in \Omega$,
+    $$
+    \mathcal{L}[f](s) = \sum_{n=0}^{+\infty} \frac{n !a_n }{s^{n+1}}.
+    $$
+
+    **ISSUE HERE:** the dominated convergence only works if we can
+    derive an exponential bound for the series whose terms are
+    the $|a_n|$ ... This work, but the sub-exercise is not trivial!
+    Alternative: work with real-valued fcts. FUCK, IT DOES NO WORK !
+    We would need to have all coefficients $a_n$ to be positive ...
+    so we have a nice sub-exercise (or we deal only with the special case)!
+
+ 4. identify it as a Laurent series, conclude that the Laplace transform
+    can be extended in a neighbourhood of $+\infty$. 
+   
+ 5. Inversion formula ? Yeah that works when the above stuff has been proved.
+    The proof of 3. is the key.
+
+   Lol, maybe there is enough here without the sector stuff ...
+
+
+----
+
+\newpage
+
+**Preamble:** notation for (symmetric) open sectors:
+
+  $$
+  \Sigma(c, \alpha) =
+  \{c + r e^{i\theta} \; | \; r>0, \; -\alpha < \theta < \alpha\}.
+  $$
+
+Let $\Omega$ be an open subset of $\mathbb{C}$ and
+let $f: \Omega \to \mathbb{C}$ be a holomorphic function.
+We assume that there is an angle $\alpha$ with $0 <\alpha < \pi/2$ 
+such that
+  $$
+  \Sigma(0,\alpha)
+  \subset \Omega
+  $$
+and that there are some $\sigma > 0$ and $\kappa > 0$ satisfying
+  $$
+  \forall \, z \in \Sigma, \;
+  |f(z)| \leq \kappa e^{\sigma |z|}.
+  $$
+
+
+
+ 1. Let $w \in \Sigma(0,\alpha)$.
+    Describe the geometric structure of the set
+      $$
+      H_w = \{s \in \mathbb{C} \; | \; \mathrm{Re} \, (s w) > \sigma |w|\}.
+      $$
+    **This is vague. Ask more precise questions and/or asks for drawings
+    in specific cases? Lift the question wrt the intersection here?
+    Yes, and phrase it better. Ask for a full characterisation or just
+    what we need?**
+
+      $$
+      H_w = \Sigma(\sigma e^{-i\arg w}, \pi/2).
+      $$
+
+    Show that there are $c\in \mathbb{C}$ and $0 < \beta < \pi/2$ such that
+      $$
+      \bigcap_{w \in \Sigma(0,\alpha)} \left\{H_{w} \; | \; w \in \Sigma(0,\alpha)\right\} = \Sigma(c, \beta)
+      $$
+
+    Same explicit stuff for the union ? Grpmh, no, it sucks.
+
+ 2. Show that for any $w \in \Sigma$ the function
+      $$
+      \mathcal{L}_w [f]:
+      s \in H_w
+      \mapsto 
+      \int_{0}^{+\infty} f(t w) e^{-st w} w\, dt 
+      $$
+    is defined and holomorphic. 
+    
+ 3. Show that the set of points $s$ that belong to $H_{w}$ for every 
+    $w \in \Sigma$
+    contains a non-empty open set $V$.
+
+ 4. Let $s \in V$; show the existence and compute the derivative of
+      $$
+      w \in \Sigma \mapsto \mathcal{L}_w [f].
+      $$
+
+    **NOTA:** there is a smart way. One you prove that the derivative
+    exist, the directional derivative is zero in one direction ...
+    That's fucking smart, I like it.
+
+    **TODO:** closed/open sector issue again ...
+
+  5. Bounds on the extension (to prepare the inversion ?)
+
+  6. Cauchy-like formula in $t$-space ...
+
+Answers
+--------------------------------------------------------------------------------
+
+1. We notice that $L_0[f]$ is the Laplace transform of $f$,
+   which is defined and holomorphic on 
+   $H_0 = \{s \in \mathbb{C} \; | \; \mathrm{Re}(s) > \sigma\}$.
+   Now, in general, if we define $f_{\beta}:\mathbb{R}_+ \to \mathbb{C}$ by
+     $$
+     f_{\beta}(t) = f(t e^{i\beta})
+     $$
+   then $L_{\beta} [f]$ is given by
+     $$
+     L_{\beta} [f](s) = e^{i\beta} L [f_{\beta}](se^{i\beta}),
+     $$
+   hence $L_{\beta}[f]$ is defined and holomorphic on $H_{\beta}$.
+
+
+ 4. Let $g(z) = f(z) e^{-sz}$, for $s \in V$
+      $$
+      \mathcal{L}_w [f](s) = \int_{0}^{+\infty} g(tw) w \, dt
+      $$
+
+    (formally)
+      $$
+      \partial_{w} \mathcal{L}_w [f](s) = 
+      \int_{0}^{+\infty} (g'(tw) tw + g(tw)) \, dt
+      $$
+    (by integration by parts)
+      $$
+      \partial_{w} \mathcal{L}_w [f](s) = [g(tw) tw]^{+\infty}_0 = 0
+      $$
+   Hence, as the set ??? is connected, $w \mapsto \mathcal{L}_w [f](s)$ is constant.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+<!--
+
+
+
+
+
+\newpage
+
+Problem S
+================================================================================
+
+The exponential of a square matrix $A$ may be defined as the sum
+  $$
+  \exp A 
+  = 
+  I + A + \frac{1}{2}A^2 + \frac{1}{6} A^3+ \dots = \sum_{n=0}^{+\infty} \frac{1}{n!} A^n.
+  $$
+which is convergent (for example element-wise) for any choice of $A$; 
+for the logarithm of a square matrix, the definition is more involved.
+In the sequel, we use as an example the case of
+  $$
+  A = 
+  \left[
+  \begin{array}{rr}
+  0 & -1 \\
+  +1 & 0
+  \end{array} 
+  \right]
+  $$
+
+Let the $a_n$ be the coefficients such that
+  $$
+  \log z = \sum_{n=0}^{+\infty} a_n (z-1)^n
+  $$
+when $z$ belongs to the open disk of radius $1$ centered on $1$.
+By analogy, we would like to defined $\log A$ as the matrix which is the sum of
+  $$
+  \sum_{n=0}^{+\infty} a_n (A - I)^n.
+  $$
+However, it doesn't work: prove that the sum is divergent (as in: there is
+at least one element of the matrix that diverges).
+
+Show that it fails and maybe that even with a new center this is bound to fail.
+Hint: diagonalisation (not necessarily) ?
+
+
+
+Compute the spectrum of $A$, defined as:
+  $$
+  \sigma(A) = \{z \in \mathbb{C} \; | \; \mathrm{det}\, (zI - A) = 0\}.
+  $$
+Let $\Omega = \mathbb{C} \setminus \sigma(A)$, compute $(zI - A)^{-1}$ 
+for any $z\in \Omega$ and show that every element of this matrix
+is a complex-differentiable function of $z$ in $\Omega$.
+
+
+Let $\gamma$ be a sequence of closed rectifiable paths of 
+$\Omega \setminus \mathbb{R}_-$ such that
+  $$
+  \forall \, z \in \sigma(A), \; \mathrm{ind}(\gamma, z) = 1.
+  $$
+
+Prove the identity first, before the log ?
+
+  $$
+  \log A = \frac{1}{i2\pi} \int_{\gamma} (z I - A)^{-1} \log z \, dz.
+  $$
+
+Show that the definition is otherwise independent of $\gamma$.
+
+Compute the result and $\exp(\log A)$ ($\exp$ defined classically).
+
+
+Problem D
+================================================================================
+
+**Preamble.**
+We search an alternate proof of the global version of Cauchy's integral formula.
+
+Therefore, we forbid in this problem the use of the global integral
+results (global versions of the integral theorem, residues theorem and of
+course of Cauchy's formula). 
+Everything else can be used 
+(the results after the global theory chapter can actually 
+be proved with the local version of Cauchy's integral theorem.)
+
+
+----
+
+Let $\Omega$ be an open set of $\mathbb{C}$, 
+let $f:\Omega \to \mathbb{C}$ be a holomorphic function 
+and let $\gamma$ be a sequence of rectifiable paths of $\Omega$.
+
+ 1. Let $z \in \mathrm{Ext} \, \gamma$. Show that the function
+      $$
+      w \mapsto \frac{f(w)}{w-z}
+      $$
+    is defined and continous on $\Omega$.
+
+ 2. We define
+      $$
+      \phi: z \in \mathrm{Ext} \, \gamma \mapsto \int_{\gamma} \frac{f(w)}{w-z} dw.
+      $$ 
+   Show that $\phi$ is holomorphic 
+   (advice: compute the difference quotient $g(z+h) - g(z) /h$)
+
+
+ 3. We define the function $g: \Omega \times \Omega \to \mathbb{C}$ by
+      $$
+      g(w, z) = \frac{f(w) - f(z)}{w - z} \mbox{ if } w \neq z
+      $$
+   and
+      $$
+      g(w, w) = f'(w).
+      $$
+   Show that $g$ is continuous.
+
+ 4. Let $w \in \Omega$. 
+    Show that the function $z \in \Omega \mapsto g(w, z)$ is holomorphic.
+
+Let $\psi: \Omega \to \mathbb{C}$ be the function defined by
+  $$
+  \psi(z) = \frac{1}{i2\pi} \int_{\gamma} g(w, z) dw.
+  $$
+The function $\psi$ is holomorphic 
+(this is a consequence of the results of the previous questions.)
+
+ 5. Show that the function $\psi$ and $\phi$ have the same values on the 
+   intersection of $\mathrm{Ext} \, \gamma$ and $\Omega$. 
+
+We define the function $\chi: \mathbb{C} \to \mathbb{C}$ by
+     $$
+     \chi(z) = 
+     \left|
+     \begin{array}{ll}
+     \psi(z) & \mbox{if } z \in \Omega, \\
+     \phi(z) & \mbox{if } z \in \mathbb{C} \setminus \Omega.
+     \end{array} 
+     \right.
+     $$
+
+ 6. Show that $\chi$ is holomorphic.
+
+ 7. Use this result to prove that $\psi = 0$.
+
+ 8. Prove that for every $z \in \Omega \setminus \gamma([0,1])$, 
+    $$
+    \mathrm{ind}(\gamma, z) \times f(z) 
+    = 
+    \frac{1}{i2\pi} \int_{\gamma} \frac{f(w)}{w-z} dw.
+    $$
+   
+
+-->
+</section>
+</section>
+</main>
+
+
+</body></html>
