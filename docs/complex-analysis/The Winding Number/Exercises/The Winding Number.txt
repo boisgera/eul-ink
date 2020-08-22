@@ -328,8 +328,8 @@ The statements are:
  3. **Union.**
     The statement doesn't hold: consider
       $$
-      A_s = \{2e^{i 2 \pi t} \; | \; t \in [0, 1/2]\}, \;
-      B_s = \{2e^{i 2 \pi t} \; | \; t \in [1/2, 1]\}.
+      A_s = \{e^{i 2 \pi t} \; | \; t \in [0, 1/2]\}, \;
+      B_s = \{e^{i 2 \pi t} \; | \; t \in [1/2, 1]\}.
       $$
     and the associated dilations
       $$

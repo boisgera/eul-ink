@@ -1,1 +1,1055 @@
-/www/audio/Spectral/Spectral.html
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, Mines ParisTech">
+  <title>Spectral Methods</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+}
+*, table {
+  padding: 0;
+}
+*, html main {
+  box-sizing: content-box;
+}
+*, nav#TOC .badge {
+  vertical-align: baseline;
+}
+html, main > header .author, main > header .date, main > .header .author, main > .header .date, main > #header .author, main > #header .date, h2, .section-flag {
+  line-height: 36px;
+}
+html, main > header .author, main > header .date, main > .header .author, main > .header .date, main > #header .author, main > #header .date, h2, h3, h4, h5, h6, code {
+  font-size: 24px;
+}
+html {
+  font-style: normal;
+  font-family: Alegreya, serif;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html, main > header .author, main > header .date, main > .header .author, main > .header .date, main > #header .author, main > #header .date, nav#TOC > ul ul li {
+  font-weight: normal;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote {
+  quotes: none;
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+}
+blockquote, html main {
+  padding: 36px;
+}
+blockquote, html p, html .p, html section, main > header h1, main > .header h1, main > #header h1, pre, figure, .table, nav#TOC > ul > * {
+  margin-bottom: 36px;
+}
+blockquote:before, blockquote:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  border-top: medium solid black;
+}
+table, img {
+  margin-left: auto;
+  margin-right: auto;
+}
+table, thead {
+  border-bottom: medium solid black;
+}
+html em, figcaption {
+  font-style: italic;
+}
+html strong, main > header h1, main > .header h1, main > #header h1, h1, h2, h3, h4, h5, h6, nav#TOC > ul {
+  font-weight: bold;
+}
+html p, html .p, figcaption {
+  text-align: justify;
+}
+html p, html .p {
+  hyphens: auto;
+  -moz-hyphens: auto;
+}
+html main {
+  max-width: 32em;
+  margin: auto;
+}
+main > header, main > .header, main > #header, h1 {
+  margin-top: 72px;
+}
+main > header, main > .header, main > #header {
+  margin-bottom: 72px;
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: 54px;
+  margin-top: 0px;
+}
+main > header .author, main > header .date, main > .header .author, main > .header .date, main > #header .author, main > #header .date, h2 {
+  margin-bottom: 18px;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: "Alegreya SC", serif;
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  line-height: 45px;
+  margin-bottom: 27px;
+}
+h3, h4, h5, h6, nav#TOC .badge {
+  margin-right: 1em;
+}
+h3, h4, h5, h6 {
+  display: inline;
+}
+a {
+  cursor: pointer;
+  outline: 0;
+}
+a, a:hover {
+  text-decoration: none;
+}
+a:link, a:visited {
+  color: black;
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li, nav#TOC > ul li {
+  list-style-type: none;
+}
+li {
+  list-style-image: none;
+  list-style-position: outside;
+  padding-left: 0.5em;
+}
+li, nav#TOC > ul ul li {
+  margin-left: 36px;
+}
+ul li {
+  list-style: disc;
+}
+ol li {
+  list-style: decimal;
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-family: Inconsolata;
+}
+pre, .table, .MJXc-display {
+  overflow-x: auto;
+}
+pre {
+  background-color: #ebebeb;
+  padding-left: 36px;
+  padding-right: 36px;
+  padding-top: 36px;
+}
+pre, nav#TOC > ul > li.top-li {
+  padding-bottom: 36;
+}
+img {
+  display: block;
+  height: auto;
+}
+img, .table, .MJXc-display {
+  width: 100%;
+}
+figure, nav#TOC .badge {
+  text-align: center;
+}
+figcaption, nav#TOC .badge {
+  display: inline-block;
+}
+.table, .MJXc-display {
+  overflow-y: hidden;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+nav#TOC > ul, nav#TOC .badge {
+  position: relative;
+}
+nav#TOC > ul li {
+  margin-left: 0;
+  padding-left: 0;
+}
+.section-flag, nav#TOC .badge {
+  font-size: 17px;
+  font-weight: 300;
+  font-family: Alegreya Sans SC;
+}
+.section-flag, nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+}
+nav#TOC > ul > li.top-li {
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+nav#TOC .badge {
+  bottom: 0.13em;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+}
+</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,800,800italic,900,900italic|Alegreya+Sans+SC:400,100,300,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+SC:400,400italic,700,700italic,900,900italic|Alegreya:400,700,900,400italic,700italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.11.1
+(function() {
+  $(function() {
+    return console.log("HELLO FROM DEMO!");
+  });
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.11.1
+(function() {
+  var hide_proof, main, show_proof;
+
+  hide_proof = function(section) {
+    var clone, div, header, id, new_paragraph;
+    clone = section.clone();
+    id = section.attr("id");
+    clone.attr({
+      id: id + "---"
+    });
+    div = $("<div></div>");
+    div.css({
+      display: "none"
+    });
+    div.append(clone);
+    header = section.find("h3, h4, h5, h6").first().clone();
+    new_paragraph = $("<div class='p'></div>").append(header);
+    new_paragraph.append("<i class='fa fa-caret-down expand' style='float:right;cursor:pointer;'></i>");
+    section.empty();
+    section.append(new_paragraph);
+    section.append(div);
+    return section.find("i.expand").on("click", (function(section) {
+      return function() {
+        return show_proof(section);
+      };
+    })(section));
+  };
+
+  show_proof = function(section) {
+    var tombstone;
+    section.children().first().remove();
+    section.html(section.children().first().html());
+    tombstone = section.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer"
+    });
+    return tombstone.on("click", (function(section) {
+      return function() {
+        return hide_proof(section);
+      };
+    })(section));
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, results, section, sections, text;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    results = [];
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      results.push(hide_proof(section));
+    }
+    return results;
+  };
+
+  $(main);
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">Spectral Methods</a></h1>
+
+<h2 class="author">
+By <a href="Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, <a href="http://www.mines-paristech.fr/">Mines ParisTech</a>
+</h2> 
+
+<h3 class="date">1 June, 2015</h3>
+</header>
+<section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
+<ul>
+<li class="top-li"><p class="section-flag">section 1</p><a href="#signal-spectrum-filters">Signal, Spectrum, Filters</a><ul>
+<li><a href="#convolution-and-filters">Convolution and Filters</a><ul>
+<li><a href="#convolution">Convolution</a></li>
+<li></li>
+<li><a href="#filters">Filters</a></li>
+</ul></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 2</p><a href="#finite-signals">Finite Signals</a><ul>
+<li><a href="#design-of-low-pass-filters">Design of Low-Pass Filters</a></li>
+<li><a href="#spectrum-computation">Spectrum Computation</a></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 3</p><a href="#multirate-signal-processing">Multirate Signal Processing</a><ul>
+<li><a href="#decimation-and-expansion">Decimation and Expansion</a><ul>
+<li><a href="#decimation">Decimation</a></li>
+<li><a href="#expansion">Expansion</a></li>
+</ul></li>
+<li><a href="#downsampling-and-upsampling">Downsampling and Upsampling</a></li>
+<li><a href="#ideal-filter-banks-and-perfect-reconstruction">Ideal Filter Banks and Perfect Reconstruction</a></li>
+<li><a href="#filter-banks-and-perfect-reconstruction">Filter Banks and Perfect Reconstruction</a></li>
+<li><a href="#cosine-modulated-filter-banks">Cosine Modulated Filter Banks</a><ul>
+<li><a href="#pseudo-qmf">Pseudo-QMF</a></li>
+</ul></li>
+<li><a href="#polyphase-representation-of-filters-banks">Polyphase Representation of Filters Banks</a><ul>
+<li><a href="#analysis-filter-bank">Analysis Filter Bank</a></li>
+<li><a href="#synthesis-filter-bank">Synthesis Filter Bank</a></li>
+</ul></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 4</p><a href="#psychoacoustics---perceptual-models">Psychoacoustics - Perceptual Models</a><ul>
+<li><a href="#acoustics---physical-values">Acoustics - Physical Values</a></li>
+<li><a href="#threshold-in-quiet">Threshold in Quiet</a></li>
+<li><a href="#simultaneous-masking">Simultaneous Masking</a></li>
+<li><a href="#spreading-functions">Spreading Functions</a></li>
+<li><a href="#implementation---bit-allocation-strategies">Implementation - Bit Allocation Strategies</a></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 5</p><a href="#notes">Notes</a></li></ul>
+</nav></section>
+<p>In the context of audio signal processing, spectral methods refer to algorithms that rely on the representation of signals as superposition of sinusoids. Such a decomposition – the spectrum of the signal – is obtained with the Fourier transform ; efficient computations of the spectrum are possible with the fast Fourier transform algorithms.</p>
+<p>Spectral methods are crucial in the study of filters such as the finite impulse response filters or autoregressive filters and more generally to understand any transformation based on a convolution ; they are also key in multirate systems that achieve compression through data rate reduction.</p>
+<section id="signal-spectrum-filters" class="level1">
+<h1><a href="#signal-spectrum-filters">Signal, Spectrum, Filters</a></h1>
+<p>A <strong>discrete-time signal</strong> <span class="math inline">\(x\)</span> with sample time <span class="math inline">\(\Delta t\)</span> is a function defined on <span class="math display">\[
+  \mathbb{Z} \Delta t = \{k \Delta t, \; k \in \mathbb{Z}\}.
+  \]</span> This definition is nothing but a convenient packaging of the sequence of values <span class="math inline">\((x_n)\)</span>, <span class="math inline">\(n\in \mathbb{Z}\)</span>, with the sample time <span class="math inline">\(\Delta t\)</span> into a unique mathematical object.</p>
+<p>We investigate in this section the representation of a discrete-time signal as a superposition of sinusoids. Let’s start the search for such a spectral representation with a real-valued discrete-time signal <span class="math inline">\(x\)</span>. Given a non-negative frequency <span class="math inline">\(f\)</span>, a sinusoid is determined uniquely by its amplitude <span class="math inline">\(a(f)\geq 0\)</span> and – provided that <span class="math inline">\(a(f) \neq 0\)</span> – its phase <span class="math inline">\(\phi(f) \in [-\pi, \pi)\)</span>. We therefore search for a pair of functions <span class="math inline">\(a\)</span> and <span class="math inline">\(\phi\)</span> – subject to the above constraints – such that <span class="math display">\[ \label{decomp}
+  \forall \, t \in \mathbb{Z}\Delta t, \; x(t) = \int_{0}^{+\infty} a(f) \cos(2\pi f t + \phi(f)) \, df
+  \]</span> Alternatively, we may use complex exponentials instead of sinusoids: decompose the <span class="math inline">\(\cos\)</span> in the previous equation and set <span class="math display">\[
+  x(f) = \left|
+  \begin{array}{rl}
+  1/2 \times a(f)e^{i\phi(f)}   &amp; \mbox{if } \, f \geq 0 \\
+  1/2 \times a(-f) e^{-i\phi(-f)} &amp; \mbox{otherwise.}
+  \end{array}
+  \right. ,
+  \mbox{ or equivalently }
+  \begin{array}{l}
+  a(f) = 2 |x(f)| \\
+  \phi(f) = \angle \, x(f)
+  \end{array}
+  \]</span> The equation () becomes <span class="math display">\[ \label{decomp2}
+  x(t) = \int_{-\infty}^{+\infty} x(f) \exp(i 2\pi f t)\, df
+  \]</span> and the only constraint that holds on the complex-valued function <span class="math inline">\(x(f)\)</span>, defined for any real frequency <span class="math inline">\(f\)</span>, is the symmetry constraint <span class="math display">\[
+  x(-f) = \overline{x(f)}
+  \]</span> This relation specifically ensures that the complex exponentials in () always combine to produce a real-valued signal <span class="math inline">\(x(t)\)</span>, so that the values of <span class="math inline">\(x(f)\)</span> for negative frequency hold not extra information and are merely an artifact of the complex exponential representation.</p>
+<p>However we can drop this symmetry constraint if we allow complex-valued signals <span class="math inline">\(x(t)\)</span> in the first place and then these negative frequencies values are no longer redundant. At the same time, we notice that () still makes sense if we consider vector-valued signals <span class="math inline">\(x(t) \in \mathbb{C}^p\)</span>, so given this higher generality, and also the better mathematical tractability of (), we will stick to this formulation of the problem.</p>
+<p>At this stage we clearly search for summable functions – that is <span class="math inline">\(x(f) \in L^1(\mathbb{R},\mathbb{C}^p)\)</span> – so that the right-hand side of the equation makes sense. Still, the problem of finding a solution <span class="math inline">\(x(f)\)</span> to () is not well posed: let <span class="math inline">\(\Delta f\)</span> be the signal sampling frequency, defined by <span class="math display">\[
+  \Delta f \times \Delta t = 1.
+  \]</span> If <span class="math inline">\(x(f)\)</span> is a solution to the equation, so is <span class="math inline">\(f \mapsto x(f - k\Delta f)\)</span> for any <span class="math inline">\(k \in \mathbb{Z}\)</span>: the spectral content of <span class="math inline">\(x(t)\)</span> is only determined up to frequency shifts that are multiples of the sampling frequency <span class="math inline">\(\Delta f\)</span>.</p>
+<figure>
+<img src="images/frequency_shift_sampling-0.svg">
+</figure>
+<figure>
+<img src="images/frequency_shift_sampling-1.svg">
+</figure>
+<figure>
+<img src="images/frequency_shift_sampling-2.svg" alt="A signal sampled at 8khz (top) and two valid interpretation of its spectral content : either a pure 2 kHz sine (mid) or 10 kHz sine (bottom)."><figcaption>A signal sampled at 8khz (top) and two valid interpretation of its spectral content : either a pure 2 kHz sine (mid) or 10 kHz sine (bottom).</figcaption>
+</figure>
+<p>A way to remove this ambiguity in <span class="math inline">\(x(f)\)</span> is to reassign to any spectral component at the frequency <span class="math inline">\(f\)</span> the smallest frequency <span class="math inline">\(f - k\Delta t\)</span> that is the nearest from <span class="math inline">\(0\)</span> among any possible values of <span class="math inline">\(k \in \mathbb{Z}\)</span> – that frequency has to be in <span class="math inline">\([-\Delta f/2, +\Delta f/2]\)</span>. In other words, for any spectral component<br>
+of the signal, we make a low-frequency interpretation. Mathematically, that means that we replace <span class="math inline">\(x(f)\)</span> with <span class="math display">\[
+  x(f) \to 
+  x'(f) =  
+  \left|
+  \begin{array}{cl}
+  \displaystyle \sum_{k \in \mathbb{Z}} x(f - k/\Delta t) &amp; \mbox{if} \, f \in [-\Delta f/2, +\Delta f/2], \\
+  0 &amp; \mbox{otherwise.} 
+  \end{array}
+  \right.
+  \]</span> and therefore if we rename <span class="math inline">\(x(f)\)</span> this particular solution <span class="math inline">\(x'(f)\)</span>, we end up with the search for an integrable function <span class="math inline">\(x(f): [-\Delta f/2, +\Delta f/2] \to \mathbb{C}^p\)</span> solution of the equation <span class="math display">\[\label{decomp3}
+  \forall \, t  \in \mathbb{Z} \Delta t, \;
+  x(t) = \int_{-\Delta f/2}^{+\Delta f/2} x(f) \exp(i2\pi f t) \, df
+  \]</span> The highest frequency value in the integration interval, <span class="math inline">\(\Delta f /2\)</span> is called the <strong>Nyquist frequency</strong> associated to the sample time <span class="math inline">\(\Delta t\)</span>.</p>
+<p>We notice at this stage that equation () defines <span class="math inline">\(x(n \Delta t)\)</span> as the <span class="math inline">\(n\)</span>-th Fourier coefficient of the Fourier serie associated to <span class="math inline">\(x(f)\)</span>. As a consequence, if we make the assumption that the signal <span class="math inline">\(x(t)\)</span> is of finite energy, that is mathematically <span class="math inline">\(x(t) \in L^2(\mathbb{Z}\Delta t, \mathbb{C}^p)\)</span> or <span class="math display">\[
+  \sum_{n \in \mathbb{Z}\Delta t} |x(t)|^2 &lt; +\infty
+  \]</span> then the function <span class="math inline">\(x(f)\)</span> is uniquely defined (almost everywhere). It also belongs<br>
+to <span class="math inline">\(L^2([-\Delta f/2, +\Delta f/2], \mathbb{C}^n)\)</span> <span class="math display">\[
+  \int_{-\Delta f / 2}^{\Delta f / 2} |x(f)|^2 \, df &lt; +\infty
+  \]</span> and satisfies <span class="math display">\[
+  x(f) = \Delta t  \sum_{n \in \mathbb{Z}\Delta t} x(t) \exp (-2i\pi t f)
+  \]</span> The transform – denoted <span class="math inline">\(\mathcal{F}\)</span> – that maps a signal time-domain representation <span class="math inline">\(x(t)\)</span> to its frequency-domain representation or <strong>spectrum</strong> <span class="math inline">\(x(f)\)</span> is <strong>(discrete-time) Fourier transform (DTFT)</strong>.</p>
+<p>Parseval’s theorem also yields <span class="math display">\[
+  \label{Parseval}
+  \int_{-\Delta f / 2}^{+ \Delta f /2} |x(f)|^2 \, df 
+  =   
+  \Delta t \sum_{t \in \mathbb{Z} \Delta t} |x(t)|^2
+  \]</span> which means that we may measure the energy of the signal by summing either the energy of each sample in the time domain, or the energy density of all signal spectral components.</p>
+<p>The category of finite energy signals is sufficient most of the time but still does not encompass every signal we’d like to consider … and to begin with, pure tones! To perform the spectral decomposition of signals that have an infinite energy, we need to go beyond <span class="math inline">\(\Delta f\)</span>-periodic (locally) integrable functions of the frequency <span class="math inline">\(f\)</span> and consider instead <span class="math inline">\(\Delta f\)</span>-periodic (vector-valued complex) measures. For such a measure <span class="math inline">\(x(f)\)</span>, <span class="math inline">\(x(t)\)</span> is represented by the integral <span class="math display">\[
+  \forall \, t \in \mathbb{Z}\Delta t, \; x(t) = \int_{(-\Delta f / 2)^-}^{(+\Delta f/2)^-} 
+  \exp(i2\pi f t) \, dx(f)
+  \]</span> In practice, we don’t need measures with singular parts which means that every measure spectra we need to consider has on the interval <span class="math inline">\([-\Delta f/2, +\Delta f/2)\)</span> the form <span class="math display">\[
+  x(f) = x_1(f) + \sum_{i} a_i \delta(f-f_i) 
+  \; \mbox{ where } \;
+  \left|
+  \begin{array}{l}
+  x_1(f) \in L^1([-\Delta f/2, \Delta f/2),\mathbb{C}^n) \\
+  %\mbox{ and }
+  \sum_i{|a_i|} &lt; +\infty
+  \end{array}
+  \right.
+  \]</span> And then, every dirac component in the frequency domain represents a pure tone as <span class="math display">\[
+  \int_{(-\Delta f / 2)^-}^{(+\Delta f/2)^-} \exp(i2\pi f t) \, d \delta(f-f_i)
+  = \exp(i2\pi f_i t)
+  \]</span> Therefore the equation () reduces to <span class="math display">\[
+  x(t) = x_1(t) + \sum_i a_i \exp(i2 \pi f_i t)
+  \]</span></p>
+<section id="convolution-and-filters" class="level2">
+<h2><a href="#convolution-and-filters">Convolution and Filters</a></h2>
+<section id="convolution" class="level3">
+
+<div class="p"><h3><a href="#convolution">Convolution</a></h3>Consider two scalar discrete-time signals <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> with a common sample time <span class="math inline">\(\Delta t\)</span>. We assume for convenience that there is a <span class="math inline">\(t_0 \in \mathbb{Z}\Delta t\)</span> such that <span class="math inline">\(x(t) = y(t) = 0\)</span> for any <span class="math inline">\(t \leq t_0\)</span>. We define the <strong>convolution</strong> between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> as the discrete-time signal <span class="math inline">\(x \ast y\)</span> with sample time <span class="math inline">\(\Delta t\)</span> such that <span class="math display">\[
+  (x\ast y)(t) = \Delta t \sum_{t' \in \mathbb{Z}\Delta t} x(t') y(t-t')
+  \]</span> The assumptions made on the signals <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> ensure that for every value of <span class="math inline">\(t\)</span>, the sum in the right-hand side of () has only a finite number of non-zero values. These assumptions may be relaxed in several ways ; for example we may assume that <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> belong to <span class="math inline">\(L^2(\mathbb{Z}\Delta t, \mathbb{C})\)</span> and define <span class="math inline">\(x\ast y\)</span> as a bounded signal.</div>
+<p>We notice that the convolution is an associative and commutative operation. Moreover, the spectrum of the convolution between two signals is the product of the signal spectra: <span class="math display">\[ \label{filter-in-f-space}
+  (x\ast y)(f) = x(f) y(f)
+  \]</span></p>
+</section>
+<section id="proof." class="level3">
+
+<div class="p"><h3><a href="#proof.">Proof.</a></h3>‌ The discrete-time Fourier transform of <span class="math inline">\(x \ast y\)</span> satisfies <span class="math display">\[
+  (x\ast y)(f) = \Delta t \sum_{t \in \mathbb{Z} \Delta t} \left[\Delta t\sum_{t' \in \mathbb{Z} \Delta t} x(t') y(t-t')\right] \exp(-2 i \pi f t )
+  \]</span> Notice that <span class="math inline">\(\exp(-2 i \pi f t) = \exp(-2 i \pi t' f)\exp(-2 i \pi f (t-t'))\)</span>, set <span class="math inline">\(\tau = t -t'\)</span> and conclude with <span class="math display">\[
+  (x\ast y)(f) = \left[\Delta t \sum_{t' \in \mathbb{Z} \Delta t} x(t') \exp(-2 i \pi f t') \right] 
+                 \left[\Delta t \sum_{\tau \in \mathbb{Z} \Delta t} y(\tau) \exp(-2 i \pi f \tau ) \right]
+  \]</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="filters" class="level3">
+
+<div class="p"><h3><a href="#filters">Filters</a></h3>A <strong>filter</strong> is a convolution operator <span class="math inline">\(u \mapsto y\)</span> with kernel <span class="math inline">\(h\)</span>: <span class="math display">\[ \label{filter-ast}
+  u \mapsto y = h \ast u
+  \]</span> or equivalently in the frequency domain: <span class="math display">\[
+  y(f) = h(f) u(f)
+  \]</span> The function <span class="math inline">\(h(f)\)</span> is the <strong>frequency response</strong> of the filter. We define the <strong>(unit) impulse</strong> as the signal <span class="math inline">\(\delta:\mathbb{Z} \Delta t \to \mathbb{C}\)</span>: <span class="math display">\[
+  \delta(t) = \left|
+  \begin{array}{rl}
+  1/\Delta t &amp; \mbox{if } t = 0\\
+  0 &amp; \mbox{otherwise}
+  \end{array}
+  \right.
+  \]</span> The (unit) impulse is a unit – in the algebraic sense – for the convolution operator : for any signal <span class="math inline">\(x\)</span>, <span class="math inline">\(x\ast \delta = \delta \ast x =x\)</span>. For this reason, when <span class="math inline">\(u=\delta\)</span>, the output of the filter () is <span class="math inline">\(y=h\)</span> and <span class="math inline">\(h\)</span> is called the filter <strong>impulse response</strong>.</div>
+<p>Convolution operators are a very general class of signal transformations. Consider an operator <span class="math inline">\(L\)</span> that maps any finite discrete-time signal <span class="math inline">\(u\)</span> with sample time <span class="math inline">\(\Delta t\)</span> to a signal with the same sample time and such that for any finite input signals <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span>: <span class="math display">\[
+\forall \, \lambda, \, \mu \in \mathbb{C}, \; L(\lambda u + \mu v) = \lambda L(u) + \mu L(v)
+\]</span> <span class="math display">\[
+\forall \, T \in \mathbb{Z} \Delta t, \; L(t\mapsto u(t-T)) = t\mapsto L(u)(t-T)
+\]</span> Such a <strong>linear and time-invariant(LTI)</strong> operator is a convolution operator. Indeed, we have: <span class="math display">\[
+L(u) = L \left( \sum_{t' \in \Delta t \mathbb{Z}} u(t') \delta(t-t') \right)
+= \sum_{t' \in \Delta t \mathbb{Z}} u(t') L(\delta)(t-t') = 
+u \ast L(\delta)
+\]</span> As a consequence, a finite response impulse filter (FIR) is a convolution operator: the definition equation <span class="math display">\[
+y(t) = \sum_{n=0}^{N-1} a_{n} u(t-n\Delta t)
+\]</span> corresponds to <span class="math inline">\(y = h \ast u\)</span> with <span class="math display">\[
+h(t) = \left|
+\begin{array}{rl}
+a_{t/\Delta t} / \Delta t &amp; \mbox{if } t \in \{0,\cdots (N-1)\Delta t \}, \\
+0 &amp; \mbox{otherwise.}
+\end{array}
+\right.
+\]</span> Similarly, an autoregressive system whose evolution is given by <span class="math display">\[
+y(t) = \sum_{n=0}^{N-1} a_{n} y(t-(n-1)\Delta t) + u(t)
+\]</span> is a convolution operator but whose impulse response is not finite.</p>
+</section>
+</section>
+</section>
+<section id="finite-signals" class="level1">
+<h1><a href="#finite-signals">Finite Signals</a></h1>
+<p>Concrete digital signals are finite because only a finite number of samples may be stored in a finite memory. We usually represent a finite sequence of values <span class="math inline">\(x_0\)</span>, <span class="math inline">\(\ldots\)</span>, <span class="math inline">\(x_{N-1})\)</span> and a reference step time <span class="math inline">\(\Delta t\)</span>, with a finite causal signal <span class="math inline">\(x:\mathbb{Z} \Delta t \mapsto \mathbb{C}\)</span> where the missing values are replaced with <span class="math inline">\(0\)</span>: <span class="math display">\[
+  x(t) = \left|
+  \begin{array}{cl}
+  x_{t/\Delta t} &amp; \mbox{if } \; t \in \{0,\Delta t,  \ldots, (n-1) \Delta t\}, \\
+  0   &amp; \mbox{otherwise.}
+  \end{array}
+  \right.
+  \]</span> This signal is said to be <strong>causal</strong> because <span class="math inline">\(x(t)=0\)</span> whenever <span class="math inline">\(t&lt;0\)</span> and <strong>finite</strong> because it has only a finite number of non-zero values.</p>
+<p>If the two finite causal signals <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> correspond to the finite sequences <span class="math inline">\(x_0, \ldots, x_{N-1}\)</span> and <span class="math inline">\(y_0, \ldots, y_{M-1}\)</span> their convolution <span class="math inline">\(z = x \ast y\)</span> is also a finite causal signal and corresponds to the sequence <span class="math inline">\((z_0, \ldots, z_{M+N-2})\)</span> where <span class="math display">\[
+  z_{k} = \Delta t \sum_{(i,j) \in S_k} x_i y_{j} 
+  \; \mbox{ with } \; 
+  S_k = \{(i, j) \in \{0, \ldots, m-1\} \times \{0, \ldots, n-1\}, i+j=k 
+        \}
+  \]</span> The NumPy implementation of the operation is the function <code>convolve</code> and it assumes that <span class="math inline">\(\Delta t=1\)</span>. For example</p>
+<pre><code>&gt;&gt;&gt; x = array([0.5, 0.5])
+&gt;&gt;&gt; y = array([0.0, 1.0, 2.0, 3.0, 4.0])
+&gt;&gt;&gt; z = convolve(x, y)
+&gt;&gt;&gt; z
+array([ 0. ,  0.5,  1.5,  2.5,  3.5,  2. ])</code></pre>
+<p>Now, this approach gives us a practical method to implement filters as long as their impulse response <span class="math inline">\(h\)</span> is finite and causal – that is when filters have a <strong>finite impulse response (FIR)</strong>. If <span class="math inline">\(h\)</span> corresponds to the finite sequence <span class="math inline">\(h_0, \ldots, h_{M-1}\)</span> and the filter is to be applied to the finite signal <span class="math inline">\(u\)</span>, then the output <span class="math inline">\(y\)</span> corresponds to</p>
+<pre><code>&gt;&gt;&gt; y = dt * convolve(h, u)</code></pre>
+<section id="design-of-low-pass-filters" class="level2">
+<h2><a href="#design-of-low-pass-filters">Design of Low-Pass Filters</a></h2>
+<p>Let <span class="math inline">\(f_c \in (0, \Delta f/2)\)</span> be the <strong>cutoff frequency</strong> of our lowpass filter. What it means is that we want is a filter that generates from a signal <span class="math inline">\(u\)</span> an output signal <span class="math inline">\(y\)</span> such that <span class="math display">\[
+  y(f) = \left|
+  \begin{array}{cl}
+  x(f) &amp; \mbox{if } \, f \in (0,f_c)   \\
+  0    &amp; \mbox{if } \, f \in (f_c, \Delta f/2)
+  \end{array}
+  \right.
+  \]</span> As the filter operation <span class="math inline">\(y = h\ast u\)</span> translates into <span class="math inline">\(y(f) = h(f) u(f)\)</span> in the Fourier domain (see equation ()), the frequency response of the filter shall satisfy <span class="math display">\[
+  h(f) = \left|
+  \begin{array}{rl}
+  1 &amp; \mbox{if } \, f \in (0,f_c)   \\
+  0    &amp; \mbox{if } \, f \in (f_c, \Delta f/2)
+  \end{array}
+  \right.
+  \]</span> and because <span class="math inline">\(h\)</span> is a real signal, <span class="math inline">\(h(f) = \overline{h(-f)} = h(-f)\)</span> if <span class="math inline">\(f \in (-\Delta f/2, 0)\)</span>. As a consequence, the inverse DTFT formula () provides <span class="math display">\[
+  h(t) = \int_{-\Delta f/2}^{+\Delta f/2} h(f) \exp(2i\pi f t ) \, df = \int_{-f_c}^{f_c} \exp(2i\pi f t ) \, df,
+  \; t \in \mathbb{Z} \Delta t
+  \]</span> and after straightforward computations, with the sine cardinal <span class="math inline">\(\mathrm{sinc} \,\)</span><br>
+defined as <span class="math display">\[
+  \mathrm{sinc} \, x =
+  %\begin{array}{cl} 
+  \frac{\sin \pi x}{\pi x} \, \mbox{ if } \, x \neq 0 \, \mbox{ and } \, \mathrm{sinc} \, \, 0 = 1
+  \]</span> we end up with <span class="math display">\[
+  h(t) = 2 f_c \mathrm{sinc} \, 2 f_c t, \; t \in \mathbb{Z} \Delta t.
+  \]</span></p>
+<p>An concrete implementation of such a filter has to overcome several issues. First of all, an implementation as a FIR requires a finite number of non-zero values of <span class="math inline">\(h(t)\)</span> only. We therefore typically replace <span class="math inline">\(h(t)\)</span> with an impulse response that is equal to <span class="math inline">\(h(t)\)</span> for <span class="math inline">\(|t| \leq N\)</span> and <span class="math inline">\(0\)</span> for <span class="math inline">\(|t|&gt;N\)</span> and end up with a <span class="math inline">\(2N+1\)</span>-tap filter. Then, the implementation has to be causal: the <span class="math inline">\(2N+1\)</span> coefficients are shifted to correspond to the indices <span class="math inline">\(0\)</span>, <span class="math inline">\(1\)</span>, <span class="math inline">\(\cdots\)</span>, <span class="math inline">\(2N\)</span> which effectively induces a delay of <span class="math inline">\(N\)</span> samples during the filtering (see fig. , bottom figure). The generation of such low-pass filters may be implemented as</p>
+<pre><code>def low_pass(fc, dt=1.0, window=ones):
+    def h(n):
+        t = arange(-0.5 * (n-1), 0.5 * (n-1) + 1) * dt
+        return 2 * fc * mathrm{sinc} \,(2 * fc * t) * window(n)
+    return h</code></pre>
+<p>and used as follows to perform for example a 31-tap low-pass filtering of a <span class="math inline">\(44100\)</span> Hz at the cutoff frequency of <span class="math inline">\(8000\)</span> Hz:</p>
+<pre><code>&gt;&gt;&gt; N = 15
+&gt;&gt;&gt; h = low_pass(fc=8000.0, dt=1.0/44100.0)(2*N+1)
+&gt;&gt;&gt; y = dt * convolve(h, u) </code></pre>
+<p>Note that <code>len(y)</code> is equal to <code>len(u) + 2*N</code>. A restriction of the output that compensates for the induced delay and has the same size as the original signal is obtained as <code>y[N:-N]</code>.</p>
+<figure>
+<img src="images/low_pass_fig1.svg">
+</figure>
+<figure>
+<img src="images/low_pass_fig2.svg">
+</figure>
+<figure>
+<img src="images/low_pass_fig3.svg" alt="top : impulse response of a 31-tap low-pass filter with a cutoff frequency of f_c=8000 Hz. Middle : frequency response (gain) of this filter. Bottom : a signal before (dots) and after (plus signs) low-pass filtering."><figcaption>top : impulse response of a 31-tap low-pass filter with a cutoff frequency of <span class="math inline">\(f_c=8000\)</span> Hz. Middle : frequency response (gain) of this filter. Bottom : a signal before (dots) and after (plus signs) low-pass filtering.</figcaption>
+</figure>
+<p>The optional <code>window</code> argument (that defaults to a rectangular window) is useful to reduce the <strong>Gibbs phenomenon</strong> that we may observe in the frequency response of the filter (see fig. ): an oscillation of the frequency response that may result in overshoots in the filter outputs. Windows such as <code>hanning</code>, <code>bartlett</code>, <code>blackman</code>, etc. are available in NumPy.</p>
+</section>
+<section id="spectrum-computation" class="level2">
+<h2><a href="#spectrum-computation">Spectrum Computation</a></h2>
+<p>Given a finite causal signal <span class="math inline">\(x\)</span> with sample time <span class="math inline">\(\Delta t\)</span> and possibly non-zero values <span class="math inline">\(x_0=x(0)\)</span>, <span class="math inline">\(x_1 = x(\Delta t)\)</span>, , <span class="math inline">\(x_{N-1} = x((N-1)\Delta t)\)</span>, the spectrum <span class="math inline">\(\mathcal{F}x\)</span> of <span class="math inline">\(x\)</span> is given by the formula: <span class="math display">\[
+  \mathcal{F}x(f) = \Delta t \sum_{n=0}^{N-1} x_n \exp(-i2\pi f n\Delta t)
+  \]</span> The signal <span class="math inline">\(x\)</span> being represented as the NumPy array <code>x</code> and the sample time <span class="math inline">\(\Delta t\)</span> as a the float <code>dt</code>, a simple representation <code>Fx</code> of the spectrum <span class="math inline">\(\mathcal{F}x\)</span> – as a function taking arrays of frequencies as arguments – is given by:</p>
+<pre><code>nx = len(x)    
+n = reshape(arange(nx), (nx, 1))
+def Fx(f):
+    f = ravel(f)
+    f = reshape(f, (1, len(f)))
+    return dt * dot(x, exp(-1j * 2 * pi * dt * n * f))</code></pre>
+<p>The high-order programming support in Python actually allow us to automate the definition of this function and to represent the Fourier transform itself as a function <code>F</code>, that takes <code>x</code> and <code>dt</code> as arguments and returns the spectrum function <code>Fx</code>.</p>
+<pre><code>def F(x, dt=1.0):
+    nx = len(x)    
+    n = reshape(arange(nx), (nx, 1))
+    def Fx(f):
+        f = ravel(f)
+        f = reshape(f, (1, len(f)))
+        return dt * dot(x, exp(-1j * 2 * pi * dt * n * f))
+    return Fx</code></pre>
+<p>The main issue with this computation of the spectrum is performance: assume that you intend to compute <span class="math inline">\(N\)</span> values of the spectrum, that is, as many values as there are in the signal. Then the number of sums and product needed to compute <code>F(x)(f)</code> is <span class="math inline">\(\mathcal{O}(N^2)\)</span>.</p>
+<p>An alternate idea is to compute enough spectrum values and then to use interpolation to build an approximation of the spectrum anywhere. If we decide to use <span class="math inline">\(N\)</span> distinct spectrum values, it makes sense to compute regularly sampled values of <span class="math inline">\(\mathcal{F}x(f)\)</span> on the interval <span class="math inline">\([0, \Delta f)\)</span> – the spectrum being <span class="math inline">\(\Delta f-\)</span>periodic, there is no point going beyond this interval. We are therefore interested only in the frequencies <span class="math display">\[
+  f_k = \frac{k}{N} \Delta f, \; \; k = 0, \cdots, N-1
+  \]</span> and in the values <span class="math inline">\(\hat{x}_k = \mathcal{F}x(f_k)\)</span> given by: <span class="math display">\[
+  \hat{x}_k =\sum_{n=0}^{N-1} x_n \exp \left(-i2\pi \frac{kn}{N} \right),
+  \; \; k = 0, \cdots, N-1.
+  \]</span> The transformation from the vector <span class="math inline">\((x_0, \cdots, x_{N-1})\)</span> to the vector <span class="math inline">\((\hat{x}_0, \cdots, \hat{x}_{N-1})\)</span> is called the <strong>discrete Fourier transform (DFT)</strong>: <span class="math display">\[
+  \mbox{\rm DFT} \left[
+  \begin{array}{ccc}
+  \mathbb{C}^N &amp; \to &amp; \mathbb{C}^N \\
+  (x_0, \cdots, x_{N-1}) &amp;\mapsto&amp; (\hat{x}, \cdots, \hat{x}_{N-1})
+  \end{array}
+  \right]
+  \]</span></p>
+<figure>
+<img src="images/spectrum-example-temporal.svg">
+</figure>
+<figure>
+<img src="images/spectrum-example.svg" alt="temporal and spectral representation of a 10-sample 8kHz signal x(t). The 10-point DFT data are displayed as dots, whereas the 16-point DFT from the zero-padedd signal are displayed as crosses."><figcaption>temporal and spectral representation of a 10-sample 8kHz signal <span class="math inline">\(x(t)\)</span>. The 10-point DFT data are displayed as dots, whereas the 16-point DFT from the zero-padedd signal are displayed as crosses.</figcaption>
+</figure>
+<p>As we noted before, the straightforward implementation of the DFT has a <span class="math inline">\(\mathcal{O}(N^2)\)</span> complexity. Fortunately there is a family of algorithms called <strong>fast Fourier transforms (FFT)</strong> that achieve <span class="math inline">\(\mathcal{O}(N \log N)\)</span> performance instead. In NumPy, a fast Fourier transform is available as the <code>fft</code> function in the module <code>numpy.fft</code>. With the help of this function, we may implement an alternative Fourier transform <code>F</code>, based on the discrete Fourier transform data and 0-order interpolation.</p>
+<pre><code>def F(x, dt=1.0):
+    nx = len(x)
+    fft_x = fft(x)
+    def Fx(f):
+        k = (round_((ravel(f) * nx * dt)) % nx).astype(uint64)
+        return dt * fft_x[k]
+    return Fx</code></pre>
+<p>We can actually compare the performance of the two approaches by measuring the time needed to compute the values <span class="math inline">\(x(f_k)\)</span>, <span class="math inline">\(k=0,\cdots,N-1\)</span>, for a signal <span class="math inline">\(x\)</span> of length <span class="math inline">\(N\)</span>. The results are displayed in figure  in a log-log scale.</p>
+<figure>
+<img src="images/fft-speed.svg" alt="spectrum computation performance: computation time of F(x)(f) as a function of nx = len(x) with f = arange(0, dt, dt/nx) for a straightforward implementation (dashed curve) and a FFT-based one (solid curve) ; dots correspond to power-of-two signal length data. Reference platform: Intel i7 Q820 1.73GHz CPU, 6GiB memory."><figcaption><strong>spectrum computation performance:</strong> computation time of <code>F(x)(f)</code> as a function of <code>nx = len(x)</code> with <code>f = arange(0, dt, dt/nx)</code> for a straightforward implementation (dashed curve) and a FFT-based one (solid curve) ; dots correspond to power-of-two signal length data. Reference platform: Intel i7 Q820 1.73GHz CPU, 6GiB memory.</figcaption>
+</figure>
+<p>The results for the straightforward computation method (dashed curve) are consistent with the <span class="math inline">\(\mathcal{O}(N^2)\)</span> bound as the curve exhibit an asymptotic slope of <span class="math inline">\(2\)</span>. For the FFT-based computation, the situation is more complex as the computation times varies strongly with respect to the signal length. The lower envelope of the curve is given by data points that correspond to signals whose length is a power of two (dotted data). For those signals, the asymptotic slope is <span class="math inline">\(1\)</span>, consistent with the <span class="math inline">\(\mathcal{O}(N \log N)\)</span> estimate. However, the performance may be far worse for arbitrary length, the upper enveloppe being <span class="math inline">\(\mathcal{O}(N^2)\)</span> again and is obtained for signal whose length is a prime number. This is a common artifact of many FFT algorithms: they behave well when the signal length has an integer decomposition that consists of many small primes numbers, the best case being a power of two and the worst, a large prime number.</p>
+<p>To cope with this fact, we may introduce zero-padding of the original signal: we append as many <span class="math inline">\(0\)</span> values as necessary to the original vector so that its length is a power of two. We still compute data on the original signal spectrum as the signals values were <span class="math inline">\(0\)</span> anyway. Note that NumPy <code>fft</code> implements 0-padding when it is given as a second argument a desired length for the fft vector larger than the signal length. As a consequence, we can support a power-of-two version of the spectrum computation with the following code.</p>
+<pre><code>def F(x, dt=1.0):
+    nx = int(2**ceil(log2(len(x)))) 
+    fft_x = fft(x, nx)
+    def Fx(f):
+        k = (round_((ravel(f) * nx * dt)) % nx).astype(uint64)
+        return dt * fft_x[k]
+    return Fx</code></pre>
+<p>Obviously, zero-padding may also be used to obtain a larger power of 2 in order to get more spectrum data. An additional parameter <code>n</code> may be given to define the minimum length of the DFT.</p>
+<pre><code>def F(x, dt=1.0, n=0):
+    nx = len(x)
+    nx = max(n, nx)
+    nx = int(2**ceil(log2(nx))) 
+    fft_x = fft(x, nx)
+    def Fx(f):
+        k = (round_((ravel(f) * nx * dt)) % nx).astype(uint64)
+        return dt * fft_x[k]
+    return Fx</code></pre>
+<p>The signal we want to analyze has often more values than the ones contained in <code>x</code>. It may for example be – at least conceptually – be infinite, for example if it is a pure tone. The FFT-based spectral analysis is therefore based on a window of the original signal ; the most common choice is a rectangular window where we select some of the valued of the signal (multiply by <span class="math inline">\(1\)</span>) and implicitly consider that all other values are <span class="math inline">\(0\)</span> (multiply by <span class="math inline">\(0\)</span>). Using a multiplication by a window function whose behavior is smoother on the window boundary is a classical method to improve the resolution of harmonics in the spectrum. Refer for example to  for a discussion on this subject and a comparison of the usual windows (such as <code>bartlett</code>, <code>hamming</code>, <code>hanning</code>, etc.). A version of the spectrum that support windows is given by</p>
+<pre><code>def F(x, dt=1.0, n=0, window=ones):
+    nx = len(x)
+    x  = window(nx) * x
+    nx = max(n, nx) 
+    nx = int(2**ceil(log2(nx)))
+    fft_x = fft(x, nx)
+    def Fx(f):
+        k = (round_((ravel(f) * nx * dt)) % nx).astype(uint64)
+        return dt * fft_x[k]
+    return Fx</code></pre>
+</section>
+</section>
+<section id="multirate-signal-processing" class="level1">
+<h1><a href="#multirate-signal-processing">Multirate Signal Processing</a></h1>
+<p>Signal processing systems are <strong>multirate</strong> when they manage signals with different sample times. Filters, introduced in the previous sections, do not alter the sample time of the signals they are applied to, but <strong>decimators</strong> and <strong>expanders</strong> do; they are the new building blocks that allows us to <strong>downsample</strong> – decrease of the data rate – and <strong> upsample</strong> – increase in the data rate, while controlling the impact of these operations on the signal spectral content. A downsampling of a factor 5 for example may be used to get a 44.1 kHz signal down to a 8.82 kHz rate – which is still satisfactory for voice signals – and upsampling can be used to go back to the original data rate.</p>
+<section id="decimation-and-expansion" class="level2">
+<h2><a href="#decimation-and-expansion">Decimation and Expansion</a></h2>
+<section id="decimation" class="level3">
+
+<div class="p"><h3><a href="#decimation">Decimation</a></h3>The <strong>decimation</strong> of a factor <span class="math inline">\(M\)</span> of a discrete signal <span class="math inline">\(x\)</span> with a sampling time of <span class="math inline">\(\Delta t\)</span> is the signal with a sampling time of <span class="math inline">\(M\Delta t\)</span> denoted <span class="math inline">\(x \downarrow M\)</span> and defined by: <span class="math display">\[
+  x \downarrow M)(t) = x(t),  \; t \in \mathbb{Z} M \Delta t.
+  \]</span></div>
+<figure>
+<img src="images/decimation_1.svg">
+</figure>
+<figure>
+<img src="images/decimation_2.svg" alt="Decimation, Temporal View: a 44.1 kHz sampled signal x(t) and its decimated version (by a factor of 2)."><figcaption><strong>Decimation, Temporal View: </strong>a 44.1 kHz sampled signal <span class="math inline">\(x(t)\)</span> and its decimated version (by a factor of <span class="math inline">\(2\)</span>).</figcaption>
+</figure>
+<p>If <span class="math inline">\(x\)</span> is a finite causal signal represented by the NumPy array <code>x</code>, the implementation of decimation of a factor <code>M</code> is straightforward with the slicing mechanism of arrays:</p>
+<pre><code>def decimate(x, M=2):
+    return x[::M].copy()</code></pre>
+<p>Note that the length of <code>decimate(x,M)</code> is <code>len(x)/M</code> – the quotient of the integer <code>len(x)</code> by the integer <code>M</code> – if <code>len(x)</code> is a multiple of <code>M</code> but <code>len(x)/M + 1</code> otherwise. The copy may be necessary in some use cases and is therefore included to be safe. Indeed, the slicing operation has a pass-by-reference semantics in NumPy: <code>x[::M]</code> is not a copy of the content of <code>x</code> but merely a view into it, therefore a change in the values of <code>x</code> would also change the sliced data<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+Decimation has a arguably strange – but well-defined – effect on the spectrum of a signal. Consider for example the decimation of factor <span class="math inline">\(2\)</span> on the signal <span class="math inline">\(x\)</span> with a sampling time of <span class="math inline">\(\Delta t\)</span>:
+<span class="math display">\[\begin{eqnarray*}
+  (x \downarrow 2)(f) 
+       &amp;=&amp; 2 \Delta t \sum_{t \in \mathbb{Z} 2\Delta t} (x \downarrow 2)(t) \exp(-2i\pi f t) \\
+       &amp;=&amp; 2 \Delta t \sum_{t \in \mathbb{Z} 2\Delta t} x(t) \exp(-2i\pi f t) \\
+       &amp;=&amp;   \Delta t \sum_{t \in  \mathbb{Z} \Delta t} x(t) \exp(-2i\pi f t) 
+           + \Delta t \sum_{t \in \mathbb{Z}\Delta t} (-1)^{t/\Delta t} x(t) \exp(-2i\pi f t)  
+  \end{eqnarray*}\]</span>
+<p>As we have <span class="math display">\[ 
+  (-1)^{t/\Delta t} = \exp(-i\pi)^{t/\Delta t} = \exp({-2i\pi t/2\Delta t})
+  \]</span> we end up with <span class="math display">\[
+  (x \downarrow 2)(f) = \Delta t \sum_{t \in \mathbb{Z} \Delta t} x(t) \exp(-2i\pi f t) 
+                      + \Delta t \sum_{t \in \mathbb{Z} \Delta t} x(t) \exp(-2i\pi (f+1/2\Delta t)t)
+  \]</span> and therefore <span class="math display">\[
+  (x\downarrow 2)(f) = x(f) + x(f+\Delta f/2)
+  \]</span></p>
+<figure>
+<img src="images/decimation_spectrum-1.svg">
+</figure>
+<figure>
+<img src="images/decimation_spectrum-2.svg" alt="Decimation and Spectrum: spectra of a 44.1 kHz sampled signal, before and after a decimation of factor 2 (temporal view: fig. ). Doubling the sample rate \Delta t effectively halves \Delta f and therefore halves the frequency range where the spectral content is significant."><figcaption><strong>Decimation and Spectrum:</strong> spectra of a 44.1 kHz sampled signal, before and after a decimation of factor <span class="math inline">\(2\)</span> (temporal view: fig. ). Doubling the sample rate <span class="math inline">\(\Delta t\)</span> effectively halves <span class="math inline">\(\Delta f\)</span> and therefore halves the frequency range where the spectral content is significant.</figcaption>
+</figure>
+<p>For a decimation of factor <span class="math inline">\(M\)</span>, we obtain by similar computations <span class="math display">\[
+  (x \downarrow M)(f) = \sum_{k=0}^{M-1}  x(f+k\Delta f/M)
+  \]</span> What this formula means is that after decimation of a factor <span class="math inline">\(M\)</span>, the spectral content of the signal at frequency <span class="math inline">\(f \in [0, \Delta f/M)\)</span> is a mix of the spectral content of the original signal at the frequencies <span class="math display">\[
+       f,                  \; 
+       f +  \Delta f / M,  \; 
+       f + 2\Delta f / M,  \; 
+       \cdots              \;  
+       nf + (M-1) \Delta f / M.
+  \]</span> This phenomenon is called <strong>(spectral) folding</strong>. As every frequency in the original signals has generated copies of itself at new frequencies, the phenomenon is also called <strong>(spectral) aliasing</strong>.</p>
+</section>
+<section id="expansion" class="level3">
+
+<div class="p"><h3><a href="#expansion">Expansion</a></h3>The <strong>expansion</strong> of factor <span class="math inline">\(M\)</span> applies to a discrete signal <span class="math inline">\(x\)</span> with a time step <span class="math inline">\(\Delta t\)</span> and creates a signal with a time step <span class="math inline">\(\Delta t/M\)</span> denoted <span class="math inline">\(x \uparrow M\)</span> and defined by: <span class="math display">\[
+  (x\uparrow M) (t) = \left|
+  \begin{array}{cl}
+  x(t) &amp; \mbox{if }\; t \in \mathbb{Z} \Delta t \\
+  0    &amp; \mbox{otherwise.}
+  \end{array}
+  \right.
+  \]</span> Again, the implementation in NumPy for finite causal signals is straightforward:</div>
+<pre><code>def expand(x, M=2):
+    output = zeros(M * len(x))
+    output[::M] = x
+    return output</code></pre>
+The length of <code>expand(x, M)</code> is <code>M * len(x)</code>. It could be reduced to {<code>(M - 1) * len(x) + 1</code>} without any information loss as the last <code>M - 1</code> values of <code>output</code> are zeros, but it is often convenient to obtain a signal whose length is a multiple of the expansion factor. This operation does not alter the shape of the spectral content of the signal:
+<span class="math display">\[\begin{eqnarray*}
+  (x \uparrow M)(f) 
+       &amp;=&amp; (\Delta t/M) \sum_{t \in \mathbb{Z} \Delta t / M} (x \uparrow M)(t) \exp(-2i\pi t f) \\
+       &amp;=&amp; (\Delta t/M) \sum_{t \in \mathbb{Z} \Delta t }  x(t) \exp(-2i\pi t f) \\
+  \end{eqnarray*}\]</span>
+<p>and therefore <span class="math display">\[
+  (x \uparrow M)(f) = \frac{1}{M} x(f)
+  \]</span></p>
+<figure>
+<img src="images/expansion-1.svg">
+</figure>
+<figure>
+<img src="images/expansion_spectrum.svg" alt="Expansion : temporal and spectral views of the signal x of figure  after downsampling then upsampling, both of a factor 2."><figcaption><strong>Expansion :</strong> temporal and spectral views of the signal <span class="math inline">\(x\)</span> of figure  after downsampling then upsampling, both of a factor 2.</figcaption>
+</figure>
+</section>
+</section>
+<section id="downsampling-and-upsampling" class="level2">
+<h2><a href="#downsampling-and-upsampling">Downsampling and Upsampling</a></h2>
+<p>Decimation is the basic operation to reduce the data rate of a signal and therefore compress it. However, this operation creates aliases in the spectral content of the signal where high and low-frequency are mixed and cannot be separated one from the other anymore. We can however decide to get rid in a controlled manner of some spectral content of the signal to keep the rest intact.</p>
+<p>Note that if the spectral content of a signal before decimation of factor <span class="math inline">\(M\)</span> is entirely into the <span class="math inline">\((-\Delta f /2M, \Delta f/2M)\)</span> band, aliasing does not happen as we have <span class="math display">\[
+  (x \downarrow M)(f) = x(f) \; \mbox{ if } \, f \in (-\Delta f/2M, \Delta f/2M)
+  \]</span> This can be achieved if we filter the original signal with a perfect low-pass filter of cutoff frequency <span class="math inline">\(f_c = \Delta f/2M\)</span>. We then lose signal information in all frequency bands but the one of lowest frequency, but at least, this one is perfectly preserved by decimation. We call this combination of low-pass filtering and decimation <strong>downsampling</strong>.</p>
+<figure>
+<img src="images/downsampling-upsampling.svg" alt="downsampling and upsampling diagrams"><figcaption>downsampling and upsampling diagrams</figcaption>
+</figure>
+<p>Reconstruction of the (low-frequency content of) original signal is then just a matter of getting back the the original rate, by expansion and apply a gain of <span class="math inline">\(M\)</span> to the result. That leads to exactly the right spectrum in the band <span class="math inline">\((-\Delta f /2M, \Delta f/2M)\)</span> but not in the rest of <span class="math inline">\((-\Delta f/2, \Delta f/2)\)</span> as the spectrum is <span class="math inline">\(\Delta f/2M\)</span>-perodic. To get rid of the high frequency content, we simply apply the perfect low-pass filter with cutoff frequency <span class="math inline">\(f_c = \Delta f/ 2M\)</span>. The combination of (zero-)expansion, gain and filtering is called <em>upsampling</em>.</p>
+<p>Let’s summarize this: a downsampling of order <span class="math inline">\(M\)</span> allows to reduce the data rate by a factor of <span class="math inline">\(M\)</span> and keeps information one <span class="math inline">\(M\)</span>-th of the spectral range – the lowest frequency part. Upsampling may be used to reconstruct a signal at the original rate whose content is the low-frequency content of the original one and has no higher spectral components.</p>
+</section>
+<section id="ideal-filter-banks-and-perfect-reconstruction" class="level2">
+<h2><a href="#ideal-filter-banks-and-perfect-reconstruction">Ideal Filter Banks and Perfect Reconstruction</a></h2>
+<p>In the previous section we have explained how we could divide the signal rate by a factor of <span class="math inline">\(M\)</span> by keeping only one <span class="math inline">\(M\)</span>-th of its spectral content and throwing away everything else. We now consider the steps leading to a more flexible approach: we split the data signal into <span class="math inline">\(M\)</span> frequency bands and we will later design methods to allocate bits to such or such a band depending on the spectral content of the signal.</p>
+<p>In order to split the signal into <span class="math inline">\(M\)</span> uniformly spaced spectral bands, we introduce an <strong>analysis filter bank</strong>: a set of <span class="math inline">\(M\)</span> filters <span class="math inline">\(a^i\)</span>, <span class="math inline">\(i=0, \cdots, M-1\)</span> with <span class="math display">\[
+  a^i_n = a^i(n\Delta t), \; n \in \mathbb{Z}
+  \]</span> that we all apply to the original signal. All the filters all band-pass, with low frequency <span class="math inline">\(i\Delta f / M\)</span> and high-frequency limit <span class="math inline">\((i+1)\Delta f /M\)</span>. We then decimate the signal on all branches, so that the original data rate can be kept. We know what is the spectral content of the signal after decimation on the branch <span class="math inline">\(i=0\)</span>, but what is going on with the other branches ? Let <span class="math inline">\(x\)</span> be the original signal and <span class="math inline">\(x^i\)</span> is the signal filtered by the <span class="math inline">\(i\)</span>-th filter. The content of <span class="math inline">\(x^i\)</span> is entirely in the <span class="math inline">\(i\)</span>-th frequency band, that is <span class="math inline">\((i\Delta f/M, (i+1)\Delta f/M)\)</span> (and the corresponding negative frequency band), so after decimation, the spectral content is <span class="math display">\[
+  \sum_{k=0}^{M-1}  x(f - k\Delta f/M) = x^i(f+i\Delta f/M) \; \mbox{ if } \, f \in (-\Delta f/2M, \Delta f/2M)
+  \]</span> So again, in each branch, decimation has kept the relevant information. Given those <span class="math inline">\(M\)</span> spectral components, are we able to reconstruct the original signal ? In order to get the contribution from the <span class="math inline">\(i\)</span>-th band in the right place, we can first expand the signal and multiply by <span class="math inline">\(M\)</span>: that shifts the subband content to build a <span class="math inline">\(\Delta f /M\)</span>-periodic spectral content. To get this content only in the <span class="math inline">\(i\)</span>⁻th band, we apply a perfect pass-band that corresponds to the <span class="math inline">\(i\)</span>-th subband. Then we sum all these contributions.</p>
+<figure>
+<img src="images/ana-synth.svg" alt="Analysis and synthesis filter banks diagrams"><figcaption>Analysis and synthesis filter banks diagrams</figcaption>
+</figure>
+</section>
+<section id="filter-banks-and-perfect-reconstruction" class="level2">
+<h2><a href="#filter-banks-and-perfect-reconstruction">Filter Banks and Perfect Reconstruction</a></h2>
+<p>One issue with the previous scheme is that perfect band-pass filters cannot be implemented. We’d like as to replace them by some finite impulse response filters approximations, study if perfect reconstruction is still possible and if it can’t be achieved, measure the error we are introducingg.</p>
+<p>Consider the diagram in figure () where the <span class="math inline">\(a^i\)</span> and <span class="math inline">\(s^i\)</span> are the impulse response of the analysis and synthesis filter banks. The formulas {() and ()} yield the following expression for the output <span class="math inline">\(z\)</span> of the analysis + synthesis process from the input signal <span class="math inline">\(x\)</span>: <span class="math display">\[
+  z(f) = \sum_{k=0}^{M-1} \left[\sum_{i=0}^{M-1} s_i(f) a_i(f+ k\Delta f /M)\right] x(f+k\Delta f/ M)
+  \]</span> which means that the diagram will achieve <strong>perfect reconstruction</strong> if we have <span class="math display">\[ \label{PR}
+  \sum_{i=0}^{M-1} s_i(f) a_i(f+ k\Delta f /M) = 
+  \left|
+  \begin{array}{ll}
+  1 &amp; \mbox{ if } \, k = 0, \\
+  0 &amp; \mbox{ if } \, k = 1,\cdots M-1.
+  \end{array}
+  \right.,
+  \]</span> or in other words, if all the <strong>distorsion functions</strong> <span class="math inline">\(D_k(f)\)</span>, <span class="math inline">\(k=0, \cdot, M-1\)</span>, defined by <span class="math display">\[
+    \begin{array}{l}
+    \displaystyle D_0(f) = \sum_{i=0}^{M-1} s_i(f) a_i(f) - 1, \\ 
+    \displaystyle D_k(f) = \sum_{i=0}^{M-1} s_i(f) a_i(f + k \Delta f/M), \; k=1,\cdots M-1
+    \end{array}
+    \]</span> are identically zero.</p>
+</section>
+<section id="cosine-modulated-filter-banks" class="level2">
+<h2><a href="#cosine-modulated-filter-banks">Cosine Modulated Filter Banks</a></h2>
+<p>We build in this section a family of pass-band filters with impulse responses <span class="math inline">\(a^i(t)\)</span>, <span class="math inline">\(i=0, \cdots, M-1\)</span>, whose pass-band is <span class="math inline">\((i\Delta f/M, (i+1)\Delta f/M)\)</span>, and based on a single prototype filter. The prototype is selected as a low-pass filter with cutoff frequency <span class="math inline">\(f_c=\Delta f/4M\)</span> ; the perfect prototype filter impulse response is (see ()): <span class="math display">\[
+  h(n\Delta t) = \frac{\Delta f}{2M} \mathrm{sinc} \, \frac{\Delta f}{2M} n\Delta t
+               = \frac{\Delta f}{2M} \mathrm{sinc} \, \frac{n}{2M}
+  \]</span></p>
+<p>To generate the <span class="math inline">\(i\)</span>-th pass-band filter, all we have to do it to shift the spectrum by <span class="math inline">\((i + 0.5)\Delta f/2M\)</span> to the right, that is, multiply <span class="math inline">\(h(n \Delta t)\)</span> by <span class="math display">\[\exp(i2\pi (i + 0.5)(\Delta f/2M) (n\Delta t)) = \exp(i\pi (i + 0.5)n/M ).\]</span> But then the filter impulse response would no longer be real, so we also perform the the opposite frequency shift : we multiply <span class="math inline">\(h(n\Delta t)\)</span> by <span class="math inline">\(\exp(-i\pi (i + 0.5)n/M )\)</span> and add up both contributions ; we end up with <span class="math display">\[
+  a^i(n\Delta t) = 2 h(n \Delta t) \times \cos \left(\pi (i + 0.5)n/M  \right)
+  \]</span> that is, a <strong>cosine modulated filter bank</strong>. The figure () displays the filters frequency responses where the prototype filter has been approximated by a FIR.</p>
+<figure>
+<img src="images/banks1.svg" alt="Cosine Modulated Filter Banks: gain of the components of a cosine modulated filter bank as a function of the frequency f. The sampling time \Delta t is 44.1 kHz, there are M=4 filters and the prototype filter h – whose spectrum gain is dotted – has been truncated by the application of a Hanning window if length N=64. The phase of such filter is not displayed as it is flat because the filters impulses responses are symmetrical – or linear as a function of f in a causal implementation."><figcaption><strong>Cosine Modulated Filter Banks:</strong> gain of the components of a cosine modulated filter bank as a function of the frequency <span class="math inline">\(f\)</span>. The sampling time <span class="math inline">\(\Delta t\)</span> is 44.1 kHz, there are <span class="math inline">\(M=4\)</span> filters and the prototype filter <span class="math inline">\(h\)</span> – whose spectrum gain is dotted – has been truncated by the application of a Hanning window if length <span class="math inline">\(N=64\)</span>. The phase of such filter is not displayed as it is flat because the filters impulses responses are symmetrical – or linear as a function of <span class="math inline">\(f\)</span> in a causal implementation.</figcaption>
+</figure>
+<p>If we selecting as synthesis filters the same pass-band filters used for the analysis – <span class="math inline">\(s^i(t) = a^i(t)\)</span> – we maye compute the distorsions induced by the analysis-synthesis process ; the results, displayed in figure (), clearly points out that the basic approach we have adopted so far does not provide a good approximation to a perfect reconstruction.</p>
+<figure>
+<img src="images/distorsion0.svg">
+</figure>
+<figure>
+<img src="images/distorsion1.svg">
+</figure>
+<figure>
+<img src="images/distorsion2.svg">
+</figure>
+<figure>
+<img src="images/distorsion3.svg" alt="{cosine modulated filter banks: distortions}"><figcaption>{cosine modulated filter banks: distortions}</figcaption>
+</figure>
+<section id="pseudo-qmf" class="level3">
+
+<div class="p"><h3><a href="#pseudo-qmf">Pseudo-QMF</a></h3>‌(for <strong>pseudo - quadrature mirror filters</strong>) may be introduced to obtain sufficiently small distorsion functions ; they are successfully used in layer I and II of MPEG-Audio for example. Their design relied on two modifications with respect to our approach so far. First, we introduce phase factors <span class="math inline">\(\phi_i\)</span> in the definition of <span class="math inline">\(a^i\)</span> and <span class="math inline">\(s^i\)</span> <span class="math display">\[
+  \begin{array}{c}
+  a^i(n\Delta t) = 2 h(n \Delta t) \times \cos \left(\pi (i + 0.5)n/M + \phi_i \right) \\
+  s^i(n\Delta t) = 2 h(n \Delta t) \times \cos \left(\pi (i + 0.5)n/M - \phi_i \right)
+  \end{array}
+  \]</span> in order to cancel significant aliasing terms and ensure a relatively flat overall magnitude distorsion (see ). Among several options, we select <span class="math display">\[
+  \phi_i = \frac{\pi}{2} \left( \frac{N -1}{M} -  1 \right)  (i + 0.5)
+  \]</span> where <span class="math inline">\(N\)</span> is the filter length and <span class="math inline">\(M\)</span> the number of sub-bands.</div>
+<p>Then the selection of the prototype filter does not rely on the expression of the perfect low-pass filter but is optimized to reduce distorsion. The MPEG-Audio standard selection for this filter is displayed in figure .</p>
+<figure>
+<img src="images/prototype.svg" alt="MPEG-Audio Layer I and II prototype 513-tap prototype filter"><figcaption>MPEG-Audio Layer I and II prototype 513-tap prototype filter</figcaption>
+</figure>
+</section>
+</section>
+<section id="polyphase-representation-of-filters-banks" class="level2">
+<h2><a href="#polyphase-representation-of-filters-banks">Polyphase Representation of Filters Banks</a></h2>
+<p>Polyphase representation is an alternate description of filter banks that is suited to a real-time implementation. Unlike convolution-based implementation that require the full input values to be available to produce output values, polyphase representation of analysis and synthesis filter banks are amenable to matrix implementation that work frame by frame: they consume chunks of <span class="math inline">\(M\)</span> samples to produce the same amount of output values.</p>
+<section id="analysis-filter-bank" class="level3">
+
+<div class="p"><h3><a href="#analysis-filter-bank">Analysis Filter Bank</a></h3>Consider the analysis filter bank depicted on the left of figure . Gather the output <span class="math inline">\(y^i(t)\)</span> of the <span class="math inline">\(i\)</span>-th subbands into the vector signal <span class="math inline">\(y(t) \in \mathbb{R}^M\)</span>, <span class="math inline">\(t \in \mathbb{Z} M\Delta t\)</span>. This output vector is related to the input <span class="math inline">\(x(t) \in \mathbb{R}\)</span>, <span class="math inline">\(t \in \mathbb{Z} \Delta t\)</span> by the formula: <span class="math display">\[
+  y^i(t) 
+  = 
+  \Delta t \sum_{t' \in \mathbb{Z}\Delta t} a^i(t') x(t - t'), \; t \in \mathbb{Z} M \Delta t
+  \]</span> Let <span class="math inline">\(y^i_n = y^i(n M \Delta t)\)</span>, <span class="math inline">\(x^i_n = x^i(n\Delta t)\)</span>, <span class="math inline">\(a^i_n = a^i(n\Delta t)\)</span>. This relationship takes the form <span class="math display">\[
+  y^i_j = \Delta t \sum_{n=0}^{N-1} a^i_n x_{Mj - n},
+  \]</span> which can be considered as a simple matrix multiplication: <span class="math display">\[ \label{matrix-analysis}
+  y_n = \mathcal{A} 
+        \left[
+        \begin{array}{c}
+        x_{Mn} \\
+        x_{Mn-1} \\
+        \vdots \\
+        x_{Mn - N + 1}
+        \end{array}
+        \right]
+  \; \mbox{ with } \;
+  \mathcal{A} \in \mathbb{R}^{M \times N}, \;
+  \mathcal{A}_{ij} = \Delta t \cdot a^i_j.
+  \]</span> Alternatively, this form may be turned into an alternate block-diagram<br>
+displayed in figure  that is the <strong>polyphase</strong> representation of the analysis filter bank:</div>
+<figure>
+<img src="images/analysis-polyphase.svg" alt="analysis filter bank: polyphase representation"><figcaption>analysis filter bank: polyphase representation</figcaption>
+</figure>
+<p>assume that <span class="math inline">\(N\)</span> is a multiple of <span class="math inline">\(M\)</span> and that we intend to apply the analysis filter bank to a finite causal signal <span class="math inline">\(x\)</span> represented by the NumPy array <code>x</code>. We notice that the vector in right-hand side of the equation () acts as a buffer: every new value of <span class="math inline">\(n\)</span> shifts the oldest values of <span class="math inline">\(x\)</span> towards the bottom of the vector by <span class="math inline">\(M\)</span> slots – effectively forgetting <span class="math inline">\(M\)</span> of the oldest values – and introduces <span class="math inline">\(M\)</span> new values of <span class="math inline">\(x\)</span> at the top, so the signal <span class="math inline">\(x\)</span> is used in frames of <span class="math inline">\(M\)</span> samples. We also notice that <span class="math inline">\(y_0\)</span> does not depend of a whole <span class="math inline">\(x\)</span> frame, only of <span class="math inline">\(x_0\)</span>. To simplify this matter, we assume that <span class="math inline">\(x_0 = 0\)</span> and won’t compute <span class="math inline">\(y_0\)</span>. Effectively, we implement a process that with respect to the theoretical one delays the input by one step – so that <span class="math inline">\(x_1\)</span> is the first non-zero value, not <span class="math inline">\(x_0\)</span> – and advances the output by one step – the first output we’ll effectively compute is truly <span class="math inline">\(y_1\)</span>, not <span class="math inline">\(y_0\)</span>.</p>
+<p>These computations may be carried by an instance of the <code>Analysis</code> class:</p>
+<pre><code>class Analysis(object):
+    def __init__(self, a, dt=1.0):
+        self.M, self.N = shape(a)
+        self.A = a * dt
+        self.buffer = zeros(self.N)
+    def __call__(self, frame):
+        frame = array(frame, copy=False)
+        assert shape(frame) == (self.M,)
+        self.buffer[self.M:] = self.buffer[:-self.M]
+        self.buffer[:self.M] = frame[::-1]
+        return dot(self.A, self.buffer)</code></pre>
+<p>The argument <code>a</code> in the <code>Analysis</code> constructor is meant to be a the 2-dim. array such that <code>a[i,:]</code> represent the <span class="math inline">\(i\)</span>-th analysis filter impulse response. In order to use the instance <code>analysis = Analysis(a, dt)</code>, the array <code>x</code> has to be split in frames of length <code>M</code>.</p>
+<p>In the implementation of the analysis filter banks for the MPEG PQMF, the pass-band filters are implemented as causal filters, introducing an extra delay of <code>MPEG.N / 2 = 256</code> samples. Given the the implementation delays already considered, the total delay induced by the implementation with respect to the original filter banks is <code>MPEG.N / 2 + 1 - MPEG.M</code>.</p>
+<p>To make sure that the analysis filter banks has produced all its non zero-values, we feed the system extra zero frames. If the input data is available from the start in the array <code>x</code>, the corresponding output <code>y</code> may therefore be obtained as:</p>
+<pre><code>from filters import MPEG
+from frames import split
+
+x = r_[x, zeros(MPEG.N)]
+frames = split(x, MPEG.M, zero_pad=True)
+y = []
+for frame in frames:
+    y.extend(analysis(frame))
+y = array(y)</code></pre>
+</section>
+<section id="synthesis-filter-bank" class="level3">
+
+<div class="p"><h3><a href="#synthesis-filter-bank">Synthesis Filter Bank</a></h3>Consider the synthesis filter bank depicted on the right of the diagram . The output vector <span class="math inline">\(z(t) \in \mathbb{R}\)</span>, <span class="math inline">\(t \in \mathbb{Z}\Delta t\)</span>, is related to the input <span class="math inline">\(y(t) \in \mathbb{R}^M\)</span>, <span class="math inline">\(t \in \mathbb{Z} M \Delta t\)</span>, by the formula: <span class="math display">\[
+  z(t) 
+  = 
+  M \sum_{i=0}^{M-1} \Delta t \sum_{t' \in \mathbb{Z} \Delta t} s^i(t') (y^i \uparrow M)(t-t')
+  \]</span> or – using integer indices – by <span class="math display">\[
+  z_n = M \sum_{i=0}^{M-1} \Delta t \sum_{j=0}^{N-1} {s^i_j} (y^i \uparrow M)_{n-j}.
+  \]</span> With <span class="math display">\[
+  \mathcal{S} 
+   = 
+  \left[M\Delta t s^i_j\right]_{i,j}
+  \]</span> we may turn this equation into <span class="math display">\[ \label{polyphase-synthesis}
+  z_n = \sum_{j=0}^{N-1} [\mathcal{S}^t (y \uparrow M)_{n-j}]_j.
+  \]</span> Now consider the polyphase synthesis diagram , dual of the analysis diagram , where <span class="math inline">\(\mathcal{P}\)</span> is an unknown <span class="math inline">\(N\times M\)</span> matrix. Its output is related to its input by <span class="math display">\[
+  z_n = \sum_{j=0}^{N-1} [\mathcal{P} (y \uparrow M)_{n-j}]_{N-1-j}.
+  \]</span> So if we set <span class="math inline">\(\mathcal{P} = J\mathcal{S}^t\)</span>, where <span class="math inline">\(J\)</span> is the <span class="math inline">\(M \times M\)</span> matrix such as <span class="math inline">\(J_{i,j} = 1\)</span> if <span class="math inline">\(i-j = M-1\)</span> and <span class="math inline">\(0\)</span> otherwise, the diagram outputs the same thing as (), only delayed by <span class="math inline">\(N-1\)</span> samples.</div>
+<p>Let <span class="math inline">\(w_n = \mathcal{S}^t y_n\)</span>. A careful examination of the polyphase representation of the synthesis filter banks show that the computation may be performed in frames of <span class="math inline">\(M\)</span> values. Indeed, the output <span class="math inline">\(z_n\)</span> is given by <span class="math inline">\(z_0 = w^{N-1}_0\)</span>, <span class="math inline">\(\cdots\)</span>, <span class="math inline">\(z_{M-1} = w^{N-M}_0\)</span>, then <span class="math inline">\(z_M = w^{N-M-1}_0 + w^{N-1}_1\)</span>, <span class="math inline">\(z_{M+1} = w^{N-M-2}_0 + w^{N-2}_1\)</span>, etc.</p>
+<figure>
+<img src="images/synthesis-polyphase.svg" alt="Synthesis filter bank: polyphase representation"><figcaption>Synthesis filter bank: polyphase representation</figcaption>
+</figure>
+<p>Here is a possible implementation:</p>
+<pre><code>class Synthesis(object):
+    def __init__(self, s, dt=1.0):
+        self.M, self.N = shape(s)
+        self.P = transpose(self.M * dt * s)[::-1,:]
+        self.buffer = zeros(self.N)
+    def __call__(self, frame):
+        frame = array(frame, copy=False)
+        assert shape(frame) == (self.M,)
+        self.buffer += dot(self.P, frame)
+        output = self.buffer[-self.M:][::-1].copy()
+        self.buffer[self.M:] = self.buffer[:-self.M]
+        self.buffer[:self.M] = zeros(self.M)
+        return output</code></pre>
+<p>Again, the input vector <code>y</code> can be extended with as many zeros as necessary to get all non-zero output values extracted from the buffer.</p>
+</section>
+</section>
+</section>
+<section id="psychoacoustics---perceptual-models" class="level1">
+<h1><a href="#psychoacoustics---perceptual-models">Psychoacoustics - Perceptual Models</a></h1>
+<section id="acoustics---physical-values" class="level2">
+<h2><a href="#acoustics---physical-values">Acoustics - Physical Values</a></h2>
+<p>Audio signal values represent a variation of the sound pressure with respect to the atmospheric pressure. The standard unit used to measure such pressure is the pascal (Pa), a unit that corresponds to <span class="math inline">\(\mbox{N}/\mbox{m}^2\)</span> ; while atmospheric pressure is around 100 Pa – the standard atmosphere (atm), an alternative unit, is equivalent to 101.325 Pa – variations of the pressure in the audio context typically range from <span class="math inline">\(10^{-5}\)</span> Pa (absolute threshold of hearing) to <span class="math inline">\(10^{2}\)</span> Pa (threshold of pain).</p>
+<p>In order to measure the <strong>sound pressure level (SPL)</strong> denoted <span class="math inline">\(L\)</span>, we focus on the difference <span class="math inline">\(p(t)\)</span> between the actual pressure and the atmospheric pressure and compute its quadratic mean: <span class="math display">\[
+  P^2 = \left&lt; p^2\right&gt; %= \frac{1}{T}\, \Delta t \! \! \! \! \!  \! \! \! \!  \! \sum_{n=-(N-1)/2}^{(N-1)/2} p^2(t + n\Delta t)
+  \]</span> where <span class="math inline">\(\left&lt;\cdot\right&gt;\)</span> denotes, depending on the context, either a temporal mean or a probabilistic one. We then normalize this value with respect to <span class="math inline">\(P_0 = 20\)</span> <span class="math inline">\(\mu\)</span>Pa and measure the ratio in a logarithmic scale <span class="math display">\[
+  L = 20 \log_{10} \frac{P}{P_0}
+  \]</span> The sound pressure level unit is the <strong>decibel (dB)</strong>. When the sound is a plane travelling wave, the normalized <strong>sound intensity <span class="math inline">\(I\)</span></strong> is related to <span class="math inline">\(p\)</span> by <span class="math display">\[
+  \frac{I}{I_0} = \frac{P^2}{P^2_0} \; \mbox{ with } \; I_0 = 10^{-12} \, \mbox{N}/\mbox{m}^2
+  \]</span> so that <span class="math display">\[
+  L = 10 \log_{10} \frac{I}{I_0}.
+  \]</span> Now, sound pressure level may be computed according to the spectral content of the signal: if <span class="math inline">\(p(f)\)</span> denotes the spectrum of the signal <span class="math inline">\(p(t)\)</span>, a finite causal signal of length <span class="math inline">\(N\)</span> with <span class="math inline">\(T = N\Delta t\)</span>, we have by Parseval’s formula (cf.&nbsp;formula ()) <span class="math display">\[
+  P = \frac{1}{T} \Delta t\sum_{n=0}^{N-1} p(t)^2 = \frac{1}{T}\int_{-\Delta f/2}^{\Delta f/2} |p(f)|^2 \, df
+  \]</span> as we end up with <span class="math display">\[
+  L = 10 \log_{10} \frac{2}{T} \int_{0}^{\Delta f/2} \frac{|p(f)|^2}{P_0^2} \, df
+  \]</span> This result is usually presented in terms of <strong>sound (intensity) density </strong> also commonly called <strong>sound power density</strong>, a value measured in dB that we denote <span class="math inline">\(\ell(f)\)</span> and define as <span class="math display">\[
+  \ell(f) = 10 \log_{10} \frac{2}{T}\frac{|p(f)|^2}{P_0^2}
+  \]</span> so that <span class="math display">\[
+  L = 10 \log_{10} \int_0^{\Delta f/2} 10^{{\ell(f)}/{10}}\, df.
+  \]</span> For example, if a sound has a constant power density <span class="math inline">\(\ell\)</span> in a frequency range of width <span class="math inline">\(\Delta F\)</span> and no power outside this range, its sound pressure level is <span class="math display">\[
+  L = \ell + 10 \log_{10} \Delta F
+  \]</span> Digital audio signal being scaled to fit the range of their quantizer, we need to normalize somehow the signal before getting into the SPL computation. For 16-bit linearly quantized signals normalization takes place in the following way: first, scale to fit into <span class="math inline">\([-1.0,1.0]\)</span>, then a quadratic mean of <span class="math inline">\(N\)</span> signal values <span class="math display">\[
+  X^2 = \left&lt;x^2\right&gt;  = \frac{1}{T} \Delta t \sum_{n=0}^{(N-1)} |x(n\Delta t)|^2
+  \]</span> is mapped to SPL with the formula <span class="math display">\[ \label{Lf}
+  L = 10 \log_{10} \left&lt;x^2\right&gt; + 96 \, \mbox{dB}
+  \]</span> or equivalently <span class="math display">\[
+  P = 10^{4.8} P_0 \times X
+  \]</span> or even <span class="math display">\[
+  \ell(f) = 10 \log_{10}\left( \frac{2}{T}|x(f)|^2 \right) + 96
+  \]</span> and <span class="math display">\[
+  L = 10 \log_{10} \left( \frac{2}{T} 10^{9.6} \int_0^{\Delta f/2} |x(f)|^2 \, df \right)
+  \]</span></p>
+</section>
+<section id="threshold-in-quiet" class="level2">
+<h2><a href="#threshold-in-quiet">Threshold in Quiet</a></h2>
+<p>To understand why the normalization in the previous section actually makes sense, we need to know more about the human hearing range. The <strong>absolute threshold of hearing (ATH)</strong> or <strong>threshold in quiet</strong> is a function of the frequency <span class="math inline">\(f\)</span> such that a pure tone with a frequency <span class="math inline">\(f\)</span> will be noticed if and only if its SPL is above the ATH at this frequency. An approximate analytical model for the threshold of hearing – as a function of the frequency <span class="math inline">\(f\)</span> in kHz – is: <span class="math display">\[
+  T_a(f) = 3.64 {f}^{-0.8} - 6.5 \exp( -0.6 \left(f - 3.3\right)^2) + 10^{-3} f^4
+  \]</span></p>
+<p>Now consider the values of a uniform 16-bit quantizer on <span class="math inline">\([-1.0, 1.0]\)</span>. Given that the maximum possible value of <span class="math inline">\(\left&lt;x^2\right&gt;\)</span> is 1.0, the maximum value of the right-hand side of the equation () is 96 dB. For a pure tone, before normalization, the maximum value of <span class="math inline">\(\left&lt;x^2\right&gt;\)</span> is <span class="math inline">\(1/\sqrt{2}\)</span>, and therefore the maximum sound pressure level is <span class="math inline">\(\approx 93\)</span> dB.</p>
+<p>Now, even if there is no minimum value <em>per se</em>, a good reference is the quantization noise energy. For a 16-bit linear quantization on <span class="math inline">\((-1.0,1.0)\)</span>, the step size <span class="math inline">\(\Delta\)</span> is uniform with a value of <span class="math inline">\(2.0/2^{16} = 2^{-15}\)</span>. In the context of the high resolution hypothesis, the equation () provides the estimate <span class="math inline">\(\mathbb{E}[b^2] = \Delta^2 / 12\)</span> for the noise power and therefore the normalized noise pressure level is <span class="math display">\[
+  10 \log_{10} \left( 2^{-30}/12 \right) + 96 \approx -5.1 \, \mbox{dB}
+  \]</span> So with the normalization of the previous section, the practical range in terms of sound pressure level of the 16-bit linear quantizer is <span class="math inline">\([-5.1, 93]\)</span> dB, that is approximately a <span class="math inline">\(100\)</span> dB range. Compared to the reference curve for the absolute threshold of hearing (see fig. ), we notice that this region covers essentially all of the frequency range from <span class="math inline">\(20\)</span> Hz to <span class="math inline">\(20\)</span> kHz and that the low bound closely matches the minimal value of the ATH. So this scaling by 96 dB would correspond to a kind of optimal amplification configuration of the loudspeakers, one that would allow to get into large audible value of the SPL without saturation of the signal and also to allow proper perception of the lowest sounds that the ear can actually detect.</p>
+<figure>
+<img src="images/ATH.svg" alt="Absolute Threshold of Hearing. The grey region denotes the SPL range covered by a 16-bit linear quantization."><figcaption><strong>Absolute Threshold of Hearing.</strong> The grey region denotes the SPL range covered by a 16-bit linear quantization.</figcaption>
+</figure>
+</section>
+<section id="simultaneous-masking" class="level2">
+<h2><a href="#simultaneous-masking">Simultaneous Masking</a></h2>
+<p>Beyond the model of the absolute threshold of hearing, the main characteristic of the psychoacoustic system that perceptual model used in technologies such as MP3, Ogg/Vorbis, AAC, etc. rely on is {}. Basically, a loud sound whose energy is located in a given narrow frequency range is going to make every other signal located in the same frequency neighbouhood harder to detect.</p>
+<p>A simple first computational model for this type of masking relies on Fletcher’s <strong>critical band</strong> concept. Fletcher considers the possible masking of a pure tone with frequency <span class="math inline">\(f\)</span> by a signal whose energy is located in the <span class="math inline">\([f-\Delta F/2, f+\Delta F/2]\)</span> range and makes the assumption that there exist a <strong>critical bandwidth</strong> <span class="math inline">\(\Delta F_c\)</span> – or a <strong>critical band</strong> <span class="math inline">\([f-\Delta F_c /2, f+\Delta F_c /2 ]\)</span> – such that:</p>
+<ol type="1">
+<li><p>the distribution of the intensity of the masker within the critical band does not influence the outcome of the masking experiment, only the total SPL for the critical band matters,</p></li>
+<li><p>no amount of intensity outside of the critical band may change the outcome of the experiment,</p></li>
+<li><p>masking occurs when the intensity of the masker in the critical band exceeds the intensity of the test tone.</p></li>
+</ol>
+<p>In a few words, the critical band is the largest region around the test tone where the power density of masker signals consistently increases the masking effect. This set of assumption has a number of shortcomings: the distribution of intensity nearby the test tone <em>does</em> matter, but not so much as long as the distribution is quite uniform (say a band-limited noise or a combination of 5 pure tones uniformly gathered won’t make much of a difference), the influence of the distribution of energy does not have a drop from <span class="math inline">\(100\)</span>% to <span class="math inline">\(0\)</span>% at a limit but is smoother and finally, the masker needs from <span class="math inline">\(2\)</span> to <span class="math inline">\(4\)</span> more intensity than the test tone to properly mask it.</p>
+<figure>
+<img src="images/DF.svg" alt="Critical Bandwidth. The dashed lined represent the simpler piecewise linear estimate."><figcaption><strong>Critical Bandwidth.</strong> The dashed lined represent the simpler piecewise linear estimate.</figcaption>
+</figure>
+<p>Despite all these shortcomings, Fletcher’s model of critical bands is important and estimates of the critical bandwidth as a function of the frequency center frequency <span class="math inline">\(f\)</span> may be derived from simple experimental protocols. An approximate analytical formula for the critical bandwith in Hz – as a function of the center frequency <span class="math inline">\(f\)</span> in Hz is: <span class="math display">\[
+  \Delta F_c = 25 + 75 (1 + 1.4 (f/1000.0)^2)^{0.69}
+  \]</span> it also accepts the following piecewise linear approximation: <span class="math display">\[
+  \Delta F_c = 100 \mbox{ Hz } \mbox{ if } f\leq 500 Hz 
+  \; \mbox{ and } \;
+  \Delta F_c = 0.2 \times f \mbox{ beyond.}
+  \]</span></p>
+<p>The critical band concept is used in many model beyond masking ; for convenience, a unit is introduced to measure frequencies in the critical band rate scale : it is named the <strong>Bark</strong>. By convention, <span class="math inline">\(f=0\)</span> Bark corresponds to <span class="math inline">\(f=0\)</span> Hz. Then the right end of the critical band that starts at <span class="math inline">\(0\)</span> Bark corresponds to <span class="math inline">\(1\)</span> Bark, the right end of the critical band that starts at <span class="math inline">\(1\)</span> Bark corresponds to <span class="math inline">\(2\)</span> Bark, and so on and so forth. A convenient analytical approximation of the Hz to Bark conversion is given by: <span class="math display">\[
+  f \, \mbox{[Bark]} = 13.0 \arctan (0.76  f/1000.0)  + 3.5 \arctan(f/1000.0 / 7.5)^2
+  \]</span></p>
+</section>
+<section id="spreading-functions" class="level2">
+<h2><a href="#spreading-functions">Spreading Functions</a></h2>
+<p>Let’s consider for a moment the masks yielded by Fletcher’s set of assumption, that is the audibility threshold of pure tones as a function of their frequency <span class="math inline">\(f\)</span>. We may consider as maskers either pure tones or band-limited white noises. The graphs in figure  is an example of the masks levels that can be derived from Fletcher’s model of masking.</p>
+<figure>
+<img src="images/masks-0.svg">
+</figure>
+<figure>
+<img src="images/masks-1.svg">
+</figure>
+<figure>
+<img src="images/masks-2.svg">
+</figure>
+<figure>
+<img src="images/masks-3.svg" alt="Fletcher’s Model – Band-Limited Noise Masking Curves. The four maskers share a common SPL of L=50 dB and center frequency of f_c=400 Hz while their bandwidth increases from \Delta f=20.0 Hz to 800 Hz.}"><figcaption><strong>Fletcher’s Model – Band-Limited Noise Masking Curves.</strong> The four maskers share a common SPL of <span class="math inline">\(L=50\)</span> dB and center frequency of <span class="math inline">\(f_c=400\)</span> Hz while their bandwidth increases from <span class="math inline">\(\Delta f=20.0\)</span> Hz to <span class="math inline">\(800\)</span> Hz.}</figcaption>
+</figure>
+<p>If we assume that elementary maskers combine into a global one by addition of intensity – and take into account the absolute threshold of hearing as yet another mask, we end up with the kind of masking curves displayed in figure .</p>
+<figure>
+<img src="images/masks-global-lin.svg">
+</figure>
+<figure>
+<img src="images/masks-global-log.svg">
+</figure>
+<figure>
+<img src="images/masks-global-bark.svg" alt="Fletcher’s Model – Pure Tones Masking Curves. The masker is a combination of 8 pure tones of level 100 dB whose frequencies start with 110 Hz and double for each new tone. Frequencies are displayed in linear, logarithmic and bark scales."><figcaption><strong>Fletcher’s Model – Pure Tones Masking Curves.</strong> The masker is a combination of 8 pure tones of level 100 dB whose frequencies start with <span class="math inline">\(110\)</span> Hz and double for each new tone. Frequencies are displayed in linear, logarithmic and bark scales.</figcaption>
+</figure>
+</section>
+<section id="implementation---bit-allocation-strategies" class="level2">
+<h2><a href="#implementation---bit-allocation-strategies">Implementation - Bit Allocation Strategies</a></h2>
+<p>Consider a random signal <span class="math inline">\(X\)</span> split into <span class="math inline">\(M\)</span> subband signals <span class="math inline">\(X_k\)</span>. Assume that in every subband an estimate <span class="math inline">\(P_m(k)\)</span> of the masking level intensity is available. Given a selection of quantizers <span class="math inline">\([\,\cdot\,]_k\)</span>, if we have <span class="math display">\[ \label{aud}
+  \forall \, k \in \{0,\cdots,M-1\},\;\mathbb{E}[(X_k - [X_k]_k)^2] \leq P_m(k)
+  \]</span> then in every channel, the quantization noise is masked by the signal itself. These conditions () may be satisfied by a variable bitrate algorithm, but it is more likely that we have a total budget of bits to allocate per frame and that we are merely trying to spread the quantization noise above the masking levels among all subbands. We may achieve this by solving <span class="math display">\[ \label{min_aboveKKK}
+  \min \sum_{k=0}^{M-1} \frac{\mathbb{E}[(X_k - [X_k]_k)^2]}{P_m(k)}
+  \]</span> or, under the high resolution assumption, if <span class="math inline">\(\Delta_{f_k}\)</span> denotes the quantizer step size of <span class="math inline">\([\,\cdot\,]_k\)</span>, as we have <span class="math inline">\(\mathbb{E}[(X_k - [X_k]_k)^2] = (1/12)\mathbb{E}[\Delta_{f_k}(X_k)^2]\)</span>, by solving <span class="math display">\[ \label{min_above}
+  \min \sum_{k=0}^{M-1} \frac{\mathbb{E}[\Delta_{f_k}(X_k)^2]}{P_m(k)}
+  \]</span>  Assume that every quantizer <span class="math inline">\([\,\cdot\,]_k\)</span> is a uniform quantizer on <span class="math inline">\((-1, 1)\)</span> with step size <span class="math inline">\(\Delta_k\)</span>. In every subband, the number of bits <span class="math inline">\(b_k\)</span> is related to the step size by <span class="math inline">\(\Delta_k = 2 / 2^{b_k}\)</span>. The availability of a constant number of bits per frame therefore leads to <span class="math display">\[ \label{constraint}
+  \sum_{k=0}^{M-1} \log \Delta_k = \mbox{const.}
+  \]</span> The constrained optimization problem () + () may be solved by lagrangian methods: we introduce <span class="math inline">\(\Delta=(\Delta_0, \cdots,\Delta_{M-1})\)</span>, <span class="math display">\[
+  L(\lambda, \Delta) = \sum_{k=0}^{M-1} \frac{\Delta_k^2}{P_m(k)} + \lambda \sum_{k=0}^{M-1} \log \Delta_k
+  \]</span> and solve the equation <span class="math inline">\(\nabla_{\Delta} L(\lambda,\Delta)=0\)</span>. As for any <span class="math inline">\(k\)</span>, <span class="math display">\[
+  \frac{\partial L}{\partial \Delta_k} =  2\frac{\Delta_k}{P_m(k)} + \frac{\lambda}{\Delta_k},
+  \]</span> the optimal set of step size satisfies <span class="math display">\[
+  \Delta_k^2 \propto P_m(k)
+  \]</span> the proportionaly constant being adjusted to match the bit budget. </p>
+<p>Instead of using uniform quantizers in every subbands, we may attempt to minimize every quantizer signal-to-noise ratio for a yet unknow number of bits, then consider the optimal allocation of bts. We assume that the characteristic function <span class="math inline">\(f_k\)</span> used to implement <span class="math inline">\([\, \cdot \,]_k\)</span> maps the real numbers into <span class="math inline">\([-1.0, +1.0]\)</span> and hence that <span class="math display">\[ \label{int}
+  \int_{-\infty}^{+\infty}f'_k(x) \, dx  = 2
+  \]</span> Note that if a uniform quantization applied on <span class="math inline">\([-1,1]\)</span> and has a budget of <span class="math inline">\(b_k\)</span> bits,the corresponding constant step size is <span class="math inline">\(\Delta_k = 2/2^{b_k}\)</span>. As we have <span class="math inline">\(\Delta_{f_k}(x) = \Delta_k / f'_k(x)\)</span>, the equation () yields <span class="math display">\[ \label{babits}
+  \int_{-\infty}^{+\infty} \frac{1}{\Delta_{f_k}(x)} \, dx = \frac{2}{\Delta_k}
+  \]</span> If the signal <span class="math inline">\(X_k\)</span> has a density <span class="math inline">\(p_k\)</span>, the step size <span class="math inline">\(\Delta_{f_k}\)</span> that is optimal with respect to the quantization signal-to-noise ratio satisfies <span class="math inline">\(\Delta_{f_k}(x) \propto p_k^{-1/3}(x)\)</span>. Combined with (), this equation yields <span class="math display">\[
+  \Delta_{f_k}(x) = \frac{\Delta_k}{2} 
+  \left[ \int_{-\infty}^{+\infty} p_k^{1/3}(y) \, dy \right] p_k^{-1/3}(x)
+  \]</span> and therefore <span class="math display">\[
+  \mathbb{E}[\Delta_{f_k}(X_k)^2]
+  = 
+  \frac{\Delta_k^2}{4} 
+  \left[ \int_{-\infty}^{+\infty} p_k^{1/3}(x) \, dx\right]^3
+  \]</span> Now, for common probability distributions <span class="math inline">\(p_k\)</span> such as normal distributions or Laplace distributions, we have <span class="math display">\[ 
+  \int_{-\infty}^{+\infty} p_k^{1/3}(x) \, dx \propto \mathbb{E}[X_k^2]^{1/3}
+  \]</span> and hence <span class="math display">\[ \label{gnie}
+  \mathbb{E}[\Delta_{f_k}(X_k)^2] \propto \Delta_k^2 \times \mathbb{E}[X_k^2]
+  \]</span> The new minimization problem is therefore <span class="math display">\[
+  \min \sum_{k=0}^{M-1} \Delta_k^2 \frac{\mathbb{E}[X_k^2] }{P_m(k)}
+  \]</span> under <span class="math display">\[ \label{constraint33}
+  \sum_{k=0}^{M-1} \log \Delta_k = \mbox{const.}
+  \]</span> If we introduce the <strong>signal-to-mask (SMR) ratio</strong> in the band <span class="math inline">\(k\)</span>, defined by <span class="math display">\[
+  \mbox{SMR}^2_k = \frac{\mathbb{E}[X_k^2] }{P_m(k)}
+  \]</span> the solution to this optimization problem is given by <span class="math display">\[
+  \Delta_k \propto \mbox{SMR}_k^{-1}
+  \]</span></p>
+</section>
+</section>
+<section class="footnotes" id="notes"><h1><a href="#notes">Notes</a></h1>
+<hr>
+<ol>
+<li id="fn1"><p>see <a href="http://www.scipy.org/NumPy_for_Matlab_Users" class="uri">http://www.scipy.org/NumPy_for_Matlab_Users</a>.<a href="#fnref1">↩</a></p></li>
+</ol>
+</section>
+</main>
+
+
+</body></html>

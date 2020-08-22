@@ -1,1 +1,758 @@
-/www/audio/Exam-2018/Exam-2018.html
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, Mines ParisTech, CC BY-NC-SA 4.0">
+  <title>S1916 - Analyse et Compression du Signal Audionumérique - Examen Corrigé</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: content-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+html {
+  line-height: var(--base-line-height);
+  --base-font-size: 24px;
+  --base-line-height: 36px;
+  --scale-ratio: 1.4142135623730951;
+  --small: 17px;
+  --medium: 24px;
+  --large: 34px;
+  --x-large: 48px;
+  font-size: 24px;
+  font-family: 'Alegreya', serif;
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html em {
+  font-style: italic;
+}
+html strong {
+  font-weight: bold;
+}
+html p, html .p {
+  margin-bottom: var(--base-line-height);
+  text-align: justify;
+  hyphens: auto;
+  -moz-hyphens: auto;
+}
+html section {
+  margin-bottom: var(--base-line-height_px);
+}
+html main {
+  box-sizing: content-box;
+  max-width: 32em;
+  margin: auto;
+  padding: var(--base-line-height);
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, q:before {
+  content: none;
+}
+blockquote:after, q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em NaNpx;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: medium solid black;
+  border-bottom: medium solid black;
+}
+main > header, main > .header, main > #header {
+  margin-top: calc(2 * var(--base-line-height));
+  margin-bottom: calc(2 * var(--base-line-height));
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: calc(1.5 * var(--base-line-height));
+  margin-top: 0;
+  margin-bottom: var(--base-line-height);
+  font-weight: bold;
+}
+main > header .author, main > .header .author, main > #header .author {
+  font-size: 24px;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  font-weight: normal;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: 'Alegreya SC', serif;
+  line-height: calc(1 * var(--base-line-height));
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  font-weight: bold;
+  line-height: calc(1.25 * var(--base-line-height));
+  margin-top: calc(2.00 * var(--base-line-height));
+  margin-bottom: calc(0.75 * var(--base-line-height));
+}
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+}
+h3, h4, h5, h6 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 1em;
+  display: inline;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
+}
+a:hover {
+  text-decoration: none;
+}
+a:link {
+  color: var(--color);
+}
+a:visited {
+  color: var(--color);
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li {
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  margin-left: var(--base-line-height);
+  padding-left: 0.5em;
+}
+ul li {
+  list-style: disc;
+}
+ol li {
+  list-style: decimal;
+}
+blockquote {
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+  padding: var(--base-line-height);
+  margin-bottom: var(--base-line-height);
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-size: 24px;
+  font-family: Inconsolata;
+}
+pre {
+  overflow-x: auto;
+  background-color: #ebebeb;
+  margin-bottom: var(--base-line-height);
+  padding-left: var(--base-line-height);
+  padding-right: var(--base-line-height);
+  padding-top: var(--base-line-height);
+  padding-bottom: var(--base-line-height);
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: auto;
+}
+figure {
+  margin-bottom: var(--base-line-height);
+  text-align: center;
+}
+figcaption {
+  display: inline-block;
+  font-style: italic;
+  text-align: justify;
+}
+.table {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  margin-bottom: var(--base-line-height);
+}
+thead {
+  border-bottom: medium solid black;
+}
+td, th {
+  padding: NaNpx 0.5em;
+}
+.MJXc-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+nav#TOC > ul {
+  position: relative;
+  font-weight: bold;
+}
+nav#TOC > ul > * {
+  margin-bottom: var(--base-line-height);
+}
+nav#TOC > ul li {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+nav#TOC > ul ul li {
+  margin-left: var(--base-line-height);
+  font-weight: normal;
+}
+nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+  padding-bottom: var(--base-line-height);
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+.badge {
+  position: relative;
+  bottom: 0.13em;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  font-weight: 300;
+  font-size: var(--small);
+  display: inline-block;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  vertical-align: baseline;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+  margin-right: 1em;
+}
+.section-flag {
+  line-height: var(--base-line-height);
+  font-size: var(--small);
+  font-weight: 300;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  margin-bottom: 0;
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya: 400,700,900,400italic,700italic,900italic|Alegreya+SC:400,700,900,400italic,700italic,900italic|Alegreya+Sans:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+Sans+SC:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.10.0
+(function() {
+  var box, hide_proof, main, show_proof;
+
+  hide_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("expanded");
+    sectionWrapper.addClass("minimized");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "visible"
+    });
+    w$(".header-wrapper").css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().css({
+      visibility: "hidden",
+      height: "0px"
+    });
+    w$(".header-wrapper").attr({
+      id: w$("section").first().attr("id")
+    });
+    return w$("section").first().attr({
+      id: ""
+    });
+  };
+
+  show_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("minimized");
+    sectionWrapper.addClass("expanded");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "hidden"
+    });
+    w$(".header-wrapper").css({
+      visibility: "hidden",
+      height: "0"
+    });
+    w$("section").first().css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().attr({
+      id: w$(".header-wrapper").attr("id")
+    });
+    return w$(".header-wrapper").attr({
+      id: ""
+    });
+  };
+
+  box = function(section) {
+    var clone, expand, header, headerWrapper, tombstone, wrapper;
+    clone = section.clone(true);
+    clone.css({
+      marginBottom: "0"
+    });
+    clone.children().last().css({
+      marginBottom: "0"
+    });
+    tombstone = clone.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer",
+      position: "absolute",
+      bottom: "0.75rem",
+      right: "0.75rem"
+    });
+    wrapper = $("<div class='proof-wrapper expanded'></div>");
+    wrapper.css({
+      position: "relative",
+      margin: "-0.75rem -0.75rem 0.75rem -0.75rem",
+      padding: "0.75rem",
+      backgroundColor: "#f9f9f9"
+    });
+    header = clone.find("h3, h4, h5, h6").first().clone();
+    headerWrapper = $("<div class='p header-wrapper' style='margin-bottom:0; visibility:hidden; overflow:hidden; height:0;'> </div>");
+    headerWrapper.append(header);
+    expand = $("<i class='fa fa-caret-down expand' style='visibility:hidden; cursor:pointer; position:absolute; top:0.75rem; right:0.75rem;'> </i>");
+    wrapper.append(headerWrapper);
+    wrapper.append(expand);
+    wrapper.append(clone);
+    expand.on("click", function() {
+      return show_proof(wrapper);
+    });
+    tombstone.on("click", function() {
+      return hide_proof(wrapper);
+    });
+    section.replaceWith(wrapper);
+    return wrapper;
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, section, sections, text, wrapper;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      wrapper = box(section);
+      hide_proof(wrapper);
+    }
+    return $(document).keydown(function(event) {
+      var k, l, len2, len3, ref1, ref2, results, sectionWrapper;
+      console.log("***", event.keyCode);
+      if (event.keyCode === 88) {
+        ref1 = $(".proof-wrapper.minimized");
+        for (k = 0, len2 = ref1.length; k < len2; k++) {
+          sectionWrapper = ref1[k];
+          show_proof($(sectionWrapper));
+        }
+      }
+      if (event.keyCode === 77) {
+        ref2 = $(".proof-wrapper.expanded");
+        results = [];
+        for (l = 0, len3 = ref2.length; l < len3; l++) {
+          sectionWrapper = ref2[l];
+          results.push(hide_proof($(sectionWrapper)));
+        }
+        return results;
+      }
+    });
+  };
+
+  $(main);
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.10.0
+(function() {
+  var make_preview, mathjaxDebug;
+
+  make_preview = function(elt) {
+    var card, hidden_css, hide_preview, id, ref, show_preview, url, visible_css;
+    ref = elt.attr("href").split("#"), url = ref[0], id = ref[1];
+    card = $("<div class='card'>\n  <div class='holder'>\n    <p>Placeholder</p>\n  </div>\n</div>");
+    card.css({
+      width: "35vw",
+      padding: "1.5rem",
+      position: "fixed",
+      top: "1.5rem",
+      right: "1.5rem",
+      boxSizing: "border-box",
+      maxHeight: "calc(100vh - 3rem)",
+      overflow: "hidden",
+      boxShadow: "0 0 1rem #e6e6e6",
+      backgroundColor: "white"
+    });
+    visible_css = {
+      visibility: "visible",
+      opacity: 1,
+      transform: "translateX(0em)",
+      transition: "all 0.3s linear"
+    };
+    hidden_css = {
+      visibility: "hidden",
+      opacity: 0,
+      transform: "translateX(1em)",
+      transition: "all 0.3s linear 0.5s"
+    };
+    card.css(hidden_css);
+    elt.css({
+      textDecoration: "underline solid #0a0a0a",
+      textDecorationSkip: "ink",
+      transition: "background-color 0.3s linear"
+    });
+    show_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d3"
+      });
+      return card.css(visible_css);
+    };
+    hide_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d300"
+      });
+      return card.css(hidden_css);
+    };
+    return card.find(".holder").load(url + (" [id='" + id + "']"), function(response, status, jxXHR) {
+      console.log("XHR status:", status, url, id);
+      if (status === "success" || status === "notmodified") {
+        console.log("success!");
+        console.log("elt:", $(elt));
+        $("body").append(card);
+        card.find("p, .p").css({
+          textAlign: "left"
+        });
+        card.find("section").css({
+          marginBottom: "0"
+        });
+        card.find("section").children().last().css({
+          marginBottom: "0"
+        });
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, card[0]]);
+        elt.on("mouseenter", show_preview);
+        return elt.on("mouseleave", hide_preview);
+      }
+    });
+  };
+
+  mathjaxDebug = function() {
+    MathJax.Hub.signal.Interest(function(message) {
+      return console.log("*", message);
+    });
+    return MathJax.Hub.Register.StartupHook("End Process", function() {
+      var i, jax, len, ref, results;
+      console.log("list of jaxes:");
+      ref = MathJax.Hub.getAllJax();
+      results = [];
+      for (i = 0, len = ref.length; i < len; i++) {
+        jax = ref[i];
+        results.push(console.log("jax:", jax));
+      }
+      return results;
+    });
+  };
+
+  $(function() {
+    var elt, i, len, ref, results;
+    ref = $("a.preview");
+    results = [];
+    for (i = 0, len = ref.length; i < len; i++) {
+      elt = ref[i];
+      results.push(make_preview($(elt)));
+    }
+    return results;
+  });
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">S1916 - Analyse et Compression du Signal Audionumérique - Examen Corrigé</a></h1>
+
+<h2 class="author">
+By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, Mines ParisTech, <a href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>
+</h2> 
+
+<h3 class="date" style="margin-right: 0px;">15 mars 2018</h3>
+</header>
+<section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
+<ul>
+<li class="top-li"><p class="section-flag">section 1</p><a href="#modalités">Modalités</a></li>
+<li class="top-li"><p class="section-flag">section 2</p><span class="badge">que<span></span></span><a href="#questions">Questions</a><ul>
+<li><a href="#voix-texte">Voix + Texte</a><ul>
+<li><a href="#réponse">Réponse</a></li>
+</ul></li>
+<li><a href="#code-unaire">Code Unaire</a><ul>
+<li><a href="#réponse-1">Réponse</a></li>
+</ul></li>
+<li><a href="#section">421</a><ul>
+<li><a href="#réponse-2">Réponse</a></li>
+</ul></li>
+<li><a href="#réverberation">Réverberation</a><ul>
+<li><a href="#réponse-3">Réponse</a></li>
+</ul></li>
+<li><a href="#inaudible">Inaudible</a><ul>
+<li><a href="#réponses">Réponses</a></li>
+</ul></li>
+<li><a href="#de-8-khz-à-16-khz">De 8 kHz à 16 kHz</a><ul>
+<li><a href="#réponse-4">Réponse</a></li>
+</ul></li>
+<li><a href="#quantification">Quantification</a><ul>
+<li><a href="#réponse-5">Réponse</a></li>
+</ul></li>
+<li><a href="#prédiction-linéaire">Prédiction Linéaire</a><ul>
+<li><a href="#réponse-6">Réponse</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav></section>
+<section id="modalités" class="level1">
+<h1><a href="#modalités">Modalités</a></h1>
+<ul>
+<li><p><strong>Durée:</strong> 1h30.</p></li>
+<li><p><strong>Autorisés:</strong></p>
+<ul>
+<li><p>tous documents (sous forme papier ou électronique),</p></li>
+<li><p>calculette, tablette, ordinateur portable, etc.</p></li>
+</ul></li>
+<li><p><strong>Interdit:</strong></p>
+<ul>
+<li>toute forme de communication: échanges avec le voisin, utilisation d’Internet, du téléphone, etc.</li>
+</ul></li>
+</ul>
+</section>
+<section id="questions" class="level1">
+<h1><a href="#questions">Questions</a></h1>
+<section id="voix-texte" class="level2">
+<h2><a href="#voix-texte">Voix + Texte</a></h2>
+<p>On souhaite adjoindre à un flux de voix parlée – utilisant la technologie appropriée de compression – la transcription textuelle du message. De quel pourcentage est-ce que l’on augmente le débit de données ?</p>
+<p>On ne cherche ici qu’un ordre de grandeur (0.1% ? 1% ? 10% ? 100% ?); on pourra supposer un débit de 200 mots/min et une longueur moyenne 6 lettres par mot.</p>
+<section id="réponse" class="level3">
+
+<div class="p"><h3><a href="#réponse">Réponse</a></h3>On peut prendre 10 kbits/s comme débit de référence pour la voix parlée (soit ~1% du débit de données d’un CD audio; le débit associé au standard GSM est 9.6 kbits/s par exemple). Si un locuteur prononce 200 mots par minute et que chaque mot fait 6 lettres, en négligeant l’information associée aux espaces, punctuations, etc. et en supposant que chaque lettre est décrite par un caractère ASCII, le débit associé est <span class="math display">\[
+  \frac{200 \times 6 \times 8}{60} = 160 \, \mathrm{bits/s}
+  \]</span> Soit de l’ordre de 1% du débit de la voix. Bien sûr, ces nouvelles données pourraient elle-mêmes être soumises à une compression (sans perte) si nécessaire. Différents auteurs (dont Shannon) ont estimé l’entropie associée à une lettre de la langue anglaise et obtiennent des résultats autour de 1 ou 2 bits, à comparer avec les 8 bits utilisés pour un charactère ASCII. En étant optimiste (en tablant sur 1 bit), on pourrait donc réduire le flux de données textuelles à approximativement <span class="math display">\[
+  \frac{160}{8} = 20 \, \mathrm{bits/s}.
+  \]</span> On est alors plus proche de 0.1% que de 1% du débit associé à la voix.</div>
+</section>
+</section>
+<section id="code-unaire" class="level2">
+<h2><a href="#code-unaire">Code Unaire</a></h2>
+<p>Une source d’information produit aléatoirement l’entier naturel <span class="math inline">\(n\)</span> avec une probabilité <span class="math inline">\(P(N=n) = 2^{-n-1}\)</span>. Si l’on utilise un code unaire, quelle est la longueur moyenne (en bits) du code associé ?</p>
+<section id="réponse-1" class="level3">
+
+<div class="p"><h3><a href="#réponse-1">Réponse</a></h3>Le code unaire associé à l’entier <span class="math inline">\(n\)</span> est <span class="math inline">\(n\)</span> “1” suivi d’un “0”; la longueur <span class="math inline">\(|c(n)|\)</span> du code associé à <span class="math inline">\(n\)</span> est donc <span class="math inline">\(n+1\)</span> bits. Par conséquent, la longueur moyenne du code de <span class="math inline">\(N\)</span> est fournie par la formule:</div>
+<p><span class="math display">\[
+  \left&lt; |c(N)| \right&gt;
+  = 
+  \sum_{n=0}^{+\infty} 2^{-n-1} \times (n+1)
+  =
+  \sum_{n=1}^{+\infty} n 2^{-n}.
+  \]</span> Il existe plusieurs techniques ancestrales pour calculer cette somme. Ma préférée: remarquer que si <span class="math inline">\(z=1/2\)</span>, la somme cherchée vaut <span class="math display">\[ 
+  \sum_{n=0}^{+\infty} n z^n = S(z)
+  \]</span> (avec la convention que <span class="math inline">\(z^0 = 1\)</span>, ce qui permet de sommer à partir de 0 et non de 1). Puis, comme pour tout <span class="math inline">\(|z|&lt;1\)</span> on a <span class="math display">\[
+  \frac{d}{dz} \left(\sum_{n=0}^{+\infty} z^n\right) =
+  \sum_{n=0}^{+\infty} n z^{n-1}
+  =
+  \left(\sum_{n=0}^{+\infty} n z^{n}\right) / z,
+  \]</span> la valeur de <span class="math inline">\(S(z)\)</span> est donnée par <span class="math display">\[
+  S(z) = z \times \frac{d}{dz} \left(\frac{1}{1-z}\right) = \frac{z}{(1-z)^2}.
+  \]</span> On a donc <span class="math display">\[
+  \left&lt; |c(N)| \right&gt; = S(1/2) = \frac{1/2}{(1-1/2)^2} = 2.
+  \]</span></p>
+</section>
+</section>
+<section id="section" class="level2">
+<h2><a href="#section">421</a></h2>
+<p>Le jeu de 421 se joue avec trois dés à 6 faces. Le tirage le plus fort est le “421” (un dé a produit “4”, un autre “2” et le dernier “1”). Quelle est la quantité d’information associée l’événement “tirer un 421” ? Quelle est la quantité d’information (moyenne) que l’on obtient en observant si l’on a tiré un 421 ou non ? Même questions pour le tirage le plus faible, le “221” (la “nénette”).</p>
+<section id="réponse-2" class="level3">
+
+<div class="p"><h3><a href="#réponse-2">Réponse</a></h3>Les trois dés utilisés sont tous distinguables (on peut supposer par exemple qu’il y en a un rouge, un bleu et un vert). Il y a donc 6 tirages possibles pour faire un “421”: le “4” peut apparaitre sur l’un quelconque des trois dés et dans chacun de ces cas, il y a deux façon d’allouer le “2” et le “1” aux deux dés restants. La probabilité associées est donc <span class="math inline">\(p = 6/ 6^3 = 1/6^2\)</span> et l’information associée au tirage d’un “421” est <span class="math display">\[
+  I = -\log_2 p \approx 5.17 \mbox{ bits}.
+  \]</span> L’entropie associé à l’observation “tirer un 421 ou non” est donnée par <span class="math display">\[
+   H = -p \log_2 p -(1-p) \log_2 (1-p) \approx 0.183 \mbox{ bits}.
+  \]</span> La situation pour le “221” est similaire, sauf qu’il n’existe que 3 tirages possibles: une fois que le “1” a été affecté à un dé (trois possibilités), il n’y a plus aucun choix possible; donc <span class="math inline">\(p = 3/ 6^3\)</span>, et par conséquent <span class="math display">\[
+  I \approx 6.17 \mbox{ bits}
+  \; \mbox{ et } \;
+  H \approx 0.106 \mbox{ bits}.
+  \]</span></div>
+</section>
+</section>
+<section id="réverberation" class="level2">
+<h2><a href="#réverberation">Réverberation</a></h2>
+<p>On associe au signal digital <span class="math inline">\(u_n = u(t=n\Delta t)\)</span> un signal <span class="math inline">\(y_n = y(t=n\Delta t)\)</span> qui satisfait <span class="math display">\[
+  \forall \, n \in \mathbb{Z}, \;
+  y_{n+p} - g y_{n} = -g u_{n+p} + u_{n}
+  \]</span> où <span class="math inline">\(g &gt; 0\)</span> et <span class="math inline">\(p \in \mathbb{N}^*\)</span>.</p>
+<p>Déterminer la fonction de transfert <span class="math inline">\(H(z)\)</span> de ce filtre numérique. Pour quelles valeurs des paramètres <span class="math inline">\(g\)</span> et <span class="math inline">\(p\)</span> le filtre est-il stable ? Quand <span class="math inline">\(f&gt;0\)</span> et <span class="math inline">\(u(t) = \sin(2\pi f t)\)</span>, quelle est l’amplitude <span class="math inline">\(A\)</span> du signal de sortie de la forme <span class="math inline">\(y(t) = A \sin (2\pi f t + \phi)\)</span> ? Indication: on pourra calculer <span class="math inline">\(|H(z)|\)</span> lorsque <span class="math inline">\(|z|=1\)</span>.</p>
+<section id="réponse-3" class="level3">
+
+<div class="p"><h3><a href="#réponse-3">Réponse</a></h3>Si l’on recherche un signal de sortie du filtre <span class="math inline">\(y_n = Y z^n\)</span> qui corresponde à un signal d’entrée <span class="math inline">\(u_n = U z^n\)</span>, on obtient <span class="math display">\[
+  Y z^{n+p} - g Y z^n = -g U z^{n+p} + U z^n
+  \]</span> et donc <span class="math inline">\(Y = H(z) U\)</span> avec <span class="math display">\[
+  H(z) = \frac{- g z^p+1}{z^p - g}.
+  \]</span> Les pôles <span class="math inline">\(z\)</span> de cette fonction de transfert vérifient tous <span class="math inline">\(|z| = g^{1/p}\)</span> par conséquent le filtre est stable si et seulement si <span class="math inline">\(g &lt; 1\)</span>. On a <span class="math display">\[
+  |H(z)|^2 = H(z) \overline{H(z}) = H(z) H(\bar{z})
+  \]</span> et par conséquent dans le cas où <span class="math inline">\(|z|^2 = z \bar{z} = 1\)</span>, <span class="math display">\[
+  |H(z)|^2 
+  = \frac{- g z^p+1}{z^p - g} \times \frac{- g \bar{z}^p+1}{\bar{z}^p - g}
+  = \frac{1 + g^2 - g(z^p +\bar{z}^p)}{1 + g^2 - g(z^p +\bar{z}^p)} = 1.
+  \]</span> Le signal d’entrée <span class="math inline">\(u(t) = e^{i2\pi f t}\)</span> correspond à <span class="math inline">\(u_n = e^{i2\pi f\Delta t n} = z^n\)</span> pour <span class="math inline">\(z = e^{i2\pi f\Delta t}\)</span>. La sortie exponentielle complexe correspondante est <span class="math display">\[
+  y(t) = H(f) e^{i2\pi ft} \; \mbox{ avec } \;
+  H(f) = H(z = e^{i2\pi f\Delta t}).
+  \]</span> De façon similaire, au signal d’entrée <span class="math inline">\(u(t) = e^{- i2\pi f t} = e^{i2\pi (-f) t}\)</span> correspond la sortie <span class="math inline">\(y(t) = H(-f) e^{-i2\pi ft} = \overline{H(f)}e^{-i2\pi ft}\)</span> et par conséquent – le filtre étant linéaire – si <span class="math inline">\(H(f) = A e^{i\phi}\)</span>, avec <span class="math inline">\(A\geq 0\)</span> et <span class="math inline">\(\phi \in \mathbb{R}\)</span>, au signal <span class="math display">\[
+  u(t) = \sin 2\pi f t = \frac{e^{i2\pi ft} - e^{-i2\pi ft}}{2i}
+  \]</span> correspond <span class="math display">\[
+  y(t) 
+    = \frac{Ae^{i\phi}e^{i2\pi ft} - A e^{-i\phi}e^{-i2\pi ft}}{2i}
+    = A \sin (2\pi f t + \phi).
+  \]</span> Or rappelons-nous que <span class="math display">\[
+  A = |H(f)| = |H(z = e^{i2\pi f\Delta t})| \; \mbox{ et }
+  |e^{i2\pi f\Delta t}| = 1.
+  \]</span> Par conséquent, <span class="math inline">\(A=1\)</span>.</div>
+</section>
+</section>
+<section id="inaudible" class="level2">
+<h2><a href="#inaudible">Inaudible</a></h2>
+<p>Le signal audio <span class="math inline">\(x(t) \in [-1.0,1.0]\)</span> est la superposition de deux tons purs de fréquences <span class="math inline">\(f_0=1000 \, \mathrm{Hz}\)</span> et <span class="math inline">\(f\)</span> inconnue: <span class="math display">\[
+    x(t) = 0.1 \times \sin(2\pi f_0 t) + 0.0002 \times \sin(2 \pi f t)
+    \]</span> Lorsque ce son est joué avec l’amplification standard, la composante associée au ton pur de fréquence <span class="math inline">\(f\)</span> n’est pas audible. Quelles sont (approximativement) les plages de valeurs possibles de <span class="math inline">\(f\)</span> ?</p>
+<section id="réponses" class="level3">
+
+<div class="p"><h3><a href="#réponses">Réponses</a></h3>Deux phénomènes peuvent expliquer que le ton pur de fréquence <span class="math inline">\(f\)</span> ne soit pas audible. Le premier est lié au seuil d’audition absolu. Le niveau sonore en dB du ton <span class="math display">\[
+  L = 10  \log_{10} \left&lt;(0.0002 \times \sin(2 \pi f t))^2 \right&gt; + 96,
+  \]</span> soit puisque la valeur moyenne du sinus <span class="math inline">\(\left&lt; \sin^2(2 \pi f t)\right&gt;\)</span> vaut 1/2, <span class="math display">\[
+  L = 10  \log_{10} 2 \times 10^{-8}  + 96 \approx 19 \, \mathrm{dB}.
+  \]</span> En se reportant au graphe du seuil d’audition absolu, on constate qu’avec ce niveau sonore, le ton pur ne sera pas audible si la fréquence <span class="math inline">\(f\)</span> est inférieure à 100 Hz ou supérieure à 10000 Hz (approximativement).</div>
+<p>Le second phénomène est un masquage possible par le ton pur de fréquence <span class="math inline">\(f_0\)</span>. Si l’on utilise le modèle de Fletcher, le masquage a bien lieu si <span class="math inline">\(f\)</span> se situe dans la bande critique de largeur <span class="math inline">\(\Delta(f_0)\)</span> centrée sur <span class="math inline">\(f_0\)</span>. On a <span class="math display">\[\Delta(1000) \approx \max(100, 0.2 \times 1000) = 200\, \mathrm{Hz},\]</span> donc si <span class="math inline">\(f_0\)</span> est entre 900 et 1100 Hz, le ton ne sera pas non plus audible.</p>
+</section>
+</section>
+<section id="de-8-khz-à-16-khz" class="level2">
+<h2><a href="#de-8-khz-à-16-khz">De 8 kHz à 16 kHz</a></h2>
+<pre><code>&gt;&gt;&gt; from numpy import *
+&gt;&gt;&gt; df = 8000; dt = 1.0 / df; T = 3.0; f = 440.0 * 2**2
+&gt;&gt;&gt; t = r_[0.0:T:dt]; n = len(t)
+&gt;&gt;&gt; x = sin(2*pi*f*t)
+&gt;&gt;&gt; y = zeros(2*n); y[::2] = x
+&gt;&gt;&gt; import audio.wave
+&gt;&gt;&gt; audio.wave.write(y, "y.wav", df=2*df)</code></pre>
+<p>Qu’est-ce que l’on entend lorsque l’on joue le fichier <code>y.wav</code>?</p>
+<section id="réponse-4" class="level3">
+
+<div class="p"><h3><a href="#réponse-4">Réponse</a></h3>La transformée de Fourier de <span class="math inline">\(x(t)\)</span> présente un unique pic étroit – à la fréquence <span class="math inline">\(f = 1760\)</span> Hz – dans la bande de fréquences 0–4000 Hz; c’est la bande pertinente puisque le signal est échantillonné à 8000 Hz. Par symmétrie (puisque le signal <span class="math inline">\(x(t)\)</span> est à valeurs réelles) et périodicité, les pics apparaissent également à <span class="math inline">\(f = -1760\)</span> Hz, <span class="math inline">\(f = -1760+ 8000 = 6240\)</span> Hz, etc.</div>
+<p><img src="images/expansion.svg" alt="Fourier transform of x(t) (magnitude)"><br>
+La transformé de Fourier du signal <span class="math inline">\(y(t)\)</span> est donnée par <span class="math inline">\(y(f) = x(f)/2\)</span>. Comme nous avons doublé la fréquence d’échantillonnage du signal, la bande de fréquence significative est désormais 0–8000 Hz et deux pics y apparaissent désormais: 1760 Hz et 6240 Hz. C’est cette combinaison de deux tons purs que l’on entend en jouant le fichier <code>y.wav</code>.</p>
+</section>
+</section>
+<section id="quantification" class="level2">
+<h2><a href="#quantification">Quantification</a></h2>
+<pre><code>&gt;&gt;&gt; from numpy import *
+&gt;&gt;&gt; x = 2.0 * random.random(size=100000) - 1.0</code></pre>
+<p><img src="images/histogram.svg" alt="hist(x, bins=20, density=True)">&nbsp;</p>
+<pre><code>&gt;&gt;&gt; S2 = mean(x * x)</code></pre>
+<p>Quelle est la valeur théorique de <code>S2</code> ?</p>
+<pre><code>&gt;&gt;&gt; from audio.quantizers import Uniform
+&gt;&gt;&gt; uniform = Uniform(low=-1.0, high=1.0, N=2**8)
+&gt;&gt;&gt; y = uniform(x)
+&gt;&gt;&gt; n = y - x
+&gt;&gt;&gt; N2 = mean(n * n)</code></pre>
+<p>Quelle est la valeur théorique de <code>N2</code> ?</p>
+<pre><code>&gt;&gt;&gt; SNR = 10 * log10(S2 / N2)</code></pre>
+<p>Quelle est la valeur théorique de <code>SNR</code> ? Combien de bits supplémentaires faudrait-il que le quantificateur uniforme alloue par échantillon pour assurer un rapport signal sur bruit <code>SNR</code> supérieur à 50 dB ?</p>
+<section id="réponse-5" class="level3">
+
+<div class="p"><h3><a href="#réponse-5">Réponse</a></h3>La variable aléatoire <span class="math inline">\(X\)</span> est de densité uniforme <span class="math inline">\(p(x) = 0.5\)</span> entre <span class="math inline">\(-1\)</span> et <span class="math inline">\(1\)</span>, donc <span class="math display">\[
+  \left&lt;X^2\right&gt; 
+  = \int_{-1}^1 p(x) x^2 dx = \frac{1}{2} \left[ \frac{x^3}{3}\right]_{-1}^1
+  = \frac{1}{3}.
+  \]</span> Le pas <span class="math inline">\(\Delta\)</span> d’un quantificateur uniforme de <span class="math inline">\([-1, 1]\)</span> utilisant 8 bits est <span class="math inline">\(\Delta = 2/ 2^8 = 2^{-7}\)</span>, par conséquent dans le cadre d’une hypothèse de haute résolution, la puissance du bruit <span class="math inline">\(N = [X] - X\)</span> est donnée par <span class="math display">\[
+  \left&lt; N^2\right&gt;
+  =
+  \frac{1}{12} \Delta^2
+  = \frac{2^{-16}}{3} \approx 5.09 \times 10^{-6}.
+  \]</span> Le rapport signal sur bruit associé vaut donc <span class="math display">\[
+  \mathrm{SNR} = 10 \log_{10} 2^{16} \approx 48.2 \, \mathrm{dB}.
+  \]</span> Chaque nouveau bit améliorant le rapport signal sur bruit de 6 dB, un seul bit supplémentaire suffit à atteindre l’object de 50 dB.</div>
+</section>
+</section>
+<section id="prédiction-linéaire" class="level2">
+<h2><a href="#prédiction-linéaire">Prédiction Linéaire</a></h2>
+<p>On considère la suite finie de valeurs: <span class="math display">\[
+  x_0 = -1, \; x_1 = 1
+  \]</span></p>
+<ul>
+<li><p>Déterminer le coefficient <span class="math inline">\(a_1\)</span> de la prédiction linéaire à l’ordre <span class="math inline">\(m=1\)</span> des <span class="math inline">\(x_n\)</span> par les méthodes de covariance, puis d’autocorrélation.</p></li>
+<li><p>Déterminer les coefficients <span class="math inline">\(a_1\)</span> et <span class="math inline">\(a_2\)</span> de la prédiction linéaire des <span class="math inline">\(x_n\)</span> à l’ordre <span class="math inline">\(m=2\)</span> par la méthode d’autocorrélation ainsi que les prédictions <span class="math inline">\(\hat{x}_n\)</span> et les résidus <span class="math inline">\(x_n - \hat{x}_n\)</span> associés.</p></li>
+</ul>
+<section id="réponse-6" class="level3">
+
+<div class="p"><h3><a href="#réponse-6">Réponse</a></h3>Par la méthode de covariance à l’ordre <span class="math inline">\(1\)</span>, on cherche à minimiser le critère <span class="math display">\[
+  j(a_1) = (x_1 - a_1 x_0)^2 = (1 + a_1)^2
+  \]</span> ce qui est réalisé par le choix de <span class="math inline">\(a_1 = -1\)</span>. Avec la méthode d’autocorrélation à l’ordre <span class="math inline">\(1\)</span>, le critère à minimiser devient (en posant <span class="math inline">\(x_{-1} = x_2 = 0\)</span>): <span class="math display">\[
+  \begin{split}
+  j(a_1) &amp;= (x_0 - a_1 x_{-1})^2 + (x_1 - a_1 x_0)^2 + (x_2 - a_1 x_1)^2 \\
+         &amp;= (-1)^2 + (1 + a_1)^2 + (- a_1)^2 \\
+         &amp;= 2(1 + a_1 + a_1^2)
+  \end{split}
+  \]</span> La valeur optimale de <span class="math inline">\(a_1\)</span>, déterminée par <span class="math display">\[
+  \frac{d j(a_1)}{d a_1} = 2 + 4 a_1 = 0,
+  \]</span> est donc <span class="math inline">\(a=-1/2\)</span>.</div>
+<p>A l’ordre <span class="math inline">\(2\)</span>, puisque le signal n’est que de longueur 2, seule la méthode d’autocorrélation est applicable. On cherche alors à minimiser <span class="math display">\[
+  \begin{split}
+  j(a_1,a_2) = &amp; \; (x_0 - a_1 x_{-1} - a_2 x_{-2})^2 
+              + (x_1 - a_1 x_0 - a_2 x_{-1})^2 + \\ 
+              &amp; \; (x_2 - a_1 x_1 - a_2 x_0)^2  +
+               (x_3 - a_1 x_2 - a_2 x_1)^2  \\
+             = &amp; \; (-1)^2 + (1 + a_1)^2 + (- a_1 + a_2)^2 + (-a_2)^2\\
+             = &amp; \; 2 + 2 a_1 + 2a_1^2 + 2 a_2^2 - 2 a_1 a_2.
+  \end{split}
+  \]</span><br>
+Le minimum est obtenu en annulant les dérivées partielles <span class="math display">\[
+  \frac{\partial j(a_1,a_2)}{\partial a_1}
+  =
+  2 + 4 a_1 - 2 a_2 = 0
+  \; \mbox{ et } \;
+  \frac{\partial j(a_1,a_2)}{\partial a_2}
+  =
+  4 a_2 - 2 a_1 =0.
+  \]</span> La seconde équation fournit <span class="math inline">\(a_1 = 2 a_2\)</span>, puis la première <span class="math inline">\(a_2 = -1/3\)</span>. On a donc finalement <span class="math inline">\(a_1 = -2/3\)</span> et <span class="math inline">\(a_2 = -1/3\)</span>. Les prédictions associées sont donc <span class="math inline">\(\hat{x}_0 = 0\)</span>, puis <span class="math inline">\(\hat{x}_1 = (-2/3) \times (-1) = 2/3\)</span>, <span class="math inline">\(\hat{x}_2 = (-2/3) \times 1 + (-1/3) \times (-1)= -1/3\)</span>, <span class="math inline">\(\hat{x}_3 = (-1/3) \times 1 = -1/3\)</span>, puis des zéros. Les résidus <span class="math inline">\(e_n = x_n - \hat{x}_n\)</span> sont donc <span class="math inline">\(e_0 = -1\)</span>, <span class="math inline">\(e_1 = 1/3\)</span>, <span class="math inline">\(e_2 = 1/3\)</span>, <span class="math inline">\(e_3 = 1/3\)</span>, puis des zéros.</p>
+</section>
+</section>
+</section>
+</main>
+
+
+</body></html>

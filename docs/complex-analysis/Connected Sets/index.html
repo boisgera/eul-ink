@@ -1,1 +1,724 @@
-/www/complex-analysis/Connected Sets/Connected Sets.html
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, MINES ParisTech">
+  <title>Connected Sets</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: content-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+html {
+  line-height: 36px;
+  --base: 24;
+  --line-height: 1.5;
+  font-size: 24px;
+  font-family: Alegreya, serif;
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html em {
+  font-style: italic;
+}
+html strong {
+  font-weight: bold;
+}
+html p, html .p {
+  margin-bottom: 36px;
+  text-align: justify;
+  hyphens: auto;
+  moz-hyphens: auto;
+}
+html section {
+  margin-bottom: 36px;
+}
+html main {
+  box-sizing: content-box;
+  max-width: 32em;
+  margin: auto;
+  padding: 36px;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, q:before {
+  content: none;
+}
+blockquote:after, q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: medium solid black;
+  border-bottom: medium solid black;
+}
+main {
+}
+main > header, main > .header, main > #header {
+  margin-top: 72px;
+  margin-bottom: 72px;
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: 54px;
+  margin-top: 0px;
+  margin-bottom: 36px;
+  font-weight: bold;
+}
+main > header .author, main > .header .author, main > #header .author {
+  font-size: 24px;
+  line-height: 36px;
+  margin-bottom: 18px;
+  font-weight: normal;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: Alegreya SC, serif;
+  line-height: 36px;
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: 18px;
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  font-weight: bold;
+  line-height: 45px;
+  margin-top: 72px;
+  margin-bottom: 27px;
+}
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 36px;
+  margin-bottom: 18px;
+}
+h3, h4, h5, h6 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 1em;
+  display: inline;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
+}
+a:hover {
+  text-decoration: none;
+}
+a:link {
+  color: black;
+}
+a:visited {
+  color: black;
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li {
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  margin-left: 36px;
+  padding-left: 0.5em;
+}
+ul {
+}
+ul li {
+  list-style: disc;
+}
+ol {
+}
+ol li {
+  list-style: decimal;
+}
+blockquote {
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+  padding: 36px;
+  margin-bottom: 36px;
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-size: 24px;
+  font-family: Inconsolata;
+}
+pre {
+  overflow-x: auto;
+  background-color: #ebebeb;
+  margin-bottom: 36px;
+  padding-left: 36px;
+  padding-right: 36px;
+  padding-top: 36px;
+  padding-bottom: 36;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: auto;
+}
+figure {
+  margin-bottom: 36px;
+  text-align: center;
+}
+figcaption {
+  display: inline-block;
+  font-style: italic;
+  text-align: justify;
+}
+.table {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  margin-bottom: 36px;
+}
+thead {
+  border-bottom: medium solid black;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+.MJXc-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+nav#TOC > ul {
+  position: relative;
+  font-weight: bold;
+}
+nav#TOC > ul > * {
+  margin-bottom: 36px;
+}
+nav#TOC > ul li {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+nav#TOC > ul ul {
+}
+nav#TOC > ul ul li {
+  margin-left: 36px;
+  font-weight: normal;
+}
+.section-flag {
+  line-height: 36px;
+  font-size: 17px;
+  font-weight: 300;
+  font-family: Alegreya Sans SC;
+  margin-bottom: 0;
+}
+nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+  padding-bottom: 36;
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+nav#TOC .badge {
+  position: relative;
+  bottom: 0.13em;
+  font-family: Alegreya Sans SC;
+  font-weight: 300;
+  font-size: 17px;
+  display: inline-block;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  vertical-align: baseline;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+  margin-right: 1em;
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,800,800italic,900,900italic|Alegreya+Sans+SC:400,100,300,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+SC:400,400italic,700,700italic,900,900italic|Alegreya:400,700,900,400italic,700italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.10.0
+(function() {
+  var box, hide_proof, main, show_proof;
+
+  hide_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("expanded");
+    sectionWrapper.addClass("minimized");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "visible"
+    });
+    w$(".header-wrapper").css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().css({
+      visibility: "hidden",
+      height: "0px"
+    });
+    w$(".header-wrapper").attr({
+      id: w$("section").first().attr("id")
+    });
+    return w$("section").first().attr({
+      id: ""
+    });
+  };
+
+  show_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("minimized");
+    sectionWrapper.addClass("expanded");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "hidden"
+    });
+    w$(".header-wrapper").css({
+      visibility: "hidden",
+      height: "0"
+    });
+    w$("section").first().css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().attr({
+      id: w$(".header-wrapper").attr("id")
+    });
+    return w$(".header-wrapper").attr({
+      id: ""
+    });
+  };
+
+  box = function(section) {
+    var clone, expand, header, headerWrapper, tombstone, wrapper;
+    clone = section.clone(true);
+    clone.css({
+      marginBottom: "0"
+    });
+    clone.children().last().css({
+      marginBottom: "0"
+    });
+    tombstone = clone.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer",
+      position: "absolute",
+      bottom: "0.75rem",
+      right: "0.75rem"
+    });
+    wrapper = $("<div class='proof-wrapper expanded'></div>");
+    wrapper.css({
+      position: "relative",
+      margin: "-0.75rem -0.75rem 0.75rem -0.75rem",
+      padding: "0.75rem",
+      backgroundColor: "#f9f9f9"
+    });
+    header = clone.find("h3, h4, h5, h6").first().clone();
+    headerWrapper = $("<div class='p header-wrapper' style='margin-bottom:0; visibility:hidden; overflow:hidden; height:0;'> </div>");
+    headerWrapper.append(header);
+    expand = $("<i class='fa fa-caret-down expand' style='visibility:hidden; cursor:pointer; position:absolute; top:0.75rem; right:0.75rem;'> </i>");
+    wrapper.append(headerWrapper);
+    wrapper.append(expand);
+    wrapper.append(clone);
+    expand.on("click", function() {
+      return show_proof(wrapper);
+    });
+    tombstone.on("click", function() {
+      return hide_proof(wrapper);
+    });
+    section.replaceWith(wrapper);
+    return wrapper;
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, section, sections, text, wrapper;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      wrapper = box(section);
+      hide_proof(wrapper);
+    }
+    return $(document).keydown(function(event) {
+      var k, l, len2, len3, ref1, ref2, results, sectionWrapper;
+      console.log("***", event.keyCode);
+      if (event.keyCode === 88) {
+        ref1 = $(".proof-wrapper.minimized");
+        for (k = 0, len2 = ref1.length; k < len2; k++) {
+          sectionWrapper = ref1[k];
+          show_proof($(sectionWrapper));
+        }
+      }
+      if (event.keyCode === 77) {
+        ref2 = $(".proof-wrapper.expanded");
+        results = [];
+        for (l = 0, len3 = ref2.length; l < len3; l++) {
+          sectionWrapper = ref2[l];
+          results.push(hide_proof($(sectionWrapper)));
+        }
+        return results;
+      }
+    });
+  };
+
+  $(main);
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.10.0
+(function() {
+  var make_preview, mathjaxDebug;
+
+  make_preview = function(elt) {
+    var card, hidden_css, hide_preview, id, ref, show_preview, url, visible_css;
+    ref = elt.attr("href").split("#"), url = ref[0], id = ref[1];
+    card = $("<div class='card'>\n  <div class='holder'>\n    <p>Placeholder</p>\n  </div>\n</div>");
+    card.css({
+      width: "35vw",
+      padding: "1.5rem",
+      position: "fixed",
+      top: "1.5rem",
+      right: "1.5rem",
+      boxSizing: "border-box",
+      maxHeight: "calc(100vh - 3rem)",
+      overflow: "hidden",
+      boxShadow: "0 0 1rem #e6e6e6",
+      backgroundColor: "white"
+    });
+    visible_css = {
+      visibility: "visible",
+      opacity: 1,
+      transform: "translateX(0em)",
+      transition: "all 0.3s linear"
+    };
+    hidden_css = {
+      visibility: "hidden",
+      opacity: 0,
+      transform: "translateX(1em)",
+      transition: "all 0.3s linear 0.5s"
+    };
+    card.css(hidden_css);
+    elt.css({
+      textDecoration: "underline solid #0a0a0a",
+      textDecorationSkip: "ink",
+      transition: "background-color 0.3s linear"
+    });
+    show_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d3"
+      });
+      return card.css(visible_css);
+    };
+    hide_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d300"
+      });
+      return card.css(hidden_css);
+    };
+    return card.find(".holder").load(url + (" [id='" + id + "']"), function(response, status, jxXHR) {
+      console.log("XHR status:", status, url, id);
+      if (status === "success" || status === "notmodified") {
+        console.log("success!");
+        console.log("elt:", $(elt));
+        $("body").append(card);
+        card.find("p, .p").css({
+          textAlign: "left"
+        });
+        card.find("section").css({
+          marginBottom: "0"
+        });
+        card.find("section").children().last().css({
+          marginBottom: "0"
+        });
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, card[0]]);
+        elt.on("mouseenter", show_preview);
+        return elt.on("mouseleave", hide_preview);
+      }
+    });
+  };
+
+  mathjaxDebug = function() {
+    MathJax.Hub.signal.Interest(function(message) {
+      return console.log("*", message);
+    });
+    return MathJax.Hub.Register.StartupHook("End Process", function() {
+      var i, jax, len, ref, results;
+      console.log("list of jaxes:");
+      ref = MathJax.Hub.getAllJax();
+      results = [];
+      for (i = 0, len = ref.length; i < len; i++) {
+        jax = ref[i];
+        results.push(console.log("jax:", jax));
+      }
+      return results;
+    });
+  };
+
+  $(function() {
+    var elt, i, len, ref, results;
+    ref = $("a.preview");
+    results = [];
+    for (i = 0, len = ref.length; i < len; i++) {
+      elt = ref[i];
+      results.push(make_preview($(elt)));
+    }
+    return results;
+  });
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">Connected Sets</a></h1>
+
+<h2 class="author">
+By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, MINES ParisTech, under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>
+</h2> 
+
+<h3 class="date" style="margin-right: 0px;">January 2, 2018</h3>
+</header>
+<section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
+<ul>
+<li class="top-li"><p class="section-flag">section 1</p><a href="#introduction">Introduction</a></li>
+<li class="top-li"><p class="section-flag">section 2</p><a href="#path-connectedconnected-sets">Path-Connected/Connected Sets</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--path-connected-set.">Path-Connected Set</a></li>
+<li><span class="badge">def<span></span></span><a href="#definition--dilation.">Dilation</a></li>
+<li><span class="badge">rem<span></span></span><a href="#remark--non-uniformity-of-dilations.">Non-Uniformity of Dilations</a></li>
+<li><span class="badge">def<span></span></span><a href="#definition--connected-set.">Connected Set</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--path-connectedconnected-set.">Path-Connected/Connected Set</a></li>
+<li></li>
+<li><span class="badge">cor<span></span></span><a href="#corollary--open-connected-sets.">Open Connected Sets</a></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 3</p><a href="#set-operations">Set Operations</a><ul>
+<li><span class="badge">the<span></span></span><a href="#theorem--union-of-sets-with-a-non-empty-intersection.">Union of Sets With a Non-Empty Intersection</a></li>
+<li></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--disjoint-union-of-open-sets.">Disjoint Union of Open Sets</a></li>
+<li></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--closure-of-connected-sets.">Closure of Connected Sets</a></li>
+<li></li>
+<li><span class="badge">exa<span></span></span><a href="#example--the-topologists-sine-curve.">The Topologist’s Sine Curve</a></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 4</p><a href="#components">Components</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--component.">Component</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--partition-into-components.">Partition into Components</a></li>
+<li></li>
+<li><span class="badge">cor<span></span></span><a href="#corollary--connectedness--components.">Connectedness &amp; Components</a></li>
+<li></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--components-of-open-sets.">Components of Open Sets</a></li>
+<li></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 5</p><a href="#locally-constant-functions">Locally Constant Functions</a><ul>
+<li><span class="badge">def<span></span></span><a href="#definition--locally-constant-function.">Locally Constant Function</a></li>
+<li><span class="badge">the<span></span></span><a href="#theorem--locally-constant-functions--connected-sets.">Locally Constant Functions &amp; Connected Sets</a></li>
+<li></li>
+</ul></li>
+</ul>
+</nav></section>
+<section id="introduction" class="level1">
+<h1><a href="#introduction">Introduction</a></h1>
+<p>We characterize the subsets of the plane that are “in one piece”. Two slightly different mathematical properties can play this role: <em>path-connectedness</em>, whose definition is quite elementary, and <em>connectedness</em>, a slightly weaker – and arguably more convoluted – property, but also a more robust and powerful one. The difference matters only when one deals with “pathological” sets; for “well-behaved” sets – and that includes all open sets – the two properties are equivalent.</p>
+<p>In this document, we use the word “set” to mean “subset of the complex plane” because this is what we need most of the time. However, the theory still works if we interpret “set” as “subset of a given normed vector space” instead; the only adaption that is required is the replacement of open disks by open balls.</p>
+</section>
+<section id="path-connectedconnected-sets" class="level1">
+<h1><a href="#path-connectedconnected-sets">Path-Connected/Connected Sets</a></h1>
+<section id="definition--path-connected-set." class="level3">
+
+<div class="p"><h3><a href="#definition--path-connected-set.">Definition – Path-Connected Set.</a></h3>‌ A set <span class="math inline">\(A\)</span> is <em>path-connected</em> if any pair of points of <span class="math inline">\(A\)</span> can be <em>joined</em> by a path of <span class="math inline">\(A\)</span>: <span class="math display">\[
+  \forall \, (w, z) \in A^2, \, 
+  \exists \, \gamma \in C^0([0,1], A), \,
+  \gamma(0) = w \, \mbox{ and } \, \gamma(1) = z.
+  \]</span></div>
+</section>
+<section id="definition--dilation." class="level3">
+
+<div class="p"><h3><a href="#definition--dilation.">Definition – Dilation.</a></h3>‌ A set <span class="math inline">\(B\)</span> is a <em>dilation</em> of a set <span class="math inline">\(A\)</span> if it is the union of a collection of non-empty open disks whose centers are the points of <span class="math inline">\(A\)</span>: <span class="math display">\[
+  B = \bigcup_{a \in A} D(a, r_a) \; \mbox{ and } \; \forall \, a \in A, \, r_a &gt; 0.
+  \]</span></div>
+</section>
+<section id="remark--non-uniformity-of-dilations." class="level3">
+
+<div class="p"><h3><a href="#remark--non-uniformity-of-dilations.">Remark – Non-Uniformity of Dilations.</a></h3>‌ We borrowed the word <em>dilation</em> from <a href="https://en.wikipedia.org/wiki/Mathematical_morphology">mathematical morphology</a>, but our use of the word is not completely standard. The dilation of a set <span class="math inline">\(A\)</span> by the non-empty open disk <span class="math inline">\(D(0,r)\)</span> would be classically defined as <span class="math display">\[
+  B 
+  = A + D(0,r) = \{a+ b\;|\; a\in A, \, b \in D(0,r)\} 
+  = \bigcup_{a \in A} D(a, r).
+  \]</span> By contrast, the definition that we use allows <em>non-uniform</em> dilations: the radius of the disks may change with their centers.</div>
+</section>
+<section id="definition--connected-set." class="level3">
+
+<div class="p"><h3><a href="#definition--connected-set.">Definition – Connected Set.</a></h3>‌ A set is <em>connected</em> if all its dilations are path-connected. A set which is not connected is <em>disconnected</em>.</div>
+</section>
+<section id="theorem--path-connectedconnected-set." class="level3">
+
+<div class="p"><h3><a href="#theorem--path-connectedconnected-set.">Theorem – Path-Connected/Connected Set.</a></h3>‌ Every path-connected set is connected. Conversely, every open connected set is path-connected.</div>
+</section>
+<section id="proof." class="level3">
+
+<div class="p"><h3><a href="#proof.">Proof.</a></h3>‌ Let <span class="math inline">\(A\)</span> be a path-connected set and <span class="math inline">\(B = \cup_{a \in A} D_a\)</span> be a dilation of <span class="math inline">\(A.\)</span> For any points <span class="math inline">\(w\)</span> and <span class="math inline">\(z\)</span> in <span class="math inline">\(B,\)</span> there are points <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> in <span class="math inline">\(A\)</span> such that <span class="math inline">\(w \in D_a\)</span> and <span class="math inline">\(z \in D_b.\)</span> There is a path that joins <span class="math inline">\(w\)</span> and <span class="math inline">\(a\)</span> in <span class="math inline">\(D_a,\)</span> a path that joins <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> in <span class="math inline">\(A\)</span> and a path that joins <span class="math inline">\(b\)</span> and <span class="math inline">\(z\)</span> in <span class="math inline">\(D_b.\)</span> The concatenation of these paths joins <span class="math inline">\(w\)</span> and <span class="math inline">\(z\)</span> in <span class="math inline">\(B,\)</span> hence <span class="math inline">\(A\)</span> is connected.</div>
+<p>Conversely, let <span class="math inline">\(A\)</span> be an open connected set. For any <span class="math inline">\(a\in A,\)</span> the distance <span class="math inline">\(r_a\)</span> between <span class="math inline">\(a\)</span> and the complement of <span class="math inline">\(A\)</span> – which is a closed set – is positive, hence the disk <span class="math inline">\(D_a = D(a, r_a)\)</span> is a non-empty subset of <span class="math inline">\(A\)</span> and <span class="math inline">\(A = \cup_{a \in A} D_a.\)</span> The set <span class="math inline">\(A\)</span> is one of its dilations, hence it is path-connected. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+<section id="corollary--open-connected-sets." class="level3">
+
+<div class="p"><h3><a href="#corollary--open-connected-sets.">Corollary – Open Connected Sets.</a></h3>‌ An open set is connected if and only if it is path-connected.</div>
+</section>
+</section>
+<section id="set-operations" class="level1">
+<h1><a href="#set-operations">Set Operations</a></h1>
+<p>Many properties of connected sets are similar to properties of path-connected sets, so many statements exist in two variants. For example:</p>
+<section id="theorem--union-of-sets-with-a-non-empty-intersection." class="level3">
+
+<div class="p"><h3><a href="#theorem--union-of-sets-with-a-non-empty-intersection.">Theorem – Union of Sets With a Non-Empty Intersection.</a></h3>‌ if <span class="math inline">\(\mathcal{A}\)</span> is a collection of path-connected/connected sets whose intersection <span class="math inline">\(\cap \mathcal{A}\)</span> is non-empty, then the union <span class="math inline">\(\cup \mathcal{A}\)</span> is path-connected/connected.</div>
+</section>
+<section id="proof.-1" class="level3">
+
+<div class="p"><h3><a href="#proof.-1">Proof.</a></h3>‌ For path-connected sets: let <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> in <span class="math inline">\(\cup \mathcal{A}.\)</span> There are some sets <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> in <span class="math inline">\(\mathcal{A}\)</span> such that <span class="math inline">\(a \in A\)</span> and <span class="math inline">\(b\in B.\)</span> The intersection <span class="math inline">\(\cap \mathcal{A}\)</span> is included in <span class="math inline">\(A \cap B,\)</span> hence <span class="math inline">\(A \cap B\)</span> is not empty; let <span class="math inline">\(c \in A \cap B.\)</span> There is a path of <span class="math inline">\(A\)</span> that joins <span class="math inline">\(a\)</span> and <span class="math inline">\(c\)</span> and a path of <span class="math inline">\(B\)</span> that joins <span class="math inline">\(c\)</span> and <span class="math inline">\(b;\)</span> their concatenation joins <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> in <span class="math inline">\(\cup \mathcal{A}.\)</span> Hence, this set is path-connected.</div>
+<p>For connected sets: let <span class="math inline">\(\cup_{a \in \cup \mathcal{A}} D_a\)</span> be a dilation of <span class="math inline">\(\cup \mathcal{A}.\)</span> We have <span class="math display">\[
+  \bigcup_{a \in \cup \mathcal{A}} D_a
+  = \bigcup_{A \in \mathcal{A}} \cup_{a \in A} D_a.
+  \]</span> For any <span class="math inline">\(A \in \mathcal{A},\)</span> the set <span class="math inline">\(\cup_{a \in A} D_a\)</span> is a dilation of <span class="math inline">\(A,\)</span> hence it is path-connected; the inclusion <span class="math inline">\(A \subset \bigcup_{a \in A} D_a\)</span> provides <span class="math display">\[
+  \cap \mathcal{A}
+  =
+  \bigcap_{A \in \mathcal{A}} A
+  \subset 
+  \bigcap_{A \in \mathcal{A}} \cup_{a \in A} D_a, 
+  \]</span> hence the intersection of all <span class="math inline">\(\cup_{a \in A} D_a\)</span> over <span class="math inline">\(A \in \mathcal{A}\)</span> is not empty. We may therefore apply the result of the theorem for path-connected sets to the collection <span class="math inline">\(\{\cup_{a \in A} D_a \; | \; A \in \mathcal{A}\}.\)</span> Our arbitrary dilation of <span class="math inline">\(\cup \mathcal{A}\)</span> is path-connected, hence <span class="math inline">\(\cup \mathcal{A}\)</span> is connected. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+<section id="theorem--disjoint-union-of-open-sets." class="level3">
+
+<div class="p"><h3><a href="#theorem--disjoint-union-of-open-sets.">Theorem – Disjoint Union of Open Sets.</a></h3>‌If <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are two non-empty open sets such that <span class="math inline">\(A \cap B = \varnothing,\)</span> then <span class="math inline">\(A \cup B\)</span> is not path-connected/connected.</div>
+</section>
+<section id="proof.-2" class="level3">
+
+<div class="p"><h3><a href="#proof.-2">Proof.</a></h3>‌Assume that <span class="math inline">\(\gamma\)</span> is a path of <span class="math inline">\(A \cup B\)</span> that joins a point <span class="math inline">\(a \in A\)</span> and a point <span class="math inline">\(b \in B.\)</span> Consider the function <span class="math display">\[
+  \phi : t\in [0,1] \mapsto d(\gamma(t), A) - d(\gamma(t), B).
+  \]</span> If <span class="math inline">\(z=\gamma(t) \in A,\)</span> for example when <span class="math inline">\(t=0,\)</span> <span class="math inline">\(d(z, A) = 0\)</span> and as <span class="math inline">\(A\)</span> is open and <span class="math inline">\(A \cap B =\varnothing,\)</span> <span class="math inline">\(d(z, B) &gt; 0,\)</span> hence <span class="math inline">\(\phi(t) &lt; 0.\)</span> Otherwise, for example when <span class="math inline">\(t=1,\)</span> <span class="math inline">\(z=\gamma(t) \in B,\)</span> <span class="math inline">\(d(z, B) = 0\)</span> and as <span class="math inline">\(B\)</span> is open and <span class="math inline">\(A \cap B = \varnothing,\)</span> <span class="math inline">\(d(z, A) &gt; 0,\)</span> hence <span class="math inline">\(\phi(t) &gt;0.\)</span> But the function <span class="math inline">\(\phi\)</span> is also continuous; the intermediate value theorem asserts the existence of a <span class="math inline">\(t \in \left]0,1\right[\)</span> such that <span class="math inline">\(\phi(t)=0,\)</span> which is a contradiction. Hence no such path <span class="math inline">\(\gamma\)</span> can exist and <span class="math inline">\(A \cup B\)</span> is not path-connected; as <span class="math inline">\(A \cup B\)</span> is open, it is not connected either. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+
+</section><section><p>Connected sets also have some interesting properties that are not shared by all path-connected sets; for example:</p></section>
+<section id="theorem--closure-of-connected-sets." class="level3">
+
+<div class="p"><h3><a href="#theorem--closure-of-connected-sets.">Theorem – Closure of Connected Sets.</a></h3>‌ The closure of a connected set is connected.</div>
+</section>
+<section id="proof.-3" class="level3">
+
+<div class="p"><h3><a href="#proof.-3">Proof.</a></h3>‌ Let <span class="math inline">\(A\)</span> be a connected set and let <span class="math inline">\(\cup_{b \in B} D_b\)</span> be a dilation of its closure <span class="math inline">\(B = \overline{A}.\)</span> For any <span class="math inline">\(b \in B,\)</span> let <span class="math inline">\(r_b\)</span> be the distance between <span class="math inline">\(b\)</span> and the complement of this dilation. We have <span class="math display">\[
+  \cup_{b \in B} D_b = \cup_{b \in B} D(b, r_b).
+  \]</span> Consider the dilation <span class="math inline">\(\cup_{a \in A} D(a, r_a)\)</span> of <span class="math inline">\(A.\)</span> It is a clearly a subset of the dilation of <span class="math inline">\(B;\)</span> actually, we can prove that both sets are equal. Assume that <span class="math inline">\(z\)</span> belongs to the dilation of <span class="math inline">\(B\)</span>: there is a <span class="math inline">\(b \in B\)</span> such that <span class="math inline">\(|z - b| &lt; r_b.\)</span> As <span class="math inline">\(B\)</span> is the closure of <span class="math inline">\(A,\)</span> there is a point <span class="math inline">\(a \in A\)</span> such that <span class="math inline">\(|a-b| &lt; (r_b - |z-b|) / 2;\)</span> we have <span class="math display">\[
+  |z-a| \leq |z-b| + |a-b| &lt; r_b - |a - b| \leq r_a,
+  \]</span> hence the point <span class="math inline">\(z\)</span> also belongs to the dilation of <span class="math inline">\(A.\)</span> As the dilation of <span class="math inline">\(A\)</span> is path-connected, so is the dilation of <span class="math inline">\(B\)</span>: <span class="math inline">\(B\)</span> is connected. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+
+</section><section><p>The equivalent statement is false for some path-connected sets. Actually, we may leverage this difference to build a connected set which is not path-connected:</p></section>
+<section id="example--the-topologists-sine-curve." class="level3">
+
+<div class="p"><h3><a href="#example--the-topologists-sine-curve.">Example – The Topologist’s Sine Curve.</a></h3>‌ Consider <span class="math display">\[
+  A = \{(x, \sin 1/x)  \; | \; x \in \left] 0, 1 \right]\}.
+  \]</span> This set is path-connected – as the image by a continuous function of a path-connected set – hence its closure <span class="math display">\[\overline{A} = A \cup \{(0,y) \; | \; y \in [-1, +1] \}\]</span> is connected; however, it is not path-connected.</div>
+<figure>
+<img src="images/topologist-sine-curve.svg" alt="The Topologist’s Sine Curve."><figcaption>The Topologist’s Sine Curve.</figcaption>
+</figure>
+<p>Assume on the contrary that <span class="math inline">\(\gamma:[0,1] \to \mathbb{C}\)</span> is a path of <span class="math inline">\(\overline{A}\)</span> that joins the points <span class="math inline">\(a_0 = (2/\pi,1)\)</span> and <span class="math inline">\(a_{\infty} = (0,0);\)</span> it has to go through every point <span class="math display">\[
+  a_n = (x_n, y_n), \; n \in \mathbb{N} 
+  \; \mbox{ where } \;
+  \left|
+  \begin{array}{lll}
+  x_n &amp;=&amp; {1}/{((n+1/2) \pi)} \\
+  y_n &amp;=&amp; \sin 1/x_n = (-1)^n
+  \end{array}
+  \right.
+  \]</span> in this specific order. Indeed, given some <span class="math inline">\(t_n \in \left[0,1\right[\)</span> such that <span class="math inline">\(\gamma(t_n) = a_n,\)</span> we have <span class="math inline">\(\mathrm{Re}(\gamma(t_n)) = x_n.\)</span> As <span class="math inline">\(\mathrm{Re}(\gamma(1)) = \mathrm{Re}(a_{\infty}) = 0,\)</span> by continuity of <span class="math inline">\(t\in[0,1] \mapsto \mathrm{Re}(\gamma(t)),\)</span> there is a <span class="math inline">\(t_{n+1} \in \left]t_n,1 \right[\)</span> such that <span class="math inline">\(\mathrm{Re}(\gamma(t_{n+1})) = x_{n+1}.\)</span> Since for any <span class="math inline">\(x&gt;0,\)</span> there is a unique real number <span class="math inline">\(y\)</span> such that <span class="math inline">\((x,y) \in A,\)</span> this yields <span class="math inline">\(\gamma(t_{n+1}) = a_{n+1}.\)</span> Now, since the sequence <span class="math inline">\(t_n\)</span> is increasing and bounded from above, necessarily <span class="math inline">\(|t_{n+1} - t_n| \to 0\)</span> when <span class="math inline">\(n \to +\infty.\)</span> But on the other hand, for any <span class="math inline">\(n \in \mathbb{N},\)</span> <span class="math display">\[
+\begin{split}
+|\gamma(t_{n+1})- \gamma(t_n)| &amp;= |a_{n+1} - a_n| \\
+&amp;\geq |y_{n+1} - y_n| \\
+&amp;= 2 
+\end{split}
+\]</span> Hence the function <span class="math inline">\(\gamma,\)</span> despite being continuous and defined on the compact set <span class="math inline">\([0,1]\)</span> cannot be uniformly continuous, which is a contradiction.</p>
+</section>
+</section>
+<section id="components" class="level1">
+<h1><a href="#components">Components</a></h1>
+<p>We define two concepts of components based respectively on path-connectedness and connectedness.</p>
+<section id="definition--component." class="level3">
+
+<div class="p"><h3><a href="#definition--component.">Definition – Component.</a></h3>‌ A <em>(path-connected/connected) component</em> of a non-empty set <span class="math inline">\(A\)</span> is a subset of <span class="math inline">\(A\)</span> which is path-connected/connected and maximal with respect to inclusion among such sets – that is, included in no other path-connected/connected subset of <span class="math inline">\(A.\)</span></div>
+</section>
+<section id="theorem--partition-into-components." class="level3">
+
+<div class="p"><h3><a href="#theorem--partition-into-components.">Theorem – Partition into Components.</a></h3>‌ The path-connected/connected components of a non-empty set <span class="math inline">\(A\)</span> are a partition of <span class="math inline">\(A\)</span>: they are a collection of non-empty and pairwise disjoint subsets of <span class="math inline">\(A\)</span> whose union is <span class="math inline">\(A.\)</span></div>
+</section>
+<section id="proof.-4" class="level3">
+
+<div class="p"><h3><a href="#proof.-4">Proof.</a></h3>‌ The proof is identical for path-connected and connected components. Let <span class="math inline">\(a \in A.\)</span> Consider the collection <span class="math inline">\(\mathcal{A}_a\)</span> of all connected subsets of <span class="math inline">\(A\)</span> that contain the point <span class="math inline">\(a.\)</span> The set <span class="math inline">\(A_a = \cup \mathcal{A}_a\)</span> is connected. By construction, the set <span class="math inline">\(A_a\)</span> is maximal: it is a component of <span class="math inline">\(A.\)</span> As every component of <span class="math inline">\(A\)</span> is maximal, it contains at least one point <span class="math inline">\(a \in A\)</span>: it is therefore non-empty and equal to <span class="math inline">\(A_a.\)</span> Hence the union of all components of <span class="math inline">\(A\)</span> is <span class="math inline">\(\cup_{a \in A} A_a = A.\)</span> Finally, if two such components <span class="math inline">\(A_a\)</span> and <span class="math inline">\(A_b\)</span> have a non-empty intersection <span class="math inline">\(c \in A,\)</span> the set <span class="math inline">\(A_a \cup A_b\)</span> is connected and contains <span class="math inline">\(A_a\)</span> and <span class="math inline">\(A_b,\)</span> therefore <span class="math inline">\(A_a = A_b.\)</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="corollary--connectedness--components." class="level3">
+
+<div class="p"><h3><a href="#corollary--connectedness--components.">Corollary – Connectedness &amp; Components.</a></h3>‌ A non-empty set is path-connected/connected if and only if it has a single path-connected/connected component.</div>
+</section>
+<section id="proof.-5" class="level3">
+
+<div class="p"><h3><a href="#proof.-5">Proof.</a></h3>‌If a set is path-connected/connected, it is one of its components, because it is clearly connected and maximal. As the components form a partition of the set, it is the only component. Conversely, if there is a unique component, again because the components form a partition of the set, it is the set itself, which is therefore path-connected/connected. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+<section id="theorem--components-of-open-sets." class="level3">
+
+<div class="p"><h3><a href="#theorem--components-of-open-sets.">Theorem – Components of Open Sets.</a></h3>‌ The partitions of a non-empty open set into path-connected components and connected components are identical. All such components are open.</div>
+</section>
+<section id="proof.-6" class="level3">
+
+<div class="p"><h3><a href="#proof.-6">Proof.</a></h3>‌ Let <span class="math inline">\(A\)</span> be an open set and let <span class="math inline">\(B\)</span> be a path-connected component of <span class="math inline">\(A.\)</span> For any <span class="math inline">\(b \in B,\)</span> there is a non-empty open disk <span class="math inline">\(D\)</span> centered on <span class="math inline">\(b\)</span> which is included in <span class="math inline">\(A.\)</span> The disk <span class="math inline">\(D\)</span> is a path-connected subset of <span class="math inline">\(A\)</span> that contains <span class="math inline">\(a;\)</span> it is therefore included in the unique maximal path-connected subset of <span class="math inline">\(A\)</span> that contains <span class="math inline">\(a\)</span>: the set <span class="math inline">\(B.\)</span> Therefore, <span class="math inline">\(B\)</span> is open.</div>
+<p>The path-connected components of <span class="math inline">\(A\)</span> are open and path-connected, hence they are also connected. They are also maximal among the connected sets of <span class="math inline">\(A\mathrm{:}\)</span> a connected component of <span class="math inline">\(A\)</span> contains a path-connected component of <span class="math inline">\(A\)</span> if it contains a point of it; if it were to contain more than one path-connected component, it would be the union several disjoint open sets and hence could not be connected. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+</section>
+<section id="locally-constant-functions" class="level1">
+<h1><a href="#locally-constant-functions">Locally Constant Functions</a></h1>
+<section id="definition--locally-constant-function." class="level3">
+
+<div class="p"><h3><a href="#definition--locally-constant-function.">Definition – Locally Constant Function.</a></h3>‌ A function <span class="math inline">\(f\)</span> defined on a set <span class="math inline">\(A\)</span> is locally constant if for any <span class="math inline">\(a\)</span> in <span class="math inline">\(A,\)</span> there is a non-empty open disk <span class="math inline">\(D\)</span> centered on <span class="math inline">\(a\)</span> such that <span class="math inline">\(f\)</span> is constant on <span class="math inline">\(A \cap D\)</span>: <span class="math display">\[
+  \forall \, a \in A, \; \exists \, \epsilon &gt; 0, \;
+  \forall \, b \in A, \; |b-a| &lt; \epsilon \, \Rightarrow \, f(b) = f(a).
+  \]</span></div>
+</section>
+<section id="theorem--locally-constant-functions--connected-sets." class="level3">
+
+<div class="p"><h3><a href="#theorem--locally-constant-functions--connected-sets.">Theorem – Locally Constant Functions &amp; Connected Sets.</a></h3>‌ A set <span class="math inline">\(A\)</span> is connected if and only if every locally constant function defined on <span class="math inline">\(A\)</span> is constant.</div>
+</section>
+<section id="proof.-7" class="level3">
+
+<div class="p"><h3><a href="#proof.-7">Proof.</a></h3>‌Let <span class="math inline">\(f\)</span> be a locally constant function defined on <span class="math inline">\(A.\)</span> Let <span class="math inline">\(a \in A\)</span> and <span class="math inline">\(B = \{b \in A \; | \; f(b)=f(a) \}.\)</span> Assume that <span class="math inline">\(f\)</span> is not constant, that is, that <span class="math inline">\(C = A \setminus B\)</span> is non-empty. As <span class="math inline">\(f\)</span> is locally constant, the distance between any point <span class="math inline">\(b\)</span> of <span class="math inline">\(B\)</span> and the set <span class="math inline">\(C\)</span> is positive; we may define <span class="math inline">\(D_b = D(b, r_b)\)</span> where <span class="math inline">\(r_b = d(b, C) / 2 &gt; 0.\)</span> We may perform a similar construction for any point <span class="math inline">\(c\)</span> of <span class="math inline">\(C\)</span> and define a disk <span class="math inline">\(D_c = D(c, r_c)\)</span> with <span class="math inline">\(r_c = d(c, B) / 2 &gt; 0.\)</span> By construction, the sets <span class="math inline">\(\cup_{b \in B} D_b\)</span> and <span class="math inline">\(\cup_{c \in C} D_c\)</span> <a href="#theorem--disjoint-union-of-open-sets." class="preview">are non-empty, open and disjoints, hence</a> the dilation <span class="math inline">\(\cup_{a \in A} D_a\)</span> of <span class="math inline">\(A\)</span> is not path-connected. <a href="#definition--connected-set." class="preview">Therefore</a>, <span class="math inline">\(A\)</span> is not connected.</div>
+<p>Conversely, if <span class="math inline">\(A\)</span> is not connected, <a href="#definition--connected-set." class="preview">let <span class="math inline">\(\cup_{a \in A} D_a\)</span> be a dilation of <span class="math inline">\(A\)</span> which is not path-connected</a>. <a href="#corollary--connectedness--components." class="preview">It has multiple (path-connected) components</a>; let <span class="math inline">\(B\)</span> be one of them and <span class="math inline">\(C\)</span> be the union of all the others. Since every component <a href="#theorem--partition-into-components." class="preview">is non-empty</a> and <a href="#theorem--components-of-open-sets." class="preview">open</a>, <span class="math inline">\(B\)</span> and <span class="math inline">\(C\)</span> are both non-empty and open. Then, the function <span class="math inline">\(f\)</span> defined by <span class="math inline">\(f(z)=1\)</span> if <span class="math inline">\(z \in B\)</span> and <span class="math inline">\(f(z)=0\)</span> if <span class="math inline">\(z \in C\)</span> is locally constant; however, it is not constant. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></p>
+</section>
+</section>
+</main>
+
+
+</body></html>

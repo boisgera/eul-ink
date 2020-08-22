@@ -1,1 +1,470 @@
-/www/software-engineering/Software Engineering.html
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, MINES ParisTech">
+  <meta name="dcterms.date" content="2017-08-29">
+  <title>Software Engineering</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: content-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+html {
+  line-height: 36px;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: normal;
+  font-family: Alegreya, serif;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html em {
+  font-style: italic;
+}
+html strong {
+  font-weight: bold;
+}
+html p, html .p {
+  margin-bottom: 36px;
+  text-align: justify;
+  hyphens: auto;
+  moz-hyphens: auto;
+}
+html section {
+  margin-bottom: 36px;
+}
+html main {
+  box-sizing: content-box;
+  max-width: 32em;
+  margin: auto;
+  padding: 36px;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, q:before {
+  content: none;
+}
+blockquote:after, q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: medium solid black;
+  border-bottom: medium solid black;
+}
+main {
+}
+main > header, main > .header, main > #header {
+  margin-top: 72px;
+  margin-bottom: 72px;
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: 54px;
+  margin-top: 0px;
+  margin-bottom: 36px;
+  font-weight: bold;
+}
+main > header .author, main > .header .author, main > #header .author {
+  font-size: 24px;
+  line-height: 36px;
+  margin-bottom: 18px;
+  font-weight: normal;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: Alegreya SC, serif;
+  line-height: 36px;
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: 18px;
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  font-weight: bold;
+  line-height: 45px;
+  margin-top: 72px;
+  margin-bottom: 27px;
+}
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 36px;
+  margin-bottom: 18px;
+}
+h3, h4, h5, h6 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 1em;
+  display: inline;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
+}
+a:hover {
+  text-decoration: none;
+}
+a:link {
+  color: black;
+}
+a:visited {
+  color: black;
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li {
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  margin-left: 36px;
+  padding-left: 0.5em;
+}
+ul {
+}
+ul li {
+  list-style: disc;
+}
+ol {
+}
+ol li {
+  list-style: decimal;
+}
+blockquote {
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+  padding: 36px;
+  margin-bottom: 36px;
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-size: 24px;
+  font-family: Inconsolata;
+}
+pre {
+  overflow-x: auto;
+  background-color: #ebebeb;
+  margin-bottom: 36px;
+  padding-left: 36px;
+  padding-right: 36px;
+  padding-top: 36px;
+  padding-bottom: 36;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: auto;
+}
+figure {
+  margin-bottom: 36px;
+  text-align: center;
+}
+figcaption {
+  display: inline-block;
+  font-style: italic;
+  text-align: justify;
+}
+.table {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  margin-bottom: 36px;
+}
+thead {
+  border-bottom: medium solid black;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+.MJXc-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+nav#TOC > ul {
+  position: relative;
+  font-weight: bold;
+}
+nav#TOC > ul > * {
+  margin-bottom: 36px;
+}
+nav#TOC > ul li {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+nav#TOC > ul ul {
+}
+nav#TOC > ul ul li {
+  margin-left: 36px;
+  font-weight: normal;
+}
+.section-flag {
+  line-height: 36px;
+  font-size: 17px;
+  font-weight: 300;
+  font-family: Alegreya Sans SC;
+  margin-bottom: 0;
+}
+nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+  padding-bottom: 36;
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+nav#TOC .badge {
+  position: relative;
+  bottom: 0.13em;
+  font-family: Alegreya Sans SC;
+  font-weight: 300;
+  font-size: 17px;
+  display: inline-block;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  vertical-align: baseline;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+  margin-right: 1em;
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,800,800italic,900,900italic|Alegreya+Sans+SC:400,100,300,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+SC:400,400italic,700,700italic,900,900italic|Alegreya:400,700,900,400italic,700italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.11.1
+(function() {
+  $(function() {
+    return console.log("HELLO FROM DEMO!");
+  });
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.11.1
+(function() {
+  var hide_proof, main, show_proof;
+
+  hide_proof = function(section) {
+    var clone, div, header, id, new_paragraph;
+    clone = section.clone();
+    id = section.attr("id");
+    clone.attr({
+      id: id + "---"
+    });
+    div = $("<div></div>");
+    div.css({
+      display: "none"
+    });
+    div.append(clone);
+    header = section.find("h3, h4, h5, h6").first().clone();
+    new_paragraph = $("<div class='p'></div>").append(header);
+    new_paragraph.append("<i class='fa fa-caret-down expand' style='float:right;cursor:pointer;'></i>");
+    section.empty();
+    section.append(new_paragraph);
+    section.append(div);
+    return section.find("i.expand").on("click", (function(section) {
+      return function() {
+        return show_proof(section);
+      };
+    })(section));
+  };
+
+  show_proof = function(section) {
+    var tombstone;
+    section.children().first().remove();
+    section.html(section.children().first().html());
+    tombstone = section.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer"
+    });
+    return tombstone.on("click", (function(section) {
+      return function() {
+        return hide_proof(section);
+      };
+    })(section));
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, results, section, sections, text;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    results = [];
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      results.push(hide_proof(section));
+    }
+    return results;
+  };
+
+  $(main);
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">Software Engineering</a></h1>
+
+<h2 class="author">
+By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, MINES ParisTech
+</h2> 
+
+<h3 class="date">August 29, 2017</h3>
+</header>
+<section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
+<ul>
+<li class="top-li"><p class="section-flag">section 1</p><a href="#slides-posters">Slides &amp; Posters</a></li>
+<li class="top-li"><p class="section-flag">section 2</p><a href="#articles">Articles</a></li>
+</ul>
+</nav></section>
+<style> 
+  .grid { 
+    margin-bottom: 1.5em;
+  }
+  .grid > * { /* row */
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin-bottom: 1.5em;
+  }
+  .grid > * > :last-child { /* item */
+    white-space: nowrap;
+  }
+  .grid * {
+    line-height: 1.5em;
+  }
+  .grid > * > *:not(:last-child) { /* item*/
+    margin: 0 1em 0 0;
+  }
+</style>
+<div style="display: flex; flex-wrap: nowrap;>
+<img src=" images="" gauge.svg"="">
+<img src="images/gauge.svg" style="flex-basis:40%;object-fit:contain;margin:0 1em;">
+<div style="flex-basis:40%;">
+
+<div class="p"><h3 id="main-topics"><a href="#main-topics">Main topics:</a></h3>‌</div>
+<ul>
+<li><p>Automotive Software</p></li>
+<li><p>User Interfaces &amp; SVG</p></li>
+<li><p>Model-Based Design</p></li>
+<li>Synchronous Languages</li>
+</ul>
+</div>
+</div>
+<section id="slides-posters" class="level1">
+<h1><a href="#slides-posters">Slides &amp; Posters</a></h1>
+<div class="grid">
+<div>
+<div>
+<h3 id="modelling-and-optimization-of-data-driven-scene-graphs"><a href="#modelling-and-optimization-of-data-driven-scene-graphs">Modelling and Optimization of Data-Driven Scene Graphs</a></h3>
+‌<br>
+GRAPP 2011, with E. Vecchié
+</div>
+<div>
+<a href="documents/Modelling%20and%20Optimization%20of%20Data-Driven%20Scene%20Graphs%20(poster).pdf"><i class="fa fa-file-pdf-o"></i></a>
+</div>
+</div>
+<div>
+<div>
+<h3 id="edona-hmi---modelling-of-advanced-automotive-interfaces"><a href="#edona-hmi---modelling-of-advanced-automotive-interfaces">EDONA-HMI - Modelling of Advanced Automotive Interfaces</a></h3>
+‌<br>
+ERTSS 2010, with E. Vecchié, O. Meunier and J.-M. Temmos
+</div>
+<div>
+<a href="documents/EDONA-HMI%20-%20Modelling%20of%20Advanced%20Automotive%20Interfaces%20(slides).pdf"><i class="fa fa-file-pdf-o"></i></a>
+</div>
+</div>
+<div>
+<div>
+<h3 id="svg-for-automotive-user-interfaces"><a href="#svg-for-automotive-user-interfaces">SVG for Automotive User Interfaces</a></h3>
+‌<br>
+SVG Open 2008, with M. O. Abdallah and J.-M. Temmos
+</div>
+<div>
+<a href="documents/SVG%20for%20Automotive%20User%20Interfaces%20(slides).pdf"><i class="fa fa-file-pdf-o"></i></a>
+</div>
+</div>
+</div>
+</section>
+<section id="articles" class="level1">
+<h1><a href="#articles">Articles</a></h1>
+<div class="grid">
+<div>
+<div>
+<h3 id="modelling-and-optimization-of-data-driven-scene-graphs-1"><a href="#modelling-and-optimization-of-data-driven-scene-graphs-1">Modelling and Optimization of Data-Driven Scene Graphs</a></h3>
+‌<br>
+with E. Vecchié
+</div>
+<div>
+<a href="documents/Modelling%20and%20Optimization%20of%20Data-Driven%20Scene%20Graphs.pdf"><i class="fa fa-file-pdf-o"></i></a>
+</div>
+</div>
+<div>
+<div>
+<h3 id="a-higher-order-extension-for-imperative-synchronous-languages"><a href="#a-higher-order-extension-for-imperative-synchronous-languages">A Higher-Order Extension for Imperative Synchronous Languages</a></h3>
+‌<br>
+SCOPES 2010, by E. Vecchié, J.-P. Talpin and myself
+</div>
+<div>
+<a href="documents/A%20Higher-Order%20Extension%20for%20Imperative%20Synchronous%20Languages.pdf"><i class="fa fa-file-pdf-o"></i></a>
+</div>
+</div>
+<div>
+<div>
+<h3 id="edona-hmi---modelling-of-advanced-automotive-interfaces-1"><a href="#edona-hmi---modelling-of-advanced-automotive-interfaces-1">EDONA-HMI - Modelling of Advanced Automotive Interfaces</a></h3>
+‌<br>
+with E. Vecchié, O. Meunier and J.-M. Temmos
+</div>
+<div>
+<a href="documents/EDONA-HMI%20-%20Modelling%20of%20Advanced%20Automotive%20Interfaces.pdf"><i class="fa fa-file-pdf-o"></i></a>
+</div>
+</div>
+<div>
+<div>
+<h3 id="svg-for-automotive-user-interfaces-1"><a href="#svg-for-automotive-user-interfaces-1">SVG for Automotive User Interfaces</a></h3>
+‌<br>
+with M. O. Abdallah and J.-M. Temmos
+</div>
+<div>
+<a href="documents/SVG%20for%20Automotive%20User%20Interfaces.pdf"><i class="fa fa-file-pdf-o"></i></a>
+</div>
+</div>
+</div>
+</section>
+</main>
+
+
+</body></html>

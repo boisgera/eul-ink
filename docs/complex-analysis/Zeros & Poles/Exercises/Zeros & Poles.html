@@ -3,7 +3,7 @@
   <meta name="generator" content="pandoc">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <meta name="author" content="Sébastien Boisgérault, Mines ParisTech">
-  <meta name="dcterms.date" content="2019-09-30">
+  <meta name="dcterms.date" content="2017-11-28">
   <title>Zeros &amp; Poles</title>
   <style type="text/css">code{white-space: pre;}</style>
   
@@ -20,16 +20,11 @@
   vertical-align: baseline;
 }
 html {
-  line-height: var(--base-line-height);
-  --base-font-size: 24px;
-  --base-line-height: 36px;
-  --scale-ratio: 1.4142135623730951;
-  --small: 17px;
-  --medium: 24px;
-  --large: 34px;
-  --x-large: 48px;
+  line-height: 36px;
+  --base: 24;
+  --line-height: 1.5;
   font-size: 24px;
-  font-family: 'Alegreya', serif;
+  font-family: Alegreya, serif;
   font-style: normal;
   font-weight: normal;
   text-rendering: optimizeLegibility;
@@ -42,19 +37,19 @@ html strong {
   font-weight: bold;
 }
 html p, html .p {
-  margin-bottom: var(--base-line-height);
+  margin-bottom: 36px;
   text-align: justify;
   hyphens: auto;
-  -moz-hyphens: auto;
+  moz-hyphens: auto;
 }
 html section {
-  margin-bottom: var(--base-line-height_px);
+  margin-bottom: 36px;
 }
 html main {
   box-sizing: content-box;
   max-width: 32em;
   margin: auto;
-  padding: var(--base-line-height);
+  padding: 36px;
 }
 ol, ul {
   list-style: none;
@@ -77,43 +72,45 @@ table {
   border-top: medium solid black;
   border-bottom: medium solid black;
 }
+main {
+}
 main > header, main > .header, main > #header {
-  margin-top: calc(2 * var(--base-line-height));
-  margin-bottom: calc(2 * var(--base-line-height));
+  margin-top: 72px;
+  margin-bottom: 72px;
 }
 main > header h1, main > .header h1, main > #header h1 {
   font-size: 48px;
-  line-height: calc(1.5 * var(--base-line-height));
-  margin-top: 0;
-  margin-bottom: var(--base-line-height);
+  line-height: 54px;
+  margin-top: 0px;
+  margin-bottom: 36px;
   font-weight: bold;
 }
 main > header .author, main > .header .author, main > #header .author {
   font-size: 24px;
-  line-height: calc(1 * var(--base-line-height));
-  margin-bottom: calc(0.5 * var(--base-line-height));
+  line-height: 36px;
+  margin-bottom: 18px;
   font-weight: normal;
 }
 main > header .date, main > .header .date, main > #header .date {
-  font-family: 'Alegreya SC', serif;
-  line-height: calc(1 * var(--base-line-height));
+  font-family: Alegreya SC, serif;
+  line-height: 36px;
   font-size: 24px;
   font-weight: normal;
-  margin-bottom: calc(0.5 * var(--base-line-height));
+  margin-bottom: 18px;
   float: none;
 }
 h1 {
   font-size: 34px;
   font-weight: bold;
-  line-height: calc(1.25 * var(--base-line-height));
-  margin-top: calc(2.00 * var(--base-line-height));
-  margin-bottom: calc(0.75 * var(--base-line-height));
+  line-height: 45px;
+  margin-top: 72px;
+  margin-bottom: 27px;
 }
 h2 {
   font-size: 24px;
   font-weight: bold;
-  line-height: calc(1 * var(--base-line-height));
-  margin-bottom: calc(0.5 * var(--base-line-height));
+  line-height: 36px;
+  margin-bottom: 18px;
 }
 h3, h4, h5, h6 {
   font-size: 24px;
@@ -130,10 +127,10 @@ a:hover {
   text-decoration: none;
 }
 a:link {
-  color: var(--color);
+  color: black;
 }
 a:visited {
-  color: var(--color);
+  color: black;
 }
 sup {
   vertical-align: super;
@@ -143,11 +140,15 @@ li {
   list-style-type: none;
   list-style-image: none;
   list-style-position: outside;
-  margin-left: var(--base-line-height);
+  margin-left: 36px;
   padding-left: 0.5em;
+}
+ul {
 }
 ul li {
   list-style: disc;
+}
+ol {
 }
 ol li {
   list-style: decimal;
@@ -156,8 +157,8 @@ blockquote {
   border-left-width: thick;
   border-left-style: solid;
   border-left-color: black;
-  padding: var(--base-line-height);
-  margin-bottom: var(--base-line-height);
+  padding: 36px;
+  margin-bottom: 36px;
 }
 blockquote p:last-child {
   margin-bottom: 0px;
@@ -169,11 +170,11 @@ code {
 pre {
   overflow-x: auto;
   background-color: #ebebeb;
-  margin-bottom: var(--base-line-height);
-  padding-left: var(--base-line-height);
-  padding-right: var(--base-line-height);
-  padding-top: var(--base-line-height);
-  padding-bottom: var(--base-line-height);
+  margin-bottom: 36px;
+  padding-left: 36px;
+  padding-right: 36px;
+  padding-top: 36px;
+  padding-bottom: 36;
 }
 img {
   display: block;
@@ -183,7 +184,7 @@ img {
   height: auto;
 }
 figure {
-  margin-bottom: var(--base-line-height);
+  margin-bottom: 36px;
   text-align: center;
 }
 figcaption {
@@ -195,7 +196,7 @@ figcaption {
   overflow-x: auto;
   overflow-y: hidden;
   width: 100%;
-  margin-bottom: var(--base-line-height);
+  margin-bottom: 36px;
 }
 thead {
   border-bottom: medium solid black;
@@ -213,32 +214,41 @@ nav#TOC > ul {
   font-weight: bold;
 }
 nav#TOC > ul > * {
-  margin-bottom: var(--base-line-height);
+  margin-bottom: 36px;
 }
 nav#TOC > ul li {
   list-style-type: none;
   margin-left: 0;
   padding-left: 0;
 }
+nav#TOC > ul ul {
+}
 nav#TOC > ul ul li {
-  margin-left: var(--base-line-height);
+  margin-left: 36px;
   font-weight: normal;
+}
+.section-flag {
+  line-height: 36px;
+  font-size: 17px;
+  font-weight: 300;
+  font-family: Alegreya Sans SC;
+  margin-bottom: 0;
 }
 nav#TOC > ul > li.top-li {
   margin-bottom: 0;
-  padding-bottom: var(--base-line-height);
+  padding-bottom: 36;
   border-width: 2px 0 0 0;
   border-style: solid;
 }
 nav#TOC > ul > li.top-li:last-child {
   border-width: 2px 0 2px 0;
 }
-.badge {
+nav#TOC .badge {
   position: relative;
   bottom: 0.13em;
-  font-family: 'Alegreya Sans SC', sans-serif;
+  font-family: Alegreya Sans SC;
   font-weight: 300;
-  font-size: var(--small);
+  font-size: 17px;
   display: inline-block;
   line-height: 1.2em;
   height: 1.2em;
@@ -249,14 +259,7 @@ nav#TOC > ul > li.top-li:last-child {
   vertical-align: baseline;
   box-shadow: 0px 1.0px 1.0px #aaa;
   margin-right: 1em;
-}
-.section-flag {
-  line-height: var(--base-line-height);
-  font-size: var(--small);
-  font-weight: 300;
-  font-family: 'Alegreya Sans SC', sans-serif;
-  margin-bottom: 0;
-}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya: 400,700,900,400italic,700italic,900italic|Alegreya+SC:400,700,900,400italic,700italic,900italic|Alegreya+Sans:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+Sans+SC:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,800,800italic,900,900italic|Alegreya+Sans+SC:400,100,300,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+SC:400,400italic,700,700italic,900,900italic|Alegreya:400,700,900,400italic,700italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.10.0
 (function() {
   var box, hide_proof, main, show_proof;
 
@@ -396,7 +399,7 @@ nav#TOC > ul > li.top-li:last-child {
   $(main);
 
 }).call(this);
-</script><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+</script><script type="text/javascript">// Generated by CoffeeScript 1.10.0
 (function() {
   var make_preview, mathjaxDebug;
 
@@ -507,7 +510,7 @@ nav#TOC > ul > li.top-li:last-child {
 By <a href="mailto:%20Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, Mines ParisTech, under <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
 </h2> 
 
-<h3 class="date" style="margin-right: 0px;">September 30, 2019</h3>
+<h3 class="date" style="margin-right: 0px;">November 28, 2017</h3>
 </header>
 <section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
 <ul>
@@ -590,7 +593,7 @@ By <a href="mailto:%20Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisg
 <p>Assume that <span class="math inline">\(f(a) \neq 0\)</span> (if <span class="math inline">\(f(a)=0\)</span>, it is plain that <span class="math inline">\(|f(a)|=0\)</span> cannot be a local maximum of <span class="math inline">\(|f|\)</span> at <span class="math inline">\(a\)</span>). Let <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\gamma\)</span> be some real numbers such that <span class="math display">\[
   f(a) = |f(a)| e^{i\alpha}, \;
   g(a) = |g(a)|e^{i\beta}, \;
-  \gamma = \frac{\alpha - \beta}{p}.
+  \gamma = \frac{\theta - \alpha}{p}.
   \]</span> For small enough values <span class="math inline">\(r &gt; 0\)</span>, we have <span class="math display">\[
   |f(a + r e^{i \gamma}) - (|f(a)| + |g(a)|r^p) e^{i\alpha}| 
   \leq |\epsilon_a(a + r e^{i\gamma})| r^p
@@ -744,11 +747,11 @@ By <a href="mailto:%20Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisg
   \]</span> The function <span class="math inline">\(z \mapsto ({\pi z}/{\sin \pi z})^2\)</span> has a removable singularity at the origin and the value of its holomorphic extension at the origin is nonzero (it is <span class="math inline">\(1\)</span>), thus the origin is a double pole of the function. We have therefore <span class="math display">\[
   \mathrm{res} \left(z \mapsto \frac{1}{(\sin \pi z)^2}, 0\right)
   =
-  \lim_{z \to 0} \left[ {z^2}\frac{1}{(\sin \pi z)^2} \right]'.
+  \lim_{z \to 0} \left[ \frac{z^2}{2} \frac{1}{(\sin \pi z)^2} \right]'.
   \]</span> We have <span class="math display">\[
-  \left[ {z^2} \frac{1}{(\sin \pi z)^2} \right]'
+  \left[ \frac{z^2}{2} \frac{1}{(\sin \pi z)^2} \right]'
   =
-  \frac{2}{\pi} \left(\frac{(\pi z)\sin \pi z - (\pi z)^2 \cos \pi z}{(\sin \pi z)^3} \right).
+  \frac{1}{\pi} \left(\frac{(\pi z)\sin \pi z - (\pi z)^2 \cos \pi z}{(\sin \pi z)^3} \right).
   \]</span> The Taylor expansions of the functions <span class="math inline">\(\sin\)</span> and <span class="math inline">\(\cos\)</span> on <span class="math inline">\(\mathbb{C}\)</span> provide <span class="math display">\[
   \sin w = w \left(\sum_{n=0}^{+\infty} \frac{(-1)^{n}}{(2n+1)!} w^{2n} \right)
 = w - \frac{w^3}{6} + w^5 \left(\sum_{n=2}^{+\infty} \frac{(-1)^{n}}{(2n+1)!} w^{2n-4}\right)
@@ -762,7 +765,7 @@ By <a href="mailto:%20Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisg
   \mathrm{res} \left(z \mapsto \frac{1}{(\sin \pi z)^2}, 0\right)
   =
   \lim_{w \to 0}
-  \frac{2}{\pi} \frac{w/3 + w^3 f(w)}{g(w)} = 0.
+  \frac{1}{\pi} \frac{w/3 + w^3 f(w)}{g(w)} = 0.
   \]</span></p>
 <p>Alternatively, to compute the residue, we may notice that if <span class="math inline">\(z\)</span> is not an integer <span class="math display">\[
   \frac{1}{(\sin \pi z)^2} = \frac{1}{(\sin \pi (-z))^2},
@@ -814,7 +817,7 @@ By <a href="mailto:%20Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisg
   r e^{i[0 \to 2\pi/n]}, \; 
   \gamma_3 = [re^{i2\pi/n} \to 0],
   \]</span> then set <span class="math inline">\(\gamma = \gamma_1 \;| \; \gamma_2 \;|\; \gamma_3.\)</span> It is plain that <span class="math display">\[
-  \lim_{r \to +\infty} \int_{\gamma_1}\frac{dz}{1+z^n}
+  \lim_{r \to 0} \int_{\gamma_1}\frac{dz}{1+z^n}
   =
   \int_0^{+\infty} \frac{dx}{1 + x^n}.
   \]</span> Similarly, <span class="math display">\[
@@ -824,7 +827,7 @@ By <a href="mailto:%20Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisg
   =
   e^{i\frac{2\pi}{n}} \int_0^r \frac{dx}{1 + x^n},
   \]</span> thus <span class="math display">\[
-  \lim_{r \to +\infty} \int_{\gamma_3}\frac{dz}{1+z^n}
+  \lim_{r \to 0} \int_{\gamma_3}\frac{dz}{1+z^n}
   =
   -  e^{i\frac{2\pi}{n}} \int_0^{+\infty} \frac{dx}{1 + x^n}.
   \]</span> Finally, by the M-L inequality, <span class="math display">\[
@@ -949,7 +952,7 @@ By <a href="mailto:%20Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisg
 </section>
 <section id="references" class="level1 unnumbered">
 <h1><a href="#references">References</a></h1>
-<div id="refs" class="references"><ol><li id="ref-Dem09" style="margin-bottom:0.75em"><em>Fonctions Holomorphes et Surfaces de Riemann</em><br>Jean-Pierre Demailly, 2009.<br>JSON: <a href="data:application/json;charset=utf-8;fontSize64,ewogICJVUkwiOiAiaHR0cHM6Ly93d3ctZm91cmllci51amYtZ3Jlbm9ibGUuZnIvfmRlbWFpbGx5L21hbnVzY3JpcHRzL3ZhcmlhYmxlX2NvbXBsZXhlLnBkZiIsCiAgImF1dGhvciI6IFsKICAgIHsKICAgICAgImZhbWlseSI6ICJEZW1haWxseSIsCiAgICAgICJnaXZlbiI6ICJKZWFuLVBpZXJyZSIKICAgIH0KICBdLAogICJpZCI6ICJEZW0wOSIsCiAgImlzc3VlZCI6IHsKICAgICJkYXRlLXBhcnRzIjogWwogICAgICBbCiAgICAgICAgMjAwOQogICAgICBdCiAgICBdCiAgfSwKICAibGFuZ3VhZ2UiOiAiRnJlbmNoIiwKICAidGl0bGUiOiAiRm9uY3Rpb25zIGhvbG9tb3JwaGVzIGV0IHN1cmZhY2VzIGRlIHJpZW1hbm4uIiwKICAidHlwZSI6ICJib29rIgp9"><i style="font-size:18px;position:relative;bottom:0.05em;" class="fa fa-file-text-o"></i></a>&nbsp; / URL: <a href="https://www-fourier.ujf-grenoble.fr/~demailly/manuscripts/variable_complexe.pdf"><i style="font-size:18px" class="fa fa-link"></i></a></li></ol></div>
+<div id="refs" class="references"><ol><li id="ref-Dem09" style="margin-bottom:0.75em"><em>Fonctions Holomorphes et Surfaces de Riemann</em><br>Jean-Pierre Demailly, 2009.<br>JSON: <a href="data:application/json;charset=utf-8;base64,ewogICJVUkwiOiAiaHR0cHM6Ly93d3ctZm91cmllci51amYtZ3Jlbm9ibGUuZnIvfmRlbWFpbGx5L21hbnVzY3JpcHRzL3ZhcmlhYmxlX2NvbXBsZXhlLnBkZiIsCiAgImF1dGhvciI6IFsKICAgIHsKICAgICAgImZhbWlseSI6ICJEZW1haWxseSIsCiAgICAgICJnaXZlbiI6ICJKZWFuLVBpZXJyZSIKICAgIH0KICBdLAogICJpZCI6ICJEZW0wOSIsCiAgImlzc3VlZCI6IHsKICAgICJkYXRlLXBhcnRzIjogWwogICAgICBbCiAgICAgICAgMjAwOQogICAgICBdCiAgICBdCiAgfSwKICAibGFuZ3VhZ2UiOiAiRnJlbmNoIiwKICAidGl0bGUiOiAiRm9uY3Rpb25zIGhvbG9tb3JwaGVzIGV0IHN1cmZhY2VzIGRlIHJpZW1hbm4uIiwKICAidHlwZSI6ICJib29rIgp9"><i style="font-size:18px;position:relative;bottom:0.05em;" class="fa fa-file-text-o"></i></a>&nbsp; / URL: <a href="https://www-fourier.ujf-grenoble.fr/~demailly/manuscripts/variable_complexe.pdf"><i style="font-size:18px" class="fa fa-link"></i></a></li></ol></div>
 </section>
 <section class="footnotes" id="notes"><h1><a href="#notes">Notes</a></h1>
 <hr>

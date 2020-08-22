@@ -1,1 +1,445 @@
-/www/audio/Exam-2017/Exam-2017.html
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, Mines ParisTech">
+  <title>S1916 - Analyse et Compression du Signal Audionumérique - Examen</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+}
+*, table {
+  padding: 0;
+}
+*, html main {
+  box-sizing: content-box;
+}
+*, nav#TOC .badge {
+  vertical-align: baseline;
+}
+html, main > header .author, main > header .date, main > .header .author, main > .header .date, main > #header .author, main > #header .date, h2, .section-flag {
+  line-height: 36px;
+}
+html, main > header .author, main > header .date, main > .header .author, main > .header .date, main > #header .author, main > #header .date, h2, h3, h4, h5, h6, code {
+  font-size: 24px;
+}
+html {
+  font-style: normal;
+  font-family: Alegreya, serif;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html, main > header .author, main > header .date, main > .header .author, main > .header .date, main > #header .author, main > #header .date, nav#TOC > ul ul li {
+  font-weight: normal;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote {
+  quotes: none;
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+}
+blockquote, html main {
+  padding: 36px;
+}
+blockquote, html p, html .p, html section, main > header h1, main > .header h1, main > #header h1, pre, figure, .table, nav#TOC > ul > * {
+  margin-bottom: 36px;
+}
+blockquote:before, blockquote:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  border-top: medium solid black;
+}
+table, img {
+  margin-left: auto;
+  margin-right: auto;
+}
+table, thead {
+  border-bottom: medium solid black;
+}
+html em, figcaption {
+  font-style: italic;
+}
+html strong, main > header h1, main > .header h1, main > #header h1, h1, h2, h3, h4, h5, h6, nav#TOC > ul {
+  font-weight: bold;
+}
+html p, html .p, figcaption {
+  text-align: justify;
+}
+html p, html .p {
+  hyphens: auto;
+  -moz-hyphens: auto;
+}
+html main {
+  max-width: 32em;
+  margin: auto;
+}
+main > header, main > .header, main > #header, h1 {
+  margin-top: 72px;
+}
+main > header, main > .header, main > #header {
+  margin-bottom: 72px;
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: 54px;
+  margin-top: 0px;
+}
+main > header .author, main > header .date, main > .header .author, main > .header .date, main > #header .author, main > #header .date, h2 {
+  margin-bottom: 18px;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: "Alegreya SC", serif;
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  line-height: 45px;
+  margin-bottom: 27px;
+}
+h3, h4, h5, h6, nav#TOC .badge {
+  margin-right: 1em;
+}
+h3, h4, h5, h6 {
+  display: inline;
+}
+a {
+  cursor: pointer;
+  outline: 0;
+}
+a, a:hover {
+  text-decoration: none;
+}
+a:link, a:visited {
+  color: black;
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li, nav#TOC > ul li {
+  list-style-type: none;
+}
+li {
+  list-style-image: none;
+  list-style-position: outside;
+  padding-left: 0.5em;
+}
+li, nav#TOC > ul ul li {
+  margin-left: 36px;
+}
+ul li {
+  list-style: disc;
+}
+ol li {
+  list-style: decimal;
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-family: Inconsolata;
+}
+pre, .table, .MJXc-display {
+  overflow-x: auto;
+}
+pre {
+  background-color: #ebebeb;
+  padding-left: 36px;
+  padding-right: 36px;
+  padding-top: 36px;
+}
+pre, nav#TOC > ul > li.top-li {
+  padding-bottom: 36;
+}
+img {
+  display: block;
+  height: auto;
+}
+img, .table, .MJXc-display {
+  width: 100%;
+}
+figure, nav#TOC .badge {
+  text-align: center;
+}
+figcaption, nav#TOC .badge {
+  display: inline-block;
+}
+.table, .MJXc-display {
+  overflow-y: hidden;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+nav#TOC > ul, nav#TOC .badge {
+  position: relative;
+}
+nav#TOC > ul li {
+  margin-left: 0;
+  padding-left: 0;
+}
+.section-flag, nav#TOC .badge {
+  font-size: 17px;
+  font-weight: 300;
+  font-family: Alegreya Sans SC;
+}
+.section-flag, nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+}
+nav#TOC > ul > li.top-li {
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+nav#TOC .badge {
+  bottom: 0.13em;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+}
+</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,800,800italic,900,900italic|Alegreya+Sans+SC:400,100,300,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+SC:400,400italic,700,700italic,900,900italic|Alegreya:400,700,900,400italic,700italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.11.1
+(function() {
+  $(function() {
+    return console.log("HELLO FROM DEMO!");
+  });
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.11.1
+(function() {
+  var hide_proof, main, show_proof;
+
+  hide_proof = function(section) {
+    var clone, div, header, id, new_paragraph;
+    clone = section.clone();
+    id = section.attr("id");
+    clone.attr({
+      id: id + "---"
+    });
+    div = $("<div></div>");
+    div.css({
+      display: "none"
+    });
+    div.append(clone);
+    header = section.find("h3, h4, h5, h6").first().clone();
+    new_paragraph = $("<div class='p'></div>").append(header);
+    new_paragraph.append("<i class='fa fa-caret-down expand' style='float:right;cursor:pointer;'></i>");
+    section.empty();
+    section.append(new_paragraph);
+    section.append(div);
+    return section.find("i.expand").on("click", (function(section) {
+      return function() {
+        return show_proof(section);
+      };
+    })(section));
+  };
+
+  show_proof = function(section) {
+    var tombstone;
+    section.children().first().remove();
+    section.html(section.children().first().html());
+    tombstone = section.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer"
+    });
+    return tombstone.on("click", (function(section) {
+      return function() {
+        return hide_proof(section);
+      };
+    })(section));
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, results, section, sections, text;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    results = [];
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      results.push(hide_proof(section));
+    }
+    return results;
+  };
+
+  $(main);
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">S1916 - Analyse et Compression du Signal Audionumérique - Examen</a></h1>
+
+<h2 class="author">
+By Sébastien Boisgérault, Mines ParisTech
+</h2> 
+
+<h3 class="date">16 mars 2017</h3>
+</header>
+<section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
+<ul>
+<li class="top-li"><p class="section-flag">section 1</p><a href="#modalités">Modalités</a></li>
+<li class="top-li"><p class="section-flag">section 2</p><span class="badge">que<span></span></span><a href="#questions">Questions</a><ul>
+<li><a href="#monkeys-audio-ape">Monkey’s Audio (APE)</a></li>
+<li><a href="#un-format-audio-inconnu">Un Format Audio Inconnu</a></li>
+<li><a href="#notation-ects">Notation ECTS</a></li>
+<li><a href="#code-de-rice">Code de Rice</a></li>
+<li><a href="#quantificateur-non-linéaire">Quantificateur Non-Linéaire</a></li>
+<li><a href="#filtre-passe-bas-et-décimation">Filtre Passe-Bas et Décimation</a></li>
+<li><a href="#hauteur-dune-voix">Hauteur d’une Voix</a></li>
+<li><a href="#filtre-auto-régressif">Filtre Auto-Régressif</a></li>
+<li><a href="#audibilité-de-sons-purs">Audibilité de Sons Purs</a></li>
+</ul></li>
+</ul>
+</nav></section>
+<section id="modalités" class="level1">
+<h1><a href="#modalités">Modalités</a></h1>
+<ul>
+<li><p><strong>Durée:</strong> 1h30.</p></li>
+<li><p><strong>Autorisés:</strong></p>
+<ul>
+<li><p>tous documents (sous forme papier ou électronique),</p></li>
+<li><p>calculette, tablette, ordinateur portable, etc.</p></li>
+</ul></li>
+<li><p><strong>Interdit:</strong></p>
+<ul>
+<li>toute forme de communication: avec le voisin, par Internet, par téléphone, etc.</li>
+</ul></li>
+</ul>
+</section>
+<section id="questions" class="level1">
+<h1><a href="#questions">Questions</a></h1>
+<section id="monkeys-audio-ape" class="level2">
+<h2><a href="#monkeys-audio-ape">Monkey’s Audio (APE)</a></h2>
+<p>Sur un forum Internet, un audiophile décrit les résultats d’un test du programme de compression Monkey’s Audio:</p>
+<pre><code>File Info : 44100Hz; 2 channel; 16 bit; 00:55:36.36
+Results   : 1039,63x; 345728748 bytes in 00:00:03.2091836 seconds;</code></pre>
+<p>Pensez-vous que l’algorithme utilisé soit sans perte ?</p>
+</section>
+<section id="un-format-audio-inconnu" class="level2">
+<h2><a href="#un-format-audio-inconnu">Un Format Audio Inconnu</a></h2>
+<p>Un fichier audio commence par le contenu (hexadécimal) suivant:</p>
+<pre><code>0x66 0x4C 0x61 0x43</code></pre>
+<p>Quel est à votre avis le format du fichier ? Pour information:</p>
+<pre><code>&gt;&gt;&gt; for i in range(65, 122+1):
+...     print chr(i),
+... 
+A B C D E F G H I J K L M N O P Q R S T 
+U V W X Y Z [ \ ] ^ _ ` a b c d e f g h 
+i j k l m n o p q r s t u v w x y z</code></pre>
+</section>
+<section id="notation-ects" class="level2">
+<h2><a href="#notation-ects">Notation ECTS</a></h2>
+<p>Le Système européen de transfert et d’accumulation de crédits (ECTS) préconise l’utilisation de l’échelle suivante pour noter les examens:</p>
+<div class="table"><table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Note</th>
+<th style="text-align: left;">Sous-Groupe</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: left;">les 10% meilleurs</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B</td>
+<td style="text-align: left;">les 25% suivants</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C</td>
+<td style="text-align: left;">les 30% suivants</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">D</td>
+<td style="text-align: left;">les 25% suivants</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">E</td>
+<td style="text-align: left;">les 10% restants</td>
+</tr>
+</tbody>
+</table></div>
+<p>Quelle est la quantité d’information présente en moyenne dans une note ECTS ? Comment pourrait-on augmenter cette grandeur en jouant sur la taille des sous-groupes et dans quelle proportion ? Est-il possible de concevoir un code sans préfixe pour la note ECTS de longueur moyenne 2 bits ? De longueur moyenne strictement inférieure à 3 bits ?</p>
+</section>
+<section id="code-de-rice" class="level2">
+<h2><a href="#code-de-rice">Code de Rice</a></h2>
+<p>Soit <code>x</code> le tableau d’entiers 8 bits signés défini par le code</p>
+<pre><code>&gt;&gt;&gt; x = 100 * ones(12, dtype=int8)
+&gt;&gt;&gt; x[::2] = -100</code></pre>
+<p><img src="images/rice-plot.svg"><br>
+Un code de Rice va-t’il réduire la taille de ce signal ? Pour information:</p>
+<pre><code>&gt;&gt;&gt; rice.from_frame(x, signed=True)
+rice(b=6, signed=True)</code></pre>
+<p>On se propose ensuite d’appliquer le code de Rice non plus aux amplitudes de <code>x</code> mais au signal <code>y</code> de ses différences. Le calcul de <code>y</code> par le code ci-dessous est-il correct ?</p>
+<pre><code>&gt;&gt;&gt; y = diff(r_[0,x])</code></pre>
+<p>Sur le principe, cette nouvelle approche peut-elle être couronnée de succès ?</p>
+</section>
+<section id="quantificateur-non-linéaire" class="level2">
+<h2><a href="#quantificateur-non-linéaire">Quantificateur Non-Linéaire</a></h2>
+<p>Le code ci-dessous définit une fonction caractéristique <span class="math inline">\(f\)</span> sur <span class="math inline">\([-1,1]\)</span>:</p>
+<pre><code>def f(x):
+    return (x &gt;= 0) * (2 * x - x * x) + (x &lt; 0) * (2 * x + x * x)</code></pre>
+<p><img src="images/quantization.svg"><br>
+Pour quelle distribution de probabilité <span class="math inline">\(p(x)\)</span> des données le quantificateur associé maximise-t’il l’entropie ?</p>
+</section>
+<section id="filtre-passe-bas-et-décimation" class="level2">
+<h2><a href="#filtre-passe-bas-et-décimation">Filtre Passe-Bas et Décimation</a></h2>
+<p>Soit <span class="math inline">\(\Delta f = 16 \, \mathrm{kHz}\)</span> une fréquence d’échantillonnage et <span class="math inline">\(\Delta t\)</span> la période correspondante. Déterminer la suite des valeurs <span class="math inline">\(h(t=n\Delta t)\)</span> de la réponse impulsionnelle associée au filtre passe-bas idéal de fréquence de coupure <span class="math inline">\(f_c = 4 \, \mathrm{kHz}\)</span> et de fréquence d’échantillonnage <span class="math inline">\(\Delta f\)</span>.</p>
+<p>Considérez ensuite le signal <span class="math inline">\(h_2\)</span> obtenu par une décimation d’un facteur 2 du signal <span class="math inline">\(h\)</span>. Quel doit être sa transformée de Fourier <span class="math inline">\(h_2(f)\)</span> ? Et par conséquent sa représentation temporelle <span class="math inline">\(h_2(t)\)</span> ? Calculer ensuite directement <span class="math inline">\(h_2(t)\)</span> à partir de <span class="math inline">\(h(t)\)</span> et vérifier la cohérence du résultat.</p>
+</section>
+<section id="hauteur-dune-voix" class="level2">
+<h2><a href="#hauteur-dune-voix">Hauteur d’une Voix</a></h2>
+<p>Un programme informatique produit une estimation “instable” de la hauteur d’une voix prononçant un phonème, estimation qui alterne grossièrement entre les valeurs 240 Hz et 120 Hz. Quelle est vraisemblablement la vraie hauteur de la voix sur cet extrait ? Ce même mécanisme produit par moments une estimation encore plus basse de la hauteur. Quelle est cette valeur à votre avis ?</p>
+</section>
+<section id="filtre-auto-régressif" class="level2">
+<h2><a href="#filtre-auto-régressif">Filtre Auto-Régressif</a></h2>
+<p>Un filtre autorégressif cadencé à <span class="math inline">\(\Delta f = 16\)</span> kHz est décrit par la fonction de transfert <span class="math display">\[
+  h(z) = \frac{z^2}{z^2 - 0.25}.
+  \]</span> Ce filtre est-il stable ? Déterminer la relation de récurrence reliant ses valeurs en entrée <span class="math inline">\(u_n = u(n\Delta t)\)</span> et en sortie <span class="math inline">\(y_n = y(n\Delta t)\)</span>. Quel est sa réponse impulsionelle <span class="math inline">\(h(t)\)</span> ? Quelle est l’amplitude du signal de sortie lorsque <span class="math inline">\(u(t) = \sin (2\pi f t)\)</span> avec <span class="math inline">\(f=8\)</span> kHz ?</p>
+</section>
+<section id="audibilité-de-sons-purs" class="level2">
+<h2><a href="#audibilité-de-sons-purs">Audibilité de Sons Purs</a></h2>
+<p>On considère le signal numérique <span class="math inline">\(x(t) = 2 \times 10^{-4} \times \sin (2 \pi f t)\)</span> représenté par des valeurs flottantes dans l’intervalle <span class="math inline">\([-1.0, 1.0]\)</span>. Dire si ce signal est audible lorsqu’il est produit avec l’amplification standard pour les fréquences <span class="math inline">\(f = 100\)</span> Hz, <span class="math inline">\(f=1000\)</span> Hz et <span class="math inline">\(f = 10000\)</span> Hz. A laquelle de ces trois fréquences le son parait-il être le plus fort ?</p>
+<!--
+Quantification et Facteur d'Echelle
+--------------------------------------------------------------------------------
+
+A nombre de bits donné, un quantificateur utilisant un facteur d'échelle 
+est-il a priori plus efficace qu'un quantificateur scalaire uniforme
+si les caractéristiques du signal évoluent lentement ou rapidement ?
+
+-->
+</section>
+</section>
+</main>
+
+
+</body></html>

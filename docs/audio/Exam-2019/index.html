@@ -1,1 +1,779 @@
-/www/audio/Exam-2019/Exam-2019.html
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, Mines ParisTech, CC BY-NC-SA 4.0">
+  <title>S1916 - Analyse et Compression du Signal Audionumérique - Examen</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: content-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+html {
+  line-height: var(--base-line-height);
+  --base-font-size: 24px;
+  --base-line-height: 36px;
+  --scale-ratio: 1.4142135623730951;
+  --small: 17px;
+  --medium: 24px;
+  --large: 34px;
+  --x-large: 48px;
+  font-size: 24px;
+  font-family: 'Alegreya', serif;
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html em {
+  font-style: italic;
+}
+html strong {
+  font-weight: bold;
+}
+html p, html .p {
+  margin-bottom: var(--base-line-height);
+  text-align: justify;
+  hyphens: auto;
+  -moz-hyphens: auto;
+}
+html section {
+  margin-bottom: var(--base-line-height_px);
+}
+html main {
+  box-sizing: content-box;
+  max-width: 32em;
+  margin: auto;
+  padding: var(--base-line-height);
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, q:before {
+  content: none;
+}
+blockquote:after, q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: medium solid black;
+  border-bottom: medium solid black;
+}
+main > header, main > .header, main > #header {
+  margin-top: calc(2 * var(--base-line-height));
+  margin-bottom: calc(2 * var(--base-line-height));
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: calc(1.5 * var(--base-line-height));
+  margin-top: 0;
+  margin-bottom: var(--base-line-height);
+  font-weight: bold;
+}
+main > header .author, main > .header .author, main > #header .author {
+  font-size: 24px;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  font-weight: normal;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: 'Alegreya SC', serif;
+  line-height: calc(1 * var(--base-line-height));
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  font-weight: bold;
+  line-height: calc(1.25 * var(--base-line-height));
+  margin-top: calc(2.00 * var(--base-line-height));
+  margin-bottom: calc(0.75 * var(--base-line-height));
+}
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: calc(1 * var(--base-line-height));
+  margin-bottom: calc(0.5 * var(--base-line-height));
+}
+h3, h4, h5, h6 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 1em;
+  display: inline;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
+}
+a:hover {
+  text-decoration: none;
+}
+a:link {
+  color: var(--color);
+}
+a:visited {
+  color: var(--color);
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li {
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  margin-left: var(--base-line-height);
+  padding-left: 0.5em;
+}
+ul li {
+  list-style: disc;
+}
+ol li {
+  list-style: decimal;
+}
+blockquote {
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+  padding: var(--base-line-height);
+  margin-bottom: var(--base-line-height);
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-size: 24px;
+  font-family: Inconsolata;
+}
+pre {
+  overflow-x: auto;
+  background-color: #ebebeb;
+  margin-bottom: var(--base-line-height);
+  padding-left: var(--base-line-height);
+  padding-right: var(--base-line-height);
+  padding-top: var(--base-line-height);
+  padding-bottom: var(--base-line-height);
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: auto;
+}
+figure {
+  margin-bottom: var(--base-line-height);
+  text-align: center;
+}
+figcaption {
+  display: inline-block;
+  font-style: italic;
+  text-align: justify;
+}
+.table {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  margin-bottom: var(--base-line-height);
+}
+thead {
+  border-bottom: medium solid black;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+.MJXc-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+nav#TOC > ul {
+  position: relative;
+  font-weight: bold;
+}
+nav#TOC > ul > * {
+  margin-bottom: var(--base-line-height);
+}
+nav#TOC > ul li {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+nav#TOC > ul ul li {
+  margin-left: var(--base-line-height);
+  font-weight: normal;
+}
+nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+  padding-bottom: var(--base-line-height);
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+.badge {
+  position: relative;
+  bottom: 0.13em;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  font-weight: 300;
+  font-size: var(--small);
+  display: inline-block;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  vertical-align: baseline;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+  margin-right: 1em;
+}
+.section-flag {
+  line-height: var(--base-line-height);
+  font-size: var(--small);
+  font-weight: 300;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  margin-bottom: 0;
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya: 400,700,900,400italic,700italic,900italic|Alegreya+SC:400,700,900,400italic,700italic,900italic|Alegreya+Sans:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+Sans+SC:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var box, hide_proof, main, show_proof;
+
+  hide_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("expanded");
+    sectionWrapper.addClass("minimized");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "visible"
+    });
+    w$(".header-wrapper").css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().css({
+      visibility: "hidden",
+      height: "0px"
+    });
+    w$(".header-wrapper").attr({
+      id: w$("section").first().attr("id")
+    });
+    return w$("section").first().attr({
+      id: ""
+    });
+  };
+
+  show_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("minimized");
+    sectionWrapper.addClass("expanded");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "hidden"
+    });
+    w$(".header-wrapper").css({
+      visibility: "hidden",
+      height: "0"
+    });
+    w$("section").first().css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().attr({
+      id: w$(".header-wrapper").attr("id")
+    });
+    return w$(".header-wrapper").attr({
+      id: ""
+    });
+  };
+
+  box = function(section) {
+    var clone, expand, header, headerWrapper, tombstone, wrapper;
+    clone = section.clone(true);
+    clone.css({
+      marginBottom: "0"
+    });
+    clone.children().last().css({
+      marginBottom: "0"
+    });
+    tombstone = clone.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer",
+      position: "absolute",
+      bottom: "0.75rem",
+      right: "0.75rem"
+    });
+    wrapper = $("<div class='proof-wrapper expanded'></div>");
+    wrapper.css({
+      position: "relative",
+      margin: "-0.75rem -0.75rem 0.75rem -0.75rem",
+      padding: "0.75rem",
+      backgroundColor: "#f9f9f9"
+    });
+    header = clone.find("h3, h4, h5, h6").first().clone();
+    headerWrapper = $("<div class='p header-wrapper' style='margin-bottom:0; visibility:hidden; overflow:hidden; height:0;'> </div>");
+    headerWrapper.append(header);
+    expand = $("<i class='fa fa-caret-down expand' style='visibility:hidden; cursor:pointer; position:absolute; top:0.75rem; right:0.75rem;'> </i>");
+    wrapper.append(headerWrapper);
+    wrapper.append(expand);
+    wrapper.append(clone);
+    expand.on("click", function() {
+      return show_proof(wrapper);
+    });
+    tombstone.on("click", function() {
+      return hide_proof(wrapper);
+    });
+    section.replaceWith(wrapper);
+    return wrapper;
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, section, sections, text, wrapper;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      wrapper = box(section);
+      hide_proof(wrapper);
+    }
+    return $(document).keydown(function(event) {
+      var k, l, len2, len3, ref1, ref2, results, sectionWrapper;
+      console.log("***", event.keyCode);
+      if (event.keyCode === 88) {
+        ref1 = $(".proof-wrapper.minimized");
+        for (k = 0, len2 = ref1.length; k < len2; k++) {
+          sectionWrapper = ref1[k];
+          show_proof($(sectionWrapper));
+        }
+      }
+      if (event.keyCode === 77) {
+        ref2 = $(".proof-wrapper.expanded");
+        results = [];
+        for (l = 0, len3 = ref2.length; l < len3; l++) {
+          sectionWrapper = ref2[l];
+          results.push(hide_proof($(sectionWrapper)));
+        }
+        return results;
+      }
+    });
+  };
+
+  $(main);
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+(function() {
+  var make_preview, mathjaxDebug;
+
+  make_preview = function(elt) {
+    var card, hidden_css, hide_preview, id, ref, show_preview, url, visible_css;
+    ref = elt.attr("href").split("#"), url = ref[0], id = ref[1];
+    card = $("<div class='card'>\n  <div class='holder'>\n    <p>Placeholder</p>\n  </div>\n</div>");
+    card.css({
+      width: "35vw",
+      padding: "1.5rem",
+      position: "fixed",
+      top: "1.5rem",
+      right: "1.5rem",
+      boxSizing: "border-box",
+      maxHeight: "calc(100vh - 3rem)",
+      overflow: "hidden",
+      boxShadow: "0 0 1rem #e6e6e6",
+      backgroundColor: "white"
+    });
+    visible_css = {
+      visibility: "visible",
+      opacity: 1,
+      transform: "translateX(0em)",
+      transition: "all 0.3s linear"
+    };
+    hidden_css = {
+      visibility: "hidden",
+      opacity: 0,
+      transform: "translateX(1em)",
+      transition: "all 0.3s linear 0.5s"
+    };
+    card.css(hidden_css);
+    elt.css({
+      textDecoration: "underline solid #0a0a0a",
+      textDecorationSkip: "ink",
+      transition: "background-color 0.3s linear"
+    });
+    show_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d3"
+      });
+      return card.css(visible_css);
+    };
+    hide_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d300"
+      });
+      return card.css(hidden_css);
+    };
+    return card.find(".holder").load(url + (" [id='" + id + "']"), function(response, status, jxXHR) {
+      console.log("XHR status:", status, url, id);
+      if (status === "success" || status === "notmodified") {
+        console.log("success!");
+        console.log("elt:", $(elt));
+        $("body").append(card);
+        card.find("p, .p").css({
+          textAlign: "left"
+        });
+        card.find("section").css({
+          marginBottom: "0"
+        });
+        card.find("section").children().last().css({
+          marginBottom: "0"
+        });
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, card[0]]);
+        elt.on("mouseenter", show_preview);
+        return elt.on("mouseleave", hide_preview);
+      }
+    });
+  };
+
+  mathjaxDebug = function() {
+    MathJax.Hub.signal.Interest(function(message) {
+      return console.log("*", message);
+    });
+    return MathJax.Hub.Register.StartupHook("End Process", function() {
+      var i, jax, len, ref, results;
+      console.log("list of jaxes:");
+      ref = MathJax.Hub.getAllJax();
+      results = [];
+      for (i = 0, len = ref.length; i < len; i++) {
+        jax = ref[i];
+        results.push(console.log("jax:", jax));
+      }
+      return results;
+    });
+  };
+
+  $(function() {
+    var elt, i, len, ref, results;
+    ref = $("a.preview");
+    results = [];
+    for (i = 0, len = ref.length; i < len; i++) {
+      elt = ref[i];
+      results.push(make_preview($(elt)));
+    }
+    return results;
+  });
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">S1916 - Analyse et Compression du Signal Audionumérique - Examen</a></h1>
+
+<h2 class="author">
+By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, Mines ParisTech, <a href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>
+</h2> 
+
+<h3 class="date" style="margin-right: 0px;">14 mars 2019</h3>
+</header>
+<section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
+<ul>
+<li class="top-li"><p class="section-flag">section 1</p><a href="#modalités">Modalités</a></li>
+<li class="top-li"><p class="section-flag">section 2</p><span class="badge">que<span></span></span><a href="#questions">Questions</a><ul>
+<li><a href="#compression-sans-perte">Compression sans perte</a></li>
+<li><a href="#quantification">Quantification</a></li>
+<li><a href="#banc-de-filtres">Banc de filtres</a></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 3</p><a href="#réponses">Réponses</a><ul>
+<li><a href="#compression-sans-perte-1">Compression sans perte</a></li>
+<li><a href="#quantification-1">Quantification</a></li>
+<li><a href="#banc-de-filtres-1">Banc de filtres</a></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 4</p><a href="#notes">Notes</a></li></ul>
+</nav></section>
+<section id="modalités" class="level1">
+<h1><a href="#modalités">Modalités</a></h1>
+<ul>
+<li><p><strong>Durée:</strong> 1h30.</p></li>
+<li><p><strong>Autorisés:</strong></p>
+<ul>
+<li><p>tous documents (sous forme papier ou électronique),</p></li>
+<li><p>calculette, tablette, ordinateur portable, etc.</p></li>
+</ul></li>
+<li><p><strong>Interdit:</strong></p>
+<ul>
+<li>toute forme de communication: échanges avec le voisin, utilisation d’Internet, du téléphone, etc.</li>
+</ul></li>
+</ul>
+</section>
+<section id="questions" class="level1">
+<h1><a href="#questions">Questions</a></h1>
+<section id="compression-sans-perte" class="level2">
+<h2><a href="#compression-sans-perte">Compression sans perte</a></h2>
+<p>Une source <span class="math inline">\(X\)</span> produit un flux de caractères ASCII, appartenant à l’ensemble <span class="math display">\[
+\mathcal{A} = \{ \mbox{\tt A}, \mbox{\tt E}, \mbox{\tt U}, \mbox{\tt C}, 
+                 \mbox{\tt H}, \mbox{\tt N}, \mbox{\tt -} \}
+\]</span></p>
+<p>Vous souhaitez concevoir un code binaire – de longueur fixe ou variable – pour enregistrer ce flux d’information sous la forme la plus compacte possible.</p>
+<ol type="1">
+<li><p>Pourquoi est-il important de se restreindre à la recherche des codes auto-délimitants ?</p></li>
+<li><p>Si l’on se limite à des codes de longueur fixe, combien de bits au minimum doit-on utiliser par symbole ?</p></li>
+<li><p>Les symboles produits par le flux semblent apparaître de façon aléatoire et indépendamment les uns des autres. À ce stade, la probabilité <span class="math inline">\(p(a)=P(X=a)\)</span>, où <span class="math inline">\(a \in \mathcal{A}\)</span> est toutefois inconnue. Montrer néanmoins qu’il est possible de prouver que le code de la question précédente ne sera pas de longueur moyenne optimale (indice: montrer qu’il vérifie l’inégalité de Kraft <em>strictement</em> et exploiter cette marge de manoeuvre pour montrer l’existence d’un code dont la longueur moyenne sera assurément plus faible).</p></li>
+<li><p>Les probabilités des symboles sont désormais connues; on a <span class="math display">\[
+\begin{split}
+p(\mbox{\tt C}) &amp;= 3/13 \\
+p(\mbox{\tt A}) = p(\mbox{\tt E}) = p(\mbox{\tt U}) = p(\mbox{\tt N}) &amp;= 2 / 13 \\
+p(\mbox{\tt H}) = p(\mbox{\tt -}) &amp;= 1/13 
+\end{split}.
+\]</span> Peut-on espérer trouver un code de longueur moyenne inférieure ou égale à 2.5 bits ?</p></li>
+<li><p>Construire un code sans préfixe de longueur moyenne minimale, puis l’utiliser pour encoder le message: <code>AUCUNE-CHANCE</code> et mesurer la longueur moyenne du code par symbole sur ce message.</p></li>
+</ol>
+</section>
+<section id="quantification" class="level2">
+<h2><a href="#quantification">Quantification</a></h2>
+<p>On envisage de représenter les données numériques d’un CD audio en utilisant des nombres flottants à demi-précision, supportés par de nombreux processeurs graphiques et popularisés par les applications de machine learning.</p>
+<p>Le flottant à demi-précision – noté <span class="math inline">\([x]_{1/2}\)</span> – associé à un nombre réel <span class="math inline">\(x\)</span> est défini comme le réel de la forme <span class="math display">\[
+s \times (1 + b_0 \times 2^{-1} + b_1 \times 2^{-2} + \dots + b_{9} \times 2^{-10}) \times 2^{e}
+\]</span> le plus proche possible<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> de <span class="math inline">\(x\)</span>, lorsque les paramètres vérifient <span class="math inline">\(s\in\{-1,+1\}\)</span>, <span class="math inline">\(b_i \in \{0,1\}\)</span> et <span class="math inline">\(e \in \{-15, -14, \cdots, 16\}\)</span>.</p>
+<ol type="1">
+<li><p>Les données audio sont représentées par des entiers signés sur 16 bits. Rappeler quelles sont les valeurs minimales et maximales des entiers associées à ce type standard.</p></li>
+<li><p>Combien de bits sont nécessaires pour représenter des flottants à demi-précision ?</p></li>
+<li><p>Donner une approximation – linéaire en <span class="math inline">\(|x|\)</span> – du pas <span class="math inline">\(\Delta(x)\)</span> associé au quantificateur <span class="math inline">\([\,\cdot\,]_{1/2}\)</span> (Indication: il y a plusieurs réponses raisonnables; on pourra par exemple s’intéresser aux nombres flottants à demi-précision de la forme <span class="math inline">\(2^{e}\)</span> et à leur successeur immédiat).</p></li>
+<li><p>On décide d’associer à un entier signé sur 16 bits <span class="math inline">\(n\)</span> le réel <span class="math inline">\(x = n / 2^{15}\)</span>, puis le flottant à demi-précision <span class="math inline">\(y = [x]_{1/2}\)</span>, puis finalement l’entier sur 16 bits <span class="math inline">\([y]_* = 2^{15} y\)</span>. On applique ce traitement à l’entier signé sur 16 bits dont la représentation binaire est <code>0101010101010101</code> (en “big-endian”); quelle est la représentation binaire du résultat (en tant qu’entier signé sur 16 bits big-endian) ?</p></li>
+<li><p>On fait l’hypothèse que la valeur <span class="math inline">\(n\)</span> est “totalement aléatoire”. Produire une estimation du rapport signal sur bruit (en décibels) associé à la quantification <span class="math inline">\([\, \cdot \,]_{*}\)</span> de <span class="math inline">\(n\)</span>. Est-ce suffisant pour des applications audio ?</p></li>
+</ol>
+</section>
+<section id="banc-de-filtres" class="level2">
+<h2><a href="#banc-de-filtres">Banc de filtres</a></h2>
+<p>Considérons le filtre digital <span class="math inline">\(A_1\)</span> de fonction de transfert <span class="math display">\[
+A_1(z) = \frac{1 + z^{-1}}{2}
+\]</span></p>
+<ol type="1">
+<li><p>Quelle relation fonctionnelle existe entre le signal d’entrée <span class="math inline">\(u(n\Delta t)\)</span> et le signal de sortie <span class="math inline">\(y(n\Delta t)\)</span> de ce filtre ? Quelle est la réponse impulsionnelle de ce filtre ? A quelle catégorie (FIR, AR, etc.) appartient-t’il ?</p></li>
+<li><p>Calculer la fonction de transfert <span class="math inline">\(A_1(f)\)</span> de ce filtre. Se comporte-t’il plutôt comme un filtre passe-haut ou passe-bas ?</p></li>
+<li><p>Si un signal <span class="math inline">\(u(n\Delta t)\)</span> subit successivement une opération de décimation d’un facteur 2, une expansion d’un facteur 2 et une amplification d’un facteur 2 pour donner le signal <span class="math inline">\(y(n\Delta t)\)</span>, quelle relation existe-t’il entre <span class="math inline">\(y(f)\)</span> et <span class="math inline">\(u(f)\)</span> ?</p></li>
+<li><p>On note <span class="math inline">\(A_2\)</span> le filtre de fonction de transfert <span class="math inline">\(1 - A_1(z)\)</span>. On soumet un signal à deux opérations parallèles avant d’additionner les résultats:</p>
+<ul>
+<li><p>filtrage par <span class="math inline">\(A_1\)</span>, l’opération décrite en 3., puis filtrage par un filtre <span class="math inline">\(S_1\)</span>.</p></li>
+<li><p>filtrage par <span class="math inline">\(A_2\)</span>, l’opération décrite en 3., puis filtrage par un filtre <span class="math inline">\(S_2\)</span>.</p></li>
+</ul>
+<p>Déterminer des filtres <span class="math inline">\(S_1\)</span> et <span class="math inline">\(S_2\)</span> tels que le signal en sortie des ces opérations soit identique au signal d’entrée (reconstruction parfaite). Indication: si les filtres <span class="math inline">\(A\)</span> et <span class="math inline">\(B\)</span> vérifient <span class="math inline">\(B(z) = A(z^{-1})\)</span>, alors <span class="math inline">\(B(f) = A(f+\Delta f/2)\)</span>.</p></li>
+</ol>
+</section>
+</section>
+<section id="réponses" class="level1">
+<h1><a href="#réponses">Réponses</a></h1>
+<section id="compression-sans-perte-1" class="level2">
+<h2><a href="#compression-sans-perte-1">Compression sans perte</a></h2>
+<ol type="1">
+<li><p><strong>1 pt.</strong> Un code qui n’est pas auto-délimitant est ambigu, à moins qu’il soit utilisé pour coder un unique symbole. Avec un code ambigu, il est impossible de garantir que l’on saura reconstruire le message original à partir du message encodé.</p></li>
+<li><p><strong>1 pt.</strong> Il y a 7 symboles différents, donc en utilisant un code de longueur fixe égale à 3 bits, puisqu’il permet d’encoder jusqu’à <span class="math inline">\(2^3 = 8\)</span> symboles différents si nécessaire. C’est bien le minimum: 2 bits ne permettent d’encoder que <span class="math inline">\(2^2=4\)</span> symboles différents.</p></li>
+<li><p><strong>3 pts.</strong> La longueur moyenne associée à un code <span class="math inline">\(c\)</span> est donnée par <span class="math display">\[
+\mathbb{E} |c(X)| = \sum_{a \in \mathcal{A}} p(a) |c(a)|.
+\]</span> Dans le code précédent, les symboles ont tous été encodés avec une longueur <span class="math inline">\(l_a = |c(a)| = 3\)</span>; le membre de gauche de l’inégalité de Kraft associée vaut donc <span class="math display">\[
+\sum_{a \in \mathcal{A}} 2^{-l_a} = 7 \times 2^{-3} = 7/8.
+\]</span> Si l’on prend un symbole <span class="math inline">\(a\)</span> dont la probabilité <span class="math inline">\(p(a)\)</span> est non nulle, et qu’au lieu de la coder sur <span class="math inline">\(3\)</span> bits on lui donnait un budget de <span class="math inline">\(2\)</span> bits, on respecterait toujours l’inégalité de Kraft puisque <span class="math display">\[
+6 \times 2^{-3} + 2^{-2} = 6/8 + 1/4 = 1.
+\]</span> Et par conséquent on pourrait toujours trouver un code sans préfixe respectant cette famille de longueur. En revenant à la formule donnant la longueur moyenne du code, on voit qu’elle a diminué de <span class="math inline">\(p(a) (3 - 2) = p(a)\)</span> avec le changement de code. Le code initial – de longeur fixe – n’était donc pas optimal.</p></li>
+<li><p><strong>2 pts.</strong> L’entropie associé à la source vaut</p>
+<p><span class="math display">\[
+\begin{split}
+H(C) &amp;= - 2 \times (1/13) \times \log_2 (1/13) \\
+     &amp;\phantom{=} -  4 \times (2/13) \times \log_2 (2/13) \\ 
+     &amp;\phantom{=} - (3/13) \times \log_2 (3/13) \\
+     &amp; \approx 2.719
+\end{split}
+\]</span></p>
+<p>La longueur moyenne du code optimal étant nécessairement supérieur à cette valeur, un code de longueur moyenne de 2.5 bits ou moins n’est pas possible.</p></li>
+<li><p><strong>4 pts.</strong> L’algorithme de Huffman peut fournir un code optimal. Compte tenu de la distribution des probabilités, la 1ere étape est imposée: “fusionner” <code>H</code> et <code>-</code> pour une probabilité totale de <span class="math inline">\(2/13\)</span>. Il faut ensuite fusionner n’importe quelle paire de probabilité <span class="math inline">\(2/13\)</span>, par exemple <code>N</code> et <code>H-</code>, puis à nouveau une paire de ce type, par exemple <code>U</code> et <code>E</code>. Les probabilités de ces nouveaux noeuds sont de <span class="math inline">\(4/13\)</span>. Il faut alors fusionner <code>C</code> et <code>A</code>, puis <code>UE</code> et <code>NH-</code>, ce qui termine l’algorithme. Un code conforme à l’arbe qui en résulte est:</p>
+<div class="table"><table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Symbole</th>
+<th style="text-align: left;">Code</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">C</td>
+<td style="text-align: left;">00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">A</td>
+<td style="text-align: left;">01</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">U</td>
+<td style="text-align: left;">100</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">E</td>
+<td style="text-align: left;">101</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">110</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">H</td>
+<td style="text-align: left;">1110</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">1111</td>
+</tr>
+</tbody>
+</table></div>
+<p>Le message <code>AUCUNE-CHANCE</code> est alors encodé sous la forme:</p>
+<pre><code>011000010011010111110011100111000101</code></pre>
+<p>La longueur moyenne par symbole est de <span class="math inline">\(36/13 \approx 2.769.\)</span></p></li>
+</ol>
+</section>
+<section id="quantification-1" class="level2">
+<h2><a href="#quantification-1">Quantification</a></h2>
+<ol type="1">
+<li><p><strong>1 pt.</strong> Les entiers sur 16 bits signés permettent de représenter des valeurs comprises entre <span class="math inline">\(-2^{15}\)</span> et <span class="math inline">\(2^{15}-1\)</span>.</p></li>
+<li><p><strong>1 pt.</strong> Le facteur de signe <span class="math inline">\(s\)</span> nécessite 1 bit. L’exposant <span class="math inline">\(e\)</span> peut prendre 32 valeurs différentes et donc nécessite 5 bits. Finalement chaque coefficient <span class="math inline">\(b_0,\dots, b_9\)</span> demande 1 bits, c’est donc au total <span class="math inline">\(1+5+10 = 16\)</span> bits qui sont nécessaires pour décrire un flottant à demi-précision.</p></li>
+<li><p><strong>2 pts.</strong> Quand <span class="math inline">\(e\)</span> est compris entre -15 et 16, <span class="math inline">\(x=2^e\)</span> est une valeur qui peut être représentée exactement comme un flottant à demi-précision. La valeur qui suit immédiatemment s’obtient en conservant <span class="math inline">\(e\)</span> et en choisissant <span class="math inline">\(b_0 = \cdots = b_8=0\)</span> et <span class="math inline">\(b_9=1\)</span>, ce qui donne au final <span class="math inline">\(2^e(1 + 2^{-10})\)</span>. La différence entre ces deux valeurs successives est donc <span class="math inline">\(2^{-10} \times 2^e = 2^{-10} x\)</span>. La situation est similaire pour les nombres négatifs. Au final, cette analyse suggère l’approximation <span class="math inline">\(\Delta(x) \approx 2^{-10} |x|\)</span>.</p></li>
+<li><p><strong>3 pts.</strong> La séquence binaire <code>0101010101010101</code> correspond à l’entier signé big-end sur 16 bits <span class="math inline">\(n = 2^{14} + 2^{12} + 2^{10} + 2^8 + 2^6 + 2^4 + 2^2+ 2^0\)</span> donc <span class="math inline">\(n/2^{15}\)</span> vaut <span class="math display">\[
+\frac{n}{2^{15}}
+=
+(1 + 2^{-2} + 2^{-4} + 2^{-6} + 2^{-8} + 2^{-10} + 2^{-12} + 2^{-14}) 2^{-1}.
+\]</span> Le nombre flottant à demi-précision le plus proche est donc <span class="math display">\[
+(1 + 2^{-2} + 2^{-4} + 2^{-6} + 2^{-8} + 2^{-10}) 2^{-1}.
+\]</span> Une fois multiplié par <span class="math inline">\(2^{15}\)</span>, sa représentation binaire comme entier signé sur 16 bits (big-endian) est donnée par <code>0101010101010000</code>.</p></li>
+<li><p><strong>4 pts.</strong> Si <span class="math inline">\(n\)</span> est “totalement aléatoire” (toutes les valeurs admissibles de l’entier <span class="math inline">\(n\)</span> sont équiprobables), alors en première approximation, la densité de probabilité <span class="math inline">\(p(x)\)</span> associée à <span class="math inline">\(x=n/2^{15}\)</span> est uniforme sur <span class="math inline">\([-1,+1]\)</span> (donc égale à <span class="math inline">\(1/2\)</span>) et l’on peut faire le calcul de rapport signal sur bruit associé à la variable <span class="math inline">\(x\)</span>. Comme le pas <span class="math inline">\(\Delta(x)\)</span> associé à <span class="math inline">\([\, \cdot \,]_{1/2}\)</span> est approximativement <span class="math inline">\(2^{-10}|x|\)</span>, la puissance du bruit de quantification <span class="math inline">\(b = [x]_{1/2} - x\)</span> vérifie <span class="math display">\[
+\begin{split}
+\mathbb{E} \, B^2 
+  &amp;\approx \frac{1}{12} \mathbb{E} \, \Delta(X)^2 \\
+  &amp;\approx \frac{1}{12} \int_{-1}^1 2^{-20} x^2 \, \frac{dx}{2} \\
+  &amp;= \frac{1}{12} 2^{-21} \left[ \frac{x^3}{3} \right]_{-1}^{+1} \\
+  &amp;= \frac{2^{-22}}{3^2} \\
+\end{split}
+\]</span> Par ailleurs, <span class="math display">\[
+\mathbb{E} \, X^2 = \int_{-1}^{1} x^2\frac{dx}{2} = \frac{1}{3}, 
+\]</span> donc <span class="math display">\[
+10 \log_{10} \frac{\mathbb{E} \, X^2}{\mathbb{E} \, B^2}
+= 10  \log_{10} 3 \times 10^{22}
+\approx 71 \, \mbox{dB.}
+\]</span> C’est a priori faible pour des applications audio, où la transparence nécessite des rapports signaux sur bruit autour de <span class="math inline">\(100 \, \mbox{dB}\)</span>.</p></li>
+</ol>
+</section>
+<section id="banc-de-filtres-1" class="level2">
+<h2><a href="#banc-de-filtres-1">Banc de filtres</a></h2>
+<ol type="1">
+<li><p><strong>3 pts.</strong> La fonction de transfert <span class="math display">\[A_1(z) = \frac{1 + z^{-1}}{2}\]</span> correspond au filtre tel que <span class="math display">\[
+y(n\Delta t) = \frac{1}{2} u(n\Delta t) + \frac{1}{2} u((n-1)\Delta t).
+\]</span> Il s’agit d’un filtre de réponse impulsionnelle finie (FIR). En effet, si l’on sélectionne un signal d’entrée <span class="math inline">\(u(n\Delta t)\)</span> égal à <span class="math inline">\(1/\Delta t\)</span> si <span class="math inline">\(n=0\)</span> et <span class="math inline">\(0\)</span> sinon, on a <span class="math display">\[
+y(n\Delta t) = 0 \, \mbox{ si } \, n&lt;0,
+\; y(0) = \frac{1}{2\Delta t}, \;
+\; y(\Delta t) = \frac{1}{2\Delta t}, \;
+y(n\Delta t) = 0 \, \mbox{ si } \,n&gt;1.
+\]</span></p></li>
+<li><p><strong>2 pts.</strong> La réponse fréquentielle du filtre <span class="math inline">\(A_1\)</span> est déterminée par <span class="math display">\[
+A_1(f) = A_1(z= e^{i2\pi f\Delta t}) = \frac{1 + e^{-i2\pi f\Delta t}}{2}.
+\]</span> Comme <span class="math inline">\(A_1(f) = e^{-i\pi f\Delta t} \cos(\pi f \Delta t)\)</span>, on a <span class="math display">\[
+|A_1(f)| = |\cos (\pi f \Delta t)|.
+\]</span> La bande de fréquence utile associée aux signaux de fréquence d’échantillonnage <span class="math inline">\(\Delta f = 1 / \Delta t\)</span> est <span class="math inline">\([0, \Delta f/2]\)</span>. A la fréquence minimale <span class="math inline">\(f=0\)</span>, on a <span class="math inline">\(|A_1(f=0)| = 1\)</span> et à fréquence maximale, on a <span class="math inline">\(|A_1(f=\Delta f/2)| = 0\)</span>. Ces caractéristiques sont plutôt propres à un filtre passe-bas qu’à un filtre passe-haut.</p></li>
+<li><p><strong>2 pts.</strong> Après de décimation d’un facteur 2, la représentation de Fourier d’un signal <span class="math inline">\(u(f)\)</span> est <span class="math inline">\(u(f) + u(f+\Delta f/2)\)</span>. Après expansion d’un facteur 2, ce signal devient <span class="math inline">\(1/2(u(f) + u(f+\Delta f/2))\)</span>, et donc <span class="math inline">\(u(f) + u(f+\Delta f/2)\)</span> après amplification d’un facteur 2. Au final, <span class="math display">\[
+y(f) = u(f) + u(f + \Delta f /2).
+\]</span></p></li>
+<li><p><strong>5 pts.</strong> Le signal de sortie <span class="math inline">\(y(f)\)</span> est relié au signal d’entrée par <span class="math display">\[
+\begin{split}
+y(f) &amp;= \phantom{+} S_1(f) (A_1(f) u(f) + A_1(f + \Delta f/2) u(f+\Delta f/2)) \\
+     &amp;\phantom{=} + S_2(f) (A_2(f) u(f) + A_2(f + \Delta f/2) u(f+\Delta f/2)).
+\end{split}
+\]</span> Pour garantir <span class="math inline">\(y(f) = u(f)\)</span>, il nous faut donc assurer <span class="math display">\[
+\begin{array}{rcc}
+S_1(f) A_1(f) + S_2(f) A_2(f) &amp;=&amp; 1 \\
+S_1(f) A_1(f+\Delta f/2) + S_2(f) A_2(f + \Delta f/2) &amp;=&amp; 0 \\
+\end{array}
+\]</span> En utilisant l’indication fournie dans l’énoncé, on voit qu’il suffit de chercher des solutions <span class="math inline">\(S_1(z)\)</span> et <span class="math inline">\(S_2(z)\)</span> à l’équation matricielle <span class="math display">\[
+\left[
+\begin{array}{cc}
+(1+z^{-1})/2 &amp; (1 - z^{-1})/2 \\
+(1+z)/2 &amp; (1-z)/2
+\end{array}
+\right]
+\left[
+\begin{array}{c}
+S_1(z) \\
+S_2(z)
+\end{array}
+\right] = 
+\left[
+\begin{array}{c}
+1 \\ 0
+\end{array}
+\right],
+\]</span> système qui a pour solution <span class="math display">\[
+\left[
+\begin{array}{c}
+S_1(z) \\
+S_2(z)
+\end{array}
+\right]
+=
+    \left[
+\begin{array}{r}
+z/(z+1) \\
+z/(z-1)
+\end{array}
+\right]
+=
+   \left[
+\begin{array}{r}
+1/(1+z^{-1}) \\
+1/(1-z^{-1})
+\end{array}
+\right].
+\]</span> Les filtres <span class="math inline">\(S_1\)</span> et <span class="math inline">\(S_2\)</span> sont auto-régressifs et associent respectivement au signal d’entrée <span class="math inline">\(u(n\Delta t)\)</span> le signal de sortie <span class="math inline">\(y(n\Delta t)\)</span> déterminé par <span class="math display">\[
+y(n\Delta t)= -y((n-1)\Delta t) + u(n\Delta t)
+\]</span> et <span class="math display">\[
+y(n\Delta t)= y((n-1)\Delta t) + u(n\Delta t).
+\]</span></p></li>
+</ol>
+</section>
+</section>
+<section class="footnotes" id="notes"><h1><a href="#notes">Notes</a></h1>
+<hr>
+<ol>
+<li id="fn1"><p>il peut y avoir deux valeurs admissibles aussi proches de <span class="math inline">\(x\)</span>, mais le choix de l’une ou de l’autre – par exemple la plus petite en valeur absolue – n’a pas d’impact sur la suite de l’analyse.<a href="#fnref1">↩</a></p></li>
+</ol>
+</section>
+</main>
+
+
+</body></html>

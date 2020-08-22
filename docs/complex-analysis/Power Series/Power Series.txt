@@ -165,9 +165,9 @@ $\rho = \sup \, \{|z-c| \; | \; z \in K\},$
   \sum_{n=0}^{+\infty} |a_n(z-c)^n| \leq \sum_{n=0}^{+\infty} |a_n| \rho^n.
   $$
 Since the growth bound of the sequence $a_n$ and $|a_n|$ are identical,
-the radius of convergence of the series $\sum_{n=0}^{+\infty} |a_n| (z-c)^n$ 
+the radius of convergence of the series $\sum_{n=0}^{+\infty} |a_n| z^n$ 
 is $r.$ 
-Given that $\rho < r,$ the series $\sum_{n=0}^{+\infty} |a_n| \rho^n$ is convergent;
+Given that $|\rho| < r,$ the series $\sum_{n=0}^{+\infty} |a_n| \rho^n$ is convergent;
 all its terms are non-negative real numbers, thus the sum is finite: 
 there is a $\kappa>0$ such that $\sum_{n=0}^{+\infty} |a_n| \rho^n \leq \kappa.$
 \hfill $\blacksquare$
@@ -271,8 +271,7 @@ are equal.
 Since the coefficient sequence of the latter series is the product
 of $a_n$ and a nonzero polynomial sequence, the open
 radius of convergence of $f$ and of its the formal derivative are identical. 
-For any $z \in D(c,r)$ and any complex number $h$ such that $0 < |h| < r$, 
-define $e(z, h)$ as 
+For any $z \in D(c,r)$ and $h \in \mathbb{C},$ define $e(z, h)$ as 
   $$
   e(z, h) = \frac{f(z+h) - f(z)}{h} - \sum_{n = 1}^{+\infty} n a_{n} (z-c)^{n-1}.
   $$ 
@@ -414,7 +413,6 @@ with respect to the variable $w.$ Finally
   $$
   \begin{split}
   f(z) &=
-  \frac{1}{i2\pi}
   \int_{\gamma} 
   \left[
     \sum_{n=0}^{+\infty}\frac{f(w)}{(w-c)^{n+1}}(z-c)^n
@@ -422,13 +420,11 @@ with respect to the variable $w.$ Finally
   &=
   \sum_{n=0}^{+\infty}
   \left[
-  \frac{1}{i2\pi}
   \int_{\gamma}\frac{f(w)}{(w-c)^{n+1}}(z-c)^n \, dw
   \right]\\
   &=
   \sum_{n=0}^{+\infty}
   \left[
-  \frac{1}{i2\pi}
   \int_{\gamma}\frac{f(w)}{(w-c)^{n+1}} \, dw
   \right] (z-c)^n
   \end{split}

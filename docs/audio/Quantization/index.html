@@ -1,1 +1,694 @@
-/www/audio/Quantization/Quantization.html
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, Mines ParisTech">
+  <meta name="dcterms.date" content="2017-02-22">
+  <title>Quantization</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+}
+*, table {
+  padding: 0;
+}
+*, html main {
+  box-sizing: content-box;
+}
+*, nav#TOC .badge {
+  vertical-align: baseline;
+}
+html, main > header .author, main > header .date, main > .header .author, main > .header .date, main > #header .author, main > #header .date, h2, .section-flag {
+  line-height: 36px;
+}
+html, main > header .author, main > header .date, main > .header .author, main > .header .date, main > #header .author, main > #header .date, h2, h3, h4, h5, h6, code {
+  font-size: 24px;
+}
+html {
+  font-style: normal;
+  font-family: Alegreya, serif;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html, main > header .author, main > header .date, main > .header .author, main > .header .date, main > #header .author, main > #header .date, nav#TOC > ul ul li {
+  font-weight: normal;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote {
+  quotes: none;
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+}
+blockquote, html main {
+  padding: 36px;
+}
+blockquote, html p, html .p, html section, main > header h1, main > .header h1, main > #header h1, pre, figure, .table, nav#TOC > ul > * {
+  margin-bottom: 36px;
+}
+blockquote:before, blockquote:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  border-top: medium solid black;
+}
+table, img {
+  margin-left: auto;
+  margin-right: auto;
+}
+table, thead {
+  border-bottom: medium solid black;
+}
+html em, figcaption {
+  font-style: italic;
+}
+html strong, main > header h1, main > .header h1, main > #header h1, h1, h2, h3, h4, h5, h6, nav#TOC > ul {
+  font-weight: bold;
+}
+html p, html .p, figcaption {
+  text-align: justify;
+}
+html p, html .p {
+  hyphens: auto;
+  -moz-hyphens: auto;
+}
+html main {
+  max-width: 32em;
+  margin: auto;
+}
+main > header, main > .header, main > #header, h1 {
+  margin-top: 72px;
+}
+main > header, main > .header, main > #header {
+  margin-bottom: 72px;
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: 54px;
+  margin-top: 0px;
+}
+main > header .author, main > header .date, main > .header .author, main > .header .date, main > #header .author, main > #header .date, h2 {
+  margin-bottom: 18px;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: "Alegreya SC", serif;
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  line-height: 45px;
+  margin-bottom: 27px;
+}
+h3, h4, h5, h6, nav#TOC .badge {
+  margin-right: 1em;
+}
+h3, h4, h5, h6 {
+  display: inline;
+}
+a {
+  cursor: pointer;
+  outline: 0;
+}
+a, a:hover {
+  text-decoration: none;
+}
+a:link, a:visited {
+  color: black;
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li, nav#TOC > ul li {
+  list-style-type: none;
+}
+li {
+  list-style-image: none;
+  list-style-position: outside;
+  padding-left: 0.5em;
+}
+li, nav#TOC > ul ul li {
+  margin-left: 36px;
+}
+ul li {
+  list-style: disc;
+}
+ol li {
+  list-style: decimal;
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-family: Inconsolata;
+}
+pre, .table, .MJXc-display {
+  overflow-x: auto;
+}
+pre {
+  background-color: #ebebeb;
+  padding-left: 36px;
+  padding-right: 36px;
+  padding-top: 36px;
+}
+pre, nav#TOC > ul > li.top-li {
+  padding-bottom: 36;
+}
+img {
+  display: block;
+  height: auto;
+}
+img, .table, .MJXc-display {
+  width: 100%;
+}
+figure, nav#TOC .badge {
+  text-align: center;
+}
+figcaption, nav#TOC .badge {
+  display: inline-block;
+}
+.table, .MJXc-display {
+  overflow-y: hidden;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+nav#TOC > ul, nav#TOC .badge {
+  position: relative;
+}
+nav#TOC > ul li {
+  margin-left: 0;
+  padding-left: 0;
+}
+.section-flag, nav#TOC .badge {
+  font-size: 17px;
+  font-weight: 300;
+  font-family: Alegreya Sans SC;
+}
+.section-flag, nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+}
+nav#TOC > ul > li.top-li {
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+nav#TOC .badge {
+  bottom: 0.13em;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+}
+</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,800,800italic,900,900italic|Alegreya+Sans+SC:400,100,300,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+SC:400,400italic,700,700italic,900,900italic|Alegreya:400,700,900,400italic,700italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.11.1
+(function() {
+  $(function() {
+    return console.log("HELLO FROM DEMO!");
+  });
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.11.1
+(function() {
+  var hide_proof, main, show_proof;
+
+  hide_proof = function(section) {
+    var clone, div, header, id, new_paragraph;
+    clone = section.clone();
+    id = section.attr("id");
+    clone.attr({
+      id: id + "---"
+    });
+    div = $("<div></div>");
+    div.css({
+      display: "none"
+    });
+    div.append(clone);
+    header = section.find("h3, h4, h5, h6").first().clone();
+    new_paragraph = $("<div class='p'></div>").append(header);
+    new_paragraph.append("<i class='fa fa-caret-down expand' style='float:right;cursor:pointer;'></i>");
+    section.empty();
+    section.append(new_paragraph);
+    section.append(div);
+    return section.find("i.expand").on("click", (function(section) {
+      return function() {
+        return show_proof(section);
+      };
+    })(section));
+  };
+
+  show_proof = function(section) {
+    var tombstone;
+    section.children().first().remove();
+    section.html(section.children().first().html());
+    tombstone = section.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer"
+    });
+    return tombstone.on("click", (function(section) {
+      return function() {
+        return hide_proof(section);
+      };
+    })(section));
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, results, section, sections, text;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    results = [];
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      results.push(hide_proof(section));
+    }
+    return results;
+  };
+
+  $(main);
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">Quantization</a></h1>
+
+<h2 class="author">
+By <a href="Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, <a href="http://www.mines-paristech.fr/">Mines ParisTech</a>
+</h2> 
+
+<h3 class="date">February 22, 2017</h3>
+</header>
+<section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
+<ul>
+<li class="top-li"><p class="section-flag">section 1</p><a href="#principles-of-scalar-quantization">Principles of Scalar Quantization</a><ul>
+<li><a href="#quantizers">Quantizers</a><ul>
+<li><span class="badge">exa<span></span></span><a href="#example-integer-rounding">Integer Rounding</a></li>
+</ul></li>
+<li><a href="#uniform-quantization">Uniform Quantization</a><ul>
+<li><a href="#quantization-of-random-variables">Quantization of Random Variables</a></li>
+<li><a href="#implementation-of-non-uniform-quantizers">Implementation of Non-Uniform Quantizers</a></li>
+</ul></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 2</p><a href="#logarithmic-quantization">Logarithmic Quantization</a><ul>
+<li><a href="#the-mu-law-quantizer">The <span class="math inline">\(\mu\)</span>-law Quantizer</a></li>
+<li><a href="#ieee754-floating-point-numbers-and-a-law">IEEE754 Floating-Point Numbers and <span class="math inline">\(A\)</span>-law</a></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 3</p><a href="#signal-to-noise-ratio">Signal-to-Noise Ratio</a><ul>
+<li><a href="#computation-of-the-signal-to-noise-ratio">Computation of the signal-to-noise ratio</a><ul>
+<li><a href="#maximization-of-the-snr">Maximization of the SNR</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav></section>
+<p>Quantization is a process that maps a continous or discrete set of values into approximations that belong to a smaller set. Quantization is a lossy: some information about the original data is lost in the process. The key to a successful quantization is therefore the selection of an error criterion – such as entropy and signal-to-noise ratio – and the development of optimal quantizers for this criterion.</p>
+<section id="principles-of-scalar-quantization" class="level1">
+<h1><a href="#principles-of-scalar-quantization">Principles of Scalar Quantization</a></h1>
+<figure>
+<img src="images/sin_quant.svg" alt="quantization of a time-varying value by a 4-bit midtread uniform quantization on [-1.0, 1.0]"><figcaption>quantization of a time-varying value by a 4-bit midtread uniform quantization on <span class="math inline">\([-1.0, 1.0]\)</span></figcaption>
+</figure>
+<section id="quantizers" class="level2">
+<h2><a href="#quantizers">Quantizers</a></h2>
+<p>A <strong>scalar quantizer</strong> <span class="math inline">\([ \, \cdot \, ]\)</span> is an idempotent mapping from <span class="math inline">\(\mathbb{R}\)</span> to a countable subset of <span class="math inline">\(\mathbb{R}\)</span>:</p>
+<p><span class="math display">\[
+  | \{[x]\, , \, x \in \mathbb{R}\} | \leq |\mathbb{N}|
+  \; \mbox{ and } \;
+  \forall \, x \in \mathbb{R},  \; [[x]] = [x]
+  \]</span></p>
+<p>This definition should be taken with a grain of salt as variants of the real line are often used, including the extended real line <span class="math inline">\(\mathbb{R} \cup \{-\infty, +\infty\}\)</span>, the real line with signed zeros <span class="math inline">\(\mathbb{R}\cup\{0^-, 0^+\}\)</span>, the real line plus the undefined symbol <span class="math inline">\(\bot\)</span>, or a combination thereof.</p>
+<p>The countability assumption is what makes the quantizer useful as an attempt to approximate a continous value by a discrete set that can be encoded as an integer. A quantizer is meant to be split into a <strong>forward</strong> and <strong>inverse quantizer</strong>: the forward quantizer builds from <span class="math inline">\(x\)</span> an integer code that refers to <span class="math inline">\([x]\)</span> without ambiguity and the inverse quantizer builds the approximation <span class="math inline">\([x]\)</span> back from the code.</p>
+<p>Formally, a forward quantizer for <span class="math inline">\([\cdot]\)</span> is a mapping <span class="math inline">\(i[\, \cdot \,]: \mathbb{R} \to \mathbb{Z}\)</span> such that <span class="math inline">\([x] = [y]\)</span> implies <span class="math inline">\(i[x]=i[y]\)</span>. Because of this property, <span class="math inline">\(i[\, \cdot \,]\)</span> may be factored into <span class="math inline">\(i[\, \cdot \,] = i \circ [\, \cdot \,]\)</span> where <span class="math display">\[
+  i : \mathrm{rng} \, [\, \cdot\, ] \to \mathbb{Z}.
+  \]</span> The notation for the forward quantizer is therefore consistent with the use as <span class="math inline">\(f[x]\)</span> as a shortcut for <span class="math inline">\(f([x])\)</span>. The associated inverse quantizer, denoted <span class="math inline">\(i^{-1}\)</span>, is a left inverse of <span class="math inline">\(i\)</span>: a mapping whose domain is a subset of <span class="math inline">\(\mathbb{Z}\)</span> that contains <span class="math inline">\(\mathrm{rng} i\)</span> and such that <span class="math display">\[
+  \forall \, x \in \mathbb{R}, \; (i^{-1} \circ i) [x] = [x] 
+  \]</span> The first step of this quantizer composition partitions the real line into the family of sets <span class="math inline">\((I_n)_n\)</span> with <span class="math display">\[
+  I_n = \{x\in\mathbb{R}, \; i[x] = n\}, \; n  \in \mathrm{rng} i
+  \]</span> The second step associates to any set into this partition a unique representative element. In every practical case we will encounter, the sets <span class="math inline">\(I_n\)</span> are – possibly unbounded – intervals, either open, half-open or closed. In this context, we associate to <span class="math inline">\(x\)</span> the decision values <span class="math inline">\([x]^-\)</span> and <span class="math inline">\([x]^+\)</span> to be <span class="math display">\[
+  [x]^- = \inf \, \{y \in \mathbb{R}, \; [x] = [y]\}
+  \; \mbox{ and } \;
+  [x]^+ = \sup \, \{y \in \mathbb{R}, \; [x] = [y]\}
+  \]</span> and the step of the quantization at point <span class="math inline">\(x\)</span> is <span class="math display">\[
+  \Delta(x) = [x]^+ - [x]^-
+  \]</span></p>
+<section id="example-integer-rounding" class="level3">
+
+<div class="p"><h3><a href="#example-integer-rounding">Example – Integer Rounding</a></h3>The floor function <span class="math inline">\(\lfloor \, \cdot \, \rfloor\)</span> is a scalar quantizer that maps a real number to the largest previous integer: <span class="math display">\[
+  \forall \, x \in \mathbb{R}, \; \lfloor x \rfloor \in \mathbb{Z}
+  \; \mbox{ and } \;
+  \lfloor x \rfloor \leq x &lt; \lfloor x \rfloor + 1
+  \]</span> A natural forward quantizer for <span class="math inline">\(\lfloor \, \cdot \, \rfloor\)</span> is … itself ! The identity <span class="math inline">\(n \mapsto n\)</span> is the corresponding inverse mapping. This quantizer partitions the real-line into the half-open intervals <span class="math inline">\(I_n = [n, n+1)\)</span> for any <span class="math inline">\(i \in \mathbb{Z}\)</span>.</div>
+<p>The <code>floor</code> function of NumPy is an finite-precision implementation of this function. Its argument and return value are (arrays of) 64-bits floating-point numbers.</p>
+<p>To obtain a (forward) quantizer with a finite range indexable on <span class="math inline">\(32\)</span> bits, we may modify the initial quantizer specification so that the data outside of the range <span class="math inline">\([-2^{31}, 2^{31} - 1]\)</span> – the range of 32-bit signed integers – is clipped: <span class="math display">\[
+  \lfloor x \rfloor_{32} = 
+  \left|
+  \begin{array}{rl}
+  -2^{31}     &amp; \mbox{if } \, x \leq -2^{31}     \\
+   2^{31} - 1 &amp; \mbox{if } \, x \geq  2^{31} - 1 \\
+  \lfloor x \rfloor      &amp; \mbox{otherwise.} 
+  \end{array}
+  \right.
+  \]</span> Given those modifications, a suitable finite implementation of the forward and inverse quantizers is the following <code>code/decode</code> pair:</p>
+<pre><code>from numpy import *
+
+def encode(x):
+    n = floor(x)
+    n = clip(n, -2**31, 2**31 - 1)                          
+    return int32(n)
+
+def decode(n):                
+    return float64(n)
+
+def quantize(x):
+    return decode(encode(x))</code></pre>
+<p>The step function <span class="math inline">\(\Delta\)</span> of this quantization is defined by: <span class="math display">\[
+  \Delta (x) = \left|
+  \begin{array}{rl}
+  +\infty &amp; \mbox{if } \; x &lt; -2^{31} + 1   \\
+  1       &amp; \mbox{if } \;  -2^{31} + 1 \leq x  &lt; 2^{31}-1 \\
+  +\infty &amp; \mbox{if } \;  2^{31} - 1 \leq  x    
+  \end{array}
+  \right.
+  \]</span></p>
+<p>Other rounding functions may serve as the basis for similar schemes: the ceiling function <span class="math inline">\(\lceil \cdot \rceil\)</span> (NumPy function <code>ceil</code>) defined by: <span class="math display">\[
+  \forall \, x \in \mathbb{R}, \; \lceil x \rceil \in \mathbb{Z} 
+  \; \mbox{ and } \;
+  \lceil x \rceil - 1 &lt; x \leq \lceil x \rceil
+  \]</span> Instead of selecting the lower or upper integer approximation of <span class="math inline">\(x\)</span> we may also select the nearest: <span class="math display">\[
+    \forall \, x \in \mathbb{R}, \; | x - [x] |  = \min \, \{|x - n|, \, n \in \mathbb{Z}\}
+    \]</span> The value <span class="math inline">\([x]\)</span> is not defined by this relation when <span class="math inline">\(x = n + 1/2\)</span>, <span class="math inline">\(n\)</span> being an integer. The NumPy function <code>round\_</code> rounds for example such real number to the nearest even integer.</p>
+<p>This example suggests a general interface for quantizers. Such objects would provide an <code>encode</code> method for the forward quantization, a <code>decode</code> method for the inverse quantization and would be callable so that <code>quantizer(x)</code> would apply both steps to the data <code>x</code>. Such objects could inherit the following <code>Quantizer</code> base class:</p>
+<pre><code>class Quantizer(object):
+    "Quantizers Base Class."
+    def encode(self, data):
+        raise NotImplementedError("undefined forward quantizer")
+
+    def decode(self, data):
+        raise NotImplementedError("undefined inverse quantizer")
+    
+    def __call__(self, data):
+        return self.decode(self.encode(data))</code></pre>
+<p>We can then rewrite the above integer approximation quantizer as:</p>
+<pre><code>class RoundingQuantizer(Quantizer):
+    def __init__(self, rounding=floor, integer_type=int32):
+        self.rounding = rounding
+        self.integer_type
+
+    def encode(self, x):
+        x = array(x)
+        n = self.rounding(x)
+        n = clip(n, -2**31, 2**31 - 1)                          
+        return n.astype(self.integer_type)
+    
+    def decode(self, n):
+        n = array(n)         
+        return n.astype(float64)
+
+rounding_quantizer = RoundingQuantizer()</code></pre>
+<p>Note that this version of the quantizer is also vectorized: several values grouped in a NumPy array may be used as arguments to <code>encode</code> and <code>decode</code>. This is an implicit requirement that we expect all quantizer classes to follow for convenience.</p>
+</section>
+</section>
+<section id="uniform-quantization" class="level2">
+<h2><a href="#uniform-quantization">Uniform Quantization</a></h2>
+<p>A quantizer is uniform in an interval with lower bound <span class="math inline">\(a\)</span> and higher bound <span class="math inline">\(b\)</span> if its step function is constant in the interval. The size of the step is then directly connected to the width of the interval and the number <span class="math inline">\(N\)</span> of distinct values of <span class="math inline">\([x]\)</span> by <span class="math display">\[
+  \Delta(x) = \frac{b-a}{N}
+  \]</span></p>
+<p>The final option that characterizes the quantizer is the choice of the base rounding function. A reference implementation is then given by:</p>
+<pre><code>class Uniform(Quantizer):
+    def __init__(self, low=0.0, high=1.0, N=2**8, rounding=round_):
+        self.low = float(low)
+        self.high = float(high)
+        self.N = N
+        self.delta = (high - low) / self.N
+        self.rounding = rounding
+        
+    def encode(self, data):
+        low, high, delta = self.low, self.high, self.delta
+        data = clip(data, low + delta/2.0, high - delta/2)
+        flints = self.rounding((data - low) / delta - 0.5)
+        return array(flints, dtype=long)
+
+    def decode(self, i):
+        return self.low + (i + 0.5) * self.delta</code></pre>
+<p>Note that if the default value of <code>N</code> is selected – or more generally any even value – <span class="math inline">\([0] \neq 0\)</span>: the approximation error for <span class="math inline">\(0\)</span> is not zero. When this property may be an issues, odd values of <code>N</code> may be selected – for example <span class="math inline">\(2^8 - 1\)</span> so that <span class="math inline">\(0\)</span> is correctly approximated ; such a quantizer is called a <strong>midtread</strong> quantizer – opposed to the original <strong>midrise</strong> quantizer.</p>
+<figure>
+<img src="images/uniform-encoder.svg" alt="4-bit uniform encoder on (0,1): forward quantizer"><figcaption>4-bit uniform encoder on <span class="math inline">\((0,1)\)</span>: forward quantizer</figcaption>
+</figure>
+<figure>
+<img src="images/uniform-decoder.svg" alt="4-bit uniform decoder on (0,1): inverse quantizer"><figcaption>4-bit uniform decoder on <span class="math inline">\((0,1)\)</span>: inverse quantizer</figcaption>
+</figure>
+<section id="quantization-of-random-variables" class="level3">
+
+<div class="p"><h3><a href="#quantization-of-random-variables">Quantization of Random Variables</a></h3>Consider a random variable <span class="math inline">\(X\)</span> with values <span class="math inline">\(x \in \mathbb{R}\)</span> and a density of probability <span class="math inline">\(p(x)\)</span>. For any <span class="math inline">\([x]\)</span>, we may consider the event <span class="math inline">\([X] = [x]\)</span> with probability <span class="math display">\[
+  P([X]=[x]) = \int_{\{y \in \mathbb{R}, \; [y] = [x]\}} p(y) \, dy
+             = \int_{[x]^-}^{[x]^+} p(y) \, dy
+  \]</span> If the density <span class="math inline">\(p\)</span> is constant on every interval associated to the quantization, this equation may be simplified into: <span class="math display">\[
+  P([X]=[x]) =  p(x) \times \Delta(x)
+  \]</span> More generally, if the quantizer values <span class="math inline">\([x]\)</span> are dense enough – we say that the <strong>high resolution assumption</strong> is satisfied – then this relation holds approximately.</div>
+<p>The entropy attached to this collection of events is maximal when every event is equally likely, that is, under this approximation, when the step <span class="math inline">\(\Delta(x)\)</span> is proportional to the inverse of <span class="math inline">\(p(x)\)</span> <span class="math display">\[
+  \Delta(x) \propto \frac{1}{p(x)}
+  \]</span></p>
+</section>
+<section id="implementation-of-non-uniform-quantizers" class="level3">
+
+<div class="p"><h3><a href="#implementation-of-non-uniform-quantizers">Implementation of Non-Uniform Quantizers</a></h3>Non-uniform quantizers may be – at least conceptually – simply generated from uniform quantizers and non-linear transformations. If <span class="math inline">\([\, \cdot \,]\)</span> denotes a uniform quantizer and <span class="math inline">\(f\)</span> is an increasing mapping, the function <span class="math inline">\([\, \cdot \,]_f\)</span> defined by the equation <span class="math display">\[
+  [x]_f = (f^{-1} \circ [ \, \cdot \, ] \circ f) (x)
+  \]</span> and displayed in figure  is a nonlinear quantizer. The function <span class="math inline">\(f\)</span> is called the <strong>characteristic function</strong> of the quantizer. Depending on the selected range for the uniform quantizer, it is determined up to an affine transformation.</div>
+<figure>
+<img src="images/nonlinear-quantization.svg" alt="Nonlinear quantizer implementation"><figcaption>Nonlinear quantizer implementation</figcaption>
+</figure>
+<p>Note that if <span class="math inline">\(f\)</span> is linear or affine, that is <span class="math inline">\(f(x) = ax+b\)</span>, the quantizer <span class="math inline">\([\, \cdot \,]_f\)</span> is still uniform – that’s a reason why uniform quantizers are sometimes called <strong>linear quantizers</strong>.</p>
+<p>Let <span class="math inline">\(\Delta\)</span> be the step of the uniform quantizer et let’s determine what quantization step <span class="math inline">\(\Delta_f(x)\)</span> is attached to this scheme.</p>
+<p>For every value of <span class="math inline">\(x\)</span>, the decision values attached to <span class="math inline">\(y = f(x)\)</span> by the uniform quantizer are <span class="math inline">\([y]^-\)</span> and <span class="math inline">\([y]^+\)</span>. Hence, the decision values for <span class="math inline">\(x\)</span> and the non-linear quantization are <span class="math display">\[
+  [x]^-_f = f^{-1}([y]^-)
+  \, \mbox{ and } \,
+  [x]^+_f = f^{-1}([y]^+)
+  \]</span> and if the high resolution assumption is satisfied the step <span class="math inline">\(\Delta_f(x)\)</span> is : <span class="math display">\[
+   \Delta_f(x) = f^{-1}([y]^- + \Delta) - f^{-1}([y]^-) \simeq (f^{-1})'(f(x)) \Delta = \frac{\Delta}{f'(x)}
+   \]</span> something that is remembered as <span class="math display">\[
+   \Delta_f(x) \propto \frac{1}{f'(x)}
+   \]</span> The proportionaly constant may be easily recovered by noting that when <span class="math inline">\(f(x)=x\)</span>, <span class="math inline">\([\, \cdot \, ]_f = [\, \cdot \,]\)</span> and therefore <span class="math inline">\(\Delta(x) = \Delta\)</span>. If we impose moreover <span class="math inline">\(f(0) = 0\)</span>, we find <span class="math display">\[
+   \label{BOOGA} f(x) \propto \int_0^x \frac{ds}{\Delta(s)}
+   \]</span> If the quantizer is to maximize the entropy for the random variable <span class="math inline">\(X\)</span> with density <span class="math inline">\(p(x)\)</span> we obtain</p>
+<p><span class="math display">\[\label{BOOGAD} 
+   f(x) \propto \int_0^x p(y) \, dy 
+   \]</span></p>
+<section id="example" class="level4">
+
+<div class="p"><h4><a href="#example">Example</a></h4>Let’s consider the digital audio signal displayed in figure .</div>
+<p>The uniform quantization on <span class="math inline">\((-1,1)\)</span> with step <span class="math inline">\(\Delta = 10^{-1}\)</span> is dense enough so that the associated histogram may be considered as a continuous function of the parameter <span class="math inline">\(x\)</span>. We observe in figure  that this partition generates – for a large range of values of <span class="math inline">\(x\)</span> – a counting measure <span class="math inline">\(n(x)\)</span> of a few thousands. The ratio <span class="math inline">\(n(x)/n\)</span> where <span class="math inline">\(n\)</span> is the total number of samples should therefore generate a good approximation of the density of the signal, considered as a sequence of independent and identically distributed values.</p>
+<figure>
+<img src="images/legend-extrait.svg" alt="Around 20 seconds of audio data"><figcaption>Around 20 seconds of audio data</figcaption>
+</figure>
+<figure>
+<img src="images/histo-raw.svg" alt="Audio Data Histogram"><figcaption>Audio Data Histogram</figcaption>
+</figure>
+<p>The logarithm of the histogram is similar to a function of the type <span class="math inline">\(-a |x| +b\)</span>, <span class="math inline">\(a&gt;0\)</span> (cf fig. ). We therefore select <span class="math inline">\(p(x) \propto \exp(-a|x|)\)</span>. The optimal quantization – for the entropy criterion – and the corresponding characteristic function <span class="math inline">\(f\)</span> such that <span class="math inline">\(f(0)=0\)</span> are therefore given by: <span class="math display">\[
+  \Delta(x) \propto e^{a|x|} 
+  \; \mbox{ and } \;
+  f(x) \propto \mathrm{sign}\,(x) (1-e^{-a|x|})
+  \]</span></p>
+<figure>
+<img src="images/histo-log.svg" alt="Log plot of the audio data histogram"><figcaption>Log plot of the audio data histogram</figcaption>
+</figure>
+</section>
+</section>
+</section>
+</section>
+<section id="logarithmic-quantization" class="level1">
+<h1><a href="#logarithmic-quantization">Logarithmic Quantization</a></h1>
+<p>We consider in this section several related quantizers whose characteristic function is – roughly speaking – the logarithm of their argument.</p>
+<section id="the-mu-law-quantizer" class="level2">
+<h2><a href="#the-mu-law-quantizer">The <span class="math inline">\(\mu\)</span>-law Quantizer</a></h2>
+<p>Consider the probability law <span class="math display">\[ \label{PL}
+   p(x) \propto 
+   \left| 
+   \begin{array}{cl}
+   \displaystyle \frac{1}{1+\mu|x|/A} &amp; \mbox{ if } \, |x|\leq A, \\
+   0     &amp; \mbox{ otherwise. }
+   \end{array}
+   \right.
+   \]</span></p>
+<p>The threshold <span class="math inline">\(A\)</span> is necessary as otherwise the right-hand side of the equation would not be summable. The parameter <span class="math inline">\(a\)</span> controls directly the relative probability of low and high amplitude values as <span class="math inline">\(p(\pm A)/p(0)= 1/(1 + \mu)\)</span>. In the limit case <span class="math inline">\(\mu=0\)</span>, we end up with a uniform probability distribution on <span class="math inline">\([-A, A]\)</span>.</p>
+<p>The optimal quantizer for the entropy criterion satisfies () and therefore the characteristic function <span class="math inline">\(f\)</span> such that <span class="math inline">\(f(0)=0\)</span> satisfies <span class="math display">\[
+  f(x) \propto  \mathrm{sign}\,(x) \ln \left(1 + \mu \frac{x}{A}\right).
+  \]</span> If we limit the range of the quantizer to <span class="math inline">\([-1,1]\)</span> (we set <span class="math inline">\(A=1\)</span>) and enforce the constraint <span class="math inline">\(f([-1, 1]) = [-1, 1]\)</span>, we end up with <span class="math display">\[
+   f(x) = \mathrm{sign}\,(x) \frac{\log \left(1 + \mu|x| \right)}{\log(1+\mu)}
+   \]</span> This quantization scheme is called <span class="math inline">\(\mu\)</span>-law and is for example used in the NeXT/Sun AU audio file format (files with extension <code>.au</code> or <code>.snd</code>). The actual implementation of the law, specified in the ITU-T G.711 standard – differs slightly from the theoretical formulas. A reference implementation is given in the code below:</p>
+<pre><code>class MuLaw(Quantizer):
+    """
+    Mu-law quantizer
+    """
+    scale  = 32768
+    iscale = 1.0 / scale
+    bias   = 132
+    clip   = 32635
+    etab   = array([0, 132, 396, 924, 1980, 4092, 8316, 16764])
+    
+    @staticmethod
+    def sign(data):
+        """
+        Sign function such that sign(+0) = 1 and sign(-0) = -1
+        """
+        data = array(data, dtype=float)
+        s = numpy_sign(data)
+        i = where(s==0)[0]
+        s[i] = numpy_sign(1.0 / data[i])
+        return s
+
+
+    def encode(self, data):
+        data = array(data)
+        s = MuLaw.scale * data
+        s = minimum(abs(s), MuLaw.clip)
+        [f,e] = frexp(s + MuLaw.bias)
+
+        step  = floor(32*f) - 16    # 4 bits
+        chord = e - 8               # 3 bits
+        sgn   = (MuLaw.sign(data) == 1)   # 1 bit
+
+        mu = 16 * chord + step      # 7-bit coding
+        mu = 127 - mu               # bits inversion
+        mu = 128 * sgn + mu         # final 8-bit coding
+        
+        return array(mu, dtype=uint8)
+    
+    def decode(self, i):
+        i = array(i)
+        i = 255 - i
+        sgn = i &gt; 127
+        e = array(floor(i / 16.0) - 8 * sgn + 1, dtype=uint8)
+        f = i % 16
+        data = ldexp(f, e + 2)
+        e = MuLaw.etab[e-1]
+        data = MuLaw.iscale * (1 - 2 * sgn) * (e + data)
+        
+        return data
+
+mulaw = MuLaw()</code></pre>
+<p>Note that this code is applied to values between <span class="math inline">\(-1\)</span> and <span class="math inline">\(1\)</span> and uses 8 bits. The most significant bit encodes the sign; the amplitude of the signal is coded by the 7 remaining bits. The effective value of <span class="math inline">\(\mu\)</span> is approximately 250 but instead of using the expression <span class="math inline">\(\log(1+\mu|x|)\)</span>, we prefer a piecewise affine approximation of it (see fig ). The values <span class="math inline">\([x]\)</span> are then all multiples of <span class="math inline">\(2^{-13}\)</span> which limits the additional quantization error when the original signal is initially encoded with a uniform law using 14 bits or more. To ease the error correction when transmitted the bits other than the sign bit are finally inverted.</p>
+<p><img src="images/mu-law-decode-final.svg" alt="\mu-law forward quantizer"> <img src="images/mu-law-encode-final.svg" alt="\mu-law inverse quantizer (partial view)"></p>
+</section>
+<section id="ieee754-floating-point-numbers-and-a-law" class="level2">
+<h2><a href="#ieee754-floating-point-numbers-and-a-law">IEEE754 Floating-Point Numbers and <span class="math inline">\(A\)</span>-law</a></h2>
+<p>All scientific computing applications use implicitely a quantizer: the quantizer that represents approximation of real numbers in the floating-point arithmetic. The description of two types of numbers – <code>single</code> and <code>double</code> (or rather, single and double-precision numbers) – is detailled in the IEEE 754 standard. In both cases, 1 bit is allocated to code the sign of the number, <span class="math inline">\(m\)</span> bits for the exponent part and <span class="math inline">\(n\)</span> bits for the fraction part, <span class="math display">\[
+  s \in \{0,1\}, \; e \in \{0, \cdots, 2^{m}-1\}, \; f \in \{0,\cdots, 2^{n}-1\}
+  \]</span> consequently any real number is represented by an integer in <span class="math inline">\(\{0, \cdots, 2^{m+n+1}\}\)</span> according to: <span class="math display">\[
+  n = s \times 2^{m+n} + e \times 2^n + f \in \{0,\cdots, 2^{m+n+1}\} 
+  \]</span> The <code>single</code> type is defined by <span class="math inline">\((m,n)=(8,23)\)</span> and the <code>double</code> type by <span class="math inline">\((m,n)=(11,52)\)</span> ; they are respectively coded on 32 and 64 bits.</p>
+<p>We define <span class="math display">\[
+  e_0 = 2^{m-1} - 1
+  \]</span> so that the value of the actual exponent <span class="math inline">\(e-e_0\)</span> range (almost symmetrically) from <span class="math inline">\(2^{m-1}\)</span> to <span class="math inline">\(-2^{m-1}+1\)</span>. The inverse quantizer attached to the standard floating point number representation is defined as follows: for an integer <span class="math inline">\(n\)</span>, <span class="math inline">\([x] = i^{-1}(n)\)</span> is given by <span class="math display">\[
+  [x] = \left|
+    \begin{array}{rc}
+    NaN &amp; \mbox{if } e = 2^{m}-1 \mbox{ and } f \neq 0 \\
+    (-1)^s \infty &amp; \mbox{if } e = 2^{m}-1 \mbox{ and } f = 0 \\
+    (-1)^s (1 + f / 2^{n}) \times 2^{e - e_0} &amp; \mbox{if }  \; 0 &lt; e &lt; 2^{m}-1  \\
+    (-1)^s ( f / 2^{n}) \times 2^{1 - e_0} &amp; \mbox{if } \; e = 0\;
+    \end{array}
+   \right.
+  \]</span></p>
+<p>The structure of theses inverse quantizers are displayed in the figure ; they are piecewise affine approximation of an exponential with a base of 2, except in the range <span class="math inline">\(e=0\)</span> (the so-called <strong>denormalized numbers</strong>) where the graph is linear.</p>
+<p>[graph of the inverse quantizer for a floating point representation such that <span class="math inline">\((m,n)=(4,3)\)</span>] (images/float.pdf)</p>
+<p>The <span class="math inline">\(A\)</span>-law is a variant of the <span class="math inline">\(\mu\)</span>-law that has a structure similar the <code>single</code> and <code>double</code> types of floating point arithmetic but with a base different from 2. Given a value of <span class="math inline">\(A\)</span> (often <span class="math inline">\(87.7\)</span>), the inverse of its characteristic function is defined on <span class="math inline">\([-1, 1]\)</span> by <span class="math display">\[
+  f^{-1}(x) = \mathrm{sgn}\, (x) \times \left|
+  \begin{array}{rl}
+  (1+\ln A) |x|/A &amp; \mbox{if } \; |x| &lt; \frac{1}{1+\ln A} \\
+  \exp(x(1+\ln A)-1)/A &amp; \mbox{otherwise.}
+  \end{array}
+  \right.
+  \]</span></p>
+</section>
+</section>
+<section id="signal-to-noise-ratio" class="level1">
+<h1><a href="#signal-to-noise-ratio">Signal-to-Noise Ratio</a></h1>
+<section id="computation-of-the-signal-to-noise-ratio" class="level2">
+<h2><a href="#computation-of-the-signal-to-noise-ratio">Computation of the signal-to-noise ratio</a></h2>
+<p>For a given sequence of <span class="math inline">\(k\)</span> values <span class="math inline">\(x_n\)</span>, the output <span class="math inline">\([x_n]\)</span> of a quantizer may be interpreted as the sum of the original value and a perturbation sequence <span class="math inline">\(b_n= [x_n] - x_n\)</span> called a <strong>noise</strong>. The square of the signal-to-noise ratio – or SNR – is simply the ratio between the energies of those two values: <span class="math display">\[
+  \mathrm{SNR}^2 
+  = 
+  \frac{ \displaystyle\mathbb{E}sp \left( \sum_{n=0}^{k-1} x_n^2 \right) }{ \displaystyle \mathbb{E}sp \left( \sum_{n=0}^{k-1} b_n^2 \right) } 
+  \]</span> The SNR is often measured in <strong>decibels</strong> (dB): <span class="math display">\[
+  \mathrm{SNR} \; \mbox{[dB]} = 20 \log_{10} \mathrm{SNR} = 10 \log_{10} \mathrm{SNR}^2 
+  \]</span></p>
+When the values <span class="math inline">\(x_n\)</span> are independent and follow the same probability law <span class="math inline">\(p(x)\)</span>, this energy is given by <span class="math display">\[
+  \mathbb{E} \left( \sum_{n=0}^{p-1} x_n^2 \right) = k \, 
+  \mathbb{E} \left( x_n^2 \right) = k   \int_{-\infty}^{+\infty} x^2 p(x) \, dx
+  \]</span> and under a high resolution assumption we have
+<span class="math display">\[\begin{eqnarray*}
+  \mathbb{E}sp( b_n^2) &amp;=&amp;       \int_{-\infty}^{+\infty} ([x]-x)^2 p(x)\, dx                     \\
+                &amp;=&amp;       \sum_y \int_{y}^{y+\Delta(y)} ([x]-x)^2 p(x)\, dx                \\
+                &amp;\simeq&amp;  \sum_y p(y) \int_{y}^{y+\Delta(y)} (y +  \Delta(y)/2 -x)^2 \, dx \\
+                &amp;=&amp;       \sum_y p(y) \frac{\Delta(y)^3}{12}                               \\
+                &amp;\simeq&amp;  \sum_y \int_{y}^{y+\Delta(y)} \frac{\Delta(x)^2}{12} p(x) \, dx   \\
+                &amp;=&amp;       \int_{-\infty}^{+\infty}  \frac{\Delta(x)^2}{12} p(x)\, dx       \\
+                &amp;=&amp;       \frac{1}{12} \mathbb{E}sp \left( \Delta(x_n)^2 \right) \label{noise-square}
+  \end{eqnarray*}\]</span>
+<p>Finally <span class="math display">\[ \label{SNRSNR}
+   \mathrm{SNR}^2 = 12\frac{\mathbb{E}sp(x_n^2)}{\mathbb{E}sp(\Delta(x_n)^2)} 
+   = 
+   12
+   \frac
+   { 
+       \displaystyle \int_{\mathbb{R}} x^2 p(x) \, dx
+   }
+   {
+       \displaystyle \int_{\mathbb{R}}  \Delta(x)^2 p(x)\, dx
+   }
+   \]</span> In the typical case where the probability density of the signal is uniform on <span class="math inline">\([-A, A]\)</span> and the quantization is uniform on this range with a step <span class="math inline">\(\Delta\)</span>, we end up with <span class="math display">\[
+  {\mathrm{SNR} = 2 A/\Delta}
+  \]</span></p>
+<section id="maximization-of-the-snr" class="level3">
+
+<div class="p"><h3><a href="#maximization-of-the-snr">Maximization of the SNR</a></h3>For a given density of probability, how can we select the quantization scheme so that the SNR is maximal ? Formulated like that, this problem is not well-posed because the quantization noise may be made a small as possible with a decrease of the quantization step. The significant problem is to solve this problem under a constant bit budget. Without any loss of generality, we may assume that the signal has values in <span class="math inline">\([-1, 1]\)</span> and that the characteristic function of the searched quantization satisfies <span class="math inline">\(f([-1,1])=[-1,1]\)</span>. If we allocate <span class="math inline">\(N\)</span> bits to the quantization scheme, the step <span class="math inline">\(\Delta(x)\)</span> is determined by <span class="math display">\[
+   \Delta(x) = \frac{2^{-N+1}}{f'(x)}
+   \]</span> The SNR then takes the form <span class="math display">\[
+   \mathrm{SNR} = \kappa 2^N
+   \]</span> where the value of <span class="math inline">\(\kappa\)</span> depend only from the probability law of the signal and of the choice of <span class="math inline">\(f\)</span>. In decibels, this equation is written as <span class="math display">\[
+  \mathrm{SNR} \; \mbox{[dB]} \simeq 6.02 \times N + \kappa'
+  \]</span> that is, every extra bit increase the SNR by approximately 6 dB. To maximize the SNR, we then have to solve <span class="math display">\[
+   \min_{f'} \int_{-1}^1  \frac{1}{f'(x)^2} p(x)\, dx
+   \; \mbox{ subject to } \;
+   f(1)-f(-1) = 2
+   \]</span> or even, with <span class="math inline">\(\psi = f'\)</span> <span class="math display">\[
+   \min_{\psi} J(\psi) = \int_{-1}^1 \frac{1}{\psi(x)^2} p(x)\, dx
+   \; \mbox{ with } \;
+   K(\psi)= \int_{-1}^1 \psi(x) \, dx = 2
+   \]</span> At the optimum, there is a <span class="math inline">\(\lambda \in \mathbb{R}\)</span> such that the lagrangian <span class="math inline">\(L(\psi) = J(\psi)+\lambda K(\psi)\)</span> satisfies <span class="math inline">\(d L(\psi) =0\)</span>, that is <span class="math display">\[
+   \mbox{for all } \, \delta \psi: [-1,1] \to \mathbb{R}, \;
+   \int_{-1}^1 \left(-\frac{2}{\psi(x)^3} p(x) + \lambda \right) (\delta \psi)(x)\, dx =0
+   \]</span> and that implies <span class="math display">\[
+   -\frac{2}{\psi(x)^3} p(x) + \lambda = 0 
+   \]</span> and hence <span class="math display">\[
+   f'(x) \propto (p(x))^{\frac{1}{3}}.
+   \]</span></div>
+</section>
+</section>
+</section>
+</main>
+
+
+</body></html>

@@ -1,1 +1,949 @@
-/www/audio/Prediction/Prediction.html
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, Mines ParisTech">
+  <title>Prediction</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+}
+*, table {
+  padding: 0;
+}
+*, html main {
+  box-sizing: content-box;
+}
+*, nav#TOC .badge {
+  vertical-align: baseline;
+}
+html, main > header .author, main > header .date, main > .header .author, main > .header .date, main > #header .author, main > #header .date, h2, .section-flag {
+  line-height: 36px;
+}
+html, main > header .author, main > header .date, main > .header .author, main > .header .date, main > #header .author, main > #header .date, h2, h3, h4, h5, h6, code {
+  font-size: 24px;
+}
+html {
+  font-style: normal;
+  font-family: Alegreya, serif;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html, main > header .author, main > header .date, main > .header .author, main > .header .date, main > #header .author, main > #header .date, nav#TOC > ul ul li {
+  font-weight: normal;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote {
+  quotes: none;
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+}
+blockquote, html main {
+  padding: 36px;
+}
+blockquote, html p, html .p, html section, main > header h1, main > .header h1, main > #header h1, pre, figure, .table, nav#TOC > ul > * {
+  margin-bottom: 36px;
+}
+blockquote:before, blockquote:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  border-top: medium solid black;
+}
+table, img {
+  margin-left: auto;
+  margin-right: auto;
+}
+table, thead {
+  border-bottom: medium solid black;
+}
+html em, figcaption {
+  font-style: italic;
+}
+html strong, main > header h1, main > .header h1, main > #header h1, h1, h2, h3, h4, h5, h6, nav#TOC > ul {
+  font-weight: bold;
+}
+html p, html .p, figcaption {
+  text-align: justify;
+}
+html p, html .p {
+  hyphens: auto;
+  -moz-hyphens: auto;
+}
+html main {
+  max-width: 32em;
+  margin: auto;
+}
+main > header, main > .header, main > #header, h1 {
+  margin-top: 72px;
+}
+main > header, main > .header, main > #header {
+  margin-bottom: 72px;
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: 54px;
+  margin-top: 0px;
+}
+main > header .author, main > header .date, main > .header .author, main > .header .date, main > #header .author, main > #header .date, h2 {
+  margin-bottom: 18px;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: "Alegreya SC", serif;
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  line-height: 45px;
+  margin-bottom: 27px;
+}
+h3, h4, h5, h6, nav#TOC .badge {
+  margin-right: 1em;
+}
+h3, h4, h5, h6 {
+  display: inline;
+}
+a {
+  cursor: pointer;
+  outline: 0;
+}
+a, a:hover {
+  text-decoration: none;
+}
+a:link, a:visited {
+  color: black;
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li, nav#TOC > ul li {
+  list-style-type: none;
+}
+li {
+  list-style-image: none;
+  list-style-position: outside;
+  padding-left: 0.5em;
+}
+li, nav#TOC > ul ul li {
+  margin-left: 36px;
+}
+ul li {
+  list-style: disc;
+}
+ol li {
+  list-style: decimal;
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-family: Inconsolata;
+}
+pre, .table, .MJXc-display {
+  overflow-x: auto;
+}
+pre {
+  background-color: #ebebeb;
+  padding-left: 36px;
+  padding-right: 36px;
+  padding-top: 36px;
+}
+pre, nav#TOC > ul > li.top-li {
+  padding-bottom: 36;
+}
+img {
+  display: block;
+  height: auto;
+}
+img, .table, .MJXc-display {
+  width: 100%;
+}
+figure, nav#TOC .badge {
+  text-align: center;
+}
+figcaption, nav#TOC .badge {
+  display: inline-block;
+}
+.table, .MJXc-display {
+  overflow-y: hidden;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+nav#TOC > ul, nav#TOC .badge {
+  position: relative;
+}
+nav#TOC > ul li {
+  margin-left: 0;
+  padding-left: 0;
+}
+.section-flag, nav#TOC .badge {
+  font-size: 17px;
+  font-weight: 300;
+  font-family: Alegreya Sans SC;
+}
+.section-flag, nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+}
+nav#TOC > ul > li.top-li {
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+nav#TOC .badge {
+  bottom: 0.13em;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+}
+</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,800,800italic,900,900italic|Alegreya+Sans+SC:400,100,300,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+SC:400,400italic,700,700italic,900,900italic|Alegreya:400,700,900,400italic,700italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.12.3
+(function() {
+  $(function() {
+    return console.log("HELLO FROM DEMO!");
+  });
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.12.3
+(function() {
+  var hide_proof, main, show_proof;
+
+  hide_proof = function(section) {
+    var clone, div, header, id, new_paragraph;
+    clone = section.clone();
+    id = section.attr("id");
+    clone.attr({
+      id: id + "---"
+    });
+    div = $("<div></div>");
+    div.css({
+      display: "none"
+    });
+    div.append(clone);
+    header = section.find("h3, h4, h5, h6").first().clone();
+    new_paragraph = $("<div class='p'></div>").append(header);
+    new_paragraph.append("<i class='fa fa-caret-down expand' style='float:right;cursor:pointer;'></i>");
+    section.empty();
+    section.append(new_paragraph);
+    section.append(div);
+    return section.find("i.expand").on("click", (function(section) {
+      return function() {
+        return show_proof(section);
+      };
+    })(section));
+  };
+
+  show_proof = function(section) {
+    var tombstone;
+    section.children().first().remove();
+    section.html(section.children().first().html());
+    tombstone = section.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer"
+    });
+    return tombstone.on("click", (function(section) {
+      return function() {
+        return hide_proof(section);
+      };
+    })(section));
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, results, section, sections, text;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    results = [];
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      results.push(hide_proof(section));
+    }
+    return results;
+  };
+
+  $(main);
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">Prediction</a></h1>
+
+<h2 class="author">
+By <a href="Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, <a href="http://www.mines-paristech.fr/">Mines ParisTech</a>
+</h2> 
+
+<h3 class="date">1 June, 2015</h3>
+</header>
+<section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
+<ul>
+<li class="top-li"><p class="section-flag">section 1</p><a href="#prediction-principles">Prediction Principles</a><ul>
+<li><a href="#polynomial-prediction">Polynomial Prediction</a></li>
+<li><a href="#optimal-linear-prediction">Optimal Linear Prediction</a><ul>
+<li><a href="#additional-properties-of-the-autocorrelation-method">Additional Properties of the Autocorrelation Method</a></li>
+<li><a href="#linear-prediction-of-unlimited-order-white-noise">Linear Prediction of Unlimited Order – White Noise</a></li>
+<li></li>
+</ul></li>
+<li><a href="#finite-impulse-response-fir-filters">Finite Impulse Response (FIR) Filters</a></li>
+<li><a href="#auto-regressive-ar-filters">Auto-Regressive (AR) Filters</a><ul>
+<li><a href="#autoregressive-ar-filters">Autoregressive (AR) filters</a></li>
+</ul></li>
+<li><a href="#transfer-function-stability-and-frequency-response">Transfer Function, Stability and Frequency Response</a><ul>
+<li><a href="#transfer-function">Transfer Function</a></li>
+<li><a href="#stability">Stability</a></li>
+<li><a href="#frequency-response">Frequency Response</a></li>
+</ul></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 2</p><a href="#voice-analysis-and-synthesis">Voice Analysis and Synthesis</a><ul>
+<li><a href="#the-timit-corpus">The TIMIT corpus</a></li>
+<li><a href="#voice-analysis-and-compression">Voice Analysis and Compression</a><ul>
+<li><a href="#short-term-prediction">Short-Term Prediction</a></li>
+<li><a href="#spectral-analysis">Spectral Analysis</a></li>
+<li><a href="#models-of-the-vocal-tract">Models of the Vocal Tract</a></li>
+<li><a href="#continuous-modelling.">Continuous Modelling.</a></li>
+<li><a href="#pitch-analysis">Pitch Analysis</a></li>
+<li><a href="#long-term-prediction">Long-Term Prediction</a></li>
+</ul></li>
+<li><a href="#linear-prediction-coding">Linear Prediction Coding</a><ul>
+<li><a href="#adaptative-predictive-coding-apc">Adaptative Predictive Coding (APC)</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav></section>
+<section id="prediction-principles" class="level1">
+<h1><a href="#prediction-principles">Prediction Principles</a></h1>
+<p>Prediction relies on the signal past and current values to estimate its future values. Such process relies on a given class of models, supposed to rule the behavior of the signal whose parameters shall be identified. This step being achieved, we may compute the <strong>prediction error</strong> or <strong>residual</strong>, the difference between the actual signal values and the predicted values. % In the context of data compression, and if the model used for prediction is accurate, the prediction error has a much smaller range than the original values and therefore may be coded more efficiently.</p>
+<section id="polynomial-prediction" class="level2">
+<h2><a href="#polynomial-prediction">Polynomial Prediction</a></h2>
+<p>Polynomial prediction is one of the simplest fixed-parameter prediction schemes. Given <span class="math inline">\(m\)</span> sample values <span class="math inline">\(x_0\)</span>, <span class="math inline">\(x_1\)</span>, <span class="math inline">\(\cdots\)</span>, <span class="math inline">\(x_{m-1}\)</span>, we identify the unique polynomial <span class="math inline">\(P\)</span> of order at most <span class="math inline">\(m-1\)</span> such that <span class="math display">\[
+  \forall \, n \in \{0,1,\cdots, m-1\}, \; P(n) = x_n
+  \]</span> and with it, provide a prediction <span class="math inline">\(\hat{x}_m\)</span> for the value <span class="math inline">\(x_m\)</span>: <span class="math display">\[
+  \hat{x}_m = P(m)
+  \]</span> The polynomial <span class="math inline">\(P\)</span>, given by <span class="math display">\[P(n) = \sum_{n=0}^{m-1} a_n j^n\]</span> is determined by the matrix equality <span class="math display">\[
+  \left[ 
+  \begin{array}{ccccc}
+  1 &amp; 0^1 &amp; 0^2 &amp; \hdots &amp; 0^{n-1} \\
+  1 &amp; 1^1 &amp; 1^2 &amp; \hdots &amp; 1^{n-1} \\
+  \vdots &amp;\vdots &amp; \vdots &amp; \hdots &amp; \vdots \\
+  1 &amp; (n-1)^1 &amp; (n-1)^2 &amp; \hdots &amp; {n-1}^{n-1}
+  \end{array}
+  \right] 
+  \left[ 
+  \begin{array}{c}
+  a_0 \\
+  a_1 \\
+  \vdots \\
+  a_{n-1}
+  \end{array}
+  \right]
+  =
+  \left[  
+  \begin{array}{c}
+  x_0 \\
+  x_1 \\
+  \vdots \\
+  x_{n-1}
+  \end{array}
+  \right]
+  \]</span> The matrix on the left-hand side is an invertible Vandermonde matrix, therefore the polynomial coefficients may be obtained from the signal values <span class="math inline">\(x_0\)</span>, <span class="math inline">\(x_1\)</span>, <span class="math inline">\(\cdots\)</span>, <span class="math inline">\(x_{n-1}\)</span> and <span class="math inline">\(\hat{x}_n\)</span> can be computed.</p>
+<p>The prediction error <span class="math inline">\(e_n = x_n - \hat{x}_n\)</span> may be computed efficiently. Consider a signal <span class="math inline">\(x_n\)</span> whose values are stored in the NumPy array <code>x</code>, and let’s begin with a polynomial prediction of order <span class="math inline">\(0\)</span> or <strong>difference coding</strong> ; our prediction model is that the signal is constant. We may compute at once all the prediction errors <span class="math inline">\(e_n = x_n - x_{n-1}\)</span> for the signal with</p>
+<pre><code>e = diff(x) = [x[1] - x[0], x[2] - x[1], ...]</code></pre>
+<p>However, we end up with a vector with only <code>len(x) - 1</code> values : <span class="math inline">\(e_0\)</span> is undefined and <code>e[0]</code> would be <span class="math inline">\(e_1\)</span>; we would have no information about the first value of the signal <code>x[0]</code> in <code>e</code>. We therefore add <span class="math inline">\(x[0]\)</span> as the first value of <code>e</code>. This is the same as taking into account a supposedly zero value <code>x[-1]</code> of the signal, and may by adding <code>0</code> to the beginning of <span class="math inline">\(x\)</span> before applying the difference operator:</p>
+<pre><code>e = diff(r_[0, x])</code></pre>
+<p>Reconstruction of <code>x</code> from the residual <code>e</code> can be done by computing the cumulative sum <span class="math inline">\(x_n = \sum_{i=0}^{n} e_n\)</span>:</p>
+<pre><code>x = cumsum(e)</code></pre>
+<p>What about first-order polynomial prediction then ? The formula for <span class="math inline">\(\hat{x}_n\)</span> is <span class="math inline">\(\hat{x}_n = x_{n-1} + (x_{n-1} - x_{n-2}\)</span> and the corresponding residual is <span class="math display">\[e_n = x_n - \hat{x_n} = x_{n} - 2 x_{n-1} + x_{n-2}
+= (x_{n} - x_{n-1}) - (x_{n-1} - x_{n-2}).\]</span> This residual may therefore by computed as :</p>
+<pre><code>e_0 = diff(r_[0, x])
+e = diff(r_[0, e_0])</code></pre>
+<p>and reconstruction is given as</p>
+<pre><code>e_0 = cumsum(e)
+x = cumsum(e_0)</code></pre>
+<p>This scheme may be generalized to a polynomial prediction of arbitrary order.</p>
+</section>
+<section id="optimal-linear-prediction" class="level2">
+<h2><a href="#optimal-linear-prediction">Optimal Linear Prediction</a></h2>
+<p>Consider the following problem: given a sequence <span class="math inline">\(\{x_n\}\)</span>, get the best linear approximation <span class="math inline">\(\hat{x}_n\)</span> of <span class="math inline">\(x_n\)</span> as a linear combinations of the <span class="math inline">\(m\)</span> previous samples: <span class="math display">\[\hat{x}_n = a_1 x_{n-1} + \cdots + a_{m}x_{n-m}.\]</span> Let’s be more precise: if the values <span class="math inline">\(x_0\)</span>, <span class="math inline">\(x_1\)</span>, <span class="math inline">\(\cdots\)</span>, <span class="math inline">\(x_{n-1}\)</span> are available, we can predict <span class="math inline">\(n-m\)</span> values and therefore measure the prediction error by the quadratic criterion: <span class="math display">\[
+    j(a) = \sum_{i=m}^{n-1} (x_i - a_1 x_{i-1} + \cdots + a_{m}x_{i-m})^2
+    \]</span> The process that produces the estimates <span class="math inline">\(\hat{x}_n\)</span> is known as a <strong>Wiener(-Hopf) filter</strong>. % The vectors <span class="math inline">\(a = (a_1, \cdots, a_m)\)</span> that minimize the quadratic error are therefore solution of <span class="math display">\[ \label{minP}
+    a = \mathrm{argmin}_x \, \|e\|^2, \; \mbox{ with } \; e = Ax - b
+    \]</span> where <span class="math display">\[ \label{Autoc}
+    A = \left[
+    \begin{array}{cccc}
+    x_{m-1} &amp; x_{m-2} &amp; \hdots &amp; x_{0}    \\
+    x_{m}   &amp; x_{m-1} &amp; \hdots &amp; x_{1}    \\
+    \vdots  &amp; \vdots  &amp; \vdots &amp; \vdots   \\
+    x_{n-2} &amp; x_{n-3} &amp; \hdots &amp; x_{n-m-1}
+    \end{array}
+    \right]
+    \; \mbox{ and } \;
+    b = \left[
+    \begin{array}{c}
+    x_{m}   \\
+    x_{m+1} \\
+    \vdots \\
+    x_{n-1}
+    \end{array}
+    \right]
+    \]</span> The analysis of this problem shows that there is a unique solution <span class="math inline">\(a=x\)</span> if <span class="math inline">\(A\)</span> is into that is if the square matrix <span class="math inline">\(A^{t}A\)</span> is full-rank (<span class="math inline">\(m\)</span>) and the solution is <span class="math display">\[ \label{lstsq-sol}
+    a = [A^tA]^{-1} A^t b
+    \]</span> Indeed, the function <span class="math inline">\(j(x) = \|A x - b\|^2\)</span> to minimize is quadratic in <span class="math inline">\(x\)</span>: <span class="math inline">\(j: x \mapsto 1/2 x^tQ x + Lx + c\)</span>. The Taylor decomposition at the point <span class="math inline">\(a\)</span> yields <span class="math inline">\(j(x) = j(a) + \nabla j(a)^t (x-a) + 1/2 (x-a)^t \nabla^2 j(a) (x-a)\)</span>. Any <span class="math inline">\(a\)</span> such that <span class="math inline">\(\nabla j(a) = 0\)</span> (here, with the full rank assumption, there is a unique solution) is a global minimum. A geometrical analysis would also have worked: a solution <span class="math inline">\(a\)</span> to the minimum problem has to be such that for any <span class="math inline">\(x\)</span>, the error vector <span class="math inline">\(e=b-Aa\)</span> and <span class="math inline">\(Ax\)</span> are orthogonal ; this also yields the condition (). The same geometrical anaylsis – or a direct computation – yields the error measure as by the Pythagorean Theorem, we have <span class="math inline">\(\|b\|^2 = \|Aa\|^2 + \|Aa-b\|^2\)</span> <span class="math display">\[ \label{lstsq_error}
+   \|e\|^2 = \|b\|^2 - \|Aa\|^2
+   \]</span> The full-rank assumption is not a problem in pratice: it just means that the signal data is rich enough to discriminate a unique optimal candidate <span class="math inline">\(x\)</span>. If that’s not the case, instead of <span class="math inline">\([A^tA]^{-1}A^t\)</span> we could use the pseudo-inverse of <span class="math inline">\(A^{\sharp}\)</span> of <span class="math inline">\(A\)</span>, defined as <span class="math display">\[
+  A^{\sharp} = \lim_{\epsilon \to 0} [A^tA + \epsilon I]^{-1} A^t
+  \]</span> such that <span class="math inline">\(a = A^{\sharp} b\)</span> provides among the solutions <span class="math inline">\(x\)</span> of the minimisation problem the one with the smallest norm.</p>
+<p>Instead of implementing ourself a solution of the minimization problem, we provide a reference implementation of the linear prediction problem that uses the NumPy function <code>linalg.lstsq</code> that solves this least-square (quadratic) minimization problem:</p>
+<pre><code>def lp(signal, m):
+    "Wiener predictor coefficients"
+    signal = ravel(signal)
+    n = len(signal)
+
+    A = array([signal[m - arange(1, m + 1) + i] for i in range(n-m)])
+    b = signal[m:n]
+    a = linalg.lstsq(A, b)[0]
+
+    return a</code></pre>
+<p>Estimation of the parameter <span class="math inline">\(a\)</span> as a solution of ( + )<br>
+is called the <strong>covariance method</strong>. We preseent now a variant of this process, called <strong>autocorrelation method</strong>, that is amenable to faster implementations and also has more pleasant properties, such as the stability of the inverse of error filters (see section ()).</p>
+<p>Consider the following change: add <span class="math inline">\(m\)</span> zeros at the start of <span class="math inline">\(\{x_n\}\)</span>, add <span class="math inline">\(m\)</span> zeros at the end, then apply the autocorrelation method. What we are trying to achieve is to predict ALL the values of <span class="math inline">\(x_n\)</span> (even when we don’t have all prior values) and conversely, for symmetry reasons that will be clearer in a moment, predict the trailing zeros from significant data as long as there is on usable sample.</p>
+<p>The implementation of a linear predictor solver that support both methods is simple:</p>
+<pre><code>def lp(signal, m, zero_padding=False):
+    "Wiener predictor coefficients"
+    signal = ravel(signal)
+    if zero_padding: # select autocorrelation method instead of covariance
+        signal = r_[zeros(m), signal, zeros(m)]
+    n = len(signal)
+
+    A = array([signal[m - arange(1, m + 1) + i] for i in range(n-m)])
+    b = signal[m:n]
+    a = linalg.lstsq(A, b)[0]
+
+    return a</code></pre>
+<p>Note that in the covariance methods, the new <span class="math inline">\(A\)</span> and <span class="math inline">\(b\)</span> are: <span class="math display">\[ \label{autocorrel}
+    A = \left[
+    \begin{array}{ccccc}
+    0 &amp; 0 &amp; \hdots &amp;  0 &amp; 0   \\
+    x_0 &amp; 0 &amp; \hdots &amp;  0 &amp; 0 \\
+    x_1 &amp; x_0 &amp; \hdots &amp; 0 &amp; 0 \\ 
+    \vdots  &amp; \vdots  &amp; \vdots &amp; \vdots &amp; \vdots  \\
+    x_{n-2} &amp; \hdots &amp;\hdots&amp;\hdots&amp; x_{n-m-1} \\
+    x_{n-1} &amp; \hdots &amp;\hdots&amp;\hdots&amp; x_{n-m} \\
+    \vdots  &amp; \vdots  &amp; \vdots &amp; \vdots &amp; \vdots  \\
+    0 &amp; \hdots &amp; \hdots &amp; x_{n-1} &amp;x_{n-2} \\
+    0 &amp; \hdots &amp; \hdots &amp; 0 &amp;x_{n-1} \\
+    \end{array}
+    \right]
+    \; \mbox{ and } \;
+    b = \left[
+    \begin{array}{c}
+    x_0 \\
+    x_{1}   \\
+    x_{2} \\
+    \vdots \\
+    x_{n-1} \\
+    0 \\
+    \vdots \\
+    0\\
+    0
+    \end{array}
+    \right]
+    \]</span> Set <span class="math inline">\(x_i = 0\)</span> if <span class="math inline">\(i&lt;0\)</span> or <span class="math inline">\(i\geq n\)</span> and <span class="math display">\[
+    c_j = \sum_{i=-\infty}^{+\infty} x_i x_{i-j}
+    \]</span> We now have <span class="math display">\[
+    C(m) = A^t A =\left[
+    \begin{array}{ccccc}
+    c_0 &amp; c_1 &amp; c_2 &amp;\hdots &amp;c_{m-1} \\
+    c_1 &amp; c_0 &amp; c_1 &amp;\hdots &amp; c_{m-2} \\
+    \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots \\
+    c_{m-1} &amp; c_{m-2} &amp; \hdots                         &amp; c_1         &amp; c_0
+    \end{array}
+    \right]
+    \; \mbox{ and } \;
+    A^t b = \left[
+    \begin{array}{c}
+    c_{1}   \\
+    c_{2} \\
+    \vdots \\
+    c_{m} 
+    \end{array}
+    \right] 
+    \]</span> The correlation matrix <span class="math inline">\(C(m) = A^t A\)</span> is is now symmetric but also <strong>Toeplitz</strong> (or <strong>diagonal-constant</strong>) and therefore efficient algorithms to solve the least-square problem exist. Note also that we could add MORE zeros before or after the data and that it wouldn’t change a thing: <span class="math inline">\(A\)</span> and <span class="math inline">\(b\)</span> change but <span class="math inline">\(A^tA\)</span> and <span class="math inline">\(A^tb\)</span> are the same. In this context, the set of scalare equations <span class="math display">\[
+  [A^t A] a = A^t b
+  \]</span> are called <strong>Wiener-Hopf</strong> equatons, <strong>Yule-Walker</strong> equations or <strong>normal equations</strong>.</p>
+<p>So the autocorrelation method naturally fits into the “infinite signals” point of view, strongly related to the convolution operator (see section ). To be more precise, consider the (causal) signal <span class="math inline">\(\{x_n\}\)</span> defined for ALL <span class="math inline">\(n\)</span> (by setting <span class="math inline">\(0\)</span> when not defined) and consider the signal <span class="math inline">\(\{a_n\}\)</span> defined in the same way (in particular, <span class="math inline">\(a_0=0\)</span>). Then, the (possibly) non-zero coeffs of <span class="math inline">\(\{a_n\}\ast\{x_n\}\)</span> and <span class="math inline">\(\{x_n\}\)</span> correspond to the following vectors: <span class="math display">\[
+   \{a_n\} \ast \{x_n\} \to A a \; \mbox{ and } \; \{x_n\} \to b
+   \]</span> so that the minimisation problem we are trying to solve really is: <span class="math display">\[
+   \{a_n\} = \mathrm{argmin} \, \|\{x_n\} - \{h_n\} \ast \{x_n\}\|^2
+   \]</span> among all strictly causal filters <span class="math inline">\({h_n}\)</span> with <span class="math inline">\(h_i=0\)</span> if <span class="math inline">\(i&gt; m\)</span>. Or if we introduce the prediction error filter <span class="math inline">\(b_0=1\)</span> and <span class="math inline">\(b_n = -a_n\)</span>, <span class="math display">\[
+   \{r_n\} = \mathrm{argmin} \, \|\{h_n\} \ast \{x_n\}\|^2
+   \]</span> among causal filters with <span class="math inline">\(h_0=1\)</span> and length less or equal to <span class="math inline">\(m+1\)</span>. This is a causal deconvolution problem.</p>
+<p>Note however, the completion of the signal by 0’s even if the result is questionable: if the real signal has values outside the window, they are probably not <span class="math inline">\(0\)</span>. It does not matter much when the length of the window is big with respect to the prediction order, but otherwise a the covariance method is probably more accurate.</p>
+<section id="additional-properties-of-the-autocorrelation-method" class="level3">
+
+<div class="p"><h3><a href="#additional-properties-of-the-autocorrelation-method">Additional Properties of the Autocorrelation Method</a></h3>Let <span class="math inline">\(r_n =(1,-a1, \cdots, -a_m)\)</span> be the coeffs of the prediction error filter. We are going to prove that: <span class="math display">\[
+    \left[
+    \begin{array}{ccccc}
+    c_0 &amp; c_1 &amp; c_2 &amp;\hdots &amp;c_{m} \\
+    c_1 &amp; c_0 &amp; c_1 &amp;\hdots &amp; c_{m-1} \\
+    \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots \\
+    c_{m} &amp; c_{m-1} &amp; \hdots                         &amp; c_1         &amp; c_0
+    \end{array}
+    \right] \left[
+    \begin{array}{c}
+    1 \\
+    -a_1 \\
+    \vdots \\
+    -a_{m-1}\\
+    -a_m
+    \end{array}
+    \right] = \left[
+    \begin{array}{c}
+    \|\{e_n\}\|^2 \\
+    0 \\
+    \vdots \\
+    0\\
+    0
+    \end{array}
+    \right]
+    \]</span> By the way, that gives us a new way to get the <span class="math inline">\(a_n\)</span>: get <span class="math inline">\(C(m+1)^{-1} [1,0,\cdots,0]^t\)</span> and normalize the result w.r.t. the first coefficient (whose meaning is interesting: the energy of the residual !). In the sequel, we denote <span class="math inline">\(\sigma_r = \|\{e_n\}\|\)</span>.</div>
+<p>All the <span class="math inline">\(0\)</span> of the equations are a direct consequence of <span class="math inline">\(AA^t a = A^tb\)</span>. The first coeff is equal to <span class="math inline">\(c_0 - [c_1,\cdots,c_m] \cdot a = c_0 - (A^t b) \cdot a = c_0 - b \cdot (Aa) = \|\{x_n\}\|^2 - \{x_n\}\cdot (\{a_n\}\ast\{x_n\})= \{x_n\}\cdot \{e_n\}\)</span>. But by the orthogonality condition, this is equal to <span class="math inline">\(\{e_n\}\cdot\{e_n\} = \sigma_r^2\)</span>.</p>
+</section>
+<section id="linear-prediction-of-unlimited-order-white-noise" class="level3">
+
+<div class="p"><h3><a href="#linear-prediction-of-unlimited-order-white-noise">Linear Prediction of Unlimited Order – White Noise</a></h3>Let <span class="math inline">\(x_0\)</span>, <span class="math inline">\(\cdots\)</span>, <span class="math inline">\(x_{n-1}\)</span> be a finite sequence of real values. We may extend the definition of <span class="math inline">\(x_i\)</span> for arbitrary values of the index by setting <span class="math inline">\(x_i=0\)</span> if <span class="math inline">\(i\)</span> does not belong to the original index range. Now we may try to solve the linear prediction problem of unlimited order by minimizing over all <em>infinite</em> sequences of prediction coefficients <span class="math inline">\(a_i\)</span> the quadratic sum of the prediction error <span class="math inline">\(e_i\)</span>: <span class="math display">\[ \label{unlimited-order}
+    \sum_{i=-\infty}^{+\infty} e_i^2
+    \; \mbox{ where } \;
+    e_i = x_i -\sum_{j=1}^{+\infty} a_i x_{i-j}
+    \]</span> Any solution to this problem satisfies <span class="math display">\[
+   \forall \, j&gt;0 , \; \sum_{i=0}^{+\infty} e_i e_{i-j} = 0
+   \]</span> The prediction error of the unlimited order linear prediction problem is not correlated at all – it is a <strong>white noise.</strong></div>
+</section>
+<section id="proof." class="level3">
+
+<div class="p"><h3><a href="#proof.">Proof.</a></h3>‌ Let <span class="math inline">\((x \ast y)_i = \sum_{j=-\infty}^{+\infty} x_j y_{i-j}\)</span>, <span class="math inline">\(\left&lt;x,y\right&gt;= \sum_{i=-\infty}^{+\infty} x_iy_i\)</span> and <span class="math inline">\(\|x\| = \sqrt{\left&lt;x, x \right&gt;}\)</span>. We denote by <span class="math inline">\(L^2(\mathbb{Z})\)</span> the set of infinite sequences <span class="math inline">\(x\)</span> such that <span class="math inline">\(\|x\| &lt;+\infty\)</span> and if <span class="math inline">\(I\subset\mathbb{Z}\)</span>, by <span class="math inline">\(L^2(I)\)</span> the set of sequences <span class="math inline">\(x\)</span> in <span class="math inline">\(L^2(\mathbb{Z})\)</span> such that <span class="math inline">\(x_i =0\)</span> if <span class="math inline">\(i\not \in I\)</span>. Our minimization problem may be formalized as <span class="math display">\[ \label{formid}
+  \min_{a \in A} \|x - a\ast x\|^2 \; \mbox{ with } \; A = L^2(\mathbb{N}^{*})
+  \]</span> Let <span class="math inline">\(e=x - a\ast x\)</span> be the prediction error ; any solution <span class="math inline">\(a\)</span> is a solution of () satisfies <span class="math display">\[
+  \forall \, \delta \in L^2(\mathbb{N}^*), \; \left&lt; \delta \ast x, e\right&gt;=0
+  \]</span> Let <span class="math inline">\(\bar{x}\)</span> be the infinite sequence such that <span class="math inline">\(\bar{x}_i = x_{-i}\)</span>. We have <span class="math inline">\(\left&lt; \delta \ast x, e\right&gt; = \left&lt; \delta, \bar{x} \ast e\right&gt;\)</span> and <span class="math inline">\((\bar{x} \ast e)_j = \sum_{i=-\infty}^{+\infty} x_{i-j}e_i\)</span>. Therefore <span class="math inline">\(\forall \, j&gt;0, \; \sum_{i=-\infty}^{+\infty} x_{i-j}e_i = 0\)</span>. As any <span class="math inline">\(e_i\)</span> is a linear combination of the previous values of <span class="math inline">\(x\)</span>, this equality yields <span class="math display">\[
+   \forall \, j&gt;0 , \; \sum_{i=0}^{+\infty} e_i e_{i-j} = 0
+   \]</span> <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>
+</section>
+</section>
+<section id="finite-impulse-response-fir-filters" class="level2">
+<h2><a href="#finite-impulse-response-fir-filters">Finite Impulse Response (FIR) Filters</a></h2>
+<p>The Wiener-Hopf prediction that produces the sequence of estimates <span class="math inline">\(\hat{x}_n\)</span> from the <span class="math inline">\(x_n\)</span> or error filter that outputs <span class="math inline">\(e_n = x_n - \hat{x}_n\)</span> are special cases of <strong>finite impulse response (FIR) filters</strong> : they associate to an input sequence <span class="math inline">\(u_n\)</span> an output sequence <span class="math inline">\(y_n\)</span> related by: <span class="math display">\[ \label{FIR}
+y_n = a_0 u_n + a_1 u_{n-1} + \cdots + a_{N-1} u_{n-N+1}
+\]</span> A core, real-time implementation for such system is given by:</p>
+<pre><code>class FIR(Filter):
+    def __call__(self, input):
+        if shape(input):
+            inputs = ravel(input)
+            return array([self(input) for input in inputs])
+        else:
+            output = self._a[0] * input + dot(self._a[1:], self.state)
+            if len(self.state):
+                self.state = r_[input, self.state[:-1]]
+            return output</code></pre>
+<p>where some features, such as the initialization and changes of <code>a</code>, the management of the filter state, common between finite impulse response filters and auto-regressive filters (see section ) are implemented in the base class <code>Filter</code>. We talk about a <em>real-time</em> implementation of a FIR because instances of <code>FIR</code> produce the value <span class="math inline">\(y_n\)</span> as soon as <span class="math inline">\(u_n\)</span> is available. To do this, they need to store a state that contains at the time <span class="math inline">\(n\)</span> the <span class="math inline">\(N-1\)</span> past values <span class="math inline">\(u_{n-1}\)</span>, <span class="math inline">\(\cdots\)</span>, <span class="math inline">\(u_{n-N+1}\)</span> of the input.</p>
+<p>Consider as an example the 4-point <strong>moving average</strong> filter: <span class="math display">\[
+    y_n = \frac{1}{4} (u_n + u_{n-1} + u_{n-2} + u_{n-3})
+    \]</span> Such a filter may be defined and used by the following code:</p>
+<pre><code>&gt;&gt;&gt; ma = FIR([0.25, 0.25, 0.25, 0.25])
+&gt;&gt;&gt; ma.state
+array([ 0.,  0.,  0.])
+&gt;&gt;&gt; ma(1.0)
+0.25
+&gt;&gt;&gt; ma(2.0)
+0.75
+&gt;&gt;&gt; ma(3.0)
+1.5
+&gt;&gt;&gt; ma(4.0)
+2.5
+&gt;&gt;&gt; ma([5.0, 6.0, 7.0, 8.0, 9.0, 10.0])
+array([ 3.5,  4.5,  5.5,  6.5,  7.5,  8.5])
+&gt;&gt;&gt; ma.state
+array([ 10.,   9.,   8.])</code></pre>
+<p>Once the filter <code>ma</code> is initialized (by default with a zero state), every call to <code>ma</code> shall give one or several new input values and as many output values are produced.</p>
+<p>Note that if we start with a zero state and input a single non-zero value before sending a sequence of zeros, the filter will output a finite number of (possibly) non-zero and will then output only zeros: this is actually a defining property of finite impulse response filters.</p>
+<pre><code>&gt;&gt;&gt; ma.state = [0.0, 0.0, 0.0]
+&gt;&gt;&gt; ma([1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+array([ 0.25,  0.25,  0.25,  0.25,  0.  ,  0.  ,  0.  ,  0.  ,  0.  ])</code></pre>
+<p>In the context of linear prediction, here is how the prediction coefficients <code>a</code> produced by <code>lp</code> may be used to build the predictor filters and error filters.</p>
+<pre><code>&gt;&gt;&gt; a = lp(x, ...)
+&gt;&gt;&gt; predictor = FIR(r_[0.0, a])
+&gt;&gt;&gt; error = FIR(r_[1.0, -a])</code></pre>
+</section>
+<section id="auto-regressive-ar-filters" class="level2">
+<h2><a href="#auto-regressive-ar-filters">Auto-Regressive (AR) Filters</a></h2>
+<section id="autoregressive-ar-filters" class="level3">
+
+<div class="p"><h3><a href="#autoregressive-ar-filters">Autoregressive (AR) filters</a></h3>‌are – at least formally – inverses of FIR filters. Consider the equation of an FIR error filter whose input is <span class="math inline">\(x_n\)</span> and output <span class="math inline">\(e_n\)</span> <span class="math display">\[
+  e_n = 1.0 \cdot x_n - a_1 x_{n-1} - \cdots - a_{m} x_{n-m} 
+  \]</span> If this equation holds for every value of <span class="math inline">\(n\)</span>, the inverse system that has <span class="math inline">\(e_n\)</span> as an input and <span class="math inline">\(x_n\)</span> as an output is ruled by: <span class="math display">\[
+  x_n = a_1 x_{n-1} + \cdots + a_m x_{n-m} +  e_n
+  \]</span> Therefore we consider the class of autoregressive systems with inputs <span class="math inline">\(u_n\)</span> and outputs <span class="math inline">\(y_n\)</span> ruled by <span class="math display">\[ \label{AR}
+  y_n = a_1 y_{n-1} + \cdots + a_N y_{n-N} +  u_n
+  \]</span> A core implementation is given as</div>
+<pre><code>class AR(Filter):
+    def __call__(self, input):
+        if shape(input):
+            inputs = ravel(input)
+            return array([self(input) for input in inputs])
+        else:
+            output = dot(self.a, self.state) + input
+            self.state[-1] = output
+            self.state = roll(self.state, 1)
+            return output</code></pre>
+<p>The state of such an AR instance is the sequence of <span class="math inline">\(N\)</span> previous values of <span class="math inline">\(y_n\)</span>. The usage of the class <code>AR</code> is similar to <code>FIR</code>. For example, the filter: <span class="math display">\[
+    y_n = 0.5 \cdot y_{n-1} + u_n
+    \]</span> may be defined and used by</p>
+<pre><code>&gt;&gt;&gt; ar = AR([0.5])
+&gt;&gt;&gt; ar.state = [1.0]
+&gt;&gt;&gt; ar(0.0)
+0.5
+&gt;&gt;&gt; ar(0.0)
+0.25
+&gt;&gt;&gt; ar(0.0)
+0.125
+&gt;&gt;&gt; ar(0.0)
+0.0625
+&gt;&gt;&gt; ar([1.0, 1.0, 1.0, 1.0])
+array([ 1.03125   ,  1.515625  ,  1.7578125 ,  1.87890625])
+&gt;&gt;&gt; ar.state
+array([ 1.87890625])</code></pre>
+</section>
+</section>
+<section id="transfer-function-stability-and-frequency-response" class="level2">
+<h2><a href="#transfer-function-stability-and-frequency-response">Transfer Function, Stability and Frequency Response</a></h2>
+<section id="transfer-function" class="level3">
+
+<div class="p"><h3><a href="#transfer-function">Transfer Function</a></h3>The <strong>transfer function</strong> of a (linear, time-invariant, single-input single output) system is a (partial) function <span class="math inline">\(H: \mathbb{C} \to \mathbb{C}\)</span> defined in the following way: given <span class="math inline">\(z \in \mathbb{C}\)</span> and a complex-valued input signal <span class="math inline">\(u_n = u z^n\)</span> the corresponding output having the structure <span class="math inline">\(y_n = yz^n\)</span>, if it exists, satisfies: <span class="math display">\[
+  y = H(z) u
+  \]</span> For example, the FIR filter defined by the equation () has the transfer function <span class="math display">\[
+H(z) = a_0 + a_1 z^{-1} + \cdots + a_{N-1} z^{-N+1}
+\]</span> and the AR filter defined by the equation () has the transfer function <span class="math display">\[
+H(z) = \frac{1}{1-a_1 z^{-1} - \cdots - a_{N} z^{-N}}
+\]</span></div>
+</section>
+<section id="stability" class="level3">
+
+<div class="p"><h3><a href="#stability">Stability</a></h3>A filter is <strong>(input-output) stable</strong> if all bounded input signals result in bounded outputs. Stability of filters whose transfer function is rational – such as FIR and AR filters – is conditioned by the location of their <strong>poles</strong>, the roots of their transfer functions. Precisely, such a filter is stable if and only if all its poles have a negative real part.</div>
+<p>The classes <code>FIR</code> and <code>AR</code> have a method that return their poles ; its implementation is based on the <code>numpy.lib.polynomial</code> <code>roots</code> function that computes the roots of a polynomial.</p>
+<p>For FIR filters, the situation is simple: as <span class="math display">\[
+  H(z) = a_0 + a_1 z^{-1} + \cdots + a_{N-1} z^{-N+1}
+  = \frac{a_0 z^{N-1} + a_1 z^{N-2} + \cdots + a_{N-1}}{z^{N-1}},
+  \]</span> all <span class="math inline">\(N\)</span> poles are <span class="math inline">\(0\)</span> and therefore all FIR filters are stables.</p>
+<pre><code>class FIR(Filter):
+    ....
+    def poles(self):
+        return zeros(len(self.a))</code></pre>
+<p>For AR filters, <span class="math display">\[
+H(z) = \frac{1}{1-a_1 z^{-1} - \cdots - a_{N} z^{-N}} = 
+\frac{z^N}{z^{N} - a_1 z^{N-1} - \cdots - a_N}
+\]</span> and therefore the poles are the solution of the polynomial <span class="math inline">\(P(z) =z^N - a_1z^{N-1} - \cdots - a_N\)</span>.</p>
+<pre><code>class AR(Filter):
+    ...
+    def poles(self):
+        return roots(r_[1.0, -self.a])</code></pre>
+<p>As an example, consider the two auto-regressive filters ruled by: <span class="math display">\[
+   y_n = 0.5 \cdot y_{n-1} - 0.5 \cdot y_{n-2} + u_n
+   \; \mbox{ and } \;
+   y_{n} = y_{n-1} + y_{n-2} + y_{n-3} + y_{n-4} + u_n
+   \]</span> The first one is stable but the second one is unstable:</p>
+<pre><code>&gt;&gt;&gt; ar = AR([0.5, -0.5])
+&gt;&gt;&gt; ar.poles()
+array([ 0.25+0.66143783j,  0.25-0.66143783j])
+&gt;&gt;&gt; max(abs(pole) for pole in ar.poles())
+0.70710678118654757
+&gt;&gt;&gt; ar = AR([1.0])
+&gt;&gt;&gt; ar = AR([1.0, 1.0, 1.0, 1.0])
+&gt;&gt;&gt; ar.poles()
+array([ 1.92756198+0.j        , -0.77480411+0.j        ,
+       -0.07637893+0.81470365j, -0.07637893-0.81470365j])
+&gt;&gt;&gt; max(abs(pole) for pole in ar.poles())
+1.9275619754829254</code></pre>
+<p>As a matter of fact, we will deal in the next sections with AR filters that are inverses of FIR prediction error filters provided by linear prediction. Such filters are always stable when the autocorrelation method is used but may be unstable with the covariance method.</p>
+</section>
+<section id="frequency-response" class="level3">
+<h3><a href="#frequency-response">Frequency Response</a></h3>
+When a filter is stable, it makes sense to ask what output corresponds to a cosine input with frequency <span class="math inline">\(f\)</span>, amplitude <span class="math inline">\(A\)</span> and phase <span class="math inline">\(\phi\)</span>. If the input sequence is scheduled to produce a new value every <span class="math inline">\(\Delta t\)</span> seconds, we have <span class="math display">\[
+  u_n = A \cos 2 \pi f n\Delta t + \phi
+  \]</span> and therefore <span class="math display">\[
+  u_n = A/2 \cdot e^{i\phi} (e^{i2\pi f\Delta t})^n + A/2 e^{-i\phi} \cdot (e^{-i2\pi f\Delta t})^n. 
+  \]</span> By the definition of the transfer function, we have the corresponding output <span class="math inline">\(y_n\)</span>:
+\begin{eqnarray*}
+  y_n &amp;=&amp; A/2 \cdot e^{i \phi} H(2\pi f\Delta t) (e^{i2\pi f\Delta t})^n
+      + A/2 \cdot e^{-i \phi} H(-2\pi f\Delta t) (e^{-i2\pi f\Delta t})^n \\
+      &amp;=&amp; \mathbb{R}e \left[ H(2\pi f \Delta t) A e^{i\phi} e^{i2\pi f\Delta t n + \phi} \right] 
+  \end{eqnarray*}
+<p>So if we consider the polar decomposition <span class="math display">\[
+  H(2\pi f \Delta t) A e^{i\phi} = A' e^{i\phi'}
+  \]</span> then the cosine output of the filter is <span class="math display">\[
+  y_n = A' \cos 2 \pi f n\Delta t + \phi'
+  \]</span> The function <span class="math display">\[
+  f \mapsto H(2\pi f \Delta t)
+  \]</span> that relates input and ouput amplitude and phase at the frequency <span class="math inline">\(f\)</span> is called the filter {frequency response}. We often consider separately <span class="math display">\[
+  |H(2\pi f\Delta t)| \; \mbox{ and } \; \angle H(2\pi f\Delta t),
+  \]</span> the frequency response <strong>gain</strong> and <strong>phase</strong>.</p>
+<p>The implementation of transfer functions for FIR and AR filters relies on the computation of signal spectrum or Fourier transform, provided by the function <code>F</code> of the <code>spectrum</code> module, see section .</p>
+<pre><code>from spectrum import F
+
+class FIR(Filter):
+    ...
+    def __F__(self, **kwargs):
+        dt = kwargs.get("dt") or 1.0
+        return F(self.a / dt, dt=dt) 
+
+class AR(Filter):
+    ...
+    def __F__(self, **kwargs): 
+        dt = kwargs.get("dt") or 1.0
+        FIR_spectrum = F(FIR(a=r_[1.0, -self.a]), dt=dt)
+        def AR_spectrum(f):
+            return 1.0 / FIR_spectrum(f)
+        return AR_spectrum</code></pre>
+<p>The function <code>F</code> is generally used to get the frequential representation of and object, signal or filter, or something else. Apart from signals, for which we directly compute the spectrum, the objects are supposed to know what their spectral representation is and encode this information in the special method <code>__F__</code> ; for filters, we return the frequency response. Those methods being defined for FIR and AR filters, we may use them like that:</p>
+<pre><code>&gt;&gt;&gt; ma = FIR([0.5, 0.5])
+&gt;&gt;&gt; tf = F(ma, dt=1.0)
+&gt;&gt;&gt; tf([0.0, 0.1, 0.2, 0.3, 0.4, 0.5])
+array([ 1.0000000 +0.00000000e+00j,  0.9045085 -2.93892626e-01j,
+        0.6545085 -4.75528258e-01j,  0.3454915 -4.75528258e-01j,
+        0.0954915 -2.93892626e-01j,  0.0000000 -6.12303177e-17j])</code></pre>
+</section>
+</section>
+</section>
+<section id="voice-analysis-and-synthesis" class="level1">
+<h1><a href="#voice-analysis-and-synthesis">Voice Analysis and Synthesis</a></h1>
+<section id="the-timit-corpus" class="level2">
+<h2><a href="#the-timit-corpus">The TIMIT corpus</a></h2>
+<p>The TIMIT corpus is a collection of read speech data that includes for each utterance 16-bit 16 kHz waveforms as well as time-aligned orthographic, phonetic and word transcriptions. It was designed – as a joint effort among the Massachusetts Institute of Technology (MIT), SRI International (SRI) and Texas Instruments, Inc. (TI) – for acoustic-phonetic studies and for the development and evaluation of automatic speech recognition systems.</p>
+<figure>
+<img src="images/she_had.svg" alt="Waveform of the TIMIT utterance 'dr1-fvmh0/sa1' and display of its segmentation into words."><figcaption>Waveform of the TIMIT utterance <code>'dr1-fvmh0/sa1'</code> and display of its segmentation into words.</figcaption>
+</figure>
+<p>The Python library NLTK – for Natural Language Toolkit – is an open source collection of modules that provides linguistic data and documentation for research and development in natural language processing and text analytics (<a href="http://www.nltk.org/" class="uri">http://www.nltk.org/</a>). As a part of the distribution, is a small sample of the TIMIT corpus is made available.</p>
+<p>The samples from TIMIT are designated by ids whose list is given by the <code>utteranceids</code> method:</p>
+<pre><code>&gt;&gt;&gt; import nltk
+&gt;&gt;&gt; timit = nltk.corpus.timit
+&gt;&gt;&gt; timit.utteranceids()
+['dr1-fvmh0/sa1', 'dr1-fvmh0/sa2', 'dr1-fvmh0/si1466', 'dr1-fvmh0/si2096', 
+ ...
+ 'dr8-mbcg0/sx237', 'dr8-mbcg0/sx327', 'dr8-mbcg0/sx417', 'dr8-mbcg0/sx57']
+&gt;&gt;&gt; uid = timit.utteranceids()[0]
+'dr1-fvmh0/sa1'</code></pre>
+<p>The corpus provides a detailled decomposition of the utterances in words as well as <strong>phones</strong> – speech segments that have distinct properties. Those decompositions are timed, the numbers being sample indices.</p>
+<pre><code>&gt;&gt;&gt; timit.words(uid)
+['she', 'had', 'your', 'dark', 'suit', 'in', 'greasy', 'wash', 'water', 'all', 'year']
+&gt;&gt;&gt; timit.word_times(uid)
+[('she', 7812, 10610), ('had', 10610, 14496), ('your', 14496, 15791), 
+ ('dark', 15791, 20720), ('suit', 20720, 25647), ('in', 25647, 26906), 
+ ('greasy', 26906, 32668), ('wash', 32668, 37890), ('water', 38531, 42417), 
+ ('all', 43091, 46052), ('year', 46052, 50522)]
+&gt;&gt;&gt; timit.transcription_dict()["she"]
+['sh', 'iy1']
+&gt;&gt;&gt; timit.phones(uid)
+['h#', 'sh', 'iy', 'hv', 'ae', 'dcl', 'y', 'ix', 'dcl', 'd', 'aa', 'kcl', 's', 
+ 'ux', 'tcl', 'en', 'gcl', 'g', 'r', 'iy', 's', 'iy', 'w', 'aa', 'sh', 'epi', 
+ 'w', 'aa', 'dx', 'ax', 'q', 'ao', 'l', 'y', 'ih', 'ax', 'h#']
+&gt;&gt;&gt; timit.phone_times(uid)
+[('h#', 0, 7812), ('sh', 7812, 9507), ('iy', 9507, 10610), ('hv', 10610, 11697), 
+ ...
+ ('ih', 47848, 49561), ('ax', 49561, 50522), ('h#', 50522, 54682)]</code></pre>
+<p>The <code>audiodata</code> method, combined with the <code>bitstream</code> module, provide the waveform as a single-dimensional NumPy array <code>data</code>:</p>
+<pre><code>&gt;&gt;&gt; str_data = timit.audiodata(uid)
+&gt;&gt;&gt; data = BitStream(str_data).read(int16, inf).newbyteorder()</code></pre>
+<figure>
+<img src="images/voice-1.svg">
+</figure>
+<figure>
+<img src="images/voice-2.svg">
+</figure>
+<figure>
+<img src="images/voice-3.svg" alt="Voice patterns. A voice signal sampled at 8 kHz displays complex and non-stationary patterns on a scale of 2.5 s (top). When we zoom to a 300 ms scale (middle), and then further to a 20 ms scale (bottom), we see that locally, the signal appears to be almost periodic."><figcaption><strong>Voice patterns.</strong> A voice signal sampled at 8 kHz displays complex and non-stationary patterns on a scale of 2.5 s (top). When we zoom to a 300 ms scale (middle), and then further to a 20 ms scale (bottom), we see that locally, the signal appears to be almost periodic.</figcaption>
+</figure>
+</section>
+<section id="voice-analysis-and-compression" class="level2">
+<h2><a href="#voice-analysis-and-compression">Voice Analysis and Compression</a></h2>
+<p>The knowledge that the audio data that we are willing to compress is a voice signal can go a long way in the reduction of bit rate. Consider for example the G.711 PCM speech codec: defined in 1972, it is based on a 8 kHz sampling time and a quite generic method of non-linear quantization (8-bit <span class="math inline">\(\mu\)</span>-law or <span class="math inline">\(A\)</span>-law). It achieves a data rate of <span class="math inline">\(64\)</span> kb/s. A more specific technology developed in the early 90’s, and based on linear prediction, the full-rate GSM, has a 13 kbps bit rate. More recent efforts in this direction have achieved a quality similar to the G.711 codec at 6.4 kbps, or with a lesser quality go as low 2.4 kbps (see ).</p>
+<p>In the sequel, we’ll assume that the data we consider is sampled at 8 khz ; this is a standard assumption in fixed telephony that takes into account the fact that most voice audio content is in the 300-3400 Hz band. Applications that require more accurate descriptions of voice data may use <strong>wideband</strong> and use a 16 kHz sampling instead for a higher accuracy – all the audio data in the TIMIT data base uses this sampling frequency for example.</p>
+<section id="short-term-prediction" class="level3">
+
+<div class="p"><h3><a href="#short-term-prediction">Short-Term Prediction</a></h3>Beyond the selection of an appropriate sampling rate, the key to achieve significant compression rate is to recognize that voice has a local – say on a 20 ms frame – stationary structure that can therefore be described by a small numbers of parameters. This property is clearly visible in the figure .</div>
+<p>The figure  displays two 20-ms voice fragments sampled at 8 kHz and the corresponding residuals after a prediction of order . The first one clearly has achived its goal: the residual appears to be left without structure and is a good approximation of a white noise. For those kind of data, the short-term prediction provides a simple production model: an AR synthesis filter whose input is a white noise. For the second type of signals, for which the residual is clearly not random, we need a more complex production model that complements the short-term prediction with a long term prediction (see sections  and {}).</p>
+<figure>
+<img src="images/voice-frame-pred-and-error.svg">
+</figure>
+<figure>
+<img src="images/show_stp_spikes.svg" alt="short-term prediction error. top: a frame of 160 samples within a 8 kHz signal (grey) and the corresponding prediction error (black) for a linear prediction of order 16 (covariance method). The residual show little remaining structure. bottom: the prediction error (black) of the voice signal (grey) still exhibits a periodic structure, made of regularly spaced spikes, characteristic of voiced segments."><figcaption><strong>short-term prediction error.</strong> top: a frame of 160 samples within a 8 kHz signal (grey) and the corresponding prediction error (black) for a linear prediction of order 16 (covariance method). The residual show little remaining structure. bottom: the prediction error (black) of the voice signal (grey) still exhibits a periodic structure, made of regularly spaced spikes, characteristic of voiced segments.</figcaption>
+</figure>
+</section>
+<section id="spectral-analysis" class="level3">
+
+<div class="p"><h3><a href="#spectral-analysis">Spectral Analysis</a></h3>The spectrum of a voice segment <span class="math inline">\(x(t)\)</span> may be estimated classically, with the formula <span class="math display">\[
+  x(f) = \Delta t  \sum_{t \in \mathbb{Z} \Delta t} x(t) \exp(-i2\pi f t),
+  \]</span> but there is another way: if we have performed a successful predicton of the data that leads to a synthesis filter with frequency response <span class="math display">\[
+  \frac{1}{1 - A(f)},
+  \]</span> the prediction error should be almost white and its spectrum <span class="math inline">\(e(f)\)</span> should be approximately constant. As the signal data <span class="math inline">\(x(t)\)</span> is related to <span class="math inline">\(e(t)\)</span> by <span class="math display">\[
+  x(f) = \frac{1}{1 - A(f)} e(f),
+  \]</span> the frequency response of the synthesis filter provides a (parametric) estimate of the signal spectrum. Both kind of methods are illustrated in figure .</div>
+<figure>
+<img src="images/voice-frame-pred-and-error-spec.svg" alt="Spectral View. spectrum of the signal of the figure , estimated by non-parametric (fft) method and by the frequency response of the synthesis filter. The spectrum of the prediction error is also displayed."><figcaption><strong>Spectral View.</strong> spectrum of the signal of the figure , estimated by non-parametric (fft) method and by the frequency response of the synthesis filter. The spectrum of the prediction error is also displayed.</figcaption>
+</figure>
+</section>
+<section id="models-of-the-vocal-tract" class="level3">
+<h3><a href="#models-of-the-vocal-tract">Models of the Vocal Tract</a></h3>
+</section>
+<section id="continuous-modelling." class="level3">
+
+<div class="p"><h3><a href="#continuous-modelling.">Continuous Modelling.</a></h3>‌ % A simple model of vocal tract is the <strong>horn</strong>: a tube whose cross-sectional area <span class="math inline">\(A\)</span> is a function of the position <span class="math inline">\(x\)</span> in the tube. Let <span class="math inline">\(\phi\)</span> denote the air flow, positive by convention if the are travel towards the right, <span class="math inline">\(p\)</span> the pressure, <span class="math inline">\(\rho\)</span> the air density and <span class="math inline">\(K\)</span> its bulk modulus.</div>
+<figure>
+<img src="images/horn-I.svg" alt="the vocal tract: horn model."><figcaption>the vocal tract: horn model.</figcaption>
+</figure>
+<p>Newton’s second law of motion yields <span class="math display">\[
+  \frac{d}{dt} \rho \phi = - \frac{d pA}{dx}.
+  \]</span> We approximate this equation by: <span class="math display">\[ \label{NSLM}
+  \rho \frac{\partial \phi}{\partial t} 
+  = 
+  -A \frac{\partial p}{\partial x}
+  \]</span> On the other hand, as the bulk modulus relates changes in the pressure <span class="math inline">\(p\)</span> and in the volume by $ K dv + v dp = 0, $ we also have <span class="math display">\[ \label{BM}
+  K \frac{\partial \phi}{\partial x} 
+  = 
+  -A \frac{\partial p}{\partial t}
+  \]</span> The combination of equations () and () yield <strong>Webster’s Equation</strong> <span class="math display">\[
+  \label{Webster}
+    \frac{1}{c^2} \frac{\partial^2 p}{\partial t^2} 
+  - \frac{1}{A}\frac{dA}{dx} \frac{\partial p}{\partial x}
+  - \frac{\partial^2 p}{\partial x^2} 
+  = 
+  0
+  \]</span> where <span class="math inline">\(c\)</span>, the wave velocity in the media is given by: <span class="math display">\[
+c = \sqrt{\frac{K}{\rho}}
+\]</span></p>
+<p>*Discrete Modelling.** An common simplification of the horn model is to trade the continuous change in the cross-sectional area <span class="math inline">\(A(x)\)</span> for a tube made of a finite number of cylindrical sections of equal length <span class="math inline">\(L\)</span> whose cross-sectional area <span class="math inline">\(A_k\)</span> is a function of the section index <span class="math inline">\(k\)</span>. Consider the pressure <span class="math inline">\(p_k\)</span> in the section <span class="math inline">\(k\)</span> as the superposition of right and left-travelling waves $ p_k(t,x) = p_k^+(x - ct) - p_k^-(x + ct). $</p>
+<figure>
+<img src="images/horn-II.svg" alt="the vocal tract: discrete tube model."><figcaption>the vocal tract: discrete tube model.</figcaption>
+</figure>
+<p>Stating that the pressure is continuous at the section boundary <span class="math inline">\(x\)</span> leads to the system of equations <span class="math display">\[ \label{rc}
+  \begin{array}{lllll}
+  p_{k+1}^+(x-ct) &amp;=&amp; (1-r_k^+) p_k^+(x-ct) &amp;+&amp; r^-_{k+1} p_{k+1}^-(x+ct) \\
+  p_{k}^-(x+ct) &amp;=&amp; (1-r_{k+1}^-) p_{k+1}^-(x+ct) &amp;+&amp; r^+_k p_{k}^+(x-ct)
+  \end{array}
+  \]</span> where <span class="math inline">\(r_k^+\)</span> and <span class="math inline">\(r_{k+1}^-\)</span> are <strong>reflection coefficients</strong>. The air flow <span class="math display">\[
+  \phi_k(t,x) = \phi_k^+(x - ct) - \phi_k^-(x + ct)
+  \]</span> is also continuous at the section boundary. A Fourier decomposition of the waves and the use of equation () show that it is related to the pressure by <span class="math display">\[
+  \frac{p_k^{\pm}}{\phi_k^{\pm}} = \pm Z_k
+  \]</span> where <span class="math inline">\(Z_k\)</span> is the <strong>impedance</strong>, given in each section by <span class="math display">\[
+  Z_k = \frac{c\rho}{A_k} =  
+  \frac{\sqrt{K \rho}}{A_k}
+  \]</span> The continuity of the air flow at the position <span class="math inline">\(x\)</span> provides for all time the equations <span class="math display">\[
+  A_k p_k^+(x-ct) + A_k p_k^-(x+ct) = A_{k+1} p_{k+1}^+(x-ct) + A_{k+1} p_{k+1}^-(x+ct)
+  \]</span> which, coupled with the system of equations () leads to <span class="math display">\[ \label{rcA}
+  r_k^+ = -r_{k+1}^- = \frac{A_{k+1}-A_k}{A_{k+1} + A_k}.
+  \]</span></p>
+<p>*Ladder and Lattice Filters.** In a given tube section, the pressure waves travel unchanged at the speed <span class="math inline">\(c\)</span>. Given that the tube section is of length <span class="math inline">\(L\)</span>, the time needed to go from one boundary of the section to the other is <span class="math inline">\(L/c\)</span>. As a consequence, the transformation between the values of <span class="math inline">\(p^+\)</span> and <span class="math inline">\(p^-\)</span> from the left of one section boundary to the left of the next section boundary on the right may be modelled as the junction depicted on the left of figure .</p>
+<p>Now, if want to follow what happens to the pressure wave <span class="math inline">\(p^+\)</span> travelling to the right, we may introduce a variable <span class="math inline">\(\tilde{p}^+\)</span> that compensates for the delay in the wave propagation as well as the attenuation (or amplification) at the sections boundary. We apply the same treatment to <span class="math inline">\(\tilde{p}^-\)</span> so that <span class="math display">\[
+  \tilde{p}^{\pm}_{k+1}(t) = \frac{1}{1-r_k}p^{\pm}_{k+1}(t+ L /c) 
+  \]</span> Straightforward computations show that the equations satisfied by the corresponding variables are described by the lattice junction depicted on the right of the figure .</p>
+<figure>
+<img src="images/ladder-I.svg">
+</figure>
+<figure>
+<img src="images/lattice-I.svg" alt="Kelly-Lochbaum junction: ladder form (left) and lattice form (right)"><figcaption>Kelly-Lochbaum junction: ladder form (left) and lattice form (right)</figcaption>
+</figure>
+<p>*Lattice Filters in Linear Predictive Coding.<strong> When it comes to the implementation of synthesis filters that model the vocal tract, lattice filters – implemented as a serial connexions of lattice junctions – are often preferred to classic (register-based) implementations of the autoregressive filters. Their parameters – the reflection coefficients – are easy to interpret and also, when the synthesis filter is determined by the autocorrelation method, the </strong>Levison-Durbin<strong> or </strong>Schur** algorithm may be used to compute them directly instead of the linear regression coefficients <span class="math inline">\(a_i\)</span>. Moreover, these algorithms are recursive and have<br>
+a <span class="math inline">\(\mathcal{O}(m^2)\)</span> complexity where <span class="math inline">\(m\)</span> is the predicton order, better than the typical <span class="math inline">\(\mathcal{O}(m^3)\)</span> of the least-square resolution needed to compute the <span class="math inline">\(a_i\)</span>.</p>
+<p>Finally, lattice filters are stable as long as the reflexion coefficients are between <span class="math inline">\(-1\)</span> and <span class="math inline">\(1\)</span>. As a consequence, we can easily perform a quantization of these coefficients that will preserve the stability of the synthesis filter. A classic choice is the logarithmic quantization of the area-ratio <span class="math inline">\(A_{k+1}/A_k\)</span>, that is, because of the equation (), the uniform quantization of <span class="math display">\[
+  \mbox{LAR}_k = \log \frac{1+r^+_k}{1-r^+_k}.
+  \]</span></p>
+</section>
+<section id="pitch-analysis" class="level3">
+
+<div class="p"><h3><a href="#pitch-analysis">Pitch Analysis</a></h3>The prediction error of the voice fragment displayed at the bottom of figure  still displays some structure : a white noise plus a quasi-periodic sequence of impulses. As the short-term prediction has inverted the vocal tract filter, what we are looking at is actually the sequence of <strong>glottal pulses</strong>. The duration between two pulses is the voice <strong>pitch period</strong>, ts inverse is the speech <strong>fundamental frequency</strong>. When this periodic structure is present after short-term predicton, the speech fragment is said to be <strong>voiced</strong> and when it’s not, it is <strong>unvoiced</strong>.</div>
+<p>The simplest kind voiced/unvoiced classifier is based on the <strong>autocorrelation</strong> of the short-term prediction error (see for example ). In a given data frame, we select a subframe, typically at the end, and compare it with all the subframes of equal size within the frame by computing the normalized scalar product between the two vectors. Values of (the modulus of) the correlation near 1 correspond to two subframes that are – up to a gain – almost equal.</p>
+<pre><code>def ACF(data, frame_length):
+    frame = data[-frame_length:]
+    frame = frame / norm(frame)
+    past_length = len(data) - frame_length
+    correl = zeros(past_length + 1)
+    for offset, _ in enumerate(correl):
+        past_frame = data[past_length-offset:past_length-offset+frame_length]
+        past_frame = past_frame / norm(past_frame)
+        correl[offset] = dot(past_frame, frame)
+    return correl </code></pre>
+<figure>
+<img src="images/autocorrelation-0.svg">
+</figure>
+<figure>
+<img src="images/autocorrelation.svg" alt="normalized autocorrelation of the prediction errors for the speech fragment of figure  with a reference window of 32 samples. The top graph corresponds to an unvoiced signal and the bottom one to a voiced signal with a pitch period of 36 samples."><figcaption>normalized autocorrelation of the prediction errors for the speech fragment of figure  with a reference window of 32 samples. The top graph corresponds to an unvoiced signal and the bottom one to a voiced signal with a pitch period of 36 samples.</figcaption>
+</figure>
+<p>These kind of method will therefore rely on the selection of autocorrelation threshold to distinguish between voiced and unvoiced signals and localization of autocorrelation maxima to estimate the pitch period. Care must be taken not to select a multiple of the pitch period instead.</p>
+</section>
+<section id="long-term-prediction" class="level3">
+
+<div class="p"><h3><a href="#long-term-prediction">Long-Term Prediction</a></h3>Given a reference subframe <span class="math inline">\(y\)</span> and a subframe <span class="math inline">\(x\)</span> offsetted by the pitch period <span class="math inline">\(p\)</span> we can compute the best linear approximation of <span class="math inline">\(y\)</span> in terms of <span class="math inline">\(x\)</span>, that is, the gain <span class="math inline">\(k\)</span>, solution of <span class="math display">\[
+  k = \mathrm{argmin} \,_{\kappa} \|y - \kappa x\|^2.
+  \]</span> It is given by <span class="math display">\[
+  k = \frac{x^t y}{\|x\|^2}
+  \]</span> Once again, what we have done is a prediction, but a long-term prediction, applied to the residual of the short-term prediction. If <span class="math inline">\(x_n\)</span> denotes the error of the short-term prediction, the error <span class="math inline">\(e_n\)</span> after the additional long-term prediction is given by <span class="math display">\[
+  x_{n} = k x_{n-p} + e_n
+  \]</span> This equation models an auto-regressive synthesis filter whose diagram is given in figure </div>
+<figure>
+<img src="images/ltp-filter.svg" alt="LTP synthesis filter"><figcaption>LTP synthesis filter</figcaption>
+</figure>
+</section>
+</section>
+<section id="linear-prediction-coding" class="level2">
+<h2><a href="#linear-prediction-coding">Linear Prediction Coding</a></h2>
+<figure>
+<img src="images/lpc-analysis.svg">
+</figure>
+<figure>
+<img src="images/lpc-synthesis.svg" alt="LPC analysis and synthesis filters diagram}"><figcaption>LPC analysis and synthesis filters diagram}</figcaption>
+</figure>
+<p>The use of short-term and long-term linear prediction method may be used in several ways to compress voice information. The algorithms that follow this path are generally referred to as <strong>Linear Predictive Coding (LPC)</strong>. “Pure’’ LPC algorithms encode the prediction parameters and the residual power but do not keep any extra information on the prediction residual ; this approach is consistent with the belief that a good prediction produces a residual which is a white noise. The voice is reconstructed by the injection of a synthetic white noise into the synthesis filter.</p>
+<figure>
+<img src="images/lpc-pure.svg" alt="Pure LPC analysis and synthesis diagrams"><figcaption>“Pure” LPC analysis and synthesis diagrams</figcaption>
+</figure>
+<figure>
+<img src="images/lpc-relp.svg" alt="APC/REPL analysis and synthesis diagrams"><figcaption>APC/REPL analysis and synthesis diagrams</figcaption>
+</figure>
+<section id="adaptative-predictive-coding-apc" class="level3">
+
+<div class="p"><h3><a href="#adaptative-predictive-coding-apc">Adaptative Predictive Coding (APC)</a></h3>‌is also called <strong>Residual-Excited Linear Prediction (RELP)</strong> : in order to have a reconstructed voice with a higher quality, the residual information is not discarded but quantized and transmitted along with the prediction parameters.</div>
+<p>This kind of approach has a major drawback: the quantization typically aims at the minimization of the quantization error <em>of the residual</em>, a quantity that has little to do with the error induced on the voice itself. The <strong>Code-Excited Linear Prediction (CELP)</strong> approach solves that issue by discarding the residual entirely and by trying instead several excitation signals among a finite <strong>codebook</strong>, apply to them the synthesis filter, and look for the output that matches the more closely the voice data.</p>
+<figure>
+<img src="images/lpc-celp.svg" alt="CELP analysis and synthesis diagrams"><figcaption>CELP analysis and synthesis diagrams</figcaption>
+</figure>
+</section>
+</section>
+</section>
+</main>
+
+
+</body></html>

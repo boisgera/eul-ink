@@ -118,7 +118,7 @@ Let $\alpha$, $\beta$ and $\gamma$ be some real numbers such that
   $$
   f(a) = |f(a)| e^{i\alpha}, \;
   g(a) = |g(a)|e^{i\beta}, \;
-  \gamma = \frac{\alpha - \beta}{p}.
+  \gamma = \frac{\theta - \alpha}{p}.
   $$
 For small enough values $r > 0$, we have
   $$
@@ -374,13 +374,13 @@ of the function. We have therefore
   $$
   \mathrm{res} \left(z \mapsto \frac{1}{(\sin \pi z)^2}, 0\right)
   =
-  \lim_{z \to 0} \left[ {z^2}\frac{1}{(\sin \pi z)^2} \right]'.
+  \lim_{z \to 0} \left[ \frac{z^2}{2} \frac{1}{(\sin \pi z)^2} \right]'.
   $$
 We have
   $$
-  \left[ {z^2} \frac{1}{(\sin \pi z)^2} \right]'
+  \left[ \frac{z^2}{2} \frac{1}{(\sin \pi z)^2} \right]'
   =
-  \frac{2}{\pi} \left(\frac{(\pi z)\sin \pi z - (\pi z)^2 \cos \pi z}{(\sin \pi z)^3} \right).
+  \frac{1}{\pi} \left(\frac{(\pi z)\sin \pi z - (\pi z)^2 \cos \pi z}{(\sin \pi z)^3} \right).
   $$
 The Taylor expansions of the functions $\sin$ and $\cos$ on $\mathbb{C}$ provide 
   $$
@@ -404,7 +404,7 @@ Consequently,
   \mathrm{res} \left(z \mapsto \frac{1}{(\sin \pi z)^2}, 0\right)
   =
   \lim_{w \to 0}
-  \frac{2}{\pi} \frac{w/3 + w^3 f(w)}{g(w)} = 0.
+  \frac{1}{\pi} \frac{w/3 + w^3 f(w)}{g(w)} = 0.
   $$
 
 Alternatively, to compute the residue, we may notice that if $z$ is not an integer
@@ -497,7 +497,7 @@ computation of integrals with the the residue theorem.
     then set $\gamma = \gamma_1 \;| \; \gamma_2 \;|\; \gamma_3.$
     It is plain that
       $$
-      \lim_{r \to +\infty} \int_{\gamma_1}\frac{dz}{1+z^n}
+      \lim_{r \to 0} \int_{\gamma_1}\frac{dz}{1+z^n}
       =
       \int_0^{+\infty} \frac{dx}{1 + x^n}.
       $$
@@ -511,7 +511,7 @@ computation of integrals with the the residue theorem.
       $$
     thus
      $$
-      \lim_{r \to +\infty} \int_{\gamma_3}\frac{dz}{1+z^n}
+      \lim_{r \to 0} \int_{\gamma_3}\frac{dz}{1+z^n}
       =
       -  e^{i\frac{2\pi}{n}} \int_0^{+\infty} \frac{dx}{1 + x^n}.
       $$

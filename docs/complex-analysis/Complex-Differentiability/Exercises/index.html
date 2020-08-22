@@ -1,1 +1,803 @@
-/www/complex-analysis/Complex-Differentiability/Exercises/Complex-Differentiability.html
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, Mines ParisTech">
+  <meta name="dcterms.date" content="2017-11-28">
+  <title>Complex-Differentiability</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: content-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+html {
+  line-height: 36px;
+  --base: 24;
+  --line-height: 1.5;
+  font-size: 24px;
+  font-family: Alegreya, serif;
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html em {
+  font-style: italic;
+}
+html strong {
+  font-weight: bold;
+}
+html p, html .p {
+  margin-bottom: 36px;
+  text-align: justify;
+  hyphens: auto;
+  moz-hyphens: auto;
+}
+html section {
+  margin-bottom: 36px;
+}
+html main {
+  box-sizing: content-box;
+  max-width: 32em;
+  margin: auto;
+  padding: 36px;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, q:before {
+  content: none;
+}
+blockquote:after, q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: medium solid black;
+  border-bottom: medium solid black;
+}
+main {
+}
+main > header, main > .header, main > #header {
+  margin-top: 72px;
+  margin-bottom: 72px;
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: 54px;
+  margin-top: 0px;
+  margin-bottom: 36px;
+  font-weight: bold;
+}
+main > header .author, main > .header .author, main > #header .author {
+  font-size: 24px;
+  line-height: 36px;
+  margin-bottom: 18px;
+  font-weight: normal;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: Alegreya SC, serif;
+  line-height: 36px;
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: 18px;
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  font-weight: bold;
+  line-height: 45px;
+  margin-top: 72px;
+  margin-bottom: 27px;
+}
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 36px;
+  margin-bottom: 18px;
+}
+h3, h4, h5, h6 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 1em;
+  display: inline;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
+}
+a:hover {
+  text-decoration: none;
+}
+a:link {
+  color: black;
+}
+a:visited {
+  color: black;
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li {
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  margin-left: 36px;
+  padding-left: 0.5em;
+}
+ul {
+}
+ul li {
+  list-style: disc;
+}
+ol {
+}
+ol li {
+  list-style: decimal;
+}
+blockquote {
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+  padding: 36px;
+  margin-bottom: 36px;
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-size: 24px;
+  font-family: Inconsolata;
+}
+pre {
+  overflow-x: auto;
+  background-color: #ebebeb;
+  margin-bottom: 36px;
+  padding-left: 36px;
+  padding-right: 36px;
+  padding-top: 36px;
+  padding-bottom: 36;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: auto;
+}
+figure {
+  margin-bottom: 36px;
+  text-align: center;
+}
+figcaption {
+  display: inline-block;
+  font-style: italic;
+  text-align: justify;
+}
+.table {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  margin-bottom: 36px;
+}
+thead {
+  border-bottom: medium solid black;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+.MJXc-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+nav#TOC > ul {
+  position: relative;
+  font-weight: bold;
+}
+nav#TOC > ul > * {
+  margin-bottom: 36px;
+}
+nav#TOC > ul li {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+nav#TOC > ul ul {
+}
+nav#TOC > ul ul li {
+  margin-left: 36px;
+  font-weight: normal;
+}
+.section-flag {
+  line-height: 36px;
+  font-size: 17px;
+  font-weight: 300;
+  font-family: Alegreya Sans SC;
+  margin-bottom: 0;
+}
+nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+  padding-bottom: 36;
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+nav#TOC .badge {
+  position: relative;
+  bottom: 0.13em;
+  font-family: Alegreya Sans SC;
+  font-weight: 300;
+  font-size: 17px;
+  display: inline-block;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  vertical-align: baseline;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+  margin-right: 1em;
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,800,800italic,900,900italic|Alegreya+Sans+SC:400,100,300,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+SC:400,400italic,700,700italic,900,900italic|Alegreya:400,700,900,400italic,700italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.10.0
+(function() {
+  var box, hide_proof, main, show_proof;
+
+  hide_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("expanded");
+    sectionWrapper.addClass("minimized");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "visible"
+    });
+    w$(".header-wrapper").css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().css({
+      visibility: "hidden",
+      height: "0px"
+    });
+    w$(".header-wrapper").attr({
+      id: w$("section").first().attr("id")
+    });
+    return w$("section").first().attr({
+      id: ""
+    });
+  };
+
+  show_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("minimized");
+    sectionWrapper.addClass("expanded");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "hidden"
+    });
+    w$(".header-wrapper").css({
+      visibility: "hidden",
+      height: "0"
+    });
+    w$("section").first().css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().attr({
+      id: w$(".header-wrapper").attr("id")
+    });
+    return w$(".header-wrapper").attr({
+      id: ""
+    });
+  };
+
+  box = function(section) {
+    var clone, expand, header, headerWrapper, tombstone, wrapper;
+    clone = section.clone(true);
+    clone.css({
+      marginBottom: "0"
+    });
+    clone.children().last().css({
+      marginBottom: "0"
+    });
+    tombstone = clone.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer",
+      position: "absolute",
+      bottom: "0.75rem",
+      right: "0.75rem"
+    });
+    wrapper = $("<div class='proof-wrapper expanded'></div>");
+    wrapper.css({
+      position: "relative",
+      margin: "-0.75rem -0.75rem 0.75rem -0.75rem",
+      padding: "0.75rem",
+      backgroundColor: "#f9f9f9"
+    });
+    header = clone.find("h3, h4, h5, h6").first().clone();
+    headerWrapper = $("<div class='p header-wrapper' style='margin-bottom:0; visibility:hidden; overflow:hidden; height:0;'> </div>");
+    headerWrapper.append(header);
+    expand = $("<i class='fa fa-caret-down expand' style='visibility:hidden; cursor:pointer; position:absolute; top:0.75rem; right:0.75rem;'> </i>");
+    wrapper.append(headerWrapper);
+    wrapper.append(expand);
+    wrapper.append(clone);
+    expand.on("click", function() {
+      return show_proof(wrapper);
+    });
+    tombstone.on("click", function() {
+      return hide_proof(wrapper);
+    });
+    section.replaceWith(wrapper);
+    return wrapper;
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, section, sections, text, wrapper;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      wrapper = box(section);
+      hide_proof(wrapper);
+    }
+    return $(document).keydown(function(event) {
+      var k, l, len2, len3, ref1, ref2, results, sectionWrapper;
+      console.log("***", event.keyCode);
+      if (event.keyCode === 88) {
+        ref1 = $(".proof-wrapper.minimized");
+        for (k = 0, len2 = ref1.length; k < len2; k++) {
+          sectionWrapper = ref1[k];
+          show_proof($(sectionWrapper));
+        }
+      }
+      if (event.keyCode === 77) {
+        ref2 = $(".proof-wrapper.expanded");
+        results = [];
+        for (l = 0, len3 = ref2.length; l < len3; l++) {
+          sectionWrapper = ref2[l];
+          results.push(hide_proof($(sectionWrapper)));
+        }
+        return results;
+      }
+    });
+  };
+
+  $(main);
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.10.0
+(function() {
+  var make_preview, mathjaxDebug;
+
+  make_preview = function(elt) {
+    var card, hidden_css, hide_preview, id, ref, show_preview, url, visible_css;
+    ref = elt.attr("href").split("#"), url = ref[0], id = ref[1];
+    card = $("<div class='card'>\n  <div class='holder'>\n    <p>Placeholder</p>\n  </div>\n</div>");
+    card.css({
+      width: "35vw",
+      padding: "1.5rem",
+      position: "fixed",
+      top: "1.5rem",
+      right: "1.5rem",
+      boxSizing: "border-box",
+      maxHeight: "calc(100vh - 3rem)",
+      overflow: "hidden",
+      boxShadow: "0 0 1rem #e6e6e6",
+      backgroundColor: "white"
+    });
+    visible_css = {
+      visibility: "visible",
+      opacity: 1,
+      transform: "translateX(0em)",
+      transition: "all 0.3s linear"
+    };
+    hidden_css = {
+      visibility: "hidden",
+      opacity: 0,
+      transform: "translateX(1em)",
+      transition: "all 0.3s linear 0.5s"
+    };
+    card.css(hidden_css);
+    elt.css({
+      textDecoration: "underline solid #0a0a0a",
+      textDecorationSkip: "ink",
+      transition: "background-color 0.3s linear"
+    });
+    show_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d3"
+      });
+      return card.css(visible_css);
+    };
+    hide_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d300"
+      });
+      return card.css(hidden_css);
+    };
+    return card.find(".holder").load(url + (" [id='" + id + "']"), function(response, status, jxXHR) {
+      console.log("XHR status:", status, url, id);
+      if (status === "success" || status === "notmodified") {
+        console.log("success!");
+        console.log("elt:", $(elt));
+        $("body").append(card);
+        card.find("p, .p").css({
+          textAlign: "left"
+        });
+        card.find("section").css({
+          marginBottom: "0"
+        });
+        card.find("section").children().last().css({
+          marginBottom: "0"
+        });
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, card[0]]);
+        elt.on("mouseenter", show_preview);
+        return elt.on("mouseleave", hide_preview);
+      }
+    });
+  };
+
+  mathjaxDebug = function() {
+    MathJax.Hub.signal.Interest(function(message) {
+      return console.log("*", message);
+    });
+    return MathJax.Hub.Register.StartupHook("End Process", function() {
+      var i, jax, len, ref, results;
+      console.log("list of jaxes:");
+      ref = MathJax.Hub.getAllJax();
+      results = [];
+      for (i = 0, len = ref.length; i < len; i++) {
+        jax = ref[i];
+        results.push(console.log("jax:", jax));
+      }
+      return results;
+    });
+  };
+
+  $(function() {
+    var elt, i, len, ref, results;
+    ref = $("a.preview");
+    results = [];
+    for (i = 0, len = ref.length; i < len; i++) {
+      elt = ref[i];
+      results.push(make_preview($(elt)));
+    }
+    return results;
+  });
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">Complex-Differentiability</a></h1>
+
+<h2 class="author">
+By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, Mines ParisTech, under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>
+</h2> 
+
+<h3 class="date" style="margin-right: 0px;">November 28, 2017</h3>
+</header>
+<section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
+<ul>
+<li class="top-li"><p class="section-flag">section 1</p><a href="#exercises">Exercises</a><ul>
+<li><a href="#antiholomorphic-functions">Antiholomorphic Functions</a><ul>
+<li><span class="badge">que<span></span></span><a href="#questions">Questions</a></li>
+<li><span class="badge">ans<span></span></span><a href="#answers">Answers</a></li>
+</ul></li>
+<li><a href="#principal-value-of-the-logarithm">Principal Value of the Logarithm</a><ul>
+<li><span class="badge">que<span></span></span><a href="#questions-1">Questions</a></li>
+<li><span class="badge">ans<span></span></span><a href="#answers-1">Answers</a></li>
+</ul></li>
+<li><a href="#conformal-mappings">Conformal Mappings</a><ul>
+<li><span class="badge">que<span></span></span><a href="#questions-2">Questions</a></li>
+<li><span class="badge">ans<span></span></span><a href="#answers-2">Answers</a></li>
+</ul></li>
+<li><a href="#directional-derivative">Directional Derivative</a><ul>
+<li><span class="badge">que<span></span></span><a href="#questions-3">Questions</a></li>
+<li><span class="badge">ans<span></span></span><a href="#answers-3">Answers</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav></section>
+<section id="exercises" class="level1">
+<h1><a href="#exercises">Exercises</a></h1>
+<section id="antiholomorphic-functions" class="level2">
+<h2><a href="#antiholomorphic-functions">Antiholomorphic Functions</a></h2>
+<p>A function <span class="math inline">\(f:\Omega \to \mathbb{C}\)</span> is <em>antiholomorphic</em> if its complex conjugate <span class="math inline">\(\overline{f}\)</span> is holomorphic.</p>
+<section id="questions" class="level3">
+<h3><a href="#questions">Questions</a></h3><br>
+<ol type="1">
+<li><p>Is the complex conjugate function <span class="math inline">\(c:z \in \mathbb{C} \mapsto \overline{z}\)</span> real-linear? complex-linear? Is it real-differentiable? holomorphic? antiholomorphic?</p></li>
+<li><p>Show that any antiholomorphic function <span class="math inline">\(f\)</span> is real-differentiable. Relate the differential of such a function and the differential of its complex conjugate.</p></li>
+<li><p>Find the variant of the Cauchy-Riemann equation applicable to antiholomorphic functions.</p></li>
+<li><p>What property has the composition of two antiholomorphic functions?</p></li>
+<li><p>Let <span class="math inline">\(f: \Omega \mapsto \mathbb{C}\)</span> be a holomorphic function; show that the function <span class="math display">\[g: z \in \overline{\Omega} \mapsto \overline{f(\overline{z})}\]</span> is holomorphic and compute its derivative.</p></li>
+</ol>
+</section>
+<section id="answers" class="level3">
+<h3><a href="#answers">Answers</a></h3><br>
+<ol type="1">
+<li><p>For any <span class="math inline">\(\lambda \in \mathbb{R}\)</span> and <span class="math inline">\(w, z \in \mathbb{C}\)</span>, we have <span class="math display">\[
+  \overline{w + z} = \overline{w} + \overline{z} 
+  \; \wedge \;
+  \overline{\lambda z} = \lambda \overline{z}, 
+  \]</span> therefore the function <span class="math inline">\(c\)</span> is real-linear. However, it is not complex-linear: for example <span class="math inline">\(\overline{i} = - i \neq i \times \overline{1}.\)</span> The function <span class="math inline">\(c\)</span> is real-linear and continuous, hence it is real-differentiable and for any <span class="math inline">\(z \in \mathbb{C}\)</span>, <span class="math inline">\(dc_z = c\)</span>. This differential is not complex-linear, therefore the function is not complex-differentiable (or holomorphic). On the other hand, <span class="math inline">\(\overline{c(z)} = z\)</span>, therefore it is antiholomorphic.</p></li>
+<li><p>If the function <span class="math inline">\(\overline{f}:\Omega \to \mathbb{R}\)</span> is holomorphic, it is real-differentiable everywhere on its domain of definition. Hence <span class="math inline">\(f = c \circ \overline{f}\)</span> is real-differentiable as the composition of real-differentiable functions and <span class="math display">\[df_z = d(c\circ \overline{f})_z = c \circ d\overline{f}_z.\]</span></p></li>
+<li><p>The complex-valued Cauchy-Riemann equation for <span class="math inline">\(\overline{f}\)</span> is <span class="math display">\[
+  \frac{\partial \overline{f}}{\partial x}(z) 
+  = 
+  \frac{1}{i}\frac{\partial \overline{f}}{\partial y}(z), \; \mbox{ or }
+  d \overline{f}_z(i) = i \times d \overline{f}_z(1)
+  \]</span> On the other hand, we have <span class="math display">\[
+  \frac{\partial \overline{f}}{\partial x}(z) 
+  = 
+  d (c \circ f)_z (1) 
+  =
+  (c \circ df_z)(1)
+  =
+  \overline{\frac{\partial f}{\partial x}}
+  \]</span> and <span class="math display">\[
+  \frac{\partial \overline{f}}{\partial y}(z) 
+  = 
+  d (c \circ f)_z (i) 
+  =
+  (c \circ df_z)(i)
+  =
+  \overline{\frac{\partial f}{\partial y}},
+  \]</span> hence we can rewrite the Cauchy-Riemann equation for <span class="math inline">\(\overline{f}\)</span> as <span class="math display">\[
+  \frac{\partial f}{\partial x}(z) 
+  = 
+  -\frac{1}{i}\frac{\partial f}{\partial y}(z), \; \mbox{ or }
+  d f_z(i) = -i \times d f_z(1).
+  \]</span></p></li>
+<li><p>The composition of antiholomorphic functions is holomorphic. Indeed, if <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> are antiholomorphic, they are real-differentiable; their composition – assuming that it is defined – is <span class="math inline">\(f \circ g = (c \circ \overline{f}) \circ (c \circ \overline{g})\)</span>; it satisfies <span class="math display">\[
+  d(f \circ g)_z
+    =d(c \circ \overline{f})_{c(\overline{g}(z))} \circ d(c \circ  \overline{g})_z
+    = c \circ d\overline{f}_{c(\overline{g}(z))} \circ c \circ d\overline{g}_z.
+  \]</span> Since for any <span class="math inline">\(h, w \in \mathbb{C}\)</span>, <span class="math display">\[c(h w) = \overline{h} c(w), \;d\overline{g}_z(h w) = h d\overline{g}(w), \; d\overline{f}_{c(\overline{g}(z))}(h w) = h d\overline{f}_{c(\overline{g}(z))}(w),\]</span> we have <span class="math display">\[
+  d(f \circ g)_z(h) = h d(f \circ g)_z(1).
+  \]</span> The differential of <span class="math inline">\(f \circ g\)</span> is complex-linear: the function is holomorphic.</p></li>
+<li><p>If the point <span class="math inline">\(w\)</span> belongs to <span class="math inline">\(\overline{\Omega}\)</span>, then <span class="math inline">\(w = \overline{z}\)</span> for some <span class="math inline">\(z \in \Omega\)</span>, thus the complex number <span class="math inline">\(\overline{f(\overline{z})}\)</span> is defined. Additionally, the set <span class="math display">\[\overline{\Omega} = \{\overline{z} \;|\; z \in \Omega\} =
+  \{w \in \mathbb{C}\; | \; \overline{w} \in \Omega\}\]</span> is an open set, as the inverse image of the open set <span class="math inline">\(\Omega\)</span> by the continous function <span class="math inline">\(c\)</span>. The function <span class="math inline">\(g\)</span> satisfies <span class="math display">\[
+  g = c \circ f \circ c = (c \circ f) \circ c
+  \]</span> which is holomorphic as the composition of two antiholomorphic functions. We have <span class="math display">\[
+  dg_z(h) = (c \circ df_{c(z)} \circ c) (h)
+          = \overline{df_{\overline{z}}(\overline{h})}
+          = \overline{f'(\overline{z}) \overline{h}}
+          = \overline{f'(\overline{z})} h,
+  \]</span> hence <span class="math inline">\(g'(z) = \overline{f'(\overline{z})}\)</span>.</p></li>
+</ol>
+</section>
+</section>
+<section id="principal-value-of-the-logarithm" class="level2">
+<h2><a href="#principal-value-of-the-logarithm">Principal Value of the Logarithm</a></h2>
+<p>According to the definition of <span class="math inline">\(\log\)</span>, for any <span class="math inline">\(x+iy \in \mathbb{C} \setminus \mathbb{R}_-\)</span>, <span class="math display">\[
+   \log (x + i y)
+   =
+   \ln \sqrt{x^2 + y^2} + i \arg (x+iy),
+   \]</span> where <span class="math inline">\(\arg: \mathbb{C} \setminus \mathbb{R}_- \to \mathbb{C}\)</span> is <em>the principal value of the argument</em>: <span class="math display">\[
+  \forall\, z \in \mathbb{C} \setminus \mathbb{R}_-, \;
+  \arg z \in \left]-\pi,\pi\right[ \; \wedge \;  e^{i \arg z} = \frac{z}{|z|}.
+  \]</span></p>
+<section id="questions-1" class="level3">
+<h3><a href="#questions-1">Questions</a></h3><br>
+<ol type="1">
+<li><p>Show that <span class="math display">\[
+  \arg (x + i y) = 
+  \left| 
+  \begin{array}{cl}
+  \arctan y/x &amp; \mbox{if } x &gt; 0, \\
+  +\pi/2 - \arctan x/y &amp; \mbox{if } y &gt; 0, \\
+  -\pi/2 - \arctan x/y &amp; \mbox{if } y &lt; 0. \\
+  \end{array}
+  \right.
+  \]</span></p></li>
+<li><p>Show that the function <span class="math inline">\(\log\)</span> is holomorphic and compute its derivative.</p></li>
+</ol>
+</section>
+<section id="answers-1" class="level3">
+<h3><a href="#answers-1">Answers</a></h3><br>
+<ol type="1">
+<li><p>Note that the definition of <span class="math inline">\(\arg\)</span> is non-ambiguous: for any nonzero real number <span class="math inline">\(\epsilon\)</span>, <span class="math display">\[
+  \arctan \epsilon + \arctan 1/\epsilon 
+  = 
+  \mathrm{sgn}(\epsilon) \times \pi/2,
+  \]</span> so if <span class="math inline">\(x+iy\)</span> belongs to two of the half-planes <span class="math inline">\(x&gt;0\)</span>, <span class="math inline">\(y&lt;0\)</span> and <span class="math inline">\(y&gt;0\)</span>, the two relevant expressions which may define <span class="math inline">\(\arg(x+iy)\)</span> are equal.</p>
+<p>As <span class="math inline">\(\arctan(\mathbb{R}) = \left]-\pi/2, \pi/2\right[\)</span>, the three expressions that define <span class="math inline">\(\arg\)</span> have values in <span class="math inline">\(\left]-\pi,\pi\right[\)</span>. Then, if for example <span class="math inline">\(x&gt;0\)</span>, with <span class="math inline">\(\theta=\arg(x+iy)\)</span>, we have <span class="math display">\[
+  \frac{\sin\theta}{\cos\theta}=\tan \theta = \tan (\arctan y/x) = \frac{y}{x}. 
+  \]</span> Since <span class="math inline">\(\cos \theta &gt; 0\)</span> and <span class="math inline">\(x&gt;0\)</span>, there is a <span class="math inline">\(\lambda &gt; 0\)</span> such that <span class="math display">\[
+  x + i y = \lambda (\sin \theta + i \cos \theta) = \lambda e^{i\theta};
+  \]</span> this equation yields <span class="math display">\[e^{i\arg (x+ i y)} = \frac{x+iy}{|x+iy|}.\]</span> The proof for the half-planes <span class="math inline">\(y&gt;0\)</span> and <span class="math inline">\(y&lt;0\)</span> is similar.</p></li>
+<li><p>The functions <span class="math inline">\(\arg\)</span>, <span class="math inline">\(\ln\)</span> and therefore <span class="math inline">\(\log\)</span> are continuously real-differentiable. If <span class="math inline">\(x &gt; 0\)</span>, for example, we have <span class="math display">\[
+ \frac{\partial \arg(x+iy)}{\partial x}
+ =
+ \frac{1}{1 + (y/x)^2} \left(-\frac{y}{x^2}\right) = -\frac{y}{x^2 + y^2}.
+ \]</span> and <span class="math display">\[
+ \frac{\partial \arg(x+iy)}{\partial y}
+ =
+ \frac{1}{1 + (y/x)^2} \left(\frac{1}{x}\right) = \frac{x}{x^2 + y^2}.
+ \]</span> On the other hand, <span class="math display">\[
+ \frac{\partial}{\partial x} \ln \sqrt{x^2 + y^2}
+ =
+ \frac{1}{\sqrt{x^2 + y^2}} \frac{2x}{\sqrt{x^2 + y^2}}
+ = 
+ \frac{x}{x^2 + y^2}
+ \]</span> and <span class="math display">\[
+ \frac{\partial}{\partial y} \ln \sqrt{x^2 + y^2}
+ =
+ \frac{1}{\sqrt{x^2 + y^2}} \frac{2y}{\sqrt{x^2 + y^2}}
+ = 
+ \frac{y}{x^2 + y^2}
+ \]</span> Finally <span class="math display">\[
+ \frac{\partial \log}{\partial x}(x+iy)
+ =
+ \frac{x}{x^2 + y^2} - i \frac{y}{x^2 + y^2}
+ =
+ \frac{1}{x+iy}
+ \]</span> and <span class="math display">\[
+ \frac{\partial \log}{\partial y}(x+iy)
+ =
+ \frac{y}{x^2+y^2}
+ + i \frac{x}{x^2+y^2}
+ =\frac{1}{i}
+ \frac{1}{x+iy}.
+ \]</span> The computations for <span class="math inline">\(y&gt;0\)</span> and <span class="math inline">\(y&lt;0\)</span> are similar. Conclusion: the function <span class="math inline">\(\log\)</span> is complex-differentiable and <span class="math inline">\(\log'(z) = 1/z\)</span>.</p></li>
+</ol>
+</section>
+</section>
+<section id="conformal-mappings" class="level2">
+<h2><a href="#conformal-mappings">Conformal Mappings</a></h2>
+<section id="questions-2" class="level3">
+
+<div class="p"><h3><a href="#questions-2">Questions</a></h3>A <span class="math inline">\(\mathbb{R}\)</span>-linear mapping <span class="math inline">\(L: \mathbb{C} \to \mathbb{C}\)</span> is <em>angle-preserving</em> if <span class="math inline">\(L\)</span> is invertible and <span class="math display">\[
+  \forall \, \theta \in \mathbb{R}, \;
+  \exists \, \alpha_{\theta} &gt; 0, \; 
+  L(e^{i\theta}) = \alpha_{\theta} \times e^{i\theta} L(1). 
+  \]</span> A <span class="math inline">\(\mathbb{R}\)</span>-differentiable function <span class="math inline">\(f: \Omega \to \mathbb{C}\)</span> <em>(locally) angle-preserving</em> – or <em>conformal</em> – if its differential is angle-preserving everywhere.</div>
+<ol type="1">
+<li><p>Show that an invertible <span class="math inline">\(\mathbb{R}\)</span>-linear mapping <span class="math inline">\(L: \mathbb{C} \to \mathbb{C}\)</span> is angle-preserving if and only if it is <span class="math inline">\(\mathbb{C}\)</span>-linear.</p></li>
+<li><p>Identify the class of conformal mappings defined on <span class="math inline">\(\Omega\)</span>.</p></li>
+</ol>
+</section>
+<section id="answers-2" class="level3">
+<h3><a href="#answers-2">Answers</a></h3><br>
+<ol type="1">
+<li><p>If <span class="math inline">\(L\)</span> is <span class="math inline">\(\mathbb{C}\)</span>-linear, then for any <span class="math inline">\(\theta \in \mathbb{R}\)</span>, <span class="math inline">\(L(e^{i\theta}) = e^{i\theta} L(1)\)</span>, hence it is angle-preserving. Reciprocally, if <span class="math inline">\(L\)</span> is angle-preserving, we have on one hand <span class="math display">\[
+  L(e^{i \theta}) = \alpha_{\theta} \times e^{i\theta} L(1)
+  \]</span> and on the other hand, as <span class="math inline">\(e^{i\theta}= \cos \theta + i \sin \theta\)</span>, <span class="math display">\[
+  L(e^{i\theta})
+  = \cos \theta \times L(1) + \sin \theta \times L(i)
+  = (\cos \theta + \sin \theta \times \alpha_{\frac{\pi}{2}} i) L(1).
+  \]</span> We know that <span class="math inline">\(L(1) \neq 0\)</span>, hence these equations provide <span class="math display">\[
+  \alpha_{\theta} = 
+  \cos \theta e^{-i\theta} + \sin \theta e^{-i \theta}\times \alpha_{\frac{\pi}{2}} i =
+  \frac{1 + \alpha_{\frac{\pi}{2}}}{2} + \frac{1 - \alpha_{\frac{\pi}{2}}}{2} e^{-i2\theta}.
+  \]</span> As <span class="math inline">\(\alpha_{\theta}\)</span> is real-valued, <span class="math inline">\(\alpha_{\frac{\pi}{2}} = 1\)</span>. Consequently <span class="math inline">\(\alpha_{\theta} = 1\)</span> and <span class="math inline">\(L\)</span> is <span class="math inline">\(\mathbb{C}\)</span>-linear.</p></li>
+<li><p>A mapping <span class="math inline">\(f:\Omega \to \mathbb{C}\)</span> is conformal if it is <span class="math inline">\(\mathbb{R}\)</span>-differentiable, <span class="math inline">\(df_z\)</span> is invertible everywhere and is <span class="math inline">\(\mathbb{C}\)</span>-linear: this is exactly the class of holomorphic mappings <span class="math inline">\(f\)</span> on <span class="math inline">\(\Omega\)</span> such that <span class="math inline">\(f'(z) \neq 0\)</span> everywhere.</p></li>
+</ol>
+</section>
+</section>
+<section id="directional-derivative" class="level2">
+<h2><a href="#directional-derivative">Directional Derivative</a></h2>
+<p>Source: Mathématiques III, Francis Maisonneuve, Presses des Mines.</p>
+<section id="questions-3" class="level3">
+
+<div class="p"><h3><a href="#questions-3">Questions</a></h3>Let <span class="math inline">\(f\)</span> be a complex-valued function defined in a neighbourhood of a point <span class="math inline">\(z_0 \in \mathbb{C}\)</span>. Assume that <span class="math inline">\(f\)</span> is <span class="math inline">\(\mathbb{R}\)</span>-differentiable at <span class="math inline">\(z_0\)</span>.</div>
+<ol type="1">
+<li><p>Let <span class="math inline">\(\alpha \in \mathbb{R}\)</span> and <span class="math inline">\(z_{r,\alpha} = z_0 + r e^{i\alpha}\)</span> for <span class="math inline">\(r \in \mathbb{R}\)</span>. Show that <span class="math display">\[
+  \ell_{\alpha} 
+  = 
+  \lim_{r \to 0} \frac{f(z_{r,\alpha}) - f(z_0)}{z_{r,\alpha} - z_0}
+  \]</span> exists and determine its value as a function of <span class="math inline">\(df_{z_0}\)</span> and <span class="math inline">\(\alpha\)</span>.</p></li>
+<li><p>What is the geometric structure of the set <span class="math inline">\(A = \{\ell_{\alpha} \; | \; \alpha \in \mathbb{R}\}\)</span> ?</p></li>
+<li><p>For which of these sets <span class="math inline">\(A\)</span> is <span class="math inline">\(f\)</span> <span class="math inline">\(\mathbb{C}\)</span>-differentiable at <span class="math inline">\(z_0\)</span>?</p></li>
+</ol>
+</section>
+<section id="answers-3" class="level3">
+<h3><a href="#answers-3">Answers</a></h3><br>
+<ol type="1">
+<li><p>The real-differentiability of <span class="math inline">\(f\)</span> at <span class="math inline">\(z_0\)</span> provides <span class="math display">\[
+  f(z_0 + re^{i\alpha}) 
+  = f(z_0) + df_{z_0}(re^{i\alpha}) 
+  + \epsilon_{z_0}(re^{i\alpha}) |r| 
+  \]</span> where <span class="math inline">\(\lim_{h \to 0} \epsilon_{z_0}(h) = 0\)</span>. Therefore, <span class="math display">\[
+  \frac{f(z_{r,\alpha}) - f(z_0)}{z_{r,\alpha} - z_0}
+  =
+  (re^{i\alpha})^{-1}(df_{z_0}(re^{i\alpha})  
+  + \epsilon_{z_0}(re^{i\alpha})|r|).
+  \]</span> Using the <span class="math inline">\(\mathbb{R}\)</span>-linearity of <span class="math inline">\(df_{z_0}\)</span>, we get <span class="math display">\[
+  \frac{f(z_{r,\alpha}) - f(z_0)}{z_{r,\alpha} - z_0}
+  =
+  e^{-i\alpha}df_{z_0}(e^{i\alpha})  
+  + \epsilon_{z_0,\alpha}(r)
+  \]</span> for some function <span class="math inline">\(\epsilon_{z_0,\alpha}\)</span> such that <span class="math inline">\(\lim_{r \to 0} \epsilon_{z_0,\alpha}(r) = 0\)</span>. Hence, the limit that defines <span class="math inline">\(\ell_{\alpha}\)</span> exists and <span class="math display">\[
+  \ell_{\alpha} = e^{-i\alpha}df_{z_0}(e^{i\alpha}).  
+  \]</span></p></li>
+<li><p>For every real number <span class="math inline">\(\alpha\)</span>, we have <span class="math display">\[
+  \ell_{\alpha} 
+  = 
+  e^{-i\alpha}
+  \left(
+    \frac{\partial f}{\partial x}(z_0) \cos \alpha
+    +
+    \frac{\partial f}{\partial y}(z_0) \sin \alpha
+  \right).
+  \]</span> Hence, if we use the equations <span class="math display">\[
+  \cos \alpha = \frac{e^{i\alpha} + e^{-i\alpha}}{2}, \;
+  \sin \alpha = \frac{e^{i\alpha} - e^{-i\alpha}}{2i}, \;
+  \]</span> we obtain <span class="math display">\[
+  \ell_{\alpha} 
+  = 
+  \frac{1}{2}
+  \left(
+    \frac{\partial f}{\partial x}(z_0)
+    +
+    \frac{1}{i}\frac{\partial f}{\partial y}(z_0)
+  \right)
+    +
+  \frac{1}{2}
+  \left(
+    \frac{\partial f}{\partial x}(z_0)
+    - 
+    \frac{1}{i}\frac{\partial f}{\partial y}(z_0)
+  \right)e^{-i2\alpha}.
+  \]</span> Therefore, the set <span class="math inline">\(A = \{\ell_{\alpha} \; | \; \alpha \in \mathbb{R}\}\)</span> is a circle centered on <span class="math display">\[
+  c = \frac{\partial f}{\partial x}(z_0)
+    +
+    \frac{1}{i}\frac{\partial f}{\partial y}(z_0)
+  \]</span> whose radius is <span class="math display">\[ 
+  r = 
+  \left|
+    \frac{\partial f}{\partial x}(z_0)
+    - 
+    \frac{1}{i}\frac{\partial f}{\partial y}(z_0)
+  \right|.
+  \]</span></p></li>
+<li><p>The function <span class="math inline">\(f\)</span> is complex-differentiable at <span class="math inline">\(z_0\)</span> if and only if the Cauchy-Riemann equation <span class="math display">\[
+  \frac{\partial f}{\partial x}(z_0)
+  = 
+  \frac{1}{i}\frac{\partial f}{\partial y}(z_0)
+  \]</span> is met, which happens exactly when the radius of the circle <span class="math inline">\(A\)</span> is zero, that is, when <span class="math inline">\(A\)</span> is a single point in the complex plane.</p></li>
+</ol>
+</section>
+</section>
+</section>
+</main>
+
+
+</body></html>

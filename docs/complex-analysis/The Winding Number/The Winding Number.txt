@@ -228,7 +228,7 @@ $|\theta_1 - \theta_2| < \pi/2.$
 If we select some values $\theta_{1,0}$ of $\mathrm{Arg} (\gamma(0) - a)$ and 
 $\theta_{2,0}$ of $\mathrm{Arg} (\beta(0) -b)$ such that 
 $|\theta_{1,0} - \theta_{2,0}| < \pi/2,$
-then the corresponding continuous choices $\theta_1$ and $\theta_2$ satisfy
+then the corresponding continuous choices $\theta_1$ et $\theta_2$ satisfy
 $|\theta_1(t) - \theta_2(t)| < \pi/2$ for any $t \in [0,1]$([^lemma]).
 Consequently
   $$
@@ -282,8 +282,7 @@ is a continuous choice of $z \mapsto \mathrm{Arg}(z-b)$ along $\gamma$
 and it satisfies 
   $$
   \forall \,  t \in [0,1], \; |\theta(t)|  = 
-  \left|\arctan \frac{\mathrm{Im} (\gamma(t) - b)}{\mathrm{Re} (\gamma(t) -b)} \right|
-  < \arctan \frac{r}{|b| - r} < \frac{\pi}{2}.
+  \arctan \frac{\mathrm{Im} (\gamma(t) - b)}{\mathrm{Re} (\gamma(t) -b )} < \arctan \frac{r}{|b| - r} < \frac{\pi}{2}.
   $$
 As $\gamma$ is a closed path, $\theta(0)$ and $\theta(1)$
 -- which are equal modulo $2\pi$ -- are actually equal and

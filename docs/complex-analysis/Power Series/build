@@ -96,7 +96,7 @@ pandoc -o "$json" $JSON_OPT "$txt"
 # ------------------------------------------------------------------------------
 cat "$json" | eul-doc --pdf > "$json_pdf"
 pandoc -f json -o "$pdf" $PDF_OPT "$json_pdf"
-#rm "$json_pdf"
+rm "$json_pdf"
 
 # Generate HTML
 # ------------------------------------------------------------------------------

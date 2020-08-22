@@ -300,9 +300,9 @@ All such components are open.
 Let $A$ be an open set and let $B$ be a path-connected component of $A.$
 For any $b \in B,$ there is a non-empty open disk $D$ centered on $b$ 
 which is included in $A.$
-The disk $D$ is a path-connected subset of $A$ that contains $b;$
+The disk $D$ is a path-connected subset of $A$ that contains $a;$
 it is therefore included in the unique maximal path-connected subset of $A$
-that contains $b$: the set $B.$ Therefore, $B$ is open.
+that contains $a$: the set $B.$ Therefore, $B$ is open.
 
 The path-connected components of $A$ are open and path-connected, 
 hence they are also connected. 

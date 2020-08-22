@@ -216,7 +216,7 @@ where $\arg: \mathbb{C} \setminus \mathbb{R}_- \to \mathbb{C}$ is
      $$
      \frac{\partial}{\partial x} \ln \sqrt{x^2 + y^2}
      =
-     \frac{1}{\sqrt{x^2 + y^2}} \frac{x}{\sqrt{x^2 + y^2}}
+     \frac{1}{\sqrt{x^2 + y^2}} \frac{2x}{\sqrt{x^2 + y^2}}
      = 
      \frac{x}{x^2 + y^2}
      $$
@@ -224,7 +224,7 @@ where $\arg: \mathbb{C} \setminus \mathbb{R}_- \to \mathbb{C}$ is
      $$
      \frac{\partial}{\partial y} \ln \sqrt{x^2 + y^2}
      =
-     \frac{1}{\sqrt{x^2 + y^2}} \frac{y}{\sqrt{x^2 + y^2}}
+     \frac{1}{\sqrt{x^2 + y^2}} \frac{2y}{\sqrt{x^2 + y^2}}
      = 
      \frac{y}{x^2 + y^2}
      $$

@@ -64,7 +64,7 @@ it is of *multiplicity* $p$ for some positive number $p$ if
   $$
 or equivalently
   $$
-  \exists \, a^* \in \mathbb{C}^*, \;
+  \exists \, a \in \mathbb{C}^*, \;
   \lim_{z \to c} \frac{f(z)}{(z-c)^p} = a^*.
   $$
 A zero of multiplicity $1$ is *simple*; 
@@ -378,7 +378,7 @@ is equivalent to
   $$
   1/f(z) \to 0 \, \mbox{ when } \, z \to c.
   $$
-This property holds if and only if $1/f$ has a holomorphic extension
+This property holds if and only if $f$ has a holomorphic extension
 over $c$ and $c$ is a zero of this extension. As $1/f$ is not identically
 zero locally, this zero has a finite multiplicity $p$ and hence $c$ 
 is a pole of order $p$ of $f.$

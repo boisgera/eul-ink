@@ -40,7 +40,7 @@
 \pgfusepath{fill}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgfpathrectangle{\pgfqpoint{0.482717in}{0.320555in}}{\pgfqpoint{3.833333in}{3.833333in}}%
+\pgfpathrectangle{\pgfqpoint{0.482717in}{0.320555in}}{\pgfqpoint{3.833333in}{3.833333in}} %
 \pgfusepath{clip}%
 \pgfsetrectcap%
 \pgfsetroundjoin%
@@ -53,7 +53,7 @@
 \pgfusepath{stroke}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgfpathrectangle{\pgfqpoint{0.482717in}{0.320555in}}{\pgfqpoint{3.833333in}{3.833333in}}%
+\pgfpathrectangle{\pgfqpoint{0.482717in}{0.320555in}}{\pgfqpoint{3.833333in}{3.833333in}} %
 \pgfusepath{clip}%
 \pgfsetrectcap%
 \pgfsetroundjoin%
@@ -66,7 +66,7 @@
 \pgfusepath{stroke}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgfpathrectangle{\pgfqpoint{0.482717in}{0.320555in}}{\pgfqpoint{3.833333in}{3.833333in}}%
+\pgfpathrectangle{\pgfqpoint{0.482717in}{0.320555in}}{\pgfqpoint{3.833333in}{3.833333in}} %
 \pgfusepath{clip}%
 \pgfsetrectcap%
 \pgfsetroundjoin%

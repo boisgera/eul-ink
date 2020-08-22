@@ -1,1 +1,522 @@
-/www/robotics/Robotics.html
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, MINES ParisTech">
+  <title>Robotics</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: content-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+html {
+  line-height: 36px;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: normal;
+  font-family: Alegreya, serif;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html em {
+  font-style: italic;
+}
+html strong {
+  font-weight: bold;
+}
+html p, html .p {
+  margin-bottom: 36px;
+  text-align: justify;
+  hyphens: auto;
+  moz-hyphens: auto;
+}
+html section {
+  margin-bottom: 36px;
+}
+html main {
+  box-sizing: content-box;
+  max-width: 32em;
+  margin: auto;
+  padding: 36px;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, q:before {
+  content: none;
+}
+blockquote:after, q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: medium solid black;
+  border-bottom: medium solid black;
+}
+main {
+}
+main > header, main > .header, main > #header {
+  margin-top: 72px;
+  margin-bottom: 72px;
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: 54px;
+  margin-top: 0px;
+  margin-bottom: 36px;
+  font-weight: bold;
+}
+main > header .author, main > .header .author, main > #header .author {
+  font-size: 24px;
+  line-height: 36px;
+  margin-bottom: 18px;
+  font-weight: normal;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: Alegreya SC, serif;
+  line-height: 36px;
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: 18px;
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  font-weight: bold;
+  line-height: 45px;
+  margin-top: 72px;
+  margin-bottom: 27px;
+}
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 36px;
+  margin-bottom: 18px;
+}
+h3, h4, h5, h6 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 1em;
+  display: inline;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
+}
+a:hover {
+  text-decoration: none;
+}
+a:link {
+  color: black;
+}
+a:visited {
+  color: black;
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li {
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  margin-left: 36px;
+  padding-left: 0.5em;
+}
+ul {
+}
+ul li {
+  list-style: disc;
+}
+ol {
+}
+ol li {
+  list-style: decimal;
+}
+blockquote {
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+  padding: 36px;
+  margin-bottom: 36px;
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-size: 24px;
+  font-family: Inconsolata;
+}
+pre {
+  overflow-x: auto;
+  background-color: #ebebeb;
+  margin-bottom: 36px;
+  padding-left: 36px;
+  padding-right: 36px;
+  padding-top: 36px;
+  padding-bottom: 36;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: auto;
+}
+figure {
+  margin-bottom: 36px;
+  text-align: center;
+}
+figcaption {
+  display: inline-block;
+  font-style: italic;
+  text-align: justify;
+}
+.table {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  margin-bottom: 36px;
+}
+thead {
+  border-bottom: medium solid black;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+.MJXc-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+nav#TOC > ul {
+  position: relative;
+  font-weight: bold;
+}
+nav#TOC > ul > * {
+  margin-bottom: 36px;
+}
+nav#TOC > ul li {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+nav#TOC > ul ul {
+}
+nav#TOC > ul ul li {
+  margin-left: 36px;
+  font-weight: normal;
+}
+.section-flag {
+  line-height: 36px;
+  font-size: 17px;
+  font-weight: 300;
+  font-family: Alegreya Sans SC;
+  margin-bottom: 0;
+}
+nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+  padding-bottom: 36;
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+nav#TOC .badge {
+  position: relative;
+  bottom: 0.13em;
+  font-family: Alegreya Sans SC;
+  font-weight: 300;
+  font-size: 17px;
+  display: inline-block;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  vertical-align: baseline;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+  margin-right: 1em;
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,800,800italic,900,900italic|Alegreya+Sans+SC:400,100,300,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+SC:400,400italic,700,700italic,900,900italic|Alegreya:400,700,900,400italic,700italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.10.0
+(function() {
+  $(function() {
+    return console.log("HELLO FROM DEMO!");
+  });
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.10.0
+(function() {
+  var hide_proof, main, show_proof;
+
+  hide_proof = function(section) {
+    var clone, div, header, id, new_paragraph;
+    clone = section.clone();
+    id = section.attr("id");
+    clone.attr({
+      id: id + "---"
+    });
+    div = $("<div></div>");
+    div.css({
+      display: "none"
+    });
+    div.append(clone);
+    header = section.find("h3, h4, h5, h6").first().clone();
+    new_paragraph = $("<div class='p'></div>").append(header);
+    new_paragraph.append("<i class='fa fa-caret-down expand' style='float:right;cursor:pointer;'></i>");
+    section.empty();
+    section.append(new_paragraph);
+    section.append(div);
+    return section.find("i.expand").on("click", (function(section) {
+      return function() {
+        return show_proof(section);
+      };
+    })(section));
+  };
+
+  show_proof = function(section) {
+    var tombstone;
+    section.children().first().remove();
+    section.html(section.children().first().html());
+    tombstone = section.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer"
+    });
+    return tombstone.on("click", (function(section) {
+      return function() {
+        return hide_proof(section);
+      };
+    })(section));
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, results, section, sections, text;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    results = [];
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      results.push(hide_proof(section));
+    }
+    return results;
+  };
+
+  $(main);
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">Robotics</a></h1>
+
+<h2 class="author">
+By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, MINES ParisTech
+</h2> 
+
+<h3 class="date">November 8, 2017</h3>
+</header>
+<section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
+<ul>
+<li class="top-li"><p class="section-flag">section 1</p><a href="#presentations-lecture-notes">Presentations &amp; Lecture Notes</a></li>
+<li class="top-li"><p class="section-flag">section 2</p><a href="#on-wheels">On Wheels</a></li>
+<li class="top-li"><p class="section-flag">section 3</p><a href="#control-theory">Control Theory</a></li>
+<li class="top-li"><p class="section-flag">section 4</p><a href="#free-resources">Free Resources</a></li>
+<li class="top-li"><p class="section-flag">section 5</p><a href="#notes">Notes</a></li></ul>
+</nav></section>
+<style> 
+  .grid { 
+    margin-bottom: 1.5em;
+  }
+  .grid > * { /* row */
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin-bottom: 1.5em;
+  }
+  .grid > * > :last-child { /* item */
+    white-space: nowrap;
+  }
+  .grid * {
+    line-height: 1.5em;
+  }
+  .grid > * > *:not(:last-child) { /* item*/
+    margin: 0 1em 0 0;
+  }
+</style>
+<p>A mix of mechanical engineering and control theory.</p>
+<section id="presentations-lecture-notes" class="level1">
+<h1><a href="#presentations-lecture-notes">Presentations &amp; Lecture Notes</a></h1>
+<p>Slides for some MAREVA<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> courses.</p>
+<div class="grid">
+<div>
+<div>
+<h3 id="elements-of-lagrangian-mechanics---applications-to-mobile-robotics"><a href="#elements-of-lagrangian-mechanics---applications-to-mobile-robotics">Elements of Lagrangian Mechanics - Applications to Mobile Robotics</a></h3>
+‌
+</div>
+<div>
+<a href="documents/Elements%20of%20Lagrangian%20Mechanics%20-%20Applications%20to%20Mobile%20Robots.pdf"><i class="fa fa-file-pdf-o"></i></a>
+</div>
+</div>
+<div>
+<div>
+<h3 id="typologie-des-robots-mobiles-in-french"><a href="#typologie-des-robots-mobiles-in-french">Typologie des Robots Mobiles (in French)</a></h3>
+‌
+</div>
+<div>
+<a href="documents/Typologie%20des%20Robots%20Mobiles.pdf"><i class="fa fa-file-pdf-o"></i></a>
+</div>
+</div>
+<div>
+<div>
+<h3 id="coriolis-and-centrifugal-forces"><a href="#coriolis-and-centrifugal-forces">Coriolis and Centrifugal Forces</a></h3>
+‌
+</div>
+<div>
+<a href="Coriolis%20and%20Centrifugal%20Forces"><i class="fa fa-html5"></i></a> / <a href="Coriolis%20and%20Centrifugal%20Forces/Coriolis%20and%20Centrifugal%20Forces.pdf"><i class="fa fa-file-pdf-o"></i></a>
+</div>
+</div>
+</div>
+</section>
+<section id="on-wheels" class="level1">
+<h1><a href="#on-wheels">On Wheels</a></h1>
+<p>The only wheels considered in the document <a href="http://eul.ink/robotics/documents/Elements%20of%20Lagrangian%20Mechanics%20-%20Applications%20to%20Mobile%20Robots.pdf">Elements of Lagrangian Mechanics - Applications to Mobile Robotics</a> are either fixed or orientable with a swivel axis that goes through the wheel center. Why? Because these wheels add kinematics constraints to the mobile robot and restrict its possible trajectories.</p>
+<p>It is sometimes necessary to use wheels that do not have this unfortunate effect; this is for example mandatory to design omnidirectional robots. Two example categories are <a href="https://en.wikipedia.org/wiki/Caster"><em>caster wheels</em></a> and <a href="https://en.wikipedia.org/wiki/Mecanum_wheel"><em>swedish (or Mecanum) wheels</em></a>:</p>
+<div class="grid">
+<div>
+<div>
+<h3 id="kinematics-of-caster-wheels"><a href="#kinematics-of-caster-wheels">Kinematics of Caster Wheels</a></h3>
+‌
+</div>
+<div>
+<a href="Kinematics%20of%20Caster%20Wheels/index.html"><i class="fa fa-html5"></i></a> / <a href="Kinematics%20of%20Caster%20Wheels/Kinematics%20of%20Caster%20Wheels.pdf"><i class="fa fa-file-pdf-o"></i></a> / <a href="Kinematics%20of%20Caster%20Wheels/Kinematics%20of%20Caster%20Wheels.zip"><i class="fa fa-file-zip-o"></i></a> / <a href="https://bitbucket.org/boisgera/kinematics-of-caster-wheels"><i class="fa fa-bitbucket"></i></a>
+</div>
+</div>
+<div>
+<div>
+<h3 id="caster-wheel-interactive-demo"><a href="#caster-wheel-interactive-demo">Caster Wheel Interactive Demo</a></h3>
+‌
+</div>
+<div>
+<a href="caster-wheel-demo/index.html"><i class="fa fa-html5"></i></a>
+</div>
+</div>
+</div>
+<div style="display: flex; align-items: center;justify-content: center;
+margin-bottom:1.5em;">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/wECcwlY0hOs?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen="">
+</iframe>
+</div>
+<div style="margin-bottom:1.5em;">
+<h3 id="swedish-wheels"><a href="#swedish-wheels">Swedish Wheels</a></h3>
+‌
+</div>
+<div style="display: flex; align-items: center;justify-content: center;">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Ne09Y72zW_Y?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen="">
+</iframe>
+</div>
+</section>
+<section id="control-theory" class="level1">
+<h1><a href="#control-theory">Control Theory</a></h1>
+<p>Some ISIA<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> courses (in French).</p>
+<div class="grid">
+<div>
+<div>
+<h3 id="robots-mobiles"><a href="#robots-mobiles">Robots Mobiles</a></h3>
+‌
+</div>
+<div>
+<a href="documents/Robots%20Mobiles.pdf"><i class="fa fa-file-pdf-o"></i></a>
+</div>
+</div>
+<div>
+<div>
+<h3 id="reprsentation-detat-des-systmes-linaires."><a href="#reprsentation-detat-des-systmes-linaires.">Représentation d’Etat des Systèmes Linéaires.</a></h3>
+‌
+</div>
+<div>
+<a href="documents/Représentation%20d'Etat%20des%20Systèmes%20Linéaires.pdf"><i class="fa fa-file-pdf-o"></i></a>
+</div>
+</div>
+<div>
+<div>
+<h3 id="automatique-et-calcul-de-fourier-laplace"><a href="#automatique-et-calcul-de-fourier-laplace">Automatique et Calcul de Fourier-Laplace</a></h3>
+‌
+</div>
+<div>
+<a href="documents/Automatique%20et%20Calcul%20de%20Fourier-Laplace.pdf"><i class="fa fa-file-pdf-o"></i></a>
+</div>
+</div>
+<div>
+<div>
+<h3 id="lapproche-frquentielle"><a href="#lapproche-frquentielle">L’Approche Fréquentielle</a></h3>
+‌
+</div>
+<div>
+<a href="documents/L'Approche%20Fréquentielle.pdf"><i class="fa fa-file-pdf-o"></i></a>
+</div>
+</div>
+<div>
+<div>
+<h3 id="introduction-aux-systmes--temps-discret"><a href="#introduction-aux-systmes--temps-discret">Introduction aux Systèmes à Temps Discret</a></h3>
+‌
+</div>
+<div>
+<a href="documents/Introduction%20aux%20Systèmes%20à%20Temps%20Discret.pdf"><i class="fa fa-file-pdf-o"></i></a>
+</div>
+</div>
+</div>
+</section>
+<section id="free-resources" class="level1">
+<h1><a href="#free-resources">Free Resources</a></h1>
+<div class="grid">
+<div>
+<div>
+<h3 id="lagrangian-dynamics"><a href="#lagrangian-dynamics">Lagrangian Dynamics</a></h3>
+‌<br> by <a href="http://robotics.ece.uic.edu/index.php/people/faculty/milos-zefran">Miloš Žefran</a> and <a href="http://motion.me.ucsb.edu/">Francesco Bullo</a>
+</div>
+<div>
+<a href="documents/Zefran,%20Bullo%20-%20Lagrangian%20Dynamics.pdf"><i class="fa fa-file-pdf-o"></i></a>
+</div>
+</div>
+<div>
+
+</div></div></section>
+<section class="footnotes" id="notes"><h1><a href="#notes">Notes</a></h1>
+<hr>
+<ol>
+<li id="fn1"><p>MAREVA is the Applied Mathematics Minor of MINES ParisTech “Master’s in Science and Executive Engineering” degree.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>ISIA was a post-graduate education program of MINES ParisTech dedicated to control theory and computer science.<a href="#fnref2">↩</a></p></li>
+</ol>
+</section>
+</main>
+
+
+</body></html>

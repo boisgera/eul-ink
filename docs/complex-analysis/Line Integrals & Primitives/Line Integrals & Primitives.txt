@@ -356,7 +356,7 @@ the complex-linearity of the integral on $[0,1]$ provides
   & =  
   \alpha \int_0^1 f(\gamma(t)) \gamma'(t) \, dt
   \\
-  & \phantom{=}  + \beta \int_0^1 g(\gamma(t))  \gamma'(t) \, dt
+  & \phantom{=}  + \beta \sum_k \int_0^1 g(\gamma(t))  \gamma'(t) \, dt
   \end{split}
   $$
 \hfill $\blacksquare$
@@ -426,7 +426,7 @@ defined on the image of $\gamma$,
 
 **Proof.** 
 Since [by definition](#definition--path-concatenation.){.preview}
-$\gamma(t) = \gamma_k ((t - t_k)/(t_{k+1} - t_k))$ whenever
+$\gamma(t) = \gamma_k ({(t - t_k)}/{(t_k - t_{k-1})})$ whenever
 $t \in [t_k, t_{k+1}]$, the decomposition
   $$
   \begin{split}
@@ -447,7 +447,7 @@ provides
              \left|
                \frac
                  {\gamma_k'\left( \frac{t-t_k}{t_{k+1} - t_k} \right)}
-                 {t_{k+1} - t_k} \, dt
+                 {t_k - t_{k-1}} \, dt
              \right|  
   \end{split}
   $$
@@ -606,7 +606,7 @@ $f:A \subset \mathbb{C} \to \mathbb{C}$ be a continuous function
 defined on the image of $\gamma$.
 The *image of $\gamma$ by $f$* is the path $f \circ \gamma.$
 
-**Theorem -- Change of Variable in Line Integrals [$\dagger$].** 
+**Theorem -- Change of Variable in Line Integrals.** 
 Let $\Omega$ be an open subset of $\mathbb{C},$ 
 let $\gamma$ be a rectifiable path of $\Omega$ and
 let $f:\Omega \to \mathbb{C}$ be a holomorphic function.
@@ -627,7 +627,6 @@ We have
   $$
 and for any $k \in \{1,\dots,n\},$ by the chain rule,
 the function $f \circ \gamma_{k}$ is continuously differentiable
-($f'$ being continuous)
 hence the path $f \circ \gamma$ is rectifiable.
 
 Moreover,
@@ -782,7 +781,7 @@ Let $\Omega$ be an open connected subset of $\mathbb{C}$ and let
 $f: \Omega \to \mathbb{C}.$
 If $g:\Omega \to \mathbb{C}$ is a primitive of $f,$ 
 the function $h: \Omega \to \mathbb{C}$ is also a primitive of $f$ 
-if and only if it differs from $g$ by a constant.
+if and only iff it differs from $g$ by a constant.
 
 
 **Proof.**

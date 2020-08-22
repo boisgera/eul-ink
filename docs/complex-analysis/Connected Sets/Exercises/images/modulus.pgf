@@ -57,7 +57,7 @@
 \pgfusepath{fill}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgfpathrectangle{\pgfqpoint{0.479167in}{0.236918in}}{\pgfqpoint{3.833333in}{1.184590in}}%
+\pgfpathrectangle{\pgfqpoint{0.479167in}{0.236918in}}{\pgfqpoint{3.833333in}{1.184590in}} %
 \pgfusepath{clip}%
 \pgfsetrectcap%
 \pgfsetroundjoin%
@@ -92,7 +92,7 @@
 \pgftext[x=0.479167in,y=0.139696in,,top]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle 0.00\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgfpathrectangle{\pgfqpoint{0.479167in}{0.236918in}}{\pgfqpoint{3.833333in}{1.184590in}}%
+\pgfpathrectangle{\pgfqpoint{0.479167in}{0.236918in}}{\pgfqpoint{3.833333in}{1.184590in}} %
 \pgfusepath{clip}%
 \pgfsetrectcap%
 \pgfsetroundjoin%
@@ -127,7 +127,7 @@
 \pgftext[x=1.437500in,y=0.139696in,,top]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle 0.25\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgfpathrectangle{\pgfqpoint{0.479167in}{0.236918in}}{\pgfqpoint{3.833333in}{1.184590in}}%
+\pgfpathrectangle{\pgfqpoint{0.479167in}{0.236918in}}{\pgfqpoint{3.833333in}{1.184590in}} %
 \pgfusepath{clip}%
 \pgfsetrectcap%
 \pgfsetroundjoin%
@@ -162,7 +162,7 @@
 \pgftext[x=2.395833in,y=0.139696in,,top]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle 0.50\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgfpathrectangle{\pgfqpoint{0.479167in}{0.236918in}}{\pgfqpoint{3.833333in}{1.184590in}}%
+\pgfpathrectangle{\pgfqpoint{0.479167in}{0.236918in}}{\pgfqpoint{3.833333in}{1.184590in}} %
 \pgfusepath{clip}%
 \pgfsetrectcap%
 \pgfsetroundjoin%
@@ -197,7 +197,7 @@
 \pgftext[x=3.354167in,y=0.139696in,,top]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle 0.75\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgfpathrectangle{\pgfqpoint{0.479167in}{0.236918in}}{\pgfqpoint{3.833333in}{1.184590in}}%
+\pgfpathrectangle{\pgfqpoint{0.479167in}{0.236918in}}{\pgfqpoint{3.833333in}{1.184590in}} %
 \pgfusepath{clip}%
 \pgfsetrectcap%
 \pgfsetroundjoin%
@@ -232,7 +232,7 @@
 \pgftext[x=4.312500in,y=0.139696in,,top]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle 1.00\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgfpathrectangle{\pgfqpoint{0.479167in}{0.236918in}}{\pgfqpoint{3.833333in}{1.184590in}}%
+\pgfpathrectangle{\pgfqpoint{0.479167in}{0.236918in}}{\pgfqpoint{3.833333in}{1.184590in}} %
 \pgfusepath{clip}%
 \pgfsetrectcap%
 \pgfsetroundjoin%
@@ -267,7 +267,7 @@
 \pgftext[x=0.312500in,y=0.336797in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle 0\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgfpathrectangle{\pgfqpoint{0.479167in}{0.236918in}}{\pgfqpoint{3.833333in}{1.184590in}}%
+\pgfpathrectangle{\pgfqpoint{0.479167in}{0.236918in}}{\pgfqpoint{3.833333in}{1.184590in}} %
 \pgfusepath{clip}%
 \pgfsetrectcap%
 \pgfsetroundjoin%
@@ -302,7 +302,7 @@
 \pgftext[x=0.312500in,y=0.632945in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle 1\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgfpathrectangle{\pgfqpoint{0.479167in}{0.236918in}}{\pgfqpoint{3.833333in}{1.184590in}}%
+\pgfpathrectangle{\pgfqpoint{0.479167in}{0.236918in}}{\pgfqpoint{3.833333in}{1.184590in}} %
 \pgfusepath{clip}%
 \pgfsetrectcap%
 \pgfsetroundjoin%
@@ -337,7 +337,7 @@
 \pgftext[x=0.312500in,y=0.929092in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle 2\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgfpathrectangle{\pgfqpoint{0.479167in}{0.236918in}}{\pgfqpoint{3.833333in}{1.184590in}}%
+\pgfpathrectangle{\pgfqpoint{0.479167in}{0.236918in}}{\pgfqpoint{3.833333in}{1.184590in}} %
 \pgfusepath{clip}%
 \pgfsetrectcap%
 \pgfsetroundjoin%
@@ -372,7 +372,7 @@
 \pgftext[x=0.312500in,y=1.225240in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle 3\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgfpathrectangle{\pgfqpoint{0.479167in}{0.236918in}}{\pgfqpoint{3.833333in}{1.184590in}}%
+\pgfpathrectangle{\pgfqpoint{0.479167in}{0.236918in}}{\pgfqpoint{3.833333in}{1.184590in}} %
 \pgfusepath{clip}%
 \pgfsetrectcap%
 \pgfsetroundjoin%

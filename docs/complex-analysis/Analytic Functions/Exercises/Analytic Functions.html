@@ -3,7 +3,7 @@
   <meta name="generator" content="pandoc">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <meta name="author" content="Sébastien Boisgérault, Mines ParisTech">
-  <meta name="dcterms.date" content="2019-09-30">
+  <meta name="dcterms.date" content="2017-11-28">
   <title>Analytic Functions</title>
   <style type="text/css">code{white-space: pre;}</style>
   
@@ -20,16 +20,11 @@
   vertical-align: baseline;
 }
 html {
-  line-height: var(--base-line-height);
-  --base-font-size: 24px;
-  --base-line-height: 36px;
-  --scale-ratio: 1.4142135623730951;
-  --small: 17px;
-  --medium: 24px;
-  --large: 34px;
-  --x-large: 48px;
+  line-height: 36px;
+  --base: 24;
+  --line-height: 1.5;
   font-size: 24px;
-  font-family: 'Alegreya', serif;
+  font-family: Alegreya, serif;
   font-style: normal;
   font-weight: normal;
   text-rendering: optimizeLegibility;
@@ -42,19 +37,19 @@ html strong {
   font-weight: bold;
 }
 html p, html .p {
-  margin-bottom: var(--base-line-height);
+  margin-bottom: 36px;
   text-align: justify;
   hyphens: auto;
-  -moz-hyphens: auto;
+  moz-hyphens: auto;
 }
 html section {
-  margin-bottom: var(--base-line-height_px);
+  margin-bottom: 36px;
 }
 html main {
   box-sizing: content-box;
   max-width: 32em;
   margin: auto;
-  padding: var(--base-line-height);
+  padding: 36px;
 }
 ol, ul {
   list-style: none;
@@ -77,43 +72,45 @@ table {
   border-top: medium solid black;
   border-bottom: medium solid black;
 }
+main {
+}
 main > header, main > .header, main > #header {
-  margin-top: calc(2 * var(--base-line-height));
-  margin-bottom: calc(2 * var(--base-line-height));
+  margin-top: 72px;
+  margin-bottom: 72px;
 }
 main > header h1, main > .header h1, main > #header h1 {
   font-size: 48px;
-  line-height: calc(1.5 * var(--base-line-height));
-  margin-top: 0;
-  margin-bottom: var(--base-line-height);
+  line-height: 54px;
+  margin-top: 0px;
+  margin-bottom: 36px;
   font-weight: bold;
 }
 main > header .author, main > .header .author, main > #header .author {
   font-size: 24px;
-  line-height: calc(1 * var(--base-line-height));
-  margin-bottom: calc(0.5 * var(--base-line-height));
+  line-height: 36px;
+  margin-bottom: 18px;
   font-weight: normal;
 }
 main > header .date, main > .header .date, main > #header .date {
-  font-family: 'Alegreya SC', serif;
-  line-height: calc(1 * var(--base-line-height));
+  font-family: Alegreya SC, serif;
+  line-height: 36px;
   font-size: 24px;
   font-weight: normal;
-  margin-bottom: calc(0.5 * var(--base-line-height));
+  margin-bottom: 18px;
   float: none;
 }
 h1 {
   font-size: 34px;
   font-weight: bold;
-  line-height: calc(1.25 * var(--base-line-height));
-  margin-top: calc(2.00 * var(--base-line-height));
-  margin-bottom: calc(0.75 * var(--base-line-height));
+  line-height: 45px;
+  margin-top: 72px;
+  margin-bottom: 27px;
 }
 h2 {
   font-size: 24px;
   font-weight: bold;
-  line-height: calc(1 * var(--base-line-height));
-  margin-bottom: calc(0.5 * var(--base-line-height));
+  line-height: 36px;
+  margin-bottom: 18px;
 }
 h3, h4, h5, h6 {
   font-size: 24px;
@@ -130,10 +127,10 @@ a:hover {
   text-decoration: none;
 }
 a:link {
-  color: var(--color);
+  color: black;
 }
 a:visited {
-  color: var(--color);
+  color: black;
 }
 sup {
   vertical-align: super;
@@ -143,11 +140,15 @@ li {
   list-style-type: none;
   list-style-image: none;
   list-style-position: outside;
-  margin-left: var(--base-line-height);
+  margin-left: 36px;
   padding-left: 0.5em;
+}
+ul {
 }
 ul li {
   list-style: disc;
+}
+ol {
 }
 ol li {
   list-style: decimal;
@@ -156,8 +157,8 @@ blockquote {
   border-left-width: thick;
   border-left-style: solid;
   border-left-color: black;
-  padding: var(--base-line-height);
-  margin-bottom: var(--base-line-height);
+  padding: 36px;
+  margin-bottom: 36px;
 }
 blockquote p:last-child {
   margin-bottom: 0px;
@@ -169,11 +170,11 @@ code {
 pre {
   overflow-x: auto;
   background-color: #ebebeb;
-  margin-bottom: var(--base-line-height);
-  padding-left: var(--base-line-height);
-  padding-right: var(--base-line-height);
-  padding-top: var(--base-line-height);
-  padding-bottom: var(--base-line-height);
+  margin-bottom: 36px;
+  padding-left: 36px;
+  padding-right: 36px;
+  padding-top: 36px;
+  padding-bottom: 36;
 }
 img {
   display: block;
@@ -183,7 +184,7 @@ img {
   height: auto;
 }
 figure {
-  margin-bottom: var(--base-line-height);
+  margin-bottom: 36px;
   text-align: center;
 }
 figcaption {
@@ -195,7 +196,7 @@ figcaption {
   overflow-x: auto;
   overflow-y: hidden;
   width: 100%;
-  margin-bottom: var(--base-line-height);
+  margin-bottom: 36px;
 }
 thead {
   border-bottom: medium solid black;
@@ -213,32 +214,41 @@ nav#TOC > ul {
   font-weight: bold;
 }
 nav#TOC > ul > * {
-  margin-bottom: var(--base-line-height);
+  margin-bottom: 36px;
 }
 nav#TOC > ul li {
   list-style-type: none;
   margin-left: 0;
   padding-left: 0;
 }
+nav#TOC > ul ul {
+}
 nav#TOC > ul ul li {
-  margin-left: var(--base-line-height);
+  margin-left: 36px;
   font-weight: normal;
+}
+.section-flag {
+  line-height: 36px;
+  font-size: 17px;
+  font-weight: 300;
+  font-family: Alegreya Sans SC;
+  margin-bottom: 0;
 }
 nav#TOC > ul > li.top-li {
   margin-bottom: 0;
-  padding-bottom: var(--base-line-height);
+  padding-bottom: 36;
   border-width: 2px 0 0 0;
   border-style: solid;
 }
 nav#TOC > ul > li.top-li:last-child {
   border-width: 2px 0 2px 0;
 }
-.badge {
+nav#TOC .badge {
   position: relative;
   bottom: 0.13em;
-  font-family: 'Alegreya Sans SC', sans-serif;
+  font-family: Alegreya Sans SC;
   font-weight: 300;
-  font-size: var(--small);
+  font-size: 17px;
   display: inline-block;
   line-height: 1.2em;
   height: 1.2em;
@@ -249,14 +259,7 @@ nav#TOC > ul > li.top-li:last-child {
   vertical-align: baseline;
   box-shadow: 0px 1.0px 1.0px #aaa;
   margin-right: 1em;
-}
-.section-flag {
-  line-height: var(--base-line-height);
-  font-size: var(--small);
-  font-weight: 300;
-  font-family: 'Alegreya Sans SC', sans-serif;
-  margin-bottom: 0;
-}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya: 400,700,900,400italic,700italic,900italic|Alegreya+SC:400,700,900,400italic,700italic,900italic|Alegreya+Sans:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+Sans+SC:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,800,800italic,900,900italic|Alegreya+Sans+SC:400,100,300,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+SC:400,400italic,700,700italic,900,900italic|Alegreya:400,700,900,400italic,700italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.10.0
 (function() {
   var box, hide_proof, main, show_proof;
 
@@ -396,7 +399,7 @@ nav#TOC > ul > li.top-li:last-child {
   $(main);
 
 }).call(this);
-</script><script type="text/javascript">// Generated by CoffeeScript 1.12.7
+</script><script type="text/javascript">// Generated by CoffeeScript 1.10.0
 (function() {
   var make_preview, mathjaxDebug;
 
@@ -507,7 +510,7 @@ nav#TOC > ul > li.top-li:last-child {
 By <a href="mailto:%20Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, Mines ParisTech, under <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
 </h2> 
 
-<h3 class="date" style="margin-right: 0px;">September 30, 2019</h3>
+<h3 class="date" style="margin-right: 0px;">November 28, 2017</h3>
 </header>
 <section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
 <ul>

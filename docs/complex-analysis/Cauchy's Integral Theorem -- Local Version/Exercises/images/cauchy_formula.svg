@@ -2,7 +2,7 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Created with matplotlib (http://matplotlib.org/) -->
-<svg height="213.226205pt" version="1.1" viewBox="0 0 345 213.226205" width="345pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg height="213pt" version="1.1" viewBox="0 0 345 213" width="345pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
  <defs>
   <style type="text/css">
 *{stroke-linecap:butt;stroke-linejoin:round;}
@@ -19,7 +19,7 @@ z
   </g>
   <g id="axes_1">
    <g id="patch_2">
-    <path clip-path="url(#pdf717e1ab5)" d="M 209.945116 178.696518 
+    <path clip-path="url(#p7d2e7dae5d)" d="M 209.945116 178.696518 
 L 209.945116 122.54675 
 L 208.04577 122.047935 
 L 206.220486 121.323595 
@@ -133,35 +133,35 @@ L 209.945116 178.696518
 " style="fill:none;stroke:#000000;stroke-linejoin:miter;"/>
    </g>
    <g id="patch_3">
-    <path clip-path="url(#pdf717e1ab5)" d="M 211.935227 153.46465 
+    <path clip-path="url(#p7d2e7dae5d)" d="M 211.935227 153.46465 
 L 209.945116 147.778618 
 L 207.955004 153.46465 
 z
 "/>
    </g>
    <g id="patch_4">
-    <path clip-path="url(#pdf717e1ab5)" d="M 198.858819 109.45612 
+    <path clip-path="url(#p7d2e7dae5d)" d="M 198.858819 109.45612 
 L 196.868711 103.770087 
 L 194.878596 109.456118 
 z
 "/>
    </g>
    <g id="patch_5">
-    <path clip-path="url(#pdf717e1ab5)" d="M 211.935227 65.447587 
+    <path clip-path="url(#p7d2e7dae5d)" d="M 211.935227 65.447587 
 L 209.945116 59.761555 
 L 207.955004 65.447587 
 z
 "/>
    </g>
    <g id="patch_6">
-    <path clip-path="url(#pdf717e1ab5)" d="M 89.280856 103.770088 
+    <path clip-path="url(#p7d2e7dae5d)" d="M 89.280856 103.770088 
 L 91.270972 109.456119 
 L 93.261078 103.770085 
 z
 "/>
    </g>
    <g id="patch_7">
-    <path clip-path="url(#pdf717e1ab5)" d="M 216.283915 38.194361 
+    <path clip-path="url(#p7d2e7dae5d)" d="M 216.283915 38.194361 
 L 216.283915 90.679455 
 L 218.18326 91.178271 
 L 220.008544 91.90261 
@@ -227,28 +227,28 @@ L 216.283915 38.194361
 " style="fill:none;stroke:#000000;stroke-linejoin:miter;"/>
    </g>
    <g id="patch_8">
-    <path clip-path="url(#pdf717e1ab5)" d="M 214.293804 61.593892 
+    <path clip-path="url(#p7d2e7dae5d)" d="M 214.293804 61.593892 
 L 216.283915 67.279924 
 L 218.274026 61.593892 
 z
 "/>
    </g>
    <g id="patch_9">
-    <path clip-path="url(#pdf717e1ab5)" d="M 227.370212 103.770085 
+    <path clip-path="url(#p7d2e7dae5d)" d="M 227.370212 103.770085 
 L 229.36032 109.456119 
 L 231.350434 103.770088 
 z
 "/>
    </g>
    <g id="patch_10">
-    <path clip-path="url(#pdf717e1ab5)" d="M 214.293804 145.946281 
+    <path clip-path="url(#p7d2e7dae5d)" d="M 214.293804 145.946281 
 L 216.283915 151.632313 
 L 218.274026 145.946281 
 z
 "/>
    </g>
    <g id="patch_11">
-    <path clip-path="url(#pdf717e1ab5)" d="M 255.719143 109.456118 
+    <path clip-path="url(#p7d2e7dae5d)" d="M 255.719143 109.456118 
 L 253.729029 103.770087 
 L 251.73892 109.456119 
 z
@@ -260,15 +260,15 @@ z
 L 3 0 
 M 0 3 
 L 0 -3 
-" id="m4e50500281" style="stroke:#000000;"/>
+" id="mf3050341b5" style="stroke:#000000;"/>
     </defs>
-    <g clip-path="url(#pdf717e1ab5)">
-     <use style="stroke:#000000;" x="172.5" xlink:href="#m4e50500281" y="106.613103"/>
+    <g clip-path="url(#p7d2e7dae5d)">
+     <use style="stroke:#000000;" x="172.5" xlink:href="#mf3050341b5" y="106.613103"/>
     </g>
    </g>
    <g id="line2d_2">
-    <g clip-path="url(#pdf717e1ab5)">
-     <use style="stroke:#000000;" x="213.114515" xlink:href="#m4e50500281" y="106.613103"/>
+    <g clip-path="url(#p7d2e7dae5d)">
+     <use style="stroke:#000000;" x="213.114515" xlink:href="#mf3050341b5" y="106.613103"/>
     </g>
    </g>
    <g id="text_1">
@@ -351,7 +351,7 @@ C 56 14.609375 55.59375 15 55 15
 C 54.09375 15 54 14.5 53.59375 13.03125 
 C 52.09375 7.203125 50.203125 1 46.09375 1 
 C 43.203125 1 43 3.578125 43 5.59375 
-C 43 7.875 43.90625 11.484375 44.59375 14.46875 
+C 43 7.875 43.90625 11.46875 44.59375 14.46875 
 L 47.40625 25.234375 
 C 47.796875 27.140625 48.90625 31.609375 49.40625 33.421875 
 C 50 35.8125 51.09375 40.109375 51.09375 40.5 
@@ -393,7 +393,7 @@ L 8.40625 0
 C 9.796875 0 25 3.59375 36.703125 15.5625 
 C 49.59375 28.84375 51.40625 41.125 51.40625 41.515625 
 C 51.40625 43.109375 50.09375 44 48.796875 44 
-C 45.90625 44 45.203125 41.3125 45 40.609375 
+C 45.90625 44 45.203125 41.3125 45 40.625 
 C 39.09375 19.75 25.40625 7.390625 12.09375 3 
 z
 " id="CMMI12-23"/>
@@ -405,7 +405,7 @@ z
   </g>
  </g>
  <defs>
-  <clipPath id="pdf717e1ab5">
+  <clipPath id="p7d2e7dae5d">
    <rect height="170.580964" width="276" x="34.5" y="21.322621"/>
   </clipPath>
  </defs>

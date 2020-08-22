@@ -255,7 +255,7 @@
 \pgftext[x=0.312500in,y=1.274598in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle 1\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgfpathrectangle{\pgfqpoint{0.479167in}{0.236918in}}{\pgfqpoint{3.833333in}{1.184590in}}%
+\pgfpathrectangle{\pgfqpoint{0.479167in}{0.236918in}}{\pgfqpoint{3.833333in}{1.184590in}} %
 \pgfusepath{clip}%
 \pgfsetrectcap%
 \pgfsetroundjoin%

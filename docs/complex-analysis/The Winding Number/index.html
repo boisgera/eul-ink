@@ -3,7 +3,6 @@
   <meta name="generator" content="pandoc">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <meta name="author" content="Sébastien Boisgérault, Mines ParisTech">
-  <meta name="dcterms.date" content="2019-09-30">
   <title>The Winding Number</title>
   <style type="text/css">code{white-space: pre;}</style>
   
@@ -507,7 +506,7 @@ nav#TOC > ul > li.top-li:last-child {
 By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, Mines ParisTech, under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>
 </h2> 
 
-<h3 class="date" style="margin-right: 0px;">September 30, 2019</h3>
+<h3 class="date" style="margin-right: 0px;">December 3, 2018</h3>
 </header>
 <section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
 <ul>
@@ -672,7 +671,7 @@ By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgér
 </section>
 <section id="proof.-1" class="level3">
 
-<div class="p"><h3><a href="#proof.-1">Proof.</a></h3>‌ Let <span class="math inline">\(\epsilon = d(a, \gamma([0,1])) /2.\)</span> If <span class="math inline">\(|b - a| &lt; \epsilon\)</span> and for any <span class="math inline">\(t \in [0,1],\)</span> <span class="math inline">\(|\gamma(t) - \beta(t)| &lt; \epsilon,\)</span> then clearly <span class="math inline">\(b \in \mathbb{C} \setminus \beta([0,1]).\)</span> Additionally, for any <span class="math inline">\(t \in [0,1]\)</span> there are values <span class="math inline">\(\theta_1\)</span> of <span class="math inline">\(\mathrm{Arg} (\gamma(t)-a)\)</span> and <span class="math inline">\(\theta_2\)</span> of <span class="math inline">\(\mathrm{Arg}(\beta(t)-b)\)</span> such that <span class="math inline">\(|\theta_1 - \theta_2| &lt; \pi/2.\)</span> If we select some values <span class="math inline">\(\theta_{1,0}\)</span> of <span class="math inline">\(\mathrm{Arg} (\gamma(0) - a)\)</span> and <span class="math inline">\(\theta_{2,0}\)</span> of <span class="math inline">\(\mathrm{Arg} (\beta(0) -b)\)</span> such that <span class="math inline">\(|\theta_{1,0} - \theta_{2,0}| &lt; \pi/2,\)</span> then the corresponding continuous choices <span class="math inline">\(\theta_1\)</span> and <span class="math inline">\(\theta_2\)</span> satisfy <span class="math inline">\(|\theta_1(t) - \theta_2(t)| &lt; \pi/2\)</span> for any <span class="math inline">\(t \in [0,1]\)</span>(<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>). Consequently <span class="math display">\[
+<div class="p"><h3><a href="#proof.-1">Proof.</a></h3>‌ Let <span class="math inline">\(\epsilon = d(a, \gamma([0,1])) /2.\)</span> If <span class="math inline">\(|b - a| &lt; \epsilon\)</span> and for any <span class="math inline">\(t \in [0,1],\)</span> <span class="math inline">\(|\gamma(t) - \beta(t)| &lt; \epsilon,\)</span> then clearly <span class="math inline">\(b \in \mathbb{C} \setminus \beta([0,1]).\)</span> Additionally, for any <span class="math inline">\(t \in [0,1]\)</span> there are values <span class="math inline">\(\theta_1\)</span> of <span class="math inline">\(\mathrm{Arg} (\gamma(t)-a)\)</span> and <span class="math inline">\(\theta_2\)</span> of <span class="math inline">\(\mathrm{Arg}(\beta(t)-b)\)</span> such that <span class="math inline">\(|\theta_1 - \theta_2| &lt; \pi/2.\)</span> If we select some values <span class="math inline">\(\theta_{1,0}\)</span> of <span class="math inline">\(\mathrm{Arg} (\gamma(0) - a)\)</span> and <span class="math inline">\(\theta_{2,0}\)</span> of <span class="math inline">\(\mathrm{Arg} (\beta(0) -b)\)</span> such that <span class="math inline">\(|\theta_{1,0} - \theta_{2,0}| &lt; \pi/2,\)</span> then the corresponding continuous choices <span class="math inline">\(\theta_1\)</span> et <span class="math inline">\(\theta_2\)</span> satisfy <span class="math inline">\(|\theta_1(t) - \theta_2(t)| &lt; \pi/2\)</span> for any <span class="math inline">\(t \in [0,1]\)</span>(<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>). Consequently <span class="math display">\[
   |\mathrm{ind}(\gamma,a) - \mathrm{ind}(\beta,b)| = 
   \left|
     \frac{\theta_1(1) - \theta_1(0)}{2\pi} - 
@@ -693,8 +692,7 @@ By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgér
   \theta: t \in [0,1] \mapsto \mathrm{arg}(\gamma(t) - b)
   \]</span> is a continuous choice of <span class="math inline">\(z \mapsto \mathrm{Arg}(z-b)\)</span> along <span class="math inline">\(\gamma\)</span> and it satisfies <span class="math display">\[
   \forall \,  t \in [0,1], \; |\theta(t)|  = 
-  \left|\arctan \frac{\mathrm{Im} (\gamma(t) - b)}{\mathrm{Re} (\gamma(t) -b)} \right|
-  &lt; \arctan \frac{r}{|b| - r} &lt; \frac{\pi}{2}.
+  \arctan \frac{\mathrm{Im} (\gamma(t) - b)}{\mathrm{Re} (\gamma(t) -b )} &lt; \arctan \frac{r}{|b| - r} &lt; \frac{\pi}{2}.
   \]</span> As <span class="math inline">\(\gamma\)</span> is a closed path, <span class="math inline">\(\theta(0)\)</span> and <span class="math inline">\(\theta(1)\)</span> – which are equal modulo <span class="math inline">\(2\pi\)</span> – are actually equal and <span class="math display">\[
   \mathrm{ind}(\gamma, a) = \mathrm{ind}(\gamma, b) = \frac{\theta(1) - \theta(0)}{2\pi} =0
   \]</span> as expected. <span class="tombstone" style="float:right;">‌<span class="math inline">\(\blacksquare\)</span></span></div>

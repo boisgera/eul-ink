@@ -188,7 +188,7 @@ Additionally,
  $$
  \forall \, t \geq 0, \;|f(t)| e^{-\sigma^+ t} = e^{-(\sigma^+ - \mathrm{Re}(\lambda)) t},
  $$
-hence the function $t \in \mathbb{R}_+ \mapsto |f(t)|e^{-\sigma^+ t}$ is 
+hence the function $t \in \mathbb{R}_+ \mapsto |f(t)|e^{-\sigma^+}$ is 
 Lebesgue integrable if and only if $\sigma^+ > \mathrm{Re}(\lambda).$ The infimum $\sigma$ of all such $\sigma^+$ is 
 therefore $\mathrm{Re}(\lambda).$ Now, if $\mathrm{Re}(s) > \mathrm{Re}(\lambda),$
   $$

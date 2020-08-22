@@ -1,1 +1,464 @@
-/www/delay-systems/Delay Systems.html
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, MINES ParisTech">
+  <meta name="dcterms.date" content="2017-08-18">
+  <title>Delay Systems</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: content-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+html {
+  line-height: 36px;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: normal;
+  font-family: Alegreya, serif;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html em {
+  font-style: italic;
+}
+html strong {
+  font-weight: bold;
+}
+html p, html .p {
+  margin-bottom: 36px;
+  text-align: justify;
+  hyphens: auto;
+  moz-hyphens: auto;
+}
+html section {
+  margin-bottom: 36px;
+}
+html main {
+  box-sizing: content-box;
+  max-width: 32em;
+  margin: auto;
+  padding: 36px;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, q:before {
+  content: none;
+}
+blockquote:after, q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: medium solid black;
+  border-bottom: medium solid black;
+}
+main {
+}
+main > header, main > .header, main > #header {
+  margin-top: 72px;
+  margin-bottom: 72px;
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: 54px;
+  margin-top: 0px;
+  margin-bottom: 36px;
+  font-weight: bold;
+}
+main > header .author, main > .header .author, main > #header .author {
+  font-size: 24px;
+  line-height: 36px;
+  margin-bottom: 18px;
+  font-weight: normal;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: Alegreya SC, serif;
+  line-height: 36px;
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: 18px;
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  font-weight: bold;
+  line-height: 45px;
+  margin-top: 72px;
+  margin-bottom: 27px;
+}
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 36px;
+  margin-bottom: 18px;
+}
+h3, h4, h5, h6 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 1em;
+  display: inline;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
+}
+a:hover {
+  text-decoration: none;
+}
+a:link {
+  color: black;
+}
+a:visited {
+  color: black;
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li {
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  margin-left: 36px;
+  padding-left: 0.5em;
+}
+ul {
+}
+ul li {
+  list-style: disc;
+}
+ol {
+}
+ol li {
+  list-style: decimal;
+}
+blockquote {
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+  padding: 36px;
+  margin-bottom: 36px;
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-size: 24px;
+  font-family: Inconsolata;
+}
+pre {
+  overflow-x: auto;
+  background-color: #ebebeb;
+  margin-bottom: 36px;
+  padding-left: 36px;
+  padding-right: 36px;
+  padding-top: 36px;
+  padding-bottom: 36;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: auto;
+}
+figure {
+  margin-bottom: 36px;
+  text-align: center;
+}
+figcaption {
+  display: inline-block;
+  font-style: italic;
+  text-align: justify;
+}
+.table {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  margin-bottom: 36px;
+}
+thead {
+  border-bottom: medium solid black;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+.MJXc-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+nav#TOC > ul {
+  position: relative;
+  font-weight: bold;
+}
+nav#TOC > ul > * {
+  margin-bottom: 36px;
+}
+nav#TOC > ul li {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+nav#TOC > ul ul {
+}
+nav#TOC > ul ul li {
+  margin-left: 36px;
+  font-weight: normal;
+}
+.section-flag {
+  line-height: 36px;
+  font-size: 17px;
+  font-weight: 300;
+  font-family: Alegreya Sans SC;
+  margin-bottom: 0;
+}
+nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+  padding-bottom: 36;
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+nav#TOC .badge {
+  position: relative;
+  bottom: 0.13em;
+  font-family: Alegreya Sans SC;
+  font-weight: 300;
+  font-size: 17px;
+  display: inline-block;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  vertical-align: baseline;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+  margin-right: 1em;
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,800,800italic,900,900italic|Alegreya+Sans+SC:400,100,300,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+SC:400,400italic,700,700italic,900,900italic|Alegreya:400,700,900,400italic,700italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.11.1
+(function() {
+  $(function() {
+    return console.log("HELLO FROM DEMO!");
+  });
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.11.1
+(function() {
+  var hide_proof, main, show_proof;
+
+  hide_proof = function(section) {
+    var clone, div, header, id, new_paragraph;
+    clone = section.clone();
+    id = section.attr("id");
+    clone.attr({
+      id: id + "---"
+    });
+    div = $("<div></div>");
+    div.css({
+      display: "none"
+    });
+    div.append(clone);
+    header = section.find("h3, h4, h5, h6").first().clone();
+    new_paragraph = $("<div class='p'></div>").append(header);
+    new_paragraph.append("<i class='fa fa-caret-down expand' style='float:right;cursor:pointer;'></i>");
+    section.empty();
+    section.append(new_paragraph);
+    section.append(div);
+    return section.find("i.expand").on("click", (function(section) {
+      return function() {
+        return show_proof(section);
+      };
+    })(section));
+  };
+
+  show_proof = function(section) {
+    var tombstone;
+    section.children().first().remove();
+    section.html(section.children().first().html());
+    tombstone = section.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer"
+    });
+    return tombstone.on("click", (function(section) {
+      return function() {
+        return hide_proof(section);
+      };
+    })(section));
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, results, section, sections, text;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    results = [];
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      results.push(hide_proof(section));
+    }
+    return results;
+  };
+
+  $(main);
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">Delay Systems</a></h1>
+
+<h2 class="author">
+By <a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, MINES ParisTech
+</h2> 
+
+<h3 class="date">August 18, 2017</h3>
+</header>
+<section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
+<ul>
+<li class="top-li"><p class="section-flag">section 1</p><a href="#about">About</a></li>
+<li class="top-li"><p class="section-flag">section 2</p><a href="#presentations">Presentations</a></li>
+<li class="top-li"><p class="section-flag">section 3</p><a href="#papers">Papers</a></li>
+<li class="top-li"><p class="section-flag">section 4</p><a href="#notes">Notes</a></li></ul>
+</nav></section>
+<style> 
+  .grid { 
+    margin-bottom: 1.5em;
+  }
+  .grid > * { /* row */
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin-bottom: 1.5em;
+  }
+  .grid > * > :last-child { /* item */
+    white-space: nowrap;
+  }
+  .grid * {
+    line-height: 1.5em;
+  }
+  .grid > * > *:not(:last-child) { /* item*/
+    margin: 0 1em 0 0;
+  }
+</style>
+<section id="about" class="level1">
+<h1><a href="#about">About</a></h1>
+<p>Systems of delay-differential algebraic equations (DDAE) – or <em>delay systems</em> for the sake of brevity – combine differential and algebraic equations with delayed variables in the right-hand side. A typical example<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> would be: <span class="math display">\[
+  \begin{array}{rll}
+  \dot{x}(t) &amp;=&amp; E x(t) - FG y(t) \\
+  y(t) &amp;=&amp; \displaystyle e^{T E} x(t-T) - 
+           \int_{-T}^0 e^{-\theta E} FG  y(t+\theta) d\theta
+  \end{array}
+  \]</span></p>
+</section>
+<section id="presentations" class="level1">
+<h1><a href="#presentations">Presentations</a></h1>
+<div class="grid">
+<div>
+<div>
+<h3 id="introduction-to-delay-systems"><a href="#introduction-to-delay-systems">Introduction to Delay Systems</a></h3>
+‌<br>
+A MAREVA<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> course.
+</div>
+<div>
+<a href="documents/Introduction%20to%20Delay%20Systems.pdf"><i class="fa fa-file-pdf-o"></i></a>
+</div>
+</div>
+<div>
+<div>
+<h3 id="delay-equations--a-case-for-algebro-differential-systems."><a href="#delay-equations--a-case-for-algebro-differential-systems.">Delay Equations – A Case for Algebro-Differential Systems.</a></h3>
+‌<br>
+<a href="https://www.cri.mines-paristech.fr/page_MathsSystemes.html">Mines ParisTech Mathematics and Systems Seminar</a>.
+</div>
+<div>
+<a href="documents/Delay%20Equations%20--%20A%20Case%20for%20Algebro-Differential%20Systems.pdf"><i class="fa fa-file-pdf-o"></i></a>
+</div>
+</div>
+<div>
+<div>
+<h3 id="design-of-algebraic-observers-for-brass-instruments"><a href="#design-of-algebraic-observers-for-brass-instruments">Design of Algebraic Observers for Brass Instruments</a></h3>
+‌<br>
+<a href="http://isma.univ-lemans.fr/en/index.html">ISMA 2014</a>, with <a href="http://www.mines-paristech.fr/Services/Annuaire/brigitte-dandrea-novel">Brigitte d’Andrea-Novel</a>.
+</div>
+<div>
+<a href="documents/ISMA%202014%20--%20Design%20of%20Algebraic%20Observers%20for%20Brass%20Instruments.pdf"><i class="fa fa-file-pdf-o"></i></a>
+</div>
+</div>
+</div>
+</section>
+<section id="papers" class="level1">
+<h1><a href="#papers">Papers</a></h1>
+<div class="grid">
+<div>
+<div>
+<h3 id="a-core-theory-of-delay-systems"><a href="#a-core-theory-of-delay-systems">A Core Theory of Delay Systems</a></h3>
+‌<br>
+Expository paper.
+</div>
+<div>
+<a href="https://arxiv.org/abs/1707.02558"><i class="fa fa-link"></i></a> / <a href="documents/A%20Core%20Theory%20of%20Delay%20Systems.pdf"><i class="fa fa-file-pdf-o"></i></a>
+</div>
+</div>
+<div>
+<div>
+<h3 id="design-of-algebraic-observers-for-brass-instruments-1"><a href="#design-of-algebraic-observers-for-brass-instruments-1">Design of Algebraic Observers for Brass Instruments</a></h3>
+‌<br>
+with <a href="http://www.mines-paristech.fr/Services/Annuaire/brigitte-dandrea-novel">Brigitte d’Andrea-Novel</a>.
+</div>
+<div>
+<a href="https://hal-mines-paristech.archives-ouvertes.fr/hal-01068283"><i class="fa fa-link"></i></a> / <a href="documents/Design%20of%20Algebraic%20Observers%20for%20Brass%20Instruments.pdf"><i class="fa fa-file-pdf-o"></i></a>
+</div>
+</div>
+<div>
+<div>
+<h3 id="growth-bound-of-delay-differential-algebraic-equations"><a href="#growth-bound-of-delay-differential-algebraic-equations">Growth bound of delay-differential algebraic equations</a></h3>
+‌
+</div>
+<div>
+<a href="http://dx.doi.org/10.1016/j.crma.2013.08.001"><i class="fa fa-link"></i></a> / <a href="documents/Growth%20Bound%20of%20Delay-Differential%20Algebraic%20Equations.pdf"><i class="fa fa-file-pdf-o"></i></a>
+</div>
+</div>
+</div>
+</section>
+<section class="footnotes" id="notes"><h1><a href="#notes">Notes</a></h1>
+<hr>
+<ol>
+<li id="fn1"><p>this example describes the interaction between the system <span class="math display">\[\dot{x}(t) = E x(t) + Fu(t)\]</span> with a <em>deadtime</em> – <span class="math inline">\(x(t)\)</span> is unknown at time <span class="math inline">\(t\)</span>, only the value <span class="math inline">\(x(t-T)\)</span> is available for some delay <span class="math inline">\(T&gt;0\)</span> – and a predictor-controller designed to stabilize it (with a finite-spectrum assignment for example). Think of it as an improvement of the classic <a href="https://en.wikipedia.org/wiki/Smith_predictor">Smith predictor</a>.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>MAREVA is the Applied Mathematics Minor of MINES ParisTech “Master’s in Science and Executive Engineering” degree.<a href="#fnref2">↩</a></p></li>
+</ol>
+</section>
+</main>
+
+
+</body></html>

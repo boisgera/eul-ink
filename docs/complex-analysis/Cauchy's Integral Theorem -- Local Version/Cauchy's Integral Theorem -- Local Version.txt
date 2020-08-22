@@ -339,7 +339,7 @@ Since for any $k \in \{1,\dots, n\}$
   (f \circ \gamma_k) \gamma_k' - (f \circ \gamma_{\epsilon k}) \gamma_{\epsilon k}'
   =
   (f \circ \gamma_k - f \circ \gamma_{\epsilon k}) \gamma'_{k} 
-  +
+  -   
   (f \circ \gamma_{\epsilon k}) (\gamma_k' - \gamma_{\epsilon k}'),
   $$
 we have
@@ -450,7 +450,7 @@ Thus
   $$
   \int_{\gamma} f(z) \, dz 
   = 
-  \lim_{ n\to +\infty} \int_{\gamma} f_n(z) \, dz = 0.
+  \lim_{ n\to +\infty} \int_{\gamma_n} f(z) \, dz = 0.
   $$
 By [Morera's theorem], $f$ is holomorphic.
 \hfill $\blacksquare$

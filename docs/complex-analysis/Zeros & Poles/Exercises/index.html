@@ -1,1 +1,966 @@
-/www/complex-analysis/Zeros & Poles/Exercises/Zeros & Poles.html
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Sébastien Boisgérault, Mines ParisTech">
+  <meta name="dcterms.date" content="2017-11-28">
+  <title>Zeros &amp; Poles</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style type="text/css">* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: content-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+html {
+  line-height: 36px;
+  --base: 24;
+  --line-height: 1.5;
+  font-size: 24px;
+  font-family: Alegreya, serif;
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+html em {
+  font-style: italic;
+}
+html strong {
+  font-weight: bold;
+}
+html p, html .p {
+  margin-bottom: 36px;
+  text-align: justify;
+  hyphens: auto;
+  moz-hyphens: auto;
+}
+html section {
+  margin-bottom: 36px;
+}
+html main {
+  box-sizing: content-box;
+  max-width: 32em;
+  margin: auto;
+  padding: 36px;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, q:before {
+  content: none;
+}
+blockquote:after, q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 1em 12px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: medium solid black;
+  border-bottom: medium solid black;
+}
+main {
+}
+main > header, main > .header, main > #header {
+  margin-top: 72px;
+  margin-bottom: 72px;
+}
+main > header h1, main > .header h1, main > #header h1 {
+  font-size: 48px;
+  line-height: 54px;
+  margin-top: 0px;
+  margin-bottom: 36px;
+  font-weight: bold;
+}
+main > header .author, main > .header .author, main > #header .author {
+  font-size: 24px;
+  line-height: 36px;
+  margin-bottom: 18px;
+  font-weight: normal;
+}
+main > header .date, main > .header .date, main > #header .date {
+  font-family: Alegreya SC, serif;
+  line-height: 36px;
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: 18px;
+  float: none;
+}
+h1 {
+  font-size: 34px;
+  font-weight: bold;
+  line-height: 45px;
+  margin-top: 72px;
+  margin-bottom: 27px;
+}
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 36px;
+  margin-bottom: 18px;
+}
+h3, h4, h5, h6 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 1em;
+  display: inline;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
+}
+a:hover {
+  text-decoration: none;
+}
+a:link {
+  color: black;
+}
+a:visited {
+  color: black;
+}
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+li {
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  margin-left: 36px;
+  padding-left: 0.5em;
+}
+ul {
+}
+ul li {
+  list-style: disc;
+}
+ol {
+}
+ol li {
+  list-style: decimal;
+}
+blockquote {
+  border-left-width: thick;
+  border-left-style: solid;
+  border-left-color: black;
+  padding: 36px;
+  margin-bottom: 36px;
+}
+blockquote p:last-child {
+  margin-bottom: 0px;
+}
+code {
+  font-size: 24px;
+  font-family: Inconsolata;
+}
+pre {
+  overflow-x: auto;
+  background-color: #ebebeb;
+  margin-bottom: 36px;
+  padding-left: 36px;
+  padding-right: 36px;
+  padding-top: 36px;
+  padding-bottom: 36;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: auto;
+}
+figure {
+  margin-bottom: 36px;
+  text-align: center;
+}
+figcaption {
+  display: inline-block;
+  font-style: italic;
+  text-align: justify;
+}
+.table {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  margin-bottom: 36px;
+}
+thead {
+  border-bottom: medium solid black;
+}
+td, th {
+  padding: 6px 0.5em;
+}
+.MJXc-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+nav#TOC > ul {
+  position: relative;
+  font-weight: bold;
+}
+nav#TOC > ul > * {
+  margin-bottom: 36px;
+}
+nav#TOC > ul li {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+nav#TOC > ul ul {
+}
+nav#TOC > ul ul li {
+  margin-left: 36px;
+  font-weight: normal;
+}
+.section-flag {
+  line-height: 36px;
+  font-size: 17px;
+  font-weight: 300;
+  font-family: Alegreya Sans SC;
+  margin-bottom: 0;
+}
+nav#TOC > ul > li.top-li {
+  margin-bottom: 0;
+  padding-bottom: 36;
+  border-width: 2px 0 0 0;
+  border-style: solid;
+}
+nav#TOC > ul > li.top-li:last-child {
+  border-width: 2px 0 2px 0;
+}
+nav#TOC .badge {
+  position: relative;
+  bottom: 0.13em;
+  font-family: Alegreya Sans SC;
+  font-weight: 300;
+  font-size: 17px;
+  display: inline-block;
+  line-height: 1.2em;
+  height: 1.2em;
+  width: 2em;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  vertical-align: baseline;
+  box-shadow: 0px 1.0px 1.0px #aaa;
+  margin-right: 1em;
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script><link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,800,800italic,900,900italic|Alegreya+Sans+SC:400,100,300,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic|Alegreya+SC:400,400italic,700,700italic,900,900italic|Alegreya:400,700,900,400italic,700italic,900italic" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">MathJax.Hub.Config({ jax: ['output/CommonHTML'], CommonHTML: { scale: 100, linebreaks: {automatic: false}, mtextFontInherit: true} });</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript">// Generated by CoffeeScript 1.10.0
+(function() {
+  var box, hide_proof, main, show_proof;
+
+  hide_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("expanded");
+    sectionWrapper.addClass("minimized");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "visible"
+    });
+    w$(".header-wrapper").css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().css({
+      visibility: "hidden",
+      height: "0px"
+    });
+    w$(".header-wrapper").attr({
+      id: w$("section").first().attr("id")
+    });
+    return w$("section").first().attr({
+      id: ""
+    });
+  };
+
+  show_proof = function(sectionWrapper) {
+    var w$;
+    sectionWrapper.removeClass("minimized");
+    sectionWrapper.addClass("expanded");
+    w$ = function(x) {
+      return sectionWrapper.find(x);
+    };
+    w$(".expand").css({
+      visibility: "hidden"
+    });
+    w$(".header-wrapper").css({
+      visibility: "hidden",
+      height: "0"
+    });
+    w$("section").first().css({
+      visibility: "visible",
+      height: ""
+    });
+    w$("section").first().attr({
+      id: w$(".header-wrapper").attr("id")
+    });
+    return w$(".header-wrapper").attr({
+      id: ""
+    });
+  };
+
+  box = function(section) {
+    var clone, expand, header, headerWrapper, tombstone, wrapper;
+    clone = section.clone(true);
+    clone.css({
+      marginBottom: "0"
+    });
+    clone.children().last().css({
+      marginBottom: "0"
+    });
+    tombstone = clone.find(".tombstone");
+    tombstone.css({
+      cursor: "pointer",
+      position: "absolute",
+      bottom: "0.75rem",
+      right: "0.75rem"
+    });
+    wrapper = $("<div class='proof-wrapper expanded'></div>");
+    wrapper.css({
+      position: "relative",
+      margin: "-0.75rem -0.75rem 0.75rem -0.75rem",
+      padding: "0.75rem",
+      backgroundColor: "#f9f9f9"
+    });
+    header = clone.find("h3, h4, h5, h6").first().clone();
+    headerWrapper = $("<div class='p header-wrapper' style='margin-bottom:0; visibility:hidden; overflow:hidden; height:0;'> </div>");
+    headerWrapper.append(header);
+    expand = $("<i class='fa fa-caret-down expand' style='visibility:hidden; cursor:pointer; position:absolute; top:0.75rem; right:0.75rem;'> </i>");
+    wrapper.append(headerWrapper);
+    wrapper.append(expand);
+    wrapper.append(clone);
+    expand.on("click", function() {
+      return show_proof(wrapper);
+    });
+    tombstone.on("click", function() {
+      return hide_proof(wrapper);
+    });
+    section.replaceWith(wrapper);
+    return wrapper;
+  };
+
+  main = function() {
+    var header, i, j, len, len1, proof_sections, ref, section, sections, text, wrapper;
+    sections = $("section");
+    proof_sections = [];
+    for (i = 0, len = sections.length; i < len; i++) {
+      section = sections[i];
+      header = $(section).find("h1, h2, h3, h4, h5, h6").first();
+      if (header.length && ((ref = header.prop("tagName")) === "H3" || ref === "H4" || ref === "H5" || ref === "H6")) {
+        text = header.text();
+        if (text.slice(0, 5) === "Proof") {
+          proof_sections.push($(section));
+        }
+      }
+    }
+    for (j = 0, len1 = proof_sections.length; j < len1; j++) {
+      section = proof_sections[j];
+      wrapper = box(section);
+      hide_proof(wrapper);
+    }
+    return $(document).keydown(function(event) {
+      var k, l, len2, len3, ref1, ref2, results, sectionWrapper;
+      console.log("***", event.keyCode);
+      if (event.keyCode === 88) {
+        ref1 = $(".proof-wrapper.minimized");
+        for (k = 0, len2 = ref1.length; k < len2; k++) {
+          sectionWrapper = ref1[k];
+          show_proof($(sectionWrapper));
+        }
+      }
+      if (event.keyCode === 77) {
+        ref2 = $(".proof-wrapper.expanded");
+        results = [];
+        for (l = 0, len3 = ref2.length; l < len3; l++) {
+          sectionWrapper = ref2[l];
+          results.push(hide_proof($(sectionWrapper)));
+        }
+        return results;
+      }
+    });
+  };
+
+  $(main);
+
+}).call(this);
+</script><script type="text/javascript">// Generated by CoffeeScript 1.10.0
+(function() {
+  var make_preview, mathjaxDebug;
+
+  make_preview = function(elt) {
+    var card, hidden_css, hide_preview, id, ref, show_preview, url, visible_css;
+    ref = elt.attr("href").split("#"), url = ref[0], id = ref[1];
+    card = $("<div class='card'>\n  <div class='holder'>\n    <p>Placeholder</p>\n  </div>\n</div>");
+    card.css({
+      width: "35vw",
+      padding: "1.5rem",
+      position: "fixed",
+      top: "1.5rem",
+      right: "1.5rem",
+      boxSizing: "border-box",
+      maxHeight: "calc(100vh - 3rem)",
+      overflow: "hidden",
+      boxShadow: "0 0 1rem #e6e6e6",
+      backgroundColor: "white"
+    });
+    visible_css = {
+      visibility: "visible",
+      opacity: 1,
+      transform: "translateX(0em)",
+      transition: "all 0.3s linear"
+    };
+    hidden_css = {
+      visibility: "hidden",
+      opacity: 0,
+      transform: "translateX(1em)",
+      transition: "all 0.3s linear 0.5s"
+    };
+    card.css(hidden_css);
+    elt.css({
+      textDecoration: "underline solid #0a0a0a",
+      textDecorationSkip: "ink",
+      transition: "background-color 0.3s linear"
+    });
+    show_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d3"
+      });
+      return card.css(visible_css);
+    };
+    hide_preview = function() {
+      elt.css({
+        backgroundColor: "#d3d3d300"
+      });
+      return card.css(hidden_css);
+    };
+    return card.find(".holder").load(url + (" [id='" + id + "']"), function(response, status, jxXHR) {
+      console.log("XHR status:", status, url, id);
+      if (status === "success" || status === "notmodified") {
+        console.log("success!");
+        console.log("elt:", $(elt));
+        $("body").append(card);
+        card.find("p, .p").css({
+          textAlign: "left"
+        });
+        card.find("section").css({
+          marginBottom: "0"
+        });
+        card.find("section").children().last().css({
+          marginBottom: "0"
+        });
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, card[0]]);
+        elt.on("mouseenter", show_preview);
+        return elt.on("mouseleave", hide_preview);
+      }
+    });
+  };
+
+  mathjaxDebug = function() {
+    MathJax.Hub.signal.Interest(function(message) {
+      return console.log("*", message);
+    });
+    return MathJax.Hub.Register.StartupHook("End Process", function() {
+      var i, jax, len, ref, results;
+      console.log("list of jaxes:");
+      ref = MathJax.Hub.getAllJax();
+      results = [];
+      for (i = 0, len = ref.length; i < len; i++) {
+        jax = ref[i];
+        results.push(console.log("jax:", jax));
+      }
+      return results;
+    });
+  };
+
+  $(function() {
+    var elt, i, len, ref, results;
+    ref = $("a.preview");
+    results = [];
+    for (i = 0, len = ref.length; i < len; i++) {
+      elt = ref[i];
+      results.push(make_preview($(elt)));
+    }
+    return results;
+  });
+
+}).call(this);
+</script></head>
+<body>
+<main>
+<header>
+<h1 class="title"><a href="#">Zeros &amp; Poles</a></h1>
+
+<h2 class="author">
+By <a href="mailto:%20Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, Mines ParisTech, under <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+</h2> 
+
+<h3 class="date" style="margin-right: 0px;">November 28, 2017</h3>
+</header>
+<section id="contents" class="level1"><h1><a href="#contents">Contents</a></h1><nav id="TOC">
+<ul>
+<li class="top-li"><p class="section-flag">section 1</p><a href="#exercises">Exercises</a><ul>
+<li><a href="#the-weierstrass-casorati-theorem">The Weierstrass-Casorati Theorem</a><ul>
+<li><span class="badge">que<span></span></span><a href="#question">Question</a></li>
+<li><span class="badge">ans<span></span></span><a href="#answer">Answer</a></li>
+</ul></li>
+<li><a href="#the-maximum-principle">The Maximum Principle</a><ul>
+<li><span class="badge">que<span></span></span><a href="#question-1">Question</a></li>
+<li><span class="badge">ans<span></span></span><a href="#answer-1">Answer</a></li>
+</ul></li>
+<li><a href="#the-pi-function">The <span class="math inline">\(\Pi\)</span> Function</a><ul>
+<li><span class="badge">que<span></span></span><a href="#questions">Questions</a></li>
+<li><span class="badge">ans<span></span></span><a href="#answers">Answers</a></li>
+</ul></li>
+<li><a href="#singularities-and-residues">Singularities and Residues</a><ul>
+<li><span class="badge">que<span></span></span><a href="#question-2">Question</a></li>
+<li><span class="badge">ans<span></span></span><a href="#answer-2">Answer</a></li>
+</ul></li>
+<li><a href="#integrals-of-functions-of-a-real-variable">Integrals of Functions of a Real Variable</a><ul>
+<li><span class="badge">que<span></span></span><a href="#questions-1">Questions</a></li>
+<li><span class="badge">ans<span></span></span><a href="#answers-1">Answers</a></li>
+</ul></li>
+</ul></li>
+<li class="top-li"><p class="section-flag">section 2</p><a href="#references">References</a></li>
+<li class="top-li"><p class="section-flag">section 3</p><a href="#notes">Notes</a></li></ul>
+</nav></section>
+<section id="exercises" class="level1">
+<h1><a href="#exercises">Exercises</a></h1>
+<section id="the-weierstrass-casorati-theorem" class="level2">
+<h2><a href="#the-weierstrass-casorati-theorem">The Weierstrass-Casorati Theorem</a></h2>
+<section id="question" class="level3">
+
+<div class="p"><h3><a href="#question">Question</a></h3>Let <span class="math inline">\(f: \Omega \to \mathbb{C}\)</span> be a holomorphic function and let <span class="math inline">\(a \in \mathbb{C}\)</span> be an essential singularity of <span class="math inline">\(f\)</span>. Show that the image of <span class="math inline">\(f\)</span> is dense in <span class="math inline">\(\mathbb{C}\)</span>: <span class="math display">\[
+  \forall \, w \in \mathbb{C}, \; 
+  \forall \, \epsilon &gt; 0, \;
+  \exists \, z \in \Omega, \;
+  |f(z) - w| &lt; \epsilon.
+  \]</span></div>
+<p>Hint: assume instead that some complex number <span class="math inline">\(w\)</span> is <em>not</em> in the closure of the image of <span class="math inline">\(f\)</span>; study the function <span class="math inline">\(z \mapsto 1/(f(z) - w)\)</span> in a neighbourhood of <span class="math inline">\(a\)</span>.</p>
+</section>
+<section id="answer" class="level3">
+
+<div class="p"><h3><a href="#answer">Answer</a></h3>Assume that the image of <span class="math inline">\(f\)</span> is not dense in <span class="math inline">\(\mathbb{C}\)</span>; let then <span class="math inline">\(w \in \mathbb{C}\)</span> be such that <span class="math display">\[
+  \exists \, \epsilon &gt; 0, \;
+  \forall \, z \in \Omega, \;
+  |f(z) - w| \geq \epsilon.
+  \]</span> The function <span class="math inline">\(z \in \Omega \mapsto 1/(f(z) - w)\)</span> is defined and holomorphic. As it satisfies <span class="math display">\[
+  \forall \, z \in \Omega, \;
+  \left| \frac{1}{f(z) - w} \right| \leq \frac{1}{\epsilon},
+  \]</span> it is also bounded. Thus, the point <span class="math inline">\(a\)</span> is a removable singularity of the function, that can be extended as a holomorphic function <span class="math inline">\(g\)</span> on <span class="math inline">\(\Omega \cup \{a\}\)</span>: <span class="math display">\[
+  \forall \, z \in \Omega, \; g(z) = \frac{1}{f(z) - w}
+  \]</span> By construction, <span class="math inline">\(g\)</span> has no zero in <span class="math inline">\(\Omega\)</span>, thus <span class="math inline">\(a\)</span> is either not a zero of <span class="math inline">\(g\)</span>, or a zero of finite multiplicity. Since <span class="math display">\[
+  \forall \, z \in \Omega, \;
+  f(z) = w + \frac{1}{g(z)}
+  \]</span> in the first case <span class="math inline">\(f(z) \to w + 1/g(a)\)</span> when <span class="math inline">\(z\to a\)</span> thus <span class="math inline">\(a\)</span> is a removable singularity of <span class="math inline">\(a\)</span>; in the second one, <span class="math inline">\(|f(z)| \to +\infty\)</span> when <span class="math inline">\(z \to a\)</span> thus <span class="math inline">\(a\)</span> is a pole of <span class="math inline">\(f\)</span>.</div>
+<p>Note that either way, there is a non-negative integer <span class="math inline">\(p\)</span> and a holomorphic function <span class="math inline">\(h :\Omega \cup \{a\} \to \mathbb{C}\)</span> such that <span class="math inline">\(h(a) \neq 0\)</span> and <span class="math display">\[
+  \forall \, z \in \Omega \cup \{a\}, \; g(z) = h(z) (z-a)^p.
+  \]</span> As the function <span class="math inline">\(g\)</span> has no zero on <span class="math inline">\(\Omega\)</span>, the function <span class="math inline">\(h\)</span> has no zero on <span class="math inline">\(\Omega \cup \{a\}\)</span>; the function <span class="math inline">\(1/h\)</span> is defined and holomorphic on <span class="math inline">\(\Omega \cup \{a\}\)</span>, <span class="math inline">\(1/h(a) \neq 0\)</span> and <span class="math display">\[
+  \forall \, z \in \Omega, \;
+  f(z) = w + \frac{1}{g(z)} = w + \frac{1}{h(z)} \frac{1}{(z-a)^p}.
+  \]</span> Therefore, the point <span class="math inline">\(a\)</span> is either a removable singularity of <span class="math inline">\(f\)</span> (if <span class="math inline">\(p=0\)</span>), or a pole of order <span class="math inline">\(p\)</span> (if <span class="math inline">\(p\geq 1)\)</span>.</p>
+</section>
+</section>
+<section id="the-maximum-principle" class="level2">
+<h2><a href="#the-maximum-principle">The Maximum Principle</a></h2>
+<section id="question-1" class="level3">
+
+<div class="p"><h3><a href="#question-1">Question</a></h3>Let <span class="math inline">\(\Omega\)</span> be an open connected subset of the complex plane and let <span class="math inline">\(f: \Omega \to \mathbb{C}\)</span> be a holomorphic function. Show that if <span class="math inline">\(|f|\)</span> has a local maximum at some <span class="math inline">\(a \in \Omega\)</span>, then <span class="math inline">\(f\)</span> is constant.</div>
+</section>
+<section id="answer-1" class="level3">
+
+<div class="p"><h3><a href="#answer-1">Answer</a></h3>For any holomorphic function <span class="math inline">\(f: \Omega \to \mathbb{C}\)</span> and <span class="math inline">\(a \in \Omega\)</span>, the point <span class="math inline">\(a\)</span> is a zero of the holomorphic function <span class="math inline">\(z \mapsto f(z) - f(a)\)</span>. We will prove shortly that if <span class="math inline">\(a\)</span> is a zero of finite multiplicity of this function, <span class="math inline">\(|f|\)</span> does not have a local maximum at <span class="math inline">\(a\)</span>. The conclusion of the proof follows by the Isolated Zeros Theorem.</div>
+<p>Suppose that there is a positive integer <span class="math inline">\(p\)</span> such that <span class="math display">\[
+  f(z) = f(a) + g(z) (z-a)^p
+  \]</span> for some holomorphic function <span class="math inline">\(g:\Omega \to \mathbb{C}\)</span> such that <span class="math inline">\(g(a) \neq 0\)</span>; there is a function <span class="math inline">\(\epsilon_a : \Omega \to \mathbb{C}\)</span> such that <span class="math inline">\(\epsilon_a(z) \to 0\)</span> when <span class="math inline">\(z \to a\)</span> and <span class="math display">\[
+  f(z) = f(a) + g(a) (z-a)^p + \epsilon_a(z)(z-a)^p 
+  \]</span></p>
+<p>Assume that <span class="math inline">\(f(a) \neq 0\)</span> (if <span class="math inline">\(f(a)=0\)</span>, it is plain that <span class="math inline">\(|f(a)|=0\)</span> cannot be a local maximum of <span class="math inline">\(|f|\)</span> at <span class="math inline">\(a\)</span>). Let <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\gamma\)</span> be some real numbers such that <span class="math display">\[
+  f(a) = |f(a)| e^{i\alpha}, \;
+  g(a) = |g(a)|e^{i\beta}, \;
+  \gamma = \frac{\theta - \alpha}{p}.
+  \]</span> For small enough values <span class="math inline">\(r &gt; 0\)</span>, we have <span class="math display">\[
+  |f(a + r e^{i \gamma}) - (|f(a)| + |g(a)|r^p) e^{i\alpha}| 
+  \leq |\epsilon_a(a + r e^{i\gamma})| r^p
+  \leq \frac{|g(a)|}{2} r^p, 
+  \]</span> which yields <span class="math display">\[
+  |f(a + r e^{i \gamma})| 
+  \geq 
+  |f(a)| + |g(a)| r^p - \frac{|g(a)|}{2} r^p
+  &gt;
+  |f(a)|.
+  \]</span> Therefore <span class="math inline">\(f\)</span> has no maximum at <span class="math inline">\(a\)</span>.</p>
+</section>
+</section>
+<section id="the-pi-function" class="level2">
+<h2><a href="#the-pi-function">The <span class="math inline">\(\Pi\)</span> Function</a></h2>
+<p>We introduce the <span class="math inline">\(\Pi\)</span> function, a holomorphic extension of the factorial.</p>
+<section id="questions" class="level3">
+<h3><a href="#questions">Questions</a></h3><br>
+<ol type="1">
+<li><p>Find the domain in the complex plane of the function <span class="math display">\[
+   \Pi: z \mapsto \int_0^{+\infty} t^z e^{-t} \, dt
+   \]</span> and show that it is holomorphic.</p></li>
+<li><p>Prove that whenever <span class="math inline">\(\Pi(z)\)</span> is defined, <span class="math inline">\(\Pi(z+1)\)</span> is also defined and <span class="math display">\[
+   \Pi(z+1) = (z+1)\Pi(z).
+   \]</span> Compute <span class="math inline">\(\Pi(n)\)</span> for every <span class="math inline">\(n \in \mathbb{N}.\)</span></p></li>
+<li>Let <span class="math inline">\(\Omega\)</span> be an open connected subset of the complex plane that contains the domain of <span class="math inline">\(\Pi\)</span> and such that <span class="math inline">\(\Omega + 1 \subset \Omega\)</span>. Prove that if <span class="math inline">\(\Pi\)</span> has a holomorphic extension on <span class="math inline">\(\Omega\)</span> (still denoted <span class="math inline">\(\Pi\)</span>), it is unique and satisfies the functional equation <span class="math display">\[
+  \forall \, z \in \Omega, \; \Pi(z+1) = (z+1)\Pi(z).
+  \]</span></li>
+<li><p>Prove the existence of such an extension <span class="math inline">\(\Pi\)</span> on <span class="math display">\[
+  \Omega = \mathbb{C} \setminus \{k \in \mathbb{Z} \; | \; k &lt; 0 \}.
+  \]</span></p></li>
+<li><p>Show that every negative integer is a simple pole of <span class="math inline">\(\Pi\)</span>; compute the associated residue.</p></li>
+</ol>
+</section>
+<section id="answers" class="level3">
+<h3><a href="#answers">Answers</a></h3><br>
+<ol type="1">
+<li><p>The function <span class="math inline">\(t \in \mathbb{R}_+^* \mapsto t^z e^{-t}\)</span> is continuous and thus measurable. Additionally, for any <span class="math inline">\(t &gt; 0\)</span>, <span class="math display">\[
+  |t^z e^{-t}| = |e^{z \ln t} e^{-t}|
+  =
+  e^{(\mathrm{Re} \,z) \ln t}e^{-t}
+  =
+  t^{\mathrm{Re} \,z} e^{-t},
+  \]</span> hence it is integrable if and only if <span class="math inline">\(\mathrm{Re} \,z &gt; -1\)</span>: the domain of <span class="math inline">\(\Pi\)</span> is <span class="math display">\[
+  \{z \in \mathbb{C} \; | \; \mathrm{Re} \,z &gt; -1\}
+  \]</span> and it is open. Now, let <span class="math inline">\(z\)</span> and <span class="math inline">\(h\)</span> be complex numbers in this domain; the associated difference quotient satisfies <span class="math display">\[
+  \begin{split}
+  \frac{\Pi(z+h) - \Pi(z)}{h}
+  &amp;=
+  \int_0^{+\infty} \frac{t^{z+h} - t^z}{h} e^{-t} dt \\
+  &amp;=
+  \int_0^{+\infty} \frac{t^h - 1}{h} t^z e^{-t} dt \\
+  &amp;=
+  \int_0^{+\infty} \frac{e^{h \ln t} - 1}{h} t^z e^{-t} dt \\
+  &amp;=
+  \int_0^{+\infty} \left[\frac{e^{h \ln t} - 1}{h \ln t}\right] t^z \ln t \, e^{-t} dt
+  \end{split}
+  \]</span> The integrand converges pointwise when <span class="math inline">\(h\to 0\)</span>: <span class="math display">\[
+  \forall \, t &gt; 0, \; 
+  \lim_{h \to 0} \left[\frac{e^{h \ln t} - 1}{h \ln t}\right] t^z \ln t \, e^{-t} 
+  = t^z \ln t \, e^{-t}.
+  \]</span> Additionally, we have <span class="math display">\[
+  \forall \, z \in \mathbb{C}^*, \;
+  \left|\frac{e^z - 1}{z}\right| \leq e^{|z|};
+  \]</span> indeed, for any nonzero complex number <span class="math inline">\(z\)</span>, the Taylor expansion of <span class="math inline">\(e^z\)</span> at the origin provides <span class="math display">\[
+  \left|\frac{e^z - 1}{z}\right|
+  =
+  \left|\sum_{n=0}^{+\infty} \frac{1}{(n+1)!} z^n\right|
+  =
+  \sum_{n=0}^{+\infty} \frac{1}{(n+1)!} |z|^n
+  \leq
+  \sum_{n=0}^{+\infty} \frac{1}{n!} |z|^n.
+  \]</span> Hence, <span class="math display">\[
+  \left| 
+  \frac{e^{h \ln t} - 1}{h \ln t} 
+  \right|
+  \leq 
+  e^{|h||\ln t|}
+  \leq \max(t^{|h|}, t^{-|h|})
+  \]</span> and our integrand is dominated by <span class="math display">\[
+  \max(t^{z+|h|}, t^{z-|h|}) \ln t \, e^{-t}
+  \]</span> which is integrable whenever <span class="math inline">\(\mathrm{Re} (z - |h|) &gt; -1\)</span>. Finally, Lebesgue’s dominated convergence theorem applies and <span class="math inline">\(\Pi\)</span> is holomorphic.</p></li>
+<li><p>If <span class="math inline">\(\mathrm{Re} \,z &gt; -1\)</span>, then <span class="math inline">\(\mathrm{Re} (z +1) &gt; -1\)</span> and <span class="math display">\[
+  \Pi(z+1) = \int_0^{+\infty} t^{z+1} e^{-t} \, dt.
+  \]</span> By integration by parts, <span class="math display">\[
+  \begin{split}
+  \Pi(z+1) 
+  &amp;= 
+  [t^{z+1}(-e^{-t})]^{+\infty}_0
+  -
+  \int_0^{+\infty} (z+1) t^z (-e^{-t})\, dt \\
+  &amp;= 
+  (z+1) \Pi(z).
+  \end{split}
+  \]</span></p>
+<p>We have <span class="math display">\[
+  \Pi(0) = \int_0^{+\infty} e^{-t} \, dt = 
+  [-e^{-t}]_0^{+\infty} = 1
+  \]</span> and hence, by induction, <span class="math inline">\(\Pi(n) = n!\)</span> for any <span class="math inline">\(n \in \mathbb{N}\)</span>.</p></li>
+<li><p>There is at most one holomorphic extension <span class="math inline">\(\Pi\)</span> of the original function to the connected open set <span class="math inline">\(\Omega\)</span> by the isolated zeros theorem (two extensions would be identical on the original domain of <span class="math inline">\(\Pi\)</span>, which is a non-empty open set: the set of zeros of their difference would not be isolated).</p>
+<p>It is plain that the function <span class="math inline">\(z \mapsto \Pi(z+1) - (z+1)\Pi(z)\)</span> is defined and holomorphic on <span class="math inline">\(\Omega\)</span>, a connected open set of the plane. Similarly, by the isolated zeros theorem, it is identically zero and hence the functional equation <span class="math inline">\(\Pi(z+1) = (z+1)\Pi(z)\)</span> holds on <span class="math inline">\(\Omega\)</span>.</p></li>
+<li><p>We may define the extension <span class="math inline">\(\Pi(z)\)</span> as <span class="math display">\[
+  \Pi(z) = \frac{\Pi(z+n)}{(z+1)(z+2)\cdots(z+n)}
+  \]</span> for any natural number <span class="math inline">\(n\)</span> such <span class="math inline">\(\mathrm{Re} (z+n) &gt; -1\)</span>. This definition does not depend on the choice of <span class="math inline">\(n\)</span>: if <span class="math inline">\(m &gt; n\)</span>, we have <span class="math inline">\(\mathrm{Re} (z+m) &gt; -1\)</span> and <span class="math display">\[
+  \Pi(z+m) = \Pi(z+n) \times (z+n+1) \cdots  (z+m) ,
+  \]</span> hence <span class="math display">\[
+  \frac{\Pi(z+m)}{(z+1)(z+2)\cdots(z+m)}
+  =
+  \frac{\Pi(z+n)}{(z+1)(z+2)\cdots(z+n)}.
+  \]</span> It is plain that this extension of the original function <span class="math inline">\(\Pi\)</span> is holomorphic.</p></li>
+<li><p>Let <span class="math inline">\(n\)</span> be a positive integer. Let <span class="math inline">\(z\)</span> be a complex number such that <span class="math inline">\(|z-(-n)| &lt; 1\)</span>; it satisfies <span class="math inline">\(\mathrm{Re}(z + n) &gt; -1\)</span> and thus <span class="math display">\[
+   \Pi(z) = \frac{\Pi(z+n)}{(z+1)(z+2)\cdots(z+n)}.
+   \]</span> Consequently, <span class="math display">\[
+   (z - (-n)) \Pi(z) 
+   = 
+   \frac{\Pi(z+n)}{(z+1)(z+2)\cdots(z+n-1)}
+   \]</span> and <span class="math display">\[
+   \lim_{z \to -n} (z - (-n)) \Pi(z)
+   = 
+   \frac{\Pi(0)}{(-n-1)(-n-2)\cdots(-1)}
+   =
+   \frac{(-1)^{n-1}}{(n-1)!}.
+   \]</span> As this number differ from zero, <span class="math inline">\(z=-n\)</span> is a simple pole of <span class="math inline">\(\Pi\)</span> and <span class="math display">\[
+   \mbox{res}(\Pi, -n) = \frac{(-1)^{n-1}}{(n-1)!}.
+   \]</span></p></li>
+</ol>
+</section>
+</section>
+<section id="singularities-and-residues" class="level2">
+<h2><a href="#singularities-and-residues">Singularities and Residues</a></h2>
+<section id="question-2" class="level3">
+
+<div class="p"><h3><a href="#question-2">Question</a></h3>Analyze the singularities (location, type, residues) of <span class="math display">\[
+  z \mapsto \frac{\sin \pi z}{\pi z}, \;
+  z \mapsto \frac{1}{(\sin \pi z)^2}, \;
+  z \mapsto \sin \frac{\pi}{z}, \; 
+  z \mapsto \frac{1}{\sin \frac{\pi}{z}}.
+  \]</span></div>
+</section>
+<section id="answer-2" class="level3">
+
+<div class="p"><h3><a href="#answer-2">Answer</a></h3>The function <span class="math inline">\(z \mapsto \sin \pi z\)</span> is defined and holomorphic in <span class="math inline">\(\mathbb{C}\)</span>. Its Taylor expansion, valid for any <span class="math inline">\(z \in \mathbb{C}\)</span>, is <span class="math display">\[
+  \sin \pi z = \sum_{n=0}^{+\infty} \frac{(-1)^{n}\pi^{2n+1}}{(2n+1)!}z^{2n+1}.
+  \]</span></div>
+<p>The function <span class="math inline">\(z \mapsto \frac{\sin \pi z}{\pi z}\)</span> is therefore defined and holomorphic in <span class="math inline">\(\mathbb{C}^*\)</span> where its Laurent expansion is <span class="math display">\[
+  \frac{\sin \pi z}{\pi z} 
+  = \sum_{n=0}^{+\infty} \frac{(-1)^{n}\pi^{2n}}{(2n+1)!}z^{2n}.
+  \]</span> The series on the right-hand side of this equation has no negative power of <span class="math inline">\(z\)</span>: it is a power series that converges for any <span class="math inline">\(z \in \mathbb{C}^*\)</span>, thus its open disk of convergence is actually <span class="math inline">\(\mathbb{C}\)</span>. Its limit is a holomorphic function that extends <span class="math inline">\(z \mapsto \frac{\sin \pi z}{\pi z}\)</span> to <span class="math inline">\(\mathbb{C}\)</span>, hence <span class="math inline">\(0\)</span> is a removable singularity of this function (and its residue is <span class="math inline">\(0\)</span>).</p>
+<p>The singularities of <span class="math inline">\(z \mapsto {1}/{(\sin \pi z)^2}\)</span> are the zeros of <span class="math inline">\(z \in \mathbb{C} \mapsto \sin \pi z\)</span>: the integers. The function is invariant if we substitute <span class="math inline">\(z + k\)</span> to <span class="math inline">\(z\)</span> for any <span class="math inline">\(k \in \mathbb{Z}\)</span>, hence we may limit our analysis of the singularities to the origin. If <span class="math inline">\(z\)</span> is not an integer, we have <span class="math display">\[
+  \frac{1}{(\sin \pi z)^2} = \frac{1}{\pi^2z^2} \left(\frac{\pi z}{\sin \pi z}\right)^2.
+  \]</span> The function <span class="math inline">\(z \mapsto ({\pi z}/{\sin \pi z})^2\)</span> has a removable singularity at the origin and the value of its holomorphic extension at the origin is nonzero (it is <span class="math inline">\(1\)</span>), thus the origin is a double pole of the function. We have therefore <span class="math display">\[
+  \mathrm{res} \left(z \mapsto \frac{1}{(\sin \pi z)^2}, 0\right)
+  =
+  \lim_{z \to 0} \left[ \frac{z^2}{2} \frac{1}{(\sin \pi z)^2} \right]'.
+  \]</span> We have <span class="math display">\[
+  \left[ \frac{z^2}{2} \frac{1}{(\sin \pi z)^2} \right]'
+  =
+  \frac{1}{\pi} \left(\frac{(\pi z)\sin \pi z - (\pi z)^2 \cos \pi z}{(\sin \pi z)^3} \right).
+  \]</span> The Taylor expansions of the functions <span class="math inline">\(\sin\)</span> and <span class="math inline">\(\cos\)</span> on <span class="math inline">\(\mathbb{C}\)</span> provide <span class="math display">\[
+  \sin w = w \left(\sum_{n=0}^{+\infty} \frac{(-1)^{n}}{(2n+1)!} w^{2n} \right)
+= w - \frac{w^3}{6} + w^5 \left(\sum_{n=2}^{+\infty} \frac{(-1)^{n}}{(2n+1)!} w^{2n-4}\right)
+  \]</span> and <span class="math display">\[
+  \cos w = 1 - \frac{w^2}{2} + w^4 \left(\sum_{n=2}^{+\infty} \frac{(-1)^{n}}{(2n)!} w^{2n-4}\right),
+  \]</span> thus there are entire functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> such that <span class="math display">\[
+  w \sin w - w^2 \cos w = \left(w^2 - \frac{1}{6} w^4\right) - \left(w^2 -\frac{1}{2} w^4\right) + w^6 f(w)
+  \]</span> and <span class="math display">\[
+  (\sin w)^3 = w^3 g(w), \; g(0) = 1.
+  \]</span> Consequently, <span class="math display">\[
+  \mathrm{res} \left(z \mapsto \frac{1}{(\sin \pi z)^2}, 0\right)
+  =
+  \lim_{w \to 0}
+  \frac{1}{\pi} \frac{w/3 + w^3 f(w)}{g(w)} = 0.
+  \]</span></p>
+<p>Alternatively, to compute the residue, we may notice that if <span class="math inline">\(z\)</span> is not an integer <span class="math display">\[
+  \frac{1}{(\sin \pi z)^2} = \frac{1}{(\sin \pi (-z))^2},
+  \]</span> thus if <span class="math inline">\(\sum_{n=-\infty}^{+\infty} a_n z^n\)</span> is the Laurent expansion of the right-hand side in <span class="math inline">\(D(0,1)\setminus\{0\}\)</span>, the Laurent expansion <span class="math inline">\(\sum_{n=-\infty}^{+\infty} (-1)^n a_n z^n\)</span> is also valid in the same annulus. The uniqueness of the Laurent expansion yields <span class="math inline">\(a_{n} = 0\)</span> for every odd <span class="math inline">\(n\)</span>, thus the residue of the function at the origin – which is <span class="math inline">\(a_{-1}\)</span> – is zero.</p>
+<p>The function <span class="math inline">\(z \mapsto \sin \frac{\pi}{z}\)</span> is defined and holomorphic on <span class="math inline">\(\mathbb{C}^*\)</span>. It has a Laurent expansion in this annulus, which is <span class="math display">\[
+  \sin \frac{\pi}{z} 
+  = 
+  \sum_{n=0}^{+\infty} \frac{(-1)^{n} \pi^{2n+1}}{(2n+1)!} z^{-(2n+1)}.
+  \]</span> There are an infinite number of nonzero coefficients associated with negative powers of <span class="math inline">\(z\)</span>, thus <span class="math inline">\(0\)</span> is an essential singularity of this function. Its residue at <span class="math inline">\(0\)</span> is the coefficient of <span class="math inline">\(z^{-1}\)</span>, which is <span class="math inline">\(\pi\)</span>.</p>
+<p>The zeros of <span class="math inline">\(z \in \mathbb{C} \mapsto \sin \pi z\)</span> are the integers, thus <span class="math inline">\(z \mapsto {1}/{\sin \frac{\pi}{z}}\)</span> is defined and holomorphic on the open set <span class="math inline">\(\Omega = \mathbb{C}^{*} \setminus \{1/k \; | \; k \in \mathbb{Z}^*\}\)</span>. We can write the function as the quotient of <span class="math inline">\(f(z) = 1\)</span> and <span class="math inline">\(g(z) = \sin \frac{\pi}{z}\)</span>. The functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> are defined and holomorphic in <span class="math inline">\(\mathbb{C}^*\)</span> and <span class="math display">\[g'(z) = \left(\cos \frac{\pi}{z}\right)\left(-\frac{\pi}{z^2}\right).\]</span> Thus, for any <span class="math inline">\(k \in \mathbb{Z}^*\)</span>, <span class="math inline">\(1/k\)</span> is a simple pole of <span class="math inline">\(z \mapsto {1}/{\sin \frac{\pi}{z}}\)</span> and <span class="math display">\[
+  \mathrm{res}
+  \left(
+  z \mapsto \frac{1}{\sin \frac{\pi}{z}}, \frac{1}{k} 
+  \right)
+  = \frac{1}{(\cos \frac{\pi}{k^{-1}})(-\frac{\pi}{{(k^{-1}})^2})}
+  = \frac{(-1)^{k+1}}{\pi k^2}.
+  \]</span> The origin <span class="math inline">\(z=0\)</span> is also singularity of <span class="math inline">\(z \mapsto {1}/{\sin \frac{\pi}{z}}\)</span>, but it is not isolated, thus its residue is not defined.</p>
+</section>
+</section>
+<section id="integrals-of-functions-of-a-real-variable" class="level2">
+<h2><a href="#integrals-of-functions-of-a-real-variable">Integrals of Functions of a Real Variable</a></h2>
+<p>See “Technologie de calcul des intégrales à l’aide de la formule des résidus” <span class="citation" data-cites="Dem09">(Demailly <a href="#ref-Dem09">2009</a>, chap. III, sec.&nbsp;4)</span> for a comprehensive analysis of the computation of integrals with the the residue theorem.</p>
+<section id="questions-1" class="level3">
+<h3><a href="#questions-1">Questions</a></h3><br>
+<ol type="1">
+<li><p>For any <span class="math inline">\(n \geq 2\)</span>, compute <span class="math display">\[
+\int_0^{+\infty} \frac{dx}{1 + x^n}.
+\]</span></p></li>
+<li><p>Compute <span class="math display">\[
+\int_0^{+\infty} \frac{\sqrt x}{1+x+x^2} \, dx.
+\]</span></p></li>
+</ol>
+</section>
+<section id="answers-1" class="level3">
+<h3><a href="#answers-1">Answers</a></h3><br>
+<ol type="1">
+<li><p>Let <span class="math inline">\(f\)</span> be the function <span class="math inline">\(z\mapsto {1}/{(1+z^n)}\)</span>, defined and holomorphic on <span class="math display">\[
+  \Omega 
+  = 
+  \mathbb{C} 
+  \setminus 
+  \left\{ 
+  e^{\frac{i(2k+1)\pi}{n}} \; \left| \vphantom{e^{\frac{(2k+1)\pi}{n}}} \; k \in \{0, \dots, n-1\}\right. 
+  \right\}.
+  \]</span> Let <span class="math inline">\(r&gt;1\)</span> and define the rectifiable paths <span class="math inline">\(\gamma_1\)</span>, <span class="math inline">\(\gamma_2\)</span> and <span class="math inline">\(\gamma_3\)</span> as <span class="math display">\[
+  \gamma_1 = 
+  [0 \to r], \; 
+  \gamma_2 = 
+  r e^{i[0 \to 2\pi/n]}, \; 
+  \gamma_3 = [re^{i2\pi/n} \to 0],
+  \]</span> then set <span class="math inline">\(\gamma = \gamma_1 \;| \; \gamma_2 \;|\; \gamma_3.\)</span> It is plain that <span class="math display">\[
+  \lim_{r \to 0} \int_{\gamma_1}\frac{dz}{1+z^n}
+  =
+  \int_0^{+\infty} \frac{dx}{1 + x^n}.
+  \]</span> Similarly, <span class="math display">\[
+  \int_{\overleftarrow{\gamma_3}}\frac{dz}{1+z^n} 
+  = 
+  \int_0^1 \frac{re^{i\frac{2\pi}{n}}dt}{1 + (rt)^n (e^{i\frac{2\pi}{n}})^n} 
+  =
+  e^{i\frac{2\pi}{n}} \int_0^r \frac{dx}{1 + x^n},
+  \]</span> thus <span class="math display">\[
+  \lim_{r \to 0} \int_{\gamma_3}\frac{dz}{1+z^n}
+  =
+  -  e^{i\frac{2\pi}{n}} \int_0^{+\infty} \frac{dx}{1 + x^n}.
+  \]</span> Finally, by the M-L inequality, <span class="math display">\[
+  \left| \int_{\gamma_2}\frac{dz}{1+z^n} \right|
+  \leq \frac{1}{r^n - 1} \times  \left(\frac{2\pi}{n} r \right),
+  \]</span> hence <span class="math display">\[
+  \lim_{r \to +\infty} \int_{\gamma_2}\frac{dz}{1+z^n}
+  =
+  0.
+  \]</span> On the other hand, the complex number <span class="math inline">\(e^{i\frac{\pi}{n}}\)</span> is the unique singularity of <span class="math inline">\(f\)</span> in the interior of <span class="math inline">\(\gamma\)</span>; more precisely, we have <span class="math inline">\(\mathrm{ind}(\gamma, e^{i\frac{\pi}{n}})=1\)</span>. The function <span class="math inline">\(f\)</span> is the quotient of the holomorphic functions <span class="math inline">\(p: z \in \mathbb{C} \mapsto 1\)</span> and <span class="math inline">\(q: z \in \mathbb{C} \mapsto 1+z^n\)</span>; the derivative of <span class="math inline">\(q\)</span> at this singularity is <span class="math display">\[
+  q'(e^{i\frac{\pi}{n}})
+  = n (e^{i\frac{\pi}{n}})^{n-1} 
+  = n (e^{i\frac{\pi}{n}})^{n} e^{-i\frac{\pi}{n}}
+  = -n e^{-i\frac{\pi}{n}},
+  \]</span> thus <span class="math display">\[
+  \mathrm{res}(f, e^{i\frac{\pi}{n}}) 
+  = \frac{p(e^{i\frac{\pi}{n}})}{q'(e^{i\frac{\pi}{n}})}
+  = -\frac{e^{i\frac{\pi}{n}}}{n}
+  \]</span> Given these results, the residue theorem provides <span class="math display">\[
+  \left(1 - e^{i\frac{2\pi}{n}}\right) 
+  \int_0^{+\infty} \frac{dx}{1 + x^n}
+  =
+  (i2\pi)  \times \left(-\frac{e^{i\frac{\pi}{n}}}{n}\right)
+  \]</span> or equivalently, <span class="math display">\[
+  \int_0^{+\infty} \frac{dx}{1 + x^n}
+  =
+  \frac{\pi}{n} \frac{2i}{e^{i\frac{\pi}{n}} - e^{-i\frac{\pi}{n}}}
+  =
+  \frac{\frac{\pi}{n}}{\sin \frac{\pi}{n}}.
+  \]</span></p></li>
+<li><p>Let <span class="math inline">\(\log_0\)</span> be the function defined on <span class="math inline">\(\mathbb{C} \setminus \mathbb{R}_+\)</span> by <span class="math display">\[\log_0 z = \log (-z) + i\pi.\]</span> This function is an analytic choice of the logarithm on <span class="math inline">\(\mathbb{C} \setminus \mathbb{R}_+\)</span>: it is holomorphic and <span class="math inline">\(\exp \circ \log_0\)</span> is the identity. It also satisfies <span class="math display">\[
+  \log_0 r e^{i\theta} = (\ln r) + i\theta, \; 
+  r &gt;0, \; \theta \in \left]0,2\pi\right[.
+  \]</span> We use this function to define <span class="math display">\[
+  f: 
+  z
+  \mapsto 
+  \frac{e^{\frac{1}{2}\log_0 z}}{1+z+z^2}.
+  \]</span> The roots of the polynomial <span class="math inline">\(z\mapsto 1+z+z^2\)</span> are <span class="math inline">\(j\)</span> and <span class="math inline">\(j^2\)</span>, where <span class="math inline">\(j = e^{i\frac{2\pi}{3}}\)</span>, thus <span class="math inline">\(f\)</span> is defined and holomorphic in <span class="math inline">\(\Omega = \mathbb{C} \setminus \mathbb{R}_+ \setminus \{j,j^2\}\)</span>.</p>
+<p>Now, let <span class="math inline">\(r&gt;1\)</span> and <span class="math inline">\(0 &lt; \alpha &lt; 2\pi/3\)</span>; we define four rectifiable paths that depend on <span class="math inline">\(r\)</span> and <span class="math inline">\(\alpha\)</span>: <span class="math display">\[
+  \begin{split}
+  \gamma_1 &amp;= [r^{-1} e^{i\alpha} \to r e^{i\alpha}], \\
+  \gamma_2 &amp;= r e^{i[\alpha \to 2\pi-\alpha]},\\
+  \gamma_3 &amp;= [re^{i(2\pi - \alpha)} \to r^{-1}e^{i(2\pi - \alpha)}],\\
+  \gamma_4 &amp;= r^{-1} e^{i[2\pi -\alpha \to  \alpha]}.
+  \end{split}
+  \]</span> We also consider their concatenation <span class="math display">\[
+ \gamma = \gamma_1 \; | \; \gamma_2 \; | \; \gamma_3 \; | \; \gamma_4.
+ \]</span></p>
+<p>We have <span class="math display">\[
+  \begin{split}
+  \int_{\gamma_1} f(z) \, dz
+  &amp;=
+  \int_{r^{-1}}^r 
+  \frac{e^{\frac{1}{2}((\ln x) + i \alpha)}}{1+x e^{i\alpha}+x^2 e^{i2\alpha}}\, 
+  e^{i\alpha}dx\\
+  &amp;=
+  e^{i3{\alpha}/{2}} \int_{r^{-1}}^r \frac{\sqrt{x}}{1+x e^{i\alpha}+x^2 e^{i2\alpha}}\, dx
+  \end{split}
+  \]</span> and thus by the dominated convergence theorem<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> <span class="math display">\[ 
+  \lim_{\alpha \to 0} \int_{\gamma_1} f(z) \, dz
+  =
+  \int_{r^{-1}}^{r} \frac{\sqrt{x}}{1+x+x^2} \, dx.
+  \]</span></p>
+<p>Similarly, <span class="math display">\[
+  \begin{split}
+  \int_{\gamma_3^{\leftarrow}} f(z) \, dz
+  &amp;=
+  \int_{r^{-1}}^r 
+  \frac{e^{\frac{1}{2}((\ln x) + i(2\pi-\alpha))}}{1+x e^{-i\alpha}+x^2 e^{-i2\alpha}}\, 
+  e^{-i\alpha}dx\\
+  &amp;=
+  - e^{-i{3\alpha}/{2}} \int_{r^{-1}}^r \frac{\sqrt{x}}{1+x e^{-i\alpha}+x^2 e^{-i2\alpha}}\, dx
+  \end{split}
+  \]</span> and thus by the dominated convergence theorem <span class="math display">\[
+  \lim_{\alpha \to 0} \int_{\gamma_3} f(z) \, dz
+  =
+  \int_{r^{-1}}^{r} \frac{\sqrt{x}}{1+x+x^2} \, dx
+  \]</span> On the other hand, <span class="math display">\[
+  \left|e^{\frac{1}{2} \log_0 z}\right|
+  =
+  e^{\mathrm{Re}(\frac{1}{2} \log_0 z)}
+  = e^{\frac{1}{2} \ln |z|}
+  = {|z|}^{\frac{1}{2}};
+  \]</span> by the M-L inequality, this equality provides <span class="math display">\[
+  \left| \int_{\gamma_2} f(z) \, dz \right|
+  \leq \frac{{r}^{\frac{1}{2}}}{-1-r+r^2}\times 2(\pi-\alpha) r
+  \]</span> and <span class="math display">\[
+  \left| \int_{\gamma_4} f(z) \, dz \right|
+  \leq \frac{{r}^{-\frac{1}{2}}}{1-r^{-1}-r^{-2}}\times 2(\pi-\alpha) r^{-1},
+  \]</span> hence <span class="math display">\[
+  \lim_{r \to +\infty} \left(\lim_{\alpha \to 0} \int_{\gamma_2} f(z) \, dz\right)
+  =
+  \lim_{r \to +\infty} \left(\lim_{\alpha \to 0} \int_{\gamma_4} f(z) \, dz\right)
+  = 
+  0.
+  \]</span></p>
+<p>Now the function <span class="math inline">\(f\)</span> is the quotient of the two functions <span class="math inline">\(z \mapsto e^{\frac{1}{2} \log_0 z}\)</span> and <span class="math inline">\(z \mapsto 1+z+z^2\)</span>, defined and holomorphic in a neighbourhood of the singularities <span class="math inline">\(j\)</span> and <span class="math inline">\(j^2\)</span>. The derivative of <span class="math inline">\(z \mapsto 1 + z +z^2\)</span> is <span class="math inline">\(z \mapsto 1+2z\)</span>, it is nonzero at <span class="math inline">\(j\)</span> and <span class="math inline">\(j^2\)</span>. Thus, <span class="math display">\[
+  \mathrm{res}(f, j) = 
+  \frac{e^{\frac{1}{2} \log_0 j}}
+  {1 + 2 j}
+  =
+  \frac{e^{i\frac{\pi}{3}}}{i\sqrt{3}}
+  \]</span> and <span class="math display">\[
+  \mathrm{res}(f, j^2) = 
+  \frac{e^{\frac{1}{2} \log_0 j^2}}
+  {1 + 2 j^2}
+  =
+  \frac{e^{i\frac{2\pi}{3}}}{-i\sqrt{3}}.
+  \]</span> The winding number of <span class="math inline">\(\gamma\)</span> around <span class="math inline">\(j\)</span> and <span class="math inline">\(j^2\)</span> is <span class="math inline">\(1\)</span>; by the residue theorem, <span class="math display">\[
+  2 \int_0^{+\infty} \frac{\sqrt x}{1+x+x^2} \, dx
+  =
+  (i2\pi) (\mathrm{res}(f, j) +  \mathrm{res}(f, j^2))
+  \]</span> or equivalently <span class="math display">\[
+  \int_0^{+\infty} \frac{\sqrt x}{1+x+x^2} \, dx
+  = \frac{\pi}{\sqrt{3}} (e^{i\frac{\pi}{3}} -e^{i\frac{2\pi}{3}})
+  = \frac{\pi}{\sqrt{3}}.
+  \]</span></p></li>
+</ol>
+</section>
+</section>
+</section>
+<section id="references" class="level1 unnumbered">
+<h1><a href="#references">References</a></h1>
+<div id="refs" class="references"><ol><li id="ref-Dem09" style="margin-bottom:0.75em"><em>Fonctions Holomorphes et Surfaces de Riemann</em><br>Jean-Pierre Demailly, 2009.<br>JSON: <a href="data:application/json;charset=utf-8;base64,ewogICJVUkwiOiAiaHR0cHM6Ly93d3ctZm91cmllci51amYtZ3Jlbm9ibGUuZnIvfmRlbWFpbGx5L21hbnVzY3JpcHRzL3ZhcmlhYmxlX2NvbXBsZXhlLnBkZiIsCiAgImF1dGhvciI6IFsKICAgIHsKICAgICAgImZhbWlseSI6ICJEZW1haWxseSIsCiAgICAgICJnaXZlbiI6ICJKZWFuLVBpZXJyZSIKICAgIH0KICBdLAogICJpZCI6ICJEZW0wOSIsCiAgImlzc3VlZCI6IHsKICAgICJkYXRlLXBhcnRzIjogWwogICAgICBbCiAgICAgICAgMjAwOQogICAgICBdCiAgICBdCiAgfSwKICAibGFuZ3VhZ2UiOiAiRnJlbmNoIiwKICAidGl0bGUiOiAiRm9uY3Rpb25zIGhvbG9tb3JwaGVzIGV0IHN1cmZhY2VzIGRlIHJpZW1hbm4uIiwKICAidHlwZSI6ICJib29rIgp9"><i style="font-size:18px;position:relative;bottom:0.05em;" class="fa fa-file-text-o"></i></a>&nbsp; / URL: <a href="https://www-fourier.ujf-grenoble.fr/~demailly/manuscripts/variable_complexe.pdf"><i style="font-size:18px" class="fa fa-link"></i></a></li></ol></div>
+</section>
+<section class="footnotes" id="notes"><h1><a href="#notes">Notes</a></h1>
+<hr>
+<ol>
+<li id="fn1"><p>the function <span class="math inline">\((\alpha,x)\mapsto \left|{\sqrt{x}}/{(1+x e^{i\alpha}+x^2 e^{i2\alpha})}\right|\)</span> is defined and continuous in the compact set <span class="math inline">\([0,\pi/2] \times [r^{-1},r]\)</span>, thus it has a finite upper bound.<a href="#fnref1">↩</a></p></li>
+</ol>
+</section>
+</main>
+
+
+</body></html>
